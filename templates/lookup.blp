@@ -1,0 +1,10 @@
+local varlist "req ex max(1)"
+local options "Using(str) *"
+parse "`*'"
+
+/* check variable type of key var(s) */
+confirm str5 var `varlist'
+if "`using'"=="" {
+	local using ""
+	}
+_lookup `varlist', using(`using') defin() defout() `options'

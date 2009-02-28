@@ -1,0 +1,10 @@
+*! version 1.0.0 September 28, 2007 @ 19:07:51
+*! nothing---simply tests syntax
+version 10
+class testerXXX {
+	real fooey
+}	
+
+program define .bleen
+	display as result "Bleen is a number between 4 and 5."
+end

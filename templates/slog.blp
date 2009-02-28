@@ -1,0 +1,8 @@
+set more 1
+local fnname ""
+slog using "`fnname'", append
+capture n {
+	}  /* end slog block */
+local rc = _rc
+slog close
+exit `rc'

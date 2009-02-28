@@ -1,0 +1,29 @@
+v 3
+
+d This is the title of the package
+
+d These are the description of the package
+d Line breaks need to be hardcoded
+d
+d The above skipped a line.
+d
+* the distribution date should be set when the package is updated,
+* so that adoupdate functions properly. Can be metric format, also.
+d distribution-date 01apr6666
+* 'f' is for files which are in the package, ancillary or not
+f adofile.ado
+f helpfile.sthlp
+f oldhelp.hlp
+f datafile.dta
+
+F forceFile2sysdir.dta
+
+* g, G are for platform specific files:
+* g platform file (see -help usersite-)
+
+* install only if h installs (put after g's for truly platform
+*  specific files.)
+* h requiredfile
+* p is for linking to other packages (normally only in a .toc file)
+* p some.pkg
+e end of file, everything beyond this is a comment

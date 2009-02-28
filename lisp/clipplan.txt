@@ -1,0 +1,28 @@
+have aString, 
+while aString
+while looper
+search for " ///", " //^/", "/*", or */" in aString + " "
+ if */, error out
+ if ///,
+    look for eol after ///
+      if none, error out
+	  otherwise add 0 to /// into output
+        strip from /// through eol from aString   
+ else if //
+     look for eol after //
+     if found, strip from // through eol from aString
+        add 0 to // to output
+     otherwise
+        add 0 to // to output
+        set aString to nil
+ if /*, set nesting to 1, 
+   add 0 to /* to output
+   strip 0 through /* from aString
+   while nesting > 0 and aString non-nil
+     search for "/*" or "*/"
+     if "/*", add one to nesting
+     else if "*/", subtract one from nesting
+        if nesting < 0, error out
+     strip through what found from aString
+   end while
+end while

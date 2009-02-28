@@ -1,0 +1,12 @@
+fglobal U_COND ""
+_mk_ck, default()
+confirm new var g_o_o_d
+confirm new var b_a_d
+capture {
+	icd9, diagvar() indiag() exdiag() procvar() inproc() exproc() keep(g_o_o_d) drop(b_a_d)
+	gen byte $U_GEN=g_o_o_d&!b_a_d
+	}
+local rc = _rc
+capture drop g_o_o_d
+capture drop b_a_d
+exit `rc'

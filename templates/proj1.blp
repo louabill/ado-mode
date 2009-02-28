@@ -1,0 +1,43 @@
+
+syntax [, Begin(str) ONLY]
+
+local first : word count `begin'
+if `first'>1 {
+	disp as error "Only one place to begin may be specified!"
+	exit 198
+	}
+
+/* put the stages here! */
+local stages ""
+
+/* comments for the stages go here...*/
+
+local numstage : word count `stages'
+tokenize "`stages'"
+forvalues stage = 1/`numstage' {
+	local ``stage'' "`stage'"
+	}
+
+if `first' {
+	local first "``begin''"
+	if "`first'"=="" {
+		disp as error "I dunno how to begin at" as result " `begin'!"
+		exit 198
+		}
+	}
+else {                              /* start at beginning */
+	local first 1
+	}
+
+if "`only'"=="" {
+	local last `numstage'
+	}
+else {
+	if "`begin'"=="" {
+		disp as error "The only option may be used only with the begin option!"
+		exit 198
+		}
+	local last `first'
+	}
+
+

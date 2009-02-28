@@ -1,0 +1,68 @@
+\input texinfo   @c -*-texinfo-*-
+@c %**start of header
+@setfilename ado-mode.texinfo
+@settitle ado-mode manual
+@c %**end of header
+@copying
+This is the documentation for the @code{ado-mode} major mode which can be
+used for editing files associated with the Stata statistical package.
+
+Copyright 2005 @copyright{}Bill Rising
+@end copying
+@titlepage
+@title The @code{ado-mode} Manual
+
+@c The following two commands start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@c Output the table of contents at the beginning.
+@contents
+
+@ifnottex
+@node Top
+@top ado-mode
+
+@insertcopying
+@end ifnottex
+
+@menu
+* Introduction::    What the @code{ado-mode} is good for.
+
+* Index::            Complete index.
+@end menu
+@c here comes the actual content of the manual
+@node Introduction to ado-mode
+@comment node-name,     next,        previous,         up
+@chapter Introduction
+
+@cindex introduction
+
+Here is a brief introduction to @code{ado-mode}.
+
+The @code{ado-mode} aids in writing blah blah blah.
+
+The main feature of the @code{ado-mode} is its context-sensitive
+highlighting (or @it{fontification} in emacs lingo) of files which get used
+when working with the Stata statistical package. 
+Here are some of the other features of merit:
+
+@itemize
+@item
+Smart indentation --- text is aligned depending on the depth of the commands within code blocks.
+
+@item
+Highlighting which is dependent on function --- etc.
+@end itemize
+
+
+@node Index
+@unnumbered Index
+
+@printindex cp
+
+@bye
+
+

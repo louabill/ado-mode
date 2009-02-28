@@ -1,0 +1,12 @@
+tempvar err
+gen byte `err' = 
+quietly count if `err'
+if _result(1) {
+	_ckwarn  /* says how many observations were in error */
+	disp in yellow "the " in white "foobar" in yellow " was ... "
+	disp in yellow "  ..."
+	_ckbad `err', var(foobar) errmark(errfoobar) 
+	}
+else {
+	_ckok "foobar" /* says that there were no errors */
+	}

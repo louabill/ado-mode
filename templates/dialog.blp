@@ -1,0 +1,42 @@
+*! version 1.0.0 May 30, 2006 @ 15:33:21
+*! plays with dialog boxes
+***  Part 1:  version number
+VERSION 9
+*** Part 2:  set size of dialog box              
+POSITION . . .
+*** Part 3, optional:  common definitions          
+DEFINE . . .
+LIST . . .
+*** Part 4: dialog definitions
+DIALOG . . .            
+  BEGIN
+  ***     which contain input controls           
+    FILE . . .          
+    BUTTON . . . 
+    CHECKBOX . . .
+    COMBOBOX . . .
+    EDIT . . .
+    LISTBOX . . .
+    RADIO . . .
+    SPINNER . . .
+    VARLIST . . .
+    VARNAME . . .
+  ***  and static controls 
+    FRAME . . .   
+    GROUPBOX . . . 
+    TEXT . . .
+  END
+***  Part 5, optional:  i-action definitions  . . . usually done as scripts . . . but sometimes as programs
+SCRIPT . . .           
+  BEGIN                      
+  END
+***  Part 6:  u-action and helper button definitions
+OK . . .                
+CANCEL . . . 
+SUBMIT . . .
+HELP . . .
+RESET . . .
+*** Part 7:  u-action definition
+PROGRAM command         
+  BEGIN
+  END

@@ -1,0 +1,35 @@
+/* mapping non-space delimited to local numerical tokens */
+/* it would be nice if this could be made into a function, */
+/*   this is impossible due to scope of local macros */
+local delim ";"
+parse "`'",parse(" `delim'")
+local cnt 1
+local tcnt 1
+while "``cnt''"!="" {
+	if "``cnt''"!=";" {
+		local theTok "`theTok' ``cnt''"
+		}
+	else {
+		local tok`tcnt' "`theTok'"
+		local theTok
+		local tcnt = `tcnt' + 1
+		}
+	local cnt = `cnt' + 1
+	}
+/* account for missing final delimiter */
+local cnt = `cnt' - 1
+if "``cnt''"!=";" {
+	local tok`tcnt' "`theTok'"
+	local tcnt = `tcnt' + 1
+	}
+local tcnt = `tcnt' - 1
+/* reassign local tokens - delimiter will be last token */
+local cnt 1
+while `cnt'<=`tcnt' {
+	local `cnt' "`tok`cnt''"
+	local tok`cnt'
+	local cnt = `cnt' + 1
+	}
+local `cnt' "`delim'"
+
+		

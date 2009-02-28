@@ -1,0 +1,105 @@
+*! syntax_tester version 1.0
+
+/* ready to go */
+
+VERSION 7
+VERSION 8
+VERSION 8.1
+VERSION 8.0
+VERSION 8.2
+VERSION 9
+VERSION 9.0
+VERSION 9.00
+VERSION 9.1
+VERSION 9.2
+VERSION 10
+
+INCLUDE fuggy
+
+DEFINE
+POSITION
+LIST
+  BEGIN
+  END
+
+DIALOG
+CHECKBOX
+RADIO
+SPINNER
+EDIT
+VARLIST
+VARNAME
+FILE
+LISTBOX
+COMBOBOX
+BUTTON
+TEXT
+GROUPBOX
+FRAME
+COLOR
+EXP
+OK
+SUBMIT
+CANCEL
+HELP
+RESET
+
+SCRIPT
+  BEGIN
+    .
+    action
+    gaction
+    script
+    view
+    program /* uh oh, this could present some problems */
+  END
+
+PROGRAM
+  BEGIN
+   if you==nuts {
+     display "stand up and scream!"
+     }
+   call .
+   call action
+   call gaction
+   call script "foo"
+   call view
+   call program "bar"
+   exit
+   require "hubba"
+   stopbox stop
+   stopbox rusure
+  END
+
+/* hmm... here come some functions for dialogs only ... these really do belong in another mode */
+/*  these are class methods, so they really are attached only by a.b.whatever */
+d1.isdefault()
+d1.isenabled()
+d1.isvisible()
+d1.iseq()
+d1.isneq()
+d1.isgt()
+d1.isge()
+d1.islt()
+d1.isle()
+fooey.endswith()
+blooey.contains()
+fug.iseqignorecase()
+
+/* some commands */
+
+by
+bysort
+put
+varlist
+weight
+ifexp
+inrange
+beginoptions
+option
+optionarg
+endoptions
+allowxi
+xi
+clear
+stata
