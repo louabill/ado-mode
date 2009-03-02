@@ -24,12 +24,12 @@ whatever applies the clipboard."
 (defun ado-prep-clipboard (&optional use-dofile)
 	(unless use-dofile
 	  (setq use-dofile "command"))
-	(let ((theString (ado-grab-something -1))
+	(let ((x-select-enable-clipboard t)
+		  (theString (ado-grab-something -1))
 		  )
 	  (if (string= use-dofile "command")
 		  (setq theString (ado-strip-comments theString)))
-;;	  (message theString)
-	(funcall interprogram-cut-function (ado-one-eol theString))
+	  (funcall interprogram-cut-function (ado-one-eol theString))
 	))
 
 (defun ado-grab-something (&optional what-code)
@@ -79,6 +79,7 @@ Made to be called from other progams only."
   (let ((x-select-enable-clipboard t))
 	(if prefix (setq prefix (concat prefix " ")))
 	(if suffix (setq suffix (concat " " suffix)))
+	(message (concat prefix (ado-grab-something where) suffix))
 	(funcall interprogram-cut-function (ado-one-eol 
 										(concat prefix (ado-grab-something where) suffix)))
 	))
