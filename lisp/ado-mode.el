@@ -122,7 +122,7 @@
 (define-key ado-mode-map "\t"       'ado-indent-line)
 (if (string= system-type "darwin")
 	(progn
-	  (define-key ado-mode-map "\M-\C-m" 'ado-send-region-to-stata-default)
+	  (define-key ado-mode-map "\M-\C-m" 'ado-send-command-to-stata-default)
 	  (define-key ado-mode-map [(meta shift return)] 'ado-split-line)
 	  )
   (define-key ado-mode-map "\M-\C-m"  'ado-split-line))
@@ -324,7 +324,7 @@ http://homepage.mac.com/brising/Stata/ado-mode_install.html
 
 Here is a short list of the common commands which come with the mode:
 Things for dealing with files:
-- \\[ado-new-program] will make a new buffer ready for a new ado file.
+- \\[ado-new-ado] will make a new buffer ready for a new ado file.
 - \\[ado-new-do] will make a buffer ready for a well-logged do file.
 - \\[ado-save-program] will save the current buffer and give it a good
     timestamp (if the ado-update-timestamp-flag is true, which it is

@@ -1,21 +1,21 @@
 ;;; a collection of things for interacting with Stata under Mac OS X
 
-(defun ado-send-clip-to-stata-default ()
+(defun ado-send-command-to-stata-default ()
   (interactive)
   (ado-command-to-clip ado-submit-default)
   (ado-send-clip-to-stata ado-submit-default ado-comeback-flag))
 
-(defun ado-send-clip-to-command ()
+(defun ado-send-command-to-command ()
   (interactive)
   (ado-command-to-clip "command")
   (ado-send-clip-to-stata "command" ado-comeback-flag))
 
-(defun ado-send-clip-to-menu ()
+(defun ado-send-command-to-menu ()
   (interactive)
   (ado-command-to-clip "menu")
   (ado-send-clip-to-stata "menu" ado-comeback-flag))
 
-(defun ado-send-clip-to-dofile ()
+(defun ado-send-command-to-dofile ()
   (interactive)
   (ado-command-to-clip "dofile")
   (ado-send-clip-to-stata "dofile" ado-comeback-flag))
@@ -81,14 +81,16 @@ proper directory name if correct, otherwise throws an error."
   "Tries to ask Stata help for the command in the current line, or if 
 the optional at-point argument is non-nil, at point."
   (interactive)
-  (ado-help-to-clip at-point)
-  (shell-command (concat "osascript " (ado-check-a-directory ado-script-dir) "send2stata.scpt \"command\"")))
+  (if at-point
+	  (ado-help-at-point-to-clip)
+	(ado-help-command-to-clip))
+  (ado-send-clip-to-stata ado-submit-default))
 
-(defun ado-stata-help-at-point ()
+(defun ado-help-at-point ()
   (interactive)
   (ado-stata-help t))
 
-(defun ado-stata-help-in-line ()
+(defun ado-help-command ()
   (interactive)
   (ado-stata-help))
 
