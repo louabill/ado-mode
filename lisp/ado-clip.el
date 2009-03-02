@@ -1,42 +1,9 @@
-(defun ado-prep-clipboard-old (&optional use-dofile)
-;  (interactive)
-  "Copies the current region to the clipboard. If there is no region
-selected, it trys to grab the command containing the point.
-If `use-dofile' is nil, makes the chunk Command-window safe, 
-otherwise it is a simple copy to the clipboard.
-
-Any other fixing, such as stripping out blank lines, is up to 
-whatever applies the clipboard."
-  (let ((mark-even-if-inactive nil)
-		(x-select-enable-clipboard t)
-		theString)
-  (unless use-dofile
-	(setq use-dofile "command"))
-	(if (and mark-active t
-			 (not (= (region-beginning) (region-end))))
-		(setq theString (buffer-substring-no-properties (region-beginning) (region-end))) ;; copy region to theString
-	  (setq theString (ado-copy-command t)) ;; copy current command b/c there is no region
-	  )
-	(if (string= use-dofile "command")
-		(setq theString (ado-strip-comments theString)))
-	(funcall interprogram-cut-function (ado-one-eol theString))))
-
-(defun ado-prep-clipboard (&optional use-dofile)
-	(unless use-dofile
-	  (setq use-dofile "command"))
-	(let ((x-select-enable-clipboard t)
-		  (theString (ado-grab-something -1))
-		  )
-	  (if (string= use-dofile "command")
-		  (setq theString (ado-strip-comments theString)))
-	  (funcall interprogram-cut-function (ado-one-eol theString))
-	))
-
 (defun ado-grab-something (&optional what-code)
   "If a region is selected, return the region.
-If what is nil, return the word at or before point.
-If no region is selected, and what is -1, return the entire command.
-If what is 0, 1, ... return the 0th, 1st, command, where command
+If what-code is nil, return the word at or before point.
+If no region is selected, and what-code is -1, return the entire 
+command.
+If what-code is 0, 1, ... return the 0th, 1st, command, where command
   0 is the main command, 1 is the prefix before the command, 2 is 
   the prefix of the prefix, etc. As of yet, only 0 is implemented."
   (interactive)
@@ -58,7 +25,7 @@ If what is 0, 1, ... return the 0th, 1st, command, where command
 					   (point)))
 					(x-select-enable-clipboard t))
 				(filter-buffer-substring start-here end-here nil t))
-			;; need to check value of what-code to really implement peelingn prefix commands
+			;; need to check value of what-code to really implement peeling prefix commands
 			(let ((end-here
 				   (save-excursion
 					 (ado-end-of-command)
@@ -73,6 +40,22 @@ If what is 0, 1, ... return the 0th, 1st, command, where command
 		(word-at-point))
 	  )))
 
+(defun ado-command-to-clip (&optional use-dofile)
+  "Grabs either the region, or if there is no region, the
+entire Stata command, then gets it ready to send to Stata. If
+use-dofile is \"command\", it strips out comments and continuations.
+The grabbing is done by \\[ado-grab-something], and the stripping
+is done by \\[ado-strip-comments]"
+	(unless use-dofile
+	  (setq use-dofile "command"))
+	(let ((x-select-enable-clipboard t)
+		  (theString (ado-grab-something -1))
+		  )
+	  (if (string= use-dofile "command")
+		  (setq theString (ado-strip-comments theString)))
+	  (funcall interprogram-cut-function (ado-one-eol theString))
+	))
+
 (defun ado-what-to-clip (&optional where prefix suffix)
   "For putting things like 'search' and 'help' onto the clipboard.
 Made to be called from other progams only."
@@ -83,7 +66,6 @@ Made to be called from other progams only."
 	(funcall interprogram-cut-function (ado-one-eol 
 										(concat prefix (ado-grab-something where) suffix)))
 	))
-
 
 (defun ado-help-at-point-to-clip ()
   "Puts -help <word-at-point>- on the clipboard/pasteboard. If a region is

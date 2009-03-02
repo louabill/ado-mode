@@ -1,23 +1,27 @@
 ;;; a collection of things for interacting with Stata under Mac OS X
 
-(defun ado-send-region-to-stata-default ()
+(defun ado-send-clip-to-stata-default ()
   (interactive)
-  (ado-send-region-to-stata ado-submit-default ado-comeback-flag))
+  (ado-command-to-clip ado-submit-default)
+  (ado-send-clip-to-stata ado-submit-default ado-comeback-flag))
 
-(defun ado-send-region-to-command ()
+(defun ado-send-clip-to-command ()
   (interactive)
-  (ado-send-region-to-stata "command" ado-comeback-flag))
+  (ado-command-to-clip "command")
+  (ado-send-clip-to-stata "command" ado-comeback-flag))
 
-(defun ado-send-region-to-menu ()
+(defun ado-send-clip-to-menu ()
   (interactive)
-  (ado-send-region-to-stata "menu" ado-comeback-flag))
+  (ado-command-to-clip "menu")
+  (ado-send-clip-to-stata "menu" ado-comeback-flag))
 
-(defun ado-send-region-to-dofile ()
+(defun ado-send-clip-to-dofile ()
   (interactive)
-  (ado-send-region-to-stata "dofile" ado-comeback-flag))
+  (ado-command-to-clip "dofile")
+  (ado-send-clip-to-stata "dofile" ado-comeback-flag))
 
-(defun ado-send-region-to-stata (&optional dothis comeback tmpfile)
-  "Sends the region to Stata to be evaluated. Currently this is a Mac-only 
+(defun ado-send-clip-to-stata (&optional dothis comeback tmpfile)
+  "Sends the clipboard to Stata to be evaluated. Currently this is a Mac-only 
 function. For it to work properly, you need to set the \\[ado-script-dir] 
 to point to where the script send2tmpdo.scpt is stored. Should be called 
 by one of the wrappers determining the behavior of the flags...
@@ -33,10 +37,9 @@ There are three optional arguments:
   tmpfile: name of the tmpfile to use if running via temporary do-file
            (optional, because it isn't really needed...)"
   (interactive)
-  (ado-prep-clipboard dothis)
   (cond
    ((string= dothis "menu")
-	(shell-command (concat "osascript " (ado-check-a-directory 'ado-script-dir) "send2stata.scpt \"menu\" \"" tmpfile "\"")))
+	(shell-command (concat "osascript " (ado-check-a-directory ado-script-dir) "send2stata.scpt \"menu\" \"" tmpfile "\"")))
    ((string= dothis "dofile")
 	(unless tmpfile
 	  (setq tmpfile (concat temporary-file-directory "feedStata.do")))
