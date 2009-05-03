@@ -634,7 +634,7 @@ continuation characters."
 	(insert "}"))
   )
 
-(defun ado-new-generic (type exten srcstr &optional stayput name purpose)
+(defun ado-new-generic (type exten srcstr &optional stayput name purpose cusblp)
   "Allows overloading the new program to work for ado, class, do, mata and other files"
   (unless name
 	(setq name (read-from-minibuffer (concat "What is the name of the " type "? "))))
@@ -643,7 +643,9 @@ continuation characters."
   (switch-to-buffer
    (generate-new-buffer
     (generate-new-buffer-name (concat name "." exten))))
-  (ado-insert-boilerplate (concat exten ".blp"))
+  (if cusblp
+	  (ado-insert-boilerplate cusblp)
+	(ado-insert-boilerplate (concat exten ".blp")))
   (if (and ado-new-dir (not stayput) (not (string= type "do-file")))
       (if (y-or-n-p "Put in 'new' directory? ")
 	  (cd (directory-file-name ado-new-dir))))
@@ -900,13 +902,15 @@ in sthlp (or hlp) files."
   "Tries to do a nice job updating a timestamp for the file. Since
 Stata has no conventions about headers for files, ado-mode will:
 
-Look for a '*! version xxx' statement in ado/do files, a {* Last
-Updated: } or a {smcl}<newline>{* <date>}{...} in sthlp (or hlp)
+Look for a '*! version xxx' statement in ado/do/ files, a {
+* version xxx } or a {smcl}<newline>{* <date>}{...} in sthlp (or hlp)
 files, or a version x.y.z <date> in other files."
   (interactive)
   (save-excursion
     (goto-char (point-min))
-    (if (or (string= ado-extension "ado") (string= ado-extension "class") (string= ado-extension "do")) 
+    (if (or (string= ado-extension "ado") 
+			(string= ado-extension "class") 
+			(string= ado-extension "do")) 
 		(if (re-search-forward "^\*![ \t]+version[ \t]+[0-9\.]*[ \t]*" (point-max) t)
 			(progn
 			  (kill-line)
@@ -920,7 +924,12 @@ files, or a version x.y.z <date> in other files."
 				(kill-line)
 				(insert (ado-nice-current-date))
 				(insert "}{...}"))
-			(if (looking-at "{smcl}[ \t]*")
+			(if (re-search-forward "^[ \t]*{[*]+[ \t]+[*]![ \t]+version[ \t]+[0-9\.]*[ \t]*" (point-max) t)
+				(progn
+				  (kill-line)
+				  (insert (ado-nice-current-date))
+				  (insert "}{...}"))
+			  (if (looking-at "{smcl}[ \t]*")
 				(progn
 				  (goto-char (match-end 0))
 				  (forward-char)
@@ -929,7 +938,7 @@ files, or a version x.y.z <date> in other files."
 						(goto-char (match-end 0))
 						(kill-line)
 						(insert (ado-nice-current-date))
-						(insert "}{...}"))))))
+						(insert "}{...}")))))))
 	;;; not in ado or help file
 		(if (re-search-forward "^\\(\[*]!\\)*[ \t]+[Vv][Ee][Rr][Ss][Ii][Oo][Nn][ \t]+[0-9\.]*[ \t]*" (point-max) t)
 			(progn
@@ -1064,12 +1073,14 @@ and indenting"
     (ado-indent-region beg (point))
     ))
 
-(defun ado-insert-boilerplate (file-name &optional raw)
-  (if (not ado-site-template-dir)
-      (error "%s" "Use \\[set-variable] to set ado-site-template-dir to the directory holding the ado templates!"))
+(defun ado-insert-boilerplate (file-name &optional raw dir)
+  (unless dir
+	(if (not ado-site-template-dir)
+		(error "%s" "Use \\[set-variable] to set ado-site-template-dir to the directory holding the ado templates!"))
+	(setq dir ado-site-template-dir))
   (if raw
-      (insert-file-contents (concat ado-site-template-dir file-name))
-    (ado-insert-file-and-indent (concat ado-site-template-dir file-name))))
+      (insert-file-contents (concat dir file-name))
+    (ado-insert-file-and-indent (concat dir file-name))))
 
 
 (defun ado-insert-slog-block (&optional replace-flag)
