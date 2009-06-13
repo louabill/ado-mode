@@ -17,8 +17,11 @@ Version History:
 . Along with this functionality is the ability to get help from Stata
   for the word at point. (ado-help-at-point, bound to C-c C-h, and
   ado-help-command, bound to C-c C-c)
-. In Mac OS X, the a key binding has changed. Meta-Return now sends the
+. A key binding has changed. Meta-Return now sends the
   region/command to Stata, and Shift-Meta-Return splits a line.
+  In OSes which don't work directly with Stata, Meta-Return will put 
+  a version of the region or the command in which point is sitting on
+  the clipboard, so it can be pasted in the command window.
 . Fixed up the methods for determining the type of file and the default
   name. NOTE: for .ado or .class files, the name of the program or class
   must come in the first 200 characters of the file. Lesson: if you use a

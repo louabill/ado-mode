@@ -45,7 +45,7 @@
 (require 'ado-font)
 (require 'ado-clip)
 ;; Following macosxonly for now
-(require 'ado-send-to-stata)
+(require 'ado-to-stata)
 
 ;;; putting in the proper extensions for using the ado-mode
 (if (assoc "\\.ado$" auto-mode-alist) nil
@@ -448,7 +448,7 @@ This will make ado-mode load when you open an ado or do file."
   (make-local-variable 'ado-extension)
   (setq ado-extension (ado-find-extension))
   ;; setup directories which could be needed
-  (
+  ;; (
   (if ado-smart-indent-flag
       (if (or 
 			  (string= ado-extension "hlp")
