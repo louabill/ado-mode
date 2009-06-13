@@ -643,6 +643,7 @@ continuation characters."
   (switch-to-buffer
    (generate-new-buffer
     (generate-new-buffer-name (concat name "." exten))))
+  (ado-mode)
   (if cusblp
 	  (ado-insert-boilerplate cusblp nil t)
 	(ado-insert-boilerplate (concat exten ".blp")))
