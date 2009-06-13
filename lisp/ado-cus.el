@@ -1,7 +1,8 @@
 ;;; ado-mode--cus.el --- customization things in ado mode
 ;; Copyright (c) 2003--2009
 ;; Bill Rising
-;;   much of this sponged from the ultex-cus.el which customizes
+;;   the style in which this is written was learned from
+;;   ultex-cus.el which customizes
 ;;   the UltraTex mode (highly recommended) by
 ;; Mark Haiman, Nick Reingold, John Palmieri
 
@@ -9,7 +10,7 @@
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://homepage.mac.com/brising
 ;; Keywords: ado-mode
-;; Version:  0.13 of 25jan2009
+;; Version:  0.14 of 13jun2009
 
 ;; This file is not part of GNU Emacs.
 
@@ -63,11 +64,6 @@
   :tag "Ado save behavior"
   :group 'ado)
 
-(defgroup ado-files-and-dirs nil
-  "Files and file locations for templates, new ado-files, etc."
-  :tag "Ado file info"
-  :group 'ado)
-
 (defgroup ado-help-info nil
   "Information needed for making good Stata documentation."
   :tag "Ado help file info"
@@ -108,26 +104,11 @@
 ;;   :group 'ado-essentials)
 
 (defcustom ado-new-dir nil
-  "*The directory where new ado files are stored. This should hold ado
-files which could be of use in multiple projects, but which have not
-been properly debugged or documented yet. By default, this is unset,
-but is ought to be set to the PERSONAL directory used in Stata."
-  :type '(choice (const nil) directory)
-  :group 'ado-files
-  :group 'ado-essentials)
-
-
-(defcustom ado-site-template-dir nil
-  "*The directory where templates are stored. These should be the 
-site-wide templates."
-  :type '(choice (const nil) directory)
-  :group 'ado-files
-  :group 'ado-essentials)
-
-(defcustom ado-script-dir nil
-  "*A directory for holding scripts and executables useful for ado-mode.
-This must be set in order to send code from emacs to Stata (currently
-Mac OS X only)."
+  "*The directory where new ado files are stored. You MUST set
+this to some location. This should hold ado files which could 
+be of use in multiple projects, but which have not been properly 
+debugged or documented yet. By default, this is unset, but is 
+ought to be set to the PERSONAL directory used in Stata."
   :type '(choice (const nil) directory)
   :group 'ado-files
   :group 'ado-essentials)
@@ -137,6 +118,29 @@ Mac OS X only)."
 overwrite an already existing file. Defaults to on, as this conforms with
 user interface guidelines."
   :type 'boolean
+  :group 'ado-files
+  :group 'ado-essentials)
+
+(defcustom ado-site-template-dir nil
+  "*The directory where templates are stored. If left unset, it will 
+point to the templates which come with ado-mode. Unless you are customizing
+templates for individual use, this is the best setting."
+  :type '(choice (const nil) directory)
+  :group 'ado-files
+  :group 'ado-essentials)
+
+(defcustom ado-script-dir nil
+  "*A directory for holding scripts and executables useful for ado-mode.
+If left unset, it will point to the scripts directory which comes with
+ado-mode. Unless you plan on moving those scripts, leave unset."
+  :type '(choice (const nil) directory)
+  :group 'ado-files
+  :group 'ado-essentials)
+
+(defcustom ado-mode-home nil
+  "*Location where the ado-mode is installed. Leave unset, unless you
+know what you are doing...and I don't know when this should be set."
+  :type '(choice (const nil) directory)
   :group 'ado-files
   :group 'ado-essentials)
 

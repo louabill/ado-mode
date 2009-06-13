@@ -1,4 +1,5 @@
-;; All of the following should be set v
+;; All of the following should really be set via M-x customize-group ado RET
+;;  but is here for you old-timers.
 
 ;;   this gets used when making help files. 
 (setq ado-claim-name "Your Name Here") 

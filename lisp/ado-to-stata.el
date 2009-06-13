@@ -3,7 +3,7 @@
 ;;;   other OSes. All that is needed for each other OS are some methods
 ;;;   for talking to Stata from emacs. In Mac OS X, this is done via applescript
 
-(defun ado-send-to-stata ()
+(defun ado-send-command-to-stata ()
   (interactive)
   (ado-command-to-clip ado-submit-default)
   (ado-send-clip-to-stata ado-submit-default ado-comeback-flag))

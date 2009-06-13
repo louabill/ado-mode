@@ -119,7 +119,7 @@
 (defvar ado-mode-map (make-sparse-keymap)
   "Keymap for Ado mode." )
 (define-key ado-mode-map "\t"       'ado-indent-line)
-(define-key ado-mode-map "\M-\C-m" 'ado-send-command-to-stata-default)
+(define-key ado-mode-map "\M-\C-m" 'ado-send-command-to-stata)
 (define-key ado-mode-map [(meta shift return)] 'ado-split-line)
 (define-key ado-mode-map "\C-c\C-h" 'ado-help-at-point)
 (define-key ado-mode-map "\C-c\C-c" 'ado-help-command)
@@ -448,7 +448,13 @@ This will make ado-mode load when you open an ado or do file."
   (make-local-variable 'ado-extension)
   (setq ado-extension (ado-find-extension))
   ;; setup directories which could be needed
-  ;; (
+  (unless ado-mode-home
+	(setq ado-mode-home
+		  (file-name-as-directory (expand-file-name (concat (file-name-directory (locate-file "ado-mode.el" load-path)) "..")))))
+  (unless ado-site-template-dir
+	(setq ado-site-template-dir (file-name-as-directory (concat ado-mode-home "templates"))))
+  (unless ado-script-dir 
+	(setq ado-script-dir (file-name-as-directory (concat ado-mode-home "scripts"))))
   (if ado-smart-indent-flag
       (if (or 
 			  (string= ado-extension "hlp")
@@ -470,9 +476,9 @@ This will make ado-mode load when you open an ado or do file."
 (defun ado-set-return (state)
   (if state
       (progn
-	(define-key ado-mode-map "\C-m" 'ado-newline) 
-	(define-key ado-mode-map "\C-j" 'newline) 
-	)
+		(define-key ado-mode-map "\C-m" 'ado-newline) 
+		(define-key ado-mode-map "\C-j" 'newline) 
+		)
     (define-key ado-mode-map "\C-j" 'ado-newline) 
     (define-key ado-mode-map "\C-m" 'newline) 
     ))
