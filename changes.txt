@@ -11,6 +11,12 @@ Version History:
   clipboard/pasteboard into Stata's command window. Everything else is
   internal to emacs. Look inside ado-macosx.el to see how things are
   sent via applescript on the Mac.
+  If you come up with a script for unix or windows, please send it to
+  me, so I can change the functionality of ado-mode to be more
+  platform-agnostic (brising at mac dot com).
+. Along with this functionality is the ability to get help from Stata
+  for the word at point. (ado-help-at-point, bound to C-c C-h, and
+  ado-help-command, bound to C-c C-c)
 . In Mac OS X, the a key binding has changed. Meta-Return now sends the
   region/command to Stata, and Shift-Meta-Return splits a line.
 . Fixed up the methods for determining the type of file and the default

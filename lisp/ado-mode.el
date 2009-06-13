@@ -44,9 +44,8 @@
 (require 'ado-cus)
 (require 'ado-font)
 (require 'ado-clip)
-;; not really useful... will find way to split into customizations...
-(if (string= system-type "darwin")
-	(require 'ado-macosx))
+;; Following macosxonly for now
+(require 'ado-send-to-stata)
 
 ;;; putting in the proper extensions for using the ado-mode
 (if (assoc "\\.ado$" auto-mode-alist) nil
@@ -120,12 +119,10 @@
 (defvar ado-mode-map (make-sparse-keymap)
   "Keymap for Ado mode." )
 (define-key ado-mode-map "\t"       'ado-indent-line)
-(if (string= system-type "darwin")
-	(progn
-	  (define-key ado-mode-map "\M-\C-m" 'ado-send-command-to-stata-default)
-	  (define-key ado-mode-map [(meta shift return)] 'ado-split-line)
-	  )
-  (define-key ado-mode-map "\M-\C-m"  'ado-split-line))
+(define-key ado-mode-map "\M-\C-m" 'ado-send-command-to-stata-default)
+(define-key ado-mode-map [(meta shift return)] 'ado-split-line)
+(define-key ado-mode-map "\C-c\C-h" 'ado-help-at-point)
+(define-key ado-mode-map "\C-c\C-c" 'ado-help-command)
 (define-key ado-mode-map "\M-a"     'ado-beginning-of-command)
 (define-key ado-mode-map "\M-e"     'ado-end-of-command)
 (define-key ado-mode-map "\C-c\C-f" 'ado-foreach-loop)
@@ -359,16 +356,12 @@ Things for special Stata manipulations
 - \\[ado-strmacify-selection-or-word] will turn the current selection or the word containing the point into a local macro enclosed in full string qualification.
 - \\[ado-stringify-selection] will enclose the current selection with full string qualification.
 
-Here are some rather esoteric command which I've not yet documented well,
-because they correspond to my personal ways of working on large projects in 
-Stata:
-- \\[ado-project-program] will create a program which runs subprograms,
-    which is quite nice for large projects.
-- \\[ado-stage-program] will create a new ado file made to act as a 
-    single stage in a larger project. Warning: if you use this, you
-    will need to get the slog package from Bill Rising's packages.
+Here an esoteric command which I've not yet documented well.
 - \\[ado-new-label] will make a new label file useful for storing commonly
     used value labels.
+
+Here are commands for sending code to Stata.
+- \\[ado-send-to-stata]
 
 Most all of the commands are accessible from the ado-mode menu.
 
@@ -454,7 +447,8 @@ This will make ado-mode load when you open an ado or do file."
   ;; make local copy of the extension, and try to guess the extension
   (make-local-variable 'ado-extension)
   (setq ado-extension (ado-find-extension))
-  ;; turn off indenting in hlp and dlg files (by default)
+  ;; setup directories which could be needed
+  (
   (if ado-smart-indent-flag
       (if (or 
 			  (string= ado-extension "hlp")

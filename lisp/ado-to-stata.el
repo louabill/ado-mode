@@ -1,6 +1,9 @@
-;;; a collection of things for interacting with Stata under Mac OS X
+;;; a collection of things for interacting with Stata 
+;;; Right now all this works only in Mac OS X. It will not cause errors in 
+;;;   other OSes. All that is needed for each other OS are some methods
+;;;   for talking to Stata from emacs. In Mac OS X, this is done via applescript
 
-(defun ado-send-command-to-stata-default ()
+(defun ado-send-to-stata ()
   (interactive)
   (ado-command-to-clip ado-submit-default)
   (ado-send-clip-to-stata ado-submit-default ado-comeback-flag))
@@ -39,24 +42,36 @@ There are three optional arguments:
   (interactive)
   (cond
    ((string= dothis "menu")
-	(shell-command (concat "osascript " (ado-check-a-directory ado-script-dir) "send2stata.scpt \"menu\" \"" tmpfile "\"")))
+	(cond 
+	 ((string= system-type "darwin")
+	  (shell-command (concat "osascript " (ado-check-a-directory ado-script-dir) "send2stata.scpt \"menu\" \"" tmpfile "\"")))
+	 (t (message (concat "working via menus not supported yet in " system-type)))))
    ((string= dothis "dofile")
-	(unless tmpfile
-	  (setq tmpfile (concat temporary-file-directory "feedStata.do")))
-	(write-region (x-selection-value 'CLIPBOARD) nil tmpfile)
-	;; ado-stata-flavors and ado-stata-home are needed if there are many Statas installed
-	(if (string= ado-stata-flavors "")
-		(shell-command (concat "open -a " tmpfile))
-	  (shell-command (concat "open -a " (ado-check-a-directory ado-stata-home) "Stata" ado-stata-flavors ".app " tmpfile))
-	  ))
-	 ((string= dothis "command")
-	  (shell-command (concat "osascript " (ado-check-a-directory ado-script-dir) "send2stata.scpt \"command\"")))
-	 (t (error "Bad value for 'do-this' in ado-send-region-to-stata"))
-	 )
-  (if comeback
-	  (if (> (shell-command (concat "open \"" (substring invocation-directory 0 (string-match "/Contents" invocation-directory)) "\"")) 0)
-		  (message "had trouble with shell command")))
-  (message (concat "selection sent to Stata" ado-stata-flavors))
+	(cond
+	 ((string= system-type "darwin")
+	  ;; the following 3 lines should be common to all os's once implemented
+	  (unless tmpfile
+		(setq tmpfile (concat temporary-file-directory "feedStata.do")))
+		(write-region (x-selection-value 'CLIPBOARD) nil tmpfile)
+		;; ado-stata-flavors and ado-stata-home are needed if there are many Statas installed
+		  (if (string= ado-stata-flavors "")
+			  (shell-command (concat "open -a " tmpfile))
+			(shell-command (concat "open -a " (ado-check-a-directory ado-stata-home) "Stata" ado-stata-flavors ".app " tmpfile))
+			))
+		 (t (message (concat "working via temp do-files not supported yet in " system-type)))))
+	   ((string= dothis "command")
+		(cond
+		 ((string= system-type "darwin")
+		  (shell-command (concat "osascript " (ado-check-a-directory ado-script-dir) "send2stata.scpt \"command\"")))
+		 (t (message (concat "working via the command window not yet supported in " system-type ", but you can paste the command in the command window by hand.")))))
+	   (t (error "Bad value for 'do-this' in ado-send-region-to-stata"))
+	   )
+  (cond
+   ((string= system-type "darwin")
+	(if comeback
+		(if (> (shell-command (concat "open \"" (substring invocation-directory 0 (string-match "/Contents" invocation-directory)) "\"")) 0)
+			(message "had trouble with shell command")))
+	(message (concat "selection sent to Stata" ado-stata-flavors))))
   )
 
 (defun ado-check-a-directory (a-dir-name)
@@ -94,4 +109,4 @@ the optional at-point argument is non-nil, at point."
   (interactive)
   (ado-stata-help))
 
-(provide 'ado-macosx)
+(provide 'ado-to-stata)

@@ -924,6 +924,17 @@ set trace off
    ttail()
    /* random number function */
    uniform()
+	runiform()
+	rnormal()
+	rnormal(1)
+	rbeta()
+	rbinomial()
+	rnbinomial()
+	rchi2()
+	rgamma()
+	rhypergeometric()
+	rt()
+	rpoisson()
    /* string functions */ 
    abbrev()
    char()

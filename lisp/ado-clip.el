@@ -1,3 +1,6 @@
+;; this is ado-clip.el
+;; It is a series of helper functions for working with the clipboard
+
 (defun ado-grab-something (&optional what-code)
   "If a region is selected, return the region.
 If what-code is nil, return the word at or before point.
@@ -56,9 +59,9 @@ is done by \\[ado-strip-comments]"
 	  (funcall interprogram-cut-function (ado-one-eol theString))
 	))
 
-(defun ado-what-to-clip (&optional where prefix suffix)
+(defun ado-other-to-clip (&optional where prefix suffix)
   "For putting things like 'search' and 'help' onto the clipboard.
-Made to be called from other progams only."
+Made to be called from other programs only."
   (let ((x-select-enable-clipboard t))
 	(if prefix (setq prefix (concat prefix " ")))
 	(if suffix (setq suffix (concat " " suffix)))
@@ -71,13 +74,13 @@ Made to be called from other progams only."
   "Puts -help <word-at-point>- on the clipboard/pasteboard. If a region is
 selected this is what is sent, instead."
   (interactive)
-  (ado-what-to-clip nil "help"))
+  (ado-other-to-clip nil "help"))
 
 (defun ado-help-command-to-clip ()
   "Puts help for the current command (but not the prefixes) on the 
 clipboard/pasteboard. If a region is selected, this is sent, instead."
   (interactive)
-  (ado-what-to-clip 0 "help"))
+  (ado-other-to-clip 0 "help"))
 
 (defun ado-strip-comments (theString)
   "Strips out all comments from a selection line by line.

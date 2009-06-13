@@ -169,7 +169,7 @@ be set in each user's .emacs file."
 
 (defcustom ado-signature-prompt-flag t
   "*Controls whether the user is prompted for a signature at the bottom of
-  the help files. If off, the user will never be asked, and just the user's
+  the help files. If off, `<the user will never be asked, and just the user's
   name will be appended to help files. Defaults to on."
   :type 'boolean
   :group 'ado-help-info)
@@ -363,7 +363,6 @@ overlap."
   :type 'boolean
   :group 'ado-stata-interaction)
 
-
 (defcustom ado-stata-home nil
   "*Set to the location of your Stata executable(s) if you want
 Emacs to launch a particular Stata when the first code is sent.
@@ -379,9 +378,6 @@ This is really a place-holder for a future date when you will
 be able to send code to many flavors at once."
   :type 'string
   :group 'ado-stata-interaction)
-
-
-
 
 (provide 'ado-cus)
 
