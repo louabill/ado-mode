@@ -45,7 +45,7 @@ There are three optional arguments:
 	(cond 
 	 ((string= system-type "darwin")
 	  (shell-command (concat "osascript " (ado-check-a-directory ado-script-dir) "send2stata.scpt \"menu\" \"" tmpfile "\"")))
-	 (t (message (concat "working via menus not supported yet in " system-type)))))
+	 (t (message (concat "working via menus not supported yet in " (symbol-name system-type))))))
    ((string= dothis "dofile")
 	(cond
 	 ((string= system-type "darwin")
@@ -58,12 +58,12 @@ There are three optional arguments:
 			  (shell-command (concat "open -a " tmpfile))
 			(shell-command (concat "open -a " (ado-check-a-directory ado-stata-home) "Stata" ado-stata-flavors ".app " tmpfile))
 			))
-		 (t (message (concat "working via temp do-files not supported yet in " system-type)))))
+		 (t (message (concat "working via temp do-files not supported yet in " (symbol-name system-type))))))
 	   ((string= dothis "command")
 		(cond
 		 ((string= system-type "darwin")
 		  (shell-command (concat "osascript " (ado-check-a-directory ado-script-dir) "send2stata.scpt \"command\"")))
-		 (t (message (concat "working via the command window not yet supported in " system-type ", but you can paste the command in the command window by hand.")))))
+		 (t (message (concat "working via the command window not yet supported in " (symbol-name system-type) ", but you can paste the command in the command window by hand.")))))
 	   (t (error "Bad value for 'do-this' in ado-send-region-to-stata"))
 	   )
   (cond

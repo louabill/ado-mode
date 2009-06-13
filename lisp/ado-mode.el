@@ -664,7 +664,7 @@ continuation characters."
 			  (replace-match name))
 			(goto-char (point-min))
 			;; awful hack
-			(re-search-forward "^clear")
+			(re-search-forward "^clear all")
 			(forward-char))
 		(search-forward srcstr)
 		(forward-char)
