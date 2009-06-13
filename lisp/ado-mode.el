@@ -644,7 +644,7 @@ continuation characters."
    (generate-new-buffer
     (generate-new-buffer-name (concat name "." exten))))
   (if cusblp
-	  (ado-insert-boilerplate cusblp)
+	  (ado-insert-boilerplate cusblp nil t)
 	(ado-insert-boilerplate (concat exten ".blp")))
   (if (and ado-new-dir (not stayput) (not (string= type "do-file")))
       (if (y-or-n-p "Put in 'new' directory? ")
@@ -1073,14 +1073,15 @@ and indenting"
     (ado-indent-region beg (point))
     ))
 
-(defun ado-insert-boilerplate (file-name &optional raw dir)
-  (unless dir
+(defun ado-insert-boilerplate (file-name &optional raw full-path)
+  (if full-path
+	  (setq full-path file-name)
 	(if (not ado-site-template-dir)
 		(error "%s" "Use \\[set-variable] to set ado-site-template-dir to the directory holding the ado templates!"))
-	(setq dir ado-site-template-dir))
+	(setq full-path (concat (file-name-as-directory ado-site-template-dir) file-name)))
   (if raw
-      (insert-file-contents (concat dir file-name))
-    (ado-insert-file-and-indent (concat dir file-name))))
+      (insert-file-contents full-path)
+    (ado-insert-file-and-indent full-path)))
 
 
 (defun ado-insert-slog-block (&optional replace-flag)
@@ -4334,16 +4335,18 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 "nbetaden" "nchi2" "normal" "normalden" "nFden" "nFtail" "nibeta" "npnchi2" "nullmat"
 			 "plural" "proper"
 			 "qofd" "quarter" "quarterly"
-			 "r" "real" "recode"
+			 "r" "rbeta" "rbinomial" "rchi2" "real" "recode"
 			 "regexm" "regexr" "regexs"
-			 "reldif" "replay" "return" "reverse" "round" "rownumb" "rowsof" "rtrim" 
+			 "reldif" "replay" "return" "reverse" 
+			 "rgamma" "rhypergeometric" "rnbinomial" "rnormal"
+			 "round" "rownumb" "rowsof" "rpoisson" "rt" "rtrim" "runiform"
 			 "s" "scalar" "seconds" "sign" "sin" "sqrt" "ss" "ssC"
 			 "string" "strlen" "strmatch" "strofreal" "strpos"
 			 "subinstr" "subinword" "substr" "sum" 
 			 "sweep" 
 			 "tC"
 			 "tan" "tanh" "tc" "td" "tden" "th" "tin" "tm" "tq" "trace" "trigamma" "trim" "trunc" "ttail" "tw" "twithin"
-			  "uniform" "upper"
+			  "upper"
 			  "vec" "vecdiag"
 			  "week" "weekly" "wofd" "word" "wordcount"
 			  "year" "yearly" "yh" "ym" "yofd" "yq" "yw"
@@ -4372,7 +4375,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "nchi" "norm" "normd" "normden" "normprob" "npnchi"
 			  "q" 
 			  "syminv" "tprob" 
-			  "uniform0"
+			  "uniform" "uniform0"
 			  "y"
 			  "w"
 			  )

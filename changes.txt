@@ -7,10 +7,12 @@ Version History:
   same behavior in MS Windows or Unix, because the code for putting the proper
   information on the clipboard is written to be platform independent. The
   methods for getting the clipboard to Stata itself are not (of course).
-  (Hint: if you are a non-Mac user, take a look in ado-clip.el to see
-   what functions are defined for dealing with the clipboard.)
-. In Mac OS X, the a key binding has changed. Meta-Return will now send the
-  region/command to Stata, and Shift-Meta-Return will split a line.
+  All that is needed is something which will paste the
+  clipboard/pasteboard into Stata's command window. Everything else is
+  internal to emacs. Look inside ado-macosx.el to see how things are
+  sent via applescript on the Mac.
+. In Mac OS X, the a key binding has changed. Meta-Return now sends the
+  region/command to Stata, and Shift-Meta-Return splits a line.
 . Fixed up the methods for determining the type of file and the default
   name. NOTE: for .ado or .class files, the name of the program or class
   must come in the first 200 characters of the file. Lesson: if you use a
@@ -25,6 +27,7 @@ Version History:
 . Added new preference flag for updating timestamps... they now can be shut
   off. This is accessible from the Ado-mode->Options menu, like all other
   flags for formatting.
+. Added new random number generating functions.
 . Finally made ado-insert-nice-current-date to interactively insert timestamps.
 . Finally put in leading * comment highlighting.
 . Updated the template for help files.
