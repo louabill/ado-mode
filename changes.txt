@@ -9,7 +9,7 @@ Version History:
   methods for getting the clipboard to Stata itself are not (of course).
   All that is needed is something which will paste the
   clipboard/pasteboard into Stata's command window. Everything else is
-  internal to emacs. Look inside ado-macosx.el to see how things are
+  internal to emacs. Look inside ado-to-stata.el to see how things are
   sent via applescript on the Mac.
   If you come up with a script for unix or windows, please send it to
   me, so I can change the functionality of ado-mode to be more
