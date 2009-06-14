@@ -14,6 +14,11 @@ Version History:
   If you come up with a script for unix or windows, please send it to
   me, so I can change the functionality of ado-mode to be more
   platform-agnostic (brising at mac dot com).
+  If you use MS Windows or Unix, there is some consolation, because
+  running M-RET will take the function containing the point (or the
+  region if one is selected) and put it in the clipboard in a way the
+  Commmand window can use it. All you need to do is paste into the
+  Command window. 
 . Along with this functionality is the ability to get help from Stata
   for the word at point. (ado-help-at-point, bound to C-c C-h, and
   ado-help-command, bound to C-c C-c)

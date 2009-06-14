@@ -52,20 +52,20 @@ There are three optional arguments:
 	  ;; the following 3 lines should be common to all os's once implemented
 	  (unless tmpfile
 		(setq tmpfile (concat temporary-file-directory "feedStata.do")))
-		(write-region (x-selection-value 'CLIPBOARD) nil tmpfile)
+	  (write-region (x-selection-value 'CLIPBOARD) nil tmpfile)
 		;; ado-stata-flavors and ado-stata-home are needed if there are many Statas installed
-		  (if (string= ado-stata-flavors "")
+		(if (string= ado-stata-flavors "")
 			  (shell-command (concat "open -a " tmpfile))
 			(shell-command (concat "open -a " (ado-check-a-directory ado-stata-home) "Stata" ado-stata-flavors ".app " tmpfile))
 			))
-		 (t (message (concat "working via temp do-files not supported yet in " (symbol-name system-type))))))
-	   ((string= dothis "command")
-		(cond
-		 ((string= system-type "darwin")
-		  (shell-command (concat "osascript " (ado-check-a-directory ado-script-dir) "send2stata.scpt \"command\"")))
-		 (t (message (concat "working via the command window not yet supported in " (symbol-name system-type) ", but you can paste the command in the command window by hand.")))))
-	   (t (error "Bad value for 'do-this' in ado-send-region-to-stata"))
-	   )
+	 (t (message (concat "working via temp do-files not supported yet in " (symbol-name system-type))))))
+   ((string= dothis "command")
+	(cond
+	 ((string= system-type "darwin")
+	  (shell-command (concat "osascript " (ado-check-a-directory ado-script-dir) "send2stata.scpt \"command\"")))
+	 (t (message (concat "working via the command window not yet supported in " (symbol-name system-type) ", but you can paste the command in the command window by hand.")))))
+   (t (error "Bad value for 'do-this' in ado-send-region-to-stata"))
+   )
   (cond
    ((string= system-type "darwin")
 	(if comeback

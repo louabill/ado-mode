@@ -1,6 +1,9 @@
 ;; this is ado-clip.el
 ;; It is a series of helper functions for working with the clipboard
 
+;; it appears that some distros don't load thingatpt automatically
+(require 'thingatpt)
+
 (defun ado-grab-something (&optional what-code)
   "If a region is selected, return the region.
 If what-code is nil, return the word at or before point.

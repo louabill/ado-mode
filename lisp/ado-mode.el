@@ -44,7 +44,6 @@
 (require 'ado-cus)
 (require 'ado-font)
 (require 'ado-clip)
-;; Following macosxonly for now
 (require 'ado-to-stata)
 
 ;;; putting in the proper extensions for using the ado-mode
