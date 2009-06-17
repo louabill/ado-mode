@@ -6,6 +6,21 @@ version 10.1
 
 sysuse auto
 
+regress /// has one space
+  mpg price
+
+regress	/// has one tab
+  mpg price
+
+regress 	/// has space, then tab
+  mpg price
+
+regress	 /// has tab, then space
+  mpg price
+
+regress 	 	 	/// has space tab space tab space tab or so
+  mpg price
+
 twoway scatter mpg weight
 
 display "5 over 4 is " 5/4 // this will for sure be a problem

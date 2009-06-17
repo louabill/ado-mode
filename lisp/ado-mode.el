@@ -4,7 +4,7 @@
 
 ;; Maintainer: Bill Rising, brising at stata dot com
 ;; Keywords: ado-mode, highlighting
-;; Version: 1.10.1.1 of January 25, 2009
+;; Version: 1.10.1.2 of June 17, 2006
 ;;
 ;; the old version system was 0.stata-version times ten.update
 ;; the new version system is now 1.stataversion.statasubversion.update
@@ -913,7 +913,7 @@ files, or a version x.y.z <date> in other files."
 			(string= ado-extension "do")) 
 		(if (re-search-forward "^\*![ \t]+version[ \t]+[0-9\.]*[ \t]*" (point-max) t)
 			(progn
-			  (kill-line)
+			  (delete-region (point) (point-at-eol))
 			  (insert (ado-nice-current-date))
 			  ))
       (if (or
@@ -921,12 +921,12 @@ files, or a version x.y.z <date> in other files."
 		   (string= ado-extension "sthlp"))
 		  (if (search-forward "\[*] Last Updated: " (point-max) t)
 			  (progn
-				(kill-line)
+				(delete-region (point) (point-at-eol))
 				(insert (ado-nice-current-date))
 				(insert "}{...}"))
 			(if (re-search-forward "^[ \t]*{[*]+[ \t]+[*]![ \t]+version[ \t]+[0-9\.]*[ \t]*" (point-max) t)
 				(progn
-				  (kill-line)
+				(delete-region (point) (point-at-eol))
 				  (insert (ado-nice-current-date))
 				  (insert "}{...}"))
 			  (if (looking-at "{smcl}[ \t]*")
@@ -936,13 +936,13 @@ files, or a version x.y.z <date> in other files."
 				  (if (looking-at "{[*] *")
 					  (progn 
 						(goto-char (match-end 0))
-						(kill-line)
+						(delete-region (point) (point-at-eol))
 						(insert (ado-nice-current-date))
 						(insert "}{...}")))))))
 	;;; not in ado or help file
 		(if (re-search-forward "^\\(\[*]!\\)*[ \t]+[Vv][Ee][Rr][Ss][Ii][Oo][Nn][ \t]+[0-9\.]*[ \t]*" (point-max) t)
 			(progn
-			  (kill-line)
+			  (delete-region (point) (point-at-eol))
 			  (insert (ado-nice-current-date))
 			  ))))))
 	

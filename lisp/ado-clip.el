@@ -93,7 +93,7 @@ These cannot be modularized, because of ordering problems"
 		pareThru
 		matchString)
 	;; adding the space in case // are the last chars on a line
-	(while (setq pareThru (string-match "\\(^///\\| ///\\|^//\\| //\\|/[*]\\|[*]/\\)" theString))
+	(while (setq pareThru (string-match "\\(^///\\|\\( \\|	\\)///\\|^//\\|\\( \\|	\\)//\\|/[*]\\|[*]/\\)" theString))
 	  (setq matchString (match-string 1 theString))
 	  (if (string= "*/" matchString)
 		  (error "Too many */ in a /* */-style comment"))
@@ -102,12 +102,12 @@ These cannot be modularized, because of ordering problems"
 	  (setq returnString (concat returnString (substring theString 0 pareThru)))
 	  (setq theString (substring theString (+ pareThru (length matchString))))
 	  (cond 
-	   ((or (string= matchString "///") (string= matchString " ///"))
+	   ((or (string= matchString "///") (string= matchString " ///") (string= matchString "	///"))
 		(if (setq pareThru (string-match "
 " theString))
 			(setq theString (substring theString (1+ pareThru)))
 		  (error "Found /// with no continuation")))
-	   ((or (string= matchString "//") (string= matchString " //"))
+	   ((or (string= matchString "//") (string= matchString " //") (string= matchString "	//"))
 		(if (setq pareThru (string-match "
 " theString))
 			  (setq theString (substring theString pareThru))

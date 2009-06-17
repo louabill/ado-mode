@@ -1,6 +1,14 @@
 Version History:
 ---------------
 
+1.10.1.2:
+. (Finally) changed the update of the time stamp to not add the old
+timestamp to the kill ring.
+. Fixed a bug where stripping comments failed when there were tabs as
+part of the whitespace before the comment string. This could occur when
+lines were split. To shut off tabs when splitting lines, set
+indent-tabs-mode to nil.
+
 1.10.1.1: 
 . Added functionality for sending regions or commands to Stata, at least
   inside Mac OS X(!). The design *should* make it possible to implement the
