@@ -1548,7 +1548,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			"8\\([.]\\(1\\|2\\)\\)?" 
 			"9\\([.]\\(1\\|2\\)\\)?" 
 			"10\\([.]\\(0\\|1\\)\\)?"
-			"11\\([.]0)?"
+			"11\\([.]0\\)?"
 			) ado-subcommand-face)
       "\\b"
       ))
