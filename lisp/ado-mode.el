@@ -3918,7 +3918,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  ))
 	  (eval-when-compile
 		 (make-regexps
-		  "\\s-+"
+		  "[ \t]*"
 		  '((
 		  "loc" "loca" "local" 
 		  ) ado-builtin-harmless-face)
@@ -5480,7 +5480,11 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "abond" "alt" "alte" "alter" "altern" "alterna" "alternat" "alternati" "alternativ" "alternative" "alternatives"
 			  "anti" "archlm" 
 			  "bgodfrey" "bootstrap"
-			  "canontest" "clas" "classfunctions" "classtable" 
+			  "canontest" "clas" "class" "classfunctions" 
+			  "classi" "classif" "classifi" "classific" 
+			  "classifica" "classificat" "classificati" 
+			  "classificatio" "classification" 
+			  "classtable" 
 			  "common" "compare" "con" "config" "coordinates" 
 			  "cor" "corr" "corre" "correl" "correla" "correlat" "correlati" "correlatio" "correlation"
 			  "correlation" "correlations" 

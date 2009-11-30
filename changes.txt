@@ -1,6 +1,9 @@
 Version History:
 ---------------
 
+1.11.0.0:
+. Fixed highlighting for -estat classification- abbreviations
+
 1.10.1.2:
 . (Finally) changed the update of the time stamp to not add the old
 timestamp to the kill ring.
