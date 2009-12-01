@@ -25,9 +25,8 @@
 
 (defun ado-send-clip-to-stata (&optional dothis comeback tmpfile)
   "Sends the clipboard to Stata to be evaluated. Currently this is a Mac-only 
-function. For it to work properly, you need to set the \\[ado-script-dir] 
-to point to where the script send2tmpdo.scpt is stored. Should be called 
-by one of the wrappers determining the behavior of the flags...
+function. This command is meant to be called by one of the 
+wrappers determining the behavior of the flags...
 
 There are three optional arguments:
   dothis: \"command\" for using the commmand window
@@ -38,13 +37,18 @@ There are three optional arguments:
             back to emacs.
 
   tmpfile: name of the tmpfile to use if running via temporary do-file
-           (optional, because it isn't really needed...)"
+           (optional, because it isn't really needed...)
+
+By default, you do not need to do any setup. If you play around
+with the scripts and want to call something other than what came with 
+ado-mode, set \\[ado-script-dir] to point to where your version of 
+send2stata.scpt is stored. "
   (interactive)
   (cond
    ((string= dothis "menu")
 	(cond 
 	 ((string= system-type "darwin")
-	  (shell-command (concat "osascript " (ado-check-a-directory ado-script-dir) "send2stata.scpt \"menu\" \"" tmpfile "\"")))
+	  (shell-command (concat "osascript '" (ado-check-a-directory ado-script-dir) "send2stata.scpt' \"menu\" \"" tmpfile "\"")))
 	 (t (message (concat "working via menus not supported yet in " (symbol-name system-type))))))
    ((string= dothis "dofile")
 	(cond
@@ -62,7 +66,7 @@ There are three optional arguments:
    ((string= dothis "command")
 	(cond
 	 ((string= system-type "darwin")
-	  (shell-command (concat "osascript " (ado-check-a-directory ado-script-dir) "send2stata.scpt \"command\"")))
+	  (shell-command (concat "osascript '" (ado-check-a-directory ado-script-dir) "send2stata.scpt' \"command\"")))
 	 (t (message (concat "working via the command window not yet supported in " (symbol-name system-type) ", but you can paste the command in the command window by hand.")))))
    (t (error "Bad value for 'do-this' in ado-send-region-to-stata"))
    )
