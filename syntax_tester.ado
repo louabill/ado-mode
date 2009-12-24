@@ -1,4 +1,4 @@
-*! version 1.10.0 December 16, 2007 @ 18:58:22
+*! version 1.10.0 December 23, 2009 @ 20:17:57
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -43,6 +43,9 @@ version 9.3
 version 9.5
 version 10
 version 10.1
+version 11
+version 11.1
+   
    
    /* this program does nothing - it merely has some things for testing syntax coloring */
    /* working with the syntax table */
@@ -54,7 +57,7 @@ version 10.1
    /* functions in the order of the manuals (for checking for obsolete functions... */
    /* first... the general reference manuals */
    about
-   adjust
+   adjust // obsolete in Stata 11
    adoupdate
    alpha
    ameans
@@ -76,7 +79,7 @@ version 10.1
    ci cii
    clog clogi clogit
    cloglog
-   cnr cnre cnreg
+   cnr cnre cnreg // obsolete as of Stata 11
    cnsreg
    /* constraint commands */
    /* first w/o anything */
@@ -117,15 +120,33 @@ version 10.1
    dstdize  istdize
    dydx
    integ
+   
    eivreg
-   /* estat commands all moved to estat_syntax.do */
+
+   // common estat
+   estat ic
+   estat su
+   estat summarize
+   estat vce
+   
    /* estimates */
-   /* new in Stata 10 */
    est save
    est use
    est des
    est describe
    estim esample:
+
+   est sto
+   esti store
+   estimat res
+   estimate restore
+   estimates q
+   estimates query
+   estimates d /* no longer an acceptable abbrev in Stata 10 */
+   estimates dir
+   estimates drop
+   estimates clear
+
    estima title
    estimates title:
    estimate note
@@ -135,48 +156,48 @@ version 10.1
    esti note l
    estimates notes list
    estimat notes drop
-   /* from earlier */ 
-   est sto
-   esti store
+
    estimates r
    estimates replay
+
    estimates t /* no longer good in Stata 10 */
    estimates tab
    estimates table
-   estimates f
+   estimates f // no longer good in Stata 11
    estimates for
    estimates st /* no longer good in Stata 10 */
    estima stat
    estimates stats
-   estimates q
-   estimates query
-   estimates d /* no longer an acceptable abbrev in Stata 10 */
-   estimates dir
-   estimat res
-   estimate restore
-   estimates drop
-   estimates clear
-   estim ch
+   estim ch // estimates change is not in Stata 11
    estima change
    /* end estimates */
-   e
+   e // dumb abbreviation
    ex
    exi
    exit
    exlogistic
    expoisson
-   fracpoly
-   fracgen
-   fracplot
-   fracpred
+   
+   fracpoly fracgen
+   // fracpoly postestimation
+   fracplot fracpred
    frontier
+   fvrevar
+   fvset b
+   fvset base
+   fvset d
+   fvset design
+   fvset report
+   
    gllamm
    glm
    blogit
    bprobit
    glogit
    gprobit
+   gmm
    grmeanby
+
    hausman
    heckman
    heckprob
@@ -185,18 +206,23 @@ version 10.1
    whelp
    hetprob
    hist histo histog histogr histogra histogram
+   hsearch
+   
    intreg
    ivprobit
    ivreg /* obsolete in Stata 10 */
    ivregress
    ivtobit
+
    jackknife
+
    kap
    kapwgt
    kappa
    kdensity
    ksmirnov
    kwallis
+
    ladder
    gladder
    qladder
@@ -211,7 +237,17 @@ version 10.1
    loo
    lookup
    log
+   log query
+   log c
+   log close
+   log of
+   log off
    cmdlog
+   cmdlog c
+   cmdlog close
+   cmdlog of
+   cmdlog off
+   
    set logtype t
    set logtype smcl
    set lin
@@ -223,33 +259,28 @@ version 10.1
    lpoly
    lrtest
    lv
+
+   margins
    set mat
    set matsize
    set maxiter
    mean
-   /* mfp commands */
-   mfp clogit
-   mfp cnreg
-   mfp glm
-   mfp logistic
-   mfp logit
-   mfp mlogit
-   mfp nbreg
-   mfp ologit
-   mfp oprobit
-   mfp poisson
-   mfp probit
-   mfp qreg
-   mfp regress
-   mfp stcox
-   mfp streg
-   mfp xtgee
-   /* end mfp */
+   // mfp is simple now; in Stata 11 it became a prefix command
+   mfp
+   // mfx is obsolete as of Stata 11
    mfx
    mfx c
    mfx compute
    mfx r
    mfx replay
+   /* misstable */
+   misstable sum
+   misstable summarize
+   misstable pat
+   misstable patterns
+   misstable tree
+   misstable nest
+   misstable nested
    mkspline
    /* ml commands */
    ml mod
@@ -275,16 +306,19 @@ version 10.1
    ml display
    ml foot
    ml footnote
+   ml score
    /* end ml */
    mlog mlogi mlogit
    /* should be off */
    set mo
    set mo on
    set more off
-   set p
+   set p // should be off
+   set pa
    set pagesize
    mprobit
    mvreg
+   
    nbreg
    gnbreg
    nestreg
@@ -311,6 +345,7 @@ version 10.1
    ado describe
    ado uninstall
    /* end net */
+   net search
    /* netio, which is also in set */
    se httpproxy on
    set httpproxy off
@@ -329,11 +364,13 @@ version 10.1
    nlogittree
    nlsur
    nptrend
+   
    olog ologi ologit 
    on one onew onewa oneway
    oprob oprobi oprobit
    orthog
    orthpoly
+
    pcorr
    permute
    pkexamine pksumm pkshape pkcross pkequiv pkcollapse
@@ -342,9 +379,10 @@ version 10.1
    predict
    predictnl
    prob probi probit
-   dprobit
+   dprobit // obsolete in Stata 11
    proportion
    prtest prtesti
+   
    /* qc commands */
    cchart
    pchart
@@ -379,18 +417,17 @@ version 10.1
    reg regr regre regres regress
    /* regression diagnostics */
    
-   /* this is a comment */
-   this is how Stata corp likes to indent 
    #r #re #rev #revi #revie #review
-   _qreg
    /* don't seem to be in manuals anymore */
    _rmcoll _huber
    roctab roccomp rocgold
    rocfit
+   // rocfit postest
    rocplot
    rologit
    rreg
    runtest
+   
    sampsi
    
    /* these should be in the programming section... */
@@ -419,6 +456,18 @@ version 10.1
    set conren sf
    set conren bf
    set conren it
+   set conren res
+   set conren result
+   set conren txt
+   set conren text
+   set conren inp
+   set conren input
+   set conren err
+   set conren error
+   set conren li
+   set conren link
+   set conren hi
+   set conren hilite
    set conren ulon
    set conren uloff
    set conren reset 
@@ -437,6 +486,8 @@ version 10.1
    set `foo'
    set dp comma
    set dp period
+   set emptycells keep
+   set emptycells drop
    set eolch mac
    set eolchar unix
    set fastscroll on
@@ -455,12 +506,12 @@ version 10.1
    set httpproxyport
    set httpproxypw
    set httpproxyuser
-   /* icmap obsolete in Stata 10 */
-   set icmap on
-   set icmap off
+   set icmap on // obsolete in Stata 10
+   set icmap off // obsolete in Stata 10
    set level
    set lineg
    set linegap
+   set li
    set linesize
    set locksplit on
    set locksplitters off
@@ -468,8 +519,8 @@ version 10.1
    set logtype text
    set logty s
    set logtype smcl
-   set macgph quartz
-   set macgphengine quickdraw
+   set macgph quartz // obsolete in Stata 11
+   set macgphengine quickdraw // obsolete in Stata 11
    set mat
    set matsize
    set maxdb
@@ -479,6 +530,7 @@ version 10.1
    set memory
    set mo on
    set more off
+   set notifyuser
    set ob
    set obs
    set odbcmg iodbc
@@ -493,10 +545,12 @@ version 10.1
    set pagesize
    set persistfv on
    set persistvtopic off
-   set piccom on
-   set piccomments off
+   set piccom on // obsolete in Stata 11
+   set piccomments off // obsolete in Stata 11
    set pinnable on
    set pinnable off
+   set playsnd on
+   set playsnd off
    set printcolor auto
    set printcolor automatic
    set printcolor asis
@@ -507,8 +561,10 @@ version 10.1
    set processors
    set reventr
    set reventries
-   set revwin nofloat
-   set revwindow float
+   set revkeyboard on
+   set revkeyboard off
+   set revwin nofloat // appears obsolete in Stata 11
+   set revwindow float // appears obsolete in Stata 11
    set r on
    set rmsg off
    set scheme
@@ -547,14 +603,15 @@ set trace off
    set update_prompt off
    set update_query on
    set update_query off
-   set varabbrev on
-   set use_atsui_graph off
-   set use_qd_text on
+   set use_atsui_graph off // obsolete in Stata 11
+   set use_qd_text on // obsolete in Stata 11
    set varabbrev on
    set varabbrev off
+   set varkeyboard on
+   set varkeyboard off
    set varlabelpos
-   set varwin float
-   set varwindow nofloat
+   set varwin float // appears obsolete in Stata 11
+   set varwindow nofloat // appears obsolete in Stata 11
    set virt on
    set virtual off
    /* undocumented starting in Stata 10, but still legal */
@@ -570,8 +627,10 @@ set trace off
    spearman
    ktau
    spikeplot
-   ssc what
-   ssc whatsnew
+   ssc new
+   ssc what // obsolete in Stata 11
+   ssc whatsnew // obsolete in Stata 11
+   ssc hot
    ssc d
    ssc `foo'
    ssc describe
@@ -613,8 +672,8 @@ set trace off
    /* end sw commands */
    suest 
    su sum summ summa summar summari summariz summarize
-   sureg
    sunflower
+   sureg
    swilk
    sfrancia
    symmetry
@@ -655,10 +714,12 @@ set trace off
    update query
    update ado
    update executable
+   update utilities
    update swap
    update all
    update `foo'
    set update_query on
+   set update_interval
    set update_prompt off
    
    view
@@ -678,16 +739,60 @@ set trace off
    view ado_d
    view update_d
    vwls
+   
    which
+
    xi
+
    zinb
    zip
    ztnb
    ztb
 
-   /* postestimation stuff moved to estat_syntax.do */
-
+   /* endless postestimation */
+   // estat (from [R])
+   estat alt
+   estat alternatives
+   estat archlm
+   estat bgo
+   estat bgodfrey
+   estat clas
+   estat classification
+   estat cor
+   estat correlation
+   estat cov
+   estat covariance
+   estat dur
+   estat durbinalt
+   estat dwa
+   estat dwatson
+   estat endog
+   estat endogenous
+   estat facw
+   estat facweights
+   estat first
+   estat firststage
+   estat gof
+   estat hettest
+   estat imtest
+   estat mfx // not obsolete---still used for some commands
+   estat over
+   estat overid
+   estat predict
+   estat se
+   estat szroeter
+   estat summarize
+   estat vif
+   
    adjust
+   dfbeta
+   acprplot
+   avplot
+   avplots
+   lvr2plot
+   rvfplot
+   rvpplot
+   
    /* types of commands, which have their own highlighting */
    estat 
    estimates

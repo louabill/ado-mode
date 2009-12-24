@@ -1682,9 +1682,10 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
        "[ \t]+"
        '(("a" "ad" "ado" "ados" "adosi" "adosiz" "adosize" 
 			 "autotabgraphs"
-			 "conren\\(?:[ \t]+\\(?:clear\\|sf\\|bf\\|it\\|res\\|resu\\|resul\\|result\\|reset\\|txt\\|text\\|inp\\|inpu\\|input\\|li\\|lin\\|link\\|hi\\|hil\\|hili\\|hilit\\|hilite\\|uloff\\|ulon\\)\\)?"
+			 "conren\\(?:[ \t]+\\(?:clear\\|sf\\|bf\\|it\\|res\\|resu\\|resul\\|result\\|reset\\|txt\\|text\\|inp\\|inpu\\|input\\|err\\|erro\\|error\\|li\\|lin\\|link\\|hi\\|hil\\|hili\\|hilit\\|hilite\\|uloff\\|ulon\\)\\)?"
 			 "copycolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)"
 			 "dp[ \t]+\\(?:com\\|comm\\|comma\\|per\\|peri\\|perio\\|period\\)"
+			 "emptycells[ \t]+\\(?:keep\\|drop\\)"
 			 "eolc\\(?:h\\|ha\\|har\\)[ \t]+\\(?:mac\\|unix\\)"
 			 "httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
 			 "l" "le" "lev" "leve" "level"
@@ -1692,17 +1693,16 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 "lineg" "linega" "linegap" 
 			 "lines" "linesi" "linesiz" "linesize" 
 			 "log\\(?:t\\|ty\\|typ\\|type\\)[ \t]+\\(?:t\\|te\\|tex\\|text\\|s\\|sm\\|smc\\|smcl\\)"
-			 "macgp\\(?:h\\|he\\|hen\\|heng\\|hengi\\|hengin\\|hengine\\)[ \t]+\\(?:qu\\(?:artz\\|ickdraw\\)\\)"
 			 "mat" "mats" "matsi" "matsiz" "matsize"
 			 "maxdb" "maxiter" "maxvar"
 			 "mem" "memo" "memor" "memory"
+			 "notifyuser"
 			 "odbcm\\(?:\\g\\|gr\\)[ \t]+\\(?:iodbc\\|unixodbc\\)"
 			 "ob" "obs"
-			 "pa" "pag" "page" "pages" "pagesi" "pagesiz" "pagesize" 
+			 "pa" "pag" "page" "pages" "pagesi" "pagesiz" "pagesize"
 			 "printcolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)"
 			 "processors"
 			 "reventr" "reventri" "reventrie" "reventries" 
-			 "revwi\\(?:n\\|nd\\|ndo\\|ndow\\)[ \t]+\\(?:no\\)?float"
 			 "scheme" "scrollbufsize"
 			 "search\\(?:d\\|de\\|def\\|defa\\|defau\\|defaul\\|default\\)[ \t]+\\(?:all\\|local\\|net\\)"
 			 "se" "see" "seed"
@@ -1715,7 +1715,6 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 "update_interval"
 			 "varlab" "varlabe" "varlabel" 
 			 "varlabelpos"
-			 "varwi\\(?:n\\|nd\\|ndo\\|ndow\\)[ \t]+\\(?:no\\)?float"
 			 )
 			ado-subcommand-face t)
        "\\b"
@@ -1736,18 +1735,18 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	  "httpproxya" "httpproxyau" "httpproxyaut" "httpproxyauth" 
 	  "locksplit" "locksplitt" "locksplitte" "locksplitter" "locksplitters" 
 	  "mo" "mor" "more" 
-	  "piccom" "piccomm" "piccomme" "piccommen" "piccomment" "piccomments" 
 	  "persistfv" "persistvtopic"
 	  "pinnable"
-	  "r" "rm" "rms" "rmsg" 
+	  "playsnd"
+	  "r" "revkeyboard" "rm" "rms" "rmsg" 
 	  "smoothf" "smoothfo" "smoothfon" "smoothfont" "smoothfonts" 
 	  "tr" "tra" "trac" "trace"
 	  "tracee" "traceex" "traceexp" "traceexpa" "traceexpan" "traceexpand" 
 	  "tracei" "tracein" "traceind" "traceinde" "traceinden" "traceindent" 
 	  "tracen" "tracenu" "tracenum" "tracenumb" "tracenumbe" "tracenumber" 
 	  "traces" "tracese" "tracesep" 
-	  "update_prompt" "update_query" "use_atsui_graph" "use_qd_text"
-	  "varabbrev"
+	  "update_prompt" "update_query"
+	  "varabbrev" "varkeyboard"
 	  "vir" "virt" "virtu" "virtua" "virtual"
 	  "xptheme"
 	  )
@@ -1786,11 +1785,15 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
  	  "IBM" 
 	  "icmap"
  	  "log"
- 	  "maxobs" 
+	  "macgp" "macgph" "macgphe" "macgphen" "macgpheng" 
+	  "macgphengi" "macgphengin" "macgphengine" 	  
+ 	  "maxobs"
+	  "piccom" "piccomm" "piccomme" "piccommen" "piccomment" "piccomments" 
 	  "printcolor[ \t]+grayscale"
  	  "seed0" "shell" "smalldlg"
  	  "te" "tex" "text" "texts" "textsi" "textsiz" "textsize"
- 	  "video"
+	  "use_atsui_graph" "use_qd_text"
+ 	  "varwin" "varwind" "varwindo" "varwindow" "video"
  	  )
  	 ado-obsolete-face t)
         "\\b"
@@ -2326,6 +2329,68 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  ) ado-builtin-harmful-face)
 		  "\\b"
 		  ))
+
+	 ;; fvset commands
+     (eval-when-compile
+       (make-regexps
+		  "\\b"
+		  '(("fvset"
+			  ) ado-builtin-harmless-face)
+		  "[ \t]+"
+		  '((
+			 "b" "ba" "bas" "base" 
+			 "clear"
+			 "d" "de" "des" "desi" "desig" "design" 
+			 "report"
+			  ) ado-subcommand-face)
+		  "\\b"
+		  ))
+
+	 ;; log commands
+     (eval-when-compile
+       (make-regexps
+		  "\\b"
+		  '(("log"
+			  ) ado-builtin-harmless-face)
+		  "[ \t]+"
+		  '((
+			 "c" "cl" "clo" "clos" "close" 
+			 "of" "off" "on"
+			 "query"
+			  ) ado-subcommand-face)
+		  "\\b"
+		  ))
+
+	 ;; cmdlog commands
+     (eval-when-compile
+       (make-regexps
+		  "\\b"
+		  '(("cmdlog"
+			  ) ado-builtin-harmless-face)
+		  "[ \t]+"
+		  '((
+			 "c" "cl" "clo" "clos" "close" 
+			 "of" "off" "on"
+			  ) ado-subcommand-face)
+		  "\\b"
+		  ))
+
+	 ;; misstable commands
+     (eval-when-compile
+       (make-regexps
+		  "\\b"
+		  '(("misstable"
+			  ) ado-builtin-harmless-face)
+		  "[ \t]+"
+		  '((
+			 "nest" "neste" "nested"
+			 "sum" "summ" "summa" "summar" "summari" "summariz" "summarize" 
+			 "pat" "patt" "patte" "patter" "pattern" "patterns" 
+			 "tree"
+			  ) ado-subcommand-face)
+		  "\\b"
+		  ))
+
      ;;
      ;; some of the matrix commands
      ;; with no matrix arguments - harmless
@@ -2512,6 +2577,18 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "sea" "sear" "searc" "search"
 			  "trace")
 			 ado-subcommand-face)
+        "\\b"
+        ))
+	 ;; data-changing ml command
+     (eval-when-compile
+       (make-regexps
+        "\\b"
+        '(("ml"
+			  ) ado-builtin-harmful-face)
+        "[ \t]+"
+        '((
+			  "score")
+			 ado-subcommand-face t)
         "\\b"
         ))
      ;; obsolete ml commands
@@ -2735,11 +2812,22 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "[ \t]+"
 		  '((
 		  "copy"
-		  "d" "de" "des" "desc" "descr" "descri" "describ" "describe" 
-		  "inst" "insta" "instal" "install" 
-		  "type" "uninstall"
-		  "what" "whats" "whatsn" "whatsne" "whatsnew" 
+		  "d" "de" "des" "desc" "descr" "descri" "describ" "describe"
+		  "hot"
+		  "inst" "insta" "instal" "install"
+		  "new" "type" "uninstall"
 		  ) ado-subcommand-face)
+		  "\\b"
+		  ))
+	  ;; scc commands---obsolete
+	  (eval-when-compile
+		 (make-regexps
+		  "\\b"
+		  '(("ssc") ado-builtin-harmless-face)
+		  "[ \t]+"
+		  '((
+		  "what" "whats" "whatsn" "whatsne" "whatsnew" 
+		  ) ado-obsolete-face)
 		  "\\b"
 		  ))
 	  ;; the serset commands
@@ -2907,6 +2995,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "executable"
 		  "from"
 		  "swap"
+		  "utilities"
 		  ) ado-subcommand-face)
         "\\b"
         ))
@@ -3257,7 +3346,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "_datasig" "_datasign" "_datasigna" "_datasignat" "_datasignatu" "_datasignatur" "_datasignature" 
 		  "_qreg" "_rmcoll" "_rmdcoll" "_robust"
 		  "#r" "#re" "#rev" "#revi" "#revie" "#review" 
-		  "about" "ac" "acprplot" "adjust" 
+		  "about" "ac" "acprplot" 
 		  "ado" "adopath" "adoupdate" "alpha" "ameans" 
 		  "an" "ano" "anov" "anova" 
 		  "arch" "areg" "arima" 
@@ -3280,7 +3369,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "ci" "cii" 
 		  "clog" "clogi" "clogit" "clogitp" "cloglog"
 		  "close" "cluster" "clustermat" "cmdlog" "cmdtool" 
-		  "cnr" "cnre" "cnreg" "cnsreg" "codebook" "compare" 
+		  "cnsreg" "codebook" "compare" 
 		  "cons" "const" "constr" "constra" "constrai" "constrain" "constraint"
 		  "continue"
 		  "copy" "copyright" 
@@ -3307,7 +3396,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "do" 
 		  "doed" "doedi" "doedit" 
 		  "dotplot"
-		  "dprobit" "ds" "dstdize" 
+		  "dstdize" 
 		  "eivreg" "eq" "ereg" "exlogistic" "expoisson"
 		  "fac" "fact" "facto" "factor" "factormat"
 		  "findfile" "findit" "fit"
@@ -3321,7 +3410,8 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		 (make-regexps
 		  "\\b"
 		  '((
-		  "gamma" "gammahet" "gladder" "gllamm" "glm" "glmpred" "glogit" "gnbreg" "gompertz"
+		  "gamma" "gammahet" "gladder" "gllamm" "glm" "glmpred" "glogit" 
+		  "gmm" "gnbreg" "gompertz"
 		  "gphdot" "gphpen" "gprobit" "gr7" "graph7" "grmeanby"
 		  "h"
 		  "hadimvo" "hausman" "heckman" "heckprob" 
@@ -3353,10 +3443,11 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "logi" "logistic" "logit" 
 		  "loneway" "lookfor" "lowess" "lpredict" "lpoly"
 		  "lroc" "lrtest" "ls" "lsens" "ltable" "lv" "lvr2plot"
-		  "man" "mano" "manov" "manova" "manovatest" "matlist"
+		  "man" "mano" "manov" "manova" "manovatest" 
+		  "margins" "matlist"
 		  "mca" "mcaplot" "mcaprojection" "mcc" "mcci" 
 		  "mds" "mdsconfig" "mdslong" "mdsmat" "mdsshepard"
-		  "mean" "median" "memory" "mfx" "mhodds"
+		  "mean" "median" "memory" "mfp" "mhodds"
 		  "mlog" "mlogi" "mlogit"
 		  "mor" "more"
 		  "mprobit" "mvreg" "mx_param"
@@ -3776,30 +3867,8 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  ) ado-subcommand-face t)			 ; was nil t t
 		  "\\b"
 		  ))
-	  ;; mfp arguments
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '(("mfp") ado-builtin-harmless-face t)
-		  "[ \t]"
-		  '(( 
-			  "clogit" "cnreg" "glm" "logistic" "logit" "mlogit"
-			  "nbreg" "ologit" "oprobit" "poisson"
-			  "probit" "qreg" "regress" "stcox" "streg" "xtgee"
-			  ) ado-subcommand-face t) 
-		  "\\b"
-		  ))
+	  ;; mfp arguments --- obsolete in Stata 11
 	  ;; mfx
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '(("mfx") ado-builtin-harmless-face t)
-		  "[ \t]+"
-		  '(("c" "co" "com" "comp" "compu" "comput" "compute" 
-		  "r" "re" "rep" "repl" "repla" "replay" 
-		  ) ado-subcommand-face t) 
-		  "\\b"
-		  ))
     
 	  ;; all Stata data-altering stuff
 	  (eval-when-compile
@@ -3826,6 +3895,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "fillin"
 		  "form" "forma" "format"
 		  "fracgen" "fracpred"
+		  "fvrevar"
 		  "g" "ge" "gen" "gene" "gener" "genera" "generat" "generate"
 		  "gsort"
 		  "impute" 
@@ -5423,14 +5493,17 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "[ \t]+"
 		  '((
 			 "_huber"
+			 "adjust"
 			 "archlm"
 			 "bgodfrey"
-			 "durbina" "dwstat"
+			 "cnr" "cnre" "cnreg" 
+			 "dprobit" "ds" "durbina" "dwstat"
 			 "greigen" 
 			 "iis" "ivreg"
 			 "hettest"
 			 "imtest"
 			 "lo" "loo" "look" "looku" "lookup"
+			 "mfx"
 			 "nlinit"
 			 "ovtest"
 			 "lstat"
@@ -5479,7 +5552,8 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  '((
 			  "abond" "alt" "alte" "alter" "altern" "alterna" "alternat" "alternati" "alternativ" "alternative" "alternatives"
 			  "anti" "archlm" 
-			  "bgodfrey" "bootstrap"
+			  "bgo" "bgod" "bgodf" "bgodfr" "bgodfre" "bgodfrey"
+			  "bootstrap"
 			  "canontest" "clas" "class" "classfunctions" 
 			  "classi" "classif" "classifi" "classific" 
 			  "classifica" "classificat" "classificati" 
@@ -5489,9 +5563,14 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "cor" "corr" "corre" "correl" "correla" "correlat" "correlati" "correlatio" "correlation"
 			  "correlation" "correlations" 
 			  "cov" "cova" "covar" "covari" "covaria" "covarian" "covarianc" "covariance" 
-			  "distances" "durbinalt" "dwatson"
-			  "eff" "effe" "effec" "effect" "effects" "errorrate"
+			  "distances" 
+			  "dur" "durb" "durbi" "durbin" "durbina" "durbinal" "durbinalt" 
+			  "dwa" "dwat" "dwats" "dwatso" "dwatson" 
+			  "eff" "effe" "effec" "effect" "effects" 
+			  "endog" "endoge" "endogen" "endogeno" "endogenou" "endogenous" 
+			  "errorrate"
 			  "factors"
+			  "facw" "facwe" "facwei" "facweig" "facweigh" "facweight" "facweights" 
 			  "first" "firsts" "firstst" "firststa" "firststag" "firststage" 
 			  "gof" "grdistances" "group" "grmeans" "grsummarize"
 			  "hettest"
@@ -5527,13 +5606,12 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 ) ado-builtin-harmless-face t)
        "[ \t]+"
        '((
-			 "ch" "cha" "chan" "chang" "change" 
 			 "clear"
 			 "des" "desc" "descr" "descri" "describ" "describe"
 			 "dir" 
 			 "drop"
 			 "esample"
-			 "f" "fo" "for"
+			 "for"
 			 "note" "notes" 
 			 "q" "qu" "que" "quer" "query" 
 			 "r" "re" 
@@ -5877,3 +5955,4 @@ details"
 
 (provide 'ado-mode)
 ;; ado-mode.el ends here
+
