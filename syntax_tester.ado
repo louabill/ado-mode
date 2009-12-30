@@ -1,4 +1,4 @@
-*! version 1.10.0 December 23, 2009 @ 20:17:57
+*! version 1.10.0 December 29, 2009 @ 22:17:09
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -805,12 +805,14 @@ set trace off
    by bys byso bysor bysort
    cd pwd
    cf
+   changeeol
    checksum
    se checksum on
    set checksum off
    clear
    clear mata
    clear results
+   clear matrix
    clear programs
    clear ado
    clear all
@@ -826,8 +828,7 @@ set trace off
    cou coun count
    cross using
    byte int long float double
-   /* only gives legal status to str throught str80 --- not for str81 through str 244 for SE */
-   str str1 str80 str99 str24444
+   str str1 str80 str99 str100 str158 str235 str244 str245 str266
    datasig
    datasignature
    datasig set
@@ -911,9 +912,11 @@ set trace off
    egen = rowlast()
    egen = rowmax()
    egen = rowmean()
+   egen = rowmedian()
    egen = rowmin()
    egen = rowmiss()
    egen = rownonmiss()
+   egen = rowpctile()
    egen = rowsd()
    egen = rowtotal()
    egen = sd()
@@ -940,7 +943,9 @@ set trace off
    /* math functions */
    abs()
    acos()
+   acosh()
    asin()
+   asinh()
    atan()
    atan2()
    atanh()
@@ -948,6 +953,7 @@ set trace off
    cloglog()
    comb()
    cos()
+   cosh()
    digamma()
    exp()
    floor()
@@ -969,6 +975,7 @@ set trace off
    round()
    sign()
    sin()
+   sinh()
    sqrt()
    sum()
    tan()
@@ -976,70 +983,90 @@ set trace off
    trigamma()
    trunc()
    /* probability functions */
+   /* beta density */
+   ibeta()
    betaden()
    Binomial() /* finally changed to binomialtail in Stata 10 */
+   ibetatail()
+   invibeta()
+   invibetatail()
+   nibeta()
+   nbetaden()
+   invnibeta()
    binomial()
+   binomialp()
    binomialtail()
+   invbinomial()
+   invbinomialtail()
    binorm()
-   binormal()
    chi2()
    chi2tail()
+   invchi2()
+   invchi2tail()
+   nchi2()
+   invnchi2()
+   npnchi2()
+   F()
+   Fden()
+   Ftail()
+   invF()
+   invFtail()
+   nFden()
+   nFtail()
+   invnFtail()
+   gammap()
+   gammaden()
+   gammaptail()
+   invgammap()
+   invgammaptail()
    dgammapda()
    dgammapdada()
    dgammapdadx()
    dgammapdx()
    dgammapdxdx()
-   F()
-   Fden()
-   Ftail()
-   gammaden()
-   gammap()
-   gammaptail()
-   ibeta()
-   ibetatail()
-   invbinomial()
-   invbinomialtail()
-   invchi2()
-   invchi2tail()
-   invF()
-   invFtail()
-   invgammap()
-   invgammaptail()
-   invibeta()
-   invibetatail()
-   invnchi2()
-   invnFtail()
-   invnibeta()
-   invnorm()
-   invnormal()
-   invttail()
-   lnnormal()
-   lnnormalden()
-   nbetaden()
-   nchi2()
-   nFden()
-   nFtail()
-   nibeta()
+
+   hypergeometric()
+   hypergeometricp()
+
+   nbinomial()
+   nbinomialp()
+   nbinomialtail()
+   invnbinomial()
+   invnbinomialtail()
+
+   /* Normal and related */
+   binormal()
    norm()  /* should be obsolete BUT mata function*/
    normal()
    normden()
    normalden()
-   npnchi2()
+   invnorm()
+   invnormal()
+   lnnormal()
+   lnnormalden()
+   invttail()
+   /* Poisson */
+   poisson()
+   poissonp()
+   poissontail()
+   invpoisson()
+   invpoissontail()
+   /* T */
    tden()
    ttail()
-   /* random number function */
+   invttail()
+   /* random number functions */
    uniform()
 	runiform()
-	rnormal()
-	rnormal(1)
-	rbeta()
+   rbeta()
 	rbinomial()
-	rnbinomial()
 	rchi2()
 	rgamma()
 	rhypergeometric()
-	rt()
+	rnbinomial()
+	rnormal()
 	rpoisson()
+	rt()
    /* string functions */ 
    abbrev()
    char()
@@ -1058,11 +1085,21 @@ set trace off
    regexs()
    reverse()
    rtrim()
+   soundex()
+   soundex_nara()
    string()
    strlen()
+   strlower()
+   strltrim()
    strmatch()
    strofreal()
    strpos()
+   strproper()
+   strreverse()
+   strrtrim()
+   strtoname()
+   strtrim()
+   strupper()
    subinstr()
    subinword()
    substr()
@@ -1107,6 +1144,7 @@ set trace off
    return()
    s()
    scalar()
+   smallestdouble()
    /* date functions */
    Cdhms()
    Chms()
@@ -1250,17 +1288,20 @@ set trace off
    /* label */
    la da
    label data
+   la var
+   label variable
    la de
    label define
-   la di
-   label dir
-   lab drop
-   labe save
    la val
    lab val
    label values
-   la var
-   label variable
+   la di
+   label dir
+   label l
+   label list
+   label copy
+   lab drop
+   labe save
    /* end label */
    la lang
    label language
@@ -1270,6 +1311,7 @@ set trace off
    l li lis list
    fl fli flis flist
    lookfor
+   !! start here
    memory
    mer merg merge
    mkdir
