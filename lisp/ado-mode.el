@@ -1998,6 +1998,58 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	  ) ado-subcommand-face)
        "\\b"
        ))
+	;; merge
+	(eval-when-compile
+	  (make-regexps
+	   "\\b"
+	   '(("mer" "merg" "merge"
+		  ) ado-builtin-harmful-face t)
+	   "[ \t]"
+	   '((
+		  "1:1" "1:m" "m:1" "m:m"
+		  ) ado-subcommand-face)
+	   "\\b"
+	   ))
+	;; mvtest
+	(eval-when-compile
+	  (make-regexps
+	   "\\b"
+	   '(("mvtest"
+		  ) ado-builtin-harmless-face t)
+	   "[ \t]"
+	   '((
+		  "corr" "corre" "correl" "correla" "correlat" "correlati" "correlatio" "correlation" "correlations" 
+		  "cov" "cova" "covar" "covari" "covaria" "covarian" "covarianc" "covariance" "covariances" 
+		  "m" "me" "mea" "mean" "means" 
+		  "norm" "norma" "normal" "normali" "normalit" "normality"
+		  ) ado-subcommand-face)
+	   "\\b"
+	   ))
+	;; notes
+	(eval-when-compile
+	  (make-regexps
+	   "\\b"
+	   '(("note" "notes"
+		  ) ado-builtin-harmful-face)
+	   "[ \t]"
+	   '((
+		  "drop"
+		  "renumber" "replace"
+		  "search"
+		  ) ado-subcommand-face t)
+	   "\\b"
+	   ))
+	(eval-when-compile
+	  (make-regexps
+	   "\\b"
+	   '(("note" "notes"
+		  ) ado-builtin-harmless-face)
+	   "[ \t]"
+	   '((
+		  "l" "li" "lis" "list" 
+		  ) ado-subcommand-face t)
+	   "\\b"
+	   ))
     ;; the duplicates commands
     (eval-when-compile
       (make-regexps
@@ -2665,20 +2717,20 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "des" "desc" "descr" "descri" "describ" "describe"
 		  "li" "lis" "list"
 		  "q" "qu" "que" "quer" "query"
-		  ) ado-subcommand-face)
+		  ) ado-subcommand-face t)
 		  "\\b"
 		  ))
 	  (eval-when-compile
 		 (make-regexps
 		  "\\b"
-		  '(("odbc") ado-builtin-harmless-face)
+		  '(("odbc") ado-builtin-harmful-face)
 		  "[ \t]+"
 		  '((
 		  "exe" "exec" 
 		  "in" "ins" "inse" "inser" "insert" 
 		  "lo" "loa" "load" 
 		  "sql" "sqlf" "sqlfi" "sqlfil" "sqlfile" 
-		  ) ado-builtin-harmful-face)
+		  ) ado-subcommand-face t)
 		  "\\b"
 		  ))
 	  ;; palette commands     (eval-when-compile
@@ -2752,9 +2804,44 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	  (eval-when-compile
 		 (make-regexps
 		  "\\b"
-		  '(("reshape") ado-builtin-harmful-face)
+		  '(("reshape") ado-builtin-harmless-face)
 		  '(("\\([ \t]\\(q\\|qu\\|que\\|quer\\|query\\)\\)?"
 		  ) ado-subcommand-face)
+		  "\\b"
+		  ))
+	  ;; the snapshot commands
+	  (eval-when-compile
+		 (make-regexps
+		  "\\b"
+		  '(("snapshot") ado-builtin-harmful-face)
+		  "[ \t]+"
+		  '((
+			 "restore"
+			 )
+			 ado-subcommand-face)
+		  "\\b"
+		  ))
+	  (eval-when-compile
+		 (make-regexps
+		  "\\b"
+		  '(("snapshot") ado-builtin-harmless-face)
+		  "[ \t]+"
+		  '((
+			 "erase"
+			 "label" "list"
+			 "save"
+			 ) ado-subcommand-face)
+		  "\\b"
+		  ))
+	  ;; one lonely sysuse subcommand
+	  (eval-when-compile
+		 (make-regexps
+		  "\\b"
+		  '(("sysuse") ado-builtin-harmless-face)
+		  "[ \t]+"
+		  '((
+			 "dir"
+			 ) ado-subcommand-face)
 		  "\\b"
 		  ))
 
@@ -3370,7 +3457,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "binreg" "biprobit" "biplot" "bitest" "bitesti" "blogit"
 		  "bootstrap" "boxcox" "bprobit" "br" "break" "brier" 
 		  "bro" "brow" "brows" "browse" 
-		  "bsqreg" "bstat"
+		  "brr" "bsqreg" "bstat"
 		  "ca" "cabiplot" "camat" "candisc" "canon" "caprojection" "cat" 
 		  "cc" "cci" "cchart" "centile" "cf" 
 		  "ch" "changeeol" "che"
@@ -3517,7 +3604,9 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "sktest" "sleep" "slog" "slogit" "spearman" "spikeplot" "sqreg"
 		  "ssc"
 		  "st" "st_is" "st_show" "st_ct" "stci"
-		  "stcox" "stcoxkm" "stcurv" "stcurve" "stdescribe"
+		  "stcox" "stcoxkm" 
+		  "stcrr" "stcrre" "stcrreg"
+		  "stcurv" "stcurve" "stdescribe"
 		  "stem" "stepwise"
 		  "stereg" "stir" "stmc" "stmh" "stphplot" "stptime" 
 		  "strate" "streg" "streset"
@@ -3549,7 +3638,9 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "ty" "typ" "type"
 		  "unab" "unabcmd" "update" "using"
 		  "var" "varbasic" "vargranger"  
-		  "varlmar" "varnorm" "varsoc" "varstable" "varwle" 
+		  "varlmar" 
+		  "varm" "varma" "varman" "varmana" "varmanag" "varmanage" "varmanager" 
+		  "varnorm" "varsoc" "varstable" "varwle" 
 		  "vec" "veclmar" "vecnorm" "vecrank" "vecstable"
 		  "verinst" "view" "viewsource" "vwls"
 		  "weibull" "which" "who" "wntestb" "wntestq" 
@@ -3887,7 +3978,6 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "\\b"
 		  '((
 		  "_pctile" "_predict"
-		  "aorder" 
 		  "ap" "app" "appe" "appen" "append" 
 		  "bcskew0" "bs" "bsample" "bstrap"
 		  "bys" "byso" "bysor" "bysort" 
@@ -3925,10 +4015,9 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "makecns"
 		  "mark" "markin" "markout"
 		  "mata" "matrix"
-		  "mer" "merg" "merge"
 		  "mkdir" "mkmat" "mkspline"
 		  "mleval" "mlmatsum" "mlsum""mlvecsum"
-		  "modify" "mov" "move"
+		  "modify" 
 		  "mvdecode" "mvencode" 
 		  "nlogitgen" "nlpred" "nobreak" 
 		  "order" "orthog" "orthpoly"
@@ -3956,12 +4045,13 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "tostring"
 		  "translate"
 		  "tsappend" "tsfill" "tsrevar"
-		  "u" "us" "use" "uselabel"
+		  "u" "unzipfile" "us" "use" "uselabel"
 		  "webuse"
 		  "xi" "xi:" 
 		  "xmlsav" "xmlsave" "xmluse" 
 		  "xtile" "xpose" 
 		  "xtdata" "xtpred"
+		  "zipfile"
 		  ) ado-builtin-harmful-face)
 		  "\\b"
 		  ))
@@ -5511,6 +5601,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  '((
 			 "_huber"
 			 "adjust"
+			 "aorder"
 			 "archlm"
 			 "bgodfrey"
 			 "cnr" "cnre" "cnreg" 
@@ -5521,6 +5612,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 "imtest"
 			 "lo" "loo" "look" "looku" "lookup"
 			 "mfx"
+			 "mov" "move" 
 			 "nlinit"
 			 "ovtest"
 			 "lstat"
@@ -5568,7 +5660,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "[ \t]+"
 		  '((
 			  "abond" "alt" "alte" "alter" "altern" "alterna" "alternat" "alternati" "alternativ" "alternative" "alternatives"
-			  "anti" "archlm" 
+			  "anova" "anti" "archlm" 
 			  "bgo" "bgod" "bgodf" "bgodfr" "bgodfre" "bgodfrey"
 			  "bootstrap"
 			  "canontest" "clas" "class" "classfunctions" 
@@ -5576,7 +5668,9 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "classifica" "classificat" "classificati" 
 			  "classificatio" "classification" 
 			  "classtable" 
-			  "common" "compare" "con" "config" "coordinates" 
+			  "common" "compare"
+			  "con" "conc" "conco" "concor" "concord" "concorda" "concordan" "concordanc" "concordance"
+			  "config" "coordinates" 
 			  "cor" "corr" "corre" "correl" "correla" "correlat" "correlati" "correlatio" "correlation"
 			  "correlation" "correlations" 
 			  "cov" "cova" "covar" "covari" "covaria" "covarian" "covarianc" "covariance" 
@@ -5595,7 +5689,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "kmo"
 			  "lceff" "lceffe" "lceffec" "lceffect" "lceffects" 
 			  "list" "loadings"
-			  "mfx" "mvreg"
+			  "manova" "mfx" "mvreg"
 			  "over" "overi" "overid" 
 			  "ovtest"
 			  "pairwise" "phtest" "predict" "profiles"

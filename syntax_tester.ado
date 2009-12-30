@@ -1,4 +1,4 @@
-*! version 1.10.0 December 29, 2009 @ 22:17:09
+*! version 1.10.0 December 30, 2009 @ 10:43:25
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -1311,17 +1311,27 @@ set trace off
    l li lis list
    fl fli flis flist
    lookfor
-   !! start here
    memory
-   mer merg merge
+   set mem 5b
+   q mem
+   set vir on
+   set virtual off
+   mer 1:1
+   merg m:1
+   merge 1:m
+   merge m:m
    mkdir
    mvencode
    mvdecode
+   /* notes */
    note notes
-   /* should these show as subcommands? */
-   note l
+   note list
    note list
    note drop
+   note search
+   notes replace
+   notes renumber
+   set obs 12
    /* odbc */
    odbc li
    odbc list
@@ -1338,14 +1348,17 @@ set trace off
    odbc exec
    odbc sql
    odbc sqlfile
+   set odbcmg iodbc
+   set odbcmgr unixodbc
    /* end odbc */
-   order mov move aorder
+   order
+   mov move aorder // obsolete in Stata 11
    ou out outf outfi outfil outfile
    outs outsh outshe outshee outsheet
    pctile
    xtile
    _pctile
-   range integ
+   range
    recast
    recode
    ren rena renam rename renpfix
@@ -1361,26 +1374,37 @@ set trace off
    reshape q
    reshape query
    reshape clear
+   // end reshape
    rmdir
    sample
    sa save saveold
    separate
    sh she shel shell
    xsh xshe xshel xshell
+   // snapshot
+   snapshot save
+   snapshot label
+   snapshot restore
+   snapshot list
+   snapshot erase
+   // end snapshot
    so sor sort
    split
    stack
    statsby
-   /* fix? */
+   sysuse auto
    sysuse dir
    ty typ type
    u us use
+   varm varma varman varmana varmanag varmanage
    webuse
    webuse query
    webuse set
    xmlsav xmlsave
    xmluse
    xpose
+   zipfile
+   unzipfile
    /* end data management */
 
    /* from multivariate model */
@@ -1392,6 +1416,7 @@ set trace off
    estat coordinates
    estat distances
    estat inertia
+   estat loadings
    estat profiles
    estat summarize
    estat table
@@ -1404,10 +1429,11 @@ set trace off
    estat loadings
    estat rotate
    estat rotatecompare
-
+   screeplot
+   
    /* cluster commands */
-   /* in Stata 8 these were in  the cluster analysis manual */
-   /* initially ordered by the intro (so that all the linkage subcommands are together */
+   /* ordered by the -cluster- intro */
+   /* this groups all the linkage subcommands together */
    
    cluster k
    cluster kmeans
@@ -1424,6 +1450,8 @@ set trace off
    cluster med
    cluster `foo'
    cluster medianlinkage
+   cluster cent
+   cluster centroidlinkage
    cluster ward
    cluster wardslinkage
    cluster stop
@@ -1448,9 +1476,6 @@ set trace off
    cluster parsedist
    cluster parsedistance
    cluster measures
-   /* not in the front for some reason */
-   cluster cent
-   cluster centroidlinkage
    /* clustermat commands */
    clustermat s
    clustermat singlelinkage
@@ -1468,6 +1493,8 @@ set trace off
    clustermat ward
    clustermat wardslinkage
    /* end clustermat commands */
+   /* now extras in order of the manual */
+   cluster notes drop
    /* discrim commands from the discrim intro */
    discrim knn
    discrim lda
@@ -1495,8 +1522,12 @@ set trace off
    estat summarize
    loadingplot
    scoreplot
+   screeplot
    /* discrim qda postestimation */
    estat classtable
+   estat correlations
+   estat covariance
+   estat errorrate
    estat grdistances
    estat grsummarize
    estat list
@@ -1514,6 +1545,7 @@ set trace off
    estat rotatecompare
    estat smc
    estat structure
+   estat summarize
    loadingplot
    rotate
    scoreplot
@@ -1522,8 +1554,8 @@ set trace off
    hotelling
    mano manov manova
    manovatest
-   mat dis
-   matrix dissimilarity
+   mat dis foo
+   matrix dissimilarity bar
 
    mca
    /* mca postestimation */
@@ -1544,6 +1576,16 @@ set trace off
    /* end mds postestimation */
    mdslong
    mdsmat
+
+   // mvtests in order of intro
+   mvtest m
+   mvtest means
+   mvtest cov
+   mvtest covariances
+   mvtest corr
+   mvtest correlations
+   mvtest norm
+   mvtest normality
    
    /* score is now obsolete */
    sco scor score
@@ -1588,6 +1630,7 @@ set trace off
    mhodds
    mcc
    mcci
+   
    ltable
    snapspan
    st_is 2
@@ -1601,9 +1644,12 @@ set trace off
    stcoxkm
    /* stcox postestimation */
    estat con
+   estat concor
+   estat concordance
    estat phtest
    stcurve
    /* end stcox postestimation */
+   stcrr stcrre stcrreg
    stphtest
    stcurve
    stdescribe
@@ -1643,7 +1689,7 @@ set trace off
    /* from the survey data manual */
    /* difficult to order, because of the manual */
    /* not using the intro for ordering */
-   /* post estimation commands */
+   /* estat commands as listed under -estat- */
    estat svyset
    estat eff
    estat effects
@@ -1653,9 +1699,10 @@ set trace off
    estat sd
    estat strata
    estat vce
-   /* end survey post estimation commands */
-   lincom
+   /* end estat commands */
    /* survey commands as listed in the order of the survey estimation section */
+   brr
+   
    svy: mean
    svy: proportion
    svy: ratio
@@ -1722,7 +1769,7 @@ set trace off
 
    /* end of the survey stats book */
 
-   /* time series */
+   /* time series !! start here */
    arch
    arima
    corrgram
