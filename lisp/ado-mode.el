@@ -3159,6 +3159,27 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  ) ado-subcommand-face)
         "\\b"
         ))
+	 ;; irf graph/table and their subcommands
+     (eval-when-compile
+       (make-regexps
+        "\\b"
+        '(("irf") ado-builtin-harmless-face)
+        "[ \t]+"
+		'(("g" "gr" "gra" "grap" "graph"
+		   "t" "ta" "tab" "tabl" "table"
+		   )
+		  ado-subcommand-face)
+		"[ \t]+"
+        '((
+		   "cdm" "cirf" "coirf"
+		   "dm"
+		   "fevd"
+		   "irf"
+		   "oirf"
+		   "sfevd" "sirf"
+		  ) ado-subcommand-face t)
+        "\\b"
+        ))
      ;; 
      ;; the irf commands which alter data
      (eval-when-compile
@@ -3487,13 +3508,13 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "datasig" "datasign" "datasigna" "datasignat" "datasignatu" "datasignatur" "datasignature"
 		  "db"
 		  "de" "des" "desc" "descr" "descri" "describ" "describe"
-		  "dfbeta" "dfgls" "dfuller" 
+		  "dfactor" "dfbeta" "dfgls" "dfuller" 
 		  "di" "dir" "dis" "discrim" "disp" "disp_res" "disp_s" 
 		  "displ" "displa" "display"
 		  "do" 
 		  "doed" "doedi" "doedit" 
 		  "dotplot"
-		  "dstdize" 
+		  "dstdize" "dvech"
 		  "eivreg" "eq" "ereg" "exlogistic" "expoisson"
 		  "fac" "fact" "facto" "factor" "factormat"
 		  "findfile" "findit" "fit"
@@ -3517,7 +3538,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "hist" "histo" "histog" "histogr" "histogra" "histogram" 
 		  "hlu" "hotel" "hotelling" "hsearch"
 		  "include" "ins" "insp" "inspe" "inspec" "inspect" "intreg" 
-		  "iqreg" "ir" "iri" 
+		  "iqreg" "ir" "irf" "iri" 
 		  "isid" "istdize" 
 		  "ivprobit" "ivregress" "ivtobit"
 		  "jackknife"
@@ -3602,7 +3623,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "sh" "she" "shewhart" "shel" "shell" 
 		  "signestimationsample" "signrank" "signtest"
 		  "sktest" "sleep" "slog" "slogit" "spearman" "spikeplot" "sqreg"
-		  "ssc"
+		  "ssc" "sspace"
 		  "st" "st_is" "st_show" "st_ct" "stci"
 		  "stcox" "stcoxkm" 
 		  "stcrr" "stcrre" "stcrreg"

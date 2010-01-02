@@ -1,4 +1,4 @@
-*! version 1.10.0 December 30, 2009 @ 10:43:25
+*! version 1.10.0 January 2, 2010 @ 09:21:20
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -1769,15 +1769,17 @@ set trace off
 
    /* end of the survey stats book */
 
-   /* time series !! start here */
+   /* time series */
    arch
    arima
    corrgram
    ac
    pac
    cumsp
+   dfactor
    dfgls
    dfuller
+   dvech
    fcast c
    fcast com
    fcast compute
@@ -1789,7 +1791,7 @@ set trace off
    /* irf commands ... starting Stata 8.2 */
    irf a
    irf add
-   irf `foo'
+   irf `foo' 
    irf cg
    irf cgraph
    irf cr
@@ -1798,13 +1800,15 @@ set trace off
    irf ctable
    irf d
    irf describe
-   /* irf dir seems to be dead */
+   /* irf dir is dead, even under version control? */
    irf di
    irf dir
    irf drop
    irf erase
    irf g
-   irf graph
+   irf graph oirf
+   irf gr irf
+   irf gr foo // foo should fail
    irf og
    irf ograph
    irf ren
@@ -1812,6 +1816,8 @@ set trace off
    irf set
    irf t
    irf table
+   irf tab cdm
+   irf tab foo // foo should fail
    newey
    pergram
    pperron
@@ -1821,6 +1827,7 @@ set trace off
    durbina
    bgodfrey
    archlm
+   sspace
    /* should these options be required?? */
    tsappend, add(4) last(foo) tsfmt(string)
    tsfill
@@ -1844,6 +1851,7 @@ set trace off
    tssmooth nl
    tssmooth s
    tssmooth shwinters
+   !! start here
    var
    /* var post estimation commands */
    /* these seem to be common to var and svar */
