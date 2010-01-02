@@ -1,4 +1,4 @@
-*! version 1.10.0 January 2, 2010 @ 09:21:20
+*! version 1.10.0 January 2, 2010 @ 11:48:26
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -1851,13 +1851,13 @@ set trace off
    tssmooth nl
    tssmooth s
    tssmooth shwinters
-   !! start here
    var
    /* var post estimation commands */
    /* these seem to be common to var and svar */
    fcast compute
    fcast graph
    irf
+   // could also be below varbasic below
    vargranger
    varlmar
    varnorm
@@ -1867,7 +1867,6 @@ set trace off
    /* end var post estimation commands */
    svar
    varbasic
-   
    /* varfcast is obsolete as of July 23, 2004 */
    /* varirf is obsolete as of July 23, 2004 */
    vec
@@ -1876,6 +1875,7 @@ set trace off
    vecnorm
    vecrank
    vecstable
+   // end vec postestimation commands
    wntestb
    wntestq
    xcorr
@@ -1888,7 +1888,6 @@ set trace off
    /* iis, tis obsolete as of Stata 10 */
    iis
    tis
-   xtset
    quadchk
    xtabond
    estat abond
@@ -1924,6 +1923,7 @@ set trace off
    xtprobit
    xtrc
    xtreg
+   xtregar
    xttest0
    xtregar
    xtset
@@ -1931,6 +1931,12 @@ set trace off
    xttab
    xttrans
    xttobit
+   xtunitroot llc   
+   xtunitroot ht
+   xtunitroot breitung
+   xtunitroot ips
+   xtunitroot fisher
+   xtunitroot hadri
 
    /* end stuff from crossectionaltime-series */
 

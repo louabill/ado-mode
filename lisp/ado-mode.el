@@ -3106,6 +3106,23 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  ) ado-subcommand-face)
         "\\b"
         ))
+	  ;; the xtunitroot commands
+	  (eval-when-compile
+		 (make-regexps
+		  "\\b"
+		  '(("xtunitroot") ado-builtin-harmless-face)
+		  "[ \t]+"
+		  '((
+			 "breitung"
+			 "fisher"
+			 "hadri"
+			 "ht"
+			 "ips"
+			 "llc"
+			 )
+			 ado-subcommand-face)
+		  "\\b"
+		  ))
      ;; the fcast commands which leave data alone
      (eval-when-compile
        (make-regexps
