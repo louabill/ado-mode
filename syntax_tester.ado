@@ -1,4 +1,4 @@
-*! version 1.10.0 January 2, 2010 @ 11:48:26
+*! version 1.10.0 January 2, 2010 @ 22:41:50
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -1941,7 +1941,6 @@ set trace off
    /* end stuff from crossectionaltime-series */
 
    /* programming manual */
-
    nobreak
    break
    /* not highlighting byable() stuff, because an option */
@@ -1952,11 +1951,13 @@ set trace off
    cap
    capture
    char
+   char define
    char l
    char list
    char ren
    char rename
-   *** class added for saving programs with correct names ***
+   // a meager attempt at highlighting class programming
+   // really just highlighting the tails from the built-in functions
    a.bc.new
    ab.b.copy
    a.compress.ref
@@ -1973,7 +1974,7 @@ set trace off
    a.b.instancemv
    a.b.dynamicmv
    a.b.superclass
-
+   // built-in modifiers
    a.b.Declare
    a.b.Arrdropel
    a.b.Arrdropall
@@ -2000,7 +2001,7 @@ set trace off
    classutil dir
    classutil cdir
    classutil which
-   classutil `foo'
+   classutil `foo' // fails on purpose
 
    /* confirm commands */
    conf e
@@ -2017,8 +2018,7 @@ set trace off
    conf ts format
    conf name
    confi names
-   /* confirm int should not work */
-   confirm int number
+   confirm int number // should fail---no abbrevs allowed
    confir integer n
    confirm number
    conf mat
@@ -2035,6 +2035,9 @@ set trace off
    conf float variable
    conf double v
    confirm str11 v
+   confirm str9 var
+   confirm str233 var
+   confirm str455 var
 
    continue
 
@@ -2062,6 +2065,7 @@ set trace off
    c(osdtl)
    c(machine_type)
    c(byteorder)
+   c(username)
 
    c(sysdir_stata)
    c(sysdir_updates)
@@ -2070,6 +2074,7 @@ set trace off
    c(sysdir_plus)
    c(sysdir_personal)
    c(sysdir_oldplace)
+   c(tmpdir)
    c(adopath)
    c(pwd)
    c(dirsep)
@@ -2087,10 +2092,12 @@ set trace off
    c(max_cmdlen)
    c(cmdlen)
    c(namelen)
-
+   c(eqlen)
+   // numeric and string limits
    c(mindouble)
    c(maxdouble)
    c(epsdouble)
+   c(smallestdouble)
    c(minfloat)
    c(maxfloat)
    c(epsfloat)
@@ -2101,65 +2108,68 @@ set trace off
    c(minbyte)
    c(maxbyte)
    c(maxstrvarlen)
-
+   // current dataset
    c(N)
    c(k)
    c(width)
    c(changed)
    c(filename)
    c(filedate)
-
+   // memory
    c(memory)
    c(maxvar)
    c(matsize)
-
+   // output
    c(more)
    c(rmsg)
    c(dp)
    c(linesize)
    c(pagesize)
    c(logtype)
+   c(noisily)
    c(eolchar)
+   c(notifyuser)
+   c(playsnd)
    c(icmap)
-
-   /* should have something for platform-specific */
+   // interface
    c(dockable)
    c(dockingguides)
-   c(floatresults)
-   c(floatwindows)
+   c(floatresults) // obsolete in Stata 10 or so
+   c(floatwindows) // obsolete in Stata 10 or so
    c(locksplitters)
-   c(pinnable)
    c(persistfv)
    c(persistvtopic)
+   c(pinnable)
    c(doublebuffer)
-   c(fastscroll)  /* fastscroll not platform dep in Stata 10 */
-   c(revwindow)
-   c(varwindow)
+   c(reventries)
+   c(fastscroll) // not platform dep in Stata 10, Unix-only in 11
+   c(revwindow) // obsolete in Stata 11 
+   c(revkeyboard)
+   c(varwindow) // obsolete in Stata 11 
+   c(varkeyboard)
    c(smoothfonts)
-   c(use_qd_text)
-   c(smoothsize)
-   c(use_atsui_graph)
+   c(use_qd_text) // obsolete in Stata 11 
+   c(smoothsize) // obsolete in Stata 11 
+   c(use_atsui_graph) // obsolete in Stata 11 
    c(linegap)
    c(scrollbufsize)
    c(varlabelpos)
-   c(reventries)
    c(maxdb)
    /* obsolete in Stata 10 */
    c(smalldlg)
    c(xptheme)
-   /* not specific */
-
+   // graphics
+   c(graphics)
    c(autotabgraphs)
-   c(graphic)
    c(scheme)
    c(printcolor)
    c(copycolor)
    c(macgphengine)
    c(piccomments)
-
+   // efficiency
    c(adosize)
    c(virtual)
-
+   // network
    c(checksum)
    c(timeout1)
    c(timeout2)
@@ -2169,12 +2179,11 @@ set trace off
    c(httpproxyauth)
    c(httpproxyuser)
    c(httpproxypw)
-
-   /* mac/win only */
+   // update settings
    c(update_query)
    c(update_interval)
    c(update_prompt)
-   /* all */
+   // trace settings
    c(trace)
    c(tracedepth)
    c(tracesep)
@@ -2182,7 +2191,7 @@ set trace off
    c(traceexpand)
    c(tracenumber)
    c(tracehilite)
-
+   // mata
    c(matastrict)
    c(matalnum)
    c(mataoptimize)
@@ -2190,7 +2199,7 @@ set trace off
    c(matacache)
    c(matalibs)
    c(matamofirst)
-
+   // other
    c(type)
    c(level)
    c(maxiter)
@@ -2199,7 +2208,7 @@ set trace off
    c(varabbrev)
    c(odbcmgr)
    c(`foo')
-
+   // other, again (?)
    c(pi)
    c(alpha)
    c(ALPHA)
@@ -2221,7 +2230,7 @@ set trace off
    this is ok;
 #delimit cr
    this is ok /// this should look like a comment
-     why is this a comment
+     this is indented as a continuation
    here is something // this is a comment
    this is fine
    
@@ -2302,15 +2311,14 @@ be a separate mode ... ugh */
    
 
    /* ereturn... */
-   eret loc
+   eret loc bleen
    eret loca
    eretu sca
-   eretur scalar
-   ereturn mat
+   eretur scalar bloor
+   ereturn mat freen
    eret matrix
    eretu clear
-   /* should fail to highlight */
-   ereturn `foo'
+   ereturn `foo' // should fail
    eretur li
    ereturn list
    eret post
@@ -2331,7 +2339,7 @@ be a separate mode ... ugh */
    _estimates drop
    _estimates `foo'
    
-   e
+   e // why is this a valid abbrev?
    exit
 
    file open
@@ -2346,7 +2354,6 @@ be a separate mode ... ugh */
    file query
 
    findfile
-
 
    foreach grue in shadows {
       }
@@ -2375,13 +2382,14 @@ be a separate mode ... ugh */
    forvalues aNum = 2(3)14 {
       }
 
+   fvexpand
+   
    gettoken foo : griminy, parse(" ,")
    gettoken bleeble bauble: foo, parse(",")
    gettoken (local) foo: complex
    gettoken (global) hey ho   : ho
    gettoken (local) bleen (global) hooie: gomp
    gettoken bleen (local) bling : how
-   hexdump
 
    if foo fuggy
    if `this' that
@@ -2405,7 +2413,7 @@ be a separate mode ... ugh */
    gl fooie
    global fooie
    global `l`fooie''
-   lo hmm
+   lo hmm // should be bad, because minabbrev is loc
    loc ``ooie''
    local fooie
    tempvar ding
@@ -2416,7 +2424,7 @@ be a separate mode ... ugh */
    /* right */
    loc ++witch
    local --is
-   /* wrong --- will highlight with obsolete*/
+   /* wrong --- will highlight with obsolete */
    loc which--
    local wrong++
    /* right, though */
@@ -2424,10 +2432,11 @@ be a separate mode ... ugh */
    display `++foo'
    display `--foo'
    display `--`foo''
-   display `+++foo'
+   display `+++foo' // wrong
    ma di
    macro dir
-   macro drop 
+   ma drop bleen
+   macro drop 123 // illegal name
    ma l
    macro list
    ma s
@@ -2513,9 +2522,7 @@ be a separate mode ... ugh */
    local h : tempvar
    local h : tempf
    local h : tempfile
-   /* needs to be fixed (maybe)! */
-   local `foo' : tempfile
-
+ 
    /* macro lists */
 
    loc foo : list uniq bar
@@ -2524,7 +2531,7 @@ be a separate mode ... ugh */
    loca foo : list retok bar
    local foo:list retokenize bar
    glo foo : list clean bar
-   glob foo : list a | b
+   glob foo : list a | b // perhaps operator highlighting would be good
    globa foo: list c & d
    global foo : list ding - dong
    global foo: list this == that
@@ -2538,8 +2545,7 @@ be a separate mode ... ugh */
    makecns a
    matcproc a b c
 
-   /* hooie should be macro name */
-   marksample hooie
+   marksample hooie // hooie is a macro name
    mark
    markout
    markin
@@ -2590,10 +2596,12 @@ be a separate mode ... ugh */
    matrix score fooey
    mat svd g h j
    matrix syme jwjwk foo
+   matrix symeigen jwjwk foo
    matrix d
    matrix dir
    mat l bleen
    matrix list bleen
+   matrix ren foo bar
    matrix rename foo bar
    /* not quite right, but I'm really stumped. */
    matrix drop mat1 mat2 mat3 mat4
@@ -2816,6 +2824,7 @@ for the syntax to be corrected */
    {hline `this'}
 
    {dup 23:some}
+   {dup `foo':some}
    {dup bogus:some}
 
    {c 666}
@@ -2842,7 +2851,7 @@ for the syntax to be corrected */
    {help stata##anchor|viewer}
    {help stata##anchor:subtext}
    {help stata##anchor|viewer:subtext}
-   {marker jumphere}
+   {marker jumphere}{...}
    {marker ...}
    {help_d:fooie}
 
@@ -2869,8 +2878,8 @@ for the syntax to be corrected */
    {dtype}
    {search goofay}
    {search goofus galant:clickable}
-
    {search_d:fooey}
+
    {dialog hello}
    {dialog hellp:clickable}
    {browse fooey}
@@ -2878,6 +2887,12 @@ for the syntax to be corrected */
    {view fooey}
    {view fooey:click}
    {view_d:hahah}
+   {manpage docs}
+   {manpage docs:awfully unixy}
+   {mansection dopey}
+   {mansection dopey:droopy}
+   {manlink hahahah}
+   
    {news:is bad}
    {net fishing}
    {net fishing:wide}
@@ -2903,13 +2918,15 @@ for the syntax to be corrected */
    {rcentre 33:friday!}
    {center 23:fiddle}
    {center 43:fuddle}
-   {center bogus:haha}
+   {center bogus:haha} // too lazy to fix
    {centre 59:bosh!}
    {right:wing neocon}
    {lalign 69:ihtfp}
    {ralign 666:nationalist}
+   // dlgtab is a pain b/c of 1 or 2 possible numbers
    {dlgtab 34:fooey}
-   {dlgtab 4 2: hello}
+   {dlgtab 4 2: hello} // should change numbers to variable-face
+   {dlgtab 1 2 3: fails}
    {dlgtab : fooey}
    {...}
    {col bogus}
@@ -2927,16 +2944,6 @@ for the syntax to be corrected */
    {p 3 4}
    {p 3 `foo' 5}
    {p 3 4 5 oh no}
-   {p_end}
-   {p2colset 1 2 `foo' 4}
-   {p2colset 1 2 3 4 5}
-   {p2col 1 2 3 4:something goes here}
-   {p2col: something goes here}
-   {p2col 1 2:this is bad}
-   {p2line 1 2}
-   {p2line}
-   {p2line 1 2 `bad'}
-   {p2colreset}
    /* uh oh, all sorts of equivalent directives */
    {pstd}
    {psee}
@@ -2949,7 +2956,17 @@ for the syntax to be corrected */
    {phang3}
    {pmore3}
    {pin3}
+   // back to odd syntax directives
    {p_end}
+   {p2colset 1 2 `foo' 4}
+   {p2colset 1 2 3 4 5}
+   {p2col 1 2 3 4:something goes here}
+   {p2col: something goes here}
+   {p2col 1 2:this is bad}
+   {p2line 1 2}
+   {p2line}
+   {p2line 1 2 `bad'}
+   {p2colreset}
    {p2colset 1 2 3 4}
    /* next one is bad */
    {p2col 2 3 4 5: fooey}
@@ -2973,6 +2990,8 @@ for the syntax to be corrected */
    {ccl}
    {char 7}
    {c S|}
+
+   // smcl allowed in graphs shown with the graph-specific stuff
    /* end smcl, finally */
 
    args mac1 mactheknife
@@ -3030,11 +3049,14 @@ set trace off
 
    unab lfoo : dingle
    tsunab lfoo : dongle
+   fvunab bleen: doodle
 
    unabcmd
+   novarabbrev
+   varabbrev 
 
    /* more complicated version commands :<( */
-version 8
+vers 8
 version 8: fooie
    viewsource
 
@@ -3042,7 +3064,7 @@ version 8: fooie
       this is some stuff
       }
    /* window commands... seem to have been moved out of the manual?!?*/
-   /* will not bother with platform dependencies... */
+   /* platform dependencies not highlighted */
    win fop
    window fopen
    win fs
@@ -3093,7 +3115,7 @@ version 8: fooie
    window stop rusure
    /* end programming manual */
    /* the miserable graph commands... */
-
+   !! start here
    gr7 using foo
    graph7 this that
 

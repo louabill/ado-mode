@@ -1847,8 +1847,9 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
         '(("char") ado-builtin-harmful-face)
         "[ \t]+"
         '((
-	   "ren" "rena" "renam" "rename"
- 	  ) ado-subcommand-face)
+		   "define"
+		   "ren" "rena" "renam" "rename"
+		   ) ado-subcommand-face)
         "\\b"
         ))
 
@@ -1980,22 +1981,21 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
        "\\b"
        ))
 
-    ;;; the str# won't quite look right, but that's the breaks for using
-    ;;; a tool like this...
-    ;;; won't allow big long strings which are allowed in wicked huge stata
+    ;;; confirm str# 
     (eval-when-compile
       (make-regexps
        "\\b"
        '((
-	  "conf" "confi" "confir" "confirm"
-	  ) ado-builtin-harmless-face)
+		  "conf" "confi" "confir" "confirm"
+		  ) ado-builtin-harmless-face)
        "[ \t]+"
        '((
-	  "str[1-9]+[0-9]*[ \t]+"
-	  ) ado-subcommand-face)
+		  "str" "str[1-9][0-9]?" "str1[0-9][0-9]" "str2[0-3][0-9]" "str24[0-4]"
+		  ) ado-subcommand-face)
+       "[ \t]+"
        '((
-	  "v" "va" "var" "vari" "varia" "variab" "variabl" "variable" 
-	  ) ado-subcommand-face)
+		  "v" "va" "var" "vari" "varia" "variab" "variabl" "variable" 
+		  ) ado-subcommand-face)
        "\\b"
        ))
 	;; merge
@@ -3029,7 +3029,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
      (eval-when-compile
        (make-regexps
         "\\b"
-        '(("tsunab" "unab") ado-builtin-harmful-face)
+        '(("fvunab" "tsunab" "unab") ado-builtin-harmful-face)
         "[ \t]+"
 		  '(("[a-zA-Z]+[a-zA-Z0-9_]*") ado-variable-name-face)
 		  "[ \t]*:[ \t]*"
@@ -3353,6 +3353,26 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 ado-subcommand-face)
 		  "\\b"
 		  ))
+	  ;; platform-specific windows manage
+	  ;; need better way to work with platform-specific commands
+;; 	  (eval-when-compile
+;; 		 (make-regexps
+;; 		  "\\b"
+;; 		  '((
+;; 		  "win" "wind" "windo" "window"
+;; 		  ) ado-builtin-harmless-face)
+;; 		  "[ \t]+"
+;; 		  '((
+;; 		  "man" "mana" "manag" "manage"
+;; 		  ) ado-builtin-harmless-face)
+;; 		  "[ \t]+"
+;; 		  '((
+;; 		  "associate"
+;; 		  "maintitle\\([ \t]+reset\\)?"
+;; 		  ) 
+;; 			 ado-platform-specific-face t)
+;; 		  "\\b"
+;; 		  ))
 	  ;; the window manage forward commands [sheesh]
 	  (eval-when-compile
 		 (make-regexps
@@ -3537,7 +3557,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "findfile" "findit" "fit"
 		  "fl" "fli" "flis" "flist"
 		  "for" "fpredict" 
-		  "fracplot" "fracpoly" "frontier" "fsl"
+		  "fracplot" "fracpoly" "frontier" "fsl" "fvexpand"
 		  ) ado-builtin-harmless-face)
 		  "\\b"
 		  ))
@@ -3589,7 +3609,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "n" "nbreg" "nestreg" "net" "newey" "news"
 		  "nl" "nlcom" "nlogit" "nlogittree" "nlsur" 
 		  "no" "noi" "nois" "noisi" "noisil" "noisily"
-		  "note" "notes"
+		  "note" "notes" "novarabbrev"
 		  "numlabel"
 		  "nptrend" "numlist"
 		  "olog" "ologi" "ologit"
@@ -3675,7 +3695,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "tsreport" "tsset" "tssmooth" "tsunab" "ttest" "ttesti"
 		  "ty" "typ" "type"
 		  "unab" "unabcmd" "update" "using"
-		  "var" "varbasic" "vargranger"  
+		  "var" "varabbrev" "varbasic" "vargranger"  
 		  "varlmar" 
 		  "varm" "varma" "varman" "varmana" "varmanag" "varmanage" "varmanager" 
 		  "varnorm" "varsoc" "varstable" "varwle" 
@@ -3883,7 +3903,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
        (make-regexps
 		  '(("di" "dis" "disp" "displ" "displa" "display") ado-builtin-harmless-face)
 		  "[ \t]+"
-		  '(("as") ado-subcommand-face)
+		  '(("as") ado-subcommand-face t)
 		  "[ \t]+"
         '((
 		  "err" "erro" "error" 
@@ -3899,7 +3919,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
         "\\b"
 		  '(("di" "dis" "disp" "displ" "displa" "display" ) ado-builtin-harmless-face)
 		  "[ \t]+"
-		  '(("in") ado-builtin-harmless-face)
+		  '(("in") ado-subcommand-face)
 		  "[ \t]+"
         '((
 		  "smcl"
@@ -4157,19 +4177,30 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  '(("[a-zA-Z_][a-zA-Z0-9_]*") ado-variable-name-face t)
 		  ))
 	  (eval-when-compile
-		 (make-regexps
-		  "[ \t]*"
-		  '((
-		  "gl" "glo" "glob" "globa" "global" 
-		  "ma" "mac" "macr" "macro"
-		  "sca" "scal" "scala" "scalar" 
-		  ) ado-builtin-harmful-face)
-		  "[ \t]+"
-		  '(("drop") ado-subcommand-face t)
-		  "[ \t]+"
-		  '(("\\([a-zA-Z_]+[a-zA-Z_0-9]*\\b\\)?"
-		  ) ado-variable-name-face t)
-		  ))
+		(make-regexps
+		 "[ \t]*"
+		 '((
+			"gl" "glo" "glob" "globa" "global" 
+			"ma" "mac" "macr" "macro"
+			"sca" "scal" "scala" "scalar" 
+			) ado-builtin-harmful-face)
+		 "[ \t]+"
+		 '(("drop") ado-subcommand-face t)
+		 "[ \t]+"
+		 '(("\\([a-zA-Z_]+[a-zA-Z_0-9]*\\b\\)"
+			) ado-variable-name-face t)
+		 ))
+	  (eval-when-compile
+		(make-regexps
+		 "[ \t]*"
+		 '((
+			"gl" "glo" "glob" "globa" "global" 
+			"ma" "mac" "macr" "macro"
+			"sca" "scal" "scala" "scalar" 
+			) ado-builtin-harmful-face)
+		 "[ \t]+"
+		 '(("drop") ado-subcommand-face t)
+		 ))
 	  (eval-when-compile
 		 (make-regexps
 		  "[ \t]*"
@@ -4449,7 +4480,23 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
         '(("scalars") ado-subcommand-face t)
 		  "\\b"
         ))
-    
+	 ;; obsolete macro extended commands
+     (eval-when-compile
+       (make-regexps
+        "\\b"
+        '((
+		  "gl" "glo" "glob" "globa" "global" 
+		  "loc" "loca" "local" 
+		  ) ado-builtin-harmless-face t)
+		  "[ \t]+"
+        '(("[a-zA-Z_]+[a-zA-Z_0-9]*"
+		  ) ado-variable-name-face t)
+        "[ \t]*:[ \t]*"
+        '((
+		  "tempf" "tempfi" "tempfil" "tempfile" "tempv" "tempva" "tempvar" 
+		  ) ado-obsolete-face t)
+		  "\\b"
+        ))
 	  ;; choosing temp names
 	  (eval-when-compile
 		 (make-regexps
@@ -4775,7 +4822,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "c" "char"
 		  "dialog"
 		  "help" "helpb"
-		  "marker" "matacmd"
+		  "manlink" "manpage" "mansection" "marker" "matacmd"
 		  "net"
 		  "opt"
 		  "search" "stata"
@@ -4878,20 +4925,70 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  '((
 		  "ado"
 		  "browse"
-		  "center" "centre"
-		  "dialog" "dlgtab" "dup"
+		  "dialog"
 		  "help" "helpb"
-		  "lalign"
-		  "matacmd"
+		  "manpage" "mansection" "matacmd"
 		  "net"
 		  "opt"
-		  "ralign" "rcenter" "rcentre"
 		  "search" "stata"
 		  "update"
 		  "view"
 		  ) ado-builtin-harmless-face prepend)
 		  "[ \t]+"
 		  '((".*?") ado-subcommand-face)
+		  '((":") ado-constant-face t)
+		  '(("[^}]+?") ado-subcommand-face t)
+		  '(("}") ado-constant-face)
+		  ))
+	  ;; syntax 4 with a numeric first argument (for dup)
+	  (eval-when-compile
+		(make-regexps
+		 '(("{") ado-constant-face)
+		 "[ \t]*"
+		 '((
+			"center" "centre" 
+			"dlgtab"
+			"dup"
+			"lalign"
+			"ralign"
+			"rcenter" "rcentre"
+			) ado-builtin-harmless-face prepend)
+		 "[ \t]+"
+		 '(("[1-9][0-9]*") ado-constant-face)
+		 "[ \t]*"
+		 '((":") ado-constant-face t)
+		 '(("[^}]+?") ado-subcommand-face t)
+		 '(("}") ado-constant-face)
+		 ))
+	  (eval-when-compile
+		(make-regexps
+		 '(("{") ado-constant-face)
+		 "[ \t]*"
+		 '((
+			"center" "centre"
+			"dlgtab"
+			"dup"
+			"lalign"
+			"ralign"
+			"rcenter" "rcentre"
+			) ado-builtin-harmless-face prepend)
+		 "[ \t]+"
+		 '(("`[a-zA-Z0-9_`']*'") ado-variable-face)
+		 "[ \t]*"
+		 '((":") ado-constant-face t)
+		 '(("[^}]+?") ado-subcommand-face t)
+		 '(("}") ado-constant-face)
+		 ))
+	  ;; Syntax 4 with exactly 2 numerical args to start with
+	  (eval-when-compile
+		 (make-regexps
+		  '(("{") ado-constant-face)
+		  "[ \t]*"
+		  '((
+			  "dlgtab"
+			  ) ado-builtin-harmless-face prepend)
+		  '(("\\([ \t]+\\([0-9]+\\|`[a-zA-Z0-9_`']*'\\)\\)\\{2\\}") ado-subcommand-face t)
+		  "[ \t]*"
 		  '((":") ado-constant-face t)
 		  '(("[^}]+?") ado-subcommand-face t)
 		  '(("}") ado-constant-face)
@@ -5078,9 +5175,9 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "born_date" "byteorder"
 		  "changed" "checksum" "cmdlen" "console" "copycolor" "current_time" "current_date"
 		  "dirsep" "dp"
-		  "eolchar" "epsdouble" "epsfloat"
-		  "fastscroll" "filedate" "filename" "flavor"
-		  "graphic" 
+		  "eolchar" "epsdouble" "epsfloat" "eqlen"
+		  "filedate" "filename" "flavor"
+		  "graphics" 
 		  "httpproxy" "httpproxyauth" "httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
 		  "icmap"
 		  "k"
@@ -5096,14 +5193,17 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "min_matsize"
 		  "minbyte" "mindouble" "minfloat" "minint" "minlong"
 		  "mode" "more"
-		  "namelen"
+		  "namelen" "noisily"
 		  "os" "osdtl"
 		  "pagesize" "pi" "printcolor" "processors" "processors_lic" "processors_mach" "processors_max" "pwd"
 		  "rc" "rmsg" "rmsg_time"
-		  "scheme" "scrollbufsize" "searchdefault" "seed" "stata_version"
+		  "scheme" "scrollbufsize" "searchdefault" "seed" 
+		  "smallestdouble" "stata_version"
 		  "sysdir_base" "sysdir_oldplace" "sysdir_personal" "sysdir_plus" "sysdir_site" "sysdir_stata"
-		  "sysdir_updates" "timeout1" "timeout2" 
+		  "sysdir_updates" 
+		  "timeout1" "timeout2" "tmpdir"
 		  "trace" "tracedepth" "traceexpand" "tracehilite" "traceindent" "tracenumber" "tracesep" "type"
+		  "username"
 		  "varabbrev" "version" "virtual"
 		  "width" 
 		  ) ado-constant-face t)
@@ -5112,41 +5212,48 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
         ))
 ;;; platform specific c() thingies
 	  (eval-when-compile
-       (make-regexps
-        "\\b"
-        '(("c(") ado-builtin-harmless-face t)
-        "[ \t]*"
-        '((
-			  "autotabgraphs"
-			  "dockable" "dockingguides" "doublebuffer"
-			  "floatresults" "floatwindows"
-			  "locksplitters"
-			  "macgphengine"
-			  "odbcmgr"
-			  "persistfv" "persistvtopic" "piccomments" "pinnable"
-			  "reventries" "revwindow"
-			  "smalldlg" "smoothfonts" "smoothsize"
-			  "update_interval" "update_prompt" "update_query"
-			  "use_atsui_graph" "use_qd_text"
-			  "varlabelpos" "varwindow"
-			  "xptheme"
-			  ) ado-platform-specific-face t)
-		  "[ \t]*"
-		  '((")") ado-builtin-harmless-face t)
-        ))
+		(make-regexps
+		 "\\b"
+		 '(("c(") ado-builtin-harmless-face t)
+		 "[ \t]*"
+		 '((
+			"autotabgraphs"
+			"dockable" "dockingguides" "doublebuffer"
+			"eolchar"
+			"locksplitters"
+			"macgphengine"
+			"notifyuser"
+			"playsnd"
+			"odbcmgr"
+			"persistfv" "persistvtopic" "pinnable"
+			"reventries" "revkeyboard"
+			"smalldlg" "smoothfonts"
+			"update_interval" "update_prompt" "update_query"
+			"varkeyboard" "varlabelpos"
+			"xptheme"
+			) ado-platform-specific-face t)
+		 "[ \t]*"
+		 '((")") ado-builtin-harmless-face t)
+		 ))
 ;;; obsolete c() thingies
 	  (eval-when-compile
-       (make-regexps
-        "\\b"
-        '(("c(") ado-builtin-harmless-face t)
-        "[ \t]*"
-        '((
-			  "smalldlg"
-			  "xptheme"
-			  ) ado-obsolete-face t)
-		  "[ \t]*"
-		  '((")") ado-builtin-harmless-face t)
-        ))
+		(make-regexps
+		 "\\b"
+		 '(("c(") ado-builtin-harmless-face t)
+		 "[ \t]*"
+		 '((
+			"fastscroll" "floatresults" "floatwindows"
+			"smalldlg"
+			"piccomments"
+			"revwindow"
+			"smoothsize"
+			"use_atsui_graph" "use_qd_text"
+			"varwindow"
+			"xptheme"
+			) ado-obsolete-face t)
+		 "[ \t]*"
+		 '((")") ado-builtin-harmless-face t)
+		 ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stuff for writing dlg files  ;;;
