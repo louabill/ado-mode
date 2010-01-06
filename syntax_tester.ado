@@ -1,4 +1,4 @@
-*! version 1.10.0 January 2, 2010 @ 22:41:50
+*! version 1.10.0 January 6, 2010 @ 15:56:34
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -3238,17 +3238,28 @@ version 8: fooie
    gr pie
    graph pie
 
+   graph play
+   gr play
+
    graph print
    gr q
    graph query
 
-   graph rename
+   graph rename 
    gr save
 
-   gr set
+   // !! graph set needs fixing...
+   gr set print 
+   graph set ps   
+   graph set eps 
+   graph set window fontface 
+   graph set window fontfacemono
+   graph set window fontfacesans 
+   graph set window fontfaceserif
+   graph set window fontfacesymbol
 
    gr twoway fee fie fo
-   gr twoway (bar foo) (bar fee)
+   graph twoway (scatter bar foo) (lfitci bar fee)
    twoway bar foo || bar fee
 
    /* forget the stuff under twoway */
@@ -3262,6 +3273,9 @@ version 8: fooie
    graph twoway bar y
    tw con
    two connected
+   gr two con
+   gr two connected
+   tw dot
    graph twoway dot y
    graph twoway dropline y
    graph twoway fpfit y
@@ -3274,7 +3288,7 @@ version 8: fooie
    graph twoway lfitci
    gr two line
    twow line
-   line foo bar
+   line foo bar // twoway optional for line
    graph twoway lowess
    tw lpoly
    two lpolyci
@@ -3282,6 +3296,7 @@ version 8: fooie
    graph twoway mspline
    twoway pcarrow
    twoway pcbarrow
+   two pcarrowi
    tw pcbarrowi
    two pccapsym
    twoway pci
@@ -3305,6 +3320,7 @@ version 8: fooie
    scat
    graph twowa scatteri
    graph twoway spike
+   tsline
    twoway tsline
    two tsrline
    graph use
@@ -3338,21 +3354,25 @@ version 8: fooie
    /* first - all the reserved words */
    aggregate
    array
+
    boolean
    break /* used elsewhere */
    byte /* used elsewhere */
+
    case
    catch
    class
    colvector
    complex
-   const
+   const // used elsewhere
    continue /* used elsewhere */
+   
    default
    delegate
    delete
    do /* used elsewhere */ 
    double /* used elsewhere */
+
    else /* used elsewhere */
    eltypedef
    // end /* used elsewhere, commented out here because of indentation */
@@ -3360,6 +3380,7 @@ version 8: fooie
    explicit
    export
    external
+
    float /* used elsewhere */
    for /* used elsewhere */
    friend
@@ -3402,13 +3423,12 @@ version 8: fooie
    scalar /* used elsewhere */
    short
    signed
-   /* sizeof seems to be a function, not a future keyword */
-   sizeof
    static
    string
    struct
    super
    switch
+
    template
    this
    throw
@@ -3416,14 +3436,17 @@ version 8: fooie
    try
    typedef
    typename
+
    union
    unsigned
    using /* used elsewhere */
+
    vector
 version /* used elsewhere */
    virtual
    volatile
    void
+
    while /* used elsewhere */ 
    
    /* mata building blocks */
@@ -3480,18 +3503,35 @@ version /* used elsewhere */
    mata set matalibs
    mata set matamofirst on
    mata set matamofirst off
+
    mata stata
    mata which
 
    /* mata functions */
    /* now in M-5 order because M-4 has some functions missing */
+   abbrev()
    abs()
    adosubdir()
+   
    all()
    any()
    allof()
    anyof()
+
    args()
+   // heaps (associative arrays)
+   asarray_create()
+   asarray()
+   asarray_remove()
+   asarray_contains()
+   asarray_elements()
+   asarray_keys()
+   asarray_first()
+   asarray_next()
+   asarray_key()
+   asarray_contents()
+   asarray_notfound()
+   !! start here
    ascii()
    char()
    assert()

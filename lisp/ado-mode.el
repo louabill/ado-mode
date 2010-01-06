@@ -1725,37 +1725,37 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
        '(("^[ \t]*s\\(e\\|et\\)") ado-builtin-harmless-face)
        "[ \t]+"
        '((
-	  "checksum" "fastscroll"
-	  "dockable"
-	  "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
-	  "doublebuffer"
-	  "floatresults" "floatwindows"
-	  "g" "gr" "gra" "grap" "graph" "graphi" "graphic" "graphics"
-	  "httpproxy" 
-	  "httpproxya" "httpproxyau" "httpproxyaut" "httpproxyauth" 
-	  "locksplit" "locksplitt" "locksplitte" "locksplitter" "locksplitters" 
-	  "mo" "mor" "more" 
-	  "persistfv" "persistvtopic"
-	  "pinnable"
-	  "playsnd"
-	  "r" "revkeyboard" "rm" "rms" "rmsg" 
-	  "smoothf" "smoothfo" "smoothfon" "smoothfont" "smoothfonts" 
-	  "tr" "tra" "trac" "trace"
-	  "tracee" "traceex" "traceexp" "traceexpa" "traceexpan" "traceexpand" 
-	  "tracei" "tracein" "traceind" "traceinde" "traceinden" "traceindent" 
-	  "tracen" "tracenu" "tracenum" "tracenumb" "tracenumbe" "tracenumber" 
-	  "traces" "tracese" "tracesep" 
-	  "update_prompt" "update_query"
-	  "varabbrev" "varkeyboard"
-	  "vir" "virt" "virtu" "virtua" "virtual"
-	  "xptheme"
-	  )
-	 ado-subcommand-face t)
+		  "checksum" "fastscroll"
+		  "dockable"
+		  "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
+		  "doublebuffer"
+		  "floatresults" "floatwindows"
+		  "g" "gr" "gra" "grap" "graph" "graphi" "graphic" "graphics"
+		  "httpproxy" 
+		  "httpproxya" "httpproxyau" "httpproxyaut" "httpproxyauth" 
+		  "locksplit" "locksplitt" "locksplitte" "locksplitter" "locksplitters" 
+		  "mo" "mor" "more" 
+		  "persistfv" "persistvtopic"
+		  "pinnable"
+		  "playsnd"
+		  "r" "revkeyboard" "rm" "rms" "rmsg" 
+		  "smoothf" "smoothfo" "smoothfon" "smoothfont" "smoothfonts" 
+		  "tr" "tra" "trac" "trace"
+		  "tracee" "traceex" "traceexp" "traceexpa" "traceexpan" "traceexpand" 
+		  "tracei" "tracein" "traceind" "traceinde" "traceinden" "traceindent" 
+		  "tracen" "tracenu" "tracenum" "tracenumb" "tracenumbe" "tracenumber" 
+		  "traces" "tracese" "tracesep" 
+		  "update_prompt" "update_query"
+		  "varabbrev" "varkeyboard"
+		  "vir" "virt" "virtu" "virtua" "virtual"
+		  "xptheme"
+		  )
+		 ado-subcommand-face t)
        "[ \t]+"
        '(("off" "on") ado-subcommand-face t)
        ))
-       ;;
-       ;; set command (with endless options!)
+	;;
+	;; set command (with endless options!)
      (eval-when-compile
        (make-regexps
         '(("^[ \t]*set") ado-builtin-harmless-face)
@@ -2285,6 +2285,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
      ;;; worst than smcl ---- it's graph!
      ;;;  -> will need multiple copies of the subcommands for the () and || and plain versions
      ;;;     argh, what a pain in the rear.
+	  ;; regular graph ... commands
 	  (eval-when-compile
 		 (make-regexps
 		  "\\b"
@@ -2299,7 +2300,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "export"
 			  "hbar" "hbox"
 			  "matrix"
-			  "pie" "print"
+			  "pie" "play" "print"
 			  "q" "qu" "que" "quer" "query" 
 			  "save" "set"
 			  "tw" "two" "twow" "twowa" "twoway"
@@ -2319,6 +2320,22 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  ) ado-subcommand-face t)
 		  "\\b"
 		  ))
+	  ;; graph set commands !! seem to introduce all sorts of trouble
+;; 	  (eval-when-compile
+;; 		(make-regexps
+;; 		 "\\b"
+;; 		 '(("gr" "gra" "grap" "graph") ado-builtin-harmless-face)
+;; 		 "[ \t]+"
+;; 		 '(("set") ado-subcommand-face t)
+;; 		 "[ \t]+"
+;; 		 '((
+;; 			"eps"
+;; 			"fontface" "fontfacemono" "fontfacesans"
+;; 			"fontfaceserif" "fontfacesymbol"
+;; 			"print" "ps"
+;; 			) ado-subcommand face t)
+;; 		 "\\b"
+;; 		 ))
 	  
 	  ;; the graph twoway stuff
 	  (eval-when-compile
@@ -2339,7 +2356,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "lfit" "lfitci"
 			  "lowess" "lpoly" "lpolyci"
  			  "mband" "mspline"
-			  "pcarrow" "pcbarrow" "pcbarrowi" "pccapsym" "pci" "pcscatter" "pcspike"
+			  "pcarrow" "pcarrowi" "pcbarrow" "pcbarrowi" "pccapsym" "pci" "pcscatter" "pcspike"
 			  "qfit" "qfitci"
 			  "rarea" "rbar" "rcap" "rcapsym" 
 			  "rcon" "rconn" "rconne" "rconnec" "rconnect" "rconnecte" "rconnected" 
@@ -2353,15 +2370,15 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "\\b"
 		  ))
 	  ;; even more aggravating: things for which both graph and twoway are optional
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '(("\\(\\(gr\\|gra\\|grap\\|graph\\)[ \t]+\\)?") ado-builtin-harmless-face)
-		  '(("\\(\\(tw\\|two\\|twow\\|twowa\\|twoway\\)[ \t]+\\)?" ) ado-builtin-harmless-face t)
-		  '((
-			  "tsline" "tsrline" ) ado-builtin-harmless-face t)
-		  "\\b"
-		  ))
+;; 	  (eval-when-compile
+;; 		 (make-regexps
+;; 		  "\\b"
+;; 		  '(("\\(\\(gr\\|gra\\|grap\\|graph\\)[ \t]+\\)?") ado-builtin-harmless-face)
+;; 		  '(("\\(\\(tw\\|two\\|twow\\|twowa\\|twoway\\)[ \t]+\\)?" ) ado-builtin-harmless-face t)
+;; 		  '((
+;; 			  "tsline" "tsrline" ) ado-builtin-harmless-face t)
+;; 		  "\\b"
+;; 		  ))
 	  
      ;; icd9, icd9p commands
      (eval-when-compile
@@ -3692,7 +3709,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "token" "tokeni" "tokeniz" "tokenize" 
 		  "total" "touch" 
 		  "translator" "transmap" "treatreg" "truncreg"
-		  "tsreport" "tsset" "tssmooth" "tsunab" "ttest" "ttesti"
+		  "tsline" "tsreport" "tsrline" "tsset" "tssmooth" "tsunab" "ttest" "ttesti"
 		  "ty" "typ" "type"
 		  "unab" "unabcmd" "update" "using"
 		  "var" "varabbrev" "varbasic" "vargranger"  
@@ -5560,7 +5577,11 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  '((
 		  "C" "Corr" "Hilbert" "Im" "Re" "Toeplitz" "Vandermonde"
 		  "acosh" "acosr" "adosubdir" "all" "allof" "any" "anyof" 
-		  "arg" "args" "asinh" "asinr" "ascii" "assert" "asserteq" "atanh" "atanr"
+		  "arg" "args" "asinh" "asinr"
+		  "asarray" "asarray_contains" "asarray_contents" "asarray_create" "asarray_elements"
+		  "asarray_first" "asarray_key" "asarray_keys" "asarray_next" 
+		  "asarray_notfound" "asarray_remove"
+		  "ascii" "assert" "asserteq" "atanh" "atanr"
 		  "blockdiag" "breakkey" "breakkeyreset" 
 		  "bufbfmtisnum" "bufbfmtlen" "bufbyteorder" "bufget" "bufio" "bufmissingvalue" "bufput"
 		  "callersversion" "cat" "chdir" "cholsolve" "cholinv" 
