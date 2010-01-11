@@ -1,4 +1,4 @@
-*! version 1.10.0 January 6, 2010 @ 15:56:34
+*! version 1.10.0 January 10, 2010 @ 18:39:59
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -798,7 +798,7 @@ set trace off
    estimates
    /* end subcommand using postestimation */
    
-   /* from data management manual */
+   /* from [D] data management manual */
    ap app appe appen append
    append using
    as ass asse asser assert
@@ -1407,7 +1407,7 @@ set trace off
    unzipfile
    /* end data management */
 
-   /* from multivariate model */
+   /* from [MV] multivariate statistics */
    biplot
    ca
    camat
@@ -1616,7 +1616,7 @@ set trace off
    loadingplot
    greigen /* obsolete in Stata 9 */
 
-   /* from the survival analysis manual */ 
+   /* from the [ST] survival analysis manual */ 
    
    ctset
    cttost
@@ -1686,7 +1686,7 @@ set trace off
    sttoct
    stvary
 
-   /* from the survey data manual */
+   /* from the [SVY] survey data manual */
    /* difficult to order, because of the manual */
    /* not using the intro for ordering */
    /* estat commands as listed under -estat- */
@@ -1769,7 +1769,7 @@ set trace off
 
    /* end of the survey stats book */
 
-   /* time series */
+   /* [TS] time series */
    arch
    arima
    corrgram
@@ -1883,7 +1883,7 @@ set trace off
    
    
    /* stuff from the crossectional timeseries book */
-   /* now called the longitudinal/panel data book */
+   /* now called the [XT] longitudinal/panel data book */
 
    /* iis, tis obsolete as of Stata 10 */
    iis
@@ -1940,7 +1940,7 @@ set trace off
 
    /* end stuff from crossectionaltime-series */
 
-   /* programming manual */
+   /* [P] programming manual */
    nobreak
    break
    /* not highlighting byable() stuff, because an option */
@@ -3114,8 +3114,8 @@ version 8: fooie
    window stopbox note
    window stop rusure
    /* end programming manual */
-   /* the miserable graph commands... */
-   !! start here
+
+   /* [G] the miserable graph commands... */
    gr7 using foo
    graph7 this that
 
@@ -3531,7 +3531,6 @@ version /* used elsewhere */
    asarray_key()
    asarray_contents()
    asarray_notfound()
-   !! start here
    ascii()
    char()
    assert()
@@ -3574,7 +3573,9 @@ version /* used elsewhere */
    comb()
    cond()
    conj()
+   _conj()
    corr()
+   _corr()
    cross()
    crossdev()
    cvpermute()
@@ -3599,6 +3600,7 @@ version /* used elsewhere */
    mmC()
    ssC()
    dofC()
+   cofC()
 
    date()
    mdy()
@@ -3645,6 +3647,38 @@ version /* used elsewhere */
    msofseconds()
 
    /* end of mata date functions */
+   // start of numerical derivatives
+   deriv_init()
+   deriv_init_evaluator()
+   deriv_init_evaluatortype()
+   deriv_init_params()
+   deriv_init_argument()
+   deriv_init_narguments()
+   deriv_init_weights()
+   deriv_init_h()
+   deriv_init_scale()
+   deriv_init_bounds()
+   deriv_init_search()
+   deriv_init_verbose()
+   deriv()
+   _deriv()
+   deriv_result_value()
+   deriv_result_values()
+   deriv_result_gradient()
+   _deriv_result_gradient()
+   deriv_result_scores()
+   _deriv_result_scores()
+   deriv_result_Jacobian()
+   deriv_result_Hessian()
+   _deriv_result_Hessian()
+   deriv_result_h()
+   deriv_result_scale()
+   deriv_result_delta()
+   deriv_result_errorcode()
+   deriv_result_errortext()
+   deriv_result_returncode()
+   deriv_query()
+   // end of numerical derivatives
    designmatrix()
    det()
    dettriangular()
@@ -3658,9 +3692,10 @@ version /* used elsewhere */
    display()
    displayas()
    displayflush()
+   Dmatrix()
    dsign()
-   e()
 
+   e()
    editmissing()
    _editmissing()
    
@@ -3687,6 +3722,17 @@ version /* used elsewhere */
    _eigenvalues()
    _symeigensystem()
    _symeigenvalues()
+
+   eigensystemselectr()
+   lefteigensystemselectr()
+   eigensystemselecti()
+   lefteigensystemselecti()
+   eigensystemselectf()
+   lefteigensystemselectf()
+   symeigensystemselectr()
+   symeigensystemselecti()
+   // underscore versions, like _eigenselecti_1a are ignored
+   //  because direct use is discouraged
 
    eltype()
    orgtype()
@@ -3781,13 +3827,53 @@ version /* used elsewhere */
    _fullsvd()
    _svd_la()
 
-   ghk()
-   ghkfastsetup()
-   ghkfast()
+   geigensystem()
+   leftgeigensystem()
+   geigensystemelectr()
+   leftgeigensystemelectr()
+   geigensystemelecti()
+   leftgeigensystemelecti()
+   geigensystemelectf()
+   leftgeigensystemelectf()
+   // once again, the underscore versions are gone
 
+   ghessenbergd()
+   _ghessenbergd()
+
+   ghk_init()
+   ghk_init_method()
+   ghk_init_start()
+   ghk_init_pivot()
+   ghk_init_antithetics()
+   ghk_query_npts()
+   ghk()
+   
+   ghkfastsetup() // this /looks/ obsolete in Stata 11?!
+   ghkfast_init()
+   ghkfast_init_pivot()
+   ghkfast_init_antithetics()
+   ghkfast_query_n()
+   ghkfast_query_npts()
+   ghkfast_query_dim()
+   ghkfast_query_method()
+   ghkfast_query_rseed()
+   ghkfast_query_pointset_i()
+   ghkfast()
+   ghkfast_i()
+
+   gschurd()
+   _gschurd()
+   gschurdgroupby()
+   _gschurdgroupby()
+   
    halton()
    _halton()
 
+   hash1()
+
+   hessenbergd()
+   _hessenbergd()
+   
    Hilbert()
    invHilbert()
 
@@ -3813,8 +3899,54 @@ version /* used elsewhere */
    issymmetric()
    issymmetriconly()
    isview()
+
    J()
+
+   Kmatrix()
+
+   // crud, LAPACK direct calls
+   _flopin()
+   _flopout()
+   LA_DGEBAK()
+   LA_DGEBAL()
+   LA_DGEES()
+   LA_DGEEV()
+   LA_DGEHRD()
+   LA_DGGBAK()
+   LA_DGGBAL()
+   LA_DGGHRD()
+   LA_DHGEQZ()
+   LA_DHSEIN()
+   LA_DHSEQR()
+   LA_DLAMCH()
+   LA_DORGHR()
+   LA_DSYEVX()
+   LA_DTGSEN()
+   LA_DTGEVC()
+   LA_DTREVC()
+   LA_DTRSEN()
+
+   LA_ZGEBAK()
+   LA_ZGEBAL()
+   LA_ZGEES()
+   LA_ZGEEV()
+   LA_ZGEHRD()
+   LA_ZGGBAK()
+   LA_ZGGBAL()
+   LA_ZGGHRD()
+   LA_ZHGEQZ()
+   LA_ZHSEIN()
+   LA_ZHSEQR()
+   LA_ZTGSEN()
+   LA_ZTGEVC()
+   LA_ZTREVC()
+   LA_ZTRSEN()
+   LA_ZUNGHR()
+   // end LAPACK
+   
    liststruct()
+
+   Lmatrix()
 
    logit()
    invlogit()
@@ -3844,6 +3976,7 @@ version /* used elsewhere */
    matlogsym()
    _matexpsym()
    _matlogsym()
+
    matpowersym()
    _matpowersym()
 
@@ -3851,6 +3984,7 @@ version /* used elsewhere */
    variance()
    quadvariance()
    meanvariance()
+   quadmeanvariance()
    correlation()
    quadcorrelation()
 
@@ -3874,57 +4008,150 @@ version /* used elsewhere */
    rowmaxabs()
    colmaxabs()
 
-   missing() /* already regular function */ 
-   rowmissing()
    colmissing()
-   nonmissing()
-   rownonmissing()
+   rowmissing()
+   missing()
    colnonmissing()
+   rownonmissing()
+   nonmissing()
+   hasmissing()
+
    missingof()
 
    mod()
+   // crap, moptimize monstrosity
+   // moptimize_init functions
+   moptimize_init()
+   moptimize_init_which()
+   moptimize_init_evaluator()
+   moptimize_init_evaluatortype()
+   moptimize_init_negH()
+   moptimize_init_touse()
+   moptimize_init_view()
+   moptimize_init_ndepvars()
+   moptimize_init_depvar()
+   moptimize_init_eq_n()
+   moptimize_init_eq_indepbars()
+   moptimize_init_eq_cons()
+   moptimize_init_eq_offset()
+   moptimize_init_eq_exposure()
+   moptimize_init_eq_name()
+   moptimize_init_eq_colnames()
+   moptimize_init_eq_coefs()
+   moptimize_init_constraints()
+   moptimize_init_search()
+   moptimize_init_search_random()
+   moptimize_init_search_repeat()
+   moptimize_init_search_bounds()
+   moptimize_init_search_rescale()
+   moptimize_init_weight()
+   moptimize_init_weighttype()
+   moptimize_init_cluster()
+   moptimize_init_svy()
+   moptimize_init_by()
+   moptimize_init_nuserinfo()
+   moptimize_init_userinfo()
+   moptimize_init_technique()
+   moptimize_init_vcetype()
+   moptimize_init_nmsimplexdeltas()
+   moptimize_init_gnweightmatrix()
+   moptimize_init_singularHmethod()
+   moptimize_init_conv_maxiter()
+   moptimize_init_conv_warning()
+   moptimize_init_conv_ptol()
+   moptimize_init_conv_vtol()
+   moptimize_init_conv_nrtol()
+   moptimize_init_conv_ignorenrtol()
+   moptimize_init_iterid()
+   moptimize_init_valueid()
+   moptimize_init_tracelevel()
+   moptimize_init_trace_ado()
+   moptimize_init_trace_dots()
+   moptimize_init_trace_value()
+   moptimize_init_trace_tol()
+   moptimize_init_trace_coefs()
+   moptimize_init_trace_step()
+   moptimize_init_trace_gradient()
+   moptimize_init_trace_Hessian()
+   moptimize_init_evaluations()
+   moptimize_init_verbose()
+   // Step 3 functions
+   moptimize()
+   _moptimize()
+   moptimize_evaluate()
+   _moptimize_evaluate()
+   // Step 4 functions
+   moptimize_result_post()
+   moptimize_result_display()
+   moptimize_result_value()
+   moptimize_result_value0()
+   moptimize_result_coefs()
+   moptimize_result_colstripe()
+   moptimize_result_scores()
+   moptimize_result_gradient()
+   moptimize_result_Hessian()
+   moptimize_result_V()
+   moptimize_result_Vtype()
+   moptimize_result_V_oim()
+   moptimize_result_V_opg()
+   moptimize_result_V_robust()
+   moptimize_result_interations()
+   moptimize_result_converged()
+   moptimize_result_iterationlog()
+   moptimize_result_evaluations()
+   moptimize_result_errorcode()
+   moptimize_result_errortext()
+   moptimize_result_returncode()
+   moptimize_ado_cleanup()
+   // moptimize utility functions
+   moptimize_query()
+   moptimize_util_eq_indices()
+   moptimize_util_depvar()
+   moptimize_util_xb()
+   moptimize_util_sum()
+   moptimize_util_vecsum()
+   moptimize_util_matsum()
+   moptimize_util_matbysum()
+   
    more()
    setmore()
    setmoreonexit()
 
+   _negate()
    /* mostly regular stata functions */
    norm()
+   // normal
    normalden()
    normal()
    invnormal()
    lnnormalden()
    lnnormal()
+   // binormal
    binormal()
-   chi2()
-   chi2tail()
-   invchi2()
-   invchi2tail()
-   nchi2()
-   invnchi2()
-   npnchi2()
-   tden()
-   ttail()
-   invttail()
-   Fden()
-   F()
-   Ftail()
-   invF()
-   invFtail()
-   nFden()
-   nFtail()
-   invnFtail()
-   binomial()
-   binomialtail()
-   invbinomial()
-   invbinomialtail()
+   // beta
    betaden()
    ibeta()
    ibetatail()
    invibeta()
    invibetatail()
-   nbetaden()
-   nibeta()
-   invnibeta()
+   // binomial
+   binomialp()
+   binomial()
+   binomialtail()
+   invbinomial()
+   invbinomialtail()
+   // chi-squared
+   chi2()
+   chi2tail()
+   invchi2()
+   invchi2tail()
+   // F
+   Fden()
+   F()
+   Ftail()
+   invF()
+   invFtail()
+   // Gamma
    gammaden()
    gammap()
    gammaptail()
@@ -3935,24 +4162,71 @@ version /* used elsewhere */
    dgammapdada()
    dgammapdadx()
    dgammapdxdx()
+   // Hypergeometric
+   hypergeometricp()
+   hypergeometric()
+   // Negative binomial
+   nbinomialp()
+   nbinomial()
+   nbinomialtail()
+   invnbinomial()
+   invnbinomialtail()
+   // Noncentral beta
+   nbetaden()
+   nibeta()
+   invnibeta()
+   // Noncentral chi-squared
+   nchi2()
+   invnchi2()
+   npnchi2()
+   // Noncentral F
+   nFden()
+   nFtail()
+   invnFtail()
+   // Poisson
+   poissonp()
+   poisson()
+   poissontail()
+   invpoisson()
+   invpoissontail()
+   // Student's t
+   tden()
+   ttail()
+   invttail()
 
    /* phooey, optimize to the max */
    optimize_init()
    optimize_init_which()
    optimize_init_evaluator()
-   optimize_init_type()
+   optimize_init_evaluatortype()
+   optimize_init_negH()
+   optimize_init_type() // looks to be obsolete in Stata 11
    optimize_init_params()
    optimize_init_nmsimplexdeltas()
    optimize_init_argument()
    optimize_init_narguments()
+   optimize_init_cluster()
+   optimize_init_colstripe()
    optimize_init_technique()
+   optimize_init_gnweightmatrix()
    optimize_init_singularHmethod()
    optimize_init_conv_maxiter()
+   optimize_init_conv_warning()
    optimize_init_conv_ptol()
    optimize_init_vtol()
    optimize_init_nrtol()
+   optimize_init_ingnorenrtol()
+   optimize_init_iterid()
    optimize_init_valueid()
    optimize_init_tracelevel()
+   optimize_init_trace_dots()
+   optimize_init_trace_value()
+   optimize_init_trace_tol()
+   optimize_init_trace_params()
+   optimize_init_trace_step()
+   optimize_init_trace_gradient()
+   optimize_init_trace_Hessian()
+   optimize_init_evaluations()
    optimize_init_constraints()
    optimize_init_verbose()
 
@@ -3970,7 +4244,7 @@ version /* used elsewhere */
    optimize_result_V()
    optimize_result_Vtype()
    optimize_result_V_oim()
-   optimize_result_V_oig()
+   optimize_result_V_opg()
    optimize_result_V_robust()
    optimize_result_iterations()
    optimize_result_converged()
@@ -4015,7 +4289,6 @@ version /* used elsewhere */
    sprintf()
 
    qrd()
-   qrdp()
    hqrd()
    _hqrd()
    hqrdmultq()
@@ -4031,6 +4304,7 @@ version /* used elsewhere */
 
    qrinv()
    _qrinv()
+
    qrsolve()
    _qrsolve()
 
@@ -4038,7 +4312,10 @@ version /* used elsewhere */
    quadcrossdev()
 
    range()
+   rangen()
+   
    rank()
+
    Re()
    Im()
 
@@ -4050,13 +4327,31 @@ version /* used elsewhere */
    rows()
    cols()
    length()
+
    rowshape()
    colshape()
+
+   // mata random number stuff
+   runiform()
+   rseed()
+   rbeta()
+   rbinomial()
+   rchi2()
+   rdiscrete()
+   rgamma()
+   rhypergeometric()
+   rnbinomial()
+   rnormal()
+   rpoisson()
+   rt()
 
    runningsum()
    quadrunningsum()
    _runningsum()
    _quadrunningsum()
+
+   schurd()
+   _schurd()
 
    select()
    st_select()
@@ -4076,25 +4371,41 @@ version /* used elsewhere */
    acos()
    atan()
    atan2()
-   asinr()
-   acosr()
-   atanr()
+   asinr() // obsolete in Stata 11?
+   acosr() // obsolete in Stata 11? 
+   atanr() // obsolete in Stata 11?
    arg() /* mata only */
-   sinh() /* mata only */
-   cosh() /* mata only */
+   sinh() 
+   cosh()
    tanh()
-   asinh() /* mata only */
-   acosh() /* mata only */
+   asinh()
+   acosh()
    atanh()
    pi() /* mata only */
 
    sizeof()
+   
    solve_tol()
+
    solvelower()
+   _solvelower()
+   
    sort()
+   _sort()
+   jumble()
+   _jumble()
+   order()
+   unorder()
+   _collate()
+
+   soundex()
+   soundex_nara()
 
    spline3()
+   spline3eval()
+   
    sqrt()
+
    st_addobs()
    _st_addobs()
    st_addvar()
@@ -4105,7 +4416,7 @@ version /* used elsewhere */
    _st_sdata()
 
    st_dir()
-   st_dropvar()
+
    st_dropvar()
    st_dropobsin()
    st_dropobsif()
@@ -4148,23 +4459,33 @@ version /* used elsewhere */
    _st_sstore()
 
    st_subview()
+
    st_tempname()
    st_tempfilename()
+
    st_tsrevar()
+   _st_tsrevar()
+   
    st_updata()
 
    st_varformat()
    st_varlabel()
    st_varvaluelabel()
+
    st_varindex()
+   _st_varindex()
+   
    st_varname()
+
    st_varrename()
+
    st_vartype()
    st_isnumvar()
    st_isstrvar()
 
    st_view()
    st_sview()
+
    st_viewvars()
    st_viewobs()
 
@@ -4187,6 +4508,8 @@ version /* used elsewhere */
    strofreal()
    strpos()
    strreverse()
+   strtoname()
+   
    strtoreal()
    _strtoreal()
 
@@ -4201,7 +4524,12 @@ version /* used elsewhere */
 
    subinstr()
    subinword()
+
+   sublowertriangle()
+   _sublowertriangle()
+   
    _substr()
+   substr()
 
    rowsum()
    colsum()
@@ -4220,6 +4548,7 @@ version /* used elsewhere */
    _svsolve()
 
    swap()
+   
    Toeplitz()
    
    tokeninit()
@@ -4240,7 +4569,8 @@ version /* used elsewhere */
    trace()
 
    _transpose()
-   _conj()
+
+   _conj() // ? Where in the manual?
 
    transposeonly()
    _transposeonly()
@@ -4254,12 +4584,14 @@ version /* used elsewhere */
    uniformseed()
 
    uniqrows()
+   
    unitcircle()
 
    unlink()
    _unlink()
 
    valofexternal()
+
    Vandermonde()
 
    vec()
@@ -4267,6 +4599,126 @@ version /* used elsewhere */
    invvech()
    
    /* now for some things which give trouble... */
+
+   // the [MI] multiple imputation manual...all new in Stata 11
+   mi add
+   mi append using
+
+   mi convert w
+   mi convert wide
+   mi convert fl
+   mi convert flong
+   mi convert flongs
+   mi convert flongsep
+
+   mi copy
+
+   mi q
+   mi query
+   mi d
+   mi describe
+
+   mi erase
+
+   mi est
+   mi estimate
+
+   mi test
+   mi testtr
+   mi testtransform
+
+   mi expand
+
+   mi export ice
+   mi export nhanes1
+
+   mi extract
+
+   mi import flong
+   mi import flongsep
+   mi import ice
+   mi import nhanes1
+   mi import wide
+
+   mi imp logi
+   mi impu logit
+   mi imput mlog
+   mi impute mlogit
+   mi imp mon
+   mi impute monotone
+   mi imp mvn
+   mi impute olog
+   mi impute ologit
+   mi impu pmm
+   mi imput reg
+   mi impute regress
+
+   mi merge 1:1
+   mi merge 1:m
+   mi merge m:1
+   mi merge m:m
+
+   mi misstab sum
+   mi misstable summarize
+   mi misstable pat
+   mi misstable patterns
+   mi misstab tree
+   mi misstabl nest
+   mi misstable nested
+
+   mi passive:
+
+   mi ptrace d
+   mi ptrace describe
+   mi ptrace use
+
+   mi rename
+   mi replace0
+   mi reset
+   mi reshape long
+   mi reshape wide
+
+   mi select init
+   mi select
+
+   mi set w
+   mi set wide
+   mi set ml
+   mi set mlong
+   mi set fl
+   mi set flong
+   mi set M
+   mi set m
+   mi reg imp
+   mi regi imputed
+   mi regis pas
+   mi regist passive
+   mi registe reg
+   mi register regular
+   mi unreg
+   mi unregister
+   mi set M
+   mi set m
+   mi unset
+
+   mi stsplit
+
+   mi update
+
+   mi vary
+   mi varying
+
+   mi xeq: summarize
+   mi xeq : tab
+
+   mi fvset
+   mi svyset
+   mi stset
+   mi streset
+   mi st
+   mi tsset
+   mi xtset
+
    
    /* macros showing up inside other constructions */
    local ding `r(foo)'

@@ -4718,6 +4718,230 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "("
 		  ))
 
+	  ;; all the endless -mi- commands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmless-face)
+		 "[ \t]+"
+		 '((
+			"copy"
+			"d" "de" "des" "desc" "descr" "descri" "describ" "describe"
+			"est" "esti" "estim" "estima" "estimat" "estimate"
+			"fvset"
+			"q" "qu" "que" "quer" "query"
+			"st" "streset" "stset"  "svyset"
+			"test" "testtr" "testtra" "testtran" "testtrans" "testtransf" "testtransfo" "testtransfor" "testtransform"
+			"tsset"
+			"unreg" "unregi" "unregis" "unregist" "unregiste" "unregister"
+			"unset" "update"
+			"vary" "varyi" "varyin" "varying"
+			"xtset"
+			)
+		   ado-subcommand-face t)
+		 "\\b"
+		 ))
+	  ;; mi harmless
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmful-face)
+		 "[ \t]+"
+		 '((
+			"add" "append"
+			"erase" "expand" "extract"
+			"ren" "rena" "renam" "rename"
+			"replace0"
+			"reset"
+			"select" "stsplit"
+			)
+		   ado-subcommand-face t)
+		 "\\b"
+		 ))
+	  ;; mi convert commands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmful-face)
+		 "[ \t]+"
+		 '(("convert") ado-subcommand-face t)
+		 "[ \t]+"
+		 '((
+			"fl" "flo" "flon" "flong"
+			"flongs" "flongse" "flongsep"
+			"ml" "mlo" "mlon" "mlong"
+			"w" "wi" "wid" "wide"
+			) ado-subcommand-face t)
+		 "\\b"
+		 ))
+	  ;; mi export commands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmless-face)
+		 "[ \t]+"
+		 '(("export") ado-subcommand-face t)
+		 "[ \t]+"
+		 '((
+			"ice"
+			"nhanes1"
+			) ado-subcommand-face t)
+		 "\\b"
+		 ))
+	  ;; mi import commands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmful-face)
+		 "[ \t]+"
+		 '(("import") ado-subcommand-face t)
+		 "[ \t]+"
+		 '((
+			"flong" "flongsep"
+			"ice"
+			"nhanes1"
+			"wide"
+			) ado-subcommand-face t)
+		 "\\b"
+		 ))
+	  ;; mi impute commands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmful-face)
+		 "[ \t]+"
+		 '(("imp" "impu" "imput" "impute") ado-subcommand-face t)
+		 "[ \t]+"
+		 '((
+			"logi" "logit"
+			"mlog" "mlogi" "mlogit"
+			"mon" "mono" "monot" "monoto" "monoton" "monotone"
+			"mvn"
+			"olog" "ologi" "ologit"
+			"pmm"
+			"reg" "regr" "regre" "regres" "regress"
+			) ado-subcommand-face t)
+		 "\\b"
+		 ))
+	  ;; mi merge commands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmful-face)
+		 "[ \t]+"
+		 '(("merge") ado-subcommand-face t)
+		 "[ \t]+"
+		 '((
+			"1:1" "1:m" "m:1" "m:m"
+			) ado-subcommand-face t)
+		 "\\b"
+		 ))
+	  ;; mi misstable commands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmless-face)
+		 "[ \t]+"
+		 '(("misstab" "misstabl" "misstable") ado-subcommand-face t)
+		 "[ \t]+"
+		 '((
+			"nest" "neste" "nested"
+			"pat" "patt" "patte" "patter" "pattern" "patterns"
+			"sum" "summ" "summa" "summar" "summari" "summariz" "summarize"
+			"tree"
+			) ado-subcommand-face t)
+		 "\\b"
+		 ))
+	  ;; mi passive subcommands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmful-face)
+		 "[ \t]+"
+		 '(("pas" "pass" "passi" "passiv" "passive") ado-subcommand-face t)
+		 "[ \t]*:"
+		 ))
+	  ;; mi ptrace subcommands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmful-face)
+		 "[ \t]+"
+		 '(("ptrace") ado-subcommand-face t)
+		 "[ \t]+"
+		 '((
+			"d" "de" "des" "desc" "descr" "descri" "describ" "describe"
+			"use"
+			) ado-subcommand-face t)
+		 "\\b"
+		 ))
+	  ;; mi reshape subcommands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmful-face)
+		 "[ \t]+"
+		 '(("reshape") ado-subcommand-face t)
+		 "[ \t]+"
+		 '((
+			"long" "wide"
+			) ado-subcommand-face t)
+		 "\\b"
+		 ))
+	  ;; mi select subcommands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmful-face)
+		 "[ \t]+"
+		 '(("select") ado-subcommand-face t)
+		 "[ \t]+"
+		 '((
+			"init"
+			) ado-subcommand-face t)
+		 "\\b"
+		 ))
+	  ;; mi set subcommands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmful-face)
+		 "[ \t]+"
+		 '(("set") ado-subcommand-face t)
+		 "[ \t]+"
+		 '((
+			"M"
+			"fl" "flo" "flon" "flong"
+			"flongs" "flongse" "flongsep"
+			"m" "ml" "mlo" "mlon" "mlong" 
+			"w" "wi" "wid" "wide" 
+			) ado-subcommand-face t)
+		 "\\b"
+		 ))
+	  ;; mi register subcommands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmless-face)
+		 "[ \t]+"
+		 '(("reg" "regi" "regis" "regist" "registe" "register") ado-subcommand-face t)
+		 "[ \t]+"
+		 '((
+			"imp" "impu" "imput" "impute" "imputed" 
+			"pas" "pass" "passi" "passiv" "passive"
+			"reg" "regu" "regul" "regula" "regular"
+			) ado-subcommand-face t)
+		 "\\b"
+		 ))
+	  ;; mi xeq subcommands
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("mi") ado-builtin-harmless-face)
+		 "[ \t]+"
+		 '(("xeq") ado-subcommand-face t)
+		 "[ \t]*:"
+		 ))
 	  ;; All Custom ado files which are 'reliable' and which are not file killers
 	  ;; this might be a useless endeavor --- but I cannot generate tag files
 	  ;; all the s-extensions are listed under Stata's name (since they alter
@@ -5540,31 +5764,40 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	  ;; mata functions (durn, this is a pain in the butt)
 	  ;; functions which exist for regular stata are NOT included
 	  ;; these, too ended up being split
+
+	  ;; _ functions... perhaps the _ should be split off?
 	  (eval-when-compile
 		 (make-regexps
 		  "\\b"
 		  '((
 		  "_chdir" "_cholesky" "_cholinv" "_cholsolve" "_collate" "_conj" "_corr"
-		  "_diag"
+		  "_deriv" "_deriv_result_Hessian" "_deriv_result_Jacobian" "_deriv_result_gradient" "_deriv_result_scores" "_diag"
 		  "_editmissing" "_edittoint" "_edittointtol" "_edittozero" "_edittozerotol" "_editvalue"
 		  "_eigensystem" "_eigenvalues"
 		  "_equilc" "_equilr" "_equilrc" "_error" 
 		  "_fft" "_fillmissing" 
-		  "_fclose" "_fget" "_fgetmatrix" "_fgetnl" "_fopen" "_fput" "_fputmatrix" "_fread" 
+		  "_fclose" "_fget" "_fgetmatrix" "_fgetnl" "_flopin" "_flopout" "_fopen" "_fput" "_fputmatrix" "_fread" 
 		  "_fseek" "_ftell" "_ftruncate" "_fullsvd" "_fwrite"
-		  "_halton" "_hqrd" "_hqrdp" "_hqrdp_la"
+		  "_ghessenbergd"
+		  "_gschurd" "_gschurdgroupby"
+		  "_halton" "_hessenbergd" "_hqrd" "_hqrdp" "_hqrdp_la"
 		  "_invfft" "_invsym"
 		  "_jumble"
 		  "_lefteigensystem" "_lowertriangle" "_lud" "_lud_la" "_luinv" "_luinv_la" "_lusolve" "_lusolve_la"
-		  "_makesymmetric" "_matexpsym" "_matlogsym" "_matpowersym" "_mkdir" 
+		  "_makesymmetric" "_matexpsym" "_matlogsym" "_matpowersym" "_mkdir"
+		  "_moptimize" "_moptimize_evaluate"
+		  "_negate"
 		  "_optimize" "_optimize_evaluate"
 		  "_perhapsequilc" "_perhapsequilr" "_perhapsequilrc" "_pinv"
 		  "_qrinv" "_qrsolve" "_quadrunningsum"
 		  "_rmdir" "_runningsum"
-		  "_solvelower" "_solveupper" "_sort" 
-		  "_st_addobs" "_st_addvar" "_st_data" "_st_macroexpand" "_st_sdata" "_st_sstore" "_st_store"
+		  "_schurd" "_solvelower" "_solveupper" "_sort" 
+		  "_st_addobs" "_st_addvar" 
+		  "_st_data" "_st_macroexpand" 
+		  "_st_sdata" "_st_sstore" "_st_store"
+		  "_st_tsrevar"
 		  "_st_varindex"
-		  "_stata" "_strtoreal" "_substr" "_svd" "_svd_la" "_svdsv" "_svsolve" "_symeigensystem" "_symeigenvalues"
+		  "_stata" "_strtoreal" "_sublowertriangle" "_substr" "_svd" "_svd_la" "_svdsv" "_svsolve" "_symeigensystem" "_symeigenvalues"
 		  "_transpose" "_transposeonly"
 		  "_unlink" "_uppertriangle" 
 		  ) ado-mata-function-name-face t)
@@ -5575,7 +5808,19 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		 (make-regexps
 		  "\\b"
 		  '((
-		  "C" "Corr" "Hilbert" "Im" "Re" "Toeplitz" "Vandermonde"
+		  "C" "Corr" "Dmatrix" "Hilbert" "Im" "Kmatrix" 
+		  "LA_DGEBAK" "LA_DGEBAL" "LA_DGEES" "LA_DGEEV" "LA_DGEHRD" 
+		  "LA_DGGBAK" "LA_DGGBAL" "LA_DGGHRD" 
+		  "LA_DHGEQZ" 
+		  "LA_DHSEIN" "LA_DHSEQR" 
+		  "LA_DLAMCH" "LA_DORGHR" "LA_DSYEVX" 
+		  "LA_DTGSEN" "LA_DTGEVC" "LA_DTREVC" "LA_DTRSEN" 
+		  "LA_ZGEBAK" "LA_ZGEBAL" "LA_ZGEES" "LA_ZGEEV" "LA_ZGEHRD" 
+		  "LA_ZGGBAK" "LA_ZGGBAL" "LA_ZGGHRD" 
+		  "LA_ZHGEQZ" "LA_ZHSEIN" "LA_ZHSEQR" 
+		  "LA_ZTGSEN" "LA_ZTGEVC" "LA_ZTREVC" "LA_ZTRSEN" "LA_ZUNGHR"
+		  "Lmatrix"
+		  "Re" "Toeplitz" "Vandermonde"
 		  "acosh" "acosr" "adosubdir" "all" "allof" "any" "anyof" 
 		  "arg" "args" "asinh" "asinr"
 		  "asarray" "asarray_contains" "asarray_contents" "asarray_create" "asarray_elements"
@@ -5587,10 +5832,31 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "callersversion" "cat" "chdir" "cholsolve" "cholinv" 
 		  "colmax" "colmaxabs" "colmin" "colminmax" "colmissing" "colnonmissing" "cols" "colscalefactors" "colshape" "colsum" 
 		  "conj" "convolve" "correlation" "cosh" "crexternal" "cross" "crossdev" "cvpermute" "cvpermutesetup"
-		  "deconvolve" "designmatrix" "dettriangular"
+		  "deconvolve"
+		  "deriv"
+		  "deriv_init_argument"
+		  "deriv_init"
+		  "deriv_init_bounds"
+		  "deriv_init_evaluator" "deriv_init_evaluatortype"
+		  "deriv_init_h"
+		  "deriv_init_narguments"
+		  "deriv_init_params"
+		  "deriv_init_scale" "deriv_init_search"
+		  "deriv_init_verbose"
+		  "deriv_init_weights"
+		  "deriv_query"
+		  "deriv_result_Hessian" "deriv_result_Jacobian"
+		  "deriv_result_delta"
+		  "deriv_result_errorcode" "deriv_result_errortext"
+		  "deriv_result_gradient"
+		  "deriv_result_h"
+		  "deriv_result_returncode"
+		  "deriv_result_scale" "deriv_result_scores"
+		  "deriv_result_value" "deriv_result_values"
+		  "designmatrix" "dettriangular"
 		  "diag" "diagonal" "dir" "direxists" "direxternal" "display" "displayas" "displayflush" "dsign"
 		  "editmissing" "edittoint" "edittointtol" "edittozero" "edittozerotol" "editvalue" 
-		  "eigensystem" "eigenvalues" 
+		  "eigensystem" "eigensystemselectf" "eigensystemselecti" "eigensystemselectr" "eigenvalues" 
 		  "eltype" "epsilon" "error" "errprintf" "exit"
 		  "factorial" "favorspeed" "fbufget" "fbufput" "fclose" 
 		  "ferrortext" "fft" "fget" "fgetnl" "fgetmatrix" 
@@ -5598,8 +5864,22 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "fread" "freturncode" "frombase" "fseek" "fstatus" 
 		  "ftell" "ftfreqs" "ftpad" "ftperiodogram" "ftretime" "ftruncate" "ftunwrap" "ftwrap" 
 		  "fullsdiag" "fullsvd" "fwrite"
-		  "gamma" "ghalton" "ghk" "ghkfast" "ghkfastsetup"
-		  "halton" "hqrd" "hqrdp" "hqrdmultq" "hqrdmultqlt" "hqrdq" "hqrdq1" "hqrdr" "hqrdr1"
+		  "gamma"
+		  "geigensystem" "geigensystemelectf" "geigensystemelecti" "geigensystemelectr"
+		  "ghalton" "ghessenbergd" 
+		  "ghk" "ghk_init" "ghk_init_antithetics" "ghk_init_method" "ghk_init_pivot" "ghk_init_start" 
+		  "ghk_query_npts"
+		  "ghkfast"
+		  "ghkfast_i" 
+		  "ghkfast_init" "ghkfast_init_antithetics" "ghkfast_init_pivot"
+		  "ghkfast_query_dim"
+		  "ghkfast_query_method"
+		  "ghkfast_query_n"
+		  "ghkfast_query_npts"
+		  "ghkfast_query_pointset_i"
+		  "ghkfast_query_rseed"
+		  "gschurd" "gschurdgroupby"
+		  "halton" "hash1" "hasmissing" "hessenbergd" "hqrd" "hqrdp" "hqrdmultq" "hqrdmultqlt" "hqrdq" "hqrdq1" "hqrdr" "hqrdr1"
 		  "inbase" "invHilbert" "invfft" "invorder" "invtokens" "invvech"
 		  "iscomplex" "isdiagonal" "isfleeting" "ispointer" "isreal" 
 		  "isrealvalues" "isstring" "issymmetric" "issymmetriconly" "isview" 
@@ -5612,9 +5892,13 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		 (make-regexps
 		  "\\b"
 		  '((
-		  "lefteigensystem" "liststruct" "lnnormal" "lnnormalden" "lowertriangle" "lud" "luinv" "lusolve"
+		  "lefteigensystem" "lefteigensystemselectf" "lefteigensystemselecti" "lefteigensystemselectr"
+		  "leftgeigensystem" "leftgeigensystemelectf" "leftgeigensystemelecti" "leftgeigensystemelectr"
+		  "liststruct" "lnnormal" "lnnormalden" "lowertriangle" "lud" "luinv" "lusolve"
 		  "makesymmetric" "matexpsym" "matlogsym" "matpowersym" "maxindex"
-		  "mean" "meanvariance" "minindex" "minmax" "missingof" "more"
+		  "mean" "meanvariance" "minindex" "minmax" "missingof" 
+		  "moptimize" "moptimize_ado_cleanup" "moptimize_evaluate" "moptimize_init" "moptimize_query"
+		  "more"
 		  "mreldifre" "mreldifsym"
 		  "nameexternal" "nonmissing" "norm"
 		  "optimize" "optimize_evaluate" "optimize_init" "optimize_query"
@@ -5627,27 +5911,85 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "printf" "pwd"
 		  "range" "rangen" "rmexternal" "rowmax" "rowmissing" "rowscalefactors"
 		  "qrd" "qrdp" "qrinv" "qrsolve" 
-		  "quadcorrelation" "quadcross" "quadcrossdev" "quadrant" "quadcolsum" "quadrowsum" "quadrunningsum" "quadsum" "quadvariance" 
+		  "quadcorrelation" "quadcross" "quadcrossdev" "quadrant" "quadcolsum" 
+		  "quadmeanvariance" "quadrowsum" "quadrunningsum" "quadsum" "quadvariance" 
 		  "querybreakintr"
-		  "rank" "revorder" "rowmaxabs" "rowmin" "rowminmax" "rownonmissing" "rows" "rowshape" "rowsum" "runningsum"
-		  "select"
+		  "rank" "rdiscrete" "revorder" "rowmaxabs" "rowmin" "rowminmax" "rownonmissing" "rows" "rowshape" "rowsum" "rseed" "runningsum"
+		  "schurd" "select"
 		  "setbreakintr" "setmore" "setmoreonexit" "sinh" "sizeof" "smallestdouble"
 		  "solve_tol" "solvelower" "solveupper"
-		  "sort" "spline3" "spline3val" "sprintf"
+		  "sort" "spline3" "spline3eval" "sprintf"
 		  "st_select" "stata" "statasetversion" "stataversion" 
 		  "stritrim" "strltrim" "strreverse" "strrtrim" "strtoreal" "strtrim" "strlower" "strproper" "strupper"
+		  "sublowertriangle"
 		  "svd" "svdsv" "svsolve" "swap"
-		  "symeigensystem" "symeigenvalues"
+		  "symeigensystem" "symeigensystemselecti" "symeigensystemselectr" "symeigenvalues"
 		  "timer" 
 		  "tokenallowhex" "tokenallownum" "tokenget" "tokengetall" "tokeninit" "tokeninitstata" "tokenoffset" 
 		  "tokenpeek" "tokenrest" "tokens" "tokenset" "tokenpchars" "tokenqchars" "tokenwchars" "transposeonly"
-		  "uniqrows" "unitcircle" "uniformseed"
+		  "uniqrows" "unitcircle"
 		  "valofexternal" "variance" "vec" "vech"
-		  "unlink" "uppertriangle"
+		  "unlink" "unorder" "uppertriangle"
 		  ) ado-mata-function-name-face t)
 		  "("
 		  ))
-	  ;; arrrgh the mata st_ commands
+	  ;; the moptimize_init functions
+	  (eval-when-compile
+		 (make-regexps
+		  "\\b"
+		  '(("moptimize_init_") ado-mata-function-name-face t)
+		  '((
+			 "by" 
+			 "cluster" "constraints" 
+			 "conv_ignorenrtol" "conv_maxiter" "conv_nrtol" "conv_ptol" "conv_vtol" "conv_warning" 
+			 "depvar" 
+			 "eq_coefs" "eq_colnames" "eq_cons" "eq_exposure" "eq_indepbars" "eq_n" "eq_name" "eq_offset" 
+			 "evaluations" "evaluator" "evaluatortype" 
+			 "gnweightmatrix" 
+			 "iterid" 
+			 "ndepvars" "negH" "nmsimplexdeltas" "nuserinfo" 
+			 "search" "search_bounds" "search_random" "search_repeat" "search_rescale" 
+			 "singularHmethod" "svy" 
+			 "technique" "touse" 
+			 "trace_Hessian" "trace_ado" "trace_coefs" "trace_dots" "trace_gradient" "trace_step" "trace_tol" "trace_value" 
+			 "tracelevel" 
+			 "userinfo" 
+			 "valueid" "vcetype" "verbose" "view" 
+			 "weight" "weighttype" "which" 			 
+			 ) ado-mata-function-name-face t)
+		  "("
+		  ))
+	  ;; the moptimize results prefix functions
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("moptimize_result_") ado-mata-function-name-face t)
+		 '((
+			"Hessian" 
+			"V" "V_oim" "V_opg" "V_robust" "Vtype" 
+			"coefs" "colstripe" "converged" 
+			"display" 
+			"errorcode" "errortext" "evaluations" 
+			"gradient" 
+			"interations" "iterationlog" 
+			"post" 
+			"returncode" 
+			"scores" 
+			"value" "value0" 			 
+			) ado-mata-function-name-face t)
+		 "("
+		 ))
+	  ;; the moptimize_util prefix functions
+	  (eval-when-compile
+		(make-regexps
+		 "\\b"
+		 '(("moptimize_util_") ado-mata-function-name-face t)
+		 '((
+			"depvar" "eq_indices" "matbysum" "matsum" "sum" "vecsum" "xb" 			         ) ado-mata-function-name-face t)
+		 "("
+		 ))
+	  
+	  ;; arrrgh the mata st_ functions
 	  (eval-when-compile
 		 (make-regexps
 		  "\\b"
@@ -5679,12 +6021,16 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  '(("optimize_init_") ado-mata-function-name-face t)
 		  '((
 			"argument"
-			"constraints" "conv_maxiter" "conv_ptol"
-			"evaluator"
-			"narguments" "nmsimplexdeltas" "nrtol"
+			"cluster" "colstripe" "constraints" "conv_maxiter" "conv_ptol" "conv_warning"
+			"evaluations" "evaluator" "evaluatortype"
+			"gnweightmatrix" 
+			"ingnorenrtol" "iterid"
+			"narguments" "negH" "nmsimplexdeltas" "nrtol"
 			"params"
 			"singularHmethod"
-			"technique" "tracelevel" "type"
+			"technique" 
+			"trace_Hessian" "trace_dots" "trace_gradient" "trace_params" "trace_step" "trace_tol" "trace_value"
+			"tracelevel" "type"
 			"valueid" "verbose" "vtol"
 			"which"
 		  ) ado-mata-function-name-face t)
@@ -5697,7 +6043,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  '(("optimize_result_") ado-mata-function-name-face t)
 		  '((
 			  "Hessian"
-			  "V" "V_oig" "V_oim" "V_robust" "Vtype"
+			  "V" "V_oim" "V_opg" "V_robust" "Vtype"
 			  "converged"
 			  "errorcode"
 			  "gradient"
@@ -5709,8 +6055,18 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  ) ado-mata-function-name-face t)
 		  "("
 		  ))
+	  ;; obsolete mata functions
+	  (eval-when-compile
+		 (make-regexps
+		  "\\b"
+		  '((
+			 "acosr" "asinr" "atanr"
+			 "ghkfastsetup"
+			 "uniformseed"
+			  ) ado-obsolete-face t)
+		  "("
+		  ))
 	  
-
 	  ;; all variable/macro stuff (put late so it will override)
 	  ;; keep just before the obsolete commands!
 	  ;; internal constants
@@ -5788,7 +6144,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 "varfcast" "varirf" "vce" "vif"
 			 "xtcorr" "xtrchh" "xthaus" "xtpois"
 			 "shelltool"
-			 ) ado-obsolete-face t)
+			 ) ado-obsolete-face)
 		  "\\b"
 		  ))
 
