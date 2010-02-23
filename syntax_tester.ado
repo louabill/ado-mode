@@ -1,4 +1,4 @@
-*! version 1.10.0 January 10, 2010 @ 18:39:59
+*! version 1.10.0 February 5, 2010 @ 10:01:27
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -267,6 +267,10 @@ version 11.1
    mean
    // mfp is simple now; in Stata 11 it became a prefix command
    mfp
+   // the old mfp non-prefix commands are not needed
+   mfp logit
+   mfp clogit
+   
    // mfx is obsolete as of Stata 11
    mfx
    mfx c

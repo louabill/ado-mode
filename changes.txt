@@ -2,12 +2,13 @@ Version History:
 ---------------
 
 1.11.0.0:
+. Added functionality for sending code to Stata in MS Windows. So...it
+  is now possible to send code to Stata from both Mac OS X and MS
+  Windows.
 . Fixed highlighting for -estat classification- abbreviations
 . Fixed problems with spaces in paths when using ado-send-to-stata
 . Fixed some typos in the documentation of functions
 . Changed the templates to default to version 11
-. Note: the new functions and syntax changes in Stata 11 have NOT
-  been implemented yet
 
 1.10.1.2:
 . (Finally) changed the update of the time stamp to not add the old

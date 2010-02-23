@@ -1,7 +1,9 @@
 ;;; a collection of things for interacting with Stata 
-;;; Right now all this works only in Mac OS X. It will not cause errors in 
+;;; Currently this works in Mac OS X and MS Windows. It will not cause errors in 
 ;;;   other OSes. All that is needed for each other OS are some methods
-;;;   for talking to Stata from emacs. In Mac OS X, this is done via applescript
+;;;   for talking to Stata from emacs. 
+;;;   In Mac OS X, this is done via the applescript send2stata.scpt
+;;;   In MS Windows, this is done via the autoit executable send2stata.exe 
 
 (defun ado-send-command-to-stata ()
   (interactive)
@@ -24,9 +26,9 @@
   (ado-send-clip-to-stata "dofile" ado-comeback-flag))
 
 (defun ado-send-clip-to-stata (&optional dothis comeback tmpfile)
-  "Sends the clipboard to Stata to be evaluated. Currently this is a Mac-only 
-function. This command is meant to be called by one of the 
-wrappers determining the behavior of the flags...
+  "Arf, arf! Sends the clipboard to Stata to be evaluated. Currently this works
+on Mac OS X and Windows 7 only. This command is meant to be called by 
+one of the wrappers determining the behavior of the flags...
 
 There are three optional arguments:
   dothis: \"command\" for using the commmand window
@@ -37,39 +39,37 @@ There are three optional arguments:
             back to emacs.
 
   tmpfile: name of the tmpfile to use if running via temporary do-file
-           (optional, because it isn't really needed...)
+           (not used, just reserved for future use)
 
 By default, you do not need to do any setup. If you play around
 with the scripts and want to call something other than what came with 
 ado-mode, set \\[ado-script-dir] to point to where your version of 
 send2stata.scpt is stored. "
   (interactive)
+  (unless dothis (setq dothis ado-submit-default))
+  (unless comeback (setq comeback ado-comeback-flag))
   (cond
-   ((string= dothis "menu")
+   ((or (string= dothis "menu") (string= dothis "dofile") (string= dothis "command"))
 	(cond 
 	 ((string= system-type "darwin")
-	  (shell-command (concat "osascript '" (ado-check-a-directory ado-script-dir) "send2stata.scpt' \"menu\" \"" tmpfile "\"")))
-	 (t (message (concat "working via menus not supported yet in " (symbol-name system-type))))))
-   ((string= dothis "dofile")
-	(cond
-	 ((string= system-type "darwin")
-	  ;; the following 3 lines should be common to all os's once implemented
-	  (unless tmpfile
-		(setq tmpfile (concat temporary-file-directory "feedStata.do")))
-	  (write-region (x-selection-value 'CLIPBOARD) nil tmpfile)
-		;; ado-stata-flavors and ado-stata-home are needed if there are many Statas installed
-		(if (string= ado-stata-flavors "")
-			  (shell-command (concat "open -a " tmpfile))
-			(shell-command (concat "open -a " (ado-check-a-directory ado-stata-home) "Stata" ado-stata-flavors ".app " tmpfile))
-			))
-	 (t (message (concat "working via temp do-files not supported yet in " (symbol-name system-type))))))
-   ((string= dothis "command")
-	(cond
-	 ((string= system-type "darwin")
-	  (shell-command (concat "osascript '" (ado-check-a-directory ado-script-dir) "send2stata.scpt' \"command\"")))
-	 (t (message (concat "working via the command window not yet supported in " (symbol-name system-type) ", but you can paste the command in the command window by hand.")))))
+	  (shell-command (concat "osascript '" 
+							 (ado-check-a-directory ado-script-dir) 
+							 "send2stata.scpt' \"" dothis "\"")))
+	 ((string= system-type "windows-nt")
+	  ;; autoit can send to non-active windows, so comeback is handled there
+	  ;;  working via the menu does NOT work with comeback, yet
+	  (if (and comeback (string= dothis "menu"))
+		  (error "cannot comeback to Stata after using a menu in MS Windows"))
+	  (shell-command (concat 
+					  (ado-check-a-directory ado-script-dir) 
+					  "send2stata.exe \"" dothis "\" \"" comeback "\" & ")))
+	 (t (message (concat "working via " dothis "s not supported yet in " 
+						 (symbol-name system-type)
+						 (if (string= dothis "command")
+							 ", but you can paste the command in the command window by hand"))))))
    (t (error "Bad value for 'do-this' in ado-send-region-to-stata"))
    )
+  ;; comeback cannot be done in applescript very well
   (cond
    ((string= system-type "darwin")
 	(if comeback

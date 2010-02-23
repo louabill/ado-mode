@@ -4,7 +4,7 @@
 
 ;; Maintainer: Bill Rising, brising at stata dot com
 ;; Keywords: ado-mode, highlighting
-;; Version: 1.10.1.2 of June 17, 2006
+;; Version: 1.11.0.1 of February 2, 2010
 ;;
 ;; the old version system was 0.stata-version times ten.update
 ;; the new version system is now 1.stataversion.statasubversion.update
@@ -85,6 +85,7 @@
 ;; syntax table
 (defvar ado-mode-syntax-table nil
   "Syntax table used while in ado mode.")
+
 (if ado-mode-syntax-table
     ()
   (setq ado-mode-syntax-table (make-syntax-table))
@@ -139,11 +140,8 @@
 (define-key ado-mode-map "{"        'electric-ado-brace)
 (define-key ado-mode-map "}"        'electric-ado-closing-brace)
 (define-key ado-mode-map ";"        'electric-ado-semi)
-;; Mac OS X only stuff (for now)
-;(if (string= system-type "darwin")
-;	(define-key ado-mode-map "\A-\C-
 
-;;; menu bar definitions!
+;;; menu bar definitions
 (define-key ado-mode-map [menu-bar] (make-sparse-keymap))
 (define-key ado-mode-map [menu-bar ado]
   (cons "Ado-mode" (make-sparse-keymap "Ado-mode")))
@@ -1298,7 +1296,8 @@ Returns t if inside of a continued function, nil otherwise."
 					 (< (line-number-at-pos) start-line)))
 				  (setq in-continuation t)))
 		  (search-backward "\n" 1 t))
-		(unless (bobp)
+		(if (bobp)
+			(forward-char 1)
 		  (if (re-search-backward "\\(\\s-\\|^\\)///+.*$" (point-at-bol) t)
 			  (progn
 				(forward-char -1)
@@ -3019,6 +3018,21 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 ado-obsolete-face)
 		  "\\b"
 		  ))
+	  ;; mfp arguments --- obsolete in Stata 11
+	  (eval-when-compile
+		 (make-regexps
+		  "\\b"
+		  '(("mfp") ado-builtin-harmless-face t)
+		  "[ \t]"
+		  '(( 
+			  "clogit" "cnreg" "glm" "logistic" "logit" "mlogit"
+			  "nbreg" "ologit" "oprobit" "poisson"
+			  "probit" "qreg" "regress" "stcox" "streg" "xtgee"
+			  ) ado-obsolete-face t) 
+		  "\\b"
+		  ))
+
+
 	  ;; the sysdir commands
      (eval-when-compile
        (make-regexps
@@ -4044,7 +4058,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 ) ado-subcommand-face t)			 ; was nil t t
 		  "\\b"
 		  ))
-	  ;; mfp arguments --- obsolete in Stata 11
+
 	  ;; mfx
     
 	  ;; all Stata data-altering stuff
@@ -6119,7 +6133,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	  ;; the matrix score command
 	  (eval-when-compile
 		 (make-regexps
-		  "[ \t]+"
+		  "\\b"
 		  '((
 			 "_huber"
 			 "adjust"

@@ -1,7 +1,7 @@
-*! version 1.0.0 July 5, 2008 @ 17:36:39
+*! version 1.0.0 February 5, 2010 @ 13:56:09
 *! for examples of highlighting (not for Stata)
-program define font_highlighting_example
-version 10
+program def font_highlighting_example
+version 11
    /* this is a comment */
    // comments use ado-comment-face which inherits the font-lock-comment-face   
    
@@ -35,7 +35,7 @@ version 10
    display in green "this is obsolete"
 
    /* triple-slash line continuations indent nicely */
-   regress dependent independent if indicator==1 ///
+   regress dependent independent if indicator==1 /// an in-line comment
      , noconstant level(90)
 
    /* if conditions indent automatically, and the close-brace behavior can be modified */

@@ -1,17 +1,5 @@
-;;; obsolete highlighting snippets---not used anywhere
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '(("mfp") ado-builtin-harmless-face t)
-		  "[ \t]"
-		  '(( 
-			  "clogit" "cnreg" "glm" "logistic" "logit" "mlogit"
-			  "nbreg" "ologit" "oprobit" "poisson"
-			  "probit" "qreg" "regress" "stcox" "streg" "xtgee"
-			  ) ado-subcommand-face t) 
-		  "\\b"
-		  ))
-
+;;; obsolete highlighting snippets---not used as a file, just as a 
+;;;   repository
 	  (eval-when-compile
 		 (make-regexps
 		  "\\b"
