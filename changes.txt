@@ -8,6 +8,8 @@ Version History:
 . Fixed highlighting for -estat classification- abbreviations
 . Fixed problems with spaces in paths when using ado-send-to-stata
 . Fixed some typos in the documentation of functions
+. Updated for Staga 11 commands, including new commands and marking
+  obsolete commands as such
 . Changed the templates to default to version 11
 
 1.10.1.2:
