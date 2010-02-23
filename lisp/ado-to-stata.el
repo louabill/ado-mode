@@ -26,8 +26,8 @@
   (ado-send-clip-to-stata "dofile" ado-comeback-flag))
 
 (defun ado-send-clip-to-stata (&optional dothis comeback tmpfile)
-  "Arf, arf! Sends the clipboard to Stata to be evaluated. Currently this works
-on Mac OS X and Windows 7 only. This command is meant to be called by 
+  "Sends the clipboard to Stata to be evaluated. Currently this works
+on Mac OS X and MS Windows only. This command is meant to be called by 
 one of the wrappers determining the behavior of the flags...
 
 There are three optional arguments:
@@ -60,6 +60,9 @@ send2stata.scpt is stored. "
 	  ;;  working via the menu does NOT work with comeback, yet
 	  (if (and comeback (string= dothis "menu"))
 		  (error "cannot comeback to Stata after using a menu in MS Windows"))
+	  ;; for whatever reason, running synchronously causes the autoit
+	  ;;  application to do nothing
+      ;; the bad news is the damn asynch buffer is shown w/o any choice
 	  (shell-command (concat 
 					  (ado-check-a-directory ado-script-dir) 
 					  "send2stata.exe \"" dothis "\" \"" comeback "\" & ")))

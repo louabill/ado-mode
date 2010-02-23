@@ -4,7 +4,7 @@
 
 ;; Maintainer: Bill Rising, brising at stata dot com
 ;; Keywords: ado-mode, highlighting
-;; Version: 1.11.0.1 of February 2, 2010
+;; Version: 1.11.0.0 of February 23, 2010
 ;;
 ;; the old version system was 0.stata-version times ten.update
 ;; the new version system is now 1.stataversion.statasubversion.update
@@ -299,20 +299,14 @@
 ;; initial mode defintion function
 (defun ado-mode ()
   "Major mode for editing ado, do, sthlp, hlp, dlg, and smcl 
-files foruse in the Stata statistical package. It indents blocks 
-of code properly, highlights command names, many keywords, some
+files for use in the Stata statistical package. It indents blocks 
+of code properly, highlights command names, (most) keywords, some
 more complicated command structures, strings, Stata macro names 
 and the like.
 
-If you downloaded the template folder (directory) which came with this
-distribution, you can use this mode to create ado files (programs)
- and help files. To change the templates, edit the
-files in the template directory which have .blp extensions. (blp stands
-for boilerplate)
-
-The mode comes with a menu (the Ado-mode menu) which shows most all of the
+ado-mode comes with a menu (the Ado-mode menu) which shows most all of the
 variables which are worth changing locally in a buffer. Global customization
-can be done via '\\[customize-group] ado-mode' using emacs customization
+can be done via '\\[customize-group] ado' using emacs customization
 routines. More suggestions can be found at 
 http://homepage.mac.com/brising/Stata/ado-mode_install.html
 
@@ -325,9 +319,13 @@ Things for dealing with files:
     by default). Ensures that the file name matches the name of the
     command (ado program) or class being defined.
 - \\[ado-new-help] will start a new help file, ready for editing.
-- (Mac OS X only, for now) \\[ado-send-region-to-stata-default] will
-  send the current selection to Stata for evaluation. If nothing is
-  selected, the current command will be sent.
+- ado-mode can interact directly with Stat (Mac OS X and MS Windows only,
+  for now) 
+    \\[ado-send-command-to-stata] will send the current selection 
+    to Stata for evaluation. If nothing is selected, the command containing
+    the insertion bar will be sent.
+    
+
 Things for changing style:
 Most of these would be most easily done using emacs' ability to customize
 its enviroment using \\[customize-group ado-mode]. Other little things
@@ -358,7 +356,9 @@ Here an esoteric command which I've not yet documented well.
     used value labels.
 
 Here are commands for sending code to Stata.
-- \\[ado-send-to-stata]
+- \\[ado-send-command-to-stata] sends region or current command
+- \\[ado-help-command] sends 'help current-command'
+- \\[ado-help-at-point] sends 'help word-at-point'
 
 Most all of the commands are accessible from the ado-mode menu.
 

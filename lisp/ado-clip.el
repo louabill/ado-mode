@@ -72,8 +72,8 @@ Made to be called from other programs only."
 	(if prefix (setq prefix (concat prefix " ")))
 	(if suffix (setq suffix (concat " " suffix)))
 	(message (concat prefix (ado-grab-something where) suffix))
-	(funcall interprogram-cut-function (ado-one-eol 
-										(concat prefix (ado-grab-something where) suffix)))
+	(funcall interprogram-cut-function 										
+			 (concat prefix (ado-grab-something where) suffix))
 	))
 
 (defun ado-help-at-point-to-clip ()

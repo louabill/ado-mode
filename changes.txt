@@ -4,7 +4,14 @@ Version History:
 1.11.0.0:
 . Added functionality for sending code to Stata in MS Windows. So...it
   is now possible to send code to Stata from both Mac OS X and MS
-  Windows.
+  Windows. The default keystroke is M-RET.
+  (MS Windows note: when sending to Stata, *Async Shell Command* buffer
+  will open. Since you cannot avoid this, just make the pane as small as
+  possible. I cannot figure out how to get autoit's executable to run
+  synchronously with emacs.)
+. Added functionality for getting help for commands directly from emacs.
+  C-cC-c gets help for the command, C-cC-h gets help for word at point.
+  Because these work via sending commands, they are also Mac/Win only.
 . Fixed highlighting for -estat classification- abbreviations
 . Fixed problems with spaces in paths when using ado-send-to-stata
 . Fixed some typos in the documentation of functions
