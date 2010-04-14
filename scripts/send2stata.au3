@@ -29,15 +29,15 @@ Else
 	if $numArgs > 1 Then
 		$stataInBack = $CmdLine[2]
 		if $numArgs > 2 Then
-			$tmpDoFile = $CmdLine[2]
-			if $tmpDoFile = "" Then
-				$tmpDoFile = $defaultTmpDoFile
-			EndIf
+			$tmpDoFile = $CmdLine[3]
 		EndIf
 	Else
-		$tmpDoFile = $defaultTmpDoFile
 		$stataInBack = ""
 	EndIf
+	if $tmpDoFile = "" Then
+		$tmpDoFile = $defaultTmpDoFile
+	EndIf
+	
 EndIf
 
 $pasteMe=ClipGet()
@@ -89,8 +89,8 @@ Func badFirstArg($badArg)
 	Exit(2)
 EndFunc
 
-Func doTmpDofile(ByRef $theStataName, ByRef $tempDoFile, ByRef $doThis, ByRef $stataInBack)
-	Local $fullTempDo = @TempDir & "\" & $tempDoFile 
+Func doTmpDofile($theStataName, $tmpDoFile, $doThis, $stataInBack)
+	Local $fullTempDo = @TempDir & "\" & $tmpDoFile 
 	Local $fh = FileOpen($fullTempDo, 2)
 	;; MsgBox(0,"Testing...","Want to submit " & ClipGet() & " to file handle " & $fh)
 	FileWrite($fh,ClipGet() & @CRLF)

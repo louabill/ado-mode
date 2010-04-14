@@ -1,6 +1,10 @@
 Version History:
 ---------------
 
+1.11.0.1:
+. Fixed a bug where sending code to Stata from MS Windows via a do-file
+  failed.
+
 1.11.0.0:
 . Added functionality for sending code to Stata in MS Windows. So...it
   is now possible to send code to Stata from both Mac OS X and MS
