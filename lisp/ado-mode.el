@@ -1382,7 +1382,7 @@ working on regions."
 	     (eolp)
 	     ado-auto-newline-flag)
 	(progn
-	  (insert last-command-char)
+	  (insert last-command-event)
 	  (ado-indent-line)
 	  (if ado-auto-newline-flag
 	      (progn
@@ -3514,7 +3514,8 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  '((
 		  "by"
 		  "cap" "capt" "captu" "captur" "capture"
-		  "char" "err" "erro" "error" "e" "ex" "exi" "exit" 
+		  "char" 
+		  "e" "err" "erro" "error" "ex" "exi" "exit" 
 		  "for"
 		  "set"
 		  ) ado-builtin-harmless-face)
