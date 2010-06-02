@@ -1586,11 +1586,33 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
        ))
     ;;
     ;; the cluster commands
-    (eval-when-compile
-      (make-regexps
-       '(("\\bcluster") ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
+    ;; (eval-when-compile
+    ;;   (make-regexps
+    ;;    '(("\\bcluster") ado-builtin-harmless-face)
+    ;;    "[ \t]+"
+    ;;    '((
+	;; 		 "dend" "dendr" "dendro" "dendrog" "dendrogr" "dendrogra" "dendrogram"
+	;; 		 "dir"
+	;; 		 "k" "km" "kme" "kmea" "kmean" "kmeans" 
+	;; 		 "kmed" "kmedi" "kmedia" "kmedian" "kmedians" 
+	;; 		 "list"
+	;; 		 "note" "notes"
+	;; 		 "parsedist" "parsedista" "parsedistan" "parsedistanc" "parsedistance" 
+	;; 		 "query"
+	;; 		 "stop"
+	;; 		 "tr" "tre" "tree"
+	;; 		 ) ado-subcommand-face)
+    ;;    "\\b"
+    ;;    ))
+    ;; 
+    ;; the cluster commands
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt '("cluster") 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt '(
 			 "dend" "dendr" "dendro" "dendrog" "dendrogr" "dendrogra" "dendrogram"
 			 "dir"
 			 "k" "km" "kme" "kmea" "kmean" "kmeans" 
@@ -1601,10 +1623,12 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 "query"
 			 "stop"
 			 "tr" "tre" "tree"
-			 ) ado-subcommand-face)
-       "\\b"
-       ))
+			 ) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+
     ;; 
+
     ;; data altering cluster commands
     ;; comment region 2
     (eval-when-compile
