@@ -1,4 +1,4 @@
-*! version 1.10.0 February 5, 2010 @ 10:01:27
+*! version 1.10.0 June 3, 2010 @ 12:19:06
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -8,13 +8,17 @@ program def syntax_tester, eclass
       display foo
       }
    /* what about comments? */
-   pro def fummel
+   prog d fummel
    end
    program list foo
-   program drop
-   program di
+   program define bleen
+   pr droop foo
+   program bleen      
+   pro dir
    program dir
-   
+        
+   * a starting line comment
+   14 * foobar // a non-comment
    
 version 1.0
 version 2.0

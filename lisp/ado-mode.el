@@ -1485,57 +1485,61 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
   (setq
    ado-font-lock-keywords
    (list
-    ;; an attempt to get nested quotes to work
-    (eval-when-compile
-      (make-regexps
-       '(("`\".*?\"'") ado-string-face t)
-       ))
-	;; trying to get starting-line comments to work
-	(eval-when-compile
-	  (make-regexps
-	   "^[ \t]*"
-	   '(("[*].*") ado-comment-face t)
-	   ))
-		  
+    ;; nested quotes
+	(list "\\(`\".*?\"'\\)" '(1 ado-string-face t))
+	;; simple *-style comments
+	(list "^[ \t]*\\([*].*\\)" '(1 ado-comment-face t))
     ;; special highlighting
 	 ;; starting a mata program; not allowing comments, though
-	 (eval-when-compile
-		(make-regexps
-		 "^[ \t]*"
-		 '(("mata") ado-builtin-harmful-face)
-		 '((":") ado-constant-face)
-		 "[ \t]*$"
-		 ))
-    ;; program definitions
-    (eval-when-compile
-      (make-regexps
-       '(("^\\*!.*") ado-builtin-harmful-face)
-       ))
-    ;; does not force program define for keywords; could look ragged if ado-subcommand-face has a background
-    (eval-when-compile
-     (make-regexps
-      "^[ \t]*"
-      '((
-			"pr" "pro" "prog" "progr" "progra" "program"
-			) ado-builtin-harmful-face)
-      '((
-			"\\([ \t]+\\(\\(d\\(e\\(f\\|fi\\|fin\\|fine\\)\\|rop\\)\\)\\|\\(l\\|li\\|lis\\|list\\)\\)\\)?"
-			) ado-subcommand-face t)
-      "[ \t]+"
-      '(("[_a-zA-Z.]+[_a-zA-Z0-9]*") ado-builtin-harmful-face t)
-      ))
-    ;; the program dir thingy
-    (eval-when-compile
-		(make-regexps
-      "\\b"
-      '((
-			"pr" "pro" "prog" "progr" "progra" "program"
-			) ado-builtin-harmless-face t)
-      "[ \t]+"
-      '((
-			"di""dir"
-			) ado-subcommand-face t)
-      ))
+	(list "^[ \t]*\\(mata\\)\\(:\\)[ \t]*$" 
+		  '(1 ado-builtin-harmful-face)
+		  '(2 ado-constant-face))
+    ;; ado 'which' comments
+	(list "\\(^\\*!.*\\)" '(1 ado-builtin-harmful-face t))
+	;; program define or list
+	(list
+	  (concat
+	   "^[ \t]*"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"pr" "pro" "prog" "progr" "progra" "program")
+		  'words))
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt 
+		  '(
+			"d" "de" "def" "defi" "defin" "define" "droop"
+			"l" "li" "lis" "list"
+			) 'words))
+	   "[ \t]+\\([_a-zA-Z.]+[_a-zA-Z0-9]*\\)"
+	   )
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t) '(3 ado-builtin-harmful-face t))
+;;
+	;; program w/o define
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt '(
+			"pr" "pro" "prog" "progr" "progra" "program")
+		  'words))
+	   "[ \t]+\\([^ \t]+\\)"
+	   )
+	  '(1 ado-builtin-harmful-face) '(2 ado-builtin-harmful-face))
+		 
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt '(
+			"pr" "pro" "prog" "progr" "progra" "program")
+		  'words))
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt '("di" "dir")
+					 'words))
+	   )
+	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
+
     (eval-when-compile
       (make-regexps
        "\\b"
