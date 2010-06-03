@@ -1540,75 +1540,74 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	   )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-      '((
-			"vers" "versi" "versio" "version"
-			) ado-builtin-harmless-face)
-      "[ \t]+"
-      '(("1[.]0" "2[.]0" "2[.]1" "3[.]0" "3[.]1" "4\\([.]0\\)?" "5\\([.]0\\)?" "6\\([.]0\\)?" "7\\([.]0\\)?" 
-			"8\\([.]\\(1\\|2\\)\\)?" 
-			"9\\([.]\\(1\\|2\\)\\)?" 
-			"10\\([.]\\(0\\|1\\)\\)?"
-			"11\\([.]0\\)?"
-			) ado-subcommand-face)
-      "\\b"
-      ))
-    (eval-when-compile
-      (make-regexps
-       "^[ \t]*"
-       '(("pause") ado-builtin-harmful-face)
-       "[ /t]+"
-       '(("off" "on") ado-subcommand-face t)
-       "\\b"
-       ))
-     (eval-when-compile
-       (make-regexps
-        "^[ \t]*"
-        '(("end" "pause"
- 	  ) ado-builtin-harmful-face)
-	"\\b"
-        ))
-    ;; delimit command
-    (eval-when-compile
-      (make-regexps
-       "^[ \t]*"
-       '((
-	  "#d" "#de" "#del" "#deli" "#delim" "#delimi" "#delimit" ) ado-builtin-harmless-face)
-       "\\s-*"
-       '(("\\(cr\\|;\\)\\s-*$") ado-subcommand-face nil)
-       ))
-    ;;
+	;; it appears Stata accepts any version number
+	;; this just allows major[.0/max for particular version]
+	;; only 0's: 1, 4, 5, 7
+    ;; .1's: 2, 3, 6, 10, 11
+	;; .2's: 8, 9
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '("vers" "versi" "versio" "version")
+		  'words))
+	   "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[01]\\)?[.]0\\)\\|\\(?:\\(?:[23689]\\|1[01]\\)[.]1\\)\\|[89][.]2\\|\\(?:\\(?:[1-9]\\|1[01]\\)?[^.]\\)\\)\\b"
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	;; pause on/off
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '("pause") 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '("off" "on") 'words))
+	   )
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	  ;; end and pause must start lines
+	(list
+	 (concat
+	  "^[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "end" "pause"
+		   ) 'words))
+	  )
+	 '(1 ado-builtin-harmful-face))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "#d" "#de" "#del" "#deli" "#delim" "#delimi" "#delimit" 
+		 ) 'words))
+	   "[ \t]+\\(cr\\|;\\)[ \t]*$"
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+
     ;; obsolete stuff which appears as OK as subcommands
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '(("lfit"
-			 "sco" "scor" "score") ado-obsolete-face)
-       "\\b"
-       ))
-    ;;
-    ;; the cluster commands
     ;; (eval-when-compile
     ;;   (make-regexps
-    ;;    '(("\\bcluster") ado-builtin-harmless-face)
-    ;;    "[ \t]+"
-    ;;    '((
-	;; 		 "dend" "dendr" "dendro" "dendrog" "dendrogr" "dendrogra" "dendrogram"
-	;; 		 "dir"
-	;; 		 "k" "km" "kme" "kmea" "kmean" "kmeans" 
-	;; 		 "kmed" "kmedi" "kmedia" "kmedian" "kmedians" 
-	;; 		 "list"
-	;; 		 "note" "notes"
-	;; 		 "parsedist" "parsedista" "parsedistan" "parsedistanc" "parsedistance" 
-	;; 		 "query"
-	;; 		 "stop"
-	;; 		 "tr" "tre" "tree"
-	;; 		 ) ado-subcommand-face)
+    ;;    "\\b"
+    ;;    '(("lfit"
+	;; 		 "sco" "scor" "score") ado-obsolete-face)
     ;;    "\\b"
     ;;    ))
-    ;; 
+    ;;
+
+	(list
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "lfit"
+		 "sco" "scor" "score"
+		 ) 'words))
+	  '(1 ado-obsolete-face))
+
     ;; the cluster commands
 	(list
 	  (concat
@@ -1633,125 +1632,184 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 
     ;; 
 
-    ;; data altering cluster commands
-    ;; comment region 2
-    (eval-when-compile
-      (make-regexps
-       '(("\\bcluster") ado-builtin-harmful-face)
-       "[ \t]+"
-       '((
-			 "del" "dele" "delet" "delete" 
-			 "drop"
-			 "gen" "gene" "gener" "genera" "generat" "generate" 
-			 "measures"
-			 "rename" "renamevar"
-			 "set"
-			 "use"
-			 ) ado-subcommand-face)
-       "\\b"
-       ))
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "cluster"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "del" "dele" "delet" "delete" 
+		   "drop"
+		   "gen" "gene" "gener" "genera" "generat" "generate" 
+		   "measures"
+		   "rename" "renamevar"
+		   "set"
+		   "use"
+		   ) 'words))
+	  )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+
+
     ;; putting together common cluster and clustermat commands
-    (eval-when-compile
-      (make-regexps
-       '(("\\bcluster\\(mat\\)?") ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
-			 "a" "anova"
-			 "av" "ave" "aver" "avera" "averag" "average" "averagel" "averageli" 
-			 "averagelin" "averagelink" "averagelinka" "averagelinkag" "averagelinkage" 
-			 "c" "cent" "centr" "centro" "centroi" "centroid" "centroidl" "centroidli" 
-			 "centroidlin" "centroidlink" "centroidlinka" "centroidlinkag" "centroidlinkage" 
-			 "co" "com" "comp" "compl" "comple" "complet" "complete" "completel" "completeli" 
-			 "completelin" "completelink" "completelinka" "completelinkag" "completelinkage" 
-			 "manova" "med" "medi" "media" "median" "medianl" "medianli" "medianlin" 
-			 "medianlink" "medianlinka" "medianlinkag" "medianlinkage" 
-			 "s" "si" "sin" "sing" "singl" "single" "singlel" "singleli" "singlelin" 
-			 "singlelink" "singlelinka" "singlelinkag" "singlelinkage"
-			 "ward" "wards" "wardsl" "wardsli" "wardslin" "wardslink" "wardslinka" "wardslinkag" "wardslinkage"
-			 "wav" "wave" "waver" "wavera" "waverag" "waverage" "waveragel" 
-			 "waverageli" "waveragelin" "waveragelink" "waveragelinka" "waveragelinkag" "waveragelinkage" 
-			 ) ado-subcommand-face)
-       "\\b"
-       ))
+
+	(list
+	 (concat
+	  "[ /t]*\\<\\(cluster\\(?:mat\\)?\\)\\>[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "a" "anova"
+		   "av" "ave" "aver" "avera" "averag" "average" "averagel" "averageli" 
+		   "averagelin" "averagelink" "averagelinka" "averagelinkag" "averagelinkage" 
+		   "c" "cent" "centr" "centro" "centroi" "centroid" "centroidl" "centroidli" 
+		   "centroidlin" "centroidlink" "centroidlinka" "centroidlinkag" "centroidlinkage" 
+		   "co" "com" "comp" "compl" "comple" "complet" "complete" "completel" "completeli" 
+		   "completelin" "completelink" "completelinka" "completelinkag" "completelinkage" 
+		   "manova" "med" "medi" "media" "median" "medianl" "medianli" "medianlin" 
+		   "medianlink" "medianlinka" "medianlinkag" "medianlinkage" 
+		   "s" "si" "sin" "sing" "singl" "single" "singlel" "singleli" "singlelin" 
+		   "singlelink" "singlelinka" "singlelinkag" "singlelinkage"
+		   "ward" "wards" "wardsl" "wardsli" "wardslin" "wardslink" "wardslinka" "wardslinkag" "wardslinkage"
+		   "wav" "wave" "waver" "wavera" "waverag" "waverage" "waveragel" 
+		   "waverageli" "waveragelin" "waveragelink" "waveragelinka" "waveragelinkag" "waveragelinkage" 
+		   ) 'words))
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
 
 	 ;; discrim commands
-	 (eval-when-compile
-		(make-regexps
-		 '(("discrim") ado-builtin-harmless-face)
-		 "[ \t]+"
-		 '(("knn"
-			 "lda"
-			 "logistic"
-			 "qda"
-			 ) ado-subcommand-face)
-		 "\\b"
-		 ))
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "discrim"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "knn"
+		   "lda"
+		   "logistic"
+		   "qda"
+		   ) 'words))
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
 
 	 ;; stpower commands
-	 (eval-when-compile
-		(make-regexps
-		 '((
-			 "stpow" "stpowe" "stpower" 
-			 ) ado-builtin-harmless-face)
-		 "[ \t]+"
-		 '((
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "stpow" "stpowe" "stpower" 
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			 "cox"
 			 "exp" "expo" "expon" "expone" "exponen" "exponent" "exponenti" "exponentia" "exponential" 
 			 "log" "logr" "logra" "logran" "logrank" 
-			 ) ado-subcommand-face)
-		 "\\b"
-		 ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
 
-;;     ;; set command and its variations
-    (eval-when-compile
-      (make-regexps
-       '(("^[ \t]*s\\(e\\|et\\)") ado-builtin-harmless-face)
-       "[ \t]+"
-       '(("a" "ad" "ado" "ados" "adosi" "adosiz" "adosize" 
-			 "autotabgraphs"
-			 "conren\\(?:[ \t]+\\(?:clear\\|sf\\|bf\\|it\\|res\\|resu\\|resul\\|result\\|reset\\|txt\\|text\\|inp\\|inpu\\|input\\|err\\|erro\\|error\\|li\\|lin\\|link\\|hi\\|hil\\|hili\\|hilit\\|hilite\\|uloff\\|ulon\\)\\)?"
-			 "copycolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)"
-			 "dp[ \t]+\\(?:com\\|comm\\|comma\\|per\\|peri\\|perio\\|period\\)"
-			 "emptycells[ \t]+\\(?:keep\\|drop\\)"
-			 "eolc\\(?:h\\|ha\\|har\\)[ \t]+\\(?:mac\\|unix\\)"
-			 "httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
-			 "l" "le" "lev" "leve" "level"
-			 "li" "lin" "line" 
-			 "lineg" "linega" "linegap" 
-			 "lines" "linesi" "linesiz" "linesize" 
-			 "log\\(?:t\\|ty\\|typ\\|type\\)[ \t]+\\(?:t\\|te\\|tex\\|text\\|s\\|sm\\|smc\\|smcl\\)"
+
+	;; set command and its variations
+	;; splitting up what was done before
+
+	(list
+	  (concat
+	   "^[ \t]*"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "se" "set"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"a" "ad" "ado" "ados" "adosi" "adosiz" "adosize" 
+			"autotabgraphs"
+			"httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
+			"l" "le" "lev" "leve" "level"
+			"li" "lin" "line" 
+			"lineg" "linega" "linegap" 
+			"lines" "linesi" "linesiz" "linesize" 
 			 "mat" "mats" "matsi" "matsiz" "matsize"
 			 "maxdb" "maxiter" "maxvar"
 			 "mem" "memo" "memor" "memory"
 			 "notifyuser"
-			 "odbcm\\(?:\\g\\|gr\\)[ \t]+\\(?:iodbc\\|unixodbc\\)"
 			 "ob" "obs"
 			 "pa" "pag" "page" "pages" "pagesi" "pagesiz" "pagesize"
-			 "printcolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)"
 			 "processors"
 			 "reventr" "reventri" "reventrie" "reventries" 
 			 "scheme" "scrollbufsize"
-			 "search\\(?:d\\|de\\|def\\|defa\\|defau\\|defaul\\|default\\)[ \t]+\\(?:all\\|local\\|net\\)"
 			 "se" "see" "seed"
 			 "smoothsize"
 			 "timeout1"
 			 "timeout2"
 			 "traced" "tracede" "tracedep" "tracedept" "tracedepth" 
 			 "traceh" "tracehi" "tracehil" "tracehili" "tracehilit" "tracehilite" 
-			 "t\\(?:y\\|yp\\|ype\\)[ \t]+\\(?:double\\|float\\)" 
 			 "update_interval"
 			 "varlab" "varlabe" "varlabel" 
 			 "varlabelpos"
-			 )
-			ado-subcommand-face t)
-       "\\b"
-       ))
-    ;; set command : on/off settable items
-    (eval-when-compile
-      (make-regexps
-       '(("^[ \t]*s\\(e\\|et\\)") ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "se" "set"
+		 ) 'words))
+	   "[ \t]+"
+	   "\\<\\("
+	   "\\(?:conren\\(?:[ \t]+\\(?:clear\\|sf\\|bf\\|it\\|res\\|resu\\|resul\\|result\\|reset\\|txt\\|text\\|inp\\|inpu\\|input\\|err\\|erro\\|error\\|li\\|lin\\|link\\|hi\\|hil\\|hili\\|hilit\\|hilite\\|uloff\\|ulon\\)\\)?\\)"
+	   "\\|"
+	   "\\(?:copycolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)\\)"
+	   "\\|"
+	   "\\(?:dp[ \t]+\\(?:com\\|comm\\|comma\\|per\\|peri\\|perio\\|period\\)\\)"
+	   "\\|"
+	   "\\(?:emptycells[ \t]+\\(?:keep\\|drop\\)\\)"
+	   "\\|"
+	   "\\(?:eolc\\(?:h\\|ha\\|har\\)[ \t]+\\(?:mac\\|unix\\)\\)"
+	   "\\|"
+	   "\\(?:log\\(?:t\\|ty\\|typ\\|type\\)[ \t]+\\(?:t\\|te\\|tex\\|text\\|s\\|sm\\|smc\\|smcl\\)\\)"
+	   "\\|"
+	   "\\(?:odbcm\\(?:\\g\\|gr\\)[ \t]+\\(?:iodbc\\|unixodbc\\)\\)"
+	   "\\|"
+	   "\\(?:printcolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)\\)"
+	   "\\|"
+	   "\\(?:search\\(?:d\\|de\\|def\\|defa\\|defau\\|defaul\\|default\\)[ \t]+\\(?:all\\|local\\|net\\)\\)"
+	   "\\|"
+	   "\\(?:t\\(?:y\\|yp\\|ype\\)[ \t]+\\(?:double\\|float\\)\\)"
+	   "\\)\\>")
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+   
+	;; set <foo> on/off commands
+
+	(list
+	  (concat
+	   "^[ \t]*"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "se" "set"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 		  "checksum" "fastscroll"
 		  "dockable"
 		  "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
@@ -1776,57 +1834,74 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "varabbrev" "varkeyboard"
 		  "vir" "virt" "virtu" "virtua" "virtual"
 		  "xptheme"
-		  )
-		 ado-subcommand-face t)
-       "[ \t]+"
-       '(("off" "on") ado-subcommand-face t)
-       ))
-	;;
-	;; set command (with endless options!)
-     (eval-when-compile
-       (make-regexps
-        '(("^[ \t]*set") ado-builtin-harmless-face)
-        "[ \t]+"
-        '((
- 	  "ou" "out" "outp" "outpu" "output"
- 	  )
- 	 ado-subcommand-face)
-        "[ \t]+"
-        '((
- 	  "e" "er" "err" "erro" "error"
- 	  "i" "in" "inf" "info" "infor" "inform" 
- 	  "p" "pr" "pro" "proc" 
- 	  ) ado-subcommand-face)
-	"\\b"
-        ))
-    ;;
-    ;; the set subcommands which appear to be obsolete (which don't show in the Stata Reference)
-     (eval-when-compile
-       (make-regexps
-        '(("^[ \t]*set") ado-builtin-harmless-face)
-        "[ \t]+"
-        '(("ANSI" 
- 	  "b" "be" "bee" "beep" "contents" 
- 	  "d" "di" "dis" "disp" "displ" "displa" "display"
- 	  "help"
- 	  "IBM" 
-	  "icmap"
- 	  "log"
-	  "macgp" "macgph" "macgphe" "macgphen" "macgpheng" 
-	  "macgphengi" "macgphengin" "macgphengine" 	  
- 	  "maxobs"
-	  "piccom" "piccomm" "piccomme" "piccommen" "piccomment" "piccomments" 
-	  "printcolor[ \t]+grayscale"
- 	  "seed0" "shell" "smalldlg"
- 	  "te" "tex" "text" "texts" "textsi" "textsiz" "textsize"
-	  "use_atsui_graph" "use_qd_text"
- 	  "varwin" "varwind" "varwindo" "varwindow" "video"
- 	  )
- 	 ado-obsolete-face t)
-        "\\b"
-        ))
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"off" "on"
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
-	  ;; the timer command
+	;; set output command, which cannot be abbreviated
+
+	(list
+	 (concat
+	  "^[ \t]*"
+	  "\\<\\(set\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "ou" "out" "outp" "outpu" "output"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"e" "er" "err" "erro" "error"
+			"i" "in" "inf" "info" "infor" "inform" 
+			"p" "pr" "pro" "proc" 
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+
+	;; these appear to be obsolete and do not show in the manuals
+	;;   some work, however.
+	(list
+	 (concat
+	  "^[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "se" "set"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "ANSI" 
+		   "b" "be" "bee" "beep" "contents" 
+		   "d" "di" "dis" "disp" "displ" "displa" "display"
+		   "help"
+		   "IBM" 
+		   "icmap"
+		   "log"
+		   "macgp" "macgph" "macgphe" "macgphen" "macgpheng" 
+		   "macgphengi" "macgphengin" "macgphengine" 	  
+		   "maxobs"
+		   "piccom" "piccomm" "piccomme" "piccommen" "piccomment" "piccomments" 
+		   "printcolor[ \t]+grayscale"
+		   "seed0" "shell" "smalldlg"
+		   "te" "tex" "text" "texts" "textsi" "textsiz" "textsize"
+		   "use_atsui_graph" "use_qd_text"
+		   "varwin" "varwind" "varwindo" "varwindow" "video"
+		   ) 'words))
+	  )
+	 '(1 ado-builtin-harmless-face) '( 2 ado-obsolete-face t))
+
+	  ;; !! start here the timer command
 	  (eval-when-compile
 		 (make-regexps
 		  '(("timer") ado-builtin-harmless-face)
