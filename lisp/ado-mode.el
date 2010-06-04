@@ -1901,205 +1901,274 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	  )
 	 '(1 ado-builtin-harmless-face) '( 2 ado-obsolete-face t))
 
-	  ;; !! start here the timer command
-	  (eval-when-compile
-		 (make-regexps
-		  '(("timer") ado-builtin-harmless-face)
-		  "[ \t]+"
-		  '(("clear" "list") ado-subcommand-face t)
-		  ))
+	  ;; the timer command
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		 "timer"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"clear" "list"
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
 
-	  (eval-when-compile
-		 (make-regexps
-		  '(("timer") ado-builtin-harmless-face)
-		  "[ \t]+"
-		  '(("clear" "list" "off" "on") ado-subcommand-face)
-		  "[ \t]+"
-		  '(("\\([0-9]+\\|`[a-zA-Z0-9_`']'\\)") ado-subcommand-face)
-		  ))
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "timer"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"clear" "list" "off" "on"
+			) 'words))
+	   "[ \t]+"
+	   "\\([0-9]+\\|`[a-zA-Z0-9_`']'\\)"
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
 		  
-
      ;; the args command 
-     (eval-when-compile
-       (make-regexps
-        "\\b"
-        '(("args") ado-builtin-harmful-face)
-	"[ \t]+"
-        '((
- 	  "\\([a-zA-Z_][a-zA-Z_0-9]*[ \t]*\\)+"
- 	  ) ado-variable-name-face)
-        "\\b"
-        ))
 
+	(list
+	 (concat
+	  "\\(\\<args\\>\\)"
+	  "[ \t]+"
+ 	  "\\([a-zA-Z_][a-zA-Z_0-9]*[ \t]*\\)+\\>"
+	  )
+	 '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face))
 
      ;; char with sub commands
-     (eval-when-compile
-       (make-regexps
-        "\\b"
-        '(("char") ado-builtin-harmless-face)
-        "[ \t]+"
-        '((
- 	  "l" "li" "lis" "list" 
- 	  ) ado-subcommand-face)
-        "\\b"
-        ))
-     (eval-when-compile
-       (make-regexps
-        "\\b"
-        '(("char") ado-builtin-harmful-face)
-        "[ \t]+"
-        '((
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "char"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "l" "li" "lis" "list" 
+		   ) 'words))
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "char"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
 		   "define"
 		   "ren" "rena" "renam" "rename"
-		   ) ado-subcommand-face)
-        "\\b"
-        ))
-
+		   ) 'words))
+	  )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
 
     ;; the constraint commands
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '((
-	  "cons" "const" "constr" "constra" "constrai" "constrain" "constraint" 
-	  ) ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
-	  "d"
-	  "de" "def" "defi" "defin" "define" 
-	  "di" "dir"
-	  "drop"
-	  "free" "get"
-	  "l" "li" "lis" "list"
-	  ) 
-	 ado-subcommand-face)
-       "\\b"
-       ))
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "cons" "const" "constr" "constra" "constrai" "constrain" "constraint" 
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "d"
+		   "de" "def" "defi" "defin" "define" 
+		   "di" "dir"
+		   "drop"
+		   "free" "get"
+		   "l" "li" "lis" "list"
+		   ) 'words))
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
 
     ;; the confirm commands - could be a mess!
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '((
-	  "conf" "confi" "confir" "confirm"
-	  ) ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
-	  "e" "ex" "exi" "exis" "exist" "existe" "existen" "existenc" "existence"
-	  "f" "fi" "fil" "file"
-	  "fo" "for" "form" "forma" "format" 
-	  "mat" "matr" "matri" "matrix" 
-	  "n" "name" "names" "nu" "num" "numb" "numbe" "number" 
-	  "sca" "scal" "scala" "scalar" 
-	  "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
-	  ) ado-subcommand-face)
-       "\\b"
-       ))
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '((
-	  "conf" "confi" "confir" "confirm"
-	  ) ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "conf" "confi" "confir" "confirm"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "e" "ex" "exi" "exis" "exist" "existe" "existen" "existenc" "existence"
+		   "f" "fi" "fil" "file"
+		   "fo" "for" "form" "forma" "format" 
+		   "mat" "matr" "matri" "matrix" 
+		   "n" "name" "names" "nu" "num" "numb" "numbe" "number" 
+		   "sca" "scal" "scala" "scalar" 
+		   "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
+		   ) 'words))
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "conf" "confi" "confir" "confirm"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 	  "integer"
-	  ) ado-subcommand-face)
-       "[ \t]+"
-       '((
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 	  "n" "nu" "num" "numb" "numbe" "number"
-	  ) ado-subcommand-face)
-       "\\b"
-       ))
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '((
-	  "conf" "confi" "confir" "confirm"
-	  ) ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "conf" "confi" "confir" "confirm"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 	  "n" "ne" "new"
-	  ) ado-subcommand-face)
-       "[ \t]+"
-       '((
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 	  "f" "fi" "fil" "file"
 	  "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
-	  ) ado-subcommand-face)
-       "\\b"
-       ))
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '((
-	  "conf" "confi" "confir" "confirm"
-	  ) ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "conf" "confi" "confir" "confirm"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 	  "byte" "double" "float" "int" "long"
 	  "numeric"
 	  "str" "stri" "strin" "string"
-	  ) ado-subcommand-face)
-       "[ \t]+"
-       '((
-	  "v" "va" "var" "vari" "varia" "variab" "variabl" "variable" 
-	  ) ado-subcommand-face)
-       "\\b"
-       ))
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '((
-			 "conf" "confi" "confir" "confirm"
-			 ) ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+	  "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "conf" "confi" "confir" "confirm"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			 "date"
 			 "numeric"
 			 "str" "stri" "strin" "string"
 			 "ts"
-			 ) ado-subcommand-face)
-       "[ \t]+"
-       '((
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			 "fo" "for" "form" "forma" "format" 
-			 ) ado-subcommand-face)
-       "\\b"
-       ))
-	 ;; obsolete confirm command
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '((
-			 "conf" "confi" "confir" "confirm"
-			 ) ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "conf" "confi" "confir" "confirm"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			 "ts"
-			 ) ado-obsolete-face t)
-       "[ \t]+"
-       '((
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			 "fo" "for" "form" "forma" "format" 
-			 ) ado-subcommand-face)
-       "\\b"
-       ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face) '(3 ado-subcommand-face))
 
     ;;; confirm str# 
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '((
-		  "conf" "confi" "confir" "confirm"
-		  ) ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
-		  "str" "str[1-9][0-9]?" "str1[0-9][0-9]" "str2[0-3][0-9]" "str24[0-4]"
-		  ) ado-subcommand-face)
-       "[ \t]+"
-       '((
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "conf" "confi" "confir" "confirm"
+		 ) 'words))
+	   "[ \t]+"
+	   "\\<\\(str"
+	   "\\|"
+	   "\\(?:str[1-9][0-9]?\\)" 
+	   "\\|"
+	   "\\(?:str1[0-9][0-9]\\)" 
+	   "\\|"
+	   "\\(?:str2[0-3][0-9]\\)" 
+	   "\\|"
+	   "\\(?:str24[0-4]\\)"
+	   "\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 		  "v" "va" "var" "vari" "varia" "variab" "variabl" "variable" 
-		  ) ado-subcommand-face)
-       "\\b"
-       ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+
 	;; merge
 	(eval-when-compile
 	  (make-regexps

@@ -1,4 +1,4 @@
-*! version 1.10.0 June 3, 2010 @ 18:34:00
+*! version 1.10.0 June 3, 2010 @ 22:46:51
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -94,7 +94,7 @@ version 11.1
    /* first w/o anything */
    cons
    constrain
-   cons de 
+   cons def
    const defin 
    constr d
    constr dir
@@ -2049,8 +2049,8 @@ set trace off
    conf double v
    confirm str11 v
    confirm str9 var
-   confirm str233 var
-   confirm str455 var
+   confirm str244 var
+   confirm str455 var // fails on purpose
 
    continue
 
@@ -3037,7 +3037,7 @@ for the syntax to be corrected */
 
    timer clear
    timer on 4
-   timer off 3
+   timer off 14
    timer list 55
    /* this is bad */
    timer off
