@@ -2170,164 +2170,201 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
 
 	;; merge
-	(eval-when-compile
-	  (make-regexps
-	   "\\b"
-	   '(("mer" "merg" "merge"
-		  ) ado-builtin-harmful-face t)
-	   "[ \t]"
-	   '((
-		  "1:1" "1:m" "m:1" "m:m"
-		  ) ado-subcommand-face)
-	   "\\b"
-	   ))
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "mer" "merg" "merge"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"1:1" "1:m" "m:1" "m:m"
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face))
+
 	;; mvtest
-	(eval-when-compile
-	  (make-regexps
-	   "\\b"
-	   '(("mvtest"
-		  ) ado-builtin-harmless-face t)
-	   "[ \t]"
-	   '((
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "mvtest"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 		  "corr" "corre" "correl" "correla" "correlat" "correlati" "correlatio" "correlation" "correlations" 
 		  "cov" "cova" "covar" "covari" "covaria" "covarian" "covarianc" "covariance" "covariances" 
 		  "m" "me" "mea" "mean" "means" 
 		  "norm" "norma" "normal" "normali" "normalit" "normality"
-		  ) ado-subcommand-face)
-	   "\\b"
-	   ))
-	;; notes
-	(eval-when-compile
-	  (make-regexps
-	   "\\b"
-	   '(("note" "notes"
-		  ) ado-builtin-harmful-face)
-	   "[ \t]"
-	   '((
-		  "drop"
-		  "renumber" "replace"
-		  "search"
-		  ) ado-subcommand-face t)
-	   "\\b"
-	   ))
-	(eval-when-compile
-	  (make-regexps
-	   "\\b"
-	   '(("note" "notes"
-		  ) ado-builtin-harmless-face)
-	   "[ \t]"
-	   '((
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "note" "notes" 
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"drop"
+			"renumber" "replace"
+			"search"
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "note" "notes" 
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 		  "l" "li" "lis" "list" 
-		  ) ado-subcommand-face t)
-	   "\\b"
-	   ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
     ;; the duplicates commands
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '(("duplicates") ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "duplicates"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			 "e" "ex" "exa" "exam" "examp" "exampl" "example" "examples" 
 			 "l" "li" "lis" "list" 
 			 "r" "re" "rep" "repo" "repor" "report" 
-			 ) ado-subcommand-face)
-       "\\b"
-       ))
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '(("duplicates") ado-builtin-harmful-face t)
-       "[ \t]+"
-       '((
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "duplicates"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			 "drop"
 			 "t" "ta" "tag" 
-			 ) ado-subcommand-face t)
-       "\\b"
-       ))
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '(("duplicates") ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "duplicates"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			 "b" "br" "bro" "brow" "brows" "browse" 
-			 ) ado-obsolete-face)
-       "\\b"
-       ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
 
 	;; estimates commands moved to just after estat commands
     ;; the _estimates commands
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '((
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
 	  "_est" "_esti" "_estim" "_estima" "_estimat" "_estimate" "_estimates"
-	  ) ado-builtin-harmless-face t)
-       "[ \t]+"
-       '((
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 	  "clear"
 	  "dir" 
 	  "drop"
 	  "h" "ho" "hol" "hold"
 	  "u" "un" "unh" "unho" "unhol" "unhold"
-	  ) 
-	 ado-subcommand-face t)
-       "\\b"
-       ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
     ;; the estat commands --- moved to after the obsolete commands
 
-    ;; the etest commands
-    ;;  FIX when at regression post estimation
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '(("etest") ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
-	  "hett" "hette" "hettes" "hettest" 
-	  ) ado-subcommand-face)
-       "\\b"
-       ))
     ;; the file commands
-
-    (eval-when-compile
-       (make-regexps
-        "\\b"
-        '(("file") ado-builtin-harmless-face)
-        "[ \t]+"
-        '((
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "file"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			  "close" "open" 
 			  "q" "qu" "que" "quer" "query" 
 			  "r" "re" "rea" "read" 
 			  "seek" 
 			  "set"
-			  ) ado-subcommand-face)
-        "\\b"
-        ))
-
-    (eval-when-compile
-       (make-regexps
-        "\\b"
-        '(("file") ado-builtin-harmful-face)
-        "[ \t]+"
-        '((
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "file"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 	   "sersetread" "sersetwrite"
 	   "w" "wr" "wri" "writ" "write" 
- 	  ) ado-subcommand-face)
-        "\\b"
-        ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
 
     ;; the gph commands
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '((
-	  "gph"
-	  ) ado-builtin-harmless-face)
-       "[ \t]+"
-       '((
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "gph"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 	  "arc"
 	  "box"
 	  "clear" "close"
@@ -2337,132 +2374,155 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	  "pen" "point"
 	  "text"
 	  "vline" "vpoint" "vpoly" "vtext"
-	  ) 
-	 ado-subcommand-face)
-       "\\b"
-       ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
     ;;
     ;; the gprefs commands
     ;;   (in multiple pieces)
-    ;; comment region 5
-     (eval-when-compile
-       (make-regexps
-        "\\b"
-        '((
- 	  "gprefs"
- 	  ) ado-builtin-harmless-face)
-        "[ \t]+"
-        '((
- 	  "q" "qu" "que" "quer" "query" 
- 	  ) 
- 	 ado-subcommand-face)
-	"[ \t]"
-        '((
- 	  "window"
- 	  ) ado-subcommand-face)
-        "\\b"
-        ))
-     ;;
-     ;; the gprefs set window scheme commands
-     ;; comment region 6
-     (eval-when-compile
-       (make-regexps
-        "\\b"
-        '((
-			  "gprefs"
-			  ) ado-builtin-harmless-face)
-        "[ \t]+"
-        '(("set") ado-subcommand-face)
-        "[ \t]+"
-        '(("window") ado-subcommand-face)
-        "[ \t]+"
-        '(("scheme") ado-subcommand-face)
-        "[ \t]+"
-        '((
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "gprefs"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"q" "qu" "que" "quer" "query" 
+			) 'words))
+	   )
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"window"
+			) 'words))
+	   	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+	(list
+	  (concat
+	   "\\<\\(gprefs\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(set\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(window\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(scheme\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			  "black" "blackb" "blackbg" 
 			  "custom1" "custom2" "custom3"
 			  "mono" "monoc" "monoch" "monochr" "monochro" "monochrom" "monochrome" 
 			  "white" "whiteb" "whitebg" 
-			  ) 
-			 ado-subcommand-face)
-        "\\b"
-        ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
+	  '(3 ado-subcommand-face) '(4 ado-subcommand-face) '(5 ado-subcommand-face))
+
      ;;
      ;; the other gprefs set window 
-     ;; comment region 7
-     (eval-when-compile
-       (make-regexps
-        "\\b"
-        '((
-			  "gprefs"
-			  ) ado-builtin-harmless-face)
-        "[ \t]+"
-        '(("set") ado-subcommand-face)
-        "[ \t]+"
-        '(("window") ado-subcommand-face)
-        "[ \t]+"
-        '((
-			  "displaythick[ \t]+off" "displaythick[ \t]+on"
+	(list
+	  (concat
+	   "\\<\\(gprefs\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(set\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(window\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			  "update"
-			  "usegphsize[ \t]+off" "usegphsize[ \t]+on"
 			  "xsize"
 			  "ysize"
-			  ) 
-			 ado-subcommand-face)
-        "\\b"
-        ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
+	  '(3 ado-subcommand-face) '(4 ado-subcommand-face))
+
+	(list
+	  (concat
+	   "\\<\\(gprefs\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(set\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(window\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			  "displaythick"
+			  "usegphsize"
+			) 'words))
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			  "off" "on"
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
+	  '(3 ado-subcommand-face) '(4 ado-subcommand-face) '(5 ado-subcommand-face))
      ;;
      ;; the gprefs set scheme commands 
-     ;; comment region 8
-     (eval-when-compile
-       (make-regexps
-        "\\b"
-        '((
-			  "gprefs"
-			  ) ado-builtin-harmless-face)
-        "[ \t]+"
-        '(("set") ado-subcommand-face)
-        "[ \t]+"
-        '((
+	(list
+	  (concat
+	   "\\<\\(gprefs\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(set\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			  "custom1" "custom2" "custom3"
-			  ) ado-subcommand-face)
+			  ) 'words))
         "[ \t]+"
-        '((
+		(eval-when-compile
+		  (regexp-opt
+		   '(
 			  "background_color"
 			  "pen1_color" "pen2_color" "pen3_color" "pen4_color" "pen5_color" "pen6_color" "pen7_color" "pen8_color" "pen9_color"
 			  "pen1_thick" "pen2_thick" "pen3_thick" "pen4_thick" "pen5_thick" "pen6_thick" "pen7_thick" "pen8_thick" "pen9_thick"
 			  "symmag_all"
-			  ) 
-			 ado-subcommand-face)
-        "_*\\b"
-        ))
+			  ) 'words))
+		)
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
+	  '(3 ado-subcommand-face) '(4 ado-subcommand-face))
      ;;
      ;; shoulda never started this - the gprefs query scheme layout all by its lonesome
-     ;; comment region 9
-     (eval-when-compile
-       (make-regexps
-        "\\b"
-        '((
-			  "gprefs"
-			  ) ado-builtin-harmless-face)
-        "[ \t]+"
-        '(("query") ado-subcommand-face)
-        "[ \t]+"
-        '((
+	(list
+	  (concat
+	   "\\<\\(gprefs\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(query\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			  "custom1" "custom2" "custom3"
-			  ) ado-subcommand-face)
-        "\\b"
-        ))
+			  ) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
+	  '(3 ado-subcommand-face))
+
      ;;; worst than smcl ---- it's graph!
      ;;;  -> will need multiple copies of the subcommands for the () and || and plain versions
      ;;;     argh, what a pain in the rear.
 	  ;; regular graph ... commands
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '(("gr" "gra" "grap" "graph") ado-builtin-harmless-face t)
-		  "[ \t]+"
-		  '((
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "gr" "gra" "grap" "graph"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			  "bar" "box"
 			  "combine" "copy"
 			  "des" "desc" "descr" "descri" "describ" "describe" 
@@ -2475,47 +2535,113 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "q" "qu" "que" "quer" "query" 
 			  "save" "set"
 			  "tw" "two" "twow" "twowa" "twoway"
-			  ) ado-subcommand-face t)
-		  "\\b"
-		  ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
+
 	  ;; the initial graph commands which are destructive
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '(("gr" "gra" "grap" "graph") ado-builtin-harmful-face t)
-		  "[ \t]+"
-		  '((
-			  "drop\\([ \t]+_all\\)?"
-			  "rename"
-			  "use"
-			  ) ado-subcommand-face t)
-		  "\\b"
-		  ))
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "gr" "gra" "grap" "graph"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "drop"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "_all"
+		 ) 'words))
+	   )
+	  '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "gr" "gra" "grap" "graph"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "drop" "rename" "use"
+		 ) 'words))
+	   )
+	  '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
 	  ;; graph set commands !! seem to introduce all sorts of trouble
-;; 	  (eval-when-compile
-;; 		(make-regexps
-;; 		 "\\b"
-;; 		 '(("gr" "gra" "grap" "graph") ado-builtin-harmless-face)
-;; 		 "[ \t]+"
-;; 		 '(("set") ado-subcommand-face t)
-;; 		 "[ \t]+"
-;; 		 '((
-;; 			"eps"
-;; 			"fontface" "fontfacemono" "fontfacesans"
-;; 			"fontfaceserif" "fontfacesymbol"
-;; 			"print" "ps"
-;; 			) ado-subcommand face t)
-;; 		 "\\b"
-;; 		 ))
-	  
-	  ;; the graph twoway stuff
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '(("\\(\\(gr\\|gra\\|grap\\|graph\\)[ \t]+\\)?") ado-builtin-harmless-face)
-		  '(("tw" "two" "twow" "twowa" "twoway" ) ado-builtin-harmless-face t)
-		  "[ \t]+"
-		  '((
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "gr" "gra" "grap" "graph"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"set"
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"eps" "print" "ps"
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "gr" "gra" "grap" "graph"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"set"
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"window"
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"fontface" "fontfacemono" "fontfacesans"
+			"fontfaceserif" "fontfacesymbol"
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) 
+	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+
+	  ;; the graph twoway stuff 
+	(list
+	 (concat
+	  "\\<\\(\\(?:\\(?:gr\\|gra\\|grap\\|graph\\)[ \t]+\\)?\\)"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "tw" "two" "twow" "twowa" "twoway"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			  "area"
 			  "bar"
 			  "con" "conn" "conne" "connec" "connect" "connecte" "connected" 
@@ -2537,9 +2663,11 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "sc" "sca" "scat" "scatt" "scatte" "scatter" 
 			  "scatteri" "spike"
 			  "tsline" "tsrline"
-			  ) ado-subcommand-face t)
-		  "\\b"
-		  ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face t) 
+	  '(3 ado-subcommand-face t))
+
 	  ;; even more aggravating: things for which both graph and twoway are optional
 ;; 	  (eval-when-compile
 ;; 		 (make-regexps
@@ -2551,7 +2679,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 ;; 		  "\\b"
 ;; 		  ))
 	  
-     ;; icd9, icd9p commands
+     ;; icd9, icd9p commands !! start here
      (eval-when-compile
        (make-regexps
 		  "\\b"
@@ -6358,6 +6486,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "conf" "confi" "confir" "confirm" 
 			  "rep" "repo" "repor" "report" 
 			  ) ado-subcommand-face t)
+
 		  "\\b"
 		  ))
 
@@ -6393,7 +6522,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "facw" "facwe" "facwei" "facweig" "facweigh" "facweight" "facweights" 
 			  "first" "firsts" "firstst" "firststa" "firststag" "firststage" 
 			  "gof" "grdistances" "group" "grmeans" "grsummarize"
-			  "hettest"
+			  "hett" "hette" "hettes" "hettest" 
 			  "ic" "imtest" "inertia"
 			  "kmo"
 			  "lceff" "lceffe" "lceffec" "lceffect" "lceffects" 

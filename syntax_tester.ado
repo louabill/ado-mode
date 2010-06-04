@@ -1,4 +1,4 @@
-*! version 1.10.0 June 3, 2010 @ 22:46:51
+*! version 1.10.0 June 4, 2010 @ 17:01:31
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -786,6 +786,7 @@ set trace off
    estat first
    estat firststage
    estat gof
+   estat hett
    estat hettest
    estat imtest
    estat mfx // not obsolete---still used for some commands
@@ -2350,7 +2351,7 @@ be a separate mode ... ugh */
    _estimat dir
    _estimate clear
    _estimates drop
-   _estimates `foo'
+   _estimates `foo' // fails...should it?
    
    e // why is this a valid abbrev?
    exit
@@ -3162,6 +3163,14 @@ version 8: fooie
    
    graph matrix
 
+   graph set eps
+   gr set ps
+   gr set print
+   
+   graph set window fontface
+   graph set window fontfacemono
+   
+
    /* these /should/ be previous testing lines, since they are documented in other */
    /*  manuals. Still... they are repeated here */
 
@@ -3271,6 +3280,7 @@ version 8: fooie
    graph set window fontfaceserif
    graph set window fontfacesymbol
 
+   // should the twoway's here be changed to command highlighting?
    gr twoway fee fie fo
    graph twoway (scatter bar foo) (lfitci bar fee)
    twoway bar foo || bar fee
