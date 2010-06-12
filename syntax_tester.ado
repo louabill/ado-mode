@@ -1,4 +1,4 @@
-*! version 1.10.0 June 4, 2010 @ 17:01:31
+*! version 1.10.0 June 12, 2010 @ 16:46:56
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -256,6 +256,8 @@ version 11.1
    cmdlog close
    cmdlog of
    cmdlog off
+   // undocumented
+   cmdlog query
    
    set logtype t
    set logtype smcl
@@ -320,6 +322,16 @@ version 11.1
    ml foot
    ml footnote
    ml score
+   /* obsolete ml */
+   ml b
+   ml begin
+   ml dep
+   ml depname
+   ml f
+   ml function
+   ml ml
+   ml mlout
+   * etc
    /* end ml */
    mlog mlogi mlogit
    /* should be off */
@@ -2397,13 +2409,13 @@ be a separate mode ... ugh */
       }
 
    fvexpand
-   
+
    gettoken foo : griminy, parse(" ,")
    gettoken bleeble bauble: foo, parse(",")
    gettoken (local) foo: complex
    gettoken (global) hey ho   : ho
    gettoken (local) bleen (global) hooie: gomp
-   gettoken bleen (local) bling : how
+   gettoken (local) bleen (local) bling : how
 
    if foo fuggy
    if `this' that
@@ -2418,6 +2430,8 @@ be a separate mode ... ugh */
    else {
       frantabulous
       }
+   // should not highlight as command
+   bleen else bling
 
    include somefile.doh
    
@@ -3020,6 +3034,12 @@ for the syntax to be corrected */
    varname
    newvarlist
    newvarname
+   exp
+   weight
+   if
+   in
+   using
+   options
 
    /* back to things I can handle */
    sysdir
