@@ -1,4 +1,4 @@
-*! version 1.10.0 June 12, 2010 @ 16:46:56
+*! version 1.10.0 June 13, 2010 @ 19:30:55
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -64,6 +64,10 @@ version 11.1
    include
    
    /* functions in the order of the manuals (for checking for obsolete functions... */
+   /* some arbitrary usages */
+   _b[foobar]
+   _coef[bleen]
+   _se[freeble]
    /* first... the general reference manuals */
    about
    adjust // obsolete in Stata 11
@@ -894,7 +898,7 @@ set trace off
    egen
    /* any() has been mapped to anyvalue() but is not listed as obsolete as of 19.oct.05 */
    egen = any() /* problem with mata any() */
-   egen = anycount()
+   egen breeble = anycount()
    egen = anymatch()
    egen = anyvalue()
    egen = concat() 
@@ -1235,7 +1239,7 @@ set trace off
    yq()
    yw()
 
-   /* single-letter date fns  obsolete in Stata 10 */
+   /* single-letter date fns---obsolete in Stata 10 */
    d()
    h()
    m()
@@ -2007,7 +2011,10 @@ set trace off
    a.b.Arrpop
    a.c.Arrpush
 
-   /* cannot seem to get these to work */
+   // cannot seem to get these to work well
+   //   making . highlight differently is really hard, because it shows
+   //   up in too many contexts
+   
    .Global.foo.gringo
    .Local.d.e.f
    .Super.q.e.d
@@ -2455,7 +2462,7 @@ be a separate mode ... ugh */
    /* wrong --- will highlight with obsolete */
    loc which--
    local wrong++
-   /* right, though */
+   /* right, though this points to the need for highlighting operators */
    display `foo++'
    display `++foo'
    display `--foo'
@@ -2564,7 +2571,7 @@ be a separate mode ... ugh */
    global foo : list ding - dong
    global foo: list this == that
    global foo: list this === that
-   loc foo: list hey in ho
+   loc foo: list hey in ho // perhaps 'in' should highlight
    local foo: list sizeof hey
    local foo: list posof "this is something" in hooie
 
@@ -2804,6 +2811,7 @@ for the syntax to be corrected */
    {text}
    {text:for later reading}
 
+   // should fail
    {inp}
    {inp:foo}
    {err}
@@ -2948,6 +2956,7 @@ for the syntax to be corrected */
    {center 43:fuddle}
    {center bogus:haha} // too lazy to fix
    {centre 59:bosh!}
+   {center `zzz':jiminy}
    {right:wing neocon}
    {lalign 69:ihtfp}
    {ralign 666:nationalist}
@@ -3001,7 +3010,10 @@ for the syntax to be corrected */
    {p2col : first col}
    {p2colreset}
    {synoptset}
+   {synoptset 6}
+   {synoptset `foo'}
    {synoptset 5 tabbed}
+   {synoptset 12 notes}
    /* next one is bad */
    {synoptset 5 6}
    {synopthdr}
