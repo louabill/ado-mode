@@ -1,4 +1,4 @@
-*! version 1.10.0 June 13, 2010 @ 19:30:55
+*! version 1.10.0 June 13, 2010 @ 21:44:41
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -2019,6 +2019,7 @@ set trace off
    .Local.d.e.f
    .Super.q.e.d
    4.2
+   
 
    class fooey {
       classwide:
@@ -2027,6 +2028,7 @@ set trace off
       } 
    
    class exit
+   class bl33n
    
    classutil drop
    classutil d

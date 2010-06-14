@@ -2577,7 +2577,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		 ) 'words))
 	   )
 	  '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
-	  ;; graph set commands !! seem to introduce all sorts of trouble
+	  ;; graph set commands ! seem to introduce all sorts of trouble
 	(list
 	  (concat
 	   (eval-when-compile 
@@ -4793,7 +4793,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
 	   )
 	  '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face t))
-	;; local macro definition !!
+	;; local macro definition
 	(list
 	  (concat
 	   "[ \t]*"
@@ -6193,101 +6193,106 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 
 ;;; builtin class functions and modifiers
 	(list
+	 (concat
+	  "\\(?:[.a-zA-Z][a-zA-Z0-9_]*\\)+"
+	  "\\([.]\\)"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "Arrdropall" "Arrdropel" "Arrpop" "Arrpush"
+		   "Declare"
+		   "arrindexof" "arrnels"
+		   "classmv" "classname" "copy"
+		   "dynamicmv"
+		   "instancemv" "isa" "isofclass"
+		   "new"
+		   "objkey" "objtype"
+		   "ref" "ref_n"
+		   "superclass"
+		  "uname" 
+		  ) 'words))
+	  )
+	 '(1 ado-function-name-face) '(2 ado-function-name-face t))
+
+;;; class command
+	(list
+	 (concat
+	  "\\<\\(class\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(exit\\)\\>"
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	(list
 	  (concat
-	   "\\([.]\\)"
+	  "\\<\\(class\\)\\>"
+	  "[ \t]+"
+	  "\\([_a-zA-Z][_a-zA-Z0-9]*\\)"
+	  )
+	  '(1 ado-builtin-harmful-face) '(2 ado-builtin-harmful-face t))
+
+     ;; all the different declarations
+	(list
+	  (concat
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
-		  "Arrdropall" "Arrdropel" "Arrpop" "Arrpush"
-		  "Declare"
-		  "arrindexof" "arrnels"
-		  "classmv" "classname" "copy"
-		  "dynamicmv"
-		  "instancemv" "isa" "isofclass"
-		  "new"
-		  "objkey" "objtype"
-		  "ref" "ref_n"
-		  "superclass"
-		  "uname" 
-		 ) 'words))
-	   )
-	  '(1 ado-function-name-face) '(2 ado-function-name-face t))
-
-;;; class command !! start here
-     (eval-when-compile
-       (make-regexps
-        "\\b"
-        '(("class") ado-builtin-harmless-face)
-        "[ \t]+"
-        '((
-		  "exit"
-		  ) ado-subcommand-face t)
-        "\\b"
-        ))
-     ;; highlighting class names
-     (eval-when-compile
-       (make-regexps
-		  "\\b"
-		  '(("class") ado-builtin-harmful-face)
-		  "[ \t]+"
-		  '(("[_a-zA-Z][_a-zA-Z0-]*") ado-builtin-harmful-face t)
-		  ))
-     ;; all the different declarations
-     (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '((
 		  "class" "classw" "classwi" "classwid" "classwide" 
 		  "instance" "instances" "instancesp" "instancespe" "instancespec" 
 		  "instancespeci" "instancespecif" "instancespecifi" "instancespecific" 
-		  ) ado-builtin-harmless-face)
-		  "[ \t]*:"
-		  ))
-    
+		 ) 'words))
+	   "[ \t]*:"
+	   )
+	  '(1 ado-builtin-harmless-face))
+
 	  ;; classutil stuff
-	  (eval-when-compile
-       (make-regexps
-        "\\b"
-        '(("classutil") ado-builtin-harmful-face)
-        "[ \t]+"
-        '((
-		  "drop"
-		  ) ado-subcommand-face t)
-        "\\b"
-        ))
-	  (eval-when-compile
-       (make-regexps
-        "\\b"
-        '(("classutil") ado-builtin-harmless-face)
-        "[ \t]+"
-        '((
+	(list
+	  (concat
+	   "\\<\\(classutil\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(drop\\)\\>"
+	   )
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
+	(list
+	  (concat
+	   "\\<\\(classutil\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 		  "cdir"
 		  "d" "de" "des" "desc" "descr" "descri" "describ" "describe"
 		  "dir"
 		  "which"
-		  ) ado-subcommand-face t)
-        "\\b"
-        ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; oh my - the creturn info!
-	  (eval-when-compile
-       (make-regexps
-        "\\b"
-        '(("cret" "cretu" "cretur" "creturn") ado-builtin-harmless-face)
-        "\\W+"
-        '((
-		  "l" "li" "lis" "list" 
-		  ) ado-subcommand-face)
-        "\\b"
-        ))
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "cret" "cretu" "cretur" "creturn"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"l" "li" "lis" "list" 
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 ;;; the system 'constants' (which are not really constant) - the c() thingies
-	  (eval-when-compile
-       (make-regexps
-        "\\b"
-        '(("c(") ado-builtin-harmless-face t)
-        "[ \t]*"
-        '((
+	(list
+	  (concat
+	   "\\(c(\\)"
+	   "[ \t]*"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 		  "ALPHA" "Mons" "Months" "MP" "N" "SE" "Wdays" "Weekdays"
 		  "adopath" "adosize" "alpha" 
 		  "born_date" "byteorder"
@@ -6312,9 +6317,9 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "minbyte" "mindouble" "minfloat" "minint" "minlong"
 		  "mode" "more"
 		  "namelen" "noisily"
-		  "os" "osdtl"
+		  "odbcmgr" "os" "osdtl"
 		  "pagesize" "pi" "printcolor" "processors" "processors_lic" "processors_mach" "processors_max" "pwd"
-		  "rc" "rmsg" "rmsg_time"
+		  "rc" "reventries" "rmsg" "rmsg_time"
 		  "scheme" "scrollbufsize" "searchdefault" "seed" 
 		  "smallestdouble" "stata_version"
 		  "sysdir_base" "sysdir_oldplace" "sysdir_personal" "sysdir_plus" "sysdir_site" "sysdir_stata"
@@ -6324,75 +6329,83 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "username"
 		  "varabbrev" "version" "virtual"
 		  "width" 
-		  ) ado-constant-face t)
-		  "[ \t]*"
-		  '((")") ado-builtin-harmless-face t)
-        ))
+			) 'words))
+	   "[ \t]*"
+	   "\\()\\)"
+	   )
+	  '(1 ado-builtin-harmless-face t) '(2 ado-constant-face t)
+	  '(3 ado-builtin-harmless-face))
+
 ;;; platform specific c() thingies
-	  (eval-when-compile
-		(make-regexps
-		 "\\b"
-		 '(("c(") ado-builtin-harmless-face t)
-		 "[ \t]*"
-		 '((
+	(list
+	  (concat
+	   "\\(c(\\)"
+	   "[ \t]*"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			"autotabgraphs"
 			"dockable" "dockingguides" "doublebuffer"
 			"eolchar"
 			"locksplitters"
-			"macgphengine"
 			"notifyuser"
 			"playsnd"
-			"odbcmgr"
 			"persistfv" "persistvtopic" "pinnable"
-			"reventries" "revkeyboard"
-			"smalldlg" "smoothfonts"
+			"revkeyboard"
+			"smoothfonts"
 			"update_interval" "update_prompt" "update_query"
 			"varkeyboard" "varlabelpos"
-			"xptheme"
-			) ado-platform-specific-face t)
-		 "[ \t]*"
-		 '((")") ado-builtin-harmless-face t)
-		 ))
+			) 'words))
+	   "[ \t]*"
+	   "\\()\\)"
+	   )
+	  '(1 ado-builtin-harmless-face t) '(2 ado-platform-specific-face t)
+	  '(3 ado-builtin-harmless-face))
 ;;; obsolete c() thingies
-	  (eval-when-compile
-		(make-regexps
-		 "\\b"
-		 '(("c(") ado-builtin-harmless-face t)
-		 "[ \t]*"
-		 '((
+	(list
+	  (concat
+	   "\\(c(\\)"
+	   "[ \t]*"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			"fastscroll" "floatresults" "floatwindows"
+			"macgphengine"
 			"smalldlg"
 			"piccomments"
 			"revwindow"
+			"smalldlg" 
 			"smoothsize"
 			"use_atsui_graph" "use_qd_text"
 			"varwindow"
 			"xptheme"
-			) ado-obsolete-face t)
-		 "[ \t]*"
-		 '((")") ado-builtin-harmless-face t)
-		 ))
+			) 'words))
+	   "[ \t]*"
+	   "\\()\\)"
+	   )
+	  '(1 ado-builtin-harmless-face t) '(2 ado-obsolete-face t)
+	  '(3 ado-builtin-harmless-face))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stuff for writing dlg files  ;;;
+;;; should be its own minor mode ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '(("VERSION") ado-builtin-harmless-face)
-		  "\\W+"
-		  '((
-		  "8\\([.]\\(0\\|1\\|2\\)\\)?" "9\\([.]\\(0\\|00\\|1\\|2\\)\\)?"
-		  ) ado-subcommand-face)
-		  "\\b"
-		  ))
-    
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "VERSION"
+		 ) 'words))
+	   "[ \t]+"
+	   "\\(\\(?:\\(?:9[.]00\\|\\(?:8\\|9\\|\\(?:1\\(?:0\\|1\\)\\)\\)[.]\\(?:0\\|1\\)\\)\\|\\(?:\\(?:8\\|9\\)[.]2\\)\\|\\(?:[89]\\|1\\(?:0\\|1\\)\\)\\)\\)"
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
 	  ;; general builtins for dialogs
 	  ;; here - the harmless faces define static text 
 	  ;;        whereas the harmful face defines dynamic text
-
+	;; !! start here
 	  (eval-when-compile
 		 (make-regexps
 		  "\\b"
