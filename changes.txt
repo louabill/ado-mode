@@ -1,6 +1,13 @@
 Version History:
 ---------------
 
+1.11.1.0:
+. Updated for Stata 11.1
+. Big internal change: got rid of make-regexps in favor of regexp-opt,
+  so that all called functions were part of standard emacs. Though
+  make-regexps was nice to use, it was way out of date.
+. Various highlighting bug fixes.
+
 1.11.0.1:
 . Fixed a bug where sending code to Stata from MS Windows via a do-file
   failed.

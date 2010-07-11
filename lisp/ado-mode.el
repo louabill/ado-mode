@@ -1,10 +1,10 @@
 ;; ado-mode.el --- ado mode, and its idiosyncratic commands.
 
-;; Copyright (C) 1999,..., 2009 Bill Rising
+;; Copyright (C) 1996,..., 2010 Bill Rising
 
 ;; Maintainer: Bill Rising, brising at stata dot com
 ;; Keywords: ado-mode, highlighting
-;; Version: 1.11.0.0 of February 23, 2010
+;; Version: 1.11.1.0 of February 23, 2010
 ;;
 ;; the old version system was 0.stata-version times ten.update
 ;; the new version system is now 1.stataversion.statasubversion.update
@@ -30,12 +30,8 @@
 
 ;; This package provides the ado mode *NOT* documented in the
 ;; Emacs user's manual.
-;; Much of this code originated with the C-mode, but has changed
-;; quite a bit since.
-;; To add your own additions to this, you will also need the
-;; make-regexp package, a copy of which is located with this file
-;; in Bill's Current Pile of Stuff
-;;  ftp://erdos.math.louisville.edu/pub/brising
+;; Long ago, this was based on the c-mode, but the similarities are
+;;   likely now quite small
 ;;
 ;;; Code:
 
@@ -1590,15 +1586,6 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
 
     ;; obsolete stuff which appears as OK as subcommands
-    ;; (eval-when-compile
-    ;;   (make-regexps
-    ;;    "\\b"
-    ;;    '(("lfit"
-	;; 		 "sco" "scor" "score") ado-obsolete-face)
-    ;;    "\\b"
-    ;;    ))
-    ;;
-
 	(list
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -1738,6 +1725,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  '(
 			"a" "ad" "ado" "ados" "adosi" "adosiz" "adosize" 
 			"autotabgraphs"
+			"cformat"
 			"httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
 			"l" "le" "lev" "leve" "level"
 			"li" "lin" "line" 
@@ -1749,10 +1737,12 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 "notifyuser"
 			 "ob" "obs"
 			 "pa" "pag" "page" "pages" "pagesi" "pagesiz" "pagesize"
+			 "pformat"
 			 "processors"
 			 "reventr" "reventri" "reventrie" "reventries" 
 			 "scheme" "scrollbufsize"
 			 "se" "see" "seed"
+			 "sformat"
 			 "smoothsize"
 			 "timeout1"
 			 "timeout2"
@@ -1765,6 +1755,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	   )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+	;; set with odd options
 	(list
 	  (concat
 	   (eval-when-compile 
@@ -1792,9 +1783,11 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	   "\\|"
 	   "\\(?:search\\(?:d\\|de\\|def\\|defa\\|defau\\|defaul\\|default\\)[ \t]+\\(?:all\\|local\\|net\\)\\)"
 	   "\\|"
+	   "\\(?:showbaselevels[ \t]+\\(?:o\\(?:ff\\|n\\)\\|all\\)\\)"
+	   "\\|"
 	   "\\(?:t\\(?:y\\|yp\\|ype\\)[ \t]+\\(?:double\\|float\\)\\)"
 	   "\\)\\>")
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
    
 	;; set <foo> on/off commands
 
@@ -1823,7 +1816,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "persistfv" "persistvtopic"
 		  "pinnable"
 		  "playsnd"
-		  "r" "revkeyboard" "rm" "rms" "rmsg" 
+		  "r" "revkeyboard" "rm" "rms" "rmsg"
 		  "smoothf" "smoothfo" "smoothfon" "smoothfont" "smoothfonts" 
 		  "tr" "tra" "trac" "trace"
 		  "tracee" "traceex" "traceexp" "traceexpa" "traceexpan" "traceexpand" 
@@ -1844,13 +1837,18 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	   )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
-	;; set output command, which cannot be abbreviated
+	;
 
+	;; set output command, with its odd subsubcommands
 	(list
 	 (concat
 	  "^[ \t]*"
-	  "\\<\\(set\\)\\>"
-	  "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "se" "set"
+		 ) 'words))
+	   "[ \t]+"
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1866,6 +1864,26 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			) 'words))
 	   )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+
+	;; ;; set showbaselevels command with it's odd all subcommand
+	;; (list
+	;;  (concat
+	;;   "^[ \t]*"
+	;;    (eval-when-compile 
+	;; 	 (regexp-opt 
+    ;;    '(
+	;; 	 "se" "set"
+	;; 	 ) 'words))
+	;;    "[ \t]+"
+	;;    "\\<\\(showbaselevels\\)\\>"
+	;;    "[ \t]+"
+	;;    (eval-when-compile 
+	;; 	 (regexp-opt 
+	;; 	  '(
+	;; 		"all" "off" "on"
+	;; 		) 'words))
+	;;    )
+	;;   '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face t))
 
 	;; these appear to be obsolete and do not show in the manuals
 	;;   some work, however.
@@ -1899,7 +1917,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		   "varwin" "varwind" "varwindo" "varwindow" "video"
 		   ) 'words))
 	  )
-	 '(1 ado-builtin-harmless-face) '( 2 ado-obsolete-face t))
+	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
 
 	  ;; the timer command
 	(list
@@ -1942,9 +1960,9 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	 (concat
 	  "\\(\\<args\\>\\)"
 	  "[ \t]+"
- 	  "\\([a-zA-Z_][a-zA-Z_0-9]*[ \t]*\\)+\\>"
+ 	  "\\(\\(?:[a-zA-Z_][a-zA-Z_0-9]*[ \t]*\\)+\\)"
 	  )
-	 '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face))
+	 '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face t))
 
      ;; char with sub commands
 	(list
@@ -2669,15 +2687,6 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	  '(3 ado-subcommand-face t))
 
 	  ;; even more aggravating: things for which both graph and twoway are optional
-;; 	  (eval-when-compile
-;; 		 (make-regexps
-;; 		  "\\b"
-;; 		  '(("\\(\\(gr\\|gra\\|grap\\|graph\\)[ \t]+\\)?") ado-builtin-harmless-face)
-;; 		  '(("\\(\\(tw\\|two\\|twow\\|twowa\\|twoway\\)[ \t]+\\)?" ) ado-builtin-harmless-face t)
-;; 		  '((
-;; 			  "tsline" "tsrline" ) ado-builtin-harmless-face t)
-;; 		  "\\b"
-;; 		  ))
 	  
      ;; icd9, icd9p commands
 	(list
@@ -4260,7 +4269,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "sampsi" "sconfirm" 
 		  "sc" "sca" "scat" "scatt" "scatte" "scatter" 
 		  "scobit" "scoreplot" "screeplot"
-		  "sdtest" "sdtesti" "search" "serrbar" "serset"
+		  "sdr" "sdtest" "sdtesti" "search" "serrbar" "serset"
 		  "set_defaults"
 		  "sfrancia" 
 		  "sh" "she" "shewhart" "shel" "shell" 
@@ -4287,11 +4296,14 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "tabu" "tabul" "tabula" "tabulat" "tabulate"
 		  "te" "tes" "test"
 		  "testnl" "testparm" "tetrachoric"
+		  "tnbreg"
 		  "tob" "tobi" "tobit"
 		  "token" "tokeni" "tokeniz" "tokenize" 
 		  "total" "touch" 
+		  "tpoisson"
 		  "translator" "transmap" "treatreg" "truncreg"
 		  "tsline" "tsreport" "tsrline" "tsset" "tssmooth" "tsunab" "ttest" "ttesti"
+		  "twoway"
 		  "ty" "typ" "type"
 		  "unab" "unabcmd" "update" "using"
 		  "var" "varabbrev" "varbasic" "vargranger"  
@@ -4353,9 +4365,11 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	   (eval-when-compile 
 		 (regexp-opt 
 		  '(
+			"bootstrap"
 			"brr"
 			"jack" "jackk" "jackkn" "jackkni" "jackknif" "jackknife" 
 			"linear" "lineari" "lineariz" "linearize" "linearized" 
+			"sdr"
 			) 'words))
 	   ".*?,?.*?:[ \t]*"
 	   (eval-when-compile 
@@ -4401,46 +4415,36 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	  ;; if might not work right ('cuz it is also a keyword)
 	(list
 	 (concat
-	  "[ \t]*"
-	  "\\<\\(if\\)\\>"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "if" "else" "while"
+		   ) 'words ))
+	  "[ \t]+.*?{"
 	  )
 	 '(1 ado-builtin-harmless-face t))
-
-	;; not fixed up---fix if things look odd
-	  ;; (eval-when-compile
-	  ;; 	 (make-regexps
-	  ;; 	  "^[ \t]*"
-	  ;; 	  '(("if" "while"
-	  ;; 	  ) ado-builtin-harmless-face t)
-	  ;; 	  "[ \t]+.*?[ \t]+.+?"
-	  ;; 	  ))
-	  ;; else statement (which may just have a {, but must start a line )
-
-	(list
-	 (concat
-	  "^[ \t]*"
-	  "\\<\\(else\\)\\>"
-	  )
-	  '(1 ado-builtin-harmless-face))
 
 	  ;; variable types which appear as subcommands often
 	(list
 	 (eval-when-compile 
 	   (regexp-opt 
 		'(
-		  "byte" "int" "long" "str" "str[1-9][0-9]?" "str1[0-9][0-9]" "str2[0-3][0-9]" "str24[0-4]" "float" "double"
+		  "byte" "int" "long" "str" "float" "double"
 		  ) 'words))
 	 '(1 ado-subcommand-face))
 
-	  ;; special local variables (used in parsing)
-	  ;; now obsolete, no?
-	  ;; (eval-when-compile
-	  ;; 	 (make-regexps
-	  ;; 	  "^[ \t]*\\(local\\)+[ \t]+"
-	  ;; 	  '(("varlist" "exp" "weight" "if" "in" "using" "options"
-	  ;; 	  ) ado-subcommand-face nil t t)
-	  ;; 	  "\\b"
-	  ;; 	  ))
+	;; string variable types
+	(list
+	 (concat
+	  "\\<\\(str"
+	  "\\(?:2\\(?:[0-3][0-9]\\|4[0-4]\\)"
+	  "\\|"
+	  "1[0-9][0-9]"
+	  "\\|"
+	  "[1-9][0-9]?"
+	  "\\)\\)\\>"
+	  )
+	 '(1 ado-subcommand-face))
 
 	  ;; things used with display
 	  ;; since these are often split across lines, and Stata commands are hard
@@ -5256,7 +5260,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		 "tempfile" "tempname" "tempvar"
 		 ) 'words))
 	   "[ \t]+`*"
-	   "\\(\\(?:[a-zA-Z_]+[a-zA-Z_0-9]*?[ \t]*\\)+\\)"
+	   "\\(\\(?:[a-zA-Z_]+[a-zA-Z_0-9]*[ \t]*\\)+\\)"
 	   )
 	  '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t))
 
@@ -5760,7 +5764,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
        '(
 		  "asis"
 		  "bf" "break"
-		  "cmd"
+		  "cmd" "com"
 		  "depvar" "depvars" "depvarlist" "dtype"
 		  "err" "error"
 		  "hi" "hilite" "hline"
@@ -5770,7 +5774,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "phang" "phang2" "phang3" "pin" "pin2" "pin3" "pmore" "pmore2" "pmore3" "psee" "pstd"
 		  "res" "reset" "result"
 		  "s6hlp"
-		  "sf" "synopthdr" "synoptline" "synoptset"
+		  "sf" "smcl" "synopthdr" "synoptline" "synoptset"
 		  "tab" "text" "txt"
 		  "var" "varlist" "varname" "vars"
 		  "weight"
@@ -5814,13 +5818,13 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "ul" "update_d"
 		  "var" "varlist" "varname" "vars" "view_d"
 		 ) 'words))
-	   "[ \t]*?"
+	   "[ \t]*"
 	   "\\(:\\)"
 	   "\\([^}]+\\)"
 	   "\\(}\\)"
 	   )
 	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
-	  '(3 ado-constant-face) '(4 ado-subcommand-face) '(5 ado-constant-face))
+	  '(3 ado-constant-face) '(4 ado-subcommand-face t) '(5 ado-constant-face))
 	  ;; making comments look like comments
 	(list
 	 (concat
@@ -6461,32 +6465,6 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "weight"
 		 ) 'words))
 	  '(1 ado-builtin-harmless-face))
-	  ;; (eval-when-compile
-	  ;; 	 (make-regexps
-	  ;; 	  "\\b"
-	  ;; 	  '((
-	  ;; 	  "BEGIN"
-	  ;; 	  "COLOR"
-	  ;; 	  "END" "EXP"
-	  ;; 	  "FRAME"
-	  ;; 	  "GROUPBOX"
-	  ;; 	  "LIST"
-	  ;; 	  "POSITION" "PROGRAM"
-	  ;; 	  "SCRIPT"
-	  ;; 	  "TEXT"
-	  ;; 	  "allowxi"
-	  ;; 	  "beginoptions" "by" "bysort"
-	  ;; 	  "endoptions" "exit"
-	  ;; 	  "ifexp" "inrange"
-	  ;; 	  "option" "optionarg"
-	  ;; 	  "put"
-	  ;; 	  "require"
-	  ;; 	  "stata"
-	  ;; 	  "varlist"
-	  ;; 	  "weight"
-	  ;; 	  ) ado-builtin-harmless-face)
-	  ;; 	  "\\b"
-	  ;; 	  ))
 
 	(list
 	   (eval-when-compile 
@@ -6584,31 +6562,6 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	  )
 	 '(1 ado-mata-future-keyword-face))
 
-	  ;; (eval-when-compile
-	  ;; 	 (make-regexps
-	  ;; 	  "[ \t]+"
-	  ;; 	  '((
-	  ;; 	  "aggregate" "array"
-	  ;; 	  "boolean" "byte" 
-	  ;; 	  "case" "catch" "class" "const"
-	  ;; 	  "default" "delegate" "delete" "double" 
-	  ;; 	  "else" "eltypedef" "end" "enum" "explicit" "export"
-	  ;; 	  "float" "friend" 
-	  ;; 	  "global"
-	  ;; 	  "inline" "int" 
-	  ;; 	  "local" "long" 
-	  ;; 	  "namespace" "new" "NULL" 
-	  ;; 	  "operator" "orgtypedef"
-	  ;; 	  "polymorphic" "private" "protected" "public"
-	  ;; 	  "quad"
-	  ;; 	  "short" "signed" "static" "struct" "super" "switch"
-	  ;; 	  "template" "this" "throw" "try" "typedef" "typename"
-	  ;; 	  "union" "unsigned" "using" 
-	  ;; 	  "virtual" "volatile"
-	  ;; 	  ) ado-mata-future-keyword-face)
-	  ;; 	  "\\b"
-	  ;; 	  ))
-
 	(list
 	  (concat
 	   "\\<\\(pragma\\)\\>"
@@ -6620,13 +6573,6 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			) 'words))
 	   )
 	  '(1 ado-mata-keyword-face) '(2 ado-subcommand-face))
-	  ;; (eval-when-compile
-	  ;; 	 (make-regexps
-	  ;; 	  "[ \t]+"
-	  ;; 	  '(("pragma") ado-mata-keyword-face)
-	  ;; 	  "[ \t]+"
-	  ;; 	  '(("unset" "unused") ado-subcommand-face)
-	  ;; 	  ))
     
 	(list
 	  (concat
@@ -6639,13 +6585,6 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	   "("
 	   )
 	  '(1 ado-mata-keyword-face))
-
-	  ;; (eval-when-compile
-	  ;; 	 (make-regexps
-	  ;; 	  "[ \t]+"
-	  ;; 	  '(("pointer" "return") ado-mata-keyword-face)
-	  ;; 	  "("
-	  ;; 	  ))
 
 	  ;; mata subcommands
 	  ;;  does this run into the need for extra harmful and harmless faces?!?!
@@ -6671,26 +6610,6 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	   )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t))
 
-	  ;; (eval-when-compile
-	  ;; 	 (make-regexps
-	  ;; 	  "[ \t]+"
-	  ;; 	  '(("mata") ado-mata-keyword-face t)
-	  ;; 	  "[ \t]+"
-	  ;; 	  '((
-	  ;; 	  "clear"
-	  ;; 	  "d" "de" "des" "desc" "descr" "descri" "describ" "describe" 
-	  ;; 	  "drop"
-	  ;; 	  "end"
-	  ;; 	  "help"
-	  ;; 	  "matd" "matde" "matdes" "matdesc" "matdescr" "matdescri" "matdescrib" "matdescribe" 
-	  ;; 	  "matsave" "matuse" "memory" "mlib" "mosave"
-	  ;; 	  "query"
-	  ;; 	  "rename"
-	  ;; 	  "set" "stata"
-	  ;; 	  "which"
-	  ;; 	  ) ado-mata-keyword-face t)
-	  ;; 	  "\\b"
-	  ;; 	  ))
 	  ;; mata subcommands
 	  ;;  does this run into the need for extra harmful and harmless faces?!?!
 	(list
@@ -6790,9 +6709,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	   "("
 	   )
 	  '(1 ado-mata-function-name-face t))
-	;; mata functions must have something wrong in a regexp, b/c they
-	;;  are hanging emacs. All are commented out until I find source
-
+	;; mata functions
 	(list
 	  (concat
 	   "\\<\\(mata\\)\\>"
@@ -6815,6 +6732,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	   )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t))
 	(list
+	 (concat
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -6895,8 +6813,11 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "isrealvalues" "isstring" "issymmetric" "issymmetriconly" "isview" 
 		  "jumble"
 		 ) 'words))
+	   "("
+	   )
 	  '(1 ado-mata-function-name-face t))
 	(list
+	 (concat
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -6939,14 +6860,18 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "valofexternal" "variance" "vec" "vech"
 		  "unlink" "unorder" "uppertriangle"
 		 ) 'words))
-	  '(1 ado-mata-function-name-face t))
+	   "("
+	   )
+	 '(1 ado-mata-function-name-face t))
 
-	  ;; the moptimize_init functions !! start here
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '(("moptimize_init_") ado-mata-function-name-face t)
-		  '((
+
+	  ;; the moptimize_init functions
+	(list
+	  (concat
+	   "\\<\\(moptimize_init_\\)"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			 "by" 
 			 "cluster" "constraints" 
 			 "conv_ignorenrtol" "conv_maxiter" "conv_nrtol" "conv_ptol" "conv_vtol" "conv_warning" 
@@ -6964,15 +6889,18 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 "userinfo" 
 			 "valueid" "vcetype" "verbose" "view" 
 			 "weight" "weighttype" "which" 			 
-			 ) ado-mata-function-name-face t)
-		  "("
-		  ))
+			) t ))
+	   "("
+	   )
+	  '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
+
 	  ;; the moptimize results prefix functions
-	  (eval-when-compile
-		(make-regexps
-		 "\\b"
-		 '(("moptimize_result_") ado-mata-function-name-face t)
-		 '((
+	(list
+	  (concat
+	   "\\<\\(moptimize_result_\\)"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			"Hessian" 
 			"V" "V_oim" "V_opg" "V_robust" "Vtype" 
 			"coefs" "colstripe" "converged" 
@@ -6984,25 +6912,30 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			"returncode" 
 			"scores" 
 			"value" "value0" 			 
-			) ado-mata-function-name-face t)
-		 "("
-		 ))
+			) t ))
+	   "("
+	   )
+	  '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
+
 	  ;; the moptimize_util prefix functions
-	  (eval-when-compile
-		(make-regexps
-		 "\\b"
-		 '(("moptimize_util_") ado-mata-function-name-face t)
-		 '((
-			"depvar" "eq_indices" "matbysum" "matsum" "sum" "vecsum" "xb" 			         ) ado-mata-function-name-face t)
-		 "("
-		 ))
+	(list
+	  (concat
+	   "\\<\\(moptimize_util_\\)"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"depvar" "eq_indices" "matbysum" "matsum" "sum" "vecsum" "xb" 						) t ))
+	   "("
+	   )
+	  '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
 	  
 	  ;; arrrgh the mata st_ functions
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '(("st_") ado-mata-function-name-face t)
-		  '((
+	(list
+	  (concat
+	   "\\<\\(st_\\)"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 		  "addobs" "addvar" 
 		  "data" "dir" "dropobsif" "dropobsin" "dropvar"
 		  "eclear"
@@ -7019,15 +6952,18 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  "varformat" "varindex" "varlabel" "varname" "varrename" "vartype" "varvaluelabel"
 		  "view" "viewobs" "viewvars"
 		  "vldrop" "vlexists" "vlload" "vlmap" "vlmodify" "vlsearch"
-		  ) ado-mata-function-name-face t)
-		  "("
-		  ))
+			) t ))
+	   "("
+	   )
+	  '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
+
 	  ;; mata optimize_init commands
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '(("optimize_init_") ado-mata-function-name-face t)
-		  '((
+	(list
+	  (concat
+	   "\\<\\(optimize_init_\\)"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			"argument"
 			"cluster" "colstripe" "constraints" "conv_maxiter" "conv_ptol" "conv_warning"
 			"evaluations" "evaluator" "evaluatortype"
@@ -7041,15 +6977,17 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			"tracelevel" "type"
 			"valueid" "verbose" "vtol"
 			"which"
-		  ) ado-mata-function-name-face t)
-		  "("
-		  ))
-	  ;; mata optimize_result commands
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '(("optimize_result_") ado-mata-function-name-face t)
-		  '((
+			) t ))
+	   "("
+	   )
+	  '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
+
+	(list
+	  (concat
+	   "\\<\\(optimize_result_\\)"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			  "Hessian"
 			  "V" "V_oim" "V_opg" "V_robust" "Vtype"
 			  "converged"
@@ -7060,64 +6998,70 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "returncode"
 			  "scores"
 			  "value" "value0"
-			  ) ado-mata-function-name-face t)
-		  "("
-		  ))
+			) t ))
+	   "("
+	   )
+	  '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
+
 	  ;; obsolete mata functions
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '((
-			 "acosr" "asinr" "atanr"
-			 "ghkfastsetup"
-			 "uniformseed"
-			  ) ado-obsolete-face t)
-		  "("
-		  ))
+	(list
+	 (concat
+	  "\\<"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "acosr" "asinr" "atanr"
+		 "ghkfastsetup"
+		 "uniformseed"
+		 ) t ))
+	   "("
+	   )
+	  '(1 ado-obsolete-face))
 	  
 	  ;; all variable/macro stuff (put late so it will override)
 	  ;; keep just before the obsolete commands!
 	  ;; internal constants
-	  (eval-when-compile
-		 (make-regexps
-		  "[^a-zA-Z]"
-		  '(("_merge" "_n" "_pi" "_rc" "_N"
-		  ) ado-constant-face t)
-		  "[^a-zA-Z]"
-		  ))
+	(list
+	 (eval-when-compile 
+	   (regexp-opt 
+		'(
+		 "_N" "_merge" "_n" "_pi" "_rc"
+		 ) 'words))
+	  '(1 ado-constant-face t))
+
 	  ;; some generated vars
 	  ;; ... which are now out of date
-	  (eval-when-compile
-		 (make-regexps
-		  '(("_result([1-9]+[0-9]*)"
-		  ) ado-obsolete-face t)
-		  ))
-	  ;; global macros
-	  (eval-when-compile
-		 (make-regexps
-		  '(("\\$[a-zA-Z_*]+[a-zA-Z_0-9]*"
-		  ) ado-variable-name-face t)
-		  ))
-	  ;; local macros
-	  ;;   highlights *before* the macro is ended, which 
-	  ;;   could lead to typos, but gets rid of recursive
-	  ;;   definitions.
-	  (eval-when-compile
-		 (make-regexps
-		  "`+\\(\\+\\+\\|--\\)?"
-		  '(("[a-zA-Z_0-9]+"	
-		  ) ado-variable-name-face t)
-		  ))
-	  (eval-when-compile
-		 (make-regexps
-		  "`+"
-		  '(("\\(e\\|r\\|s\\)") ado-function-name-face t)
-		  '(("(") ado-constant-face t)
-		  '(("[a-zA-Z_]+[a-zA-Z_0-9]*"
-		  ) ado-variable-name-face t)
-		  '((")") ado-constant-face t)
-		  "'+"
-		  ))
+	(list
+	 "\\<\\(_result([1-9]+[0-9]*)\\)"
+	 '(1 ado-obsolete-face t))
+
+	;; global macros
+	(list
+	   "\\([$][a-zA-Z_*]+[a-zA-Z_0-9]*\\)"
+		'(1 ado-variable-name-face t))
+
+	;; local macros
+	;;   highlights *before* the macro is ended, which 
+	;;   could lead to typos, but gets rid of recursive
+	;;   definitions.
+	(list
+	 (concat
+	  "`+\\(?:\\+\\+\\|--\\)?"
+	  "\\([a-zA-Z_0-9]+\\)"
+	  ) 
+	 '(1 ado-variable-name-face t))
+	
+	(list
+	  (concat
+	   "`+"
+	   "\\(\\(?:e\\|r\\|s\\)\\)"
+	   "\\((\\)"
+	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	   "\\()\\)"
+	   "'+"
+	   )
+	  '(1 ado-function-name-face t) '(2 ado-constant-face t)
+	  '(3 ado-variable-name-face t) '(4 ado-constant-face t))
 
 	  ;; obsolete mfp arguments
 	  ;;  none --- looks to have been a documentation error
@@ -7125,10 +7069,10 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 	  ;; what few obsolete commands I've gathered
 	  ;; lfit and score moved before the matrix command so that it won't affect
 	  ;; the matrix score command
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '((
+	(list
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
 			 "_huber"
 			 "adjust"
 			 "aorder"
@@ -7157,44 +7101,52 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 "varfcast" "varirf" "vce" "vif"
 			 "weibull" "weibullhet"
 			 "xtcorr" "xtrchh" "xthaus" "xtpois"
-			 ) ado-obsolete-face)
-		  "\\b"
-		  ))
+		 ) 'words))
+	  '(1 ado-obsolete-face))
 
 	  ;; the datasignature commands
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '((
-			  "datasig" "datasign" "datasigna" "datasignat" "datasignatu" "datasignatur" "datasignature") ado-builtin-harmful-face t)
-		  "[ \t]+"
-		  '((
-			  "clear"
-			  "set"
-			  ) ado-subcommand-face t)
-		  ))
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "datasig" "datasign" "datasigna" "datasignat" "datasignatu" "datasignatur" "datasignature"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"clear"
+			"set"
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
 			  
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '((
-			  "datasig" "datasign" "datasigna" "datasignat" "datasignatu" "datasignatur" "datasignature") ado-builtin-harmless-face t)
-		  "[ \t]+"
-		  '((
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "datasig" "datasign" "datasigna" "datasignat" "datasignatu" "datasignatur" "datasignature"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			  "conf" "confi" "confir" "confirm" 
 			  "rep" "repo" "repor" "report" 
-			  ) ado-subcommand-face t)
-
-		  "\\b"
-		  ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	  ;; the estat commands
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '(("estat") ado-builtin-harmless-face)
-		  "[ \t]+"
-		  '((
+	(list
+	  (concat
+	   "\\<\\(estat\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			  "abond" "alt" "alte" "alter" "altern" "alterna" "alternat" "alternati" "alternativ" "alternative" "alternatives"
 			  "anova" "anti" "archlm" 
 			  "bgo" "bgod" "bgodf" "bgodfr" "bgodfre" "bgodfrey"
@@ -7210,6 +7162,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "cor" "corr" "corre" "correl" "correla" "correlat" "correlati" "correlatio" "correlation"
 			  "correlation" "correlations" 
 			  "cov" "cova" "covar" "covari" "covaria" "covarian" "covarianc" "covariance" 
+			  "cv"
 			  "distances" 
 			  "dur" "durb" "durbi" "durbin" "durbina" "durbinal" "durbinalt" 
 			  "dwa" "dwat" "dwats" "dwatso" "dwatson" 
@@ -7239,20 +7192,22 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			  "table"
 			  "vce" "vif"
 			  "wcorrelation"
-			  ) ado-subcommand-face t)
-		  "\\b"
-		  ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
 
 	  ;; the estimates commands
-	  ;; moved to just after the estat
-	  (eval-when-compile
-		 (make-regexps
-       "\\b"
-       '((
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
 			 "est" "esti" "estim" "estima" "estimat" "estimate" "estimates"
-			 ) ado-builtin-harmless-face t)
-       "[ \t]+"
-       '((
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 			 "clear"
 			 "des" "desc" "descr" "descri" "describ" "describe"
 			 "dir" 
@@ -7270,103 +7225,141 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 			 "tab" "tabl" "table"
 			 "title"
 			 "use"
-			 ) 
-			ado-subcommand-face t)
-       "\\b"
-       ))
-    ;; the extra estimates notes commands
-    (eval-when-compile
-      (make-regexps
-       "\\b"
-       '((
-			 "est" "esti" "estim" "estima" "estimat" "estimate" "estimates"
-	  ) ado-builtin-harmless-face t)
-       "[ \t]+"
-       '((
-			 "note" "notes"
-			 )
-			ado-subcommand-face t)
-		 "[ \t]+*"
-		 '((
-			 "drop"
-			 "l" "li" "lis" "list" 
-			 )
-			ado-subcommand-face t)
-		 "\\b"
-		 ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	  ;; things which are partially obsolete
-	  (eval-when-compile
-		 (make-regexps
-		  "^[ \t]*"
-		  '((
+    ;; the extra estimates notes commands
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+			 "est" "esti" "estim" "estima" "estimat" "estimate" "estimates"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			 "note" "notes"
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"drop"
+			"l" "li" "lis" "list" 
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	  '(3 ado-subcommand-face t))
+
+	;; things which are partially obsolete
+
+	(list
+	 (concat
+	  "^[ \t]*"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
 		  "jknife"
 		  "parse"
 		  "whelp"
-		  ) ado-obsolete-face t)
-		  "\\b"
-		  ))
+		 ) 'words))
+	   )
+	  '(1 ado-obsolete-face))
     
 	  ;; apparently obsolete window commands
-	  (eval-when-compile
-		 (make-regexps
-		  "\\b"
-		  '((
-		  "win" "wind" "windo" "window"
-		  ) ado-builtin-harmless-face)
-		  "[ \t]+"
-		  '((
+	 (list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "win" "wind" "windo" "window"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 		  "m" "me" "men" "menu"
-		  ) ado-builtin-harmless-face)
-		  "[ \t]+"
-		  '((
-		  "append[ \t]+popout"
-		  "append[ \t]+string"
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 		  "popout"
 		  "set"
-		  ) 
-			 ado-obsolete-face)
-		  "\\b"
-		  ))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	  '(3 ado-obsolete-face))
 
-	  ;; semi-obsolete macro commands
-	  (eval-when-compile
-		 (make-regexps
-		  "[ \t]*"
-		  '((
-		  "ma" "mac" "macr" "macro"
-		  ) ado-builtin-harmful-face)
-		  "[ \t]+"
-		  '((
-		  "de" "def" "define" 
-		  )
-			 ado-obsolete-face t)
-		  "\\b"
-		  ))
+	 (list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "win" "wind" "windo" "window"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+		  "m" "me" "men" "menu"
+			) 'words))
+	   "[ \t]+"
+	   "\\<\\(append\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+		  "popout"
+		  "string"
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	  '(3 ado-obsolete-face t) '(4 ado-obsolete-face t))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"ma" "mac" "macr" "macro"
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"de" "def" "define" 
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmful-face) '(2 ado-obsolete-face t))
+
 	  ;; multiword extended macro names using 'set', which are obsolete
-     (eval-when-compile
-       (make-regexps
-        "[ \t]*"
-        '((
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
 		  "gl" "glo" "glob" "globa" "global" 
 		  "loc" "loca" "local" 
-		  ) ado-builtin-harmless-face t)
-		  "[ \t]+"
-        '(("[a-zA-Z_]+[a-zA-Z_0-9]*"
-		  ) ado-variable-name-face t)
+		 ) 'words))
+	   "[ \t]+"
+	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
         "[ \t]*:[ \t]*"
-        '(("set") ado-obsolete-face t)
-		  "[ \t]+"
-		  '((
+		"\\<\\(set\\)\\>"
+		"[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
 		  "adosize" "graphics" "level" "linesize" "logtype" "matsize" "more" "pagesize"
 		  "rmsg" "trace" "type" "virtual" 
-		  ) ado-obsolete-face t)
-		  "\\b"
-        ))
-
-
-
-	  )))
+			) 'words))
+	   )
+	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	  '(3 ado-obsolete-face t) '(4 ado-obsolete-face t))
+	)))
 
 ;;; 1. need some way to highlight ^[ /t]*- lines with one background?
 ;;; 2. need some way to highlight ^[ /t]*= lines with another background?

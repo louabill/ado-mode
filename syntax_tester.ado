@@ -1,4 +1,4 @@
-*! version 1.10.0 June 13, 2010 @ 21:44:41
+*! version 1.10.0 July 11, 2010 @ 17:55:38
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -480,6 +480,7 @@ version 11.1
    set autotabgraphs
    set checksum on
    set checksum off
+   set cformat // added in Stata 11.1
    set conren
    set conren clear
    set conren sf
@@ -574,6 +575,7 @@ version 11.1
    set pagesize
    set persistfv on
    set persistvtopic off
+   set pformat // added in Stata 11.1
    set piccom on // obsolete in Stata 11
    set piccomments off // obsolete in Stata 11
    set pinnable on
@@ -601,8 +603,12 @@ version 11.1
    set searchd local
    set searchdefault net
    set searchdefault all
+   set showbaselevels on
+   set showbaselevels off
+   set showbaselevels all
    set se
    set seed
+   set sformat // added in Stata 11.1 
    set smalldlg on                      /* obsolete in Stata 10 */
    set smoothf on
    set smoothfonts off
@@ -718,8 +724,10 @@ set trace off
    testparm
    testnl
    tetrachoric
+   tnbreg // new in Stata 11.1
    tob tobi tobit
    total
+   tpoisson // new in Stata 11.1
    print
    translate
    translator q
@@ -791,6 +799,7 @@ set trace off
    estat correlation
    estat cov
    estat covariance
+   estat cv // added in Stata 11.1 
    estat dur
    estat durbinalt
    estat dwa
@@ -1785,9 +1794,12 @@ set trace off
    svy: ivreg
    
    svy jack: logistic
-   svy linear: gnbreg 
+   svy linear: gnbreg
+   svy bootstrap: logistic
    svy brr: gnbreg
-
+   svy sdr: regress // added in Stata 11.1
+   sdr: regress // added in Stata 11.1
+   
    svy: tab
    svy: tabul
    svy: tabulate
@@ -2450,10 +2462,13 @@ be a separate mode ... ugh */
    gl fooie
    global fooie
    global `l`fooie''
+   display $fooie
+   display $`bleen' // skip the highlight? 
    lo hmm // should be bad, because minabbrev is loc
    loc ``ooie''
    local fooie
    tempvar ding
+   tempvar tmp1 foo4 
    tempname dong
    tempname ding dong
    tempfile the
@@ -2470,6 +2485,7 @@ be a separate mode ... ugh */
    display `--foo'
    display `--`foo''
    display `+++foo' // wrong
+   macro define bleen // obsolete
    ma di
    macro dir
    ma drop bleen
@@ -2586,7 +2602,7 @@ be a separate mode ... ugh */
    mark
    markout
    markin
-   svymarkout fiem
+   svymarkout fiem // fiem is a variable name
 
    matlist
    
@@ -2998,7 +3014,7 @@ for the syntax to be corrected */
    // back to odd syntax directives
    {p_end}
    {p2colset 1 2 `foo' 4}
-   {p2colset 1 2 3 4 5}
+   {p2colset 1 2 3 4 5} // bad
    {p2col 1 2 3 4:something goes here}
    {p2col: something goes here}
    {p2col 1 2:this is bad}
@@ -3007,8 +3023,8 @@ for the syntax to be corrected */
    {p2line 1 2 `bad'}
    {p2colreset}
    {p2colset 1 2 3 4}
-   /* next one is bad */
    {p2col 2 3 4 5: fooey}
+   /* next one is bad ? */
    {p2col : first col}
    {p2colreset}
    {synoptset}
@@ -3029,16 +3045,16 @@ for the syntax to be corrected */
    {break}
    {asis}
    {s6hlp}
-   {ccl}
+   {ccl} // could fix with an extra constant...
    {char 7}
    {c S|}
 
    // smcl allowed in graphs shown with the graph-specific stuff
    /* end smcl, finally */
 
-   args mac1 mactheknife
+   args mac mactheknife
    args foo
-   args foo1 foo2 foo3 foo4, bogus
+   args foo1 foo2 foo3 foo4
 
    /* syntax */
    /* no attempt to get this to fontify properly, sadly enough, because there really is no grammar to the syntax statement */
@@ -3063,7 +3079,8 @@ for the syntax to be corrected */
    personal
    personal dir
    adopath
-   adopath + dingle
+   // no subcommand highlighting...
+   adopath + dingle 
    adopath ++ freeble
    adopath - foo
    set a 30
@@ -4842,6 +4859,29 @@ version /* used elsewhere */
    vecrank bar
    vecstable
 
+   /* odds and ends */
+   _merge
+   _n
+   _N
+   _pi
+   _rc
+   // bad things
+   foo_n
+   _n1
+   // ooooold obsolete stuff
+   _result(10)
+   _result(1)
+   jknife
+   parse
+   whelp
+   window menu popout
+   local bleen : set graphics
+
+   // more odds and ends
+   
+   `e(V)'
+   `r(sum)'
+   `s(foo)'
    
 
    /* varfcast made obsolete */
