@@ -875,22 +875,20 @@ statement in ado files, a {* Last Updated: } or a {* <date>}{...}
 in sthlp (or hlp) files."
 
   (interactive)
-  (save-excursion
-	(setq ado-extension (ado-find-extension))
-	(if ado-update-timestamp-flag
-		(ado-update-timestamp))
-    (goto-char (point-min))
-    ;; if file name specified, this is just a write-file
-    (if filename
+  (setq ado-extension (ado-find-extension))
+  (if ado-update-timestamp-flag
+	  (ado-update-timestamp))
+  ;; if file name specified, this is just a write-file
+  (if filename
+	  (write-file filename ado-confirm-overwrite-flag)
+	;; try to get new name
+	(setq filename (ado-make-ado-name))
+	(if filename
+		(if (string= (concat default-directory filename) (buffer-file-name))
+			(save-buffer)
 		  (write-file filename ado-confirm-overwrite-flag)
-		;; try to get new name
-		(setq filename (ado-make-ado-name))
-		(if filename
-			 (if (string= (concat default-directory filename) (buffer-file-name))
-				  (save-buffer)
-				(write-file filename ado-confirm-overwrite-flag)
-				)
-		  (save-buffer)))))
+		  )
+	  (save-buffer))))
 		
 (defun ado-update-timestamp ()
   "Tries to do a nice job updating a timestamp for the file. Since
