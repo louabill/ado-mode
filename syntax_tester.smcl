@@ -1,0 +1,40 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/yournamehere/testing/ado-mode/syntax_tester.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}11 Jul 2010, 21:44:28
+
+{com}. * this is for testing saving of .smcl files
+
+. * otherwise nothing interesting is done
+
+. sysuse auto
+{txt}(1978 Automobile Data)
+
+{com}. gen gp100m = 100/mpg
+
+. regress gp100m weight
+
+      {txt}Source {c |}       SS       df       MS              Number of obs ={res}      74
+{txt}{hline 13}{char +}{hline 30}           F(  1,    72) ={res}  194.71
+    {txt}   Model {char |} {res} 87.2964969     1  87.2964969           {txt}Prob > F      = {res} 0.0000
+    {txt}Residual {char |} {res} 32.2797639    72  .448330054           {txt}R-squared     = {res} 0.7300
+{txt}{hline 13}{char +}{hline 30}           Adj R-squared = {res} 0.7263
+    {txt}   Total {char |} {res} 119.576261    73  1.63803097           {txt}Root MSE      = {res} .66957
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      gp100m{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}weight {c |}{col 14}{res}{space 2}  .001407{col 26}{space 2} .0001008{col 37}{space 1}   13.95{col 46}{space 3}0.000{col 54}{space 4}  .001206{col 67}{space 3} .0016081
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .7707669{col 26}{space 2} .3142571{col 37}{space 1}    2.45{col 46}{space 3}0.017{col 54}{space 4} .1443069{col 67}{space 3} 1.397227
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/brising/Universal/Custom/emacs/site-lisp/ado-mode/syntax_tester.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}11 Jul 2010, 21:45:18
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

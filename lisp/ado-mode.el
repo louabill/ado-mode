@@ -873,7 +873,6 @@ the file as it's buffer name (without the <#> garbage).
 Timestamps are updated only if there is a '*! version xxx'
 statement in ado files, a {* Last Updated: } or a {* <date>}{...}
 in sthlp (or hlp) files."
-
   (interactive)
   (setq ado-extension (ado-find-extension))
   (if ado-update-timestamp-flag
