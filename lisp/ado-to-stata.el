@@ -63,9 +63,10 @@ send2stata.scpt is stored. "
 	  ;; for whatever reason, running synchronously causes the autoit
 	  ;;  application to do nothing
       ;; the bad news is the damn asynch buffer is shown w/o any choice
-	  (shell-command (concat 
+	  (call-process-shell-command (concat 
 					  (ado-check-a-directory ado-script-dir) 
-					  "send2stata.exe \"" dothis "\" \"" comeback "\" & ")))
+					  "send2stata.exe \"" dothis "\" \"" comeback "\" & ")
+								  nil 0))
 	 (t (message (concat "working via " dothis "s not supported yet in " 
 						 (symbol-name system-type)
 						 (if (string= dothis "command")

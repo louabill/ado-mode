@@ -6,6 +6,11 @@ Version History:
 . Big internal change: got rid of make-regexps in favor of regexp-opt,
   so that all called functions were part of standard emacs. Though
   make-regexps was nice to use, it was way out of date.
+. Split all the endless font-locking code into its own file, so that
+  others who would like to use it in their own packages will have an
+  easier time. 
+. Fixed the silly *Async Shell Command* buffer problem when sending code
+  to Stata in MS Windows.
 . Various highlighting bug fixes.
 
 1.11.0.1:
