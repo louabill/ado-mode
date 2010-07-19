@@ -53,8 +53,8 @@
 ;;  the harmless faces do not change data or modify the environment
 ;;  the harmful faces do.
 ;; need to modify faces by having faces for
-;;  override -- overline
-;;  extras   -- underline
+;;  oldplace -- overline
+;;  plus     -- underline
 ;;  personal -- semibold
 ;;  site     -- italics
 ;;  builtin  -- regular
@@ -76,63 +76,62 @@ data or the environment."
 
 (defvar ado-builtin-harmless-face 'ado-builtin-harmless-face)
 
-(defface ado-override-harmful-face
+(defface ado-oldplace-harmful-face
   '((t :inherit ado-builtin-harmful-face :overline t))
-  "Ado mode face used to highlight homespun ado commands which override
-Stata's built-in commands and change data or the environment."
+  "Ado mode face used to highlight harmful commands stored in OLDPLACE."
   :group 'ado-font-lock)
 
-(defvar ado-override-harmful-face 'ado-override-harmful-face)
+(defvar ado-oldplace-harmful-face 'ado-oldplace-harmful-face)
 
-(defface ado-override-harmless-face
+(defface ado-oldplace-harmless-face
   '((t :inherit ado-builtin-harmless-face :overline t))
-  "Ado mode face used to highlight harmless homespun ado commands which override
-Stata's built-in commands"
+  "Ado mode face used to highlight harmless commands stored in OLDPLACE.
+This is the default font for OLDPLACE..."
   :group 'ado-font-lock)
 
-(defvar ado-override-harmless-face'ado-override-harmless-face)
+(defvar ado-oldplace-harmless-face 'ado-oldplace-harmless-face)
 
-(defface ado-extras-harmful-face
+(defface ado-plus-harmful-face
   '((t :inherit ado-builtin-harmful-face :underline t))
-  "Ado mode face used to highlight extra ado commands (such as those downloaded
-off the net) which change data or the environment."
+  "Ado mode face used to highlight harmful commands in PLUS, i.e. 
+stuff downloaded off the net."
   :group 'ado-font-lock)
 
-(defvar ado-extras-harmful-face 'ado-extras-harmful-face)
+(defvar ado-plus-harmful-face 'ado-plus-harmful-face)
 
-(defface ado-extras-harmless-face
+(defface ado-plus-harmless-face
   '((t :inherit ado-builtin-harmless-face :underline t))
-  "Ado mode face used to highlight harmless extra ado commands (such 
-as those downloaded off the net)."
+  "Ado mode face used to highlight harmless commands in PLUS, i.e. 
+stuff downloaded off the net. This is the default look."
   :group 'ado-font-lock)
 
-(defvar ado-extras-harmless-face 'ado-extras-harmless-face)
+(defvar ado-plus-harmless-face 'ado-plus-harmless-face)
 
 (defface ado-personal-harmful-face
   '((t :inherit ado-builtin-harmful-face :bold t))
-  "Ado mode face used to highlight personal ado commands which change
-data or the environment."
+  "Ado mode face used to highlight harmful PERSONAL commands."
   :group 'ado-font-lock)
 
 (defvar ado-personal-harmful-face 'ado-personal-harmful-face)
 
 (defface ado-personal-harmless-face
   '((t :inherit ado-builtin-harmless-face :bold t))
-  "Ado mode face used to highlight harmless personal ado commands"
+  "Ado mode face used to highlight harmless PERSONAL commands. This
+is the default look"
   :group 'ado-font-lock)
 
 (defvar ado-personal-harmless-face 'ado-personal-harmless-face)
 
 (defface ado-site-harmful-face
   '((t :inherit ado-builtin-harmful-face :slant italic))
-  "Ado mode face used to highlight site-wide ado commands which change
-data or the environment."
+  "Ado mode face used to highlight harmful SITE commands."
   :group 'ado-font-lock)
 (defvar ado-site-harmful-face 'ado-site-harmful-face)
 
 (defface ado-site-harmless-face
   '((t :inherit ado-builtin-harmless-face :slant italic))
-  "Ado mode face used to highlight harmless site-wide ado commands"
+  "Ado mode face used to highlight harmless SITE commands. This
+is the default look"
   :group 'ado-font-lock)
 (defvar ado-site-harmless-face 'ado-site-harmless-face)
 

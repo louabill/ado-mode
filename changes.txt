@@ -1,6 +1,11 @@
 Version History:
 ---------------
 
+1.11.1.1:
+. Added fontification for ado files in Stata's -sysdir- locations. These
+  need to be set by the user, because there is no mechanism for getting
+  them directly from a running Stata.
+
 1.11.1.0:
 . Updated for Stata 11.1
 . Big internal change: got rid of make-regexps in favor of regexp-opt,

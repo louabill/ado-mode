@@ -113,6 +113,36 @@ ought to be set to the PERSONAL directory used in Stata."
   :group 'ado-files
   :group 'ado-essentials)
 
+(defcustom ado-personal-dir 'ado-new-dir
+  "*The directory which corresponds to PERSONAL. By default, this
+defaults to the value of ado-new-dir. Used for fontifying user-written
+commands."
+  :type '(choice (const nil) directory)
+  :group 'ado-files
+  :group 'ado-style)
+
+(defcustom ado-plus-dir nil
+  "*The directory which corresponds to PLUS. By default this is unset.
+Used for fontifying installed commands."
+  :type '(choice (const nil) directory)
+  :group 'ado-files
+  :group 'ado-style)
+
+(defcustom ado-site-dir nil
+  "*The directory which corresponds to SITE. By default this is unset.
+Used for fontifying installed site-wide additional commands."
+  :type '(choice (const nil) directory)
+  :group 'ado-files
+  :group 'ado-style)
+
+(defcustom ado-oldplace-dir nil
+  "*The directory which corresponds to OLDPLACE. By default this is unset.
+Used for fontifying additional commands in the dark and mysterious
+cabin with the creaking screen door."
+  :type '(choice (const nil) directory)
+  :group 'ado-files
+  :group 'ado-style)
+
 (defcustom ado-confirm-overwrite-flag t
   "*Controls whether emacs asks for confirmation when saving a buffer will
 overwrite an already existing file. Defaults to on, as this conforms with
