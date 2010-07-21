@@ -1,5 +1,5 @@
 ;;; ado-font.el --- simple definition of font faces
-;; Copyright (c) 2003,...,2007
+;; Copyright (c) 2003,...,2010
 ;; Bill Rising
 ;;   much of this sponged from the ultex-cus.el which customizes
 ;;   the UltraTex mode (highly recommended) by
@@ -9,7 +9,7 @@
 ;; Maintainer: Same <brising@mac.com>
 ;;             URL: http://homepage.mac.com/brising
 ;; Keywords: ado-mode
-;; Version:  0.10 of November 13, 2003
+;; Version:  0.11 of July 20, 2010
 
 ;; This file is not part of GNU Emacs.
 
@@ -32,8 +32,8 @@
 ;; Description:
 ;;
 ;; This file contains the base definitions of font-faces for the ado
-;; mode.  If you are using Emacs 20, or an earlier version of Emacs
-;; which has the customization package installed, you can change all
+;; mode.  If you are using at least Emacs 20, or an earlier version of 
+;; Emacs which has the customization package installed, you can change all
 ;; of the relevant variables here via customization.  This is
 ;; preferable to doing it "by hand" in your .emacs file.
 ;; .... unless you really really like tinkering with .emacs files.
@@ -52,14 +52,14 @@
 ;; every one of the faces for the commands has two types: harmless and harmful
 ;;  the harmless faces do not change data or modify the environment
 ;;  the harmful faces do.
+;; this harmful/harmless is hard to put into the following; all are
+;;  harmless by default
 ;; need to modify faces by having faces for
-;;  oldplace -- overline
-;;  plus     -- underline
-;;  personal -- semibold
-;;  site     -- italics
+;;  oldplace -- underline (ugly)
+;;  plus     -- semibold
+;;  personal -- italic
+;;  site     -- bold and italic
 ;;  builtin  -- regular
-;;  these are included even though there isn't currently a mechanism for 
-;;    telling font-lock to use them
 
 (defface ado-builtin-harmful-face
   '((t :inherit font-lock-keyword-face))
@@ -77,14 +77,14 @@ data or the environment."
 (defvar ado-builtin-harmless-face 'ado-builtin-harmless-face)
 
 (defface ado-oldplace-harmful-face
-  '((t :inherit ado-builtin-harmful-face :overline t))
+  '((t :inherit ado-builtin-harmful-face :underline t))
   "Ado mode face used to highlight harmful commands stored in OLDPLACE."
   :group 'ado-font-lock)
 
 (defvar ado-oldplace-harmful-face 'ado-oldplace-harmful-face)
 
 (defface ado-oldplace-harmless-face
-  '((t :inherit ado-builtin-harmless-face :overline t))
+  '((t :inherit ado-builtin-harmless-face :underline t))
   "Ado mode face used to highlight harmless commands stored in OLDPLACE.
 This is the default font for OLDPLACE..."
   :group 'ado-font-lock)
@@ -92,7 +92,7 @@ This is the default font for OLDPLACE..."
 (defvar ado-oldplace-harmless-face 'ado-oldplace-harmless-face)
 
 (defface ado-plus-harmful-face
-  '((t :inherit ado-builtin-harmful-face :underline t))
+  '((t :inherit ado-builtin-harmful-face :weight bold))
   "Ado mode face used to highlight harmful commands in PLUS, i.e. 
 stuff downloaded off the net."
   :group 'ado-font-lock)
@@ -100,7 +100,7 @@ stuff downloaded off the net."
 (defvar ado-plus-harmful-face 'ado-plus-harmful-face)
 
 (defface ado-plus-harmless-face
-  '((t :inherit ado-builtin-harmless-face :underline t))
+  '((t :inherit ado-builtin-harmless-face :weight bold))
   "Ado mode face used to highlight harmless commands in PLUS, i.e. 
 stuff downloaded off the net. This is the default look."
   :group 'ado-font-lock)
@@ -108,14 +108,14 @@ stuff downloaded off the net. This is the default look."
 (defvar ado-plus-harmless-face 'ado-plus-harmless-face)
 
 (defface ado-personal-harmful-face
-  '((t :inherit ado-builtin-harmful-face :bold t))
+  '((t :inherit ado-builtin-harmful-face :slant italic))
   "Ado mode face used to highlight harmful PERSONAL commands."
   :group 'ado-font-lock)
 
 (defvar ado-personal-harmful-face 'ado-personal-harmful-face)
 
 (defface ado-personal-harmless-face
-  '((t :inherit ado-builtin-harmless-face :bold t))
+  '((t :inherit ado-builtin-harmless-face :slant italic))
   "Ado mode face used to highlight harmless PERSONAL commands. This
 is the default look"
   :group 'ado-font-lock)
@@ -123,13 +123,13 @@ is the default look"
 (defvar ado-personal-harmless-face 'ado-personal-harmless-face)
 
 (defface ado-site-harmful-face
-  '((t :inherit ado-builtin-harmful-face :slant italic))
+  '((t :inherit ado-builtin-harmful-face :slant italic :weight bold))
   "Ado mode face used to highlight harmful SITE commands."
   :group 'ado-font-lock)
 (defvar ado-site-harmful-face 'ado-site-harmful-face)
 
 (defface ado-site-harmless-face
-  '((t :inherit ado-builtin-harmless-face :slant italic))
+  '((t :inherit ado-builtin-harmless-face :slant italic :weight bold))
   "Ado mode face used to highlight harmless SITE commands. This
 is the default look"
   :group 'ado-font-lock)
@@ -142,7 +142,7 @@ is the default look"
 (defvar ado-constant-face 'ado-constant-face)
 
 (defface ado-platform-specific-face
-  '((t :inherit font-lock-constant-face :bold t))
+  '((t :inherit font-lock-constant-face :weight bold))
   "Ado mode face used to highlight builtin contants which exist
 only on particular platforms"
   :group 'ado-font-lock)
