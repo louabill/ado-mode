@@ -5920,4 +5920,6 @@
 	  '(3 ado-obsolete-face t) '(4 ado-obsolete-face t))
 	)))
 
+(require 'ado-scratch)
+
 (provide 'ado-font-lock)
