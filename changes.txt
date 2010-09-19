@@ -2,9 +2,10 @@ Version History:
 ---------------
 
 1.11.1.1:
-. Added fontification for ado files in Stata's -sysdir- locations. These
-  need to be set by the user, because there is no mechanism for getting
-  them directly from a running Stata.
+. Added fontification for ado files in Stata's -sysdir- locations. For
+  this to work, you must use M-x customize-group RET ado-path to tell
+  emacs what directories house your customizations. Look at the
+  personal_scrap.el file for more help on doing this automatically.
 
 1.11.1.0:
 . Updated for Stata 11.1

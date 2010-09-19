@@ -1,3 +1,19 @@
+;; This is useful if you would like to include syntax hightlighting
+;;  of things you've downloaded or have written yourself
+;; WARNING! Before you put this in your .emacs file, be sure to run
+;; M-x customize-group RET ado-path to set up your (most common)
+;;   ado-path
+(add-hook 'ado-mode
+		  (function (lambda ()
+					  (ado-add-personal)
+					  (ado-add-plus)
+					  (ado-add-site)
+					  (ado-add-oldplace)
+					  ;; for adding an arbitrary folder
+					  (ado-modify-font-lock-keywords "/Whatever/your/path/might/be" 'whatever-your-face-may-be)
+					  )
+					))
+;
 ;; All of the following should really be set via M-x customize-group ado RET
 ;;  but is here for you old-timers.
 

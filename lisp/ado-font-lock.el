@@ -27,10 +27,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Description:
 ;;
-;; This file contains a single function: 
+;; This file contains functions for good keyword highlighting, aka
+;;   font-locking.
+;; The main, huge function is: 
 ;;   ado-set-font-lock-keywords
 ;; It is a massively long list of items for the nice highlighting
 ;;   in ado-mode, nothing more, nothing less
+;; Other functions have been added to allow users to include their
+;;   own commands in the font locking
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 

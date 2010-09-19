@@ -59,6 +59,12 @@
   :tag "Ado mode style"
   :group 'ado)
 
+(defgroup ado-path nil
+  "Locations of directories appearing in your ado-path. Used to add
+syntax highlighting for user-written commands."
+  :tag "Adopath information"
+  :group 'ado)
+
 (defgroup ado-save-behavior nil
   "How ado-mode behaves when saving files."
   :tag "Ado save behavior"
@@ -111,37 +117,33 @@ debugged or documented yet. By default, this is unset, but is
 ought to be set to the PERSONAL directory used in Stata."
   :type '(choice (const nil) directory)
   :group 'ado-files
+  :group 'ado-path
   :group 'ado-essentials)
 
-(defcustom ado-personal-dir 'ado-new-dir
-  "*The directory which corresponds to PERSONAL. By default, this
-defaults to the value of ado-new-dir. Used for fontifying user-written
-commands."
+(defcustom ado-personal-dir nil
+  "*The directory which corresponds to PERSONAL. By default this is
+unset. Used for fontifying user-written commands."
   :type '(choice (const nil) directory)
-  :group 'ado-files
-  :group 'ado-style)
+  :group 'ado-path)
 
 (defcustom ado-plus-dir nil
   "*The directory which corresponds to PLUS. By default this is unset.
 Used for fontifying installed commands."
   :type '(choice (const nil) directory)
-  :group 'ado-files
-  :group 'ado-style)
+  :group 'ado-path)
 
 (defcustom ado-site-dir nil
   "*The directory which corresponds to SITE. By default this is unset.
 Used for fontifying installed site-wide additional commands."
   :type '(choice (const nil) directory)
-  :group 'ado-files
-  :group 'ado-style)
+  :group 'ado-path)
 
 (defcustom ado-oldplace-dir nil
   "*The directory which corresponds to OLDPLACE. By default this is unset.
 Used for fontifying additional commands in the dark and mysterious
 cabin with the creaking screen door."
   :type '(choice (const nil) directory)
-  :group 'ado-files
-  :group 'ado-style)
+  :group 'ado-path)
 
 (defcustom ado-confirm-overwrite-flag t
   "*Controls whether emacs asks for confirmation when saving a buffer will

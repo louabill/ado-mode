@@ -1,48 +1,37 @@
-;;; Would like to have a command which 
-(defun nada ()
-  (interactive)
-(apply 'append
- (mapcar (function (lambda (dirname) (directory-files dirname nil ".*[.]ado$")))
-			  (directory-files "/Universal/Custom/Stata/ado/Downloads" t "^[a-z_0-9]$")))
-)
+;; Can add things nicely, but if the directory listing changes, removal
+;;   fails. This happens also with simple keywords, so it is not a result
+;;   of the directory listings per se. It looks like the keyword removal 
+;;   does not expannd the regexp to pull the word, but instad removes regexps
+;;   if they match completely...making a mess of long regexps.
 
-(defun ado-find-ado-dirs (&optional dir subdir)
-  (interactive)
-  (unless dir
-	(setq dir "/Universal/Custom/Stata/ado/Downloads"))
-  (unless subdir
-	(setq subdir "all"))
-  (append 
-   (if (or (string= subdir "all") (string= subdir "self"))
-	   (list dir))
-   (if (or (string= subdir "all") (string= subdir "sub"))
-	   (directory-files dir t "^[a-z_0-9]$"))
-   nil
-   )) 
+;; Need to have a variable which holds the last added keywords, so that all
+;; can be removed properly
+;; This could work if the added keywords were added by a naming convention...
+;;   already have the stata names, just let the user define his/her own names also
+;;   to add directories not covered by Stata's names. The lists could then be
+;;   saved in variables named after the names
+;; ado-add-keywords
 
-(defun dammit ()
-  "WTF"
-  (interactive)
-  (let ((dir "/Universal/Custom/Stata/ado/Downloads"))
-  (append
-   (if (or nil t)
-	   (list dir))
-   (if (or t nil)
-	   (directory-files dir t "^[a-z_0-9]$"))
-   ))
-)
 
 (defun ado-add-plus ()
   (interactive)
-  (ado-modify-font-lock-keywords "/Universal/Custom/Stata/ado/Downloads" 'ado-plus-harmless-face))
+  (ado-modify-font-lock-keywords (directory-file-name ado-plus-dir) 'ado-plus-harmless-face))
 
 (defun ado-add-personal ()
   (interactive)
-  (ado-modify-font-lock-keywords "/Universal/Custom/Stata/ado/new" ''ado-personal-harmless-face))
+  (ado-modify-font-lock-keywords (directory-file-name ado-personal-dir) ''ado-personal-harmless-face))
+
+(defun ado-add-oldplace ()
+  (interactive)
+  (ado-modify-font-lock-keywords (directory-file-name ado-oldplace-dir) ''ado-oldplace-harmless-face))
+
+(defun ado-add-site ()
+  (interactive)
+  (ado-modify-font-lock-keywords (directory-file-name ado-site-dir) ''ado-site-harmless-face))
 
 (defun ado-remove-personal ()
   (interactive)
-  (ado-modify-font-lock-keywords "/Universal/Custom/Stata/ado/new" ''ado-personal-harmless-face t))
+  (ado-modify-font-lock-keywords (directory-file-name ado-personal-dir) ''ado-personal-harmless-face t))
 
 
 (defun ado-modify-font-lock-keywords (dir face &optional remove subdir extension)
@@ -83,6 +72,10 @@ The arguments are
 				  'words) 1 ,face))
 	  ))
 	)
+
+;;; Testing simple cases below this line
+
+
 
 (defun superfoo ()
   (interactive)
@@ -134,13 +127,40 @@ The arguments are
   (interactive)
   (font-lock-remove-keywords 'ado-mode
 		`((,(regexp-opt '("jim" "joe") 'words) 1 ado-oldplace-harmless-face))
-	 ))
+	 )
+;  (setq font-lock-defaults '(ado-font-lock-keywords))
+;  (font-lock-set-defaults)
+;  (ado-mode)
+  )
+
+(defun unbleenx ()
+  (interactive)
+  (font-lock-remove-keywords 'ado-mode
+		`((,(regexp-opt '("jim") 'words) 1 ado-oldplace-harmless-face))
+	 )
+;  (setq font-lock-defaults '(ado-font-lock-keywords))
+;  (font-lock-set-defaults)
+;  (ado-mode)
+  )
 
 (defun bleen ()
   (interactive)
   (font-lock-add-keywords 'ado-mode
 		`((,(regexp-opt '("jim" "joe") 'words) 1 ado-oldplace-harmless-face))
 		)
+;  (setq font-lock-defaults '(ado-font-lock-keywords))
+;  (font-lock-set-defaults)
+;  (ado-mode)
   )
 
 (provide 'ado-scratch)
+
+
+
+
+
+
+
+
+
+

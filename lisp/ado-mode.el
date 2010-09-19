@@ -162,6 +162,7 @@
   '("Foreach loop" . ado-foreach-loop))
 (define-key ado-mode-map [menu-bar ado l1]
   '(menu-item "--single-line"))
+
 ;; place for customizations
 (define-key ado-mode-map [menu-bar ado strmacify-word]
   '("Stringify and Macify Word or Selection" . ado-strmacify-selection-or-word))
@@ -1047,14 +1048,6 @@ program name is missing (need to fix this). Currently broken --- need to assess 
   (interactive)
   (message (concat "The local program is " (ado-find-local-name))))
 
-;; (defun ado-insert-boilerplate (file-name &optional raw)
-;;   (if (not ado-site-template-dir)
-;;       (error "%s" "Use \\[set-variable] to set ado-site-template-dir to the directory holding the ado templates!"))
-;;   (insert-file-contents (concat ado-site-template-dir file-name))
-;;   (if (not raw)
-;;       (ado-indent-region)
-;;     ))
-
 (defun ado-insert-file-and-indent (file)
   "Interactively insert (and properly indent) an ado file.
 Can also be called from within another program for inserting
@@ -1671,37 +1664,28 @@ help files meant to be used in Stata 7 through Stata 9."
 details"
   (insert (ado-nice-current-date)))
 
-;; (defvar calendar-month-name-array
-;;   ["January" "February" "March"     "April"   "May"      "June"
-;;    "July"    "August"   "September" "October" "November" "December"])
-;; scunged from the calendar.el file and then changed
-;; (defun ado-nice-current-date ()
-;;   "Returns the current date in a nice format: month date, year @
-;;   time. Called within ado-mode to timestamp files. Since 'nice' is
-;;   subjective, this can be changed at whim."
-;;   (interactive)
-;;   (let 
-;;       ((s (current-time-string))) 
-;;     (concat 
-;;      (aref calendar-month-name-array 
-;; 	   (1-(length (member (substring s 4 7) 
-;; 			      '("Dec" "Nov" "Oct" "Sep"
-;; 				"Aug" "Jul" "Jun" "May"
-;; 				"Apr" "Mar" "Feb" "Jan"))))) " " 
-;; 				(let ((dd
-;; 				       (string-to-number (substring s 8 10)))) 
-;; 				  (if (< dd 10) (substring s 9 10) 
-;; 				    (substring s 8 10))) ", " 
-;; 				    (substring s 20 24) " @ " 
-;; 				    (substring s 11 19))) 
-;;   )
-
 (defun ado-set-imenu-items ()
   (interactive)
   (setq imenu-case-fold-search nil)
   (setq imenu-generic-expression
 		(list 
 		   (list nil "^\\s-*pr\\(o\\|og\\|ogr\\|ogra\\|ogram\\)\\(\\s-+\\(de\\|def\\|defi\\|defin\\|define\\)?\\)\\s-+\\([a-zA-Z_][a-zA-Z_0-9]*\\)" 4))))
+
+;; for finding lists of directories where Stata has files
+(defun ado-find-ado-dirs (&optional dir subdir)
+  (interactive)
+  (unless dir
+	(setq dir "/Universal/Custom/Stata/ado/Downloads"))
+  (unless subdir
+	(setq subdir "all"))
+  (append 
+   (if (or (string= subdir "all") (string= subdir "self"))
+	   (list dir))
+   (if (or (string= subdir "all") (string= subdir "sub"))
+	   (directory-files dir t "^[a-z_0-9]$"))
+   nil
+   )) 
+
 
 ;;; Aquamacs emacs specifics (perhaps should be broken out?)
 (if (boundp 'aquamacsxb-version)
