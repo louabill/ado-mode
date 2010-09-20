@@ -73,6 +73,7 @@
 (defvar ado-font-lock-keywords nil)
 (defvar ado-font-lock-syntactic-keywords nil)
 (defvar ado-extension nil)
+(defvar ado-added-names nil)
 
 ;; abbrev table
 (defvar ado-mode-abbrev-table nil
@@ -120,6 +121,7 @@
 (define-key ado-mode-map [(meta shift return)] 'ado-split-line)
 (define-key ado-mode-map "\C-c\C-h" 'ado-help-at-point)
 (define-key ado-mode-map "\C-c\C-c" 'ado-help-command)
+(define-key ado-mode-map "\C-c\C-a" 'ado-mode)
 (define-key ado-mode-map "\M-a"     'ado-beginning-of-command)
 (define-key ado-mode-map "\M-e"     'ado-end-of-command)
 (define-key ado-mode-map "\C-c\C-f" 'ado-foreach-loop)
