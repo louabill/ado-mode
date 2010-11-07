@@ -394,15 +394,31 @@ version 11.1
    nlsur
    nptrend
    
-   olog ologi ologit 
-   on one onew onewa oneway
-   oprob oprobi oprobit
+   olog
+   ologi
+   ologit 
+
+   on
+   one
+   onew
+   onewa
+   oneway
+
+   oprob
+   oprobi
+   oprobit
+
    orthog
    orthpoly
 
    pcorr
    permute
-   pkexamine pksumm pkshape pkcross pkequiv pkcollapse
+   pkexamine
+   pksumm
+   pkshape
+   pkcross
+   pkequiv
+   pkcollapse
    poisson
    poisgof
    predict
@@ -443,13 +459,20 @@ version 11.1
    median
    ratio
    reg3
-   reg regr regre regres regress
+   
+   reg
+   regr
+   regre
+   regres
+   regress
    /* regression diagnostics */
    
    #r #re #rev #revi #revie #review
    /* don't seem to be in manuals anymore */
    _rmcoll _huber
-   roctab roccomp rocgold
+   roctab
+   roccomp
+   rocgold
    rocfit
    // rocfit postest
    rocplot
@@ -4808,7 +4831,7 @@ version /* used elsewhere */
 */ the start of a long command.
    
    here is a command with /* a following comment */
-   here is - somethin
+   here is - somethin regress
 
    /* now there appears to be no way to have the doubleslash */
    

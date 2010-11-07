@@ -2767,11 +2767,13 @@
 		  "kwallis"
 		 ) 'words))
 	  '(1 ado-builtin-harmless-face))
-
-	(list
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
+	;; an experiment
+	 (list
+	  (concat
+	   "^\\(.*:\\)*[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
 		  "l"
 		  "labelbook" "ladder"
 		  "levelsof"
@@ -2823,7 +2825,8 @@
 		  "rreg"
 		  "ru" "run" "runtest" "rvfplot" "rvpplot"
 		 ) 'words))
-	  '(1 ado-builtin-harmless-face))
+	  )
+	  '(2 ado-builtin-harmless-face))
 
 	(list
 	   (eval-when-compile 
