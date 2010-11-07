@@ -1,4 +1,4 @@
-*! version 1.10.0 July 11, 2010 @ 17:55:38
+*! version 1.10.0 November 6, 2010 @ 20:31:52
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -459,7 +459,9 @@ version 11.1
    median
    ratio
    reg3
-   
+   // highlights last regress?
+   regress : regress : regress
+   /* the end of the findfile */
    reg
    regr
    regre
@@ -1352,7 +1354,8 @@ set trace off
    label data
    la var
    label variable
-   la de
+   la display as error
+   /* inside of a comment label define aaahhh */
    label define
    la val
    lab val

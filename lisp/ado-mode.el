@@ -1688,6 +1688,47 @@ details"
    nil
    )) 
 
+(defun ado-next-error (&optional goback)
+  (interactive)
+  "Looks for next error in a log file (smcl or txt). If the optional 
+argument goback is non-nil, looks backwards (see also ado-prev-error). 
+If looking through a file where tracing is on, goes back to the 
+line which caused the error."
+  (let (whereto traceoff traceon)
+	(save-excursion
+	  (if goback
+		  (setq whereto (re-search-backward "^\\({err}\\|^r([1-9][0-9]*)\\)" nil t))
+		(setq whereto (re-search-forward "^\\({err}\\|^r([1-9][0-9]*)\\)" nil t))
+		))
+	(if whereto
+		(progn
+		  (goto-char whereto)
+		  (beginning-of-line)
+		  (save-excursion
+			(setq whereto (re-search-backward "^[ \t]*\\(-\\|=\\)" nil t)))
+		  (if whereto
+			  (progn
+				(save-excursion
+				  (setq traceoff (search-backward "set trace off" nil t)))
+				(if traceoff
+					(progn
+					  (save-excursion
+						(setq traceon (search-backward "set trace on" nil t)))
+					  (if (< traceon traceoff)
+						  (if (< traceoff whereto)
+							  (goto-char whereto))))
+				  (goto-char whereto)))
+			))
+	  (message (concat "no "
+					   (if goback
+						   "previous"
+						 "next")
+					   " error found"))
+	)))
+
+(defun ado-prev-error ()
+  (interactive)
+  (ado-next-error t))
 
 ;;; Aquamacs emacs specifics (perhaps should be broken out?)
 (if (boundp 'aquamacsxb-version)

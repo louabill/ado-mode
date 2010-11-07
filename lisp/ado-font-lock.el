@@ -3222,31 +3222,32 @@
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-variable-name-face t) '(4 ado-variable-name-face t))
 
-	  ;; labels
+	  ;; labels experimental
 	(list
 	 (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "la" "lab" "labe" "label"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "copy"
-			 "da" "dat" "data"
-			 "de" "def" "defi" "defin" "define"
-			 "di" "dir" 
-			 "drop" 
-			 "lang" "langu" "langua" "languag" "language" 
-			 "l" "li" "lis" "list"
-			 "save"
-			 "val" "valu" "value" "values"
-			 "var" "vari" "varia" "variab" "variabl" "variable"
-			) 'words))
-	   )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
+	  "^\\(.*:\\)*[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "la" "lab" "labe" "label"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "copy"
+		   "da" "dat" "data"
+		   "de" "def" "defi" "defin" "define"
+		   "di" "dir" 
+		   "drop" 
+		   "lang" "langu" "langua" "languag" "language" 
+		   "l" "li" "lis" "list"
+		   "save"
+		   "val" "valu" "value" "values"
+		   "var" "vari" "varia" "variab" "variabl" "variable"
+		   ) 'words))
+	  )
+	 '(2 ado-builtin-harmless-face t) '(3 ado-subcommand-face t))
 
 	  ;; all Stata data-altering stuff
 		(list

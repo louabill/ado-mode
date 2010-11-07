@@ -7,6 +7,11 @@ Version History:
   emacs what directories house your customizations. Look at the
   personal_scrap.el file for more help on doing this automatically. It's
   magical. Really.
+. Added new functions ado-next-error and ado-prev-error, which search
+  for something indicating an error (in a text file, a non-zero return
+  code, in a smcl file an {err} tag). If tracing is on, this will jump
+  to the line creating the error rather than the tag or error code
+  itself.
 
 1.11.1.0:
 . Updated for Stata 11.1
