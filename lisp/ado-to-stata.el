@@ -52,11 +52,14 @@ send2stata.scpt is stored. "
    ((or (string= dothis "menu") (string= dothis "dofile") (string= dothis "command"))
 	(cond 
 	 ((string= system-type "darwin")
+	  ;; the comeback for Mac OS X is handled via a shell command below
 	  (shell-command (concat "osascript '" 
 							 (ado-check-a-directory ado-script-dir) 
 							 "send2stata.scpt' \"" dothis "\"")))
 	 ((string= system-type "windows-nt")
 	  ;; autoit can send to non-active windows, so comeback is handled there
+	  ;; need to be sure that comeback is a string for concatenation
+	  (if comeback (setq comeback "t"))
 	  ;;  working via the menu does NOT work with comeback, yet
 	  (if (and comeback (string= dothis "menu"))
 		  (error "cannot comeback to Stata after using a menu in MS Windows"))

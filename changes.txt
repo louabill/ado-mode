@@ -2,17 +2,20 @@ Version History:
 ---------------
 
 1.11.1.1:
-. Added fontification for ado files in Stata's -sysdir- locations. For
-  this to work, you must use M-x customize-group RET ado-path to tell
-  emacs what directories house your customizations. Look at the
-  personal_scrap.el file for more help on doing this automatically. It's
-  magical. Really.
+. Added fontification for ado files in Stata's -sysdir- locations. So,
+  for example, if you download the command -renvars-, -renvars- will now
+  use have syntax highlighting in emacs. For this to work, you *must*
+  run M-x customize-group RET ado-path to tell emacs what directories
+  house your customizations. Look at the personal_scrap.el file for more
+  help on doing this automatically. It's magical. Really. Since this is
+  so magical, its features might change based on feedback. 
 . Added new functions ado-next-error and ado-prev-error, which search
   for something indicating an error (in a text file, a non-zero return
   code, in a smcl file an {err} tag). If tracing is on, this will jump
   to the line creating the error rather than the tag or error code
   itself.
-
+. Fixed an embarrassing bug for using the comeback flag in windows. It
+  looks like I didn't test it much originally, if at all.
 1.11.1.0:
 . Updated for Stata 11.1
 . Big internal change: got rid of make-regexps in favor of regexp-opt,
