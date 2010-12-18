@@ -1,6 +1,24 @@
 Version History:
 ---------------
 
+1.11.1.2:
+. Added new functions for working with blocks of codes:
+  ado-balance-braces will balance {[()]} outside of strings and
+  comments. Used multiple times, it will keep expanding matching pairs.
+  It is bound to C-c C-b.
+  While this is nice, ado-grab-block is nicer. It will balance only {},
+  which is useful for grabbing blocks of commands. Because this will
+  often be used with loops, it will also grab whatever defines the loop.
+  Repeated use will grab the nesting blocks.
+  For both of the above, a region is selected, so the region can be sent
+  to Stata in the usual fashion.
+  If you are sure that you want to submit the current narrowest block,
+  you can use ado-send-block-to-stata, which is simply an ado-grab-block
+  followd by an ado-send-command-to-stata. This is bound to C-c M-b.
+  One warning: in this initial version, emacs' default behavior is
+  followed, where different braces can match if there are unbalanced
+  braces. Thus {these DO balance].
+
 1.11.1.1:
 . Added fontification for ado files in Stata's -sysdir- locations. So,
   for example, if you download the command -renvars-, -renvars- will now

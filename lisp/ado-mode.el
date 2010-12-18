@@ -121,6 +121,8 @@
 (define-key ado-mode-map [(meta shift return)] 'ado-split-line)
 (define-key ado-mode-map "\C-c\C-h" 'ado-help-at-point)
 (define-key ado-mode-map "\C-c\C-c" 'ado-help-command)
+(define-key ado-mode-map "\C-c\C-b" 'ado-grab-block)
+(define-key ado-mode-map "\C-c\M-b" 'ado-send-block-to-stata)
 (define-key ado-mode-map "\C-c\C-a" 'ado-mode)
 (define-key ado-mode-map "\M-a"     'ado-beginning-of-command)
 (define-key ado-mode-map "\M-e"     'ado-end-of-command)
@@ -1729,6 +1731,46 @@ line which caused the error."
 (defun ado-prev-error ()
   (interactive)
   (ado-next-error t))
+
+;; matching parens
+(defun ado-balance-brace (&optional block)
+  "Select whatever is inside balanced braces -{[()]}- but outside strings
+or comments. If block is non-nil, balance only {} in a smart way, 
+being sure to include loop-inducing commands."
+  (interactive)
+  (let (here there (ppsexp (parse-partial-sexp 1 (point))))
+	(save-excursion
+	  ;; jump to start of comment/string so scan-lists works
+	  (if (or (nth 3 ppsexp) (nth 4 ppsexp))
+		  (goto-char (nth 8 ppsexp)))
+	  ;; if no block, these error out
+	  (condition-case nil
+		  (setq here (scan-lists (point) -1 1))
+		(error (error "Beginning brace not found")))
+	  (condition-case nil
+		  (setq there (scan-lists (point) 1 1))
+		(error (error "Ending brace not found")))
+	  )
+	;; jump to start of loop if needed
+	(goto-char here)
+	(set-mark there)
+	(unless (not block)
+	  (if (looking-at "[[(]")
+		  (setq there (ado-balance-brace t))
+		(ado-beginning-of-command)
+		(unless (looking-at "[\t ]*\\(\\(for\\(each\\|\\(v\\|va\\|val\\|valu\\|value\\|values\\)\\)\\)\\|while\\)[\t ]+")
+		  (goto-char here))
+	  ))
+  ))
+
+(defun ado-grab-block ()
+  (interactive)
+  (ado-balance-brace t))
+
+(defun ado-send-block-to-stata ()
+  (interactive)
+  (ado-grab-block)
+  (ado-send-command-to-stata))
 
 ;;; Aquamacs emacs specifics (perhaps should be broken out?)
 (if (boundp 'aquamacsxb-version)

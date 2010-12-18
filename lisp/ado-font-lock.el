@@ -4904,7 +4904,7 @@
 	   "\\()\\)"
 	   )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-constant-face t)
-	  '(3 ado-builtin-harmless-face))
+	  '(3 ado-builtin-harmless-face t))
 
 ;;; platform specific c() thingies
 	(list

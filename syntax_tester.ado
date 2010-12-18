@@ -1,4 +1,4 @@
-*! version 1.10.0 November 6, 2010 @ 20:31:52
+*! version 1.10.0 November 12, 2010 @ 16:21:01
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -2290,6 +2290,7 @@ set trace off
    c(Wdays)
    c(Weekdays)
    c(rc)
+   "`c(pi)'"
 
    /* end of that mess */
    _datasig
@@ -5018,6 +5019,26 @@ version /* used elsewhere */
 
    /* problem children */
    "filo foen"
+
+   // for testing ado-highlight-block
    
+   foreach foo in this that {
+      display "foo is `foo'" // silly display with end comment
+      twoway bleen ///
+        `foo', legend( /// comment (within continuation) with parens
+        order(1 "confusing")) // hmm
+      {
+         display "bleen"
+         display "something for testign blocks"
+         }
+      }
+   < these won't balance (not braces) >
+   [ these will balance (square brackets) ]
+   {
+      foreach oops of local mistake {
+         (here is something in parens)
+         (here are mismatched braces]
+         display "Oh no, no closing brace"
+         } // delete to test
       
 end
