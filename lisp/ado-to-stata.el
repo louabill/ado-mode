@@ -68,7 +68,9 @@ send2stata.scpt is stored. "
       ;; the bad news is the damn asynch buffer is shown w/o any choice
 	  (call-process-shell-command (concat 
 					  (ado-check-a-directory ado-script-dir) 
-					  "send2stata.exe \"" dothis "\" \"" comeback "\" & ")
+					  "send2stata.exe \"" dothis "\" \"" comeback "\" \"" ado-temp-dofile "\""
+					    "\"" ado-stata-instance "\" \"" ado-stata-version "\" \"" ado-stata-flavor "\""
+						"\"" ado-send-to-all "\" & ")
 								  nil 0))
 	 (t (message (concat "working via " dothis "s not supported yet in " 
 						 (symbol-name system-type)

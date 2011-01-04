@@ -10,34 +10,49 @@ Script Function: for taking clipboard content and sending it to Stata
 
 ; arguments are : doThis, tmpDoFile, stataInBack
 ; stataInBack is empty if Stata should be left unactivated
+; stataInstance is needed only if there are multiple Stata's running
+; stataVersion is needed only if there are multiple Stata's with overlapping versions
 ;; declarations
 Opt("MustDelcareVars",1)
+#include <Array.au3>
+Opt("WinTitleMatchMode", 2)
+
 Dim $defaultTmpDoFile="feedStata.do"
 Dim $numArgs = $CmdLine[0]
-; arg  1           2          3 
-Dim $doThis, $stataInBack, $tmpDoFile
+; arg  1     2                3                             4               5            6
+Dim $doThis, $stataInBack="", $tmpDoFile=$defaultTmpDoFile
+; arg  4               5                 6                7
+Dim $stataInstance="", $stataVersion="", $stataFlavor="", $sendToAll=""
 Dim $theStatas, $howManyStatas, $theStataName
 Dim $pasteMe
 
 if $numArgs = 0 Then
 	badFirstArg("")
 Else
-	$doThis = $CmdLine[1]
+	$doThis = $CmdLine[1]	
 	if ($doThis <> "command") AND ($doThis <>  "menu") AND ($doThis <> "dofile") Then
 		badFirstArg($doThis)
 	EndIf
 	if $numArgs > 1 Then
 		$stataInBack = $CmdLine[2]
 		if $numArgs > 2 Then
-			$tmpDoFile = $CmdLine[3]
+			if $CmdLine[3] <> "" Then
+				$tmpDoFile = $CmdLine[3]
+			EndIf
+			if $numArgs > 3 Then
+				$stataInstance = $CmdLine[4]
+				if $numArgs > 4 Then
+					$stataVersion = $CmdLine[5]
+					if $numArgs > 5 Then
+						$stataFlavor = $CmdLine[6]
+						if $numArgs > 6 Then
+							$sendToAll = $CmdLine[7]
+						EndIf
+					EndIf
+				EndIf
+			EndIf
 		EndIf
-	Else
-		$stataInBack = ""
-	EndIf
-	if $tmpDoFile = "" Then
-		$tmpDoFile = $defaultTmpDoFile
-	EndIf
-	
+	EndIf	
 EndIf
 
 $pasteMe=ClipGet()
@@ -59,27 +74,34 @@ if $pasteMe="" Then
 	Exit(666)
 EndIf
 
-$theStatas = WinList("Stata")
-$howManyStatas = $theStatas[0][0]
-if $howManyStatas = 0 Then
-	MsgBox(16,"Oh no!","No Stata running!")
-	Exit(666)
-ElseIf $howManyStatas > 1 Then
-	MsgBox(16,"Oh no!","Nothing for multiple Stata's, yet")
-	Exit(14)
-Else
-	$theStataName = $theStatas[1][1]
-EndIf
+;; findMatchingStatas will error out if there is no Stata running
+$matchingStatas = findMatchingStatas($stataInstance,$stataFlavor,$stataVersion)
 
-if $stataInBack = "" Then
-	WinActivate($theStataName)
-EndIf
+$numStatas = $matchingStatas[0][0]
+if $sendToAll = "" Then
+	If $numStatas > 1 Then
+		;; need to build list of matchers
+		$matchingStataNames = $matchingStatas[1][0]
+		for $winNum = 2 to $matchingStatas[0][0]
+			$matchingStataNames = $matchingStataNames & @LF & $matchingStatas[$winNum][0]
+		Next
+		msgbox(16,"Too Many Statas!","You have too many matching Statas: " & @LF & @LF & $matchingStataNames)
+		Exit(666)
+	EndIf
+endif
 
-if $doThis = "command" Then
-	sendToCommand($theStataName, $pasteMe)
-Else
-	doTmpDofile($theStataName, $tmpDoFile, $doThis, $stataInBack)
-EndIf
+for $winNum=1 to $numStatas
+	$theStataName = $matchingStatas[$winNum][1]
+	if $stataInBack = "" Then
+		WinActivate($theStataName)
+	EndIf
+
+	if $doThis = "command" Then
+		sendToCommand($theStataName, $pasteMe)
+	Else
+		doTmpDofile($theStataName, $tmpDoFile, $doThis, $stataInBack)
+	EndIf
+Next
 
 Func badFirstArg($badArg)
 	if $badArg="" Then
@@ -152,6 +174,57 @@ Func stripBlankLines($theText) ; perhaps pass by reference
 	Return $theText
 EndFunc
 
+func findMatchingStatas($sInstance="",$sVersion="",$sFlavor="")
+	Local $theStatas, $numStatas
+	;; Local $sOptions[3] declared below ;; holds the options as regexps for looping
+	Local $matchingStataRows ;; an indeterminate-sized array
+	Local $matchingStatas ;; for returning the results
+	Local $matchingInfo[32][2] ;; first col: row in $theStatas, second col: matches of options
+	;; sInstance needs work, because 1 means 'start with non number'
+	;;           others are 'start with this number a space and a dash'
+	if $sInstance = "" Then
+		$sInstance = ".*"
+	ElseIf $sInstance = "1" Then
+		$sInstance = "\AStata"
+	Else
+		$sInstance = "\A" & $sInstance & " -"
+	EndIf
+		
+	Local $sOptions[3] = [$sInstance, ".*" & $sVersion & ".*", ".*" & $sFlavor & ".*"]
+	$theStatas = WinList("Stata")
+	;; _ArrayDisplay($theStatas,"Here are the statas")
+	$numStatas = $theStatas[0][0]
+	if $numStatas = 0 Then
+		MsgBox(16,"Oops","No Stata Running")
+		Exit(666)
+	EndIf
+	;; find out how many of the options get matched
+	;; not using $theStatas directly, because its first row is accounting information
+	For $winNum = 1 to $numStatas
+		$matchingInfo[$winNum][0] = $winNum
+		For $optNum = 0 to 2
+			;; needs some work for the instances
+			$matchingInfo[$winNum][1] += StringRegExp($theStatas[$winNum][0], $sOptions[$optNum])
+		Next
+	;	MsgBox(16,"Matches",$theStatas[$winNum][0] & " matched " & $matchingInfo[$winNum][1] & " option(s)")
+	Next
+	;; sort in descending order
+	;; _ArrayDisplay($matchingInfo,"Matching Info to Start")
+	_ArraySort($matchingInfo,1,0,0,1)
+	;; _ArrayDisplay($matchingInfo,"Matching Info after Sorting")
+	$matchingStataRows=_ArrayFindAll($matchingInfo,$matchingInfo[0][1],0,0,0,0,1)
+	;; _ArrayDisplay($matchingStataRows,"Statas with most matches")
+	;; MsgBox(16,"Max Matchers","The number of matchers is " & UBound($matchingStataRows))
+	$numStatas = UBound($matchingStataRows)
+	Local $matchingStatas[$numStatas+1][2]
+	$matchingStatas[0][0] = $numStatas
+	For $row = 1 to $numStatas
+		$matchingStatas[$row][0]=$theStatas[$matchingInfo[$matchingStataRows[$row-1]][0]][0]
+		$matchingStatas[$row][1]=$theStatas[$matchingInfo[$matchingStataRows[$row-1]][0]][1]
+	Next
+;; these are sorted, so it is easy to look at them
+	Return $matchingStatas
+EndFunc
 
 	
 	

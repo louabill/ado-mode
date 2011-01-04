@@ -408,13 +408,55 @@ Stata executable itself."
   :type '(choice (const nil) directory)
   :group 'ado-stata-interaction)
 
-(defcustom ado-stata-flavors ""
-  "*Set to a list of possible flavors of Stata you like to use.
-This is really a place-holder for a future date when you will
-be able to send code to many flavors at once."
+(defcustom ado-temp-dofile ""
+  "*Set to the name of the do-file you would like to run when 
+sending code to Stata via a do-file. If left unset, it will
+default to feedStata.do"
   :type 'string
+  :group 'ado-stata-interaction)
+
+(defcustom ado-stata-instance ""
+  "*Set to the instance of Stata you would like ado-mode to 
+send its code to. This can and should be left as a blank unless
+you have special reason to choose an instance...and then you
+should only change it temporarily."
+  :type 'integer
+  :group 'ado-stata-interaction)
+
+(defcustom ado-stata-version ""
+  "*Set to the version of Stata you would like ado-mode to 
+send its code to. This can and should be left as a blank unless
+you have special reason to choose a version...and then you
+should only change it temporarily."
+  :type 'string
+  :group 'ado-stata-interaction)
+
+(defcustom ado-stata-flavor ""
+  "*Set to a flavor of Stata you would like ado-mode to 
+send its code to. This can and should be left as a blank unless
+you have special reason to choose a flavor...and then you
+should only change it temporarily."
+  :type 'string
+  :group 'ado-stata-interaction)
+
+(defcustom ado-send-to-all nil
+  "*Set to t if you would like code sent to all running
+Statas whenever you send code to run. If set to nil, ado-mode
+will try to match your criteria (instance, version, and flavor)
+as best possible, and send the code to the best match, if it is
+unique. If there are multiple best matches, you will get an error."
+  :type 'boolean
   :group 'ado-stata-interaction)
 
 (provide 'ado-cus)
 
 ;;; ado-cus.el ends here
+
+
+
+
+
+
+
+
+
