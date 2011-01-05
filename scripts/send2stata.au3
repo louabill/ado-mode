@@ -17,6 +17,8 @@ Opt("MustDelcareVars",1)
 #include <Array.au3>
 Opt("WinTitleMatchMode", 2)
 
+MsgBox(16,"what was sent", $CmdLineRaw)
+
 Dim $defaultTmpDoFile="feedStata.do"
 Dim $numArgs = $CmdLine[0]
 ; arg  1     2                3                             4               5            6

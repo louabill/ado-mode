@@ -415,9 +415,9 @@ default to feedStata.do"
   :type 'string
   :group 'ado-stata-interaction)
 
-(defcustom ado-stata-instance ""
+(defcustom ado-stata-instance 0
   "*Set to the instance of Stata you would like ado-mode to 
-send its code to. This can and should be left as a blank unless
+send its code to. This can and should be left as a zero unless
 you have special reason to choose an instance...and then you
 should only change it temporarily."
   :type 'integer
@@ -439,7 +439,7 @@ should only change it temporarily."
   :type 'string
   :group 'ado-stata-interaction)
 
-(defcustom ado-send-to-all nil
+(defcustom ado-send-to-all-flag nil
   "*Set to t if you would like code sent to all running
 Statas whenever you send code to run. If set to nil, ado-mode
 will try to match your criteria (instance, version, and flavor)

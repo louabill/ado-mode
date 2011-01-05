@@ -69,8 +69,9 @@ send2stata.scpt is stored. "
 	  (call-process-shell-command (concat 
 					  (ado-check-a-directory ado-script-dir) 
 					  "send2stata.exe \"" dothis "\" \"" comeback "\" \"" ado-temp-dofile "\""
-					    "\"" ado-stata-instance "\" \"" ado-stata-version "\" \"" ado-stata-flavor "\""
-						"\"" ado-send-to-all "\" & ")
+					    " \"" (unless (= 0 ado-stata-instance) (number-to-string ado-stata-instance))
+                       "\" \"" ado-stata-version "\" \"" ado-stata-flavor "\""
+						" \"" (if ado-send-to-all-flag "t" "") "\" & ")
 								  nil 0))
 	 (t (message (concat "working via " dothis "s not supported yet in " 
 						 (symbol-name system-type)
@@ -84,7 +85,7 @@ send2stata.scpt is stored. "
 	(if comeback
 		(if (> (shell-command (concat "open \"" (substring invocation-directory 0 (string-match "/Contents" invocation-directory)) "\"")) 0)
 			(message "had trouble with shell command")))
-	(message (concat "selection sent to Stata" ado-stata-flavors))))
+	(message (concat "selection sent to Stata"))))
   )
 
 (defun ado-check-a-directory (a-dir-name)

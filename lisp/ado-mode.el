@@ -194,6 +194,11 @@
 (define-key ado-mode-map [menu-bar ado options special-indentation]
   (cons "Special Indentation" (make-sparse-keymap "special-indentation")))
 
+(define-key ado-mode-map [menu-bar ado options ado-send-to-all-toggle]
+  '(menu-item "Send code to all matching Statas"
+			  (lambda () (interactive) (ado-toggle-flag 'ado-send-to-all-flag))
+			  :button (:toggle . ado-send-to-all-flag)))
+
 (define-key ado-mode-map [menu-bar ado options ado-comeback-toggle]
   '(menu-item "Return to Emacs after Submission"
 			  (lambda () (interactive) (ado-toggle-flag 'ado-comeback-flag))
