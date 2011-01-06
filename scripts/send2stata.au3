@@ -23,8 +23,8 @@ Dim $defaultTmpDoFile="feedStata.do"
 Dim $numArgs = $CmdLine[0]
 ; arg  1     2                3                             4               5            6
 Dim $doThis, $stataInBack="", $tmpDoFile=$defaultTmpDoFile
-; arg  4               5                 6                7
-Dim $stataInstance="", $stataVersion="", $stataFlavor="", $sendToAll=""
+; arg  4               5                 6                7              8
+Dim $stataInstance="", $stataVersion="", $stataFlavor="", $strictMatch="",  $sendToAll=""
 Dim $theStatas, $howManyStatas, $theStataName
 Dim $pasteMe
 
@@ -48,7 +48,10 @@ Else
 					if $numArgs > 5 Then
 						$stataFlavor = $CmdLine[6]
 						if $numArgs > 6 Then
-							$sendToAll = $CmdLine[7]
+							$strictMatch = $CmdLine[7]
+							if $numArgs > 7 Then
+								$sendToAll = $CmdLine[7]
+							EndIf
 						EndIf
 					EndIf
 				EndIf
@@ -77,7 +80,7 @@ if $pasteMe="" Then
 EndIf
 
 ;; findMatchingStatas will error out if there is no Stata running
-$matchingStatas = findMatchingStatas($stataInstance,$stataFlavor,$stataVersion)
+$matchingStatas = findMatchingStatas($stataInstance,$stataFlavor,$stataVersion,$strictMatch)
 
 $numStatas = $matchingStatas[0][0]
 if $sendToAll = "" Then
@@ -112,6 +115,11 @@ Func badFirstArg($badArg)
 	MsgBox(16,"Oh no!","The first argument must be ""command"", ""menu"", or ""dofile""---you had " & $badArg)
 	Exit(2)
 EndFunc
+
+func errNoStatas($what)
+	MsgBox(16,"Oops","No Stata " & $what)
+	Exit(666)
+endFunc
 
 Func doTmpDofile($theStataName, $tmpDoFile, $doThis, $stataInBack)
 	Local $fullTempDo = @TempDir & "\" & $tmpDoFile 
@@ -176,8 +184,9 @@ Func stripBlankLines($theText) ; perhaps pass by reference
 	Return $theText
 EndFunc
 
-func findMatchingStatas($sInstance="",$sVersion="",$sFlavor="")
-	Local $theStatas, $numStatas
+func findMatchingStatas($sInstance="",$sVersion="",$sFlavor="",$strictMatchFlag="")
+	Local $theStatas, $numStatas, $matchThisMany
+	Local $numFilters = 3 ;; added in case there is some change of the number of possible filters
 	;; Local $sOptions[3] declared below ;; holds the options as regexps for looping
 	Local $matchingStataRows ;; an indeterminate-sized array
 	Local $matchingStatas ;; for returning the results
@@ -197,8 +206,7 @@ func findMatchingStatas($sInstance="",$sVersion="",$sFlavor="")
 	;; _ArrayDisplay($theStatas,"Here are the statas")
 	$numStatas = $theStatas[0][0]
 	if $numStatas = 0 Then
-		MsgBox(16,"Oops","No Stata Running")
-		Exit(666)
+		errNoStatas("Running")
 	EndIf
 	;; find out how many of the options get matched
 	;; not using $theStatas directly, because its first row is accounting information
@@ -214,10 +222,18 @@ func findMatchingStatas($sInstance="",$sVersion="",$sFlavor="")
 	;; _ArrayDisplay($matchingInfo,"Matching Info to Start")
 	_ArraySort($matchingInfo,1,0,0,1)
 	;; _ArrayDisplay($matchingInfo,"Matching Info after Sorting")
-	$matchingStataRows=_ArrayFindAll($matchingInfo,$matchingInfo[0][1],0,0,0,0,1)
-	;; _ArrayDisplay($matchingStataRows,"Statas with most matches")
-	;; MsgBox(16,"Max Matchers","The number of matchers is " & UBound($matchingStataRows))
+	If $strictMatchFlag <> "" Then
+		$matchThisMany = $numFilters
+	Else
+		$matchThisMany = $matchingInfo[0][1]
+	EndIf
+	$matchingStataRows=_ArrayFindAll($matchingInfo,$matchThisMany,0,0,0,0,1)
+	_ArrayDisplay($matchingStataRows,"Statas with most matches")
+	MsgBox(16,"Max Matchers","The number of matchers is " & UBound($matchingStataRows))
 	$numStatas = UBound($matchingStataRows)
+	if $numStatas = 0 Then
+		errNoStatas("Matched Filters")
+	EndIf
 	Local $matchingStatas[$numStatas+1][2]
 	$matchingStatas[0][0] = $numStatas
 	For $row = 1 to $numStatas

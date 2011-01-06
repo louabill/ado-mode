@@ -66,13 +66,18 @@ send2stata.scpt is stored. "
 	  ;; for whatever reason, running synchronously causes the autoit
 	  ;;  application to do nothing
       ;; the bad news is the damn asynch buffer is shown w/o any choice
-	  (call-process-shell-command (concat 
-					  (ado-check-a-directory ado-script-dir) 
-					  "send2stata.exe \"" dothis "\" \"" comeback "\" \"" ado-temp-dofile "\""
-					    " \"" (unless (= 0 ado-stata-instance) (number-to-string ado-stata-instance))
-                       "\" \"" ado-stata-version "\" \"" ado-stata-flavor "\""
-						" \"" (if ado-send-to-all-flag "t" "") "\" & ")
-								  nil 0))
+	  (call-process-shell-command 
+	   (concat 
+		(ado-check-a-directory ado-script-dir) 
+		   "send2stata.exe \"" dothis "\" \"" comeback "\""
+		   " \"" ado-temp-dofile "\""
+		   " \"" (unless (= 0 ado-stata-instance) (number-to-string ado-stata-instance)) "\""
+		   " \"" ado-stata-version "\""
+		   " \"" ado-stata-flavor "\""
+		   " \"" (if ado-send-to-all-flag "t" "") "\""
+		   " \"" (if ado-strict-match-flag "t" "") "\""
+		   " & ")
+	   nil 0))
 	 (t (message (concat "working via " dothis "s not supported yet in " 
 						 (symbol-name system-type)
 						 (if (string= dothis "command")

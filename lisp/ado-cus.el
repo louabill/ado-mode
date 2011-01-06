@@ -439,6 +439,15 @@ should only change it temporarily."
   :type 'string
   :group 'ado-stata-interaction)
 
+(defcustom ado-strict-match-flag nil
+  "*Set to t if you would like code only sent to Stata(s) which 
+match all 3 of ado-stata-instance, ado-stata-version, and 
+ado-stata-flavor. By default this is set to nil, so that if there
+is one instance of Stata running, the values of the three filters 
+are immaterial."
+  :type 'boolean
+  :group 'ado-stata-interaction)
+
 (defcustom ado-send-to-all-flag nil
   "*Set to t if you would like code sent to all running
 Statas whenever you send code to run. If set to nil, ado-mode

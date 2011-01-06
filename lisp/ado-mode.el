@@ -199,6 +199,11 @@
 			  (lambda () (interactive) (ado-toggle-flag 'ado-send-to-all-flag))
 			  :button (:toggle . ado-send-to-all-flag)))
 
+(define-key ado-mode-map [menu-bar ado options ado-strict-match-toggle]
+  '(menu-item "Use strict matching for finding Stata instance"
+			  (lambda () (interactive) (ado-toggle-flag 'ado-strict-match-flag))
+			  :button (:toggle . ado-strict-match-flag)))
+
 (define-key ado-mode-map [menu-bar ado options ado-comeback-toggle]
   '(menu-item "Return to Emacs after Submission"
 			  (lambda () (interactive) (ado-toggle-flag 'ado-comeback-flag))
