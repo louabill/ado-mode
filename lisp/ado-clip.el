@@ -1,4 +1,35 @@
 ;; this is ado-clip.el
+;; Copyright (c) 2009--2011
+;; Author:   Bill Rising
+;; Maintainer: Same <brising@alum.mit.edu>
+;;             URL: http://homepage.mac.com/brising
+;; Keywords: ado-mode
+;; Version:  0.1 23feb2009
+
+;; This file is not part of GNU Emacs.
+
+;; This package is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 2, or (at your option)
+;; any later version.
+
+;; This package is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+;; Boston, MA 02111-1307, USA.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Description:
+;;
+;; This file has a bunch of utilities needed for putting
+;; things onto the clipboard.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; It is a series of helper functions for working with the clipboard
 
 ;; it appears that some distros don't load thingatpt automatically

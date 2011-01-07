@@ -1,11 +1,11 @@
 ;;; ado-font-lock.el --- all the endless font locking
-;; Copyright (c) 2003--2010
+;; Copyright (c) 2003--2011
 ;; Bill Rising
 ;; Author:   Bill Rising
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://homepage.mac.com/brising
 ;; Keywords: ado-mode
-;; Version:  1.11.1.0 of 14jul2010
+;; Version:  1.11.1.1 of 14nov2010
 
 ;; This file is not part of GNU Emacs.
 
@@ -35,6 +35,9 @@
 ;;   in ado-mode, nothing more, nothing less
 ;; Other functions have been added to allow users to include their
 ;;   own commands in the font locking
+;; Known shortcomings: this highlights command names withing
+;;   longer commands. One day I'll come up with a good rule for
+;;   being smart about the highlighting
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 

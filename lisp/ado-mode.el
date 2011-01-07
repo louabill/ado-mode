@@ -1,10 +1,10 @@
 ;; ado-mode.el --- ado mode, and its idiosyncratic commands.
 
-;; Copyright (C) 1996,..., 2010 Bill Rising
+;; Copyright (C) 1996,..., 2011 Bill Rising
 
 ;; Maintainer: Bill Rising, brising at stata dot com
 ;; Keywords: ado-mode, highlighting
-;; Version: 1.11.1.0 of February 23, 2010
+;; Version: 1.11.1.2 of January 6, 2011
 ;;
 ;; the old version system was 0.stata-version times ten.update
 ;; the new version system is now 1.stataversion.statasubversion.update
@@ -439,6 +439,9 @@ This will make ado-mode load when you open an ado or do file."
   (make-local-variable 'ado-closing-brace-alone-flag)
   (make-local-variable 'ado-comeback-flag)
   (make-local-variable 'ado-submit-default)
+  (make-local-variable 'ado-stata-instance)
+  (make-local-variable 'ado-stata-flavor)
+  (make-local-variable 'ado-stata-version)  
   ;; delete auto-save-file when file is saved for real
   (make-local-variable 'delete-auto-save-files)
   (setq delete-auto-save-files t)

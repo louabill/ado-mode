@@ -228,8 +228,8 @@ func findMatchingStatas($sInstance="",$sVersion="",$sFlavor="",$strictMatchFlag=
 		$matchThisMany = $matchingInfo[0][1]
 	EndIf
 	$matchingStataRows=_ArrayFindAll($matchingInfo,$matchThisMany,0,0,0,0,1)
-	_ArrayDisplay($matchingStataRows,"Statas with most matches")
-	MsgBox(16,"Max Matchers","The number of matchers is " & UBound($matchingStataRows))
+	;; _ArrayDisplay($matchingStataRows,"Statas with most matches")
+	;; MsgBox(16,"Max Matchers","The number of matchers is " & UBound($matchingStataRows))
 	$numStatas = UBound($matchingStataRows)
 	if $numStatas = 0 Then
 		errNoStatas("Matched Filters")

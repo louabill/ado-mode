@@ -2,6 +2,39 @@ Version History:
 ---------------
 
 1.11.1.2:
+. Added support for sending code to Stata when there are multiple
+  instances of Stata running (MS Windows only). How the code is sent is
+  ruled by 5 options:
+    ado-send-to-all-flag: if this is t, then all instances get the sent
+      code.
+    ado-stata-version, ado-stata-flavor, and ado-stata-instance:
+    When these filters are specified, emacs will look at all running
+      instances and count the number of these that are matched (note
+      that the default values will match any Stata). If
+      ado-strict-match-flag is nil (the default), *all* Statas which tie
+      for most matches are considered candidates for the code. (This is
+      done so that when all are at their default values, they will
+      always match any running Stata.) If ado-strict-match-flag is t,
+      then only those which match all 3 filters are candidates.
+   Some examples:
+    For each of the following, suppose that there are two instances of
+      StataMP 11.1, one instance of StataSE 10.1 running, and one
+      instance of StataMP 10.1 running.
+    If no filters are set, the ado-strict-match-flag is nil, there will
+      be 4 matching Statas. If the ado-send-to-all-flag is false, you
+      will get an error, if the ado-send-to-all flag is true, all 4
+      instances will get the same command.
+      If ado-strict-match-flag is t, there will also be 4 matching
+      Statas.
+    If ado-stata-flavor is "SE", and the other filters are unset, there
+      will be 1 matching Stata, regardless of the state of the
+      ado-strict-match-flag.
+    If ado-stata-version is 12, and ado-stata-flavor is "MP", there will
+      be 0 matching Statas if the ado-strict-match-flag is t (because no
+      Stata is Stata 12), but there will be 3 matching Statas if
+      ado-strict-matching is nil, because the 3 StataMP instances will
+      all match 2 out of 3 filters (the "MP" filter and the unset
+      filter).
 . Added new functions for working with blocks of codes:
   ado-balance-braces will balance {[()]} outside of strings and
   comments. Used multiple times, it will keep expanding matching pairs.
