@@ -37,21 +37,26 @@
 
 (defun ado-grab-something (&optional what-code)
   "If a region is selected, return the region.
-If what-code is nil, return the word at or before point.
-If no region is selected, and what-code is -1, return the entire 
-command.
-If what-code is 0, 1, ... return the 0th, 1st, command, where command
-  0 is the main command, 1 is the prefix before the command, 2 is 
-  the prefix of the prefix, etc. As of yet, only 0 is implemented."
+Otherwise react to what-code is (this is a mess and should be redone)
+If what-code is
+  nil, return the word at or before point,
+   -2, return the entire buffer,
+   -1, return the entire command containing the point
+    0, just the main command name (for getting help, for instance)
+    1, the command prefix directly before the main command
+    2, the prefix of the prefix, etc.
+As of yet, only -2, -1, and 0 actually are implemented."
   (interactive)
   (let ((mark-even-if-inactive nil)
 		(x-select-enable-clipboard t)
 		)
 	(if (and mark-active t
 			 (not (= (region-beginning) (region-end))))
-		(buffer-substring-no-properties (region-beginning) (region-end)) ;; copy region to theString
+		(buffer-substring-no-properties (region-beginning) (region-end))
 	  (if what-code
-		  (if (< what-code 0) ;; grab entire command
+		  (if (= what-code -2)
+			  (filter-buffer-substring (point-min) (point-max) nil t)
+			(if (= what-code -1) ;; grab entire command
 			  (let ((start-here
 					 (save-excursion
 					   (ado-beginning-of-command)
@@ -62,25 +67,26 @@ If what-code is 0, 1, ... return the 0th, 1st, command, where command
 					   (point)))
 					(x-select-enable-clipboard t))
 				(filter-buffer-substring start-here end-here nil t))
-			;; need to check value of what-code to really implement peeling prefix commands
-			(let ((end-here
-				   (save-excursion
-					 (ado-end-of-command)
-					 (point))))
-			  (save-excursion
-				(ado-beginning-of-command)
-				(while (search-forward-regexp ".*:" end-here t))
-				(skip-chars-forward " /t")
-				(word-at-point)
-				)))
+			  ;; what-code is 0
+			  (let ((end-here
+					 (save-excursion
+					   (ado-end-of-command)
+					   (point))))
+				(save-excursion
+				  (ado-beginning-of-command)
+				  (while (search-forward-regexp ".*:" end-here t))
+				  (skip-chars-forward " /t")
+				  (word-at-point)
+				  ))))
 		;; what-code is nil; 
 		(word-at-point))
 	  )))
 
-(defun ado-command-to-clip (&optional use-dofile)
+(defun ado-command-to-clip (&optional use-dofile whole-buffer)
   "Grabs either the region, or if there is no region, the
-entire Stata command, then gets it ready to send to Stata. If
-use-dofile is \"command\", it strips out comments and continuations.
+entire Stata command (or buffer if whole-buffer it non-nil), 
+then gets it ready to send to Stata. If use-dofile is 
+\"command\", it strips out comments and continuations.
 The grabbing is done by \\[ado-grab-something], and the stripping
 is done by \\[ado-strip-comments]"
 	(unless use-dofile

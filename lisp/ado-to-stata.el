@@ -5,24 +5,24 @@
 ;;;   In Mac OS X, this is done via the applescript send2stata.scpt
 ;;;   In MS Windows, this is done via the autoit executable send2stata.exe 
 
-(defun ado-send-command-to-stata ()
+(defun ado-send-command-to-stata (&optional whole-buffer)
   (interactive)
-  (ado-command-to-clip ado-submit-default)
+  (ado-command-to-clip ado-submit-default whole-buffer)
   (ado-send-clip-to-stata ado-submit-default ado-comeback-flag))
 
-(defun ado-send-command-to-command ()
+(defun ado-send-command-to-command (&optional whole-buffer)
   (interactive)
-  (ado-command-to-clip "command")
+  (ado-command-to-clip "command" whole-buffer)
   (ado-send-clip-to-stata "command" ado-comeback-flag))
 
-(defun ado-send-command-to-menu ()
+(defun ado-send-command-to-menu (&optional whole-buffer)
   (interactive)
-  (ado-command-to-clip "menu")
+  (ado-command-to-clip "menu" whole-buffer)
   (ado-send-clip-to-stata "menu" ado-comeback-flag))
 
-(defun ado-send-command-to-dofile ()
+(defun ado-send-command-to-dofile (&optional whole-buffer)
   (interactive)
-  (ado-command-to-clip "dofile")
+  (ado-command-to-clip "dofile" whole-buffer)
   (ado-send-clip-to-stata "dofile" ado-comeback-flag))
 
 (defun ado-send-clip-to-stata (&optional dothis comeback tmpfile)
@@ -127,5 +127,26 @@ the optional at-point argument is non-nil, at point."
 (defun ado-help-command ()
   (interactive)
   (ado-stata-help))
+
+(defun ado-send-buffer-to-stata (&optional as-default)
+  "By default, sends entire buffer to Stata in the way that the 
+do-file editor does: If the file has been saved, send a 
+'do whatever' command to the command window, otherwise send a 'do temp file'.
+If as-default is t, just send everything via the default method."
+  (interactive)
+  (let (dowhat)
+	(if as-default
+		(setq dowhat ado-submit-default)
+	  (setq dowhat "dofile"))
+	(if (string= dowhat "dofile")
+		(if (buffer-modified-p)
+			(ado-send-command-to-dofile t)
+		  ;; bad behavior, because it overwrites the pasteboard
+		  (let ((x-select-enable-clipboard t))
+			(message (concat "Want to call ->" (concat "do " (buffer-file-name))))
+			(funcall interprogram-cut-function (concat "do " (buffer-file-name)))
+			(ado-send-clip-to-stata "command" ado-comeback-flag)))
+	  (ado-send-command-to-stata t)
+	  )))
 
 (provide 'ado-to-stata)
