@@ -166,11 +166,11 @@ These cannot be modularized, because of ordering problems"
 (defun ado-one-eol (theString)
   "Looks to see if the theString ends in an eol. If it does not,
 one is appended. Nothing too complicated."
-  (message (concat "ado-one-eol received ->" theString "<-"))
+;  (message (concat "ado-one-eol received ->" theString "<-"))
   (unless (string-match "\n" (substring-no-properties theString -1))
 	(setq theString (concat theString "
 ")))
-  (message (concat "ado-one-eol wants to return ->" theString "<-"))
+;  (message (concat "ado-one-eol wants to return ->" theString "<-"))
   theString
   )
 
