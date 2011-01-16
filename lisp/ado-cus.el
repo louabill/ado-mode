@@ -205,8 +205,16 @@ be set in each user's .emacs file."
 
 (defcustom ado-signature-prompt-flag t
   "Controls whether the user is prompted for a signature at the bottom of
-  the help files. If off, `<the user will never be asked, and just the user's
+  the help files. If off, the user will never be asked, and just the user's
   name will be appended to help files. Defaults to on."
+  :type 'boolean
+  :group 'ado-help-info)
+
+(defcustom ado-help-author-flag t
+  "Controls whether the author section is included in an help file.
+If set to nil there will be no authorship (useful for official
+Stata help), otherwise an Author section will be included (useful
+for the whole rest of the world). Defaults to on."
   :type 'boolean
   :group 'ado-help-info)
 

@@ -1515,11 +1515,12 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
   (interactive)
   (setq ado-signature-file
 		(read-file-name "Set ado signature file to: "
-						(file-name-directory (expand-file-name
-											  (if (not ado-signature-file)
-												  (if (file-exists-p "~/.ado-signature")
-																		"~/.ado-signature")
-																ado-signature-file)))))
+		   (file-name-directory 
+			(expand-file-name
+			 (if (not ado-signature-file)
+				 (if (file-exists-p "~/.ado-signature")
+					 "~/.ado-signature")
+			   ado-signature-file)))))
   )
 
 (defun ado-new-help-6 ()
@@ -1575,29 +1576,36 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
   (ado-insert-boilerplate "help.blp" t)
   (if (and ado-new-dir (y-or-n-p "Put in 'new' directory? "))
 	  (cd (directory-file-name ado-new-dir)))
-  (if (not ado-claim-name)
-	  (setq ado-claim-name 
-			(read-from-minibuffer "Whose name should be put at the top of the file? " user-full-name)))
-  (text-mode)
-  (goto-char (point-max))
-  (if ado-signature-prompt-flag
-	  (progn
-		(if (not ado-signature-file)
-			(set-ado-signature-file))
-		(insert "
-{title:Author}
-
-")
-		(insert-file-contents ado-signature-file))
-	(insert ado-claim-name))
   (goto-char (point-min))
   (while (search-forward "XXX" nil t)
 	(replace-match name t))
   (goto-char (point-min))
-  (search-forward "{* Last Updated: ")
+  (search-forward "version #.#.# ") 
+  (delete-region (point) (point-at-eol))
   (insert (ado-nice-current-date))
-;  (search-forward "hi:help ")
-;  (insert name)
+  (insert "}{...}")
+  ;; new logic for authorship:
+  ;;   check prompt flag, if turned off, do NOT use ANY signature
+  ;;   if flag on, but there is no file, use user name only
+  (search-forward "{title:Author}") 
+  (if ado-help-author-flag
+	  (progn
+		(search-forward "{pstd}")
+		(forward-line)
+		(delete-region (point) (point-at-eol))
+		(if (or ado-signature-file
+				(if ado-signature-prompt-flag
+					(set-ado-signature-file)))
+			(insert-file-contents ado-signature-file)
+		  ;; no signature file
+		  (if (not ado-claim-name)
+			  (setq ado-claim-name
+					(read-from-minibuffer "Whose name(s) should be used as authors? " user-full-name)))
+		  (insert ado-claim-name)))
+	;; do not want authorship
+	(beginning-of-line)
+	;; !! fix up deleting author section
+	)
   (ado-mode)
   ;; turn off indenting
   (setq ado-smart-indent-flag nil)

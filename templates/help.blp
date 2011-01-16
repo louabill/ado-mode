@@ -1,16 +1,18 @@
 {smcl}
-{* Last Updated: }{...}
-{hi:help XXX} 
+{* *! version #.#.# 01apr2011}{...}
+{cmd:help XXX} 
 {hline}
 
 {title:Title}
 
 {phang}
-{cmd:XXX} and very short purpose here
+{bf:XXX} {hline} title of command
 {p_end}
 
+
 {title:Syntax}
-{* put the syntax in what follows. Don't forget to use [ ] around optional items}
+
+{*!! put the syntax in what follows. Don't forget to use [ ] around optional items}
 {p 8 17 2}
    {cmd: XXX}
    {varlist}
@@ -18,18 +20,34 @@
    {ifin}
    {weight}
    {help using}
-   {cmd:,} [
-   {opt min:abbrev}
-   {opt min:abbrev(arg)}
+   [{cmd:,}
+   {it:options}
    ]
 {p_end}
+
+{*!! the new Stata help format of putting detail before generality}
+{synoptset 20 tabbed}{...}
+{synopthdr}
+{synoptline}
+{syntab:Main}
+{synopt:{opt min:abbrev}}description of what option{p_end}
+{synopt:{opt min:abbrev(arg)}}description of another option{p_end}
+{synoptline}
+{p2colreset}{...}
+
+{p 4 6 2}{*!! if by is allowed, leave the following}
+{cmd:by} is allowed; see {manhelp by D}.{p_end}
+{p 4 4 2}{*!! if weights are allowed, say which ones}
+{cmd:fweight}s are allowed; see {help weight}.
+
 
 {title:Description}
 
 {pstd}
-put the purpose here
+{cmd:XXX} does ... (now put in something which tells what all the above syntax does)
 {p_end}
 
+   
 {title:Options}
 
 {phang}{opt whatever} does yak yak
@@ -47,12 +65,23 @@ One or two lines... pretty rare
 explanation here
 {p_end}
 
+{phang}{cmd:. another sample input here}{break}
+Be sure that Example(s) is fixed to match one or many examples.
+{p_end}
+
 {title:Notes}
 
 {pstd}
 Some careful notes go here...like remarks but after examples.
 This is not part of standard Stata help
 {p_end}
+
+{title:Author}
+
+{pstd}
+Author information here
+{p_end}
+
 
 {title:References}
 
