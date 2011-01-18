@@ -2,6 +2,8 @@ Version History:
 ---------------
 
 1.11.1.2:
+. BEHAVIOR CHANGE: if you have a .ado-signature file, see the last 
+  item.
 . Added support for sending code to Stata when there are multiple
   instances of Stata running (MS Windows only). How the code is sent is
   ruled by 5 options:
@@ -51,7 +53,25 @@ Version History:
   One warning: in this initial version, emacs' default behavior is
   followed, where different braces can match if there are unbalanced
   braces. Thus {these DO balance].
-
+. Added menu item Ado > New > Do-file
+. Updated help-file template to match the not-so-new way that Stata
+  likes its help files, using the synopt table for options before the
+  Description section.
+. Changed the authorship routine so it is easier to not have any author
+  (good for me working at Stata). There is a new flag
+  ado-help-author-flag---if it is nil, the Author section will be
+  deleted, otherwise the Author section will be included. The behavior
+  of ado-signature-prompt-flag now makes more sense; if nil, the user
+  will be prompted to give a signature file only if the signature file
+  is missing. This will affect approximately 0 people.
+. If you have a .ado-signature file for filling in the authorship
+  section of a sthlp file, you might need to change it. It should now
+  just have your info, without any paragraph-mode items. 
+  So... the following is good:
+    Bill Rising, StataCorp{break}
+    email: brising@stata.com{break}
+    web: {browse "http://homepage.mac.com/brising":http://homepage.mac.com/brising}
+  This will affect at least one person (me).
 1.11.1.1:
 . Added fontification for ado files in Stata's -sysdir- locations. So,
   for example, if you download the command -renvars-, -renvars- will now

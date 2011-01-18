@@ -181,6 +181,8 @@
 ;; submenu New
 (define-key ado-mode-map [menu-bar ado new ado-new-label]
   '("Label file" . ado-new-label))
+(define-key ado-mode-map [menu-bar ado new ado-new-do]
+  '("Do-file" . ado-new-do))
 (define-key ado-mode-map [menu-bar ado new ado-new-help]
   '("Help file" . ado-new-help))
 (define-key ado-mode-map [menu-bar ado new ado-new-cscript]
@@ -194,6 +196,11 @@
 ;;; this submenu follows
 (define-key ado-mode-map [menu-bar ado options special-indentation]
   (cons "Special Indentation" (make-sparse-keymap "special-indentation")))
+
+(define-key ado-mode-map [menu-bar ado options ado-help-author-toggle]
+  '(menu-item "Include Author section in help files"
+			  (lambda () (interactive) (ado-toggle-flag 'ado-help-author-flag))
+			  :button (:toggle . ado-help-author-flag)))
 
 (define-key ado-mode-map [menu-bar ado options ado-send-to-all-toggle]
   '(menu-item "Send code to all matching Statas"
@@ -1603,13 +1610,21 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 					(read-from-minibuffer "Whose name(s) should be used as authors? " user-full-name)))
 		  (insert ado-claim-name)))
 	;; do not want authorship
-	(beginning-of-line)
-	;; !! fix up deleting author section
+	(let ((end-here
+		   (save-excursion
+			 (search-forward "{title:References}")
+			 (beginning-of-line)
+			 (point))))
+	  (beginning-of-line)
+	  (delete-region (point) end-here))
 	)
   (ado-mode)
   ;; turn off indenting
   (setq ado-smart-indent-flag nil)
   (ado-save-program)
+  (goto-char (point-min))
+  (search-forward "title of command")
+  (beginning-of-line)
   )
 
 (defun ado-toggle-help-extension ()

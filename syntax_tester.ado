@@ -1,4 +1,4 @@
-*! version 1.10.0 November 12, 2010 @ 16:21:01
+*! version 1.10.0 January 12, 2011 @ 15:29:36
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -5040,5 +5040,5 @@ version /* used elsewhere */
          (here are mismatched braces]
          display "Oh no, no closing brace"
          } // delete to test
-      
+    quietly(this is a test) // should distiguish between functions and commands
 end
