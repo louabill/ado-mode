@@ -3292,8 +3292,8 @@
 		 (regexp-opt 
        '(
 		  "makecns"
-		  "mark" "markin" "markout"
-		  "mata" "matrix"
+		  "mark" "markin" "markout" "mat"
+		  "mata" "matr" "matri" "matrix"
 		  "mkdir" "mkmat" "mkspline"
 		  "mleval" "mlmatsum" "mlsum""mlvecsum"
 		  "modify" 
@@ -5446,7 +5446,7 @@
 			 "cluster" "constraints" 
 			 "conv_ignorenrtol" "conv_maxiter" "conv_nrtol" "conv_ptol" "conv_vtol" "conv_warning" 
 			 "depvar" 
-			 "eq_coefs" "eq_colnames" "eq_cons" "eq_exposure" "eq_indepbars" "eq_n" "eq_name" "eq_offset" 
+			 "eq_coefs" "eq_colnames" "eq_cons" "eq_exposure" "eq_indepvars" "eq_n" "eq_name" "eq_offset" 
 			 "evaluations" "evaluator" "evaluatortype" 
 			 "gnweightmatrix" 
 			 "iterid" 

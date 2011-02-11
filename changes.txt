@@ -1,5 +1,7 @@
 Version History:
 ---------------
+1.11.1.3:
+. Fixed minor highlighting bugs.
 
 1.11.1.2:
 . BEHAVIOR CHANGE: if you have a .ado-signature file, see the last 
