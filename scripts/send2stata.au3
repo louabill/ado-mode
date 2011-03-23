@@ -202,7 +202,7 @@ func findMatchingStatas($sInstance="",$sVersion="",$sFlavor="",$strictMatchFlag=
 	EndIf
 		
 	Local $sOptions[3] = [$sInstance, ".*" & $sVersion & ".*", ".*" & $sFlavor & ".*"]
-	$theStatas = WinList("Stata/")
+	$theStatas = WinList("[REGEXPTITLE:(Stata/(IC|SE|MP))|(Small Stata)]")
 	;; _ArrayDisplay($theStatas,"Here are the statas")
 	$numStatas = $theStatas[0][0]
 	if $numStatas = 0 Then
