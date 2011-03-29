@@ -2828,6 +2828,7 @@
 		  "rreg"
 		  "ru" "run" "runtest" "rvfplot" "rvpplot"
 		 ) 'words))
+	  "\\([ \t]+\\|,\\|$\\)"
 	  )
 	  '(2 ado-builtin-harmless-face))
 
@@ -5639,10 +5640,12 @@
 	  ;; what few obsolete commands I've gathered
 	  ;; lfit and score moved before the matrix command so that it won't affect
 	  ;; the matrix score command
+	;; !!
 	(list
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
 			 "_huber"
 			 "adjust"
 			 "aorder"
@@ -5672,6 +5675,8 @@
 			 "weibull" "weibullhet"
 			 "xtcorr" "xtrchh" "xthaus" "xtpois"
 		 ) 'words))
+	   "[^(]"  ;; a real hack because some obsolete commands are OK options
+	   )
 	  '(1 ado-obsolete-face))
 
 	  ;; the datasignature commands
