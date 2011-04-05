@@ -1,4 +1,4 @@
-*! version 1.10.0 January 12, 2011 @ 15:29:36
+*! version 1.10.0 April 5, 2011 @ 14:48:21
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -52,9 +52,11 @@ version 9.3
 version 9.5
 version 10
 version 10.1
+version 10.2
 version 11
 version 11.1
-   
+version 11.2
+version 11.3
    
    /* this program does nothing - it merely has some things for testing syntax coloring */
    /* working with the syntax table */
@@ -241,6 +243,8 @@ version 11.1
    qladder
    set l
    set level
+   lfit // as command is obsolete
+   score // as command is obsolete
    lincom
    linktest
    lnskew0
@@ -285,6 +289,7 @@ version 11.1
    // the old mfp non-prefix commands are not needed
    mfp logit
    mfp clogit
+   mfp clogit() // should unhighlight !!
    
    // mfx is obsolete as of Stata 11
    mfx
@@ -1526,7 +1531,7 @@ set trace off
    cluster tr
    cluster tree
    cluster gen
-   cluster generate
+   cluster generate 
    cluster note
    cluster notes
    cluster dir
@@ -2081,8 +2086,10 @@ set trace off
    confi existence
    confir new f
    confirm file
-   /* won't highlight because of need for a subcommand */
-   confirm `foo'
+
+   confirm `foo' // won't confirm because of need for subcommand
+   confirm numeric var // ok
+   confirm numeric var() // fails
    conf numeric fo
    conf str for
    conf string form
@@ -2642,8 +2649,8 @@ be a separate mode ... ugh */
    matrix veca matt
    matrix vecaccum matt
    /* not listed but still accepted */
-   matr makeCns foo 
-   matri dispCns
+   matr makeCns foo // should be obsolete 
+   matri dispCns // should be obsolete
    matcproc a b c
 
    /* dangerous keyword highlighting which is unavoidable */
@@ -3360,11 +3367,13 @@ version 8: fooie
 
    // should the twoway's here be changed to command highlighting?
    gr twoway fee fie fo
-   graph twoway (scatter bar foo) (lfitci bar fee)
+   graph twoway (scatter bar foo) (lfitci bar fee) // should lfitci be a command?
    twoway bar foo || bar fee
 
    /* forget the stuff under twoway */
-   /* redone in the order of the commands themselves to accommodate abbrevs */
+      /* redone in the order of the commands themselves to accommodate abbrevs */
+
+      
 
    gr tw scatter
    
