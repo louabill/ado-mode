@@ -42,6 +42,8 @@
 
 (defconst end-cmd-regexp "\\([ \t]+\\|,\\|;\\|$\\)"
   "end-of-command regexp to keep things like -regress(- from highlighting")
+(defconst ado-stata-name-regexp "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+  "for uniform highlighting of Stata names")
 
 
 (defun ado-set-font-lock-keywords ()
@@ -2853,6 +2855,7 @@
 	  '(2 ado-builtin-harmless-face))
 
 	(list
+	 (concat
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -2915,6 +2918,7 @@
 		  "xtrc" "xtreg" "xtregar" "xtset" "xtsum" "xttab" "xttest0" "xttobit" "xttrans"
 		  "zinb" "zip" "ztnb" "ztb"
 		 ) 'words))
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face))
 
 	  ;; things to use with the svy ... : prefix
@@ -2945,7 +2949,7 @@
 			"tobit" "total" "treatreg" "truncreg"
 			"zinb" "zip" "ztnb" "ztb"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face))
 	;; more svy stuff
 	(list
@@ -2977,7 +2981,7 @@
 		  "tab" "tabu" "tabul" "tabula" "tabulat" "tabulate" 
 		  "total"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-builtin-harmless-face))
 
@@ -2991,14 +2995,15 @@
 		  '(
 			"des" "desc" "descr" "descri" "describ" "describe"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face))
+
 	(list
 	  (concat
 	   "\\<\\(haver\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(use\\)\\>"
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-builtin-harmful-face))
 
 	  ;; Conditional statements 
@@ -3011,16 +3016,18 @@
 		   "if" "else" "while"
 		   ) 'words ))
 	  "[ \t]+.*?{"
-	  )
+	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t))
 
 	  ;; variable types which appear as subcommands often
 	(list
-	 (eval-when-compile 
-	   (regexp-opt 
-		'(
-		  "byte" "int" "long" "str" "float" "double"
-		  ) 'words))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "byte" "int" "long" "str" "float" "double"
+		   ) 'words))
+	  end-cmd-regexp )
 	 '(1 ado-subcommand-face))
 
 	;; string variable types
@@ -3033,7 +3040,7 @@
 	  "\\|"
 	  "[1-9][0-9]?"
 	  "\\)\\)\\>"
-	  )
+	  end-cmd-regexp )
 	 '(1 ado-subcommand-face))
 
 	  ;; things used with display
@@ -3043,7 +3050,7 @@
 	  ;;
 	  ;; plain display
 	  ;;
-		(list
+	(list
 	  (concat
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -3059,7 +3066,7 @@
 		  "_n" "_ne" "_new" "_newl" "_newli" "_newlin" "_newline" 
 		  "_quote"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
 
 	(list
@@ -3126,7 +3133,7 @@
 		  "res" "resu" "resul" "result" 
 		  "text" "txt"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face))
 
@@ -3142,7 +3149,7 @@
 	   "\\<\\(in\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(smcl\\)\\>"
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
 	  '(3 ado-subcommand-face))
 
@@ -3167,7 +3174,7 @@
 		  "w" "wh" "whi" "whit" "white"
 		  "y" "ye" "yel" "yell" "yello" "yellow"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face)
 	  '(3 ado-obsolete-face))
      ;;
@@ -3202,7 +3209,7 @@
 		  "num" "numl" "numli" "numlis" "numlist" 
 		  "var" "varl" "varli" "varlis" "varlist" 
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
@@ -3230,7 +3237,7 @@
 	   "\\([ \t]+[a-zA-Z]+[a-zA-Z0-9_]*\\)"
         "[ \t]*:[ \t]*"
 		"\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
-		)
+		end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-variable-name-face t) '(4 ado-subcommand-face t)
 	  '(5 ado-variable-name-face t) '(6 ado-variable-name-face t))
@@ -3242,7 +3249,7 @@
 	   "\\(\\(?:[ \t]+[a-zA-Z]+[a-zA-Z0-9_]*\\)\\{1,2\\}\\)"
         "[ \t]*:[ \t]*"
 		"\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
-		)
+		end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-variable-name-face t) '(4 ado-variable-name-face t))
 
@@ -3270,11 +3277,12 @@
 		   "val" "valu" "value" "values"
 		   "var" "vari" "varia" "variab" "variabl" "variable"
 		   ) 'words))
-	  )
+	  end-cmd-regexp )
 	 '(2 ado-builtin-harmless-face t) '(3 ado-subcommand-face t))
 
 	  ;; all Stata data-altering stuff
-		(list
+	(list
+	 (concat
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -3307,8 +3315,11 @@
 		  "keep" 
 		  "lnskew0"
 		 ) 'words))
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face))
+
 	(list
+	 (concat
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -3353,6 +3364,7 @@
 		  "xtdata" "xtpred"
 		  "zipfile"
 		 ) 'words))
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face))
 
 	(list
@@ -3367,7 +3379,7 @@
 			  "programs"
 			  "results"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 			  
 	  ;; assignment of macros
@@ -3510,7 +3522,7 @@
 		  "tsnorm" 
 		  "ty" "typ" "type"
 		  ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-subcommand-face t))
 	(list
@@ -3530,7 +3542,7 @@
        '(
 		 "global" "local"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
@@ -3547,7 +3559,7 @@
 	   "\\<\\(word\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(count\\)\\>"
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
@@ -3564,12 +3576,13 @@
 	   "\\<\\(word\\)\\>"
 	   "[ \t]+\\(?:[0-9]+\\|`[^ \t]*'\\)[ \t]+"
 	   "\\<\\(of\\)\\>"
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
-     ;; things with parens in them (sheesh)
-     ;; not included above, incase someone uses a font which has a background color
+	;; things with parens in them (sheesh)
+	;; not included above, incase someone uses a font which 
+	;;   has a background color
 	(list
 	  (concat
 	   (eval-when-compile 
@@ -3636,7 +3649,7 @@
 		  "gl" "glo" "glob" "globa" "global" 
 		  "loc" "loca" "local" 
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	  
@@ -3660,7 +3673,7 @@
 		  "N"
 		  "format" "k" "id" "max" "min" "type" "varnames" "varnum"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
      ;; sheesh, now there are combined abbreviations!
@@ -3689,7 +3702,7 @@
        '(
 		  "l" "la" "lab" "labe" "label"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	  
@@ -3791,7 +3804,7 @@
        '(
 		  "globals" "matrices" "scalars"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
      ;; all numeric/string
@@ -3815,7 +3828,7 @@
 		 ) 'words))
 	   "[ \t]+"
 	   "\\<\\(scalars\\)\\>"
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
 	  '(5 ado-subcommand-face t))
@@ -3837,7 +3850,7 @@
        '(
 		  "tempf" "tempfi" "tempfil" "tempfile" "tempv" "tempva" "tempvar" 
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-obsolete-face t))
 
@@ -3871,7 +3884,7 @@
 		  "di" "dir"
 		  "l" "li" "lis" "list"			
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	(list
@@ -3887,7 +3900,7 @@
 		  '(
 		  "s" "sh" "shi" "shif" "shift"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
 
 	  ;; stata functions i.e. things which require () after them 
@@ -4014,6 +4027,7 @@
 		  "psize" "saving" "tlabel" "tolerance"
 		  "xlabel" "xscale" "ylabel" "yscale"
 		 ) 'words))
+	   "("
 	   )
 	  '(1  ado-subcommand-face t))
 
@@ -4037,6 +4051,7 @@
 			  "sd" "seq" "skew" "std" 
 			  "tag" "total"
 		 ) 'words))
+	   "("
 	   )
 	  '(1 ado-function-name-face t))
 
@@ -4054,6 +4069,7 @@
 			  "rfirst" "rlast" "rmax" "rmean" "rmin" "rmiss" "robs" "rsd" "rsum" 
 			  "sum"
 		 ) 'words))
+	   "("
 	   )
 	  '(1 ado-obsolete-face t))
 
@@ -4078,7 +4094,7 @@
 			"vary" "varyi" "varyin" "varying"
 			"xtset"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; mi harmful commands
@@ -4096,7 +4112,7 @@
 			"reset"
 			"select" "stsplit"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	  ;; mi convert commands
@@ -4114,7 +4130,7 @@
 			"ml" "mlo" "mlon" "mlong"
 			"w" "wi" "wid" "wide"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 
@@ -4131,7 +4147,7 @@
 		 "ice"
 		 "nhanes1"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi import commands
@@ -4149,7 +4165,7 @@
 		 "nhanes1"
 		 "wide"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi impute commands
@@ -4174,7 +4190,7 @@
 			"pmm"
 			"reg" "regr" "regre" "regres" "regress"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi merge commands
@@ -4189,7 +4205,7 @@
        '(
 		 "1:1" "1:m" "m:1" "m:m"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi misstable commands
@@ -4211,7 +4227,7 @@
 			"sum" "summ" "summa" "summar" "summari" "summariz" "summarize"
 			"tree"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi passive subcommands
@@ -4240,7 +4256,7 @@
 			"d" "de" "des" "desc" "descr" "descri" "describ" "describe"
 			"use"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi reshape subcommands
@@ -4255,7 +4271,7 @@
        '(
 		 "long" "wide"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi select subcommands
@@ -4266,7 +4282,7 @@
 	   "\\<\\(select\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(init\\)\\>"
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi set subcommands
@@ -4285,7 +4301,7 @@
 			"m" "ml" "mlo" "mlon" "mlong" 
 			"w" "wi" "wid" "wide" 
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi register subcommands
@@ -4306,7 +4322,7 @@
 			"pas" "pass" "passi" "passiv" "passive"
 			"reg" "regu" "regul" "regula" "regular"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi xeq subcommands
@@ -4844,7 +4860,7 @@
 	   "\\<\\(classutil\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(drop\\)\\>"
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -4859,7 +4875,7 @@
 		  "dir"
 		  "which"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; oh my - the creturn info!
@@ -4876,7 +4892,7 @@
 		  '(
 			"l" "li" "lis" "list" 
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 ;;; the system 'constants' (which are not really constant) - the c() thingies
@@ -5000,9 +5016,10 @@
 	  ;; here - the harmless faces define static text 
 	  ;;        whereas the harmful face defines dynamic text
 	(list
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
 		  "BUTTON"
 		  "CANCEL" "CHECKBOX" "COMBOBOX"
 		  "DEFINE" "DIALOG"
@@ -5016,7 +5033,9 @@
 		  "SPINNER" "SUBMIT"
 		  "VARLIST" "VARNAME"
 		 ) 'words))
+	  end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face))
+
 	(list
 	  (concat
 	   "\\<\\(stopbox\\)\\>"
@@ -5028,10 +5047,11 @@
 			"rusure"
 			"stop"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
 
 	(list
+	 (concat
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -5055,9 +5075,11 @@
 		  "varlist"
 		  "weight"
 		 ) 'words))
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face))
 
 	(list
+	 (concat
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -5067,7 +5089,9 @@
 		  "view"
 		  "program"
 		 ) 'words))
+	   end-cmd-regexp )
 	  '(1 ado-function-name-face))
+
 	(list
 	  (concat
 	   "\\<\\(call\\)\\>"
@@ -5081,7 +5105,7 @@
 		  "view"
 		  "program"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; stata dialog functions i.e. things which require () after them 
@@ -5123,7 +5147,7 @@
 		   "vector" "version" "void"
 		   "while"
 		   ) 'words))
-	  )
+	  end-cmd-regexp )
 	 '(1 ado-mata-keyword-face))
 
 	(list
@@ -5150,7 +5174,7 @@
 		  "union" "unsigned" "using" 
 		  "virtual" "volatile"
 		   ) 'words))
-	  )
+	  end-cmd-regexp )
 	 '(1 ado-mata-future-keyword-face))
 
 	(list
@@ -5162,7 +5186,7 @@
 		  '(
 			"unset" "unused"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-mata-keyword-face) '(2 ado-subcommand-face))
     
 	(list
@@ -5198,7 +5222,7 @@
 		  "set" "stata"
 		  "which"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t))
 
 	  ;; mata subcommands
@@ -5217,7 +5241,7 @@
 		  "index"
 		  "q" "qu" "que" "quer" "query"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t) 
 	  '(3 ado-subcommand-face t))
 
@@ -5233,7 +5257,7 @@
 		  '(
 			"matacache" "matalibs"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t) 
 	  '(3 ado-subcommand-face t))
 
@@ -5251,7 +5275,7 @@
 		  '(
 			"space" "speed"
 			) 'words))	   
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t) 
 	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
@@ -5548,7 +5572,7 @@
 	   )
 	  '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
 
-	  ;; mata optimize_init commands
+	  ;; mata optimize_init functions
 	(list
 	  (concat
 	   "\\<\\(optimize_init_\\)"
@@ -5695,11 +5719,10 @@
 			 "weibull" "weibullhet"
 			 "xtcorr" "xtrchh" "xthaus" "xtpois"
 		 ) 'words))
-	   "[^(]"  ;; a real hack because some obsolete commands are OK options
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-obsolete-face))
 
-	  ;; the datasignature commands
+	  ;; the datasignature commands  ;; !!
 	(list
 	  (concat
 	   (eval-when-compile 
