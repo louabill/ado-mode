@@ -1,6 +1,7 @@
 Version History:
 ---------------
-1.11.1.3:
+1.11.2.0:
+. Updated to allow -version 11.2-
 . Fixed bug in AutoIt script for Windows where adomode would get
   confused if there was a Graph window open (or even any web browser
   pointed at Stata's website). AutoIt now uses a regexp to find either
@@ -8,7 +9,11 @@ Version History:
   are visiting a site like http://www.stata.com/statamp ... (Checking
   the window class for a Stata window doesn't help, so this will be as
   good as it gets.)
+. Tried to fix highlighting of commands when followed by a special
+  character like a paren, because 'generate' should highlight, but
+  'generate(' should not.
 . Fixed minor highlighting bugs.
+. Cleaned up font highlighting of added commands
 
 1.11.1.2:
 . BEHAVIOR CHANGE: if you have a .ado-signature file, see the last 

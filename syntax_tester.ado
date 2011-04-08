@@ -1,4 +1,4 @@
-*! version 1.10.0 April 5, 2011 @ 14:48:21
+*! version 1.10.0 April 8, 2011 @ 10:22:55
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -115,7 +115,8 @@ version 11.3
    const fre
    /* end constraint */
    copyright
-   cor corr corre correl correla correlat correlate pwcorr
+   cor corr corre correl correla correlat correlate
+   pwcorr
    cumul
    cusum
    db
@@ -129,7 +130,9 @@ version 11.3
    qchi
    /* end... */
    di dis disp displ displa display
-   do ru run
+   do
+   ru
+   run
    doed doedi doedit
    dotplot
    dstdize  istdize
@@ -149,7 +152,7 @@ version 11.3
    est use
    est des
    est describe
-   estim esample:
+   estim esample
 
    est sto
    esti store
@@ -272,7 +275,8 @@ version 11.3
    set lin
    set linesize
    logistic
-   logi logit
+   logi
+   logit
    loneway
    lowess
    lpoly
@@ -289,7 +293,7 @@ version 11.3
    // the old mfp non-prefix commands are not needed
    mfp logit
    mfp clogit
-   mfp clogit() // should unhighlight !!
+   mfp clogit() // absurd but should unhighlight clogit()
    
    // mfx is obsolete as of Stata 11
    mfx
@@ -428,10 +432,13 @@ version 11.3
    poisgof
    predict
    predictnl
-   prob probi probit
+   prob
+   probi
+   probit
    dprobit // obsolete in Stata 11
    proportion
-   prtest prtesti
+   prtest
+   prtesti
    
    /* qc commands */
    cchart
@@ -464,7 +471,7 @@ version 11.3
    median
    ratio
    reg3
-   // highlights last regress?
+   // highlights all -regress-es again?
    regress : regress : regress
    /* the end of the findfile */
    reg
@@ -498,7 +505,8 @@ version 11.3
    sret li
    sreturn list
    scobit
-   sdtest sdtesti robvar
+   sdtest sdtesti
+   robvar
    search
    set searchdefault local /* rest under set */
    findit
@@ -818,10 +826,13 @@ set trace off
 
    /* endless postestimation */
    // estat (from [R])
+   // (some) obsolete versions included for testing
    estat alt
    estat alternatives
+   archlm
    estat archlm
    estat bgo
+   bgodfrey
    estat bgodfrey
    estat clas
    estat classification
@@ -829,9 +840,11 @@ set trace off
    estat correlation
    estat cov
    estat covariance
-   estat cv // added in Stata 11.1 
+   estat cv // added in Stata 11.1
+   durbina
    estat dur
    estat durbinalt
+   dwstat
    estat dwa
    estat dwatson
    estat endog
@@ -841,18 +854,24 @@ set trace off
    estat first
    estat firststage
    estat gof
+   hettest
    estat hett
    estat hettest
+   imtest 
    estat imtest
    estat mfx // not obsolete---still used for some commands
    estat over
    estat overid
+   ovtest
+   estat ovtest
    estat predict
    estat se
+   szroeter
    estat szroeter
    estat summarize
+   vif
    estat vif
-   
+   !! here
    adjust
    dfbeta
    acprplot
@@ -872,7 +891,8 @@ set trace off
    append using
    as ass asse asser assert
    by bys byso bysor bysort
-   cd pwd
+   cd
+   pwd
    cf
    changeeol
    checksum
@@ -915,7 +935,9 @@ set trace off
    ds lookfor
    destring
    tostring
-   dir ls man
+   dir
+   ls
+   man
    drawnorm
    drop keep
    /* duplicates */
@@ -992,8 +1014,7 @@ set trace off
    egen = seq()
    egen = skew()
    egen = std()
-   /* replaced with total */
-   egen = sum()
+   egen = sum() // replaced with total
    egen = tag()
    egen = total()
    /* end egen */
@@ -1394,7 +1415,7 @@ set trace off
    mvencode
    mvdecode
    /* notes */
-   note notes
+   notes: fjeje
    note list
    note list
    note drop
@@ -1910,6 +1931,7 @@ set trace off
    graph twoway tsline
    tw tsrline
    twoway tsrline
+   twoway lfit 
    tsreport
    tsrevar
    tsset
@@ -1965,6 +1987,7 @@ set trace off
    xtabond
    estat abond
    estat sargan
+   xtclog
    xtcloglog
    xtdata
    xtdes
@@ -1974,8 +1997,7 @@ set trace off
    xtfrontier
    xtgee
    estat wcorrelation
-   /* estat wcorrelation replaced xtcorr */
-   xtcorr
+   xtcorr  // estat wcorrelation replaced xtcorr 
    xtgls
    xthaus
    xthtaylor
@@ -1990,8 +2012,7 @@ set trace off
    xtmixed
    xtnbreg
    xtpcse
-   /* obsolete as of Stata 7 ... but still functional */
-   xtpois
+   xtpois // obsolete as of Stata 7
    xtpoisson
    xtprobit
    xtrc
@@ -2090,6 +2111,7 @@ set trace off
    confirm `foo' // won't confirm because of need for subcommand
    confirm numeric var // ok
    confirm numeric var() // fails
+   confirm numeric `var' // fails --- good? bad?
    conf numeric fo
    conf str for
    conf string form
@@ -2259,7 +2281,7 @@ set trace off
    c(httpproxyauth)
    c(httpproxyuser)
    c(httpproxypw)
-   // update settings
+   // update settings (not in Unix yet)
    c(update_query)
    c(update_interval)
    c(update_prompt)
@@ -2604,7 +2626,7 @@ be a separate mode ... ugh */
    local h : subinstr global hi
    local h : subinstr loc ho
    local h : subinstr local
-   /* these have become undocumented, fixme */
+   /* these have become undocumented  */
    local h : tempv
    local h : tempvar
    local h : tempf
@@ -2850,9 +2872,8 @@ for the syntax to be corrected */
    {it:foo}
    {bf}
    {bf:bar}
-   /* should fail */
-   {sf should fail}
-   {sf should:fail}
+   {sf should fail} // should fail
+   {sf should:fail} // should fail
    
    {input}
    {input:foo}
@@ -2863,8 +2884,7 @@ for the syntax to be corrected */
    {text}
    {text:for later reading}
 
-   // should fail
-   {inp}
+   {inp} // should fail
    {inp:foo}
    {err}
    {err:hahah}
@@ -2898,8 +2918,7 @@ for the syntax to be corrected */
    {ul on}
    {ul:is no. 1 in basketball}
    {ul off}
-   /* should fail */
-   {ul bogus}
+   {ul bogus} // should fail
 
    /* syntax 2 & 3 (book says 2 & 4 but illustrates with 2 & 3) */
    {*:comment}
@@ -2907,13 +2926,13 @@ for the syntax to be corrected */
 
    {hline}
    {hline 20}
-   {hline bogus}
+   {hline bogus} // should fail 
    {.-}
    {hline `this'}
 
    {dup 23:some}
    {dup `foo':some}
-   {dup bogus:some}
+   {dup bogus:some} // should fail 
 
    {c 666}
    {char 333}
@@ -2931,9 +2950,9 @@ for the syntax to be corrected */
    {manhelp damn G:its own syntax}
    {manhelpi fooey Q:cakes}
    /* these should fail */
-   {manhelp unix}
-   {manhelp this should fail:if I had time}
-   {manhelpi fooey}
+   {manhelp unix} // should fail 
+   {manhelp this should fail:if I had time} // should fail 
+   {manhelpi fooey} // should fail 
    /* need yet another @#@#$@ syntax for this hack */
    {help stata##anchors}
    {help stata##anchor|viewer}
@@ -3006,7 +3025,7 @@ for the syntax to be corrected */
    {rcentre 33:friday!}
    {center 23:fiddle}
    {center 43:fuddle}
-   {center bogus:haha} // too lazy to fix
+   {center bogus:haha} // should fail
    {centre 59:bosh!}
    {center `zzz':jiminy}
    {right:wing neocon}
@@ -3018,21 +3037,21 @@ for the syntax to be corrected */
    {dlgtab 1 2 3: fails}
    {dlgtab : fooey}
    {...}
-   {col bogus}
+   {col bogus} // should fail 
    {col 32}
    {col `this'}
-   {space bogus}
+   {space bogus} // should fail 
    {space 43}
    {tab}
 
    /* for paragraph mode */
    {p}
    {p 4}
-   {p bogus}
+   {p bogus} // should fail 
    {p `hoo'}
    {p 3 4}
    {p 3 `foo' 5}
-   {p 3 4 5 oh no}
+   {p 3 4 5 oh no} // should fail 
    /* uh oh, all sorts of equivalent directives */
    {pstd}
    {psee}
@@ -3048,7 +3067,7 @@ for the syntax to be corrected */
    // back to odd syntax directives
    {p_end}
    {p2colset 1 2 `foo' 4}
-   {p2colset 1 2 3 4 5} // bad
+   {p2colset 1 2 3 4 5} // should fail 
    {p2col 1 2 3 4:something goes here}
    {p2col: something goes here}
    {p2col 1 2:this is bad}
@@ -3058,16 +3077,14 @@ for the syntax to be corrected */
    {p2colreset}
    {p2colset 1 2 3 4}
    {p2col 2 3 4 5: fooey}
-   /* next one is bad ? */
-   {p2col : first col}
+   {p2col : first col} // should fail ?
    {p2colreset}
    {synoptset}
    {synoptset 6}
    {synoptset `foo'}
    {synoptset 5 tabbed}
    {synoptset 12 notes}
-   /* next one is bad */
-   {synoptset 5 6}
+   {synoptset 5 6} // should fail 
    {synopthdr}
    {synopthdr: damn}
    {syntab: this}
@@ -3125,8 +3142,7 @@ for the syntax to be corrected */
    timer on 4
    timer off 14
    timer list 55
-   /* this is bad */
-   timer off
+   timer off // should fail 
 
    token tokeni tokeniz tokenize
 
@@ -3174,9 +3190,9 @@ version 8: fooie
    win man prefs save
    win man prefs default
    win man update variable
-   win man associate
-   window man maintitle "fooey"
-   windo manag maintitle reset
+   win man associate // windows only
+   window man maintitle "fooey" // unix and windows
+   windo manag maintitle reset // unix and windows
    window manage forward command
    window manage forward doeditor
    window manage forward graph
@@ -4141,7 +4157,7 @@ version /* used elsewhere */
    moptimize_init_ndepvars()
    moptimize_init_depvar()
    moptimize_init_eq_n()
-   moptimize_init_eq_indepbars()
+   moptimize_init_eq_indepvars()
    moptimize_init_eq_cons()
    moptimize_init_eq_offset()
    moptimize_init_eq_exposure()

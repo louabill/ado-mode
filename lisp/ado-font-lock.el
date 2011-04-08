@@ -5,7 +5,7 @@
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://homepage.mac.com/brising
 ;; Keywords: ado-mode
-;; Version:  1.11.1.1 of 14nov2010
+;; Version:  1.11.2.0 of April 8, 2011
 
 ;; This file is not part of GNU Emacs.
 
@@ -40,7 +40,11 @@
 ;;   being smart about the highlighting
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defconst end-cmd-regexp "\\([ \t]+\\|,\\|;\\|$\\)"
+;;; this regexp is a little sloppy
+(defconst start-cmd-regexp "^\\(.*:\\)*[ \t]*"
+  "start-of-command regexp to try to keep mid-line commands from highlighting.
+Not implemented as much more than an experiment. ")
+(defconst end-cmd-regexp "\\([ \t]+\\|,\\|;\\|:\\|$\\)"
   "end-of-command regexp to keep things like -regress(- from highlighting")
 (defconst ado-stata-name-regexp "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
   "for uniform highlighting of Stata names")
@@ -120,7 +124,7 @@
 		  'words))
 	   "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[01]\\)?[.]0\\)\\|\\(?:\\(?:[23689]\\|1[01]\\)[.]1\\)\\|\\(?:[89]\\|11\\)?[.]2\\|\\(?:\\(?:[1-9]\\|1[01]\\)?[^.]\\)\\)\\b"
 	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; pause on/off
 	(list
 	  (concat
@@ -154,7 +158,7 @@
 		 ) 'words))
 	   "[ \t]+\\(cr\\|;\\)[ \t]*$"
 	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; obsolete stuff which appears as OK as subcommands
 	(list
@@ -188,7 +192,7 @@
 			 "tr" "tre" "tree"
 			 ) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; 
 
@@ -212,7 +216,7 @@
 		   "use"
 		   ) 'words))
 	  end-cmd-regexp ) 
-	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 
     ;; putting together common cluster and clustermat commands
@@ -239,7 +243,7 @@
 		   "waverageli" "waveragelin" "waveragelink" "waveragelinka" "waveragelinkag" "waveragelinkage" 
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	 ;; discrim commands
 	(list
@@ -259,7 +263,7 @@
 		   "qda"
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	 ;; stpower commands
 	(list
@@ -278,7 +282,7 @@
 			 "log" "logr" "logra" "logran" "logrank" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 
 	;; set command and its variations
@@ -436,7 +440,7 @@
 			"p" "pr" "pro" "proc" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
 
 	;; ;; set showbaselevels command with it's odd all subcommand
 	;; (list
@@ -483,7 +487,7 @@
 		   "macgphengi" "macgphengin" "macgphengine" 	  
 		   "maxobs"
 		   "piccom" "piccomm" "piccomme" "piccommen" "piccomment" "piccomments" 
-		   "printcolor[ \t]+grayscale"
+		   "revwin" "revwind" "revwindo" "revwindow" 
 		   "seed0" "shell" "smalldlg"
 		   "te" "tex" "text" "texts" "textsi" "textsiz" "textsize"
 		   "use_atsui_graph" "use_qd_text"
@@ -491,6 +495,30 @@
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
+
+	(list
+	 (concat
+	  "^[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "se" "set"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "printcolor"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "grayscale" "greyscale"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) 
+	 '(3 ado-obsolete-face t))
 
 	  ;; the timer command
 	(list
@@ -507,7 +535,7 @@
 			"clear" "list"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -525,7 +553,7 @@
 	   "[ \t]+"
 	   "\\([0-9]+\\|`[a-zA-Z0-9_`']'\\)"
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
 		  
      ;; the args command 
 
@@ -552,7 +580,7 @@
 		   "l" "li" "lis" "list" 
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
 	 (concat
@@ -569,7 +597,7 @@
 		   "ren" "rena" "renam" "rename"
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
     ;; the constraint commands
 	(list
@@ -591,7 +619,7 @@
 		   "l" "li" "lis" "list"
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; the confirm commands - could be a mess!
 	(list
@@ -614,7 +642,7 @@
 		   "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -636,7 +664,7 @@
 	  "n" "nu" "num" "numb" "numbe" "number"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -659,7 +687,7 @@
 	  "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -683,7 +711,7 @@
 	  "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -708,7 +736,7 @@
 			 "fo" "for" "form" "forma" "format" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -730,7 +758,7 @@
 			 "fo" "for" "form" "forma" "format" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face) '(3 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face) '(3 ado-subcommand-face t))
 
     ;;; confirm str# 
 	(list
@@ -758,7 +786,7 @@
 		  "v" "va" "var" "vari" "varia" "variab" "variabl" "variable" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	;; merge
 	(list
@@ -775,7 +803,7 @@
 			"1:1" "1:m" "m:1" "m:m"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
 
 	;; mvtest
 	(list
@@ -795,7 +823,7 @@
 		  "norm" "norma" "normal" "normali" "normalit" "normality"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -848,7 +876,7 @@
 			 "r" "re" "rep" "repo" "repor" "report" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -865,7 +893,7 @@
 			 "t" "ta" "tag" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -926,7 +954,7 @@
 			  "set"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -943,7 +971,7 @@
 	   "w" "wr" "wri" "writ" "write" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
     ;; the gph commands
 	(list
@@ -968,7 +996,7 @@
 	  "vline" "vpoint" "vpoly" "vtext"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
     ;;
     ;; the gprefs commands
     ;;   (in multiple pieces)
@@ -993,7 +1021,7 @@
 			) 
 		  'words))
 	   end-cmd-regexp )
-	   	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face))
+	   	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -1014,8 +1042,8 @@
 			  "white" "whiteb" "whitebg" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
-	  '(3 ado-subcommand-face) '(4 ado-subcommand-face) '(5 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t) '(5 ado-subcommand-face t))
 
      ;;
      ;; the other gprefs set window 
@@ -1035,8 +1063,8 @@
 			  "ysize"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
-	  '(3 ado-subcommand-face) '(4 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -1058,8 +1086,8 @@
 			  "off" "on"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
-	  '(3 ado-subcommand-face) '(4 ado-subcommand-face) '(5 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t) '(5 ado-subcommand-face t))
      ;;
      ;; the gprefs set scheme commands 
 	(list
@@ -1083,8 +1111,8 @@
 			  "symmag_all"
 			  ) 'words))
 		end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
-	  '(3 ado-subcommand-face) '(4 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
      ;;
      ;; shoulda never started this - the gprefs query scheme layout all by its lonesome
 	(list
@@ -1099,8 +1127,8 @@
 			  "custom1" "custom2" "custom3"
 			  ) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
-	  '(3 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	  '(3 ado-subcommand-face t))
 
      ;;; worst than smcl ---- it's graph!
      ;;;  -> will need multiple copies of the subcommands for the () and || and plain versions
@@ -1283,7 +1311,7 @@
 		   "sea" "sear" "searc" "search" 
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
      ;; icd9s with generate
 	(list
@@ -1301,7 +1329,7 @@
 		   "gen" "gene" "gener" "genera" "generat" "generate" 
 		   ) 'words))
 	  end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	
 	 ;; fvset commands
 	(list
@@ -1317,7 +1345,7 @@
 			 "report"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	 ;; log commands, cmdlog also (though cmdlog query is undocumented)
 	(list
@@ -1336,7 +1364,7 @@
 			 "query"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	 ;; misstable commands
 	(list
@@ -1352,7 +1380,7 @@
 			 "tree"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
      ;; some of the matrix commands
      ;; with no matrix arguments - harmless
@@ -1384,7 +1412,7 @@
 			"post"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
      ;; with no matrix arguments - harmful
 	(list
 	  (concat
@@ -1430,8 +1458,8 @@
 	   "[ \t]+"
 	   "\\<\\(_all\\)\\>"
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face)
-	  '(3 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
+	  '(3 ado-subcommand-face t))
 	;; doesn't quite work, because it underlines the spaces
 	(list
 	  (concat
@@ -1444,7 +1472,7 @@
 	   "\\<\\(drop\\)\\>"
 	   "\\(\\(?:[ \t]+[a-zA-Z][a-zA-Z0-9_]*\\)+\\)"
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face) '(3 ado-matrix-name-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t) '(3 ado-matrix-name-face))
 
      ;; with one following argument
 	(list
@@ -1598,7 +1626,7 @@
 			  "trace"		   
 			  ) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	(list
 	  (concat
 	   "\\<\\(ml\\)\\>"
@@ -1641,7 +1669,7 @@
 			  "search" "sj" "stb"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -1656,7 +1684,7 @@
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face))
+	  '(3 ado-subcommand-face t))
 	;; ado commands
 	(list
 	  (concat
@@ -1670,7 +1698,7 @@
 			"uninstall"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; odbc commands 
 	(list
@@ -1685,7 +1713,7 @@
 		  "q" "qu" "que" "quer" "query"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	(list
 	  (concat
 	   "\\<\\(odbc\\)\\>"
@@ -1699,7 +1727,7 @@
 		  "sql" "sqlf" "sqlfi" "sqlfil" "sqlfile" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	  ;; palette commands
 	(list
@@ -1714,7 +1742,7 @@
 		   "symbol" "symbolp" "symbolpa" "symbolpal" "symbolpale" "symbolpalet" "symbolpalett" "symbolpalette" 
 		   ) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; postutil commands - both of them
 	(list
@@ -1758,7 +1786,7 @@
 			"paste-min-to-max stuff here"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
     
 	  ;; the reshape commands
 	(list
@@ -1776,7 +1804,7 @@
 		  "xi" "xij"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -1788,7 +1816,7 @@
 			"q" "qu" "que" "quer" "query" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; the snapshot commands
 	(list
@@ -1797,7 +1825,7 @@
 	   "[ \t]+"
 	   "\\<\\(restore\\)\\>"
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	(list
 	  (concat
 	   "\\<\\(snapshot\\)\\>"
@@ -1810,7 +1838,7 @@
 			 "save"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	  ;; one lonely sysuse subcommand
 	(list
 	  (concat
@@ -1818,7 +1846,7 @@
 	   "[ \t]+"
 	   "\\<\\(dir\\)\\>"
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; the _return commands (not the return commands)
 	(list
@@ -1837,7 +1865,7 @@
 		  "res" "rest" "resto" "restor" "restore" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; the return commands
 	(list
@@ -1898,7 +1926,7 @@
 		  "loc" "loca" "local"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; scc commands
 	(list
@@ -1915,7 +1943,7 @@
 		  "new" "type" "uninstall"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	  ;; scc commands---obsolete
 
 	(list
@@ -1945,7 +1973,7 @@
 		  "use"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	(list
 	  (concat
 	   "\\<\\(serset\\)\\>"
@@ -1957,7 +1985,7 @@
 		  "su" "sum" "summ" "summa" "summar" "summari" "summariz" "summarize" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -1971,7 +1999,7 @@
 		  "t" "te" "tes" "test"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	(list
 	  (concat
 	   "\\<\\(sts\\)\\>"
@@ -1982,7 +2010,7 @@
 			  "gen" "gene" "gener" "genera" "generat" "generate"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	  ;; the sw commands
 	  ;; the sw commands are all now obsolete, because of syntax change
@@ -2070,7 +2098,7 @@
 		  "s" "sh" "shw" "shwi" "shwin" "shwint" "shwinte" "shwinter" "shwinters" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	  ;;
 	  ;; the translator commands
 	(list
@@ -2085,7 +2113,7 @@
 		  "set"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	  ;;
 	  ;; the transmap commands
 	(list
@@ -2099,7 +2127,7 @@
 		  "q" "qu" "que" "quer" "query" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
      ;; 
      ;; the update commands
 	(list
@@ -2116,7 +2144,7 @@
 		  "utilities"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	(list
 	  (concat
 	   "\\<\\(update\\)\\>"
@@ -2127,7 +2155,7 @@
 		  "q" "qu" "que" "quer" "query" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; the xtunitroot commands
 	(list
@@ -2145,7 +2173,7 @@
 			 "llc"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
      ;; the fcast commands which leave data alone
 	(list
@@ -2158,7 +2186,7 @@
 		  "g" "gr" "gra" "grap" "graph" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
      ;; fcast commands which alter data
 	(list
 	  (concat
@@ -2170,7 +2198,7 @@
 		  "c" "co" "com" "comp" "compu" "comput" "compute" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
      ;; the obsolete varfcast commands with sub commands
 	(list
@@ -2204,7 +2232,7 @@
 		  "t" "ta" "tab" "tabl" "table" 
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	 ;; irf graph/table and their subcommands
 	(list
 	  (concat
@@ -2228,7 +2256,7 @@
 		   "sfevd" "sirf"
 		   ) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
      ;; the irf commands which alter data
 	(list
@@ -2245,7 +2273,7 @@
 		  "set"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
      ;; the irf functions which are obsolete
 	(list
 	  (concat
@@ -2303,7 +2331,7 @@
 		  "update" "update_d"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
      ;; the webuse commands
 	(list
@@ -2316,7 +2344,7 @@
 		  "query" "set"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; the window commands
 	(list
@@ -2339,7 +2367,7 @@
 		  "push"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	(list
 	  (concat
 	   (eval-when-compile 
@@ -2368,7 +2396,7 @@
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face))
+	  '(3 ado-subcommand-face t))
 	;; 
 	  ;; the window manage commands	
 	(list
@@ -2395,7 +2423,7 @@
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face))
+	  '(3 ado-subcommand-face t))
 
    ;; fix up all the 4-word crap
 	(list
@@ -2421,7 +2449,7 @@
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face) '(4 ado-subcommand-face))
+	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -2446,7 +2474,7 @@
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face) '(4 ado-subcommand-face))
+	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
 	  (concat
 	   (eval-when-compile 
@@ -2470,7 +2498,7 @@
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face) '(4 ado-subcommand-face))
+	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
 	  (concat
 	   (eval-when-compile 
@@ -2490,7 +2518,7 @@
 	   "\\<\\(graph\\)\\>"
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face) '(4 ado-subcommand-face))
+	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
 	  (concat
 	   (eval-when-compile 
@@ -2510,7 +2538,7 @@
 	   "\\<\\(variable\\)\\>"
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face) '(4 ado-subcommand-face))
+	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	  ;; platform-specific windows manage
 	  ;; need better way to work with platform-specific commands
 	(list
@@ -2581,7 +2609,7 @@
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face) '(4 ado-subcommand-face))
+	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	  ;; the window manage close/print commands [all taken care of above]
 
 	  ;; the window menu commands
@@ -2608,7 +2636,7 @@
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face))
+	  '(3 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -2635,7 +2663,7 @@
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face) '(4 ado-subcommand-face))
+	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -2660,7 +2688,7 @@
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face))
+	  '(3 ado-subcommand-face t))
 
 	  ;; the xwindow commands---obsolete from at least Stata 9.1
 	(list
@@ -2796,7 +2824,7 @@
 	;; an experiment 
 	 (list
 	  (concat
-	   "^\\(.*:\\)*[ \t]*"
+;;	   start-cmd-regexp  ;; seems to have some bad side effects
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2852,7 +2880,7 @@
 		  "ru" "run" "runtest" "rvfplot" "rvpplot"
 		 ) 'words))
 	  end-cmd-regexp )
-	  '(2 ado-builtin-harmless-face))
+	  '(1 ado-builtin-harmless-face))
 
 	(list
 	 (concat
@@ -2908,13 +2936,13 @@
 		  "which" "who" "wntestb" "wntestq" 
 		  "xchart" "xcorr"
 		  "xsh" "xshe" "xshel" "xshell" 
-		  "xtabond" "xtclog" "xtcloglog" 
+		  "xtabond" "xtcloglog" 
 		  "xtdes" "xtdesc" "xtdescr" "xtdescri" "xtdescrib" "xtdescribe"
 		  "xtdpd" "xtdpdsys"
 		  "xtfrontier"
 		  "xtgee" "xtgls" "xthtaylor" "xtintreg" "xtivreg"
 		  "xtline" "xtlogit" "xtmelogit" "xtmepoisson" "xtmixed" 
-		  "xtnbreg" "xtpcse" "xtpois" "xtpoisson" "xtprobit"
+		  "xtnbreg" "xtpcse" "xtpoisson" "xtprobit"
 		  "xtrc" "xtreg" "xtregar" "xtset" "xtsum" "xttab" "xttest0" "xttobit" "xttrans"
 		  "zinb" "zip" "ztnb" "ztb"
 		 ) 'words))
@@ -3020,6 +3048,7 @@
 	 '(1 ado-builtin-harmless-face t))
 
 	  ;; variable types which appear as subcommands often
+	;; this leads to some spurious highlighting; will need a fix
 	(list
 	 (concat
 	  (eval-when-compile 
@@ -3028,7 +3057,7 @@
 		   "byte" "int" "long" "str" "float" "double"
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(1 ado-subcommand-face))
+	 '(1 ado-subcommand-face t))
 
 	;; string variable types
 	(list
@@ -3041,7 +3070,7 @@
 	  "[1-9][0-9]?"
 	  "\\)\\)\\>"
 	  end-cmd-regexp )
-	 '(1 ado-subcommand-face))
+	 '(1 ado-subcommand-face t))
 
 	  ;; things used with display
 	  ;; since these are often split across lines, and Stata commands are hard
@@ -3067,7 +3096,7 @@
 		  "_quote"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
 	  (concat
@@ -3086,7 +3115,7 @@
 	   "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
 	   "[ \t]*)"
 	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-variable-name-face))
 	  ;; display things which take numbers
 	  ;; some left as is, because they are used in dictionaries...
@@ -3111,7 +3140,7 @@
 	   "\\([1-9]+[0-9]*\\)"
 	   "[ \t]*)"
 	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-constant-face))
 	  ;;
 	  ;; other display subcommands
@@ -3135,7 +3164,7 @@
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-subcommand-face))
+	  '(3 ado-subcommand-face t))
 
 	;; trust Stata corp to use different prepositions...
 	(list
@@ -3150,8 +3179,8 @@
 	   "[ \t]+"
 	   "\\<\\(smcl\\)\\>"
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face)
-	  '(3 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	  '(3 ado-subcommand-face t))
 
      ;;
      ;; obsolete coloring
@@ -3189,7 +3218,7 @@
 	   "[ \t]+"
 	   )
 	  '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face)
-	  '(3 ado-subcommand-face))
+	  '(3 ado-subcommand-face t))
 
 	;; foreach ... of
 	(list
@@ -3456,7 +3485,7 @@
 	   "[ \t]+"
 	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\b\\)"
 	   )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face)
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-variable-name-face t))
 	(list
 	  (concat
@@ -3901,7 +3930,7 @@
 		  "s" "sh" "shi" "shif" "shift"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	  ;; stata functions i.e. things which require () after them 
 	  ;; obsolete functions are after this list
@@ -4459,8 +4488,8 @@
 	   "\\(}\\)"
 	   )
 	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-constant-face) '(4 ado-subcommand-face) '(5 ado-constant-face)
-	  '(6 ado-subcommand-face) '(7 ado-constant-face))
+	  '(3 ado-constant-face) '(4 ado-subcommand-face t) '(5 ado-constant-face)
+	  '(6 ado-subcommand-face t) '(7 ado-constant-face))
 
 	  ;; Syntax 3 with free form args
 	(list
@@ -4639,7 +4668,7 @@
 	   "\\(}\\)"
 	   )
 	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face prepend)
-	  '(3 ado-subcommand-face) '(4 ado-constant-face t)  
+	  '(3 ado-subcommand-face t) '(4 ado-constant-face t)  
 	  '(5 ado-subcommand-face t) '(6 ado-constant-face))
 	(list
 	  (concat
@@ -5011,7 +5040,7 @@
 	   "[ \t]+"
 	   "\\(\\(?:\\(?:9[.]00\\|\\(?:8\\|9\\|\\(?:1\\(?:0\\|1\\)\\)\\)[.]\\(?:0\\|1\\)\\)\\|\\(?:\\(?:8\\|9\\)[.]2\\)\\|\\(?:[89]\\|1\\(?:0\\|1\\)\\)\\)\\)"
 	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	  ;; general builtins for dialogs
 	  ;; here - the harmless faces define static text 
 	  ;;        whereas the harmful face defines dynamic text
@@ -5048,7 +5077,7 @@
 			"stop"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
 	 (concat
@@ -5187,7 +5216,7 @@
 			"unset" "unused"
 			) 'words))
 	   end-cmd-regexp )
-	  '(1 ado-mata-keyword-face) '(2 ado-subcommand-face))
+	  '(1 ado-mata-keyword-face) '(2 ado-subcommand-face t))
     
 	(list
 	  (concat
@@ -5440,7 +5469,7 @@
 		  "leftgeigensystem" "leftgeigensystemelectf" "leftgeigensystemelecti" "leftgeigensystemelectr"
 		  "liststruct" "lnnormal" "lnnormalden" "lowertriangle" "lud" "luinv" "lusolve"
 		  "makesymmetric" "matexpsym" "matlogsym" "matpowersym" "maxindex"
-		  "mean" "meanvariance" "minindex" "minmax" "missingof" 
+		  "mean" "meanvariance" "minindex" "minmax" "missingof" "mkdir"
 		  "moptimize" "moptimize_ado_cleanup" "moptimize_evaluate" "moptimize_init" "moptimize_query"
 		  "more"
 		  "mreldifre" "mreldifsym"
@@ -5453,7 +5482,7 @@
 		  "pi" "pinv"
 		  "polyadd" "polyderiv" "polydiv" "polyeval" "polyinteg" "polymult" "polyroots" "polysolve" "polytrim"
 		  "printf" "pwd"
-		  "range" "rangen" "rmexternal" "rowmax" "rowmissing" "rowscalefactors"
+		  "range" "rangen" "rmdir" "rmexternal" "rowmax" "rowmissing" "rowscalefactors"
 		  "qrd" "qrdp" "qrinv" "qrsolve" 
 		  "quadcorrelation" "quadcross" "quadcrossdev" "quadrant" "quadcolsum" 
 		  "quadmeanvariance" "quadrowsum" "quadrunningsum" "quadsum" "quadvariance" 
@@ -5589,7 +5618,7 @@
 			"singularHmethod"
 			"technique" 
 			"trace_Hessian" "trace_dots" "trace_gradient" "trace_params" "trace_step" "trace_tol" "trace_value"
-			"tracelevel" "type"
+			"tracelevel"
 			"valueid" "verbose" "vtol"
 			"which"
 			) t ))
@@ -5627,6 +5656,7 @@
        '(
 		 "acosr" "asinr" "atanr"
 		 "ghkfastsetup"
+		 "optimize_init_type"
 		 "uniformseed"
 		 ) t ))
 	   "("
@@ -5683,8 +5713,8 @@
 
 	  ;; what few obsolete commands I've gathered
 	  ;; lfit and score moved before the matrix command so that it won't affect
-	  ;; the matrix score command
-	;; !!
+	  ;; the matrix score command  
+	;; 
 	(list
 	 (concat
 	  (eval-when-compile 
@@ -5694,7 +5724,7 @@
 			 "adjust"
 			 "aorder"
 			 "archlm"
-			 "bgodfrey"
+			 "bgodfrey" "bstrap"
 			 "chdir" "cnr" "cnre" "cnreg" 
 			 "dprobit" "ds" "durbina" "dwstat"
 			 "ereg" "ereghet"
@@ -5702,7 +5732,7 @@
 			 "gompertz" "gompertzhet"
 			 "greigen" 
 			 "iis" "impute" "ivreg"
-			 "hettest"
+			 "hettest" "hareg" "hereg" "hlogit" "hprobit" "hreg" "huber"
 			 "imtest"
 			 "llogist" "llogistic" "llogistichet" "lnormal" "lnormalhet"
 			 "lo" "loo" "look" "looku" "lookup"
@@ -5713,16 +5743,18 @@
 			 "lstat"
 			 "poisgof"
 			 "shelltool"
-			 "stphtest" "svylc" "svytest" "szroeter"
+			 "simul" "spikeplt" "stcurv" "stphtest" 
+			 "svyintrg" "svylc" "svymlog" "svyolog" "svyoprob" "svypois" "svyprobt" "svyreg" "svytest" 
+			 "szroeter"
 			 "tis"
 			 "varfcast" "varirf" "vce" "vif"
 			 "weibull" "weibullhet"
-			 "xtcorr" "xtrchh" "xthaus" "xtpois"
+			 "xtclog" "xtcorr" "xthaus" "xtrchh" "xtpois"
 		 ) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-obsolete-face))
 
-	  ;; the datasignature commands  ;; !!
+	  ;; the datasignature commands   
 	(list
 	  (concat
 	   (eval-when-compile 
@@ -5737,7 +5769,7 @@
 			"clear"
 			"set"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
 			  
 	(list
@@ -5754,7 +5786,7 @@
 			  "conf" "confi" "confir" "confirm" 
 			  "rep" "repo" "repor" "report" 
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	  ;; the estat commands
@@ -5811,8 +5843,8 @@
 			  "vce" "vif"
 			  "wcorrelation"
 			) 'words))
-	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))
+	   end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; the estimates commands
 	(list
@@ -5844,7 +5876,7 @@
 			 "title"
 			 "use"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; the extra estimates notes commands
@@ -5868,7 +5900,7 @@
 			"drop"
 			"l" "li" "lis" "list" 
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 
@@ -5884,7 +5916,7 @@
 		  "parse"
 		  "whelp"
 		 ) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-obsolete-face))
     
 	  ;; apparently obsolete window commands
@@ -5908,7 +5940,7 @@
 		  "popout"
 		  "set"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	  '(3 ado-obsolete-face))
 
@@ -5934,7 +5966,7 @@
 		  "popout"
 		  "string"
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	  '(3 ado-obsolete-face t) '(4 ado-obsolete-face t))
 
@@ -5951,7 +5983,7 @@
 		  '(
 			"de" "def" "define" 
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-obsolete-face t))
 
 	  ;; multiword extended macro names using 'set', which are obsolete
@@ -5974,7 +6006,7 @@
 		  "adosize" "graphics" "level" "linesize" "logtype" "matsize" "more" "pagesize"
 		  "rmsg" "trace" "type" "virtual" 
 			) 'words))
-	   )
+	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-obsolete-face t) '(4 ado-obsolete-face t))
 	)))
