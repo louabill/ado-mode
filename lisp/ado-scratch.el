@@ -110,13 +110,13 @@ which has an internal name of bar.
 		  (font-lock-remove-keywords 'ado-mode (cdr oldList))
 		  (setq ado-added-names (assq-delete-all name ado-added-names))))
 	(unless remove
-	  (setq newList `((,(regexp-opt 
+	  (setq newList `((,(concat (regexp-opt 
 				  (mapcar (function (lambda (name) (substring-no-properties name nil -4))) 
 						  (apply 'append
 								 (mapcar (function (lambda (dirname) (directory-files dirname nil ".*[.]ado$")))
 										 (ado-find-ado-dirs dir subdir)
 										 ))) 
-				  'words) 1 ,face)))
+				  'words) end-cmd-regexp) 1 ,face)))
 	  (font-lock-add-keywords 'ado-mode newList)
 	  (setq ado-added-names (append ado-added-names `(,(cons name newList))))
 	  )
