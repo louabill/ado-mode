@@ -1,3 +1,13 @@
+;;; ado-to-stata.el --- Passing code to a running Stata from emacs
+;; Copyright (c) 2009--2011
+;; Bill Rising
+;;
+;; Author:   Bill Rising
+;; Maintainer: Same <brising@mac.com>
+;;             URL: http://homepage.mac.com/brising
+;; Keywords: ado-mode
+;; Version:  0.2 of May 9, 2011
+
 ;;; a collection of things for interacting with Stata 
 ;;; Currently this works in Mac OS X and MS Windows. It will not cause errors in 
 ;;;   other OSes. All that is needed for each other OS are some methods
@@ -53,9 +63,9 @@ send2stata.scpt is stored. "
 	(cond 
 	 ((string= system-type "darwin")
 	  ;; the comeback for Mac OS X is handled via a shell command below
-	  (shell-command (concat "osascript '" 
-							 (ado-check-a-directory ado-script-dir) 
-							 "send2stata.scpt' \"" dothis "\"")))
+	  (shell-command (concat "osascript '"
+							 (ado-send2stata-name "send2stata.scpt") 
+							 "' \"" dothis "\"")))
 	 ((string= system-type "windows-nt")
 	  ;; autoit can send to non-active windows, so comeback is handled there
 	  ;; need to be sure that comeback is a string for concatenation
@@ -68,15 +78,17 @@ send2stata.scpt is stored. "
       ;; the bad news is the damn asynch buffer is shown w/o any choice
 	  (call-process-shell-command 
 	   (concat 
-		(ado-check-a-directory ado-script-dir) 
-		   "send2stata.exe \"" dothis "\" \"" comeback "\""
-		   " \"" ado-temp-dofile "\""
-		   " \"" (unless (= 0 ado-stata-instance) (number-to-string ado-stata-instance)) "\""
-		   " \"" ado-stata-version "\""
-		   " \"" ado-stata-flavor "\""
-		   " \"" (if ado-send-to-all-flag "t" "") "\""
-		   " \"" (if ado-strict-match-flag "t" "") "\""
-		   " & ")
+		"\""
+		(ado-send2stata-name "send2stata.exe")
+		"\" \"" dothis "\" \"" comeback "\""
+		" \"" ado-temp-dofile "\""
+		" \"" (unless (= 0 ado-stata-instance) (number-to-string ado-stata-instance)) "\""
+		" \"" ado-stata-version "\""
+		" \"" ado-stata-flavor "\""
+		" \"" (if ado-send-to-all-flag "t" "") "\""
+		" \"" (if ado-strict-match-flag "t" "") "\""
+		)
+;		" & ")
 	   nil 0))
 	 (t (message (concat "working via " dothis "s not supported yet in " 
 						 (symbol-name system-type)
@@ -92,6 +104,17 @@ send2stata.scpt is stored. "
 			(message "had trouble with shell command")))
 	(message (concat "selection sent to Stata"))))
   )
+
+(defun ado-send2stata-name (send2stata-name)
+  "For finding the send2stata script/executable name. Needed because 
+if the \\[ado-script-dir] is set incorrectly, but is still a directory, 
+Windows does not return an error when the executable cannot run.
+Returns the fully qualified file name or errors out if the file is not found."
+  (let ((return-me (locate-file send2stata-name (list (ado-check-a-directory ado-script-dir)))))
+	(if return-me
+		return-me
+	  (error "%s" (concat "Could not find " send2stata-name ". Did you change ado-script-dir by hand? If you did, try changing its default value back to nil."))
+	  )))
 
 (defun ado-check-a-directory (a-dir-name)
   "First checks to see if the directory contained in a-dir-name is non-nil, 

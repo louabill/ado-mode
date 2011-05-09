@@ -167,7 +167,11 @@ Func createMenuItems(ByRef $theStataName, ByRef $tmpDoFile)
 EndFunc
 
 Func sendToCommand(ByRef $theStataName,byRef $theString)
-	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString & @crlf)
+	$theString = StringRegExpReplace($theString,"([+{}!^#])","{\1}",0)
+;	msgbox(0,"hunh",$theString)
+	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString & "{ENTER}")
+;	ControlSetText($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString)
+;	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", "{ENTER}")
 	if @error Then
 		MsgBox(16,"Oh no!", "Could not send to Command window")
 		exit(666)

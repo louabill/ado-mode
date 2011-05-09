@@ -6,14 +6,21 @@ Version History:
   confused if there was a Graph window open (or even any web browser
   pointed at Stata's website). AutoIt now uses a regexp to find either
   "Small Stata" or "Stata/(IC|SE|MP)". This should be good unless you
-  are visiting a site like http://www.stata.com/statamp ... (Checking
-  the window class for a Stata window doesn't help, so this will be as
-  good as it gets.)
+  are visiting a site like http://www.stata.com/statamp while using
+  ado-mode.  (Checking the window class for a Stata window doesn't help,
+  so this will be as good as it gets.)
+. Put in better error-checking for a bad value in ado-script-dir. 
+. Fixed up code for sending to Stata under Windows so that spaces are
+  allowed in filenames. I think.
 . Tried to fix highlighting of commands when followed by a special
   character like a paren, because 'generate' should highlight, but
   'generate(' should not.
 . Fixed minor highlighting bugs.
-. Cleaned up font highlighting of added commands
+. Cleaned up font highlighting of added commands.
+. Anyone finding bugs, please report. Passing code to Windows is
+  complicated because there can be no passing of the clipboard AND
+  waiting to see if there was an error in passing code, so debugging is
+  really hard for me, being a non-Windows user. 
 
 1.11.1.2:
 . BEHAVIOR CHANGE: if you have a .ado-signature file, see the last 
