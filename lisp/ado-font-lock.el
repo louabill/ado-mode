@@ -166,7 +166,7 @@ Not implemented as much more than an experiment. ")
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
-		 "lfit"
+		 ;; "lfit" // removed entirely, because (lfit ...) is ok
 		 "sco" "scor" "score"
 		 ) 'words))
 	   end-cmd-regexp )
