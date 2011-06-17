@@ -32,7 +32,7 @@ if $numArgs = 0 Then
 	badFirstArg("")
 Else
 	$doThis = $CmdLine[1]	
-	if ($doThis <> "command") AND ($doThis <>  "menu") AND ($doThis <> "dofile") Then
+	if ($doThis <> "command") AND ($doThis <>  "menu") AND ($doThis <> "dofile") AND ($doThis <> "include") Then
 		badFirstArg($doThis)
 	EndIf
 	if $numArgs > 1 Then
@@ -144,7 +144,11 @@ Func doTmpDofile($theStataName, $tmpDoFile, $doThis, $stataInBack)
 		if $stataInBack = "" Then
 			WinActivate($theStataName)
 		EndIf	
-		sendToCommand($theStataName, "do " & $fullTempDo)
+		if $doThis = "dofile" Then
+			sendToCommand($theStataName, "do " & $fullTempDo)
+		Else	
+			sendToCommand($theStataName, "include " & $fullTempDo)
+		EndIf
 	EndIf
 EndFunc
 

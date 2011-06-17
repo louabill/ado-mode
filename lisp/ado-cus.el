@@ -395,16 +395,20 @@ to be true, too!"
 (defcustom ado-submit-default "command"
   "Set to desired method of sending commands to Stata. Defaults
 to \"command\", which means that commands are sent to the Command window.
-Other choices are \"dofile\", which sends commands via a do-file
-and \"menu\" which sends commands via a menu item. The three options
-differ in how they populate the Review window (and hence any cmdlog):
+Other choices are \"dofile\", which sends commands via a do-file,
+\"include\" which sends the commands via an -include- (for passing
+local macros properly), and \"menu\" which sends commands via a menu item. 
+The four options differ in how they populate the Review window 
+(and hence any cmdlog):
   \"command\" puts the command(s) in the Review window
   \"dofile\" puts a 'do ...' command in the Review window
+  \"dofile\" puts an 'include ...' command in the Review window
   \"menu\" puts nothing in the Review window.
 One note: \"menu\" does not work for Stata 10 and earlier. This
 does not seem to be much of a loss."
   :type '(choice (const "command")
 				 (const "dofile")
+				 (const "include")
 				 (const "menu"))
   :group 'ado-stata-interaction)
 

@@ -35,6 +35,11 @@
   (ado-command-to-clip "dofile" whole-buffer)
   (ado-send-clip-to-stata "dofile" ado-comeback-flag))
 
+(defun ado-send-command-to-include (&optional whole-buffer)
+  (interactive)
+  (ado-command-to-clip "include" whole-buffer)
+  (ado-send-clip-to-stata "include" ado-comeback-flag))
+
 (defun ado-send-clip-to-stata (&optional dothis comeback tmpfile)
   "Sends the clipboard to Stata to be evaluated. Currently this works
 on Mac OS X and MS Windows only. This command is meant to be called by 
@@ -59,7 +64,7 @@ send2stata.scpt is stored. "
   (unless dothis (setq dothis ado-submit-default))
   (unless comeback (setq comeback ado-comeback-flag))
   (cond
-   ((or (string= dothis "menu") (string= dothis "dofile") (string= dothis "command"))
+   ((or (string= dothis "menu") (string= dothis "dofile") (string= dothis "command") (string= dothis "include"))
 	(cond 
 	 ((string= system-type "darwin")
 	  ;; the comeback for Mac OS X is handled via a shell command below

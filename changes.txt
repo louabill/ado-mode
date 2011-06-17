@@ -1,5 +1,16 @@
 Version History:
 ---------------
+1.11.2.1:
+
+. Fixed bug for sending via do-file on the Mac, where the working
+  directory would be changed to the users tmp directory
+. Added a new way of sending commands to Stata (as suggested by David
+  Lucca): "include". This option is the same as sending via a do-file,
+  except that the command sent is -include ...-. The advantage of this
+  is that local macros defined earlier will still be defined, allowing
+  incremental work inside larger do-files. Thanks, David, for a Very
+  Good Idea. 
+
 1.11.2.0:
 . Updated to allow -version 11.2-
 . Fixed bug in AutoIt script for Windows where adomode would get
