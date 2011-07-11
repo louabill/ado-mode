@@ -9,7 +9,10 @@ Version History:
   except that the command sent is -include ...-. The advantage of this
   is that local macros defined earlier will still be defined, allowing
   incremental work inside larger do-files. Thanks, David, for a Very
-  Good Idea. 
+  Good Idea.
+. Stopped adding an extra <eol> when working via the do-file editor or
+  includes, because this should be handled by the script passing the
+  clipboard to Stata.
 
 1.11.2.0:
 . Updated to allow -version 11.2-

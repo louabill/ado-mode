@@ -96,10 +96,7 @@ is done by \\[ado-strip-comments]"
 		  )
 	  (if (string= use-dofile "command")
 		  (setq theString (ado-strip-comments theString)))
-	  (funcall interprogram-cut-function 
-			   (if (string= use-dofile "command")
-				   theString
-				 (ado-one-eol theString)))
+	  (funcall interprogram-cut-function theString)
 	))
 
 (defun ado-other-to-clip (&optional where prefix suffix)

@@ -152,6 +152,8 @@
 (define-key ado-mode-map [menu-bar ado l3]
   '(menu-item "--single-line"))
 (define-key ado-mode-map [menu-bar ado indent-buffer]
+  '("Indent Region" . ado-indent-region))
+(define-key ado-mode-map [menu-bar ado indent-buffer]
   '("Indent Buffer" . ado-indent-buffer))
 (define-key ado-mode-map [menu-bar ado new]
   (cons "New program" (make-sparse-keymap "new")))
