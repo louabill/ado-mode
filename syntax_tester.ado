@@ -1,4 +1,4 @@
-*! version 1.10.0 April 8, 2011 @ 10:29:33
+*! version 1.12.0 September 8, 2011 @ 20:25:46
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -57,6 +57,8 @@ version 11
 version 11.1
 version 11.2
 version 11.3
+version 12
+version 12.1
    
    /* this program does nothing - it merely has some things for testing syntax coloring */
    /* working with the syntax table */
@@ -77,7 +79,7 @@ version 11.3
    alpha
    ameans
    an ano anov anova
-   /* estat syntax testing under regression postestimation below regression */
+   // anova estat skipped because it matches regress
    areg
    asclogit
    asmprobit
@@ -99,7 +101,8 @@ version 11.3
    /* constraint commands */
    /* first w/o anything */
    cons
-   constrain
+   constra
+   constraint
    cons def
    const defin 
    constr d
@@ -114,6 +117,7 @@ version 11.3
    const ge
    const fre
    /* end constraint */
+   contrast
    copyright
    cor corr corre correl correla correlat correlate
    pwcorr
@@ -148,6 +152,7 @@ version 11.3
    estat vce
    
    /* estimates */
+   estimates `foo'
    est save
    est use
    est des
@@ -206,6 +211,7 @@ version 11.3
    fvset d
    fvset design
    fvset report
+   fvset clear
    
    gllamm
    glm
@@ -246,13 +252,13 @@ version 11.3
    qladder
    set l
    set level
-   lfit // as command is obsolete
-   score // as command is obsolete
+   lfit // command is obsolete
+   score // command is obsolete
    lincom
    linktest
    lnskew0
    bcskew0
-   /* lo as abbreviation for lookup is obsolete */
+   /* lookup is obsolete; test for conflict from log */
    lo
    loo
    lookup
@@ -267,12 +273,15 @@ version 11.3
    cmdlog close
    cmdlog of
    cmdlog off
+   cmdlog on
    // undocumented
    cmdlog query
    
    set logtype t
+   set logtype text
+   set logtype s
    set logtype smcl
-   set lin
+   set li
    set linesize
    logistic
    logi
@@ -284,6 +293,7 @@ version 11.3
    lv
 
    margins
+   marginsplot
    set mat
    set matsize
    set maxiter
@@ -314,6 +324,7 @@ version 11.3
    ml mod
    ml model
    ml clear
+   ml cle // should not highlight
    ml q
    ml query
    ml check
@@ -347,8 +358,7 @@ version 11.3
    * etc
    /* end ml */
    mlog mlogi mlogit
-   /* should be off */
-   set mo
+   set mo // should be off
    set mo on
    set more off
    set p // should be off
@@ -390,6 +400,7 @@ version 11.3
    set httpproxyhost
    se httpproxyport
    set httpproxyauth on
+   set httpproxyauth off
    set httpproxypw
    set timeout1
    set timeout2
@@ -439,6 +450,10 @@ version 11.3
    proportion
    prtest
    prtesti
+
+   // pw commands
+   pwcompare
+   pwmean
    
    /* qc commands */
    cchart
@@ -447,7 +462,15 @@ version 11.3
    xchart
    shewhart
    /* end qc */
-   qreg iqreg sqreg bsqreg _qreg
+   // qreg commands
+   qreg
+   iqreg
+   sqreg
+   bsqreg
+   _qreg
+   // end qreg
+   q
+   query
    q mem
    qu memory
    que out
@@ -467,29 +490,33 @@ version 11.3
    q oth
    q other
    query `foo'
+
    ranksum
    median
    ratio
    reg3
    // highlights all -regress-es again?
    regress : regress : regress
-   /* the end of the findfile */
+   regress a b, vce(robust) 
+
    reg
    regr
    regre
    regres
-   regress
-   /* regression diagnostics */
-   
+   regress   
+
    #r #re #rev #revi #revie #review
    /* don't seem to be in manuals anymore */
    _rmcoll _huber
-   roctab
    roccomp
    rocgold
    rocfit
-   // rocfit postest
+   // rocfit post-est
    rocplot
+   rocreg
+   rocregplot
+   roctab
+   
    rologit
    rreg
    runtest
@@ -505,21 +532,24 @@ version 11.3
    sret li
    sreturn list
    scobit
-   sdtest sdtesti
+   sdtest
+   sdtesti
    robvar
    search
    set searchdefault local /* rest under set */
+   set searchdefault net
+   set searchdefault all
    findit
-   hsearch
+   
    serrbar
    /* set commands */
    set a
    set adosize
-   set autotabgraphs
+   set autotabgraphs // win only
+   set cformat // added in Stata 11.1
    set checksum on
    set checksum off
-   set cformat // added in Stata 11.1
-   set conren
+   set conren // unix only
    set conren clear
    set conren sf
    set conren bf
@@ -537,6 +567,7 @@ version 11.3
    set conren hi
    set conren hilite
    set conren ulon
+   set conren ulof
    set conren uloff
    set conren reset 
    set copycolor auto
@@ -552,7 +583,9 @@ version 11.3
    set doublebuffer on
    set doublebuffer off
    set `foo'
+   set dp com
    set dp comma
+   set dp per
    set dp period
    set emptycells keep
    set emptycells drop
@@ -576,6 +609,9 @@ version 11.3
    set httpproxyuser
    set icmap on // obsolete in Stata 10
    set icmap off // obsolete in Stata 10
+   set include_bitmap on
+   set include_bitmap off
+   set l
    set level
    set lineg
    set linegap
@@ -591,13 +627,16 @@ version 11.3
    set macgphengine quickdraw // obsolete in Stata 11
    set mat
    set matsize
+   set max_memory
    set maxdb
    set maxiter
    set maxvar
    set mem
    set memory
+   set min_memory
    set mo on
    set more off
+   set niceness
    set notifyuser
    set ob
    set obs
@@ -611,8 +650,8 @@ version 11.3
    set output error
    set pa
    set pagesize
-   set persistfv on
-   set persistvtopic off
+   set persistfv on 
+   set persistvtopic off 
    set pformat // added in Stata 11.1
    set piccom on // obsolete in Stata 11
    set piccomments off // obsolete in Stata 11
@@ -641,16 +680,21 @@ version 11.3
    set searchd local
    set searchdefault net
    set searchdefault all
+   set se
+   set seed
+   set segmentsize
+   set sformat // added in Stata 11.1 
    set showbaselevels on
    set showbaselevels off
    set showbaselevels all
-   set se
-   set seed
-   set sformat // added in Stata 11.1 
    set smalldlg on                      /* obsolete in Stata 10 */
+   set showemptycells keep
+   set showemptycells drop
+   set showomitted on
+   set showomitted off
    set smoothf on
    set smoothfonts off
-   set smoothsize 12
+   set smoothsize 12 // looks to be obsolete in Stata 12
    set timeout1
    set timeout2
 set tr on
@@ -670,7 +714,7 @@ set trace off
    /* inconsistancy fixed in 0.99: needs float or double */
    set ty float
    set typ double
-   set type
+   set type // cannot prevent total lack of highlight 
    set update_interval
    set update_prompt on
    set update_prompt off
@@ -685,12 +729,17 @@ set trace off
    set varlabelpos
    set varwin float // appears obsolete in Stata 11
    set varwindow nofloat // appears obsolete in Stata 11
-   set virt on
-   set virtual off
+   set virt on // obsolete in Stata 12
+   set virtual off // obsolete in Stata 12
    /* undocumented starting in Stata 10, but still legal */
    set xptheme on
+   // documented in -set- also, hence the duplication
+   set cformat
+   set pformat
+   set sformat
    set_defaults
    /* end set commands */
+
    signrank
    signtest
    simulate
@@ -715,7 +764,8 @@ set trace off
    stem
    /* stepwise or sw now has a syntax bad for highlighting */
    stepwise
-   sw 
+   suest
+   sw // should be neutral
    /* sw commands no longer exist, due to syntax changes */
    sw clogit
    sw cloglog
@@ -751,7 +801,7 @@ set trace off
    sfrancia
    symmetry
    symmi
-   
+
    table
    tabstat
    ta tab tabu tabul tabula tabulat tabulate
@@ -787,10 +837,10 @@ set trace off
    update from
    update q
    update query
-   update ado
-   update executable
-   update utilities
-   update swap
+   update ado // obsolete as of Stata 12
+   update executable // obsolete as of Stata 12
+   update utilities // obsolete as of Stata 12
+   update swap // obsolete as of Stata 12
    update all
    update `foo'
    set update_query on
@@ -821,62 +871,65 @@ set trace off
 
    zinb
    zip
-   ztnb
-   ztb
+   ztnb // obsolete in Stata 12
+   ztb  // obsolete in at least Stata 9---was this ever a Stata command?
 
    /* endless postestimation */
    // estat (from [R])
    // (some) obsolete versions included for testing
    estat alt
-   estat alternatives
+   estat alternatives  // asclogit ascprobit asroprobit nlogit
    archlm
-   estat archlm
+   estat archlm // regress/ts
    estat bgo
    bgodfrey
-   estat bgodfrey
-   estat clas
-   estat classification
+   estat bgodfrey // regress/ts
+   estat bootstrap // bootstrap
+   estat clas // ivprobit
+   estat classification // ivprobit logistic logit probit
    estat cor
-   estat correlation
+   estat correlation // ascprobit asroprobit
    estat cov
-   estat covariance
+   estat covariance // ascprobit asroprobit
    estat cv // added in Stata 11.1
    durbina
    estat dur
-   estat durbinalt
+   estat durbinalt // regress/ts
    dwstat
    estat dwa
-   estat dwatson
+   estat dwatson // regress/ts
    estat endog
-   estat endogenous
+   estat endogenous // ivregress
    estat facw
-   estat facweights
+   estat facweights // ascprobit asroprobit
    estat first
-   estat firststage
-   estat gof
+   estat firststage // ivregress
+   estat gof // logistic logit poisson probit
    hettest
    estat hett
-   estat hettest
+   estat hettest // anova regress
    imtest 
-   estat imtest
-   estat mfx // not obsolete---still used for some commands
+   estat imtest // anova regress
+   estat mfx // asclogit ascprobit asroprobit
+   estat nproc // rocreg
    estat over
-   estat overid
+   estat overid // gmm ivregress
    ovtest
-   estat ovtest
-   estat predict
-   estat se
+   estat ovtest // anova regress
+   estat predict // exlogistic
+   estat se  // exlogistic expoisson
    szroeter
-   estat szroeter
+   estat szroeter // anova regress
    estat summarize
    vif
-   estat vif
-   !! here
+   estat vif // anova regress
+   // regress postestimation
    adjust
    dfbeta
    acprplot
    avplot
    avplots
+   cprplot
    lvr2plot
    rvfplot
    rvpplot
@@ -890,7 +943,17 @@ set trace off
    ap app appe appen append
    append using
    as ass asse asser assert
-   by bys byso bysor bysort
+   // all new in Stata 12
+   bcal c
+   bcal ch
+   bcal check
+   bcal dir
+   bcal d
+   bcal describe
+   bcal load
+   
+   by
+   bys byso bysor bysort
    cd
    pwd
    cf
@@ -932,14 +995,13 @@ set trace off
    /* date-time functions are in the functions */
 
    d de des desc descr descri describ describe
-   ds lookfor
    destring
    tostring
    dir
    ls
-   man
    drawnorm
    drop keep
+   ds
    /* duplicates */
    duplicates r
    duplicates report
@@ -957,8 +1019,8 @@ set trace off
    b br bro brow brows browse
    /* endless egen & options */
    egen
-   /* any() has been mapped to anyvalue() but is not listed as obsolete as of 19.oct.05 */
-   egen = any() /* problem with mata any() */
+   egen = any() // really was renamed in Stata 9 to anyvalue()
+                //  highlights because of mata any() function
    egen breeble = anycount()
    egen = anymatch()
    egen = anyvalue()
@@ -1023,6 +1085,10 @@ set trace off
    erase rm
    expand
    expandcl
+   // export commands
+   export excel
+   export sasxport
+   // fda... commmands obsolete as of Stata 12
    fdasav fdasave
    fdause
    fdades fdadesc fdadescr fdadescri fdadescrib fdadescribe
@@ -1051,8 +1117,7 @@ set trace off
    invcloglog()
    invlogit()
    ln()
-   /* should this count as obsolete? */
-   lnfact()
+   lnfact()  // obsolete
    lnfactorial()
    lngamma()
    log()
@@ -1096,6 +1161,8 @@ set trace off
    nchi2()
    invnchi2()
    npnchi2()
+   dunnettprob()
+   invdunnettprob()
    F()
    Fden()
    Ftail()
@@ -1134,17 +1201,12 @@ set trace off
    invnormal()
    lnnormal()
    lnnormalden()
-   invttail()
    /* Poisson */
    poisson()
    poissonp()
    poissontail()
    invpoisson()
    invpoissontail()
-   /* T */
-   tden()
-   ttail()
-   invttail()
    /* random number functions */
    uniform()
 	runiform()
@@ -1157,6 +1219,13 @@ set trace off
 	rnormal()
 	rpoisson()
 	rt()
+   /* T */
+   tden()
+   ttail()
+   invttail()
+   /* Tukey */
+   tukeyprob()
+   invtukeyprob()
    /* string functions */ 
    abbrev()
    char()
@@ -1236,6 +1305,7 @@ set trace off
    scalar()
    smallestdouble()
    /* date functions */
+   bofd()
    Cdhms()
    Chms()
    Clock()
@@ -1248,6 +1318,7 @@ set trace off
    date()
    day()
    dhms()
+   dofb()
    dofC()
    dofc()
    dofh()
@@ -1365,6 +1436,9 @@ set trace off
    icd9p search
    icd9 q
    icd9 query
+   // import commands
+   import excel
+   import sasxport
    impute
    inf using
    infile
@@ -1382,12 +1456,14 @@ set trace off
    label variable
    la display as error
    /* inside of a comment label define aaahhh */
+   la de
    label define
    la val
    lab val
    label values
    la di
    label dir
+   la l
    label l
    label list
    label copy
@@ -1403,10 +1479,10 @@ set trace off
    fl fli flis flist
    lookfor
    memory
-   set mem 5b
+   set mem 5b // obsolete in Stata 12
    q mem
-   set vir on
-   set virtual off
+   set vir on // obsolete in Stata 12
+   set virtual off // obsolete in Stata 12
    mer 1:1
    merg m:1
    merge 1:m
@@ -1417,7 +1493,7 @@ set trace off
    /* notes */
    notes: fjeje
    note list
-   note list
+   notes l
    note drop
    note search
    notes replace
@@ -1430,16 +1506,16 @@ set trace off
    odbc query
    odbc des
    odbc describe
-   /* need to fix this */
    odbc lo
    odbc load
    odbc in
    odbc insert
-   odbc exe
-   odbc exec
-   odbc sql
-   odbc sqlfile
-   set odbcmg iodbc
+   odbc exe(needed)
+   odbc exec(needed)
+   odbc sql(needed)
+   odbc sqlfile(needed)
+   odbc sql // forgot paren
+   set odbcm iodbc
    set odbcmgr unixodbc
    /* end odbc */
    order
@@ -1449,6 +1525,8 @@ set trace off
    pctile
    xtile
    _pctile
+   putmata
+   getmata
    range
    recast
    recode
@@ -1523,51 +1601,9 @@ set trace off
    screeplot
    
    /* cluster commands */
-   /* ordered by the -cluster- intro */
-   /* this groups all the linkage subcommands together */
+   /* now ordered by the manual */
+   /* omnibus -cluster- entry ignored */
    
-   cluster k
-   cluster kmeans
-   cluster kmed
-   cluster kmedians
-   cluster s
-   cluster singlelinkage
-   cluster a
-   cluster averagelinkage
-   cluster c
-   cluster completelinkage
-   cluster wav
-   cluster waveragelinkage
-   cluster med
-   cluster `foo'
-   cluster medianlinkage
-   cluster cent
-   cluster centroidlinkage
-   cluster ward
-   cluster wardslinkage
-   cluster stop
-   cluster dend
-   cluster dendrogram
-   /* cluster tree is listed in online help as synonym for cluster dendogram */
-   cluster tr
-   cluster tree
-   cluster gen
-   cluster generate 
-   cluster note
-   cluster notes
-   cluster dir
-   cluster list
-   cluster drop
-   cluster rename
-   cluster renamevar
-   cluster query
-   cluster set
-   cluster del
-   cluster delete
-   cluster parsedist
-   cluster parsedistance
-   cluster measures
-   /* clustermat commands */
    clustermat s
    clustermat singlelinkage
    clustermat a
@@ -1584,19 +1620,83 @@ set trace off
    clustermat ward
    clustermat wardslinkage
    /* end clustermat commands */
-   /* now extras in order of the manual */
+
+   cluster dend
+   cluster dendrogram
+   /* cluster tree is listed in online help as synonym for cluster dendogram */
+   cluster tr
+   cluster tree
+
+   cluster gen
+   cluster generate 
+
+   cluster k
+   cluster kmeans
+   cluster kmed
+   cluster kmedians
+
+   // cluster linkage
+   cluster s
+   cluster singlelinkage
+   cluster a
+   cluster averagelinkage
+   cluster c
+   cluster completelinkage
+   cluster wav
+   cluster waveragelinkage
+   cluster med
+   cluster `foo'
+   cluster medianlinkage
+   cluster cen
+   cluster centroidlinkage
+   cluster ward
+   cluster wardslinkage
+
+   cluster note
+   cluster notes
    cluster notes drop
+   /* cluster programming utilities */
+   cluster query
+   cluster set
+   cluster del
+   cluster delete
+   cluster parsedist
+   cluster parsedistance
+   cluster measures
+
+   /* cluster stop */
+   cluster stop
+   clustermat stop
+
+   /* cluster utility */
+   cluster dir
+   cluster list
+   cluster drop
+   cluster use
+   cluster rename
+   cluster renamevar
+
+
    /* discrim commands from the discrim intro */
    discrim knn
    discrim lda
    discrim logistic
    discrim qda
-   /* discrim postestimation */
+   /* discrim estat */
    estat classtable
    estat errorrate
    estat grsummarize
    estat list
    estat summarize
+
+   discrim knn
+   estat classtable
+   estat errorrate
+   estat grsummarize
+   estat list
+   estat summarize
+
+   discrim lda
    /* discrim lda postestimation */
    estat anova
    estat canontest
@@ -1604,6 +1704,8 @@ set trace off
    estat classtable
    estat correlations
    estat covariance
+   estat errorrate
+   estat grdistances
    estat grmeans
    estat grsummarize
    estat list
@@ -1614,7 +1716,15 @@ set trace off
    loadingplot
    scoreplot
    screeplot
-   /* discrim qda postestimation */
+
+   discrim logistic
+   estat classtable
+   estat errorrate
+   estat grsummarize
+   estat list
+   estat summarize
+
+   discrim qda
    estat classtable
    estat correlations
    estat covariance
@@ -1645,6 +1755,8 @@ set trace off
    hotelling
    mano manov manova
    manovatest
+   screeplot
+   
    mat dis foo
    matrix dissimilarity bar
 
@@ -1654,6 +1766,8 @@ set trace off
    mcaprojection
    estat coordinates
    estat subinertia
+   estat summarize
+   screeplot
    
    mds
    /* mds postestimation */
@@ -1662,19 +1776,24 @@ set trace off
    estat pairwise
    estat quantiles
    estat stress
+   estat summarize
    mdsconfig
    mdsshepard
+   screeplot
+   
    /* end mds postestimation */
    mdslong
    mdsmat
 
-   // mvtests in order of intro
-   mvtest m
-   mvtest means
-   mvtest cov
-   mvtest covariances
    mvtest corr
    mvtest correlations
+
+   mvtest cov
+   mvtest covariances
+
+   mvtest m
+   mvtest means
+
    mvtest norm
    mvtest normality
    
@@ -1689,6 +1808,7 @@ set trace off
    estat residuals
    estat rotatecompare
    estat smc
+   estat summarize
    loadingplot
    rotate
    scoreplot
@@ -1706,11 +1826,13 @@ set trace off
    scoreplot
    loadingplot
    greigen /* obsolete in Stata 9 */
+   screeplot
 
    /* from the [ST] survival analysis manual */ 
    
    ctset
    cttost
+   
    ir
    iri
    cs
@@ -1724,15 +1846,18 @@ set trace off
    
    ltable
    snapspan
-   st_is 2
+   st_is 2 full // hmmm....
+   st_is 2 analysis
    st_show
    st_ct
+ 
    stbase
    stci
    stcox
    /* stcox diagnostics */
    stphplot
    stcoxkm
+   estat phtest
    /* stcox postestimation */
    estat con
    estat concor
@@ -1749,14 +1874,21 @@ set trace off
    stir
    /* stpower commands */
    stpow cox
+   stpower cox
+   stpowe exp
    stpowe exponential
    stpower logrank
    
    stptime
+
    strate
    stmh
    stmc
+
    streg
+   /* skip over sts entry */
+   sts gen
+   sts generate
    sts
    sts g
    sts graph
@@ -1765,13 +1897,14 @@ set trace off
    sts `foo'
    sts t
    sts test
-   sts gen
-   sts generate
+   
    stset
    streset
    st
+   
    stsplit
    stjoin
+
    stsum
    sttocc
    sttoct
@@ -1789,17 +1922,19 @@ set trace off
    estat size
    estat sd
    estat strata
+   estat cv
+   estat gof
    estat vce
    /* end estat commands */
    /* survey commands as listed in the order of the survey estimation section */
    brr
-   
+
    svy: mean
    svy: proportion
    svy: ratio
    svy:total
 
-   svy: cnreg
+   svy: cnreg // obsolete in Stata 11
    svy: cnsreg
    svy: glm
    svy: intreg
@@ -1858,17 +1993,19 @@ set trace off
    svydes svydescribe
    svymarkout
    svyset
-   /* still can be used, but not listed anywhere */
-   testparm
 
    /* end of the survey stats book */
 
    /* [TS] time series */
    arch
+   arfima
+   psdensity
    arima
+   
    corrgram
    ac
    pac
+
    cumsp
    dfactor
    dfgls
@@ -1900,31 +2037,56 @@ set trace off
    irf drop
    irf erase
    irf g
-   irf graph oirf
    irf gr irf
+   irf graph oirf
    irf gr foo // foo should fail
+   irf g dm
+   irf gr cirf
+   irf gr coirf
+   irf gra cdm
+   irf grap fevd
+   irf graph sirf
+   irf gr sfevd
+   
    irf og
    irf ograph
+
    irf ren
    irf rename
+
    irf set
    irf t
    irf table
    irf tab cdm
    irf tab foo // foo should fail
+
+   mgarch ccc // new in Stata 12 from here...
+   mgarch dcc
+   mgarch dvech 
+   mgarch vcc // to here....
+
    newey
    pergram
    pperron
    prais
+   psdensity
    rolling
    dwstat
    durbina
    bgodfrey
    archlm
    sspace
-   /* should these options be required?? */
+   /* should these options be required--no not never */
    tsappend, add(4) last(foo) tsfmt(string)
    tsfill
+
+   tsfilter `foo' // should really decide what to do with commands
+                  //  allowing subcommands
+   tsfilter bk // new in Stata 12 to ...
+   tsfilter bw
+   tsfilter cf
+   tsfilter hp // ... here
+
    tsline
    tw tsline
    twoway tsline
@@ -1932,10 +2094,13 @@ set trace off
    tw tsrline
    twoway tsrline
    twoway lfit 
+
    tsreport
    tsrevar
    tsset
+
    tssmooth `foo'
+   tssmooth breeble // should tssmooth unhighlight?
    tssmooth d
    tssmooth dexponential
    tssmooth e
@@ -1946,6 +2111,11 @@ set trace off
    tssmooth nl
    tssmooth s
    tssmooth shwinters
+
+   ucm // new in Stata 12
+   estat period
+   psdensity
+   
    var
    /* var post estimation commands */
    /* these seem to be common to var and svar */
@@ -1964,13 +2134,23 @@ set trace off
    varbasic
    /* varfcast is obsolete as of July 23, 2004 */
    /* varirf is obsolete as of July 23, 2004 */
+   vargranger
+   varlmar
+   varnorm
+   varsoc
+   varstable
+   varwle
    vec
    /* vec post estimation commands */
    veclmar
    vecnorm
-   vecrank
    vecstable
    // end vec postestimation commands
+   // now they show up again explicitly with an extra
+   veclmar
+   vecnorm
+   vecrank
+   vecstable
    wntestb
    wntestq
    xcorr
@@ -1987,7 +2167,7 @@ set trace off
    xtabond
    estat abond
    estat sargan
-   xtclog
+   xtclog // obsolete as of Stata 7
    xtcloglog
    xtdata
    xtdes
@@ -2010,6 +2190,8 @@ set trace off
    estat recovariance
    xtmepoisson
    xtmixed
+   estat group
+   estat recovariance
    xtnbreg
    xtpcse
    xtpois // obsolete as of Stata 7
@@ -2017,7 +2199,6 @@ set trace off
    xtprobit
    xtrc
    xtreg
-   xtregar
    xttest0
    xtregar
    xtset
@@ -2044,6 +2225,7 @@ set trace off
    end
    cap
    capture
+   char `foo'
    char
    char define
    char l
@@ -2078,6 +2260,7 @@ set trace off
    // cannot seem to get these to work well
    //   making . highlight differently is really hard, because it shows
    //   up in too many contexts
+   // will not ever fix, as these are supposedly withering
    
    .Global.foo.gringo
    .Local.d.e.f
@@ -2116,11 +2299,12 @@ set trace off
    conf str for
    conf string form
    conf date forma
-   /* confirm ts seems to be obsolete in Stata 10 */
+   /* confirm ts was replaced by confirm date in Stata 10,  */
    conf ts format
    conf name
    confi names
-   confirm int number // should fail---no abbrevs allowed
+   confirm int number // should fail---no abbrev allowed for -integer-
+   conf n
    confir integer n
    confirm number
    conf mat
@@ -2155,6 +2339,7 @@ set trace off
    c(version)
    c(born_date)
    c(flavor)
+   c(bit) // new in Stata 12
    c(SE)
    c(MP)
    c(processors)
@@ -2182,11 +2367,11 @@ set trace off
    c(dirsep)
 
    c(max_N_theory)
-   c(max_N_current)
+   c(max_N_current)  // obsolete in Stata 12
    c(max_k_theory)
-   c(max_k_current)
+   c(max_k_current) // obsolete in Stata 12
    c(max_width_theory)
-   c(max_width_current)
+   c(max_width_current) // obsolete in Stata 12
    c(max_matsize)
    c(min_matsize)
    c(max_macrolen)
@@ -2221,6 +2406,9 @@ set trace off
    c(memory)
    c(maxvar)
    c(matsize)
+   c(niceness) // new in Stata 12
+   c(min_memory) // new in Stata 12
+   c(segmentsize) // new in Stata 12
    // output
    c(more)
    c(rmsg)
@@ -2232,19 +2420,29 @@ set trace off
    c(eolchar)
    c(notifyuser)
    c(playsnd)
-   c(icmap)
+   c(icmap) // obsolete in Stata 10
+   c(include_bitmap) // mac only new in Stata 12
+   c(level)
+   c(showbaselevels) // new in Stata 11.1
+   c(showemptycells) // new in Stata 11.1
+   c(showomitted) // new in Stata 11.1
+   c(lstretch) // new in Stata 12
+   c(cformat) // new in Stata 11.1
+   c(sformat) // new in Stata 11.1
+   c(pformat) // new in Stata 11.1
    // interface
    c(dockable)
    c(dockingguides)
    c(floatresults) // obsolete in Stata 10 or so
    c(floatwindows) // obsolete in Stata 10 or so
    c(locksplitters)
-   c(persistfv)
-   c(persistvtopic)
+   c(persistfv) !! // obsolete in Stata 12
+   c(persistvtopic) !! // obsolete in Stata 12
    c(pinnable)
    c(doublebuffer)
    c(reventries)
    c(fastscroll) // not platform dep in Stata 10, Unix-only in 11
+                 // Unix/Win only in 12
    c(revwindow) // obsolete in Stata 11 
    c(revkeyboard)
    c(varwindow) // obsolete in Stata 11 
@@ -2255,7 +2453,7 @@ set trace off
    c(use_atsui_graph) // obsolete in Stata 11 
    c(linegap)
    c(scrollbufsize)
-   c(varlabelpos)
+   c(varlabelpos) // looks to be obsolete in Stata 11
    c(maxdb)
    /* obsolete in Stata 10 */
    c(smalldlg)
@@ -2270,7 +2468,7 @@ set trace off
    c(piccomments)
    // efficiency
    c(adosize)
-   c(virtual)
+   c(virtual) !! // obsolete in Stata 12
    // network
    c(checksum)
    c(timeout1)
@@ -2303,11 +2501,12 @@ set trace off
    c(matamofirst)
    // other
    c(type)
-   c(level)
    c(maxiter)
    c(searchdefault)
    c(seed)
    c(varabbrev)
+   c(version_rng) // new in Stata 11.2
+   c(emptycells) // new in Stata 12
    c(odbcmgr)
    c(`foo')
    // other, again (?)
@@ -2398,6 +2597,7 @@ be a separate mode ... ugh */
    display _skip(3)
    display _col(4)
    display _column(2)
+   display _n // displays as a constant because of system constant _n 
    display _new(3)
    display _newline(3)
    display _newline 
@@ -2480,7 +2680,7 @@ be a separate mode ... ugh */
       }
    foreach number of numlist somenumlist {
       }
-   forv fooie = 1/4 {
+   forv fooie=1/4 {
       }
    forvalues aNum = 2(3)14 {
       }
@@ -2494,7 +2694,7 @@ be a separate mode ... ugh */
    gettoken (local) bleen (global) hooie: gomp
    gettoken (local) bleen (local) bling : how
 
-   if foo fuggy
+   if foo fuggy // because of the missing brace 
    if `this' that
    if `those' {
       something
@@ -2502,7 +2702,7 @@ be a separate mode ... ugh */
    if foo {
       fuggy
       }
-   else `fortuna'
+   else `fortuna' // missing right brace
    else frantabulous
    else {
       frantabulous
@@ -2558,7 +2758,7 @@ be a separate mode ... ugh */
    local dingle : format
    gl h : val lab
    global h : value label
-   loc h : var lab
+   loc h : var l
    local h: variable label
    gl h : data l
    global h: data label
@@ -2610,7 +2810,7 @@ be a separate mode ... ugh */
    glo foo: tsnorm
    local h : copy local
    local b : copy global
-   local h : word
+   local h : word // should fail
    local h : word count
    /* maybe should change the number highlight? */
    loc h : word 43 of
@@ -2645,13 +2845,14 @@ be a separate mode ... ugh */
    global foo : list ding - dong
    global foo: list this == that
    global foo: list this === that
-   loc foo: list hey in ho // perhaps 'in' should highlight
+   loc foo: list hey in ho // perhaps 'in' should highlight as operator?
    local foo: list sizeof hey
    local foo: list posof "this is something" in hooie
 
    /* ahh the macros are over */
 
    makecns a
+   matcproc a b // should not highlight because 3 matrices are needed
    matcproc a b c
 
    marksample hooie // hooie is a macro name
@@ -2673,12 +2874,13 @@ be a separate mode ... ugh */
    /* not listed but still accepted */
    matr makeCns foo // should be obsolete 
    matri dispCns // should be obsolete
-   matcproc a b c
 
    /* dangerous keyword highlighting which is unavoidable */
    mat def foo
    mat defin
+   mat define bleen
    matrix in
+   mat in blam
    mat input bling
    matrix jjj
 
@@ -2689,10 +2891,12 @@ be a separate mode ... ugh */
    mat eigenvalues bleeble blob 
    /* nothing for matrix get */
    mat_put_rr bling
+   
    mkmat
    svmat fooey
    svmat double noodle
    matname foo
+
    mat rown njk = kjj
    matrix rownames rrr = ccc
    mat coln ccc = rrr
@@ -2701,11 +2905,15 @@ be a separate mode ... ugh */
    mat roweq ho = hi
    mat cole ho = hi
    mat coleq ho = hi
+
    mat sco fooey
    matrix score fooey
+
    mat svd g h j
-   matrix syme jwjwk foo
+
+   mat syme jwjwk foo
    matrix symeigen jwjwk foo
+
    matrix d
    matrix dir
    mat l bleen
@@ -2780,7 +2988,8 @@ for the syntax to be corrected */
    _return dir
    _return `foo'
 
-   return `foo'
+   return `foo' // highlights like mata
+   ret li
    ret clear
    retu sca foo
    return sca foo
@@ -2792,6 +3001,8 @@ for the syntax to be corrected */
    ret add
    return add
 
+   eretu li
+   eretur list
    eret clear
    ereturn clear
    eret post m1 m2
@@ -2804,6 +3015,8 @@ for the syntax to be corrected */
    eret repost
    ereturn repost
 
+   sretu li
+   sreturn list
    sret clear
    sret loc foo
    sreturn local foo
@@ -2811,6 +3024,7 @@ for the syntax to be corrected */
    
    _rmcoll
    _rmdcoll
+   
    set rmsg on
    set rmsg off
    
@@ -2826,7 +3040,7 @@ for the syntax to be corrected */
    sca list 
    scalar drop
 
-   /* new serset commands */
+   /* serset commands */
 
    serset cr
    serset create
@@ -2907,6 +3121,7 @@ for the syntax to be corrected */
    {opt foo:bar(3)}
    {opt foo:bar(from,to)}
    {opt foo:bar(this|that)}
+   {opt foo(a,)} // really is wrong, but hey...
 
    /* syntax 1 & 2 */
    {hilite}
@@ -2999,10 +3214,12 @@ for the syntax to be corrected */
    {mansection dopey}
    {mansection dopey:droopy}
    {manlink hahahah}
+   {manlinki R summarize}
    
    {news:is bad}
    {net fishing}
    {net fishing:wide}
+   {net_d fail} // should fail
    {net_d:hello}
    {netfrom_d:howdydoody}
    {ado foo}
@@ -3021,13 +3238,12 @@ for the syntax to be corrected */
    {title:howdy doody}
    {center:middle}
    {centre:muggle}
+   {center 35:bleen}
+   {centre 42:voldemort}
+   {center bogus:haha} // should fail
    {rcenter:teehee}
    {rcentre 33:friday!}
-   {center 23:fiddle}
-   {center 43:fuddle}
-   {center bogus:haha} // should fail
-   {centre 59:bosh!}
-   {center `zzz':jiminy}
+
    {right:wing neocon}
    {lalign 69:ihtfp}
    {ralign 666:nationalist}
@@ -3097,10 +3313,27 @@ for the syntax to be corrected */
    {asis}
    {s6hlp}
    {ccl} // could fix with an extra constant...
+   // looks nice below, but not really full of testing
    {char 7}
    {c S|}
+   {c -}
+   {c |}
+   {c +}
+   {c TT}
+   {c BT}
+   {c LT}
+   {c RT}
+   {c TLC}
+   {c TRC}
+   {c BRC}
+   {c BLC}
 
    // smcl allowed in graphs shown with the graph-specific stuff
+   // smcl found in help files which is not documented
+   {vieweralsosee "somename" "help somename"}
+   {viewerdialog "somename" "help that"}
+   {viewerjumpto "this" "help this"}
+   
    /* end smcl, finally */
 
    args mac mactheknife
@@ -3136,9 +3369,11 @@ for the syntax to be corrected */
    adopath - foo
    set a 30
    set adosize 99
+
    tabdisp
 
    timer clear
+   timer clear 3
    timer on 4
    timer off 14
    timer list 55
@@ -3172,13 +3407,14 @@ set trace off
 
    /* more complicated version commands :<( */
 vers 8
-version 8: fooie
+version 12: fooie
    viewsource
 
    while foo {
       this is some stuff
       }
-   /* window commands... seem to have been moved out of the manual?!?*/
+   /* window commands... have been moved out of the manual?!?*/
+   /*  so...maintenance will be cut down, because looking at help is bad */
    /* platform dependencies not highlighted */
    win fop
    window fopen
@@ -3261,8 +3497,11 @@ version 8: fooie
 
    gr export
    graph export
+
+   // graph manipulation skipped as section; pieces already in sections
    
    graph matrix
+   graph matrix foo // oops, this is bad
 
    graph set eps
    gr set ps
@@ -3298,16 +3537,19 @@ version 8: fooie
    lvr2plot
    rvfplot
    rvpplot
+   
    ac
    pac
    pergram
    cumsp
    xcorr
    wntestb
+
    varfcast graph
    varirf graph
    varirf ograph
    varirf cgraph
+
    fcast graph
    varstable
    vecstable
@@ -3330,6 +3572,7 @@ version 8: fooie
    roctab
    rocplot
    roccomp
+   rocregplot
    lroc
    lsens
 
@@ -3353,7 +3596,8 @@ version 8: fooie
    xchart
    shewhart
    serrbar
-   
+
+   marginsplot
    tabodds
    pkexamine
 
@@ -3387,9 +3631,7 @@ version 8: fooie
    twoway bar foo || bar fee
 
    /* forget the stuff under twoway */
-      /* redone in the order of the commands themselves to accommodate abbrevs */
-
-      
+      /* redone in the order of the commands themselves to accommodate abbrevs */  
 
    gr tw scatter
    
@@ -3401,6 +3643,10 @@ version 8: fooie
    two connected
    gr two con
    gr two connected
+   two contour  // new in Stata 12 
+   twoway contour  // new in Stata 12 
+   gr two contour  // new in Stata 12 
+   
    tw dot
    graph twoway dot y
    graph twoway dropline y
@@ -3449,7 +3695,9 @@ version 8: fooie
    tsline
    twoway tsline
    two tsrline
+   tsrline
    graph use
+   gr use
 
    palette color
    palette line
@@ -3461,6 +3709,7 @@ version 8: fooie
    query graphics
    set graphics on
    set graphics off
+   set g on
    set printcolor auto
    set printcolor automatic
    set printcolor asis
@@ -3478,6 +3727,8 @@ version 8: fooie
 
    /* now for some Mata content */
    /* first - all the reserved words */
+   // these *should* have proper highlighting, but the mata
+   //   highlighting is not very sophisticated, yet
    aggregate
    array
 
@@ -3657,10 +3908,13 @@ version /* used elsewhere */
    asarray_key()
    asarray_contents()
    asarray_notfound()
+
    ascii()
    char()
+
    assert()
    asserteq()
+
    blockdiag()
 
    bufio()
@@ -3698,12 +3952,17 @@ version /* used elsewhere */
 
    comb()
    cond()
+
    conj()
    _conj()
+
    corr()
    _corr()
+
    cross()
    crossdev()
+
+   cvpermutesetup()
    cvpermute()
 
    /* date functions... */
@@ -3736,6 +3995,9 @@ version /* used elsewhere */
    yh()
    cofd()
    Cofd()
+   dofb()
+   bofd()
+   
    month()
    day()
    year()
@@ -3786,15 +4048,19 @@ version /* used elsewhere */
    deriv_init_bounds()
    deriv_init_search()
    deriv_init_verbose()
+
    deriv()
    _deriv()
+
    deriv_result_value()
    deriv_result_values()
+   _deriv_result_values()
    deriv_result_gradient()
    _deriv_result_gradient()
    deriv_result_scores()
    _deriv_result_scores()
    deriv_result_Jacobian()
+   _deriv_result_Jacobian()
    deriv_result_Hessian()
    _deriv_result_Hessian()
    deriv_result_h()
@@ -3822,6 +4088,7 @@ version /* used elsewhere */
    dsign()
 
    e()
+   
    editmissing()
    _editmissing()
    
@@ -4009,10 +4276,13 @@ version /* used elsewhere */
    frombase()
 
    indexnot()
+
    invorder()
    revorder()
+
    invsym()
    _invsym()
+
    invtokens()
    isdiagonal()
    isfleeting()
@@ -4021,9 +4291,12 @@ version /* used elsewhere */
    iscomplex()
    isstring()
    ispointer()
+
    isrealvalues()
+
    issymmetric()
    issymmetriconly()
+
    isview()
 
    J()
@@ -4033,6 +4306,7 @@ version /* used elsewhere */
    // crud, LAPACK direct calls
    _flopin()
    _flopout()
+   LA_DGBMV()
    LA_DGEBAK()
    LA_DGEBAL()
    LA_DGEES()
@@ -4094,6 +4368,7 @@ version /* used elsewhere */
 
    lusolve()
    _lusolve()
+   _lusolve_la()
 
    makesymmetric()
    _makesymmetric()
@@ -4145,15 +4420,17 @@ version /* used elsewhere */
    missingof()
 
    mod()
+
+   !! start here (Mata function)s
    // crap, moptimize monstrosity
    // moptimize_init functions
-   moptimize_init()
+   moptimize_init() // obsolete in Stata 12
    moptimize_init_which()
    moptimize_init_evaluator()
    moptimize_init_evaluatortype()
    moptimize_init_negH()
    moptimize_init_touse()
-   moptimize_init_view()
+   moptimize_init_view() // obsolete in Stata 12
    moptimize_init_ndepvars()
    moptimize_init_depvar()
    moptimize_init_eq_n()
@@ -4195,8 +4472,9 @@ version /* used elsewhere */
    moptimize_init_trace_dots()
    moptimize_init_trace_value()
    moptimize_init_trace_tol()
-   moptimize_init_trace_coefs()
    moptimize_init_trace_step()
+   moptimize_init_trace_coefdiffs() // new in Stata 12
+   moptimize_init_trace_coefs()
    moptimize_init_trace_gradient()
    moptimize_init_trace_Hessian()
    moptimize_init_evaluations()
@@ -4211,6 +4489,7 @@ version /* used elsewhere */
    moptimize_result_display()
    moptimize_result_value()
    moptimize_result_value0()
+   moptimize_result_eq_coefs() // new in Stata 12
    moptimize_result_coefs()
    moptimize_result_colstripe()
    moptimize_result_scores()
@@ -4221,7 +4500,7 @@ version /* used elsewhere */
    moptimize_result_V_oim()
    moptimize_result_V_opg()
    moptimize_result_V_robust()
-   moptimize_result_interations()
+   moptimize_result_iterations()
    moptimize_result_converged()
    moptimize_result_iterationlog()
    moptimize_result_evaluations()
@@ -4238,6 +4517,7 @@ version /* used elsewhere */
    moptimize_util_vecsum()
    moptimize_util_matsum()
    moptimize_util_matbysum()
+   moptimize_util_by() // !! new in Stata 12
    
    more()
    setmore()
@@ -4271,6 +4551,9 @@ version /* used elsewhere */
    chi2tail()
    invchi2()
    invchi2tail()
+   // Dunnett's multiple range (new in Stata 12)
+   dunnettprob()
+   invdunnettprob()
    // F
    Fden()
    F()
@@ -4319,6 +4602,9 @@ version /* used elsewhere */
    tden()
    ttail()
    invttail()
+   // Tukey Studentized Range (new in Stata 12)
+   tukeyprob()
+   invtukeyprob()
 
    /* phooey, optimize to the max */
    optimize_init()
@@ -4334,7 +4620,7 @@ version /* used elsewhere */
    optimize_init_cluster()
    optimize_init_colstripe()
    optimize_init_technique()
-   optimize_init_gnweightmatrix()
+   optimize_init_gnweightmatrix() // obsolete in Stata 12
    optimize_init_singularHmethod()
    optimize_init_conv_maxiter()
    optimize_init_conv_warning()
@@ -4348,8 +4634,9 @@ version /* used elsewhere */
    optimize_init_trace_dots()
    optimize_init_trace_value()
    optimize_init_trace_tol()
-   optimize_init_trace_params()
    optimize_init_trace_step()
+   optimize_init_trace_paramdiffs() // new in Stata 12
+   optimize_init_trace_params()
    optimize_init_trace_gradient()
    optimize_init_trace_Hessian()
    optimize_init_evaluations()
@@ -4357,8 +4644,8 @@ version /* used elsewhere */
    optimize_init_verbose()
 
    optimize()
-   optimize_evaluate()
    _optimize()
+   optimize_evaluate()
    _optimize_evaluate()
 
    optimize_result_params()
@@ -4375,7 +4662,9 @@ version /* used elsewhere */
    optimize_result_iterations()
    optimize_result_converged()
    optimize_result_iterationlog()
+   optimize_result_evaluations() // new in Stata 12
    optimize_result_errorcode()
+   optimize_result_errortext() // new in Stata 12
    optimize_result_returncode()
 
    optimize_query()
@@ -4514,7 +4803,9 @@ version /* used elsewhere */
    solve_tol()
 
    solvelower()
+   solveupper()
    _solvelower()
+   _solveupper()
    
    sort()
    _sort()
@@ -4534,8 +4825,10 @@ version /* used elsewhere */
 
    st_addobs()
    _st_addobs()
+   
    st_addvar()
    _st_addvar()
+   
    st_data()
    _st_data()
    st_sdata()
@@ -4570,6 +4863,7 @@ version /* used elsewhere */
    st_replacematrix()
 
    st_numscalar()
+   st_numscalar_hcat() // new in Stata 12
    st_strscalar()
 
    st_nvar()
@@ -4659,6 +4953,7 @@ version /* used elsewhere */
 
    rowsum()
    colsum()
+   
    sum()
    quadrowsum()
    quadcolsum()
@@ -4692,11 +4987,12 @@ version /* used elsewhere */
    tokenallowhex()
 
    tokens()
+   
    trace()
 
    _transpose()
 
-   _conj() // ? Where in the manual?
+   _conj() // Obsolete in Stata 11?
 
    transposeonly()
    _transposeonly()
@@ -4727,11 +5023,15 @@ version /* used elsewhere */
    /* now for some things which give trouble... */
 
    // the [MI] multiple imputation manual...all new in Stata 11
+   // ... and vastly expaneded in Stata 12
    mi add
+   
    mi append using
 
    mi convert w
    mi convert wide
+   mi convert ml
+   mi convert mlong
    mi convert fl
    mi convert flong
    mi convert flongs
@@ -4749,10 +5049,8 @@ version /* used elsewhere */
    mi est
    mi estimate
 
-   mi test
-   mi testtr
-   mi testtransform
-
+   // mi estimate postestimation moved to respective commands
+   
    mi expand
 
    mi export ice
@@ -4766,6 +5064,10 @@ version /* used elsewhere */
    mi import nhanes1
    mi import wide
 
+   mi imp chain // new in Stata 12 
+   mi impute chained // new in Stata 12 
+   mi imp intreg // new in Stata 12 
+   mi impute intreg // new in Stata 12 
    mi imp logi
    mi impu logit
    mi imput mlog
@@ -4773,11 +5075,14 @@ version /* used elsewhere */
    mi imp mon
    mi impute monotone
    mi imp mvn
+   mi imp nbreg // new in Stata 12 
    mi impute olog
    mi impute ologit
    mi impu pmm
+   mi imput poisson // new in Stata 12
    mi imput reg
    mi impute regress
+   mi imp truncreg // new in Stata 12
 
    mi merge 1:1
    mi merge 1:m
@@ -4793,6 +5098,9 @@ version /* used elsewhere */
    mi misstable nested
 
    mi passive:
+
+   mi predict !! // new in Stata 12
+   mi predictnl !! // new in Stata 12 
 
    mi ptrace d
    mi ptrace describe
@@ -4813,8 +5121,11 @@ version /* used elsewhere */
    mi set mlong
    mi set fl
    mi set flong
+   mi set flongs
+   mi set flongsep
    mi set M
    mi set m
+   // look carefully...on one line
    mi reg imp
    mi regi imputed
    mi regis pas
@@ -4828,6 +5139,10 @@ version /* used elsewhere */
    mi unset
 
    mi stsplit
+
+   mi test
+   mi testtr
+   mi testtransform
 
    mi update
 
@@ -4845,6 +5160,49 @@ version /* used elsewhere */
    mi tsset
    mi xtset
 
+   // new in Stata 12: SEM
+   estat eqg
+   estat eqgof
+   estat eqt
+   estat eqtest
+   estat fra
+   estat framework
+   estat ggof
+   estat gin
+   estat ginvariant
+   estat gof
+   estat mi
+   estat mindices
+   estat res
+   estat residuals
+   estat score
+   estat scoretests
+   estat sta
+   estat stable
+   estat std :
+   estat stdize :
+   estat su
+   estat summarize
+   estat tef
+   estat teffects
+
+   sem
+
+   ssd init
+   ssd set
+   ssd addgr
+   ssd addgroup
+   ssd unaddgr
+   ssd unaddgroup
+   ssd stat
+   ssd status
+   ssd build
+   ssd d
+   ssd describe
+   ssd l
+   ssd list
+   ssd repair
+   
    
    /* macros showing up inside other constructions */
    local ding `r(foo)'
@@ -5008,7 +5366,7 @@ version /* used elsewhere */
    
    
    /* this is a test
-      
+   
    of how the indents would work
    /* this is much better */
    ahhh, this is great.
@@ -5022,7 +5380,7 @@ version /* used elsewhere */
    
    
    /*
-      
+   
    what happens now
    this
    
@@ -5031,27 +5389,28 @@ version /* used elsewhere */
    /* Tricky start of new comment
    ahhh, indentation is ok
 */
-      
    
-      
+   
+   
    
    back to where it should be
 */ fooey
    outside the comment.
-
+   
    /* things to  on */
    tempvar `foo
-
+   
    /* problem children */
    "filo foen"
-
+   
    // for testing ado-highlight-block
    
    foreach foo in this that {
       display "foo is `foo'" // silly display with end comment
       twoway bleen ///
         `foo', legend( /// comment (within continuation) with parens
-        order(1 "confusing")) // hmm
+           order(1 "confusing") ///
+           ) // hmm
       {
          display "bleen"
          display "something for testign blocks"
@@ -5061,7 +5420,9 @@ version /* used elsewhere */
    [ these will balance (square brackets) ]
    {
       foreach oops of local mistake {
-         (here is something in parens)
+         (here ///
+              is something in parens) ///
+           which continues
          (here are mismatched braces]
          display "Oh no, no closing brace"
          } // delete to test
