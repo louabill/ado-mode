@@ -1158,7 +1158,8 @@ and indenting"
   (let (depth start ppsexp in-continuation (oddend (ado-line-starts-with-end-comment)))
     (save-excursion
       ;; look for line starting with a comment
-      (setq in-continuation (ado-beginning-of-command))
+	  (save-excursion
+		(setq in-continuation (ado-beginning-of-command)))
       (setq ppsexp (parse-partial-sexp 1 (point)))
       (setq depth (car ppsexp))
       (setq start (point))
