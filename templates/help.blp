@@ -1,15 +1,30 @@
 {smcl}
-{* *! version #.#.# 17jan2011}{...}
-{cmd:help XXX} 
-{hline}
-
+{* *! version #.#.# 18sep2011}{...}
+{* delete if no dialog box}{...}
+{viewerdialog "XXX" "dialog XXX"}{...}
+{* link to manual entries (really meant for stata to link to its own docs}{...}
+{vieweralsosee "[?] whatever" "mansection ? whatever"}{...}
+{* a divider if needed}{...}
+{vieweralsosee "" "--"}{...}
+{* link to other help files which could be of use}{...}
+{vieweralsosee "[?] whatever" "help whatever "}{...}
+{viewerjumpto "Syntax" "XXX##syntax"}{...}
+{viewerjumpto "Description" "XXX##description"}{...}
+{viewerjumpto "Options" "XXX##options"}{...}
+{viewerjumpto "Remarks" "XXX##remarks"}{...}
+{viewerjumpto "Examples" "XXX##examples"}{...}
+{viewerjumpto "Saved Results" "XXX##saved_results"}{...}
+{viewerjumpto "Acknowledgements" "XXX##acknowledgements"}{...}
+{viewerjumpto "Author" "XXX##author"}{...}
+{viewerjumpto "References" "XXX##references"}{...}
+{...}
 {title:Title}
 
 {phang}
-{bf:XXX} {hline 2} title of command
+{cmd:XXX} {hline 2} title of command
 {p_end}
 
-
+{marker syntax}{...}
 {title:Syntax}
 
 {* put the syntax in what follows. Don't forget to use [ ] around optional items}{...}
@@ -41,6 +56,7 @@
 {cmd:fweight}s are allowed; see {help weight}.
 
 
+{marker description}{...}
 {title:Description}
 
 {pstd}
@@ -48,6 +64,7 @@
 {p_end}
 
 
+{marker options}{...}
 {title:Options}
 
 {phang}{opt whatever} does yak yak
@@ -59,6 +76,7 @@
 {phang}{opt 2nd option} etc.
 
 
+{marker remarks}{...}
 {title:Remarks}
 
 {pstd}
@@ -67,6 +85,7 @@ Official documented Stata commands don't have much for remarks, because the rema
 {p_end}
 
 
+{marker examples}{...}
 {title:Example(s)}{* Be sure to change Example(s) to either Example or Examples}
 
 {phang}{cmd:. some sample input here}{* an example with no explanation}
@@ -76,29 +95,47 @@ Official documented Stata commands don't have much for remarks, because the rema
 An example with explanation
 {p_end}
 
+{marker saved_results}{...}
+{title:Saved results}
 
+{pstd}{* replace r() with e() for an estimation command}
+{cmd:summarize} saves the following in {cmd:r()}:
+
+{* here is everything saved from estimation commands}{...}
+{synoptset 20 tabbed}{...}
+{p2col 5 20 24 2: Scalars}{p_end}
+{synopt:{cmd:r(N)}}number of observations{p_end}
+
+{synoptset 20 tabbed}{...}
+{p2col 5 20 24 2: Macros}{p_end}
+
+{synoptset 20 tabbed}{...}
+{p2col 5 20 24 2: Matrices}{p_end}
+
+{synoptset 20 tabbed}{...}
+{p2col 5 20 24 2: Functions}{p_end}
+
+
+{marker acknowledgments}{...}
+{title:Acknowledgements}
+
+{pstd}
+If you have thanks specific to this command, put them here.
+
+{marker author}{...}
 {title:Author}
 
 {pstd}
 Author information here; nothing for official Stata commands
 {p_end}
 
-
+{marker references}{...}
 {title:References}
 
-{pstd}
-Refs go here
+{pstd}{* here is a shill example entry from the -regress- command}
+{marker AP2009}{...}
+{phang}
+Angrist, J. D., and J.-S. Pischke. 2009.
+{browse "http://www.stata.com/bookstore/mhe.html":{it:Mostly Harmless Econometrics: An Empiricist's Companion}.}
+Princeton, NJ: Princeton University Press.
 
-{title:Also see}
-
-{psee}
-Manual: {manlink P smcl}{* goes to manual entry for -smcl-. Use only for official Stata commands}
-{p_end}
-
-{psee}
-{space 2}Help: help for {help smcl} or {manhelp smcl P}{* use the latter to conform to Stata's classification of commands}
-{p_end}
-
-{psee}
-{space 3}Web: {browse "http://www.stata.com":Stata's Home (or a website of your choice)}{* a rare, non-standard usage}
-{p_end}

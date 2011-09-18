@@ -2,7 +2,11 @@
 * this do file really does nothing... it just makes sure that
 * syntax is OK for do-files
 
-version 10.1 
+version 10.1
+
+// does this work?
+
+local bleen 
 
 sysuse auto
 

@@ -998,7 +998,7 @@ if confused. Returns its best guess at the extension."
 			(goto-char (point-min))
 			(cond
 			 ((looking-at "{smcl}")
-			  (if (re-search-forward "^{\\(hi\\|cmd\\):help" nil t) 
+			  (if (ado-find-help-name-start)
 				  ado-help-extension
 				"smcl"))
 ;; 			 ((and
@@ -1046,7 +1046,9 @@ cannot be determined from the file contents."
 						 (re-search-forward "^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+\\(de\\(f\\|fi\\|fin\\|fine\\)[ \t]+\\)?" nil t))
 						((or (string= ado-extension "hlp")
 							 (string= ado-extension "sthlp"))
-						 (re-search-forward "^{\\(hi\\|cmd\\):help[ \t]+" nil t))
+						 (if (ado-find-help-name-start)
+							 (goto-char (ado-find-help-name-start))
+						   (error "Could not find help file name")))
 						((string= ado-extension "lbl")
 						 (re-search-forward "^[ \t]*^la\\(b\\|be\\|bel\\)[ \t+]+de\\(f\\|fi\\|fin\\|fine\\)[ \t]+" nil t))
 						(t nil)))
@@ -1056,6 +1058,34 @@ cannot be determined from the file contents."
 		  (setq name-end (point))
 		  (concat (buffer-substring-no-properties name-start name-end) "." ado-extension))
 		)))
+
+(defun ado-find-help-name-start ()
+  "Returns the point at which the command documented in a help file starts.
+Need a function for this, because this location changed drastically between
+Stata versions 11 and 12."
+  (interactive)
+	;; first find where Title and Syntax are, since these are bounds for searches
+  (let ((debug-on-error t) titlepos syntaxpos (name-start nil))
+	(save-excursion
+	  (goto-char (point-min))
+	  (setq titlepos (search-forward "Title" nil t))
+	  (if titlepos
+		  (progn
+			;; search as far as "Title" to find {...:help !!!} for <= Stata 12 help
+			(goto-char (point-min))
+			(setq name-start 
+				  (re-search-forward "{\\(bf\\|cmd\\|hi\\):help[ \t]+" titlepos t))
+			(unless name-start
+			  ;; have stata 12-style help
+			  (goto-char titlepos)
+			  (setq syntaxpos (search-forward "Syntax" nil)) ;; want error if no Syntax
+			  (goto-char titlepos)
+			  (setq name-start
+					(re-search-forward "{cmd:[ \t]*" syntaxpos t)))
+			)))
+	name-start
+	))
+
 
 (defun ado-find-local-name ()
   "Returns the name of the defining program in which the point is sitting. If the

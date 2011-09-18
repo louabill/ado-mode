@@ -4912,13 +4912,13 @@ Not implemented as much more than an experiment. ")
 
 
 	  ;; Syntax 3
-	  ;; for the undocumented viewer... quick access bar directives
+	  ;; for the undocumented viewer... quick access bar directives 
 	(list
 	  (concat
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
-		 (regexp-opt 
+		 (regexp-opt
        '(
 		  "vieweralsosee" "viewerdialog" "viewerjumpto" ;; really have 2 args
 		 ) 'words))
