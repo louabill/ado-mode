@@ -177,4 +177,13 @@ If as-default is t, just send everything via the default method."
 	  (ado-send-command-to-stata t)
 	  )))
 
+(defun ado-input-to-stata ()
+  "Sends a command from the input line!! to Stata. Has the unfortunate side-
+effect of placing the command on the clipboard, at least for now."
+  (interactive)
+  (let ((x-select-enable-clipboard t))
+	(funcall interprogram-cut-function (read-from-minibuffer "Command to run? "))
+	(ado-send-clip-to-stata ado-submit-default ado-comeback-flag)
+	))
+
 (provide 'ado-to-stata)

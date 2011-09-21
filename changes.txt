@@ -3,17 +3,24 @@ Version History:
 1.12.0.0:
 
 . Updated for Stata 12
+
+. Added a new function (ado-input-to-stata) which asks for a command in
+the minibuffer, and then sends the command to Stata. This is bound to
+C-c C-i by default.
+
 . Changed indenting so that continuations inside of parens or braces
 take the parens or braces into account. This (should) be an improvement.
+
 . Changed the way to name .sthlp files, so that the name can be found
 both for Stata 12 as well as pre-Stata 12 help files. This was needed
 because of the new quick access tags at the start of Stata 12 help
 files.
+
 . Updated the help.blp template greatly, so that it contained new smcl
 tags and also contained sections useful for user-written commands. Thus,
 it now differs from the template in the Users Guide.
-1.11.2.1:
 
+1.11.2.1:
 . Fixed bug for sending via do-file on the Mac, where the working
   directory would be changed to the users tmp directory
 . Added a new way of sending commands to Stata (as suggested by David

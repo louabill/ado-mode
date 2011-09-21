@@ -120,6 +120,7 @@
 (define-key ado-mode-map [(meta return)] 'ado-send-command-to-stata)
 (define-key ado-mode-map [(meta control return)] 'ado-send-buffer-to-stata)
 (define-key ado-mode-map [(meta shift return)] 'ado-split-line)
+(define-key ado-mode-map "\C-c\C-i" 'ado-input-to-stata)
 (define-key ado-mode-map "\C-c\C-h" 'ado-help-at-point)
 (define-key ado-mode-map "\C-c\C-c" 'ado-help-command)
 (define-key ado-mode-map "\C-c\C-b" 'ado-grab-block)
