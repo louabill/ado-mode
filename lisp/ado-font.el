@@ -178,11 +178,19 @@ only on particular platforms"
 
 (defface ado-function-name-face
   '((t :inherit font-lock-function-name-face))
-  "Ado mode face used to highlight functions in ado programs, and 
+  "Ado mode face used to highlight functions in ado programs and 
 iactions in dialogs"
   :group 'ado-font-lock)
 
 (defvar ado-function-name-face 'ado-function-name-face)
+
+(defface ado-needs-subcommand-face
+  '((t :inherit ado-builtin-harmless-face :background "grey80"))
+  "Ado-mode face used to document commands which need a subcommand
+to be correct"
+  :group 'ado-font-lock)
+
+(defvar ado-needs-subcommand-face 'ado-needs-subcommand-face)
 
 (defface ado-subcommand-face
   '((t :inherit font-lock-type-face))

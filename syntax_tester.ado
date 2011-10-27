@@ -1,4 +1,4 @@
-*! version 1.12.0 September 8, 2011 @ 20:25:46
+*! version 1.12.0 October 27, 2011 @ 15:16:26
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -1450,11 +1450,12 @@ set trace off
    isid
    joinby
    /* label */
+   la // incomplete
    la da
    label data
    la var
    label variable
-   la display as error
+   la display as error // bad subcommands
    /* inside of a comment label define aaahhh */
    la de
    label define
@@ -1500,6 +1501,7 @@ set trace off
    notes renumber
    set obs 12
    /* odbc */
+   odbc 
    odbc li
    odbc list
    odbc q
@@ -1621,6 +1623,7 @@ set trace off
    clustermat wardslinkage
    /* end clustermat commands */
 
+   cluster 
    cluster dend
    cluster dendrogram
    /* cluster tree is listed in online help as synonym for cluster dendogram */
@@ -2016,10 +2019,13 @@ set trace off
    fcast compute
    fcast g
    fcast graph
+   haver // incomplete
    haver des
    haver describe
    haver use
    /* irf commands ... starting Stata 8.2 */
+   irf
+   irf graph 
    irf a
    irf add
    irf `foo' 
@@ -2060,6 +2066,7 @@ set trace off
    irf tab cdm
    irf tab foo // foo should fail
 
+   mgarch
    mgarch ccc // new in Stata 12 from here...
    mgarch dcc
    mgarch dvech 
@@ -2080,6 +2087,8 @@ set trace off
    tsappend, add(4) last(foo) tsfmt(string)
    tsfill
 
+   tsfilter 
+
    tsfilter `foo' // should really decide what to do with commands
                   //  allowing subcommands
    tsfilter bk // new in Stata 12 to ...
@@ -2099,6 +2108,8 @@ set trace off
    tsrevar
    tsset
 
+   tssmooth
+   
    tssmooth `foo'
    tssmooth breeble // should tssmooth unhighlight?
    tssmooth d
@@ -2165,6 +2176,7 @@ set trace off
    tis
    quadchk
    xtabond
+   
    estat abond
    estat sargan
    xtclog // obsolete as of Stata 7
@@ -2206,6 +2218,7 @@ set trace off
    xttab
    xttrans
    xttobit
+   xtunitroot
    xtunitroot llc   
    xtunitroot ht
    xtunitroot breitung
@@ -2436,8 +2449,8 @@ set trace off
    c(floatresults) // obsolete in Stata 10 or so
    c(floatwindows) // obsolete in Stata 10 or so
    c(locksplitters)
-   c(persistfv) !! // obsolete in Stata 12
-   c(persistvtopic) !! // obsolete in Stata 12
+   c(persistfv)  // obsolete in Stata 12
+   c(persistvtopic) // obsolete in Stata 12
    c(pinnable)
    c(doublebuffer)
    c(reventries)
@@ -2468,7 +2481,7 @@ set trace off
    c(piccomments)
    // efficiency
    c(adosize)
-   c(virtual) !! // obsolete in Stata 12
+   c(virtual)  // obsolete in Stata 12
    // network
    c(checksum)
    c(timeout1)
@@ -2658,6 +2671,7 @@ be a separate mode ... ugh */
 
    findfile
 
+   foreach bleen // incomplete
    foreach grue in shadows {
       }
    foreach bleen of loc hooie {
@@ -2680,6 +2694,8 @@ be a separate mode ... ugh */
       }
    foreach number of numlist somenumlist {
       }
+   forv // incomplete
+   forvalues bleen // incomplete
    forv fooie=1/4 {
       }
    forvalues aNum = 2(3)14 {
@@ -3416,19 +3432,25 @@ version 12: fooie
    /* window commands... have been moved out of the manual?!?*/
    /*  so...maintenance will be cut down, because looking at help is bad */
    /* platform dependencies not highlighted */
+   window
    win fop
    window fopen
+   win
    win fs
    window fsave
+   window manag // incomplete
    win man minimize
    window manage restore
+   win manag prefs // incomplete
    win man prefs load
    win man prefs save
    win man prefs default
    win man update variable
    win man associate // windows only
+   win man maintitle // not complete, but last word is indefinite 
    window man maintitle "fooey" // unix and windows
    windo manag maintitle reset // unix and windows
+   window man forward // incomplete
    window manage forward command
    window manage forward doeditor
    window manage forward graph
@@ -3437,7 +3459,8 @@ version 12: fooie
    window manage forward review
    window manage forward variables
    window manage forward viewer
-   
+
+   wind mana print // incomplete
    win man print graph
    win man forward graph
    win man close graph
@@ -3447,7 +3470,9 @@ version 12: fooie
    win man forward viewer
    win man close viewer
 
+   win menu // incomplete
    window m clear
+   win menu append // incomplete
    win menu append submenu
    win m append item
    window menu append separator
@@ -3461,6 +3486,7 @@ version 12: fooie
    window menu append   string
 
    window push
+   windo stop // incomplete
    window stop stop
    window stopbox note
    window stop rusure
@@ -3858,6 +3884,7 @@ version /* used elsewhere */
 
    mata memory
 
+   mata mlib // incomplete
    mata mlib create foo
    mata mlib add bar
    mata mlib index
@@ -3868,6 +3895,7 @@ version /* used elsewhere */
    mata rename
    
    mata query
+   mata set // incomplete
    mata set matacache
    mata set matalnum on
    mata set matalnum off
@@ -4421,7 +4449,6 @@ version /* used elsewhere */
 
    mod()
 
-   !! start here (Mata function)s
    // crap, moptimize monstrosity
    // moptimize_init functions
    moptimize_init() // obsolete in Stata 12
@@ -4517,7 +4544,7 @@ version /* used elsewhere */
    moptimize_util_vecsum()
    moptimize_util_matsum()
    moptimize_util_matbysum()
-   moptimize_util_by() // !! new in Stata 12
+   moptimize_util_by() // new in Stata 12
    
    more()
    setmore()
@@ -5023,11 +5050,13 @@ version /* used elsewhere */
    /* now for some things which give trouble... */
 
    // the [MI] multiple imputation manual...all new in Stata 11
-   // ... and vastly expaneded in Stata 12
+   // ... and vastly expanded in Stata 12
+   mi // incomplete
    mi add
    
    mi append using
 
+   mi convert // incomplete
    mi convert w
    mi convert wide
    mi convert ml
@@ -5053,17 +5082,21 @@ version /* used elsewhere */
    
    mi expand
 
+   mi export // incomplete
    mi export ice
    mi export nhanes1
 
    mi extract
 
+   mi import // incomplete
    mi import flong
    mi import flongsep
    mi import ice
    mi import nhanes1
    mi import wide
 
+   mi imp // incomplete
+   mi impute // incomplete
    mi imp chain // new in Stata 12 
    mi impute chained // new in Stata 12 
    mi imp intreg // new in Stata 12 
@@ -5084,11 +5117,13 @@ version /* used elsewhere */
    mi impute regress
    mi imp truncreg // new in Stata 12
 
+   mi merge // incomplete
    mi merge 1:1
    mi merge 1:m
    mi merge m:1
    mi merge m:m
 
+   mi misstab // incomplete
    mi misstab sum
    mi misstable summarize
    mi misstable pat
@@ -5099,9 +5134,10 @@ version /* used elsewhere */
 
    mi passive:
 
-   mi predict !! // new in Stata 12
-   mi predictnl !! // new in Stata 12 
+   mi predict // new in Stata 12
+   mi predictnl  // new in Stata 12 
 
+   mi ptrace // incomplete
    mi ptrace d
    mi ptrace describe
    mi ptrace use
@@ -5115,6 +5151,7 @@ version /* used elsewhere */
    mi select init
    mi select
 
+   mi set // incomplete
    mi set w
    mi set wide
    mi set ml
@@ -5126,6 +5163,8 @@ version /* used elsewhere */
    mi set M
    mi set m
    // look carefully...on one line
+   mi reg // incomplete, but regress is winning the battle here
+   mi regi // incomplete
    mi reg imp
    mi regi imputed
    mi regis pas
@@ -5430,5 +5469,8 @@ version /* used elsewhere */
       }
    // a command from the outside world
    slog
-   slog(this is bad) // should fail 
+   slog(this is bad) // should fail
+
+   // for testing commands needing a subcommand
+   #delimit
 end

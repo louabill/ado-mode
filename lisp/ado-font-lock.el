@@ -122,7 +122,7 @@ Not implemented as much more than an experiment. ")
 		 (regexp-opt 
 		  '("vers" "versi" "versio" "version")
 		  'words))
-	   "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[01]\\)?[.]0\\)\\|\\(?:\\(?:[23689]\\|1[01]\\)[.]1\\)\\|\\(?:[89]\\|11\\)?[.]2\\|\\(?:\\(?:[1-9]\\|1[01]\\)?[^.]\\)\\)\\b"
+	   "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[01]\\)?[.]0\\)\\|\\(?:\\(?:[23689]\\|1[01]\\)[.]1\\)\\|\\(?:[89]\\|11\\)?[.]2\\|\\(?:\\(?:[1-9]\\|1[01]\\)?[^.]\\)\\)\\($\\|[ \t]*\\)"
 	   )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; pause on/off
@@ -561,6 +561,49 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) 
 	 '(3 ado-obsolete-face t))
 
+	;; set incomplete commands
+	(list
+	  (concat
+	   "^[ \t]*"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "se" "set"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+		  "checksum" "fastscroll"
+		  "dockable"
+		  "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
+		  "doublebuffer"
+		  "floatresults" "floatwindows"
+		  "g" "gr" "gra" "grap" "graph" "graphi" "graphic" "graphics"
+		  "httpproxy" 
+		  "httpproxya" "httpproxyau" "httpproxyaut" "httpproxyauth" 
+		  "include_bitmap"
+		  "locksplit" "locksplitt" "locksplitte" "locksplitter" "locksplitters" 
+		  "mo" "mor" "more" 
+		  "ou" "out" "outp" "outpu" "output"
+		  "pinnable"
+		  "playsnd"
+		  "r" "revkeyboard" "rm" "rms" "rmsg"
+		  "showomitted"
+		  "smoothf" "smoothfo" "smoothfon" "smoothfont" "smoothfonts" 
+		  "tr" "tra" "trac" "trace"
+		  "tracee" "traceex" "traceexp" "traceexpa" "traceexpan" "traceexpand" 
+		  "tracei" "tracein" "traceind" "traceinde" "traceinden" "traceindent" 
+		  "tracen" "tracenu" "tracenum" "tracenumb" "tracenumbe" "tracenumber" 
+		  "traces" "tracese" "tracesep" 
+		  "update_prompt" "update_query"
+		  "varabbrev" "varkeyboard"
+		  "xptheme"
+			) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
+
 	  ;; the timer command
 	(list
 	 (concat
@@ -883,6 +926,49 @@ Not implemented as much more than an experiment. ")
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
+	;; confirm incomplete
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "conf" "confi" "confir" "confirm" 
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"byte" "double" "float" "int" "long"
+			"date"
+			"integer"
+			"n" "ne" "new" 
+			"numeric"
+			"str" "stri" "strin" "string"
+			"ts"
+			) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "conf" "confi" "confir" "confirm"
+		 ) 'words))
+	   "[ \t]+"
+	   "\\<\\(str"
+	   "\\|"
+	   "\\(?:str[1-9][0-9]?\\)" 
+	   "\\|"
+	   "\\(?:str1[0-9][0-9]\\)" 
+	   "\\|"
+	   "\\(?:str2[0-3][0-9]\\)" 
+	   "\\|"
+	   "\\(?:str24[0-4]\\)"
+	   "\\)\\>"
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
 	;; merge
 	(list
 	  (concat
@@ -1117,29 +1203,6 @@ Not implemented as much more than an experiment. ")
     ;;   (in multiple pieces)
 	(list
 	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "gprefs"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"q" "qu" "que" "quer" "query" 
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"window"
-			) 
-		  'words))
-	   end-cmd-regexp )
-	   	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
-
-	(list
-	  (concat
 	   "\\<\\(gprefs\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(set\\)\\>"
@@ -1240,10 +1303,75 @@ Not implemented as much more than an experiment. ")
 		 (regexp-opt 
 		  '(
 			  "custom1" "custom2" "custom3"
+			  "window"
 			  ) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
+
+	;; gprefs incomplete
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "gprefs"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"q" "qu" "que" "quer" "query" 
+			) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
+	(list
+	  (concat
+	   "\\<\\(gprefs\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(set\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			  "custom1" "custom2" "custom3"
+			  ) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	  '(3 ado-needs-subcommand-face))
+
+	(list
+	  (concat
+	   "\\<\\(gprefs\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(set\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(window\\)\\>"
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	  '(3 ado-needs-subcommand-face))
+
+	(list
+	  (concat
+	   "\\<\\(gprefs\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(set\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(window\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			  "displaythick"
+			  "scheme"
+			  "usegphsize"
+			  "xsize"
+			  "ysize"
+			) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	  '(3 ado-needs-subcommand-face) '(4 ado-needs-subcommand-face))
 
      ;;; worse than smcl ---- it's graph!
      ;;;  -> will need multiple copies of the subcommands for the () and || and plain versions
@@ -1408,7 +1536,60 @@ Not implemented as much more than an experiment. ")
 	  '(3 ado-subcommand-face t))
 
 	  ;; even more aggravating: things for which both graph and twoway are optional
-	  
+	  ;; this is blank
+
+	;; graph incomplete w/ multiple arguments
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "gr" "gra" "grap" "graph"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "set"
+		 ) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "gr" "gra" "grap" "graph"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "set"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"window"
+			) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	  '(3 ado-needs-subcommand-face))
+
+	(list
+	 (concat
+	  "\\<\\(\\(?:\\(?:gr\\|gra\\|grap\\|graph\\)[ \t]+\\)?\\)"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "tw" "two" "twow" "twowa" "twoway"
+		 ) 'words))
+	   end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
+	
      ;; icd9, icd9p commands
 	(list
 	 (concat
@@ -1801,7 +1982,17 @@ Not implemented as much more than an experiment. ")
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	  '(3 ado-subcommand-face t))
-	;; ado commands
+
+	;; net incomplete
+	(list
+	  (concat
+	   "\\<\\(net\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(set\\)\\>"
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
+	;; ado commands (-ado- by itself is OK)
 	(list
 	  (concat
 	   "\\<\\(ado\\)\\>"
@@ -1815,8 +2006,8 @@ Not implemented as much more than an experiment. ")
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-
-	  ;; odbc commands 
+	
+	;; odbc commands 
 	(list
 	  (concat
 	   "\\<\\(odbc\\)\\>"
@@ -1915,7 +2106,7 @@ Not implemented as much more than an experiment. ")
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
     
-	  ;; the reshape commands
+	;; the reshape commands
 	(list
 	  (concat
 	   "\\<\\(reshape\\)\\>"
@@ -2084,7 +2275,8 @@ Not implemented as much more than an experiment. ")
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
-	  ;; the serset commands
+	;; the serset commands
+	;; NO subcommands, b/c -serset- is legal by itself
 	(list
 	  (concat
 	   "\\<\\(serset\\)\\>"
@@ -2113,7 +2305,7 @@ Not implemented as much more than an experiment. ")
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-
+	;; sts commands, NO partial, because -sts- is good by itself
 	(list
 	  (concat
 	   "\\<\\(sts\\)\\>"
@@ -2175,6 +2367,7 @@ Not implemented as much more than an experiment. ")
 	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
 
 	  ;; the sysdir commands
+	;; no partial, b/c -sysdir- is legal
 	(list
 	  (concat
 	   "\\<\\(sysdir\\)\\>"
@@ -2413,6 +2606,19 @@ Not implemented as much more than an experiment. ")
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	;; irf partial commands
+	(list
+	  (concat
+	   "\\<\\(irf\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"g" "gr" "gra" "grap" "graph"
+		   "t" "ta" "tab" "tabl" "table"
+			) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face t) '(2 ado-needs-subcommand-face t))
      ;; the irf functions which are obsolete
 	(list
 	  (concat
@@ -2829,7 +3035,74 @@ Not implemented as much more than an experiment. ")
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	  '(3 ado-subcommand-face t))
 
+	;; incomplete window multiword subcommands
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		  "win" "wind" "windo" "window"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"c" "co" "con" "cont" "contr" "contro" "control"
+			"man" "mana" "manag" "manage"
+			"m" "me" "men" "menu"
+			"stop" "stopb" "stopbo" "stopbox"
+			) 'words))
+		 end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		  "win" "wind" "windo" "window"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+		  "man" "mana" "manag" "manage"
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"close" "forward" "prefs" "print" "rename" "update"
+			) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	  '(3 ado-needs-subcommand-face))
+
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		  "win" "wind" "windo" "window"
+		 ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+		  "m" "me" "men" "menu"
+			) 'words))
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"append"
+			) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	  '(3 ado-needs-subcommand-face))
+
 	  ;; the xwindow commands---obsolete from at least Stata 9.1
+
 	(list
 	  (concat
 	   (eval-when-compile 
@@ -2864,7 +3137,6 @@ Not implemented as much more than an experiment. ")
 		  "char" 
 		  "e" "err" "erro" "error" "ex" "exi" "exit" 
 		  "for"
-		  "set"
 		  ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
@@ -2952,7 +3224,7 @@ Not implemented as much more than an experiment. ")
 		  "hist" "histo" "histog" "histogr" "histogra" "histogram" 
 		  "hlu" "hotel" "hotelling" "hsearch"
 		  "include" "ins" "insp" "inspe" "inspec" "inspect" "intreg" 
-		  "iqreg" "ir" "irf" "iri" 
+		  "iqreg" "ir" "iri" 
 		  "isid" "istdize" 
 		  "ivprobit" "ivregress" "ivtobit"
 		  "jackknife"
@@ -3066,7 +3338,7 @@ Not implemented as much more than an experiment. ")
 		  "tpoisson"
 		  "translate"
 		  "translator" "transmap" "treatreg" "truncreg"
-		  "tsline" "tsreport" "tsrline" "tsset" "tssmooth" "tsunab" "ttest" "ttesti"
+		  "tsline" "tsreport" "tsrline" "tsset" "tsunab" "ttest" "ttesti"
 		  "twoway"
 		  "ty" "typ" "type"
 		  "ucm" "unab" "unabcmd" "update" "using"
@@ -3465,7 +3737,7 @@ Not implemented as much more than an experiment. ")
 		  "bcskew0" "bs" "bsample" "bstrap"
 		  "bys" "byso" "bysor" "bysort" 
 		  "cd" "clear" "clonevar" "collapse" "compress" 
-		  "contract" "convert" "corr2data" "cross" "cttost" 
+		  "contract" "corr2data" "cross" "cttost" 
 		  "dec" "deco" "decod" "decode" "destring"
 		  "discard" "drawnorm" "drop" "dydx"
 		  "ed" "edi" "edit" "egen" 
@@ -4292,6 +4564,7 @@ Not implemented as much more than an experiment. ")
        '(
 			"add" "append"
 			"erase" "expand" "extract"
+			"predict" "predictnl"
 			"ren" "rena" "renam" "rename"
 			"replace0"
 			"reset"
@@ -4421,6 +4694,7 @@ Not implemented as much more than an experiment. ")
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi passive subcommands
+	;; will break with options
 	(list
 	  (concat
 	   "\\<\\(mi\\)\\>"
@@ -4524,6 +4798,28 @@ Not implemented as much more than an experiment. ")
 	   "[ \t]*:"
 	   )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; mi multiword incomplete subcommands
+	;;  includes mi ...: prefixes (which is probably bad)
+	(list
+	  (concat
+	   "\\<\\(mi\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"convert" "export" "import"
+			"imp" "impu" "imput" "impute"
+			"merge"
+			"misstab" "misstabl" "misstable"
+			"passive" "ptrace"
+			"reg" "regi" "regis" "regist" "registe" "register"
+			"reshape" "select" "set"
+			"xeq"
+			) 'words))
+		 end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
 	;; commented out for version 1.11.1.0
 	  ;; All Bill R's Custom ado files which are 'reliable' and which 
 	;; are not file killers
@@ -5438,10 +5734,10 @@ Not implemented as much more than an experiment. ")
 		  "end"
 		  "help"
 		  "matd" "matde" "matdes" "matdesc" "matdescr" "matdescri" "matdescrib" "matdescribe" 
-		  "matsave" "matuse" "memory" "mlib" "mosave"
+		  "matsave" "matuse" "memory" "mosave"
 		  "query"
 		  "rename"
-		  "set" "stata"
+		  "stata"
 		  "which"
 			) 'words))
 	   end-cmd-regexp )
@@ -5522,6 +5818,36 @@ Not implemented as much more than an experiment. ")
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t) 
 	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
+	;; incomplete mata subcommands with multiple parts
+	;; weird, because -mata- is a command by itself
+
+	(list
+	  (concat
+	   "\\<\\(mata\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"mlib" "set"
+			) 'words))
+		 end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
+	(list
+	 (concat
+	  "\\<\\(mata\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(set\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "matafavor" "matalnum" "mataoptimize" "matastrict" "matamofirst"
+		   ) 'words))
+		 end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	  '(3 ado-needs-subcommand-face))
+
 	  ;; mata functions (durn, this is a pain in the butt)
 	  ;; functions which exist for regular stata are NOT included
 	  ;; these, too ended up being split
@@ -5567,7 +5893,7 @@ Not implemented as much more than an experiment. ")
 	   "("
 	   )
 	  '(1 ado-mata-function-name-face t))
-	;; mata functions
+	;; mata commands
 	(list
 	  (concat
 	   "\\<\\(mata\\)\\>"
@@ -5581,10 +5907,10 @@ Not implemented as much more than an experiment. ")
 		  "end"
 		  "help"
 		  "matd" "matde" "matdes" "matdesc" "matdescr" "matdescri" "matdescrib" "matdescribe" 
-		  "matsave" "matuse" "memory" "mlib" "mosave"
+		  "matsave" "matuse" "memory" "mosave"
 		  "query"
 		  "rename"
-		  "set" "stata"
+		  "stata"
 		  "which"
 			) 'words))
 	   )
@@ -6141,6 +6467,7 @@ Not implemented as much more than an experiment. ")
 
 	;; the ssd commands from SEM
 	;; the estat commands
+	;; am NOT including incomplete ssd set commands for now (because of optional number)
 	(list
 	 (concat
 	  "\\<\\(ssd\\)\\>"
@@ -6266,8 +6593,99 @@ Not implemented as much more than an experiment. ")
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-obsolete-face t) '(4 ado-obsolete-face t))
-	)))
+	;; !!! partial subcommands (single)
+	;; all commands which have subcommands as listed above (for partial higlighting)
+	;; could be a nightmare to maintain
+	;; here are those commands with a SINGLE subcommand
+	;;  anything with MULTIPLE subcommands is listed after its regular highlighting
+	(list
+	  (concat
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "#d" "#de" "#del" "#deli" "#delim" "#delimi" "#delimit" 
+		 "_est" "_esti" "_estim" "_estima" "_estimat" "_estimate" "_estimates"
+		 "_return"
+		 "ado"
+		 "bcal"
+		 "call"
+		 "char"
+		 "classutil"
+		 "cluster" "clustermat"
+		 "cmdlog"
+		 "conf" "confi" "confir" "confirm" 
+		 "cons" "const" "constr" "constra" "constrai" "constrain" "constraint" 
+		 "creturn"
+		 "discrim"
+		 "duplicates"
+		 "ereturn" "estat"
+		 "export"
+		 "fcast" "file" 
+		 "foreach" 
+		 "forv" "forva" "forval" "forvalu" "forvalue" "forvalues" 
+		 "fvset" "fvunab"
+		 "gph"
+		 "graph"
+		 "haver"
+		 "icd9" "icdp"
+		 "import"
+		 "irf"
+		 "la" "lab" "labe" "label" 
+		 "log"
+		 "mat" "matname" "mat_put_rr" "matr" "matri" "matrix"
+		 "merge"
+		 "mgarch"
+		 "mi"
+		 "ml"
+		 "misstable"
+		 "mvtest"
+		 "net"
+		 "note" "notes" 
+		 "odbc"
+		 "palette" "pause" "postutil"
+		 "query"
+		 "reshape" "return"
+		 "se" "set"
+		 "snapshot"
+		 "sreturn"
+		 "ssc"
+		 "ssd"
+		 "st_is"
+		 "stopbox"
+		 "stpow" "stpowe" "stpower" 
+		 "timer"
+		 "translator" "transmap"
+		 "tsfilter" "tssmooth" "tsunab"
+		 "twoway"
+		 "unab"
+		 "vers" "versi" "versio" "version" 
+		 "view"
+		 "win" "wind" "windo" "window" 
+		 "xtunitroot"
+		 ) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face))
 
+	;; those subcmds which must start a line
+	
+	(list
+	  (concat
+	   "^[ \t]*"
+	   (eval-when-compile 
+		 (regexp-opt 
+       '(
+		 "se" "set"
+		 ) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-needs-subcommand-face))
+
+    ;; uh oh... things with multiple subcommands
+
+	;; set <foo> on/off commands (must start a line)
+
+
+	)))
+	
 ;;; here are all the added commands for highlighting user-written commands
 
 (defun ado-add-plus ()
