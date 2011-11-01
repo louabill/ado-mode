@@ -173,7 +173,10 @@ EndFunc
 Func sendToCommand(ByRef $theStataName,byRef $theString)
 	$theString = StringRegExpReplace($theString,"([+{}!^#])","{\1}",0)
 ;	msgbox(0,"hunh",$theString)
-	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString & "{ENTER}")
+;;  following 2 lines suggested by code from Jeffery Arnold and Matthew Botsch
+	ControlSetText($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString)
+	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", "{ENTER}")	
+;;	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString & "{ENTER}")
 ;	ControlSetText($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString)
 ;	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", "{ENTER}")
 	if @error Then

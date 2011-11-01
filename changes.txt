@@ -4,21 +4,18 @@ Version History:
 
 . Updated for Stata 12
 
-. Added a new function (ado-input-to-stata) which asks for a command in
-the minibuffer, and then sends the command to Stata. This is bound to
-C-c C-i by default.
+. Added different highlighting for commands requiring a subcommand. Incomplete multi-word commands should now be clearer. This is likely to be a little incomplete, so please send reports to me about it.
 
-. Changed indenting so that continuations inside of parens or braces
-take the parens or braces into account. This (should) be an improvement.
+. Added a new function (ado-input-to-stata) which asks for a command in the minibuffer, and then sends the command to Stata. This is bound to C-c C-i by default.
 
-. Changed the way to name .sthlp files, so that the name can be found
-both for Stata 12 as well as pre-Stata 12 help files. This was needed
-because of the new quick access tags at the start of Stata 12 help
+. Changed indenting so that continuations inside of parens or braces take the parens or braces into account. This (should) be an improvement.
+
+. Changed the way to name .sthlp files, so that the name can be found both for Stata 12 as well as pre-Stata 12 help files. This was needed because of the new quick access tags at the start of Stata 12 help
 files.
 
-. Updated the help.blp template greatly, so that it contained new smcl
-tags and also contained sections useful for user-written commands. Thus,
-it now differs from the template in the Users Guide.
+. Updated the help.blp template greatly, so that it contained new smcl tags and also contained sections useful for user-written commands. Thus, it now differs from the template in the Users Guide.
+
+. Included a better way of pasting to the Command window under MS Windows, thanks to Daniel Green passing on some code from Jeffery Arnold and Matthew Botsch. Should be much faster now, especially when pasting large blocks of code.
 
 1.11.2.1:
 . Fixed bug for sending via do-file on the Mac, where the working
