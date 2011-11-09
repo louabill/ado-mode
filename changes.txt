@@ -2,60 +2,88 @@ Version History:
 ---------------
 1.12.0.0:
 
-. Updated for Stata 12
+* Updated for Stata 12
 
-. Added different highlighting for commands requiring a subcommand. Incomplete multi-word commands should now be clearer. This is likely to be a little incomplete, so please send reports to me about it.
+* Added different highlighting for commands requiring a subcommand.
+  Incomplete multi-word commands should now be clearer. This is likely
+  to be a little incomplete, so please send reports to me about it. 
 
-. Added a new function (ado-input-to-stata) which asks for a command in the minibuffer, and then sends the command to Stata. This is bound to C-c C-i by default.
+* Added a new function (ado-input-to-stata) which asks for a command in
+  the minibuffer, and then sends the command to Stata. This is bound to
+  C-c C-t by default. 
 
-. Changed indenting so that continuations inside of parens or braces take the parens or braces into account. This (should) be an improvement.
+* Changed indenting so that continuations inside of parens or braces
+  take the parens or braces into account. This (should) be an
+  improvement. 
 
-. Changed the way to name .sthlp files, so that the name can be found both for Stata 12 as well as pre-Stata 12 help files. This was needed because of the new quick access tags at the start of Stata 12 help
-files.
+* Changed the way to name .sthlp files, so that the name can be found
+  both for Stata 12 as well as pre-Stata 12 help files. This was needed
+  because of the new quick access tags at the start of Stata 12
+  helpfiles. 
 
-. Updated the help.blp template greatly, so that it contained new smcl tags and also contained sections useful for user-written commands. Thus, it now differs from the template in the Users Guide.
+* Updated the help.blp template greatly, so that it contained new smcl
+  tags and also contained sections useful for user-written commands.
+  Thus, it now differs from the template in the Users Guide. 
 
-. Included a better way of pasting to the Command window under MS Windows, thanks to Daniel Green passing on some code from Jeffery Arnold and Matthew Botsch. Should be much faster now, especially when pasting large blocks of code.
+* Included a better way of pasting to the Command window under MS
+  Windows, thanks to Daniel Green passing on some code from Jeffery
+  Arnold and Matthew Botsch. Should be much faster now, especially when
+  pasting large blocks of code. 
+
+* Changed formatting in this version history to make it more readable.
 
 1.11.2.1:
-. Fixed bug for sending via do-file on the Mac, where the working
+
+* Fixed bug for sending via do-file on the Mac, where the working
   directory would be changed to the users tmp directory
-. Added a new way of sending commands to Stata (as suggested by David
+
+* Added a new way of sending commands to Stata (as suggested by David
   Lucca): "include". This option is the same as sending via a do-file,
   except that the command sent is -include ...-. The advantage of this
   is that local macros defined earlier will still be defined, allowing
   incremental work inside larger do-files. Thanks, David, for a Very
   Good Idea.
-. Stopped adding an extra <eol> when working via the do-file editor or
+
+* Stopped adding an extra <eol> when working via the do-file editor or
   includes, because this should be handled by the script passing the
   clipboard to Stata.
 
 1.11.2.0:
-. Updated to allow -version 11.2-
-. Fixed bug in AutoIt script for Windows where adomode would get
+
+* Updated to allow -version 11.2-
+
+* Fixed bug in AutoIt script for Windows where adomode would get
   confused if there was a Graph window open (or even any web browser
   pointed at Stata's website). AutoIt now uses a regexp to find either
   "Small Stata" or "Stata/(IC|SE|MP)". This should be good unless you
   are visiting a site like http://www.stata.com/statamp while using
   ado-mode.  (Checking the window class for a Stata window doesn't help,
   so this will be as good as it gets.)
-. Put in better error-checking for a bad value in ado-script-dir. 
-. Fixed up code for sending to Stata under Windows so that spaces are
+
+* Put in better error-checking for a bad value in ado-script-dir. 
+
+* Fixed up code for sending to Stata under Windows so that spaces are
   allowed in filenames. I think.
-. Tried to fix highlighting of commands when followed by a special
+
+* Tried to fix highlighting of commands when followed by a special
   character like a paren, because 'generate' should highlight, but
   'generate(' should not.
-. Fixed minor highlighting bugs.
-. Cleaned up font highlighting of added commands.
-. Anyone finding bugs, please report. Passing code to Windows is
+
+* Fixed minor highlighting bugs.
+
+* Cleaned up font highlighting of added commands.
+
+* Anyone finding bugs, please report. Passing code to Windows is
   complicated because there can be no passing of the clipboard AND
   waiting to see if there was an error in passing code, so debugging is
   really hard for me, being a non-Windows user. 
 
 1.11.1.2:
-. BEHAVIOR CHANGE: if you have a .ado-signature file, see the last 
+
+* BEHAVIOR CHANGE: if you have a .ado-signature file, see the last 
   item.
-. Added support for sending code to Stata when there are multiple
+
+* Added support for sending code to Stata when there are multiple
   instances of Stata running (MS Windows only). How the code is sent is
   ruled by 5 options:
     ado-send-to-all-flag: if this is t, then all instances get the sent
@@ -88,7 +116,8 @@ files.
       ado-strict-matching is nil, because the 3 StataMP instances will
       all match 2 out of 3 filters (the "MP" filter and the unset
       filter).
-. Added new functions for working with blocks of codes:
+
+* Added new functions for working with blocks of codes:
   ado-balance-braces will balance {[()]} outside of strings and
   comments. Used multiple times, it will keep expanding matching pairs.
   It is bound to C-c C-b.
@@ -104,18 +133,22 @@ files.
   One warning: in this initial version, emacs' default behavior is
   followed, where different braces can match if there are unbalanced
   braces. Thus {these DO balance].
-. Added menu item Ado > New > Do-file
-. Updated help-file template to match the not-so-new way that Stata
+
+* Added menu item Ado > New > Do-file
+
+* Updated help-file template to match the not-so-new way that Stata
   likes its help files, using the synopt table for options before the
   Description section.
-. Changed the authorship routine so it is easier to not have any author
+
+* Changed the authorship routine so it is easier to not have any author
   (good for me working at Stata). There is a new flag
   ado-help-author-flag---if it is nil, the Author section will be
   deleted, otherwise the Author section will be included. The behavior
   of ado-signature-prompt-flag now makes more sense; if nil, the user
   will be prompted to give a signature file only if the signature file
   is missing. This will affect approximately 0 people.
-. If you have a .ado-signature file for filling in the authorship
+
+* If you have a .ado-signature file for filling in the authorship
   section of a sthlp file, you might need to change it. It should now
   just have your info, without any paragraph-mode items. 
   So... the following is good:
@@ -124,64 +157,83 @@ files.
     web: {browse "http://homepage.mac.com/brising":http://homepage.mac.com/brising}
   This will affect at least one person (me).
 1.11.1.1:
-. Added fontification for ado files in Stata's -sysdir- locations. So,
+
+* Added fontification for ado files in Stata's -sysdir- locations. So,
   for example, if you download the command -renvars-, -renvars- will now
   use have syntax highlighting in emacs. For this to work, you *must*
   run M-x customize-group RET ado-path to tell emacs what directories
   house your customizations. Look at the personal_scrap.el file for more
   help on doing this automatically. It's magical. Really. Since this is
   so magical, its features might change based on feedback. 
-. Added new functions ado-next-error and ado-prev-error, which search
+
+* Added new functions ado-next-error and ado-prev-error, which search
   for something indicating an error (in a text file, a non-zero return
   code, in a smcl file an {err} tag). If tracing is on, this will jump
   to the line creating the error rather than the tag or error code
   itself.
-. Fixed an embarrassing bug for using the comeback flag in windows. It
+
+* Fixed an embarrassing bug for using the comeback flag in windows. It
   looks like I didn't test it much originally, if at all.
 1.11.1.0:
-. Updated for Stata 11.1
-. Big internal change: got rid of make-regexps in favor of regexp-opt,
+
+* Updated for Stata 11.1
+
+* Big internal change: got rid of make-regexps in favor of regexp-opt,
   so that all called functions were part of standard emacs. Though
   make-regexps was nice to use, it was way out of date.
-. Split all the endless font-locking code into its own file, so that
+
+* Split all the endless font-locking code into its own file, so that
   others who would like to use it in their own packages will have an
   easier time. 
-. Fixed the silly *Async Shell Command* buffer problem when sending code
+
+* Fixed the silly *Async Shell Command* buffer problem when sending code
   to Stata in MS Windows.
-. Various highlighting bug fixes.
+
+* Various highlighting bug fixes.
 
 1.11.0.1:
-. Fixed a bug where sending code to Stata from MS Windows via a do-file
+
+* Fixed a bug where sending code to Stata from MS Windows via a do-file
   failed.
 
 1.11.0.0:
-. Added functionality for sending code to Stata in MS Windows. So...it
+
+* Added functionality for sending code to Stata in MS Windows. So...it
   is now possible to send code to Stata from both Mac OS X and MS
   Windows. The default keystroke is M-RET.
   (MS Windows note: when sending to Stata, *Async Shell Command* buffer
   will open. Since you cannot avoid this, just make the pane as small as
   possible. I cannot figure out how to get autoit's executable to run
   synchronously with emacs.)
-. Added functionality for getting help for commands directly from emacs.
+
+* Added functionality for getting help for commands directly from emacs.
   C-cC-c gets help for the command, C-cC-h gets help for word at point.
   Because these work via sending commands, they are also Mac/Win only.
-. Fixed highlighting for -estat classification- abbreviations
-. Fixed problems with spaces in paths when using ado-send-to-stata
-. Fixed some typos in the documentation of functions
-. Updated for Staga 11 commands, including new commands and marking
+
+* Fixed highlighting for -estat classification- abbreviations
+
+* Fixed problems with spaces in paths when using ado-send-to-stata
+
+* Fixed some typos in the documentation of functions
+
+* Updated for Staga 11 commands, including new commands and marking
   obsolete commands as such
-. Changed the templates to default to version 11
+
+* Changed the templates to default to version 11
 
 1.10.1.2:
-. (Finally) changed the update of the time stamp to not add the old
+
+* (Finally) changed the update of the time stamp to not add the old
 timestamp to the kill ring.
-. Fixed a bug where stripping comments failed when there were tabs as
+
+* Fixed a bug where stripping comments failed when there were tabs as
 part of the whitespace before the comment string. This could occur when
 lines were split. To shut off tabs when splitting lines, set
 indent-tabs-mode to nil.
 
 1.10.1.1: 
-. Added functionality for sending regions or commands to Stata, at least
+
+* Added functionality for sending regions or commands to Stata, at least
   inside Mac OS X(!). The design *should* make it possible to implement the
   same behavior in MS Windows or Unix, because the code for putting the proper
   information on the clipboard is written to be platform independent. The
@@ -198,74 +250,103 @@ indent-tabs-mode to nil.
   region if one is selected) and put it in the clipboard in a way the
   Commmand window can use it. All you need to do is paste into the
   Command window. 
-. Along with this functionality is the ability to get help from Stata
+
+* Along with this functionality is the ability to get help from Stata
   for the word at point. (ado-help-at-point, bound to C-c C-h, and
   ado-help-command, bound to C-c C-c)
-. A key binding has changed. Meta-Return now sends the
+
+* A key binding has changed. Meta-Return now sends the
   region/command to Stata, and Shift-Meta-Return splits a line.
   In OSes which don't work directly with Stata, Meta-Return will put 
   a version of the region or the command in which point is sitting on
   the clipboard, so it can be pasted in the command window.
-. Fixed up the methods for determining the type of file and the default
+
+* Fixed up the methods for determining the type of file and the default
   name. NOTE: for .ado or .class files, the name of the program or class
   must come in the first 200 characters of the file. Lesson: if you use a
   helper program in a do-file, be sure to wait a little before defining
   it. The 200-character cutoff is entirely arbitrary.
-. Added a newer (and better) definition of `how-many' to the ado-hacks.el
+
+* Added a newer (and better) definition of `how-many' to the ado-hacks.el
   file for users who haven't yet updated to emacs 22.1.1.
-. Added ado-new-ado for a new ado file. This is identical to ado-new-program. 
-. Added do.blp and ado-new-do to make do-files which both log and can be nested.
-. Added mata.blp and ado-new-mata to make mata definition files.
-. Fixed ado-new-generic to be smarter about naming new files (like mata files). 
-. Added new preference flag for updating timestamps... they now can be shut
+
+* Added ado-new-ado for a new ado file. This is identical to ado-new-program. 
+
+* Added do.blp and ado-new-do to make do-files which both log and can be nested.
+
+* Added mata.blp and ado-new-mata to make mata definition files.
+
+* Fixed ado-new-generic to be smarter about naming new files (like mata files). 
+
+* Added new preference flag for updating timestamps... they now can be shut
   off. This is accessible from the Ado-mode->Options menu, like all other
   flags for formatting.
-. Added new random number generating functions.
-. Finally made ado-insert-nice-current-date to interactively insert timestamps.
-. Finally put in leading * comment highlighting.
-. Updated the template for help files.
+
+* Added new random number generating functions.
+
+* Finally made ado-insert-nice-current-date to interactively insert timestamps.
+
+* Finally put in leading * comment highlighting.
+
+* Updated the template for help files.
 
 1.10.0.0: Added several bits of functionality suggested by Uli Kohler:
-. changed method for indenting so that do-files are properly indented:
+
+* changed method for indenting so that do-files are properly indented:
   the indentation is incremented by each defined program (program [define])
   and decremented by each end statement.
-. it is now possible to choose a default column for continuation strings in
+
+* it is now possible to choose a default column for continuation strings in
   similarly to that for comments. This column is respected by
   ado-split-line if ado-line-up-continuations is non-nil.
-. created ado-macify-selection-or-word which will put `' around the current
+
+* created ado-macify-selection-or-word which will put `' around the current
   selection. If nothing is selected, but the point is in a word, it
   will put `' around the current word. Finally if the point surrounded by
   whitespace it will insert `' and leave point inside the macro.
-. created ado-stringify-selection, which will put `""' around the current
+
+* created ado-stringify-selection, which will put `""' around the current
   selection (if any). If nothing is selected, inserts `""' and leaves the
   point inside the quotations.
-. created ado-strmacify-selection-or-word which macifies and then stringifies
+
+* created ado-strmacify-selection-or-word which macifies and then stringifies
   the object of interest.
 Other changes:
-. added Stata 10 commands, functions, and the like.
-. now try to highlight ++ and -- following local macro defs as obsolete, as
+
+* added Stata 10 commands, functions, and the like.
+
+* now try to highlight ++ and -- following local macro defs as obsolete, as
   a warning to people like me who forget that the incrementation must
   preceed the macro name.
-. changed indenting, so that mata: alone on a line will cause the
+
+* changed indenting, so that mata: alone on a line will cause the
   following lines to indent (until an end statement is found).
-. changed name of ado-help-file to ado-new-help.
-. added new customizable variable ado-help-extension which can be
+
+* changed name of ado-help-file to ado-new-help.
+
+* added new customizable variable ado-help-extension which can be
   toggled between its default of 'sthlp' and 'hlp' using 
   ado-toggle-help-extension.
-. added ado-new-cscript for starting cert scripts.
-. changed the menus a little to take advantage of contextual menus.
-. changed versioning numbers, but kept increasing sequence.
-. arbitrary bug fixes to some of the more complicated highlighting.
+
+* added ado-new-cscript for starting cert scripts.
+
+* changed the menus a little to take advantage of contextual menus.
+
+* changed versioning numbers, but kept increasing sequence.
+
+* arbitrary bug fixes to some of the more complicated highlighting.
 
 0.92.0: Added additional functions introduced in online updates. Some are
   from before the 20jan2006 update, sad to say. Fixed bug for indentation
   before special commands (like end or version). This changed the behavior
   of ado-beginning-of-command [M-a] to sit still when in a blank line when
   the delimiter is cr.
-. fixed bad fontification 
-.. of local when used as local ``foo'' with double quotes.   
-.. of tempvar, tempfile, tempname when followed by quoted local macro.
-. added code which runs if the user is using Aquamacs emacs. Not sure of
+
+* fixed bad fontification 
+** of local when used as local ``foo'' with double quotes.   
+** of tempvar, tempfile, tempname when followed by quoted local macro.
+
+* added code which runs if the user is using Aquamacs emacs. Not sure of
   the wisdom of having this in the main file, perhaps it will be broken out
   in the future. 
 
@@ -276,29 +357,37 @@ Other changes:
   of commands... but missing it will break emacs 21.whatever.
 
 0.91.1: Separated change history off.
-. changed format of new history entries
-. changed all my addresses to my new job forgot this in 0.91.0.
-. changed behavior for saving files to be more emacs-like.
-.. When saving a file under its old name, there is no confirmation, like usual
+
+* changed format of new history entries
+
+* changed all my addresses to my new job forgot this in 0.91.0.
+
+* changed behavior for saving files to be more emacs-like.
+** When saving a file under its old name, there is no confirmation, like usual
    emacs saving
-.. if ado-mode, ahem, corrects the file name *and* there is a saved file of that
+** if ado-mode, ahem, corrects the file name *and* there is a saved file of that
    name in the default directory already, it *will* prompt, to avoid mistaken
    overwrites. 
-.. thanks to Brendan Halpin for pointing this out
-. fixed some minor programming badness, such as using insert-file when
+** thanks to Brendan Halpin for pointing this out
+
+* fixed some minor programming badness, such as using insert-file when
   insert-file-contents was the proper command to use.
-. fixed and improved indentation, so that continued commands with embedded
+
+* fixed and improved indentation, so that continued commands with embedded
   comments are indented properly.
-. fixed bugs in indentation when using a semi-colon for the delimiter
-. changed method for comment indentation, so that /* and */ on different
+
+* fixed bugs in indentation when using a semi-colon for the delimiter
+
+* changed method for comment indentation, so that /* and */ on different
   lines will line up, with the text on in-between lines indented to one
   extra level of indentation. (requested by Patrick Ball) 
-. Mata changes
-.. added new faces for current mata keywords, future mata keywords, and
+
+* Mata changes
+** added new faces for current mata keywords, future mata keywords, and
    mata functions (though the mata function face defaults to the regular
    function face.
-.. included all the mata functions, as far as I can tell.
-.. did not change anything else with indentation for Mata functions.
+** included all the mata functions, as far as I can tell.
+** did not change anything else with indentation for Mata functions.
 
 0.91.0: Fixed highlighting to work with all new Stata commands
   except the new Mata commands. They will arrive in another update.
