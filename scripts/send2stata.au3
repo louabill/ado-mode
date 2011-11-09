@@ -171,12 +171,13 @@ Func createMenuItems(ByRef $theStataName, ByRef $tmpDoFile)
 EndFunc
 
 Func sendToCommand(ByRef $theStataName,byRef $theString)
-	$theString = StringRegExpReplace($theString,"([+{}!^#])","{\1}",0)
-;	msgbox(0,"hunh",$theString)
+;	$theString = StringRegExpReplace($theString,"([+{}!^#])","{\1}",0)
+	msgbox(0,"hunh",$theString)
 ;;  following 2 lines suggested by code from Jeffery Arnold and Matthew Botsch
+;;    they look a lot like the lines I had commented out before
 	ControlSetText($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString)
 	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", "{ENTER}")	
-;;	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString & "{ENTER}")
+;	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString & "{ENTER}")
 ;	ControlSetText($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString)
 ;	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", "{ENTER}")
 	if @error Then
