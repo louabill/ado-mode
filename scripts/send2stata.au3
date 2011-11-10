@@ -172,7 +172,7 @@ EndFunc
 
 Func sendToCommand(ByRef $theStataName,byRef $theString)
 ;	$theString = StringRegExpReplace($theString,"([+{}!^#])","{\1}",0)
-	msgbox(0,"hunh",$theString)
+;	msgbox(0,"hunh",$theString)
 ;;  following 2 lines suggested by code from Jeffery Arnold and Matthew Botsch
 ;;    they look a lot like the lines I had commented out before
 	ControlSetText($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString)
