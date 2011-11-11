@@ -98,7 +98,7 @@ send2stata.scpt is stored. "
 	 (t (message (concat "working via " dothis "s not supported yet in " 
 						 (symbol-name system-type)
 						 (if (string= dothis "command")
-							 ", but you can paste the command in the command window by hand"))))))
+							 ", but the command is on the clipboard and you can paste it in the command window by hand"))))))
    (t (error "Bad value for 'do-this' in ado-send-region-to-stata"))
    )
   ;; comeback cannot be done in applescript very well
