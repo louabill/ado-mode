@@ -42,6 +42,7 @@
 (require 'ado-clip)
 (require 'ado-to-stata)
 (require 'ado-font-lock) ;; all the font-lock definitions
+(require 'ado-scratch) ;; !! remove before distibuting!
 
 ;;; putting in the proper extensions for using the ado-mode
 (if (assoc "\\.ado$" auto-mode-alist) nil
