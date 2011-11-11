@@ -1,5 +1,18 @@
 Version History:
 ---------------
+1.12.0.1:
+
+* Added two new commands for opening any file on the adopath (think:
+  editing in place of -viewsource-): ado-open-command (C-c C-e), which
+  tries to identify the current command and open its ado-file, and
+  ado-open-any-file (C-c M-e) which will open any file. By default,
+  these files are opened in read-only mode, to protect against
+  accidental editing. This behavior can be customized (and set
+  temporarily in the Ado-mode > Options menu).
+
+* Fixed a bug where submitting the whole buffer would submit only the
+  current command if the buffer was dirty.
+
 1.12.0.0:
 
 * Updated for Stata 12

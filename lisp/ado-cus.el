@@ -62,12 +62,7 @@
 (defgroup ado-path nil
   "Locations of directories appearing in your ado-path. Used to add
 syntax highlighting for user-written commands."
-  :tag "Adopath information"
-  :group 'ado)
-
-(defgroup ado-save-behavior nil
-  "How ado-mode behaves when saving files."
-  :tag "Ado save behavior"
+  :tag "adopath information"
   :group 'ado)
 
 (defgroup ado-help-info nil
@@ -78,6 +73,11 @@ syntax highlighting for user-written commands."
 (defgroup ado-stata-interaction nil
   "How to work when passing information to Stata."
   :tag "Ado-stata interaction"
+  :group 'ado)
+
+(defgroup ado-everthing-else nil
+  "Everything else, the dreaded miscellaneous category."
+  :tag "Ado miscellaneous"
   :group 'ado)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -191,6 +191,12 @@ know what you are doing...and I don't know when this should be set."
   "A directory of useful value labels for a particular user." 
   :type '(choice (const nil) directory)
   :group 'ado-files)
+
+(defcustom ado-open-read-only-flag t
+  "Controls whether files opened from along the adopath shold be opened
+as read-only. This defaults to t, to be safe."
+  :type 'boolean
+  :group 'ado-everything-else)
 
 ;; a couple of variables needed for help files.
 (defcustom ado-signature-file nil
