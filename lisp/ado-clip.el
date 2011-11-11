@@ -92,7 +92,10 @@ is done by \\[ado-strip-comments]"
 	(unless use-dofile
 	  (setq use-dofile "command"))
 	(let ((x-select-enable-clipboard t)
-		  (theString (ado-grab-something -1))
+		  (theString
+		   (if whole-buffer
+			   (ado-grab-something -2)
+			 (ado-grab-something -1)))
 		  )
 	  (if (string= use-dofile "command")
 		  (setq theString (ado-strip-comments theString)))
