@@ -6692,39 +6692,52 @@ Not implemented as much more than an experiment. ")
   "Adds/updates highlighting for all ado files in `ado-plus-dir'.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
-updated appropriately."
+updated appropriately. If `ado-plus-dir' is not set, it gets set using
+the function `ado-reset-plus-dir'."
   (interactive)
+  (unless ado-plus-dir
+	(ado-reset-plus-dir))
   (ado-modify-font-lock-keywords 'plus (directory-file-name ado-plus-dir) ''ado-plus-harmless-face))
 
 (defun ado-add-personal ()
   "Adds/updates highlighting for all ado files in `ado-personal-dir'.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
-updated appropriately."
+updated appropriately. If `ado-personal-dir' is not set, it gets set using
+the function `ado-reset-personal-dir'."
   (interactive)
+  (unless ado-personal-dir
+	(ado-reset-personal-dir))
   (ado-modify-font-lock-keywords 'personal (directory-file-name ado-personal-dir) ''ado-personal-harmless-face))
 
 (defun ado-add-oldplace ()
   "Adds/updates highlighting for all ado files in `ado-oldplace-dir'.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
-updated appropriately."
+updated appropriately. If `ado-oldplace-dir' is not set, it gets set using
+the function `ado-reset-oldplace-dir'."
   (interactive)
+  (unless ado-oldplace-dir
+	(ado-reset-oldplace-dir))
   (ado-modify-font-lock-keywords 'oldplace (directory-file-name ado-oldplace-dir) ''ado-oldplace-harmless-face))
 
 (defun ado-add-site ()
   "Adds/updates highlighting for all ado files in `ado-site-dir'.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
-updated appropriately."
+updated appropriately. If `ado-site-dir' is not set, it gets set using
+the function `ado-reset-site-dir'."
   (interactive)
+  (unless ado-site-dir
+	(ado-reset-site-dir))
   (ado-modify-font-lock-keywords 'site (directory-file-name ado-site-dir) ''ado-site-harmless-face))
 
 (defun ado-remove-personal ()
   "Removes highlighting for all ado files in `ado-personal-dir'.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
-updated appropriately."
+updated appropriately. If `ado-personal-dir' is not set, it gets set using
+the function `ado-reset-personal-dir'."
   (interactive)
   (ado-modify-font-lock-keywords 'personal (directory-file-name ado-personal-dir) ''ado-personal-harmless-face t))
 

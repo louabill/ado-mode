@@ -42,6 +42,7 @@
 (require 'ado-clip)
 (require 'ado-to-stata)
 (require 'ado-font-lock) ;; all the font-lock definitions
+(require 'ado-stata-info) ;; gathering info from Stata
 
 ;;; putting in the proper extensions for using the ado-mode
 (if (assoc "\\.ado$" auto-mode-alist) nil
@@ -120,31 +121,33 @@
 (define-key ado-mode-map [(meta return)] 'ado-send-command-to-stata)
 (define-key ado-mode-map [(meta control return)] 'ado-send-buffer-to-stata)
 (define-key ado-mode-map [(meta shift return)] 'ado-split-line)
-(define-key ado-mode-map "\C-c\C-a" 'ado-mode)
-(define-key ado-mode-map "\C-c\C-b" 'ado-grab-block)
-(define-key ado-mode-map "\C-c\C-c" 'ado-help-command)
-(define-key ado-mode-map "\C-c\C-d" 'ado-new-help)
-(define-key ado-mode-map "\C-c\C-e" 'ado-open-command)
-(define-key ado-mode-map "\C-c\C-f" 'ado-foreach-loop)
-(define-key ado-mode-map "\C-c\C-h" 'ado-help-at-point)
-(define-key ado-mode-map "\C-c\C-i" 'ado-insert-new-program)
-(define-key ado-mode-map "\C-c\C-j" 'ado-strmacify-selection-or-word)
-(define-key ado-mode-map "\C-c\C-l" 'ado-new-label)
-(define-key ado-mode-map "\C-c\C-m" 'ado-macify-selection-or-word)
-(define-key ado-mode-map "\C-c\C-n" 'ado-new-program)
-(define-key ado-mode-map "\C-c\C-s" 'ado-stringify-selection)
-(define-key ado-mode-map "\C-c\C-t" 'ado-input-to-stata)
-(define-key ado-mode-map "\C-c\C-v" 'ado-forvalues-loop)
-(define-key ado-mode-map "\C-c\M-b" 'ado-send-block-to-stata)
-(define-key ado-mode-map "\C-c\M-e" 'ado-open-any-file)
-(define-key ado-mode-map "\M-a"     'ado-beginning-of-command)
-(define-key ado-mode-map "\M-e"     'ado-end-of-command)
+(define-key ado-mode-map "\C-c\C-a"   'ado-mode)
+(define-key ado-mode-map "\C-c\C-b"   'ado-grab-block)
+(define-key ado-mode-map "\C-c\M-b"   'ado-send-block-to-stata)
+(define-key ado-mode-map "\C-c\C-c"   'ado-help-command)
+(define-key ado-mode-map "\C-c\C-d"   'ado-new-help)
+(define-key ado-mode-map "\C-c\C-e"   'ado-foreach-loop)
+(define-key ado-mode-map "\C-c\C-f"   'ado-open-any-file)
+(define-key ado-mode-map "\C-c\M-f"   'ado-open-command)
+(define-key ado-mode-map "\C-c\C-h"   'ado-help-at-point)
+(define-key ado-mode-map "\C-c\C-i"   'ado-insert-new-program)
+(define-key ado-mode-map "\C-c\C-j"   'ado-strmacify-selection-or-word)
+(define-key ado-mode-map "\C-c\C-l"   'ado-new-label)
+(define-key ado-mode-map "\C-c\C-m"   'ado-macify-selection-or-word)
+(define-key ado-mode-map "\C-c\C-n"   'ado-new-program)
+(define-key ado-mode-map "\C-c\C-o"   'ado-open-any-file)
+(define-key ado-mode-map "\C-c\M-o"   'ado-open-command)
+(define-key ado-mode-map "\C-c\C-s"   'ado-stringify-selection)
+(define-key ado-mode-map "\C-c\C-t"   'ado-input-to-stata)
+(define-key ado-mode-map "\C-c\C-v"   'ado-forvalues-loop)
+(define-key ado-mode-map "\M-a"       'ado-beginning-of-command)
+(define-key ado-mode-map "\M-e"       'ado-end-of-command)
 ;;(define-key ado-mode-map "\C-c;"    'comment-region)
 ;;(define-key ado-mode-map "\C-c:"    'uncomment-region)
-(define-key ado-mode-map "\C-x\C-s" 'ado-save-program)
-(define-key ado-mode-map "{"        'electric-ado-brace)
-(define-key ado-mode-map "}"        'electric-ado-closing-brace)
-(define-key ado-mode-map ";"        'electric-ado-semi)
+(define-key ado-mode-map "\C-x\C-s"   'ado-save-program)
+(define-key ado-mode-map "{"          'electric-ado-brace)
+(define-key ado-mode-map "}"          'electric-ado-closing-brace)
+(define-key ado-mode-map ";"          'electric-ado-semi)
 
 ;;; menu bar definitions
 (define-key ado-mode-map [menu-bar] (make-sparse-keymap))
@@ -180,8 +183,20 @@
   '("Stringify Selection" . ado-stringify-selection))
 (define-key ado-mode-map [menu-bar ado macify-word]
   '("Macify Word or Selection" . ado-macify-selection-or-word))
+(define-key ado-mode-map [menu-bar ado l0]
+  '(menu-item "--single-line"))
+(define-key ado-mode-map [menu-bar ado ado-end-of-command]
+  '("Go to end of command" . ado-end-of-command))
+(define-key ado-mode-map [menu-bar ado ado-beginning-of-command]
+  '("Go to beginning of command" . ado-beginning-of-command))
+(define-key ado-mode-map [menu-bar ado l_1]
+  '(menu-item "--single-line"))
 (define-key ado-mode-map [menu-bar files save-buffer]
   '("Save buffer" . ado-save-program))
+(define-key ado-mode-map [menu-bar ado save-program]
+  '("Save buffer" . ado-save-program))
+
+
 
 ;; submenu New
 (define-key ado-mode-map [menu-bar ado new ado-new-label]
@@ -1849,96 +1864,6 @@ being sure to include loop-inducing commands."
   (interactive)
   (ado-grab-block)
   (ado-send-command-to-stata))
-
-
-;;; things for jumping to other commands, help files and the like
-(defun ado-ask-filename ()
-  (interactive)
-  (read-from-minibuffer "What file? "))
-
-(defun ado-open-command ()
-  (interactive)
-  (ado-open-file-on-adopath (ado-grab-something 0))
-  )
-
-(defun ado-open-any-file ()
-  (interactive)
-  (ado-open-file-on-adopath (ado-ask-filename)))
-
-(defun ado-open-file-on-adopath (filename &optional tmpbuffer)
-  (interactive)
-  (unless ado-stata-home
-	(error "You need to set ado-stata-home to open files on the adopath"))
-  (let ((stataDir (file-name-as-directory ado-stata-home))
-		(currentDir (file-name-as-directory (expand-file-name ".")))
-		theStata fullStata theFile tmpDir tmpLog)
-	(unless tmpbuffer
-	  (setq tmpbuffer " *stata log*")) ;; space needed to stop undo storage
-	;; check for extension
-	(unless (file-name-extension filename)
-	  (setq filename (concat filename ".ado")))
-	;; figure out which stata to run
-	(cond 
-	 ((string= system-type "darwin")
-	  (setq theStata
-		  (if (file-directory-p (concat stataDir "Stata.app")) "Stata"
-			(if (file-directory-p (concat stataDir "StataSE.app")) "StataSE"
-			  (if (file-directory-p (concat stataDir "StataMP.app")) "StataMP"
-					  (error "Could not find Stata")))))
-	;; because lots of irritating single parens bother me
-	  (setq fullStata 
-			(concat 
-			 (file-name-as-directory
-			  (concat 
-			   (file-name-as-directory
-				(concat 
-				 (file-name-as-directory 
-				  (concat stataDir theStata ".app")) 
-				 "Contents"))
-			   "MacOS"))
-			 theStata))
-	  (setq tmpDir 
-			(ado-strip-after-newline 
-			 (shell-command-to-string "getconf DARWIN_USER_TEMP_DIR")))
-	 	;; (message "%s" (concat "The full stata path is -->" fullStata "<--"))
-	  (shell-command (concat "cd " tmpDir " ; " fullStata " -q -b -e  findfile " filename))
-	)
-	 ((string= system-type "windows-nt")
-	  (setq theStata
-		  (if (file-exists-p (concat stataDir "Stata.exe")) "Stata"
-			(if (file-exists-p (concat stataDir "StataSE.exe")) "StataSE"
-			  (if (file-exists-p (concat stataDir "StataMP.exe")) "StataMP"
-					  (error "Could not find Stata")))))
-	  (setq tmpDir (getenv "TEMP"))
-	  (shell-command (concat "cd %TEMP% & \"" stataDir theStata ".exe\" /q /e findfile " filename))
-	  ; (message "%s" (concat "\"" stataDir theStata ".exe\" /q /e findfile " filename)))
-	  )
-	 (t (error "Nothing for unix yet")))
-	(setq tmpLog (concat (file-name-as-directory tmpDir) "stata.log"))
-	(save-excursion
-	  (set-buffer (get-buffer-create tmpbuffer))
-	  (insert-file-contents tmpLog nil nil nil t)
-	  (if (string= system-type "windows-nt")
-		  (progn
-			(goto-char (point-min))
-			(while (search-forward "\\" nil t)
-			  (replace-match "/"))
-			))
-	  (goto-char (point-max))
-	  (forward-line -1)
-	  (if (search-forward filename (point-at-eol) t)
-		  (setq theFile (ado-strip-after-newline (thing-at-point 'line))))
-	  )
-	(kill-buffer tmpbuffer)
-	; (delete-file tmpLog) ;; left hanging around for checking
-	(unless theFile
-	  (cd currentDir)
-	  (error (concat "File " filename " not found on adopath"))
-	  )
-	(if ado-open-read-only-flag
-		(find-file-read-only theFile)
-	  (find-file theFile))
-	))
 
 (defun ado-strip-after-newline (theString)
   (interactive)

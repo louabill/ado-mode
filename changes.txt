@@ -3,12 +3,21 @@ Version History:
 1.12.0.1:
 
 * Added two new commands for opening any file on the adopath (think:
-  editing in place of -viewsource-): ado-open-command (C-c C-e), which
-  tries to identify the current command and open its ado-file, and
-  ado-open-any-file (C-c M-e) which will open any file. By default,
-  these files are opened in read-only mode, to protect against
-  accidental editing. This behavior can be customized (and set
-  temporarily in the Ado-mode > Options menu).
+  editing in place of -viewsource-): ado-open-command, which tries to
+  identify the current command and open its ado-file, and
+  ado-open-any-file which will open any file. By default, these files
+  are opened in read-only mode, to protect against accidental editing.
+  This behavior can be customized as usual, and can be set temporarily
+  in the Ado-mode > Options menu.
+
+* Added/Changed some keybindings:
+  C-c C-o and C-c C-f allow you to open any file on your default adopath.
+  C-c M-o and C-c M-f allow you to open the current command.
+  C-c C-e is the new binding for inserting a -foreach- loop.
+
+* Added commands for (re)setting the named parts of the adopath to their
+  values at the start of a Stata session: ado-reset-personal-dir,
+  ado-reset-plus-dir, etc.
 
 * Fixed a bug where submitting the whole buffer would submit only the
   current command if the buffer was dirty.
