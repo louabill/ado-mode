@@ -58,8 +58,8 @@ Not implemented as much more than an experiment. ")
    (list
     ;; nested quotes
 	(list "\\(`\".*?\"'\\)" '(1 ado-string-face t))
-	;; simple *-style comments
-	(list "^[ \t]*\\([*].*\\)" '(1 ado-comment-face t))
+	;; simple *-style comments; w/o the [^/\n] term, old continuations fail
+	(list "^[ \t]*\\([*][^/\n].*\\)" '(1 ado-comment-face t))
     ;; special highlighting
 	 ;; starting a mata program; not allowing comments, though
 	(list "^[ \t]*\\(mata\\)\\(:\\)[ \t]*$" 
