@@ -1005,6 +1005,7 @@ instead, which returns a value instead of setting a variable."
 	(message (concat "I think the extension is " (ado-find-extension))
 	))
 
+
 (defun ado-find-extension (&optional message)
   "Decides from the file contents what the extension should be. Since Stata
 has started getting more complicated, will fall back to the current file
@@ -1019,39 +1020,26 @@ if confused. Returns its best guess at the extension."
 	(setq sez-contents
 		  (save-excursion
 			(goto-char (point-min))
-			(ado-skip-special-comments)
+			(ado-skip-header-lines) ;; skips special header lines
 			(cond
 			 ((looking-at "{smcl}")
 			  (if (ado-find-help-name-start)
 				  ado-help-extension
 				"smcl"))
-;; 			 ((and
-;; 			   (looking-at "------")
-;; 			   (progn
-;; 				 (forward-line)
-;; 				 (beginning-of-line)
-;; 				 (looking-at "[ \t]*log:")))
-;; 			  "log")
 			 ((re-search-forward "^class[ \t]+" nil t) "class")
 			 ((re-search-forward "^[ \t]*DIALOG" nil t) "dlg")
 			 ;; the rest depend on where first occurances are
-			 (t
-			  (progn
-				;; skips past all the consecutive *! and version lines
-				(ado-skip-header-lines)
-				;; looks for program define on the current line
-				(cond
-					((re-search-forward "^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+\\(de\\(f\\|fi\\|fin\\|fine\\)[ \t]+\\)*" (point-at-eol) t)
+			 ((re-search-forward "^p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+\\(d\\(e\\|ef\\|efi\\|efin\\|efine\\)[ \t]+\\)?" (point-at-eol) t)
 					 "ado")
-				  ((re-search-forward "^[ \t]*mata[ \t]*:[ \t]*$" (point-at-eol t))
+			 ((re-search-forward "^[ \t]*mata[ \t]*:[ \t]*$" (point-at-eol) t)
 				   "mata")
-				  (t "do"))
+			 (t "do"))
 				;; (if first-program
 				;; 	(if first-mata
 				;; 		(if (< first-program first-mata) "ado" "mata")
 				;; 	  "ado")
 				;;   (if first-mata "mata" "do"))
-				)))))
+			))
 	;; rule the file extension as correct automatically
 	(if sez-file
 		(progn
@@ -1090,6 +1078,26 @@ cannot be determined from the file contents."
 		)))
 
 (defun ado-find-help-name-start ()
+  "Returns the point at which the command documented in a help file starts.
+Need a function for this, because this location changed drastically between
+Stata versions 11 and 12."
+  (interactive)
+	;; first find where Title and Syntax are, since these are bounds for searches
+  (let ((debug-on-error t)) ; titlepos syntaxpos (name-start nil))
+	(save-excursion
+	  (goto-char (point-min))
+	  (cond 
+	   ((search-forward-regexp "{manlink[ \t]+.*?[ \t]+" nil t)
+		(point)) ;; have name-start set properly already from official Stata help
+	   ((re-search-forward "{\\(bf\\|cmd\\|hi\\):help[ \t]+" nil t)
+		(point)) ;; name-start set properly by Stata 11 official help and some old help files
+	   ((search-forward "help for " nil t) ; very old help
+		(re-search-forward "{\\(bf\\|cmd\\|hi\\):" nil t))
+	   (t nil))
+	  )))
+
+
+(defun ado-find-help-name-start-defunct ()
   "Returns the point at which the command documented in a help file starts.
 Need a function for this, because this location changed drastically between
 Stata versions 11 and 12."
@@ -1182,12 +1190,6 @@ and indenting"
   (beginning-of-line)
   (and (search-forward "*/" (point-at-eol) t)
        (not (search-backward "/*" (point-at-bol) t)))))
-
-(defun ado-eraseme ()
-  (interactive)
-  (if (looking-at "end")
-      (message "At end")
-    (message "Not at end")))
 
 (defun ado-out-of-nested-comment (&optional top from-level)
   (interactive)
@@ -1889,11 +1891,13 @@ they run out. Used to find the beginning of programs."
 	(goto-char (point-at-bol))))
 
 (defun ado-skip-header-lines ()
-  "Skips *! comments and empty lines from the current line until 
-they run out. Used to find the beginning of programs."
+  "Skips * and *! comments, empty lines, and capture program drop lines 
+from the current line until they run out. Used to find the beginning of 
+programs, even those defined in a funky way."
   (interactive)
   (goto-char (point-at-bol))
-  (while (re-search-forward "^[ \t]*\\([*]!\\|$\\|vers\\|versi\\|version\\)" (point-at-eol) t)
+  (while (and (< (point) (point-max))
+	(re-search-forward "^[ \t]*\\([*]\\|$\\|vers\\|versi\\|version\\|\\(ca\\(p\\|pt\\|ptu\\|ptur\\|pture\\)[ \t]+p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+drop\\)\\)" (point-at-eol) t))
 	(forward-line)
 	(goto-char (point-at-bol))))
 			 
