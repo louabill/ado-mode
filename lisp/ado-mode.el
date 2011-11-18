@@ -1187,9 +1187,9 @@ and indenting"
 (defun ado-line-starts-with-end-comment ()
   (interactive)
   (save-excursion
-  (beginning-of-line)
-  (and (search-forward "*/" (point-at-eol) t)
-       (not (search-backward "/*" (point-at-bol) t)))))
+	(beginning-of-line)
+	(and (search-forward "*/" (point-at-eol) t)
+		 (not (search-backward "/*" (point-at-bol) t)))))
 
 (defun ado-out-of-nested-comment (&optional top from-level)
   (interactive)
@@ -1230,18 +1230,14 @@ and indenting"
 				(and (not ado-close-under-line-flag) (looking-at "}"))
 				(looking-at "ver\\(s\\|si\\|sio\\|sion\\)"))	  
 		(setq depth (1- depth)))
-	;; *! should be before the first prgram define
-	;;		  (looking-at "*!")
-	;; (looking-at "pause")) really should be slammed left
-;;	(setq depth (1+ depth))))
 	  (end-of-line)
 	  (setq depth (- depth (how-many "^[ \t]*\\(end$\\|end[ \t]+\\)" 1 (point))))
 	  ;;      (setq depth (- depth (how-many "^[ \t]*end$" 1 (point))))
 	  (beginning-of-line)
       ;; words which start blocks
 	  ;; need to be careful, because of program dir, drop, and list
-      (setq depth (+ depth (how-many "^[ \t]*\\(\\(input\\|p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)\\)[ \t]+\\|mata:[ \t]*$\\)" 1 (point))))
-		(setq depth (- depth (how-many "^[ \t]*p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+\\(d\\(i\\|ir\\)[ \t]*$\\|\\(drop\\|l\\|li\\|lis\\|list\\)[ \t]*\\)" 1 (point))))
+      (setq depth (+ depth (how-many "^[ \t]*\\(input[ \t]+\\|\\(p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)\\([ \t]+d\\(ef\\|efi\\|efin\\|efine\\)\\)?\\)[ \t]+\\|mata:[ \t]*$\\)" 1 (point))))
+		(setq depth (- depth (how-many "^[ \t]*p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+\\(\\(d\\(i\\|ir\\)\\|\\(l\\|li\\|lis\\|list\\)[ \t]*$\\)\\|drop[ \t]+\\)" 1 (point))))
       ;; words which end blocks
       (setq ppsexp (parse-partial-sexp start (point)))
       (if (numberp (nth 4 ppsexp))
