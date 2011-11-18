@@ -1019,6 +1019,7 @@ if confused. Returns its best guess at the extension."
 	(setq sez-contents
 		  (save-excursion
 			(goto-char (point-min))
+			(ado-skip-special-comments)
 			(cond
 			 ((looking-at "{smcl}")
 			  (if (ado-find-help-name-start)
@@ -1036,14 +1037,20 @@ if confused. Returns its best guess at the extension."
 			 ;; the rest depend on where first occurances are
 			 (t
 			  (progn
-				;; searches through the first 200 characters. this is arbitrary
-				(setq first-program (re-search-forward "^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+\\(de\\(f\\|fi\\|fin\\|fine\\)[ \t]+\\)*" 200 t))
-				(setq first-mata (re-search-forward "^[ \t]*mata[ \t]*:[ \t]*$" 200 t))
-				(if first-program
-					(if first-mata
-						(if (< first-program first-mata) "ado" "mata")
-					  "ado")
-				  (if first-mata "mata" "do"))
+				;; skips past all the consecutive *! and version lines
+				(ado-skip-header-lines)
+				;; looks for program define on the current line
+				(cond
+					((re-search-forward "^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+\\(de\\(f\\|fi\\|fin\\|fine\\)[ \t]+\\)*" (point-at-eol) t)
+					 "ado")
+				  ((re-search-forward "^[ \t]*mata[ \t]*:[ \t]*$" (point-at-eol t))
+				   "mata")
+				  (t "do"))
+				;; (if first-program
+				;; 	(if first-mata
+				;; 		(if (< first-program first-mata) "ado" "mata")
+				;; 	  "ado")
+				;;   (if first-mata "mata" "do"))
 				)))))
 	;; rule the file extension as correct automatically
 	(if sez-file
@@ -1872,6 +1879,24 @@ being sure to include loop-inducing commands."
 	theString)
   )
 
+(defun ado-skip-special-comments ()
+  "Skips *! comments and empty lines from the current line until 
+they run out. Used to find the beginning of programs."
+  (interactive)
+  (goto-char (point-at-bol))
+  (while (re-search-forward "^\\([*]!\\|[ \t]*$\\)" (point-at-eol) t)
+	(forward-line)
+	(goto-char (point-at-bol))))
+
+(defun ado-skip-header-lines ()
+  "Skips *! comments and empty lines from the current line until 
+they run out. Used to find the beginning of programs."
+  (interactive)
+  (goto-char (point-at-bol))
+  (while (re-search-forward "^[ \t]*\\([*]!\\|$\\|vers\\|versi\\|version\\)" (point-at-eol) t)
+	(forward-line)
+	(goto-char (point-at-bol))))
+			 
 ;;; Aquamacs emacs specifics (perhaps should be broken out?)
 (if (boundp 'aquamacsxb-version)
     (define-key ado-mode-map [remap mac-key-save-file] 'ado-save-program))
