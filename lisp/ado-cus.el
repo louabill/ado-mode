@@ -408,7 +408,7 @@ The four options differ in how they populate the Review window
 (and hence any cmdlog):
   \"command\" puts the command(s) in the Review window
   \"dofile\" puts a 'do ...' command in the Review window
-  \"dofile\" puts an 'include ...' command in the Review window
+  \"include\" puts an 'include ...' command in the Review window
   \"menu\" puts nothing in the Review window.
 One note: \"menu\" does not work for Stata 10 and earlier. This
 does not seem to be much of a loss."
@@ -425,12 +425,14 @@ overlap."
   :type 'boolean
   :group 'ado-stata-interaction)
 
-(defcustom ado-stata-home nil
+(defcustom ado-stata-home 
+  (cond ((string= system-type "darwin") "/Applications/Stata/")
+		((string= system-type "windows-nt") "C:/Program Files/Stata12/")
+		(t "/usr/local/stata12"))
   "Set to the location of your Stata executable(s) if you want
-Emacs to launch a particular Stata when the first code is sent.
-Can be nil if you always launch Stata before sending code from
-Emacs. If set, this must be the name of a folder not the actual
-Stata executable itself."
+Emacs to launch a particular version of Stata for setting your 
+adopath or if you always launch Stata before sending code from
+Emacs. Defaults to the the typical install location for Stata 12."
   :type '(choice (const nil) directory)
   :group 'ado-stata-interaction)
 
