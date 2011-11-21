@@ -73,6 +73,7 @@ from a new Stata sesson."
 	  (error "You need to set ado-stata-home to open files on the adopath")))
   (let ((stataDir (file-name-as-directory lookhere))
 		theStata)
+	(message (concat "ado-find-stata found a home: " lookhere))
 	(cond 
 	 ((string= system-type "darwin")
 	  (setq theStata
@@ -97,33 +98,43 @@ from a new Stata sesson."
 	  )
 	 ((string= system-type "windows-nt")
 	  (cond
-	   ((file-directory-p (concat stataDir "Stata.exe")) "Stata")
-	   ((file-directory-p (concat stataDir "StataSE.exe")) "StataSE")
-	   ((file-directory-p (concat stataDir "StataMP.exe")) "StataMP")
+	   ((file-exists-p (concat stataDir "Stata.exe")) (concat stataDir "Stata"))
+	   ((file-exists-p (concat stataDir "StataSE.exe")) (concat stataDir "StataSE.exe"))
+	   ((file-exists-p (concat stataDir "StataMP.exe")) (concat stataDir "StataMP.exe"))
 	   (t (error (concat "Could not find any Stata in " lookhere))))
 	  )
 	 (t (error "Nothing for unix yet")))
 	))
 
-(defun eraseme ()
+
+(defun ado-show-stata ()
   (interactive)
-  (message (concat "Found: " (ado-get-filename-from-stata "display" "c(sysdir_oldplace)"))))
+  (message (concat "Found: " (ado-find-stata)))
+  )
+
+(defun ado-show-tmp-dir ()
+  (interactive)
+  (message (concat "Found: " (ado-system-tmp-dir)))
+  )
 
 (defun ado-system-tmp-dir ()
+  "Returns the temporary directory used by the OS for the user.
+This is returned as a true directory name using `file-name-as-directory'
+so it can be `concat'ted directly with a file name."
   (interactive)
 	(cond 
 	 ((string= system-type "darwin")
 	  (ado-strip-after-newline 
-	   (shell-command-to-string "getconf DARWIN_USER_TEMP_DIR")))
+	   (file-name-as-directory (shell-command-to-string "getconf DARWIN_USER_TEMP_DIR"))))
 	 ((string= system-type "windows-nt")
-	  (getenv "TEMP"))
+	  (file-name-as-directory (getenv "TEMP")))
 	 (t (error "Nothing for unix yet")))
 	)
 
 (defun ado-get-filename-from-stata (theCommand theArgs)
   (interactive)
   (let ((tmpBuffer " *stata log*")
-		theFile)
+		theFile tmpLog)
 	(cond 
 	 ((string= system-type "darwin")
 	  (shell-command 
@@ -133,7 +144,7 @@ from a new Stata sesson."
 	 ((string= system-type "windows-nt")
 	  (shell-command 
 	   (concat "cd " (ado-system-tmp-dir) " & \"" 
-			   (ado-find-stata) "\" /q /e  " theCommand "\" \"" theArgs "\""))
+			   (ado-find-stata) "\" /q /e  " theCommand " \"" theArgs "\""))
 	  )
 	 (t (error "Nothing for unix yet")))
 	(setq tmpLog (concat (ado-system-tmp-dir) "stata.log"))
