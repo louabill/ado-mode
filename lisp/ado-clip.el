@@ -53,33 +53,35 @@ As of yet, only -2, -1, and 0 actually are implemented."
 	(if (and mark-active t
 			 (not (= (region-beginning) (region-end))))
 		(buffer-substring-no-properties (region-beginning) (region-end))
-	  (if what-code
-		  (if (= what-code -2)
-			  (filter-buffer-substring (point-min) (point-max) nil t)
-			(if (= what-code -1) ;; grab entire command
-			  (let ((start-here
-					 (save-excursion
-					   (ado-beginning-of-command)
-					   (point)))
-					(end-here
-					 (save-excursion
-					   (ado-end-of-command)
-					   (point)))
-					(x-select-enable-clipboard t))
-				(filter-buffer-substring start-here end-here nil t))
-			  ;; what-code is 0
-			  (let ((end-here
-					 (save-excursion
-					   (ado-end-of-command)
-					   (point))))
-				(save-excursion
-				  (ado-beginning-of-command)
-				  (while (search-forward-regexp ".*:" end-here t))
-				  (skip-chars-forward " /t")
-				  (word-at-point)
-				  ))))
-		;; what-code is nil; 
+	  (cond
+	   ((not what-code)
 		(word-at-point))
+	   ((= what-code -2) 
+		(filter-buffer-substring (point-min) (point-max) nil t))
+	   ((= what-code -1) ;; grab entire command
+		(let ((start-here
+			   (save-excursion
+				 (ado-beginning-of-command)
+				 (point)))
+			  (end-here
+			   (save-excursion
+				 (ado-end-of-command)
+				 (point)))
+			  (x-select-enable-clipboard t))
+		  (filter-buffer-substring start-here end-here nil t)))
+	   ((= what-code 0) ;; grab entire command
+		(let ((end-here
+			   (save-excursion
+				 (ado-end-of-command)
+				 (point))))
+		  (save-excursion
+			(ado-beginning-of-command)
+			(while (search-forward-regexp ".*:" end-here t))
+			(skip-chars-forward " /t")
+			(word-at-point)
+			)))
+	   (t (error "ado-grab-something: argument must be nil, 0, -1, or -2"))
+		)
 	  )))
 
 (defun ado-command-to-clip (&optional use-dofile whole-buffer)
@@ -97,6 +99,10 @@ is done by \\[ado-strip-comments]"
 			   (ado-grab-something -2)
 			 (ado-grab-something -1)))
 		  )
+	  (unless theString
+		(if whole-buffer
+			(error "Buffer is empty")
+		  (error "No command found")))
 	  (if (string= use-dofile "command")
 		  (setq theString (ado-strip-comments theString)))
 	  (funcall interprogram-cut-function theString)
