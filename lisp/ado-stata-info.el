@@ -73,7 +73,7 @@ from a new Stata sesson."
 	  (error "You need to set ado-stata-home to open files on the adopath")))
   (let ((stataDir (file-name-as-directory lookhere))
 		theStata)
-	(message (concat "ado-find-stata found a home: " lookhere))
+	;; (message (concat "ado-find-stata found a home: " lookhere))
 	(cond 
 	 ((string= system-type "darwin")
 	  (setq theStata
