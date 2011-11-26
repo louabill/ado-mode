@@ -128,7 +128,10 @@ so it can be `concat'ted directly with a file name."
 	   (file-name-as-directory (shell-command-to-string "getconf DARWIN_USER_TEMP_DIR"))))
 	 ((string= system-type "windows-nt")
 	  (file-name-as-directory (getenv "TEMP")))
-	 (t (error "Nothing for unix yet")))
+	 ((string= system-type "gnu/linux")
+	  (file-name-as-directory "/tmp"))
+	 (t (error "System temp dir not found, somehow"))
+	 )
 	)
 
 (defun ado-get-filename-from-stata (theCommand theArgs)
