@@ -1,4 +1,4 @@
-*! version 1.12.0 October 27, 2011 @ 15:16:26
+*! version 1.12.0 December 5, 2011 @ 09:10:58
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -5295,11 +5295,16 @@ version /* used elsewhere */
    /* should nesting be allowed? */
    /*  start multi line comment
    /* inline comment */
-      stuff which does not recognize its commentness
-      the end of multi line comment
+   stuff where ado-mode does not recognize its commentness (Needs a fix)
+   the end of multi line comment
 */
 
+   /* this is a multiliner
+   which keeps going
+   */
+
    ddd
+   // this starts with a c++ comment
 
    /* new stuff from the 8.2 July 23, 2004 upgrade */
    vec foo

@@ -2,6 +2,9 @@ Version History:
 ---------------
 1.12.0.1:
 
+* !! check for debug code in ado-stata-info.el, particularly extra
+     (message ...) stuff
+
 * Added two new commands for opening any file on the adopath (think:
   editing in place of -viewsource-): ado-open-command, which tries to
   identify the current command and open its ado-file, and
@@ -15,6 +18,12 @@ Version History:
   C-c M-o and C-c M-f allow you to open the current command.
   C-c C-e is the new binding for inserting a -foreach- loop.
 
+* ado-stata-home is now set by default to be the typical installation
+  directory for Stata on the three platforms:
+    Mac OS X: /Applications/Stata/
+    Windows 7/Vista/XP: c:/Program Files/Stata12
+    Unix: /usr/local/stata12
+
 * Added commands for (re)setting the named parts of the adopath to their
   values at the start of a Stata session: ado-reset-personal-dir,
   ado-reset-plus-dir, etc.
@@ -22,9 +31,12 @@ Version History:
 * Fixed a bug where submitting the whole buffer would submit only the
   current command if the buffer was dirty.
 
-* Fixed what must have been a long-standing bug where /*
-  */ style continuation comments caused the entire second line to
-  highlight like a comment.
+* Changed how ado-mode decides on file types, because of changes to how
+  .sthlp files are made in Stata 12. This should also help in ado-files
+  with long sets of *! comments at the top.
+
+* Fixed minor fontification (highlighting) bugs.
+
 
 1.12.0.0:
 
