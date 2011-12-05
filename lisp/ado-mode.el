@@ -1220,8 +1220,9 @@ and indenting"
   (let (depth start ppsexp in-continuation (oddend (ado-line-starts-with-end-comment)))
     (save-excursion
       ;; look for line starting with a comment
-	  (save-excursion
-		(setq in-continuation (ado-beginning-of-command)))
+;;bug;; (save-excursion
+		(setq in-continuation (ado-beginning-of-command))
+;;bug;;		)
       (setq ppsexp (parse-partial-sexp 1 (point)))
       (setq depth (car ppsexp))
       (setq start (point))
@@ -1237,7 +1238,7 @@ and indenting"
       ;; words which start blocks
 	  ;; need to be careful, because of program dir, drop, and list
       (setq depth (+ depth (how-many "^[ \t]*\\(input[ \t]+\\|\\(p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)\\([ \t]+d\\(ef\\|efi\\|efin\\|efine\\)\\)?\\)[ \t]+\\|mata:[ \t]*$\\)" 1 (point))))
-		(setq depth (- depth (how-many "^[ \t]*p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+\\(\\(d\\(i\\|ir\\)\\|\\(l\\|li\\|lis\\|list\\)[ \t]*$\\)\\|drop[ \t]+\\)" 1 (point))))
+	  (setq depth (- depth (how-many "^[ \t]*p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+\\(\\(d\\(i\\|ir\\)[ \t]*$\\|l\\|li\\|lis\\|list\\)\\|drop[ \t]+\\)" 1 (point))))
       ;; words which end blocks
       (setq ppsexp (parse-partial-sexp start (point)))
       (if (numberp (nth 4 ppsexp))
@@ -1289,9 +1290,9 @@ be customized using '\\[customize-group] ado-mode'."
 			(looking-at "^[ \t]*set t\\(r\\|ra\\|rac\\|race\\)[ \t]+")))
 	       (setq indent ado-debugging-indent-column)) ; debugging at proper column (usually 0)
 	      (t (setq indent (* tab-width (car (setq depth (ado-find-depth)))))   ; regular indentation
-		 (if (nth 1 depth)
-		     (setq indent (+ indent ado-continued-statement-indent-spaces)))
-		 ))						  ; end of conditional statement
+			 (if (nth 1 depth)
+				 (setq indent (+ indent ado-continued-statement-indent-spaces)))
+			 ))						  ; end of conditional statement
 	(skip-chars-forward " \t")
 	(setq shift-amt (- indent (current-column)))
 	(if (zerop shift-amt)
