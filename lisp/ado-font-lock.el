@@ -58,8 +58,6 @@ Not implemented as much more than an experiment. ")
    (list
     ;; nested quotes
 	(list "\\(`\".*?\"'\\)" '(1 ado-string-face t))
-	;; simple *-style comments; w/o the [^/\n] term, old continuations fail
-	(list "^[ \t]*\\([*][^/\n].*\\)" '(1 ado-comment-face t))
     ;; special highlighting
 	 ;; starting a mata program; not allowing comments, though
 	(list "^[ \t]*\\(mata\\)\\(:\\)[ \t]*$" 
@@ -1506,7 +1504,7 @@ Not implemented as much more than an experiment. ")
        '(
 		 "tw" "two" "twow" "twowa" "twoway"
 		 ) 'words))
-	   "[ \t]+"
+	   "[ \t]+\(?[ \t]*"
 	   (eval-when-compile 
 		 (regexp-opt 
 		  '(
@@ -3465,6 +3463,16 @@ Not implemented as much more than an experiment. ")
 	  "[ \t]+.*?{"
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t))
+	
+	;; at least try to have else if's highlight properly
+	(list
+	 (concat
+	  "\\<\\(else\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(if\\)\\>"
+	  "[ \t]+.*?{?"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face t))
 
 	  ;; variable types which appear as subcommands often
 	;; this leads to some spurious highlighting; will need a fix
@@ -6680,6 +6688,9 @@ Not implemented as much more than an experiment. ")
 		 ) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-needs-subcommand-face))
+
+	;; simple *-style comments; w/o the [^/\n] term, old continuations fail
+	(list "^[ \t]*\\([*][^/\n].*\\)" '(1 ado-comment-face t))
 
     ;; uh oh... things with multiple subcommands
 

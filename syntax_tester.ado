@@ -1,4 +1,4 @@
-*! version 1.12.0 December 5, 2011 @ 09:10:58
+*! version 1.12.0 December 22, 2011 @ 18:24:40
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -2102,7 +2102,8 @@ set trace off
    graph twoway tsline
    tw tsrline
    twoway tsrline
-   twoway lfit 
+   twoway lfit
+   twoway ( scatter elfj jekl) (line ejfl ekk)
 
    tsreport
    tsrevar
@@ -5303,6 +5304,8 @@ version /* used elsewhere */
    which keeps going
    */
 
+*## graph export foo.wmv
+
    ddd
    // this starts with a c++ comment
 
@@ -5477,5 +5480,14 @@ version /* used elsewhere */
    slog(this is bad) // should fail
 
    // for testing commands needing a subcommand
-   #delimit
+#delimit
+
+   // various bugs which needed fixing
+   // else ifs
+   if foo {
+      bar
+      }
+   else if bleen {
+      bling
+      }
 end
