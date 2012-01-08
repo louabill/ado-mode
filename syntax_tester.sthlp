@@ -33,6 +33,10 @@ put the purpose here
 
 {title:Options}
 
+{synopt:    {it:this}}that
+
+{synopt:{opt abbrev:iated}}here is some long piece of text after the abbreviated option name
+
 {phang}{opt whatever} does yak yak
 {p_end}
 

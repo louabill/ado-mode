@@ -4885,7 +4885,7 @@ Not implemented as much more than an experiment. ")
 	   "[ \t]*?"
 	   "\\(}\\)"
 	   )
-	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t) '(3 ado-constant-face))
+	  '(1 ado-constant-face t) '(2 ado-builtin-harmless-face t) '(3 ado-constant-face t))
 	;; Syntax 1 with funny chars (need to build regexp by hand)
 	(list
 	  (concat

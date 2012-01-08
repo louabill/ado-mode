@@ -1,4 +1,4 @@
-*! version 1.12.0 December 22, 2011 @ 18:24:40
+*! version 1.12.0 January 8, 2012 @ 13:41:14
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -2895,6 +2895,8 @@ be a separate mode ... ugh */
    /* dangerous keyword highlighting which is unavoidable */
    mat def foo
    mat defin
+   mat foo
+   mat `foo'
    mat define bleen
    matrix in
    mat in blam
@@ -5490,4 +5492,13 @@ version /* used elsewhere */
    else if bleen {
       bling
       }
+
+   display "{hline}"
+
+   file read handle `macname'
+
+   // messy
+   {synopt:{opt min:abbrev}}
+
+   mat `foo' = (1 2 \ 3 4)
 end

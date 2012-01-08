@@ -171,9 +171,16 @@ These cannot be modularized, because of ordering problems"
 		))  ;; end of cond function
 	  )  ;; end of while searching loop
 	(setq returnString (concat returnString theString))
-	returnString
+	(if (ado-delimit-is-semi)
+		(ado-convert-semicolons returnString)
+	  returnString)
 	))
 
+(defun ado-convert-semicolons (theString)
+  "Converts semicolons to newlines"
+  (replace-regexp-in-string ";" "\n" theString)
+  )
+  					   
 
 (defun ado-one-eol (theString)
   "Looks to see if the theString ends in an eol. If it does not,
