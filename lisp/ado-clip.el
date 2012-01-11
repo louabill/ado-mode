@@ -4,7 +4,7 @@
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://homepage.mac.com/brising
 ;; Keywords: ado-mode
-;; Version:  0.1 23feb2009
+;; Version:  0.5 11jan2012 (the 0.5 is an arbitrary number)
 
 ;; This file is not part of GNU Emacs.
 
@@ -88,9 +88,11 @@ As of yet, only -2, -1, and 0 actually are implemented."
   "Grabs either the region, or if there is no region, the
 entire Stata command (or buffer if whole-buffer it non-nil), 
 then gets it ready to send to Stata. If use-dofile is 
-\"command\", it strips out comments and continuations.
-The grabbing is done by \\[ado-grab-something], and the stripping
-is done by \\[ado-strip-comments]"
+\"command\", it strips out comments and continuations, and spruces
+up semicolons if the outdated #delimit ; is in play.
+The grabbing is done by \\[ado-grab-something], the stripping
+is done by \\[ado-strip-comments], and the semicolon-fixing by
+\\[ado-convert-semicolons]."
 	(unless use-dofile
 	  (setq use-dofile "command"))
 	(let ((x-select-enable-clipboard t)
@@ -104,7 +106,15 @@ is done by \\[ado-strip-comments]"
 			(error "Buffer is empty")
 		  (error "No command found")))
 	  (if (string= use-dofile "command")
-		  (setq theString (ado-strip-comments theString)))
+		  (progn
+			(setq theString (ado-strip-comments theString))
+			(if (ado-delimit-is-semi)
+				(setq theString (ado-convert-semicolons theString)))
+			)
+		(if (ado-delimit-is-semi)
+			(setq theString (concat "#delimit ;
+" theString)))
+		) ;; testing for command
 	  (funcall interprogram-cut-function theString)
 	))
 
@@ -171,14 +181,13 @@ These cannot be modularized, because of ordering problems"
 		))  ;; end of cond function
 	  )  ;; end of while searching loop
 	(setq returnString (concat returnString theString))
-	(if (ado-delimit-is-semi)
-		(ado-convert-semicolons returnString)
-	  returnString)
+	returnString
 	))
 
 (defun ado-convert-semicolons (theString)
-  "Converts semicolons to newlines"
-  (replace-regexp-in-string ";" "\n" theString)
+  "Converts semicolons to newlines, and combines lines withoug semicolons"
+  (replace-regexp-in-string ";" "\n" 
+		(mapconcat 'identity (split-string theString "\n") " "))
   )
   					   
 

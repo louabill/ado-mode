@@ -1,5 +1,10 @@
 Version History:
 ---------------
+1.12.0.2:
+
+* Re-fixed the bugs related to semi-colon delimited files. Maybe this
+  time the fix will be real.
+
 1.12.0.1:
 
 * Added two new commands for opening any file on the adopath (think:
@@ -32,8 +37,8 @@ Version History:
   .sthlp files are made in Stata 12. This should also help in ado-files
   with long sets of *! comments at the top.
 
-* Fixed bug after #delimit ; so blocks of commands are sent to Stata
-  properly. 
+* Semi-fixed bug after #delimit ; so blocks of commands are sent to Stata
+  properly, as version 1.12.0.2 notes. 
 
 * Fixed minor fontification (highlighting) bugs.
 
