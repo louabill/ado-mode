@@ -1238,7 +1238,7 @@ and indenting"
       ;; words which start blocks
 	  ;; need to be careful, because of program dir, drop, and list
       (setq depth (+ depth (how-many "^[ \t]*\\(input[ \t]+\\|\\(p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)\\([ \t]+d\\(ef\\|efi\\|efin\\|efine\\)\\)?\\)[ \t]+\\|mata:[ \t]*$\\)" 1 (point))))
-	  (setq depth (- depth (how-many "^[ \t]*p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+\\(\\(d\\(i\\|ir\\)[ \t]*$\\|l\\|li\\|lis\\|list\\)\\|drop[ \t]+\\)" 1 (point))))
+	  (setq depth (- depth (how-many "^[ \t]*p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+\\(d\\(i\\|ir\\)[ \t]*$\\|\\(\\(l\\|li\\|lis\\|list\\|drop\\)[ \t]+\\)[a-zA-Z_]+\\)" 1 (point))))
       ;; words which end blocks
       (setq ppsexp (parse-partial-sexp start (point)))
       (if (numberp (nth 4 ppsexp))
@@ -1311,18 +1311,18 @@ be customized using '\\[customize-group] ado-mode'."
   (save-excursion
     ;; if #delimit command is on same line, the delimiter is always cr
     (let ((line-start (point-at-bol)))
-      (if (re-search-backward "#d\\(e\\|el\\|eli\\|elim\\elimi\\elimit\\)" 1 t)
-	  (let ((ppsexp (parse-partial-sexp 1 (point))))
-	    (if (or 
-		 (nth 3 ppsexp)		; inside a string
-		 (nth 4 ppsexp)		; inside a non-nestable comment
-		 (nth 7 ppsexp))		; inside a type-b comment
-		(ado-delimit-is-semi)
-	      (if (>= (point) line-start)
-		  nil
-		(forward-sexp)
-		(skip-chars-forward " \t")
-		(looking-at ";"))))))))
+      (if (re-search-backward "#[ \t]*d\\(e\\|el\\|eli\\|elim\\elimi\\elimit\\)" 1 t)
+		  (let ((ppsexp (parse-partial-sexp 1 (point))))
+			(if (or 
+				 (nth 3 ppsexp)		; inside a string
+				 (nth 4 ppsexp)		; inside a non-nestable comment
+				 (nth 7 ppsexp))		; inside a type-b comment
+				(ado-delimit-is-semi)
+			  (if (>= (point) line-start)
+				  nil
+				(forward-sexp)
+				(skip-chars-forward " \t")
+				(looking-at ";"))))))))
 
 (defun ado-show-delimiter ()
   "Returns the value of the delimiter in ado-functions as a message."
