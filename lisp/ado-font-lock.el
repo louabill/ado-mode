@@ -51,7 +51,7 @@ Not implemented as much more than an experiment. ")
 
 
 (defun ado-set-font-lock-keywords ()
-;  (make-local-variable 'ado-font-lock-keywords)
+										;  (make-local-variable 'ado-font-lock-keywords)
   (interactive)
   (setq
    ado-font-lock-keywords
@@ -59,7 +59,7 @@ Not implemented as much more than an experiment. ")
     ;; nested quotes
 	(list "\\(`\".*?\"'\\)" '(1 ado-string-face t))
     ;; special highlighting
-	 ;; starting a mata program; not allowing comments, though
+	;; starting a mata program; not allowing comments, though
 	(list "^[ \t]*\\(mata\\)\\(:\\)[ \t]*$" 
 		  '(1 ado-builtin-harmful-face)
 		  '(2 ado-constant-face))
@@ -67,47 +67,47 @@ Not implemented as much more than an experiment. ")
 	(list "\\(^\\*!.*\\)" '(1 ado-builtin-harmful-face t))
 	;; program define or list
 	(list
-	  (concat
-	   "^[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"pr" "pro" "prog" "progr" "progra" "program")
-		  'words))
-	   "[ \t]+"
-	   (eval-when-compile
-		 (regexp-opt 
-		  '(
-			"d" "de" "def" "defi" "defin" "define" "drop"
-			"l" "li" "lis" "list"
-			) 'words))
-	   "[ \t]+\\([_a-zA-Z.]+[_a-zA-Z0-9]*\\)"
-	   )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t) '(3 ado-builtin-harmful-face t))
-;;
+	 (concat
+	  "^[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "pr" "pro" "prog" "progr" "progra" "program")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt 
+		 '(
+		   "d" "de" "def" "defi" "defin" "define" "drop"
+		   "l" "li" "lis" "list"
+		   ) 'words))
+	  "[ \t]+\\([_a-zA-Z.]+[_a-zA-Z0-9]*\\)"
+	  )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t) '(3 ado-builtin-harmful-face t))
+	;;
 	;; program w/o define
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt '(
-			"pr" "pro" "prog" "progr" "progra" "program")
-		  'words))
-	   "[ \t]+\\([^ \t]+\\)"
-	   )
-	  '(1 ado-builtin-harmful-face) '(2 ado-builtin-harmful-face))
-		 
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt '(
+					  "pr" "pro" "prog" "progr" "progra" "program")
+					'words))
+	  "[ \t]+\\([^ \t]+\\)"
+	  )
+	 '(1 ado-builtin-harmful-face) '(2 ado-builtin-harmful-face))
+	
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt '(
-			"pr" "pro" "prog" "progr" "progra" "program")
-		  'words))
-	   "[ \t]+"
-	   (eval-when-compile
-		 (regexp-opt '("di" "dir")
-					 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt '(
+					  "pr" "pro" "prog" "progr" "progra" "program")
+					'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt '("di" "dir")
+					'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	;; it appears Stata accepts any version number
 	;; this just allows major[.0/max for particular version]
@@ -115,27 +115,27 @@ Not implemented as much more than an experiment. ")
     ;; .1's: 2, 3, 6, 10, 11
 	;; .2's: 8, 9
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '("vers" "versi" "versio" "version")
-		  'words))
-	   "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[01]\\)?[.]0\\)\\|\\(?:\\(?:[23689]\\|1[01]\\)[.]1\\)\\|\\(?:[89]\\|11\\)?[.]2\\|\\(?:\\(?:[1-9]\\|1[01]\\)?[^.]\\)\\)\\($\\|[ \t]*\\)"
-	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '("vers" "versi" "versio" "version")
+		 'words))
+	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[01]\\)?[.]0\\)\\|\\(?:\\(?:[23689]\\|1[01]\\)[.]1\\)\\|\\(?:[89]\\|11\\)?[.]2\\|\\(?:\\(?:[1-9]\\|1[01]\\)?[^.]\\)\\)\\($\\|[ \t]*\\)"
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; pause on/off
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '("pause") 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '("off" "on") 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
-	  ;; end and pause must start lines
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '("pause") 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '("off" "on") 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	;; end and pause must start lines
 	(list
 	 (concat
 	  "^[ \t]*"
@@ -148,48 +148,48 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmful-face))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "#d" "#de" "#del" "#deli" "#delim" "#delimi" "#delimit" 
-		 ) 'words))
-	   "[ \t]+\\(cr\\|;\\)[ \t]*$"
-	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "#d" "#de" "#del" "#deli" "#delim" "#delimi" "#delimit" 
+		   ) 'words))
+	  "[ \t]+\\(cr\\|;\\)[ \t]*$"
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; obsolete stuff which appears as OK as subcommands
 	(list
 	 (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 ;; "lfit" // removed entirely, because (lfit ...) is ok
-		 "sco" "scor" "score"
-		 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-obsolete-face))
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   ;; "lfit" // removed entirely, because (lfit ...) is ok
+		   "sco" "scor" "score"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-obsolete-face))
 
     ;; the cluster commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt '("cluster") 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt '(
-			 "dend" "dendr" "dendro" "dendrog" "dendrogr" "dendrogra" "dendrogram"
-			 "dir"
-			 "k" "km" "kme" "kmea" "kmean" "kmeans" 
-			 "kmed" "kmedi" "kmedia" "kmedian" "kmedians" 
-			 "list"
-			 "note" "notes"
-			 "parsedist" "parsedista" "parsedistan" "parsedistanc" "parsedistance" 
-			 "query"
-			 "tr" "tre" "tree"
-			 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt '("cluster") 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt '(
+					  "dend" "dendr" "dendro" "dendrog" "dendrogr" "dendrogra" "dendrogram"
+					  "dir"
+					  "k" "km" "kme" "kmea" "kmean" "kmeans" 
+					  "kmed" "kmedi" "kmedia" "kmedian" "kmedians" 
+					  "list"
+					  "note" "notes"
+					  "parsedist" "parsedista" "parsedistan" "parsedistanc" "parsedistance" 
+					  "query"
+					  "tr" "tre" "tree"
+					  ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; 
 
@@ -243,7 +243,7 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	 ;; discrim commands
+	;; discrim commands
 	(list
 	 (concat
 	  (eval-when-compile 
@@ -285,198 +285,198 @@ Not implemented as much more than an experiment. ")
 
 	;; st_is
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "st_is"
-		 ) 'words))
-	   "[ \t]+2[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"analysis"
-			"full"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "st_is"
+		   ) 'words))
+	  "[ \t]+2[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "analysis"
+		   "full"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	 ;; stpower commands
+	;; stpower commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "stpow" "stpowe" "stpower" 
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "cox"
-			 "exp" "expo" "expon" "expone" "exponen" "exponent" "exponenti" "exponentia" "exponential" 
-			 "log" "logr" "logra" "logran" "logrank" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "stpow" "stpowe" "stpower" 
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "cox"
+		   "exp" "expo" "expon" "expone" "exponen" "exponent" "exponenti" "exponentia" "exponential" 
+		   "log" "logr" "logra" "logran" "logrank" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 
 	;; set command and its variations
 	;; splitting up what was done before
 
 	(list
-	  (concat
-	   "^[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "se" "set"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"a" "ad" "ado" "ados" "adosi" "adosiz" "adosize" 
-			"autotabgraphs"
-			"cformat"
-			"httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
-			"l" "le" "lev" "leve" "level"
-			"li" "lin" "line" 
-			"lineg" "linega" "linegap" 
-			"lines" "linesi" "linesiz" "linesize" 
-			"mat" "mats" "matsi" "matsiz" "matsize"
-			"maxdb" "maxiter" "max_memory" "maxvar" "min_memory"
-			"niceness" "notifyuser"
-			"ob" "obs"
-			"pa" "pag" "page" "pages" "pagesi" "pagesiz" "pagesize"
-			"pformat"
-			"processors"
-			"reventr" "reventri" "reventrie" "reventries" 
-			"scheme" "scrollbufsize"
-			"se" "see" "seed"
-			"segmentsize"
-			"sformat"
-			"timeout1"
-			"timeout2"
-			"traced" "tracede" "tracedep" "tracedept" "tracedepth" 
-			"traceh" "tracehi" "tracehil" "tracehili" "tracehilit" "tracehilite" 
-			"update_interval"
-			"varlab" "varlabe" "varlabel" 
-			"varlabelpos"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "^[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "se" "set"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "a" "ad" "ado" "ados" "adosi" "adosiz" "adosize" 
+		   "autotabgraphs"
+		   "cformat"
+		   "httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
+		   "l" "le" "lev" "leve" "level"
+		   "li" "lin" "line" 
+		   "lineg" "linega" "linegap" 
+		   "lines" "linesi" "linesiz" "linesize" 
+		   "mat" "mats" "matsi" "matsiz" "matsize"
+		   "maxdb" "maxiter" "max_memory" "maxvar" "min_memory"
+		   "niceness" "notifyuser"
+		   "ob" "obs"
+		   "pa" "pag" "page" "pages" "pagesi" "pagesiz" "pagesize"
+		   "pformat"
+		   "processors"
+		   "reventr" "reventri" "reventrie" "reventries" 
+		   "scheme" "scrollbufsize"
+		   "se" "see" "seed"
+		   "segmentsize"
+		   "sformat"
+		   "timeout1"
+		   "timeout2"
+		   "traced" "tracede" "tracedep" "tracedept" "tracedepth" 
+		   "traceh" "tracehi" "tracehil" "tracehili" "tracehilit" "tracehilite" 
+		   "update_interval"
+		   "varlab" "varlabe" "varlabel" 
+		   "varlabelpos"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; set with odd options
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "se" "set"
-		 ) 'words))
-	   "[ \t]+"
-	   "\\<\\("
-	   "\\(?:conren\\(?:[ \t]+\\(?:clear\\|sf\\|bf\\|it\\|res\\|resu\\|resul\\|result\\|reset\\|txt\\|text\\|inp\\|inpu\\|input\\|err\\|erro\\|error\\|li\\|lin\\|link\\|hi\\|hil\\|hili\\|hilit\\|hilite\\|ulof\\|uloff\\|ulon\\)\\)?\\)"
-	   "\\|"
-	   "\\(?:copycolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)\\)"
-	   "\\|"
-	   "\\(?:dp[ \t]+\\(?:com\\|comm\\|comma\\|per\\|peri\\|perio\\|period\\)\\)"
-	   "\\|"
-	   "\\(?:eolc\\(?:h\\|ha\\|har\\)[ \t]+\\(?:mac\\|unix\\)\\)"
-	   "\\|"
-	   "\\(?:log\\(?:t\\|ty\\|typ\\|type\\)[ \t]+\\(?:t\\|te\\|tex\\|text\\|s\\|sm\\|smc\\|smcl\\)\\)"
-	   "\\|"
-	   "\\(?:odbc\\(?:\\m\\|\\mg\\|mgr\\)[ \t]+\\(?:iodbc\\|unixodbc\\)\\)"
-	   "\\|"
-	   "\\(?:printcolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)\\)"
-	   "\\|"
-	   "\\(?:search\\(?:d\\|de\\|def\\|defa\\|defau\\|defaul\\|default\\)[ \t]+\\(?:all\\|local\\|net\\)\\)"
-	   "\\|"
-	   "\\(?:showbaselevels[ \t]+\\(?:o\\(?:ff\\|n\\)\\|all\\)\\)"
-	   "\\|"
-	   "\\(?:showemptycells[ \t]+\\(?:keep\\|drop\\)\\)"
-	   "\\|"
-	   "\\(?:t\\(?:y\\|yp\\|ype\\)[ \t]+\\(?:double\\|float\\)\\)"
-	   "\\)\\>" end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-   
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "se" "set"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\("
+	  "\\(?:conren\\(?:[ \t]+\\(?:clear\\|sf\\|bf\\|it\\|res\\|resu\\|resul\\|result\\|reset\\|txt\\|text\\|inp\\|inpu\\|input\\|err\\|erro\\|error\\|li\\|lin\\|link\\|hi\\|hil\\|hili\\|hilit\\|hilite\\|ulof\\|uloff\\|ulon\\)\\)?\\)"
+	  "\\|"
+	  "\\(?:copycolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)\\)"
+	  "\\|"
+	  "\\(?:dp[ \t]+\\(?:com\\|comm\\|comma\\|per\\|peri\\|perio\\|period\\)\\)"
+	  "\\|"
+	  "\\(?:eolc\\(?:h\\|ha\\|har\\)[ \t]+\\(?:mac\\|unix\\)\\)"
+	  "\\|"
+	  "\\(?:log\\(?:t\\|ty\\|typ\\|type\\)[ \t]+\\(?:t\\|te\\|tex\\|text\\|s\\|sm\\|smc\\|smcl\\)\\)"
+	  "\\|"
+	  "\\(?:odbc\\(?:\\m\\|\\mg\\|mgr\\)[ \t]+\\(?:iodbc\\|unixodbc\\)\\)"
+	  "\\|"
+	  "\\(?:printcolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)\\)"
+	  "\\|"
+	  "\\(?:search\\(?:d\\|de\\|def\\|defa\\|defau\\|defaul\\|default\\)[ \t]+\\(?:all\\|local\\|net\\)\\)"
+	  "\\|"
+	  "\\(?:showbaselevels[ \t]+\\(?:o\\(?:ff\\|n\\)\\|all\\)\\)"
+	  "\\|"
+	  "\\(?:showemptycells[ \t]+\\(?:keep\\|drop\\)\\)"
+	  "\\|"
+	  "\\(?:t\\(?:y\\|yp\\|ype\\)[ \t]+\\(?:double\\|float\\)\\)"
+	  "\\)\\>" end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	
 	;; set <foo> on/off commands
 
 	(list
-	  (concat
-	   "^[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "se" "set"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "checksum" "fastscroll"
-		  "dockable"
-		  "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
-		  "doublebuffer"
-		  "floatresults" "floatwindows"
-		  "g" "gr" "gra" "grap" "graph" "graphi" "graphic" "graphics"
-		  "httpproxy" 
-		  "httpproxya" "httpproxyau" "httpproxyaut" "httpproxyauth" 
-		  "include_bitmap"
-		  "locksplit" "locksplitt" "locksplitte" "locksplitter" "locksplitters" 
-		  "matastrict"
-		  "mo" "mor" "more" 
-		  "pinnable"
-		  "playsnd"
-		  "r" "revkeyboard" "rm" "rms" "rmsg"
-		  "showomitted"
-		  "smoothf" "smoothfo" "smoothfon" "smoothfont" "smoothfonts" 
-		  "tr" "tra" "trac" "trace"
-		  "tracee" "traceex" "traceexp" "traceexpa" "traceexpan" "traceexpand" 
-		  "tracei" "tracein" "traceind" "traceinde" "traceinden" "traceindent" 
-		  "tracen" "tracenu" "tracenum" "tracenumb" "tracenumbe" "tracenumber" 
-		  "traces" "tracese" "tracesep" 
-		  "update_prompt" "update_query"
-		  "varabbrev" "varkeyboard"
-		  "xptheme"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"off" "on"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+	 (concat
+	  "^[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "se" "set"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "checksum" "fastscroll"
+		   "dockable"
+		   "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
+		   "doublebuffer"
+		   "floatresults" "floatwindows"
+		   "g" "gr" "gra" "grap" "graph" "graphi" "graphic" "graphics"
+		   "httpproxy" 
+		   "httpproxya" "httpproxyau" "httpproxyaut" "httpproxyauth" 
+		   "include_bitmap"
+		   "locksplit" "locksplitt" "locksplitte" "locksplitter" "locksplitters" 
+		   "matastrict"
+		   "mo" "mor" "more" 
+		   "pinnable"
+		   "playsnd"
+		   "r" "revkeyboard" "rm" "rms" "rmsg"
+		   "showomitted"
+		   "smoothf" "smoothfo" "smoothfon" "smoothfont" "smoothfonts" 
+		   "tr" "tra" "trac" "trace"
+		   "tracee" "traceex" "traceexp" "traceexpa" "traceexpan" "traceexpand" 
+		   "tracei" "tracein" "traceind" "traceinde" "traceinden" "traceindent" 
+		   "tracen" "tracenu" "tracenum" "tracenumb" "tracenumbe" "tracenumber" 
+		   "traces" "tracese" "tracesep" 
+		   "update_prompt" "update_query"
+		   "varabbrev" "varkeyboard"
+		   "xptheme"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "off" "on"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
-	;
+										;
 
 	;; set output command, with its odd subsubcommands
 	(list
 	 (concat
 	  "^[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "se" "set"
-		 ) 'words))
-	   "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "se" "set"
+		   ) 'words))
+	  "[ \t]+"
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
 		   "ou" "out" "outp" "outpu" "output"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"e" "er" "err" "erro" "error"
-			"i" "in" "inf" "info" "infor" "inform" 
-			"p" "pr" "pro" "proc" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "e" "er" "err" "erro" "error"
+		   "i" "in" "inf" "info" "infor" "inform" 
+		   "p" "pr" "pro" "proc" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
 
 	;; ;; set showbaselevels command with it's odd all subcommand
 	;; (list
@@ -562,83 +562,83 @@ Not implemented as much more than an experiment. ")
 
 	;; set incomplete commands
 	(list
-	  (concat
-	   "^[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "se" "set"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "checksum" "fastscroll"
-		  "dockable"
-		  "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
-		  "doublebuffer"
-		  "floatresults" "floatwindows"
-		  "g" "gr" "gra" "grap" "graph" "graphi" "graphic" "graphics"
-		  "httpproxy" 
-		  "httpproxya" "httpproxyau" "httpproxyaut" "httpproxyauth" 
-		  "include_bitmap"
-		  "locksplit" "locksplitt" "locksplitte" "locksplitter" "locksplitters" 
-		  "matastrict"
-		  "mo" "mor" "more" 
-		  "ou" "out" "outp" "outpu" "output"
-		  "pinnable"
-		  "playsnd"
-		  "r" "revkeyboard" "rm" "rms" "rmsg"
-		  "showbaselevels" "showomitted"
-		  "smoothf" "smoothfo" "smoothfon" "smoothfont" "smoothfonts" 
-		  "tr" "tra" "trac" "trace"
-		  "tracee" "traceex" "traceexp" "traceexpa" "traceexpan" "traceexpand" 
-		  "tracei" "tracein" "traceind" "traceinde" "traceinden" "traceindent" 
-		  "tracen" "tracenu" "tracenum" "tracenumb" "tracenumbe" "tracenumber" 
-		  "traces" "tracese" "tracesep" 
-		  "update_prompt" "update_query"
-		  "varabbrev" "varkeyboard"
-		  "xptheme"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	 (concat
+	  "^[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "se" "set"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "checksum" "fastscroll"
+		   "dockable"
+		   "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
+		   "doublebuffer"
+		   "floatresults" "floatwindows"
+		   "g" "gr" "gra" "grap" "graph" "graphi" "graphic" "graphics"
+		   "httpproxy" 
+		   "httpproxya" "httpproxyau" "httpproxyaut" "httpproxyauth" 
+		   "include_bitmap"
+		   "locksplit" "locksplitt" "locksplitte" "locksplitter" "locksplitters" 
+		   "matastrict"
+		   "mo" "mor" "more" 
+		   "ou" "out" "outp" "outpu" "output"
+		   "pinnable"
+		   "playsnd"
+		   "r" "revkeyboard" "rm" "rms" "rmsg"
+		   "showbaselevels" "showomitted"
+		   "smoothf" "smoothfo" "smoothfon" "smoothfont" "smoothfonts" 
+		   "tr" "tra" "trac" "trace"
+		   "tracee" "traceex" "traceexp" "traceexpa" "traceexpan" "traceexpand" 
+		   "tracei" "tracein" "traceind" "traceinde" "traceinden" "traceindent" 
+		   "tracen" "tracenu" "tracenum" "tracenumb" "tracenumbe" "tracenumber" 
+		   "traces" "tracese" "tracesep" 
+		   "update_prompt" "update_query"
+		   "varabbrev" "varkeyboard"
+		   "xptheme"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 
-	  ;; the timer command
+	;; the timer command
 	(list
 	 (concat
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		 "timer"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"clear" "list"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+		   "timer"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "clear" "list"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "timer"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"clear" "list" "off" "on"
-			) 'words))
-	   "[ \t]+"
-	   "\\([0-9]+\\|`[a-zA-Z0-9_`']'\\)"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
-		  
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "timer"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "clear" "list" "off" "on"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([0-9]+\\|`[a-zA-Z0-9_`']'\\)"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
+	
 	;; tsfilter commands (all data-changing)
 	(list
 	 (concat
@@ -659,7 +659,7 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 
-     ;; the args command 
+	;; the args command 
 
 	(list
 	 (concat
@@ -669,7 +669,7 @@ Not implemented as much more than an experiment. ")
 	  )
 	 '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face t))
 
-     ;; char with sub commands
+	;; char with sub commands
 	(list
 	 (concat
 	  (eval-when-compile 
@@ -784,813 +784,789 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "conf" "confi" "confir" "confirm"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-	  "integer"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-	  "n" "nu" "num" "numb" "numbe" "number"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "conf" "confi" "confir" "confirm"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "integer"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "n" "nu" "num" "numb" "numbe" "number"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "conf" "confi" "confir" "confirm"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-	  "n" "ne" "new"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-	  "f" "fi" "fil" "file"
-	  "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "conf" "confi" "confir" "confirm"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "n" "ne" "new"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "f" "fi" "fil" "file"
+		   "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "conf" "confi" "confir" "confirm"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-	  "byte" "double" "float" "int" "long"
-	  "numeric"
-	  "str" "stri" "strin" "string"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-	  "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "conf" "confi" "confir" "confirm"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "byte" "double" "float" "int" "long"
+		   "numeric"
+		   "str" "stri" "strin" "string"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "conf" "confi" "confir" "confirm"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "date"
-			 "numeric"
-			 "str" "stri" "strin" "string"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "fo" "for" "form" "forma" "format" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "conf" "confi" "confir" "confirm"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "date"
+		   "numeric"
+		   "str" "stri" "strin" "string"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "fo" "for" "form" "forma" "format" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "conf" "confi" "confir" "confirm"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "ts"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "fo" "for" "form" "forma" "format" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t) '(3 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "conf" "confi" "confir" "confirm"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "ts"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "fo" "for" "form" "forma" "format" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t) '(3 ado-subcommand-face t))
 
     ;;; confirm str# 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "conf" "confi" "confir" "confirm"
-		 ) 'words))
-	   "[ \t]+"
-	   "\\<\\(str"
-	   "\\|"
-	   "\\(?:str[1-9][0-9]?\\)" 
-	   "\\|"
-	   "\\(?:str1[0-9][0-9]\\)" 
-	   "\\|"
-	   "\\(?:str2[0-3][0-9]\\)" 
-	   "\\|"
-	   "\\(?:str24[0-4]\\)"
-	   "\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "v" "va" "var" "vari" "varia" "variab" "variabl" "variable" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "conf" "confi" "confir" "confirm"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(str"
+	  "\\|"
+	  "\\(?:str[1-9][0-9]?\\)" 
+	  "\\|"
+	  "\\(?:str1[0-9][0-9]\\)" 
+	  "\\|"
+	  "\\(?:str2[0-3][0-9]\\)" 
+	  "\\|"
+	  "\\(?:str24[0-4]\\)"
+	  "\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "v" "va" "var" "vari" "varia" "variab" "variabl" "variable" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	;; confirm incomplete
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "conf" "confi" "confir" "confirm" 
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"byte" "double" "float" "int" "long"
-			"date"
-			"integer"
-			"n" "ne" "new" 
-			"numeric"
-			"str" "stri" "strin" "string"
-			"ts"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "conf" "confi" "confir" "confirm" 
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "byte" "double" "float" "int" "long"
+		   "date"
+		   "integer"
+		   "n" "ne" "new" 
+		   "numeric"
+		   "str" "stri" "strin" "string"
+		   "ts"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "conf" "confi" "confir" "confirm"
-		 ) 'words))
-	   "[ \t]+"
-	   "\\<\\(str"
-	   "\\|"
-	   "\\(?:str[1-9][0-9]?\\)" 
-	   "\\|"
-	   "\\(?:str1[0-9][0-9]\\)" 
-	   "\\|"
-	   "\\(?:str2[0-3][0-9]\\)" 
-	   "\\|"
-	   "\\(?:str24[0-4]\\)"
-	   "\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "conf" "confi" "confir" "confirm"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(str"
+	  "\\|"
+	  "\\(?:str[1-9][0-9]?\\)" 
+	  "\\|"
+	  "\\(?:str1[0-9][0-9]\\)" 
+	  "\\|"
+	  "\\(?:str2[0-3][0-9]\\)" 
+	  "\\|"
+	  "\\(?:str24[0-4]\\)"
+	  "\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	;; merge
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "mer" "merg" "merge"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"1:1" "1:m" "m:1" "m:m"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mer" "merg" "merge"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "1:1" "1:m" "m:1" "m:m"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
 
 	;; mvtest
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "mvtest"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "corr" "corre" "correl" "correla" "correlat" "correlati" "correlatio" "correlation" "correlations" 
-		  "cov" "cova" "covar" "covari" "covaria" "covarian" "covarianc" "covariance" "covariances" 
-		  "m" "me" "mea" "mean" "means" 
-		  "norm" "norma" "normal" "normali" "normalit" "normality"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mvtest"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "corr" "corre" "correl" "correla" "correlat" "correlati" "correlatio" "correlation" "correlations" 
+		   "cov" "cova" "covar" "covari" "covaria" "covarian" "covarianc" "covariance" "covariances" 
+		   "m" "me" "mea" "mean" "means" 
+		   "norm" "norma" "normal" "normali" "normalit" "normality"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "note" "notes" 
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"drop"
-			"renumber" "replace"
-			"search"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "note" "notes" 
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "drop"
+		   "renumber" "replace"
+		   "search"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "note" "notes" 
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "l" "li" "lis" "list" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "note" "notes" 
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "l" "li" "lis" "list" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; the duplicates commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "duplicates"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "e" "ex" "exa" "exam" "examp" "exampl" "example" "examples" 
-			 "l" "li" "lis" "list" 
-			 "r" "re" "rep" "repo" "repor" "report" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "duplicates"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "e" "ex" "exa" "exam" "examp" "exampl" "example" "examples" 
+		   "l" "li" "lis" "list" 
+		   "r" "re" "rep" "repo" "repor" "report" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "duplicates"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "drop"
-			 "t" "ta" "tag" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "duplicates"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "drop"
+		   "t" "ta" "tag" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "duplicates"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "b" "br" "bro" "brow" "brows" "browse" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "duplicates"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "b" "br" "bro" "brow" "brows" "browse" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
 
 	;; estimates commands moved to just after estat commands
     ;; the _estimates commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-	  "_est" "_esti" "_estim" "_estima" "_estimat" "_estimate" "_estimates"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-	  "clear"
-	  "dir" 
-	  "drop"
-	  "h" "ho" "hol" "hold"
-	  "u" "un" "unh" "unho" "unhol" "unhold"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "_est" "_esti" "_estim" "_estima" "_estimat" "_estimate" "_estimates"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "clear"
+		   "dir" 
+		   "drop"
+		   "h" "ho" "hol" "hold"
+		   "u" "un" "unh" "unho" "unhol" "unhold"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
     ;; the estat commands --- moved to after the obsolete commands
 
 	;; the import/export commands (which should always come in pairs)
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "export"
-		 "import"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"excel"
-			"sasxport"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "export"
+		   "import"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "excel"
+		   "sasxport"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 
     ;; the file commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "file"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "close" "open" 
-			  "q" "qu" "que" "quer" "query" 
-			  "r" "re" "rea" "read" 
-			  "seek" 
-			  "set"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "file"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "close" "open" 
+		   "q" "qu" "que" "quer" "query" 
+		   "r" "re" "rea" "read" 
+		   "seek" 
+		   "set"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "file"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-	   "sersetread" "sersetwrite"
-	   "w" "wr" "wri" "writ" "write" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "file"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "sersetread" "sersetwrite"
+		   "w" "wr" "wri" "writ" "write" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
-    ;; the gph commands
-	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "gph"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-	  "arc"
-	  "box"
-	  "clear" "close"
-	  "font"
-	  "line"
-	  "open"
-	  "pen" "point"
-	  "text"
-	  "vline" "vpoint" "vpoly" "vtext"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
     ;;
     ;; the gprefs commands
     ;;   (in multiple pieces)
 	(list
-	  (concat
-	   "\\<\\(gprefs\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(set\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(window\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(scheme\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "black" "blackb" "blackbg" 
-			  "custom1" "custom2" "custom3"
-			  "mono" "monoc" "monoch" "monochr" "monochro" "monochrom" "monochrome" 
-			  "white" "whiteb" "whitebg" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t) '(5 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(gprefs\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(set\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(window\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(scheme\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "black" "blackb" "blackbg" 
+		   "custom1" "custom2" "custom3"
+		   "mono" "monoc" "monoch" "monochr" "monochro" "monochrom" "monochrome" 
+		   "white" "whiteb" "whitebg" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t) '(5 ado-subcommand-face t))
 
-     ;;
-     ;; the other gprefs set window 
+	;;
+	;; the other gprefs set window 
 	(list
-	  (concat
-	   "\\<\\(gprefs\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(set\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(window\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "update"
-			  "xsize"
-			  "ysize"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(gprefs\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(set\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(window\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "update"
+		   "xsize"
+		   "ysize"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   "\\<\\(gprefs\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(set\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(window\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "displaythick"
-			  "usegphsize"
-			) 'words))
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "off" "on"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t) '(5 ado-subcommand-face t))
-     ;;
-     ;; the gprefs set scheme commands 
+	 (concat
+	  "\\<\\(gprefs\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(set\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(window\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "displaythick"
+		   "usegphsize"
+		   ) 'words))
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "off" "on"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t) '(5 ado-subcommand-face t))
+	;;
+	;; the gprefs set scheme commands 
 	(list
-	  (concat
-	   "\\<\\(gprefs\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(set\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "custom1" "custom2" "custom3"
-			  ) 'words))
-        "[ \t]+"
-		(eval-when-compile
-		  (regexp-opt
-		   '(
-			  "background_color"
-			  "pen1_color" "pen2_color" "pen3_color" "pen4_color" "pen5_color" "pen6_color" "pen7_color" "pen8_color" "pen9_color"
-			  "pen1_thick" "pen2_thick" "pen3_thick" "pen4_thick" "pen5_thick" "pen6_thick" "pen7_thick" "pen8_thick" "pen9_thick"
-			  "symmag_all"
-			  ) 'words))
-		end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
-     ;;
-     ;; shoulda never started this - the gprefs query scheme layout all by its lonesome
+	 (concat
+	  "\\<\\(gprefs\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(set\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "custom1" "custom2" "custom3"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "background_color"
+		   "pen1_color" "pen2_color" "pen3_color" "pen4_color" "pen5_color" "pen6_color" "pen7_color" "pen8_color" "pen9_color"
+		   "pen1_thick" "pen2_thick" "pen3_thick" "pen4_thick" "pen5_thick" "pen6_thick" "pen7_thick" "pen8_thick" "pen9_thick"
+		   "symmag_all"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	;;
+	;; shoulda never started this - the gprefs query scheme layout all by its lonesome
 	(list
-	  (concat
-	   "\\<\\(gprefs\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(query\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "custom1" "custom2" "custom3"
-			  "window"
-			  ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(gprefs\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(query\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "custom1" "custom2" "custom3"
+		   "window"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
 
 	;; gprefs incomplete
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "gprefs"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"q" "qu" "que" "quer" "query" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gprefs"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "q" "qu" "que" "quer" "query" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	(list
-	  (concat
-	   "\\<\\(gprefs\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(set\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "custom1" "custom2" "custom3"
-			  ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
-	  '(3 ado-needs-subcommand-face))
+	 (concat
+	  "\\<\\(gprefs\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(set\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "custom1" "custom2" "custom3"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	 '(3 ado-needs-subcommand-face))
 
 	(list
-	  (concat
-	   "\\<\\(gprefs\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(set\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(window\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
-	  '(3 ado-needs-subcommand-face))
+	 (concat
+	  "\\<\\(gprefs\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(set\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(window\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	 '(3 ado-needs-subcommand-face))
 
 	(list
-	  (concat
-	   "\\<\\(gprefs\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(set\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(window\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "displaythick"
-			  "scheme"
-			  "usegphsize"
-			  "xsize"
-			  "ysize"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
-	  '(3 ado-needs-subcommand-face) '(4 ado-needs-subcommand-face))
+	 (concat
+	  "\\<\\(gprefs\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(set\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(window\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "displaythick"
+		   "scheme"
+		   "usegphsize"
+		   "xsize"
+		   "ysize"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	 '(3 ado-needs-subcommand-face) '(4 ado-needs-subcommand-face))
 
      ;;; worse than smcl ---- it's graph!
      ;;;  -> will need multiple copies of the subcommands for the () and || and plain versions
      ;;;     argh, what a pain in the rear.
-	  ;; regular graph ... commands
+	;; regular graph ... commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "gr" "gra" "grap" "graph"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "bar" "box"
-			  "combine" "copy"
-			  "des" "desc" "descr" "descri" "describ" "describe" 
-			  "di" "dir" "dis" "disp" "displ" "displa" "display"
-			  "dot"
-			  "export"
-			  "hbar" "hbox"
-			  "matrix"
-			  "pie" "play" "print"
-			  "q" "qu" "que" "quer" "query" 
-			  "save" "set"
-			  "tw" "two" "twow" "twowa" "twoway"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gr" "gra" "grap" "graph"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "bar" "box"
+		   "combine" "copy"
+		   "des" "desc" "descr" "descri" "describ" "describe" 
+		   "di" "dir" "dis" "disp" "displ" "displa" "display"
+		   "dot"
+		   "export"
+		   "hbar" "hbox"
+		   "matrix"
+		   "pie" "play" "print"
+		   "q" "qu" "que" "quer" "query" 
+		   "save" "set"
+		   "tw" "two" "twow" "twowa" "twoway"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
-	  ;; the initial graph commands which are destructive
+	;; the initial graph commands which are destructive
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "gr" "gra" "grap" "graph"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "drop"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "_all"
-		 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gr" "gra" "grap" "graph"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "drop"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "_all"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "gr" "gra" "grap" "graph"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "drop" "rename" "use"
-		 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
-	  ;; graph set commands ! seem to introduce all sorts of trouble
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gr" "gra" "grap" "graph"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "drop" "rename" "use"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
+	;; graph set commands ! seem to introduce all sorts of trouble
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "gr" "gra" "grap" "graph"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"set"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"eps" "print" "ps"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gr" "gra" "grap" "graph"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "set"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "eps" "print" "ps"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 	
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "gr" "gra" "grap" "graph"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"set"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"window"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"fontface" "fontfacemono" "fontfacesans"
-			"fontfaceserif" "fontfacesymbol"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) 
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gr" "gra" "grap" "graph"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "set"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "fontface" "fontfacemono" "fontfacesans"
+		   "fontfaceserif" "fontfacesymbol"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) 
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
-	  ;; the graph twoway stuff 
+	;; the graph twoway stuff 
 	(list
 	 (concat
 	  "\\<\\(\\(?:\\(?:gr\\|gra\\|grap\\|graph\\)[ \t]+\\)?\\)"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "tw" "two" "twow" "twowa" "twoway"
-		 ) 'words))
-	   "[ \t]+\(?[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "area"
-			  "bar"
-			  "con" "conn" "conne" "connec" "connect" "connecte" "connected"
-			  "contour" "contourline"
-			  "dot" "dropline"
-			  "fpfit" "fpfitci" "function"
-			  "hist" "histo" "histog" "histogr" "histogra" "histogram" 
-			  "kdensity"
-			  "line"
-			  "lfit" "lfitci"
-			  "lowess" "lpoly" "lpolyci"
- 			  "mband" "mspline"
-			  "pcarrow" "pcarrowi" "pcbarrow" "pcbarrowi" "pccapsym" "pci" "pcscatter" "pcspike"
-			  "qfit" "qfitci"
-			  "rarea" "rbar" "rcap" "rcapsym" 
-			  "rcon" "rconn" "rconne" "rconnec" "rconnect" "rconnecte" "rconnected" 
-			  "rl" "rli" "rlin" "rline" 
-			  "rsc" "rsca" "rscat" "rscatt" "rscatte" "rscatter" 
-			  "rspike"
-			  "sc" "sca" "scat" "scatt" "scatte" "scatter" 
-			  "scatteri" "spike"
-			  "tsline" "tsrline"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face t) 
-	  '(3 ado-subcommand-face t))
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "tw" "two" "twow" "twowa" "twoway"
+		   ) 'words))
+	  "[ \t]+\(?[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "area"
+		   "bar"
+		   "con" "conn" "conne" "connec" "connect" "connecte" "connected"
+		   "contour" "contourline"
+		   "dot" "dropline"
+		   "fpfit" "fpfitci" "function"
+		   "hist" "histo" "histog" "histogr" "histogra" "histogram" 
+		   "kdensity"
+		   "line"
+		   "lfit" "lfitci"
+		   "lowess" "lpoly" "lpolyci"
+		   "mband" "mspline"
+		   "pcarrow" "pcarrowi" "pcbarrow" "pcbarrowi" "pccapsym" "pci" "pcscatter" "pcspike"
+		   "qfit" "qfitci"
+		   "rarea" "rbar" "rcap" "rcapsym" 
+		   "rcon" "rconn" "rconne" "rconnec" "rconnect" "rconnecte" "rconnected" 
+		   "rl" "rli" "rlin" "rline" 
+		   "rsc" "rsca" "rscat" "rscatt" "rscatte" "rscatter" 
+		   "rspike"
+		   "sc" "sca" "scat" "scatt" "scatte" "scatter" 
+		   "scatteri" "spike"
+		   "tsline" "tsrline"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face t) 
+	 '(3 ado-subcommand-face t))
 
-	  ;; even more aggravating: things for which both graph and twoway are optional
-	  ;; this is blank
+	;; even more aggravating: things for which both graph and twoway are optional
+	;; this is blank
 
 	;; graph incomplete w/ multiple arguments
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "gr" "gra" "grap" "graph"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "set"
-		 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gr" "gra" "grap" "graph"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "set"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 	
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "gr" "gra" "grap" "graph"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "set"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"window"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
-	  '(3 ado-needs-subcommand-face))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gr" "gra" "grap" "graph"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "set"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "window"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	 '(3 ado-needs-subcommand-face))
 
 	(list
 	 (concat
 	  "\\<\\(\\(?:\\(?:gr\\|gra\\|grap\\|graph\\)[ \t]+\\)?\\)"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "tw" "two" "twow" "twowa" "twoway"
-		 ) 'words))
-	   end-cmd-regexp )
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "tw" "two" "twow" "twowa" "twoway"
+		   ) 'words))
+	  end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	
-     ;; icd9, icd9p commands
+	;; icd9, icd9p commands
 	(list
 	 (concat
 	  (eval-when-compile 
@@ -1610,7 +1586,7 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-     ;; icd9s with generate
+	;; icd9s with generate
 	(list
 	 (concat
 	  (eval-when-compile 
@@ -1626,428 +1602,428 @@ Not implemented as much more than an experiment. ")
 		   "gen" "gene" "gener" "genera" "generat" "generate" 
 		   ) 'words))
 	  end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	
-	 ;; fvset commands
+	;; fvset commands
 	(list
-	  (concat
-	   "\\<\\(fvset\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "b" "ba" "bas" "base" 
-			 "clear"
-			 "d" "de" "des" "desi" "desig" "design" 
-			 "report"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(fvset\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "b" "ba" "bas" "base" 
+		   "clear"
+		   "d" "de" "des" "desi" "desig" "design" 
+		   "report"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	 ;; log commands, cmdlog also (though cmdlog query is undocumented)
+	;; log commands, cmdlog also (though cmdlog query is undocumented)
 	(list
-	  (concat
-	   (eval-when-compile
-		 (regexp-opt
-		  '(
-			"cmdlog" "log"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "c" "cl" "clo" "clos" "close" 
-			 "of" "off" "on"
-			 "query"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "cmdlog" "log"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "c" "cl" "clo" "clos" "close" 
+		   "of" "off" "on"
+		   "query"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	 ;; misstable commands
+	;; misstable commands
 	(list
-	  (concat
-	   "\\<\\(misstable\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "nest" "neste" "nested"
-			 "sum" "summ" "summa" "summar" "summari" "summariz" "summarize" 
-			 "pat" "patt" "patte" "patter" "pattern" "patterns" 
-			 "tree"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(misstable\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "nest" "neste" "nested"
+		   "sum" "summ" "summa" "summar" "summari" "summariz" "summarize" 
+		   "pat" "patt" "patte" "patter" "pattern" "patterns" 
+		   "tree"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-     ;; some of the matrix commands
-     ;; with no matrix arguments - harmless
-     ;; with one following argument but no subcommand
+	;; some of the matrix commands
+	;; with no matrix arguments - harmless
+	;; with one following argument but no subcommand
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "mat" "matname" "mat_put_rr" "matr" "matri" "matrix"
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-matrix-name-face))
-
-	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "mat" "matr" "matri" "matrix"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"d" "di" "dir"
-			"post"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
-     ;; with no matrix arguments - harmful
-	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "mat" "matr" "matri" "matrix"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"sco" "scor" "score"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mat" "matname" "mat_put_rr" "matr" "matri" "matrix"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-matrix-name-face))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "mat" "matr" "matri" "matrix"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile
-		 (regexp-opt
-		  '(
-			"dispCns" "makeCns"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face)  '(2 ado-obsolete-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mat" "matr" "matri" "matrix"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "d" "di" "dir"
+		   "post"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
+	;; with no matrix arguments - harmful
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mat" "matr" "matri" "matrix"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "sco" "scor" "score"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "mat" "matr" "matri" "matrix"
-		 ) 'words))
-	   "[ \t]+"
-	   "\\<\\(drop\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(_all\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
-	  '(3 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mat" "matr" "matri" "matrix"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "dispCns" "makeCns"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face)  '(2 ado-obsolete-face t))
+
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mat" "matr" "matri" "matrix"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(drop\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(_all\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
 	;; doesn't quite work, because it underlines the spaces
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "mat" "matr" "matri" "matrix"
-		 ) 'words))
-	   "[ \t]+"
-	   "\\<\\(drop\\)\\>"
-	   "\\(\\(?:[ \t]+[a-zA-Z][a-zA-Z0-9_]*\\)+\\)"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t) '(3 ado-matrix-name-face))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mat" "matr" "matri" "matrix"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(drop\\)\\>"
+	  "\\(\\(?:[ \t]+[a-zA-Z][a-zA-Z0-9_]*\\)+\\)"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t) '(3 ado-matrix-name-face))
 
-     ;; with one following argument
+	;; with one following argument
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "mat" "matr" "matri" "matrix"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "ac" "acc" "accu" "accum" 
-			  "cole" "coleq" 
-			  "coln" "colna" "colnam" "cloname" "colnames"
-			  "def" "defi" "defin" "define"
-			  "dis" "diss" "dissi" "dissim" "dissimi" "dissimil" "dissimila" "dissimilar" 
-			  "dissimilari" "dissimilarit" "dissimilarity" 
-			  "glsa" "glsac" "glsacc" "glsaccu" "glsaccum"
-			  "in" "inp" "inpu" "input" 
-			  "opaccum"
-			  "rowe" "roweq" 
-			  "rown" "rowna" "rownam" "rowname" "rownames"
-			  "veca" "vecac" "vecacc" "vecaccu" "vecaccum"
-			) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
-	  '(3 ado-matrix-name-face t))
-     ;; with one following arguments -- but harmless (good grief!)
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mat" "matr" "matri" "matrix"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "ac" "acc" "accu" "accum" 
+		   "cole" "coleq" 
+		   "coln" "colna" "colnam" "cloname" "colnames"
+		   "def" "defi" "defin" "define"
+		   "dis" "diss" "dissi" "dissim" "dissimi" "dissimil" "dissimila" "dissimilar" 
+		   "dissimilari" "dissimilarit" "dissimilarity" 
+		   "glsa" "glsac" "glsacc" "glsaccu" "glsaccum"
+		   "in" "inp" "inpu" "input" 
+		   "opaccum"
+		   "rowe" "roweq" 
+		   "rown" "rowna" "rownam" "rowname" "rownames"
+		   "veca" "vecac" "vecacc" "vecaccu" "vecaccum"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
+	 '(3 ado-matrix-name-face t))
+	;; with one following arguments -- but harmless (good grief!)
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "mat" "matr" "matri" "matrix"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "l" "li" "lis" "list" 
-			) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
-	  '(3 ado-matrix-name-face t))
-     ;; with two following arguments
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mat" "matr" "matri" "matrix"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "l" "li" "lis" "list" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
+	 '(3 ado-matrix-name-face t))
+	;; with two following arguments
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "mat" "matr" "matri" "matrix"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "eigenval" "eigenvalu" "eigenvalue" "eigenvalues" 
-			  "ren" "rena" "renam" "rename" 
-			  "syme" "symei" "symeig" "symeige" "symeigen"
-			) 'words))
-	   "[ \t]+"
-	   "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	   "[ \t]+"
-	   "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
-	  '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t))
-     ;; with three(!) following arguments
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mat" "matr" "matri" "matrix"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "eigenval" "eigenvalu" "eigenvalue" "eigenvalues" 
+		   "ren" "rena" "renam" "rename" 
+		   "syme" "symei" "symeig" "symeige" "symeigen"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "[ \t]+"
+	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
+	 '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t))
+	;; with three(!) following arguments
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "mat" "matr" "matri" "matrix"
-		 ) 'words))
-	   "[ \t]+"
-	   "\\<\\(svd\\)\\>"
-	   "[ \t]+"
-	   "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	   "[ \t]+"
-	   "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	   "[ \t]+"
-	   "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
-	  '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t)
-	  '(5 ado-matrix-name-face t))
-     ;; with three(!) following arguments but no friggin matrix command! 
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mat" "matr" "matri" "matrix"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(svd\\)\\>"
+	  "[ \t]+"
+	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "[ \t]+"
+	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "[ \t]+"
+	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
+	 '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t)
+	 '(5 ado-matrix-name-face t))
+	;; with three(!) following arguments but no friggin matrix command! 
 	(list
-	  (concat
-	   "\\<\\(matcproc\\)\\>"
-	   "[ \t]+"
-	   "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	   "[ \t]+"
-	   "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	   "[ \t]+"
-	   "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-matrix-name-face t)
-	  '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t))
-	  ;; now for the svmat command
+	 (concat
+	  "\\<\\(matcproc\\)\\>"
+	  "[ \t]+"
+	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "[ \t]+"
+	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "[ \t]+"
+	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-matrix-name-face t)
+	 '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t))
+	;; now for the svmat command
 	(list
-	  (concat
-	   "\\<\\(svmat\\)\\>"
-	   "[ \t]+"
-	   "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-matrix-name-face t))
-
-	(list
-	  (concat
-	   "\\<\\(svmat\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"byte" "double" "float" "int" "long"
-			) 'words))
-	   "[ \t]+"
-	   "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
-	  '(3 ado-matrix-name-face t))
-
-     ;; the ml commands
-	(list
-	  (concat
-	   "\\<\\(ml\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "check" "clear" "count"
-			  "di" "dis" "disp" "displ" "displa" "display"
-			  "foot" "footn" "footno" "footnot" "footnote"
-			  "gr" "gra" "grap" "graph"
-			  "init"
-			  "max" "maxi" "maxim" "maximi" "maximiz" "maximize"
-			  "me" "met" "meth" "metho" "method"
-			  "mod" "mode" "model"
-			  "p" "pl" "plo" "plot" 
-			  "q" "qu" "que" "quer" "query"
-			  "rep" "repo" "repor" "report"
-			  "sea" "sear" "searc" "search"
-			  "trace"		   
-			  ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-	(list
-	  (concat
-	   "\\<\\(ml\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(score\\)\\>"
-	   )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
-     ;; obsolete ml commands
-	(list
-	  (concat
-	   "\\<\\(ml\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"b" "be" "beg" "begi" "begin" 
-			  "de" "dep" "depn" "depna" "depnam" "depname" "depnames" 
-			  "f" "fu" "fun" "func" "funct" "functi" "functio" "function"
-			  "ml" "mlo" "mlou" "mlout"
-			  "pl" "plo" "plot"
-			  "po" "pos" "post" 
-			  "sa" "sam" "samp" "sampl" "sample"
-			  ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
-	  ;; the net commands
-	(list
-	  (concat
-	   "\\<\\(net\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "cd"
-			  "d" "de" "des" "desc" "descr" "descri" "describ" "describe"
-			  "from" "get" 
-			  "ins" "inst" "insta" "instal" "install" 
-			  "link"
-			  "q" "qu" "que" "quer" "query"
-			  "search" "sj" "stb"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(svmat\\)\\>"
+	  "[ \t]+"
+	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-matrix-name-face t))
 
 	(list
-	  (concat
-	   "\\<\\(net\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(set\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"ado" "other"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(svmat\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "byte" "double" "float" "int" "long"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
+	 '(3 ado-matrix-name-face t))
+
+	;; the ml commands
+	(list
+	 (concat
+	  "\\<\\(ml\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "check" "clear" "count"
+		   "di" "dis" "disp" "displ" "displa" "display"
+		   "foot" "footn" "footno" "footnot" "footnote"
+		   "gr" "gra" "grap" "graph"
+		   "init"
+		   "max" "maxi" "maxim" "maximi" "maximiz" "maximize"
+		   "me" "met" "meth" "metho" "method"
+		   "mod" "mode" "model"
+		   "p" "pl" "plo" "plot" 
+		   "q" "qu" "que" "quer" "query"
+		   "rep" "repo" "repor" "report"
+		   "sea" "sear" "searc" "search"
+		   "trace"		   
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	(list
+	 (concat
+	  "\\<\\(ml\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(score\\)\\>"
+	  )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	;; obsolete ml commands
+	(list
+	 (concat
+	  "\\<\\(ml\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "b" "be" "beg" "begi" "begin" 
+		   "de" "dep" "depn" "depna" "depnam" "depname" "depnames" 
+		   "f" "fu" "fun" "func" "funct" "functi" "functio" "function"
+		   "ml" "mlo" "mlou" "mlout"
+		   "pl" "plo" "plot"
+		   "po" "pos" "post" 
+		   "sa" "sam" "samp" "sampl" "sample"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
+	;; the net commands
+	(list
+	 (concat
+	  "\\<\\(net\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "cd"
+		   "d" "de" "des" "desc" "descr" "descri" "describ" "describe"
+		   "from" "get" 
+		   "ins" "inst" "insta" "instal" "install" 
+		   "link"
+		   "q" "qu" "que" "quer" "query"
+		   "search" "sj" "stb"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  "\\<\\(net\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(set\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "ado" "other"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face t))
 
 	;; net incomplete
 	(list
-	  (concat
-	   "\\<\\(net\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(set\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	 (concat
+	  "\\<\\(net\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(set\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	;; ado commands (-ado- by itself is OK)
 	(list
-	  (concat
-	   "\\<\\(ado\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"d" "de" "des" "desc" "descr" "descri" "describ" "describe"
-			"dir"
-			"uninstall"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(ado\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "d" "de" "des" "desc" "descr" "descri" "describ" "describe"
+		   "dir"
+		   "uninstall"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	
 	;; odbc commands 
 	(list
-	  (concat
-	   "\\<\\(odbc\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "des" "desc" "descr" "descri" "describ" "describe"
-		  "li" "lis" "list"
-		  "q" "qu" "que" "quer" "query"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(odbc\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "des" "desc" "descr" "descri" "describ" "describe"
+		   "li" "lis" "list"
+		   "q" "qu" "que" "quer" "query"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	(list
-	  (concat
-	   "\\<\\(odbc\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "in" "ins" "inse" "inser" "insert" 
-		  "lo" "loa" "load" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(odbc\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "in" "ins" "inse" "inser" "insert" 
+		   "lo" "loa" "load" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	;; odbc functional subcommands
 	(list
-	  (concat
-	   "\\<\\(odbc\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "exe" "exec" 
-		  "sql" "sqlf" "sqlfi" "sqlfil" "sqlfile" 
-			) 'words))
-	   "(" )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(odbc\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "exe" "exec" 
+		   "sql" "sqlf" "sqlfi" "sqlfil" "sqlfile" 
+		   ) 'words))
+	  "(" )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
-	  ;; palette commands
+	;; palette commands
 	(list
 	 (concat
 	  "\\<\\(palette\\)\\>"
@@ -2059,8 +2035,8 @@ Not implemented as much more than an experiment. ")
 		   "line" "linep" "linepa" "linepal" "linepale" "linepalet" "linepalett" "linepalette" 
 		   "symbol" "symbolp" "symbolpa" "symbolpal" "symbolpale" "symbolpalet" "symbolpalett" "symbolpalette" 
 		   ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; postutil commands - both of them
 	(list
@@ -2079,1375 +2055,1400 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
-	  ;; query commands 
+	;; query commands 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "q" "qu" "que" "quer" "query"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "eff" "effi" "effic" "effici" "efficie" "efficien" "efficienc" "efficiency" 
-		  "graph" "graphi" "graphic" "graphics" 
-		  "inter" "interf" "interfa" "interfac" "interface"
-		  "mata"
-		  "mem" "memo" "memor" "memory" 
-		  "net" "netw" "netwo" "networ" "network" 
-		  "out" "outp" "outpu" "output" 
-		  "oth" "othe" "other" 
-		  "trace"
-		  "up" "upd" "upda" "updat" "update" 
-			"paste-min-to-max stuff here"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "q" "qu" "que" "quer" "query"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "eff" "effi" "effic" "effici" "efficie" "efficien" "efficienc" "efficiency" 
+		   "graph" "graphi" "graphic" "graphics" 
+		   "inter" "interf" "interfa" "interfac" "interface"
+		   "mata"
+		   "mem" "memo" "memor" "memory" 
+		   "net" "netw" "netwo" "networ" "network" 
+		   "out" "outp" "outpu" "output" 
+		   "oth" "othe" "other" 
+		   "trace"
+		   "up" "upd" "upda" "updat" "update" 
+		   "paste-min-to-max stuff here"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
     
 	;; the reshape commands
 	(list
-	  (concat
-	   "\\<\\(reshape\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "clear"
-		  "error"
-		  "i" "j"
-		  "long"
-		  "wide"
-		  "xi" "xij"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(reshape\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "clear"
+		   "error"
+		   "i" "j"
+		   "long"
+		   "wide"
+		   "xi" "xij"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   "\\<\\(reshape\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"q" "qu" "que" "quer" "query" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(reshape\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "q" "qu" "que" "quer" "query" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	  ;; the snapshot commands
+	;; the snapshot commands
 	(list
-	  (concat
-	   "\\<\\(snapshot\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(restore\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(snapshot\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(restore\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	(list
-	  (concat
-	   "\\<\\(snapshot\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "erase"
-			 "label" "list"
-			 "save"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-	  ;; one lonely sysuse subcommand
+	 (concat
+	  "\\<\\(snapshot\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "erase"
+		   "label" "list"
+		   "save"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	;; one lonely sysuse subcommand
 	(list
-	  (concat
-	   "\\<\\(sysuse\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(dir\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(sysuse\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(dir\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	  ;; the _return commands (not the return commands)
+	;; the _return commands (not the return commands)
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "_ret" "_retu" "_retur" "_return"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "dir" "drop"
-		  "hold"
-		  "res" "rest" "resto" "restor" "restore" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "_ret" "_retu" "_retur" "_return"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "dir" "drop"
+		   "hold"
+		   "res" "rest" "resto" "restor" "restore" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	  ;; the return commands
+	;; the return commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "ret" "retu" "retur" "return"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "add" "clear"
-			  "li" "lis" "list" 
-			  "loc" "loca" "local" 
-			  "mat" "matr" "matri" "matrix" 
-			  "sca" "scal" "scala" "scalar" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "ret" "retu" "retur" "return"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "add" "clear"
+		   "li" "lis" "list" 
+		   "loc" "loca" "local" 
+		   "mat" "matr" "matri" "matrix" 
+		   "sca" "scal" "scala" "scalar" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; ereturn
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "eret" "eretu" "eretur" "ereturn"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "clear"
-		  "di" "dis" "disp" "displ" "displa" "display" 
-		  "li" "lis" "list" 
-		  "loc" "loca" "local" 
-		  "mat" "matr" "matri" "matrix" 
-		  "post" "repost"
-		  "sca" "scal" "scala" "scalar" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "eret" "eretu" "eretur" "ereturn"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "clear"
+		   "di" "dis" "disp" "displ" "displa" "display" 
+		   "li" "lis" "list" 
+		   "loc" "loca" "local" 
+		   "mat" "matr" "matri" "matrix" 
+		   "post" "repost"
+		   "sca" "scal" "scala" "scalar" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; sreturn
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "sret" "sretu" "sretur" "sreturn"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		"clear" 
-		  "li" "lis" "list" 
-		  "loc" "loca" "local"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "sret" "sretu" "sretur" "sreturn"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "clear" 
+		   "li" "lis" "list" 
+		   "loc" "loca" "local"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	  ;; scc commands
+	;; scc commands
 	(list
-	  (concat
-	   "\\<\\(ssc\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "copy"
-		  "d" "de" "des" "desc" "descr" "descri" "describ" "describe"
-		  "hot"
-		  "inst" "insta" "instal" "install"
-		  "new" "type" "uninstall"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-	  ;; scc commands---obsolete
+	 (concat
+	  "\\<\\(ssc\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "copy"
+		   "d" "de" "des" "desc" "descr" "descri" "describ" "describe"
+		   "hot"
+		   "inst" "insta" "instal" "install"
+		   "new" "type" "uninstall"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	;; scc commands---obsolete
 
 	(list
-	  (concat
-	   "\\<\\(ssc\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "what" "whats" "whatsn" "whatsne" "whatsnew" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
+	 (concat
+	  "\\<\\(ssc\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "what" "whats" "whatsn" "whatsne" "whatsnew" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
 	;; the serset commands
 	;; NO subcommands, b/c -serset- is legal by itself
 	(list
-	  (concat
-	   "\\<\\(serset\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "clear"
-		  "cr" "cre" "crea" "creat" "create" "create_cspline" "create_xmedians"
-		  "drop"
-		  "reset_id"
-		  "set" "sort"
-		  "use"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(serset\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "clear"
+		   "cr" "cre" "crea" "creat" "create" "create_cspline" "create_xmedians"
+		   "drop"
+		   "reset_id"
+		   "set" "sort"
+		   "use"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	(list
-	  (concat
-	   "\\<\\(serset\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "dir"
-		  "su" "sum" "summ" "summa" "summar" "summari" "summariz" "summarize" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(serset\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "dir"
+		   "su" "sum" "summ" "summa" "summar" "summari" "summariz" "summarize" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; sts commands, NO partial, because -sts- is good by itself
 	(list
-	  (concat
-	   "\\<\\(sts\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "g" "gr" "gra" "grap" "graph"
-		  "l" "li" "lis" "list"
-		  "t" "te" "tes" "test"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(sts\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "g" "gr" "gra" "grap" "graph"
+		   "l" "li" "lis" "list"
+		   "t" "te" "tes" "test"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	(list
-	  (concat
-	   "\\<\\(sts\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "gen" "gene" "gener" "genera" "generat" "generate"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(sts\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gen" "gene" "gener" "genera" "generat" "generate"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
-	  ;; the sw commands
-	  ;; the sw commands are all now obsolete, because of syntax change
+	;; the sw commands
+	;; the sw commands are all now obsolete, because of syntax change
 	(list
-	  (concat
-	   "\\<\\(sw\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "clogit" "cloglog" "cnreg" "cox" 
-		  "ereg" 
-		  "gamma" "glm" "gompertz" 
-		  "hetprob" 
-		  "llogistic" "lnormal" "logistic" "logit" "nbreg" "ologit" "oprobit"
-		  "poisson" "probit" "qreg" "reg" "regr" "regre" "regres" "regress"
-		  "scobit" "stcox" "streg" "tobit" "weibull"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-obsolete-face) '(2 ado-obsolete-face))
+	 (concat
+	  "\\<\\(sw\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "clogit" "cloglog" "cnreg" "cox" 
+		   "ereg" 
+		   "gamma" "glm" "gompertz" 
+		   "hetprob" 
+		   "llogistic" "lnormal" "logistic" "logit" "nbreg" "ologit" "oprobit"
+		   "poisson" "probit" "qreg" "reg" "regr" "regre" "regres" "regress"
+		   "scobit" "stcox" "streg" "tobit" "weibull"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-obsolete-face) '(2 ado-obsolete-face))
 
-	  ;; mfp arguments --- obsolete in Stata 11
+    ;; the gph commands (really obsolete)
 	(list
-	  (concat
-	   "\\<\\(mfp\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "clogit" "cnreg" "glm" "logistic" "logit" "mlogit"
-			  "nbreg" "ologit" "oprobit" "poisson"
-			  "probit" "qreg" "regress" "stcox" "streg" "xtgee"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gph"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "arc"
+		   "box"
+		   "clear" "close"
+		   "font"
+		   "line"
+		   "open"
+		   "pen" "point"
+		   "text"
+		   "vline" "vpoint" "vpoly" "vtext"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-obsolete-face t) '(2 ado-obsolete-face t))
 
-	  ;; the sysdir commands
+	;; mfp arguments --- obsolete in Stata 11
+	(list
+	 (concat
+	  "\\<\\(mfp\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "clogit" "cnreg" "glm" "logistic" "logit" "mlogit"
+		   "nbreg" "ologit" "oprobit" "poisson"
+		   "probit" "qreg" "regress" "stcox" "streg" "xtgee"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
+
+	;; the sysdir commands
 	;; no partial, b/c -sysdir- is legal
 	(list
-	  (concat
-	   "\\<\\(sysdir\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "l" "li" "lis" "list"
-		  "set"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(sysdir\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "l" "li" "lis" "list"
+		   "set"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   "\\<\\(personal\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(dir\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(personal\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(dir\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	  ;; tsunab and unab commands
+	;; tsunab and unab commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "fvunab" "tsunab" "unab"
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
-	   "[ \t]*:[ \t]*"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "fvunab" "tsunab" "unab"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
+	  "[ \t]*:[ \t]*"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face))
 
-	  ;; the tssmooth commands
+	;; the tssmooth commands
 	(list
-	  (concat
-	   "\\<\\(tssmooth\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "d" "de" "dex" "dexp" "dexpo" "dexpon" "dexpone" "dexponen" "dexponent" "dexponenti" "dexponentia" "dexponential" 
-		  "e" "ex" "exp" "expo" "expon" "expone" "exponen" "exponent" "exponenti" "exponentia" "exponential" 
-		  "h" "hw" "hwi" "hwin" "hwint" "hwinte" "hwinter" "hwinters" 
-		  "ma" "nl"
-		  "s" "sh" "shw" "shwi" "shwin" "shwint" "shwinte" "shwinter" "shwinters" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-	  ;;
-	  ;; the translator commands
+	 (concat
+	  "\\<\\(tssmooth\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "d" "de" "dex" "dexp" "dexpo" "dexpon" "dexpone" "dexponen" "dexponent" "dexponenti" "dexponentia" "dexponential" 
+		   "e" "ex" "exp" "expo" "expon" "expone" "exponen" "exponent" "exponenti" "exponentia" "exponential" 
+		   "h" "hw" "hwi" "hwin" "hwint" "hwinte" "hwinter" "hwinters" 
+		   "ma" "nl"
+		   "s" "sh" "shw" "shwi" "shwin" "shwint" "shwinte" "shwinter" "shwinters" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	;;
+	;; the translator commands
 	(list
-	  (concat
-	   "\\<\\(translator\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "q" "qu" "que" "quer" "query" 
-		  "reset"
-		  "set"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-	  ;;
-	  ;; the transmap commands
+	 (concat
+	  "\\<\\(translator\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "q" "qu" "que" "quer" "query" 
+		   "reset"
+		   "set"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	;;
+	;; the transmap commands
 	(list
-	  (concat
-	   "\\<\\(transmap\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "def" "defi" "defin" "define" 
-		  "q" "qu" "que" "quer" "query" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-     ;; 
-     ;; the update commands
+	 (concat
+	  "\\<\\(transmap\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "def" "defi" "defin" "define" 
+		   "q" "qu" "que" "quer" "query" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	;; 
+	;; the update commands
 	(list
-	  (concat
-	   "\\<\\(update\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "all"
-		  "from"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(update\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "all"
+		   "from"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	(list
-	  (concat
-	   "\\<\\(update\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "q" "qu" "que" "quer" "query" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(update\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "q" "qu" "que" "quer" "query" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; obsolete update commands
 	(list
-	  (concat
-	   "\\<\\(update\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "ado"
-		  "executable"
-		  "swap"
-		  "utilities"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
+	 (concat
+	  "\\<\\(update\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "ado"
+		   "executable"
+		   "swap"
+		   "utilities"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
 
-	  ;; the xtunitroot commands
+	;; the xtunitroot commands
 	(list
-	  (concat
-	   "\\<\\(xtunitroot\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			 "breitung"
-			 "fisher"
-			 "hadri"
-			 "ht"
-			 "ips"
-			 "llc"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(xtunitroot\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "breitung"
+		   "fisher"
+		   "hadri"
+		   "ht"
+		   "ips"
+		   "llc"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-     ;; the fcast commands which leave data alone
+	;; the fcast commands which leave data alone
 	(list
-	  (concat
-	   "\\<\\(fcast\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "g" "gr" "gra" "grap" "graph" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-     ;; fcast commands which alter data
+	 (concat
+	  "\\<\\(fcast\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "g" "gr" "gra" "grap" "graph" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	;; fcast commands which alter data
 	(list
-	  (concat
-	   "\\<\\(fcast\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "c" "co" "com" "comp" "compu" "comput" "compute" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(fcast\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "c" "co" "com" "comp" "compu" "comput" "compute" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
-     ;; the obsolete varfcast commands with sub commands
+	;; the obsolete varfcast commands with sub commands
 	(list
-	  (concat
-	   "\\<\\(varfcast\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "c" "cl" "cle" "clea" "clear" 
-		  "co" "com" "comp" "compu" "comput" "compute" 
-		  "g" "gr" "gra" "grap" "graph" 
-		  "c" "co" "com" "comp" "compu" "comput" "compute" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-obsolete-face) '(2 ado-obsolete-face))
+	 (concat
+	  "\\<\\(varfcast\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "c" "cl" "cle" "clea" "clear" 
+		   "co" "com" "comp" "compu" "comput" "compute" 
+		   "g" "gr" "gra" "grap" "graph" 
+		   "c" "co" "com" "comp" "compu" "comput" "compute" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-obsolete-face) '(2 ado-obsolete-face))
 
 	(list
-	  (concat
-	   "\\<\\(irf\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "cg" "cgr" "cgra" "cgrap" "cgraph" 
-		  "ct" "cta" "ctab" "ctabl" "ctable" 
-		  "d" "de" "des" "desc" "descr" "descri" "describ" "describe" 
-		  "di" "dir"
-		  "g" "gr" "gra" "grap" "graph" 
-		  "og" "ogr" "ogra" "ograp" "ograph" 
-		  "t" "ta" "tab" "tabl" "table" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-	 ;; irf graph/table and their subcommands
+	 (concat
+	  "\\<\\(irf\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "cg" "cgr" "cgra" "cgrap" "cgraph" 
+		   "ct" "cta" "ctab" "ctabl" "ctable" 
+		   "d" "de" "des" "desc" "descr" "descri" "describ" "describe" 
+		   "di" "dir"
+		   "g" "gr" "gra" "grap" "graph" 
+		   "og" "ogr" "ogra" "ograp" "ograph" 
+		   "t" "ta" "tab" "tabl" "table" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	;; irf graph/table and their subcommands
 	(list
-	  (concat
-	   "\\<\\(irf\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"g" "gr" "gra" "grap" "graph"
+	 (concat
+	  "\\<\\(irf\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "g" "gr" "gra" "grap" "graph"
 		   "t" "ta" "tab" "tabl" "table"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"cdm" "cirf" "coirf"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "cdm" "cirf" "coirf"
 		   "dm"
 		   "fevd"
 		   "irf"
 		   "oirf"
 		   "sfevd" "sirf"
 		   ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-subcommand-face t))
-     ;; the irf commands which alter data
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+	;; the irf commands which alter data
 	(list
-	  (concat
-	   "\\<\\(irf\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "a" "ad" "add" 
-		  "cr" "cre" "crea" "creat" "create" 
-		  "drop"
-		  "ren" "rena" "renam" "rename" 
-		  "set"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(irf\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "a" "ad" "add" 
+		   "cr" "cre" "crea" "creat" "create" 
+		   "drop"
+		   "ren" "rena" "renam" "rename" 
+		   "set"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	;; irf partial commands
 	(list
-	  (concat
-	   "\\<\\(irf\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"g" "gr" "gra" "grap" "graph"
+	 (concat
+	  "\\<\\(irf\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "g" "gr" "gra" "grap" "graph"
 		   "t" "ta" "tab" "tabl" "table"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face t) '(2 ado-needs-subcommand-face t))
-     ;; the irf functions which are obsolete
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face t) '(2 ado-needs-subcommand-face t))
+	;; the irf functions which are obsolete
 	(list
-	  (concat
-	   "\\<\\(irf\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "di" "dir"
-		  "erase"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-obsolete-face t))
+	 (concat
+	  "\\<\\(irf\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "di" "dir"
+		   "erase"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-obsolete-face t))
 
-     ;; obsolete varirf functions
-     ;; the varirf functions which leave data alone
+	;; obsolete varirf functions
+	;; the varirf functions which leave data alone
 	(list
-	  (concat
-	   "\\<\\(varirf\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "a" "ad" "add" 
-		  "cg" "cgr" "cgra" "cgrap" "cgraph" 
-		  "cr" "cre" "crea" "creat" "create" 
-		  "ct" "cta" "ctab" "ctabl" "ctable" 
-		  "d" "de" "des" "desc" "descr" "descri" "describ" "describe" 
-		  "di" "dir"
-		  "drop" "erase"
-		  "g" "gr" "gra" "grap" "graph" 
-		  "og" "ogr" "ogra" "ograp" "ograph" 
-		  "ren" "rena" "renam" "rename" 
-		  "set"
-		  "t" "ta" "tab" "tabl" "table" 
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-obsolete-face) '(2 ado-obsolete-face t))
-     ;;
-     ;; the view commands
+	 (concat
+	  "\\<\\(varirf\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "a" "ad" "add" 
+		   "cg" "cgr" "cgra" "cgrap" "cgraph" 
+		   "cr" "cre" "crea" "creat" "create" 
+		   "ct" "cta" "ctab" "ctabl" "ctable" 
+		   "d" "de" "des" "desc" "descr" "descri" "describ" "describe" 
+		   "di" "dir"
+		   "drop" "erase"
+		   "g" "gr" "gra" "grap" "graph" 
+		   "og" "ogr" "ogra" "ograp" "ograph" 
+		   "ren" "rena" "renam" "rename" 
+		   "set"
+		   "t" "ta" "tab" "tabl" "table" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-obsolete-face) '(2 ado-obsolete-face t))
+	;;
+	;; the view commands
 	(list
-	  (concat
-	   "\\<\\(view\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "ado" "ado_d"
-		  "browse"
-		  "file"
-		  "help" "help_d"
-		  "net" "net_d" "news"
-		  "search" "search_d"
-		  "view_d"
-		  "update" "update_d"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(view\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "ado" "ado_d"
+		   "browse"
+		   "file"
+		   "help" "help_d"
+		   "net" "net_d" "news"
+		   "search" "search_d"
+		   "view_d"
+		   "update" "update_d"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-     ;; the webuse commands
+	;; the webuse commands
 	(list
-	  (concat
-	   "\\<\\(webuse\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "query" "set"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(webuse\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "query" "set"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	  ;; the window commands
+	;; the window commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "d"
-		  "di" "dia" "dial" "dialo" "dialog"
-		  "dir" "drop"
-		  "fo" "fop" "fope" "fopen"
-		  "fs" "fsa" "fsav" "fsave"
-		  "l" "list"
-		  "push"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "d"
+		   "di" "dia" "dial" "dialo" "dialog"
+		   "dir" "drop"
+		   "fo" "fop" "fope" "fopen"
+		   "fs" "fsa" "fsav" "fsave"
+		   "l" "list"
+		   "push"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "c" "co" "con" "cont" "contr" "contro" "control"
-			) 'words))
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "button" "check" "clear"
-		  "edit"
-		  "mcombo" "msimple"
-		  "radbegin"
-		  "radend"
-		  "radio"
-		  "scombo"
-		  "ssimple"
-		  "static"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "c" "co" "con" "cont" "contr" "contro" "control"
+		   ) 'words))
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "button" "check" "clear"
+		   "edit"
+		   "mcombo" "msimple"
+		   "radbegin"
+		   "radend"
+		   "radio"
+		   "scombo"
+		   "ssimple"
+		   "static"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face t))
 	;; 
-	  ;; the window manage commands	
+	;; the window manage commands	
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "man" "mana" "manag" "manage"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "associate"
-		  "maintitle"
-		  "minimize" 
-		  "restore"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "man" "mana" "manag" "manage"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "associate"
+		   "maintitle"
+		   "minimize" 
+		   "restore"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face t))
 
-   ;; fix up all the 4-word crap
+	;; fix up all the 4-word crap
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "man" "mana" "manag" "manage"
-			) 'words))
-	   "[ \t]+"
-	   "\\<\\(close\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"graph" "viewer"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "man" "mana" "manag" "manage"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(close\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "graph" "viewer"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "man" "mana" "manag" "manage"
-			) 'words))
-	   "[ \t]+"
-	   "\\<\\(prefs\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"default" "load" "save"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "man" "mana" "manag" "manage"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(prefs\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "default" "load" "save"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "man" "mana" "manag" "manage"
-			) 'words))
-	   "[ \t]+"
-	   "\\<\\(print\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"graph" "viewer"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "man" "mana" "manag" "manage"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(print\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "graph" "viewer"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "man" "mana" "manag" "manage"
-			) 'words))
-	   "[ \t]+"
-	   "\\<\\(rename\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(graph\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "man" "mana" "manag" "manage"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(rename\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(graph\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "man" "mana" "manag" "manage"
-			) 'words))
-	   "[ \t]+"
-	   "\\<\\(update\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(variable\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
-	  ;; platform-specific windows manage
-	  ;; need better way to work with platform-specific commands
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "man" "mana" "manag" "manage"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(update\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(variable\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	;; platform-specific windows manage
+	;; need better way to work with platform-specific commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "man" "mana" "manag" "manage"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "associate"
-		  "maintitle"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-platform-specific-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "man" "mana" "manag" "manage"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "associate"
+		   "maintitle"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-platform-specific-face t))
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "man" "mana" "manag" "manage"
-			) 'words))
-	   "[ \t]+"
-	   "\\<\\(maintitle\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(reset\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-platform-specific-face t) '(4 ado-platform-specific-face t))
-	  ;; the window manage forward commands [sheesh]
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "man" "mana" "manag" "manage"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(maintitle\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(reset\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-platform-specific-face t) '(4 ado-platform-specific-face t))
+	;; the window manage forward commands [sheesh]
 	;; not platform specific
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "man" "mana" "manag" "manage"
-			) 'words))
-	   "[ \t]+"
-	   "\\<\\(forward\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"command" "doeditor" "graph" "help" "results" "review" "variables" "viewer"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
-	  ;; the window manage close/print commands [all taken care of above]
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "man" "mana" "manag" "manage"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(forward\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "command" "doeditor" "graph" "help" "results" "review" "variables" "viewer"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	;; the window manage close/print commands [all taken care of above]
 
-	  ;; the window menu commands
+	;; the window menu commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "m" "me" "men" "menu"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "add_recentfiles"
-		  "clear"
-		  "refresh"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face t))
-
-	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "m" "me" "men" "menu"
-			) 'words))
-	   "[ \t]+"
-	   "\\<\\(append\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"item"
-			"separator"
-			"submenu"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "m" "me" "men" "menu"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "add_recentfiles"
+		   "clear"
+		   "refresh"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face t))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "stop" "stopb" "stopbo" "stopbox"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "note"
-		  "rusure"
-		  "stop"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	  '(3 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "m" "me" "men" "menu"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(append\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "item"
+		   "separator"
+		   "submenu"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "stop" "stopb" "stopbo" "stopbox"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "note"
+		   "rusure"
+		   "stop"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face t))
 
 	;; incomplete window multiword subcommands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"c" "co" "con" "cont" "contr" "contro" "control"
-			"man" "mana" "manag" "manage"
-			"m" "me" "men" "menu"
-			"stop" "stopb" "stopbo" "stopbox"
-			) 'words))
-		 end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "c" "co" "con" "cont" "contr" "contro" "control"
+		   "man" "mana" "manag" "manage"
+		   "m" "me" "men" "menu"
+		   "stop" "stopb" "stopbo" "stopbox"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "man" "mana" "manag" "manage"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"close" "forward" "prefs" "print" "rename" "update"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
-	  '(3 ado-needs-subcommand-face))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "man" "mana" "manag" "manage"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "close" "forward" "prefs" "print" "rename" "update"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	 '(3 ado-needs-subcommand-face))
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "win" "wind" "windo" "window"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "m" "me" "men" "menu"
-			) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"append"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
-	  '(3 ado-needs-subcommand-face))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "win" "wind" "windo" "window"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "m" "me" "men" "menu"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "append"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	 '(3 ado-needs-subcommand-face))
 
-	  ;; the xwindow commands---obsolete from at least Stata 9.1
+	;; the xwindow commands---obsolete from at least Stata 9.1
 
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "xwin" "xwind" "xwindo" "xwindow"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "de" "def" "defi" "defin" "define" 
-		  "di" "dir"
-		  "drop"
-		  "l" "li" "lis" "list"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-obsolete-face) '(2 ado-obsolete-face))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "xwin" "xwind" "xwindo" "xwindow"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "de" "def" "defi" "defin" "define" 
+		   "di" "dir"
+		   "drop"
+		   "l" "li" "lis" "list"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-obsolete-face) '(2 ado-obsolete-face))
 
-	  ;; all the endless Stata keywords (not in a good order)
-	  ;; first those keywords which must start a line
-	  ;; note that these will look like text if preceded by a comment
-	  ;; (but comments shouldn't be before the command, anyway, 'cuz it makes things hard to read)
+	;; all the endless Stata keywords (not in a good order)
+	;; first those keywords which must start a line
+	;; note that these will look like text if preceded by a comment
+	;; (but comments shouldn't be before the command, anyway, 'cuz it makes things hard to read)
 	(list
 	 (concat
 	  "^[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		  "by"
-		  "cap" "capt" "captu" "captur" "capture"
-		  "char" 
-		  "e" "err" "erro" "error" "ex" "exi" "exit" 
-		  "for"
-		  ) 'words))
+		   "by"
+		   "cap" "capt" "captu" "captur" "capture"
+		   "char" 
+		   "e" "err" "erro" "error" "ex" "exi" "exit" 
+		   "for"
+		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
 
-	  ;; here are some keywords which appear in the middle of lines
-	  ;; note that the really short abbreviations could make a mess of things
-	  ;;
-	  ;; These are split to allow compiling!
+	;; here are some keywords which appear in the middle of lines
+	;; note that the really short abbreviations could make a mess of things
+	;;
+	;; These are split to allow compiling!
 	(list
 	 (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "_coef_table" "_crcswxx"
-		  "_datasig" "_datasign" "_datasigna" "_datasignat" "_datasignatu" "_datasignatur" "_datasignature" 
-		  "_qreg" "_rmcoll" "_rmdcoll" "_robust"
-		  "#r" "#re" "#rev" "#revi" "#revie" "#review" 
-		  "about" "ac" "acprplot" 
-		  "ado" "adopath" "adoupdate" "alpha" "ameans" 
-		  "an" "ano" "anov" "anova" 
-		  "arch" "areg" "arfima" "arima" 
-		  "as" 
-		  "asclogit"
-		  "asmprobit"
-		  "asroprobit"
-		  "ass" "asse" "asser" "assert" 
-		  "avplot" "avplots"
-		  "b" "be" "bee" "beep"
-		  "binreg" "biprobit" "biplot" "bitest" "bitesti" "blogit"
-		  "bootstrap" "boxcox" "bprobit" "br" "break" "brier" 
-		  "bro" "brow" "brows" "browse" 
-		  "brr" "bsqreg" "bstat"
-		  "ca" "cabiplot" "camat" "candisc" "canon" "caprojection" "cat" 
-		  "cc" "cci" "cchart" "centile" "cf" 
-		  "ch" "changeeol" "che"
-		  "checkestimationsample" "checksum" 
-		  "chel" "chelp"
-		  "ci" "cii" 
-		  "clog" "clogi" "clogit" "clogitp" "cloglog"
-		  "close" "cluster" "clustermat" "cmdlog" "cmdtool" 
-		  "cnsreg" "codebook" "compare" 
-		  "cons" "const" "constr" "constra" "constrai" "constrain" "constraint"
-		  "continue"
-		  "contrast"
-		  "copy" "copyright" 
-		  "cor" "corc" "corr" "corre" "correl" "correla" "correlat" "correlate"
-		  "corrgram"
-		  "cou" "coun" "count" 
-		  "cox"	"cprplot"  "cs" "csi" 
-		  "ct" "ctset" 
-		  "cumsp" "cumul" "cusum"
-		 "command"
-		 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face))
-	(list
-	 (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "d"
-		  "datasig" "datasign" "datasigna" "datasignat" "datasignatu" "datasignatur" "datasignature"
-		  "db"
-		  "de" "des" "desc" "descr" "descri" "describ" "describe"
-		  "dfactor" "dfbeta" "dfgls" "dfuller" 
-		  "di" "dir" "dis" "discrim" "disp" "disp_res" "disp_s" 
-		  "displ" "displa" "display"
-		  "do" 
-		  "doed" "doedi" "doedit" 
-		  "dotplot"
-		  "ds" "dstdize" "dvech"
-		  "eivreg" "eq" "exlogistic" "expoisson"
-		  "fac" "fact" "facto" "factor" "factormat"
-		  "findfile" "findit" "fit"
-		  "fl" "fli" "flis" "flist"
-		  "for" "fpredict" 
-		  "fracplot" "fracpoly" "frontier" "fsl" "fvexpand"
-		  "gladder" "gllamm" "glm" "glmpred" "glogit" 
-		  "gmm" "gnbreg"
-		  "gphdot" "gphpen" "gprobit" "gr7" "graph7" "grmeanby"
-		  "h"
-		  "hadimvo" "hausman" "heckman" "heckprob" 
-		  "he" "hel" "help" 
-		  "hetprob" "hexdump" "hilite"
-		  "hist" "histo" "histog" "histogr" "histogra" "histogram" 
-		  "hlu" "hotel" "hotelling" "hsearch"
-		  "include" "ins" "insp" "inspe" "inspec" "inspect" "intreg" 
-		  "iqreg" "ir" "iri" 
-		  "isid" "istdize" 
-		  "ivprobit" "ivregress" "ivtobit"
-		  "jackknife"
-		  "kap" "kappa" "kapwgt" "kdensity" "ksm" "ksmirnov" "ktau"
-		  "kwallis"
-		  ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face))
-	;; an experiment 
-	 (list
-	  (concat
-;;	   start-cmd-regexp  ;; seems to have some bad side effects
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		  "l"
-		  "labelbook" "ladder"
-		  "levelsof"
-		  "li" "line"
-		  "lincom" "linktest" 
-		  "lis" "list"
-		  "loadingplot" "log"
-		  "logi" "logistic" "logit" 
-		  "loneway" "lookfor" "lowess" "lpredict" "lpoly"
-		  "lroc" "lrtest" "ls" "lsens" "ltable" "lv" "lvr2plot"
-		  "man" "mano" "manov" "manova" "manovatest" 
-		  "margins" "marginsplot" "matlist"
-		  "mca" "mcaplot" "mcaprojection" "mcc" "mcci" 
-		  "mds" "mdsconfig" "mdslong" "mdsmat" "mdsshepard"
-		  "mean" "median" "memory" "mfp" "mhodds"
-		  "mlog" "mlogi" "mlogit"
-		  "mor" "more"
-		  "mprobit" "mvreg" "mx_param"
-		  "n" "nbreg" "nestreg" "net" "newey" "news"
-		  "nl" "nlcom" "nlogit" "nlogittree" "nlsur" 
-		  "no" "noi" "nois" "noisi" "noisil" "noisily"
-		  "note" "notes" "novarabbrev"
-		  "numlabel"
-		  "nptrend" "numlist"
-		  "olog" "ologi" "ologit"
-		  "ologitp" 
-		  "on" "one" "onew" "onewa" "oneway"
-		  "oprob" "oprobi" "oprobit"
-		  "oprobitp"
-		  "pac" "pca" "pcamat" "pchart" "pchi" "pcorr" "pergram" "permute" "personal"
-		  "pkcross" "pkequiv" "pkexamine" "pksumm"
-		  "pl" "plo" "plot"
-		  "pnorm" "poisson" "pperron"
-		  "prais" "print"
-		  "prob" "probi" "probit"
-		  "procoverlay" "procrustes" "proportion"
-		  "prtest" "prtesti"
-		  "psdensity"
-		  "pwcompare" "pwcorr" "pwd" "pwmean"
-		  "q" "qchi" "qnorm" "qqplot" "qreg" "qladder" "quadchk" "quantile" 
-		  "qu" "que" "quer" "query"
-		  "qui" "quie" "quiet" "quietl" "quietly"
-		  "ranksum" "ratio" "rchart" "regdw" "regph" 
-		  "reg" "reg3" "regr" "regre" "regres" "regress"
-		  "reshape"
-		  "robvar"
-		  "roccomp" "rocfit" "rocgold" "rocplot" "rocreg" "rocregplot" "roctab"
-		  "rologit" "rolling"
-		  "rot" "rota" "rotat" "rotate"
-		  "rotatemat"
-		  "rreg"
-		  "ru" "run" "runtest" "rvfplot" "rvpplot"
-		 ) 'words))
+		   "_coef_table" "_crcswxx"
+		   "_datasig" "_datasign" "_datasigna" "_datasignat" "_datasignatu" "_datasignatur" "_datasignature" 
+		   "_qreg" "_rmcoll" "_rmdcoll" "_robust"
+		   "#r" "#re" "#rev" "#revi" "#revie" "#review" 
+		   "about" "ac" "acprplot" 
+		   "ado" "adopath" "adoupdate" "alpha" "ameans" 
+		   "an" "ano" "anov" "anova" 
+		   "arch" "areg" "arfima" "arima" 
+		   "as" 
+		   "asclogit"
+		   "asmprobit"
+		   "asroprobit"
+		   "ass" "asse" "asser" "assert" 
+		   "avplot" "avplots"
+		   "b" "be" "bee" "beep"
+		   "binreg" "biprobit" "biplot" "bitest" "bitesti" "blogit"
+		   "bootstrap" "boxcox" "bprobit" "br" "break" "brier" 
+		   "bro" "brow" "brows" "browse" 
+		   "brr" "bsqreg" "bstat"
+		   "ca" "cabiplot" "camat" "candisc" "canon" "caprojection" "cat" 
+		   "cc" "cci" "cchart" "centile" "cf" 
+		   "ch" "changeeol" "che"
+		   "checkestimationsample" "checksum" 
+		   "chel" "chelp"
+		   "ci" "cii" 
+		   "clog" "clogi" "clogit" "clogitp" "cloglog"
+		   "close" "cluster" "clustermat" "cmdlog" "cmdtool" 
+		   "cnsreg" "codebook" "compare" 
+		   "cons" "const" "constr" "constra" "constrai" "constrain" "constraint"
+		   "continue"
+		   "contrast"
+		   "copy" "copyright" 
+		   "cor" "corc" "corr" "corre" "correl" "correla" "correlat" "correlate"
+		   "corrgram"
+		   "cou" "coun" "count" 
+		   "cox"	"cprplot"  "cs" "csi" 
+		   "ct" "ctset" 
+		   "cumsp" "cumul" "cusum"
+		   "command"
+		   ) 'words))
 	  end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face))
+	 '(1 ado-builtin-harmless-face))
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "d"
+		   "datasig" "datasign" "datasigna" "datasignat" "datasignatu" "datasignatur" "datasignature"
+		   "db"
+		   "de" "des" "desc" "descr" "descri" "describ" "describe"
+		   "dfactor" "dfbeta" "dfgls" "dfuller" 
+		   "di" "dir" "dis" "discrim" "disp" "disp_res" "disp_s" 
+		   "displ" "displa" "display"
+		   "do" 
+		   "doed" "doedi" "doedit" 
+		   "dotplot"
+		   "ds" "dstdize" "dvech"
+		   "eivreg" "eq" "exlogistic" "expoisson"
+		   "fac" "fact" "facto" "factor" "factormat"
+		   "findfile" "findit" "fit"
+		   "fl" "fli" "flis" "flist"
+		   "for" "fpredict" 
+		   "fracplot" "fracpoly" "frontier" "fsl" "fvexpand"
+		   "gladder" "gllamm" "glm" "glmpred" "glogit" 
+		   "gmm" "gnbreg"
+		   "gphdot" "gphpen" "gprobit" "gr7" "graph7" "grmeanby"
+		   "h"
+		   "hadimvo" "hausman" "heckman" "heckprob" 
+		   "he" "hel" "help" 
+		   "hetprob" "hexdump" "hilite"
+		   "hist" "histo" "histog" "histogr" "histogra" "histogram" 
+		   "hlu" "hotel" "hotelling" "hsearch"
+		   "include" "ins" "insp" "inspe" "inspec" "inspect" "intreg" 
+		   "iqreg" "ir" "iri" 
+		   "isid" "istdize" 
+		   "ivprobit" "ivregress" "ivtobit"
+		   "jackknife"
+		   "kap" "kappa" "kapwgt" "kdensity" "ksm" "ksmirnov" "ktau"
+		   "kwallis"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face))
+	;; an experiment 
+	(list
+	 (concat
+	  ;;	   start-cmd-regexp  ;; seems to have some bad side effects
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "l"
+		   "labelbook" "ladder"
+		   "levelsof"
+		   "li" "line"
+		   "lincom" "linktest" 
+		   "lis" "list"
+		   "loadingplot" "log"
+		   "logi" "logistic" "logit" 
+		   "loneway" "lookfor" "lowess" "lpredict" "lpoly"
+		   "lroc" "lrtest" "ls" "lsens" "ltable" "lv" "lvr2plot"
+		   "man" "mano" "manov" "manova" "manovatest" 
+		   "margins" "marginsplot" "matlist"
+		   "mca" "mcaplot" "mcaprojection" "mcc" "mcci" 
+		   "mds" "mdsconfig" "mdslong" "mdsmat" "mdsshepard"
+		   "mean" "median" "memory" "mfp" "mhodds"
+		   "mlog" "mlogi" "mlogit"
+		   "mor" "more"
+		   "mprobit" "mvreg" "mx_param"
+		   "n" "nbreg" "nestreg" "net" "newey" "news"
+		   "nl" "nlcom" "nlogit" "nlogittree" "nlsur" 
+		   "no" "noi" "nois" "noisi" "noisil" "noisily"
+		   "note" "notes" "novarabbrev"
+		   "numlabel"
+		   "nptrend" "numlist"
+		   "olog" "ologi" "ologit"
+		   "ologitp" 
+		   "on" "one" "onew" "onewa" "oneway"
+		   "oprob" "oprobi" "oprobit"
+		   "oprobitp"
+		   "pac" "pca" "pcamat" "pchart" "pchi" "pcorr" "pergram" "permute" "personal"
+		   "pkcross" "pkequiv" "pkexamine" "pksumm"
+		   "pl" "plo" "plot"
+		   "pnorm" "poisson" "pperron"
+		   "prais" "print"
+		   "prob" "probi" "probit"
+		   "procoverlay" "procrustes" "proportion"
+		   "prtest" "prtesti"
+		   "psdensity"
+		   "pwcompare" "pwcorr" "pwd" "pwmean"
+		   "q" "qchi" "qnorm" "qqplot" "qreg" "qladder" "quadchk" "quantile" 
+		   "qu" "que" "quer" "query"
+		   "qui" "quie" "quiet" "quietl" "quietly"
+		   "ranksum" "ratio" "rchart" "regdw" "regph" 
+		   "reg" "reg3" "regr" "regre" "regres" "regress"
+		   "reshape"
+		   "robvar"
+		   "roccomp" "rocfit" "rocgold" "rocplot" "rocreg" "rocregplot" "roctab"
+		   "rologit" "rolling"
+		   "rot" "rota" "rotat" "rotate"
+		   "rotatemat"
+		   "rreg"
+		   "ru" "run" "runtest" "rvfplot" "rvpplot"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face))
 
 	(list
 	 (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "sampsi" "sconfirm" 
-		  "sc" "sca" "scat" "scatt" "scatte" "scatter" 
-		  "scobit" "scoreplot" "screeplot"
-		  "sdr" "sdtest" "sdtesti" "search" "sem" "serrbar" "serset"
-		  "set_defaults"
-		  "sfrancia" 
-		  "sh" "she" "shewhart" "shel" "shell" 
-		  "signestimationsample" "signrank" "signtest"
-		  "sktest" "sleep" "slog" "slogit" "spearman" "spikeplot" "sqreg"
-		  "ssc" "sspace"
-		  "st" "st_is" "st_show" "st_ct" "stci"
-		  "stcox" "stcoxkm" 
-		  "stcrr" "stcrre" "stcrreg"
-		  "stcurv" "stcurve" "stdescribe"
-		  "stem" "stepwise"
-		  "stereg" "stir" "stmc" "stmh" "stphplot" "stptime" 
-		  "strate" "streg" "streset"
-		  "sts" "stse" "stset" "stsum" "stvary" "stweib"
-		  "su" "suest" "sum" "summ" "summa" "summar" "summari" "summariz" "summarize"
-		  "sureg" "sunflower" "svar"
-		  "svydes" "svydescribe" "svyset"
-		  "swilk" "symmetry" "symmi" "symplot" "syntax" "sysdir" 
-		  "ta" "tab" 
-		  "tab1" "tab2" 
-		  "tabdisp"
-		  "tabi" 
-		  "table" "tabodds" "tabstat"
-		  "tabu" "tabul" "tabula" "tabulat" "tabulate"
-		  "te" "tes" "test"
-		  "testnl" "testparm" "tetrachoric"
-		  "tnbreg"
-		  "tob" "tobi" "tobit"
-		  "token" "tokeni" "tokeniz" "tokenize" 
-		  "total" "touch" 
-		  "tpoisson"
-		  "translate"
-		  "translator" "transmap" "treatreg" "truncreg"
-		  "tsline" "tsreport" "tsrline" "tsset" "tsunab" "ttest" "ttesti"
-		  "twoway"
-		  "ty" "typ" "type"
-		  "ucm" "unab" "unabcmd" "update" "using"
-		  "var" "varabbrev" "varbasic" "vargranger"  
-		  "varlmar" 
-		  "varm" "varma" "varman" "varmana" "varmanag" "varmanage" "varmanager" 
-		  "varnorm" "varsoc" "varstable" "varwle" 
-		  "vec" "veclmar" "vecnorm" "vecrank" "vecstable"
-		  "verinst" "view" "viewsource" "vwls"
-		  "which" "who" "wntestb" "wntestq" 
-		  "xchart" "xcorr"
-		  "xsh" "xshe" "xshel" "xshell" 
-		  "xtabond" "xtcloglog" 
-		  "xtdes" "xtdesc" "xtdescr" "xtdescri" "xtdescrib" "xtdescribe"
-		  "xtdpd" "xtdpdsys"
-		  "xtfrontier"
-		  "xtgee" "xtgls" "xthtaylor" "xtintreg" "xtivreg"
-		  "xtline" "xtlogit" "xtmelogit" "xtmepoisson" "xtmixed" 
-		  "xtnbreg" "xtpcse" "xtpoisson" "xtprobit"
-		  "xtrc" "xtreg" "xtregar" "xtset" "xtsum" "xttab" "xttest0" "xttobit" "xttrans"
-		  "zinb" "zip"
-		 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face))
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "sampsi" "sconfirm" 
+		   "sc" "sca" "scat" "scatt" "scatte" "scatter" 
+		   "scobit" "scoreplot" "screeplot"
+		   "sdr" "sdtest" "sdtesti" "search" "sem" "serrbar" "serset"
+		   "set_defaults"
+		   "sfrancia" 
+		   "sh" "she" "shewhart" "shel" "shell" 
+		   "signestimationsample" "signrank" "signtest"
+		   "sktest" "sleep" "slog" "slogit" "spearman" "spikeplot" "sqreg"
+		   "ssc" "sspace"
+		   "st" "st_is" "st_show" "st_ct" "stci"
+		   "stcox" "stcoxkm" 
+		   "stcrr" "stcrre" "stcrreg"
+		   "stcurv" "stcurve" "stdescribe"
+		   "stem" "stepwise"
+		   "stereg" "stir" "stmc" "stmh" "stphplot" "stptime" 
+		   "strate" "streg" "streset"
+		   "sts" "stse" "stset" "stsum" "stvary" "stweib"
+		   "su" "suest" "sum" "summ" "summa" "summar" "summari" "summariz" "summarize"
+		   "sureg" "sunflower" "svar"
+		   "svydes" "svydescribe" "svyset"
+		   "swilk" "symmetry" "symmi" "symplot" "syntax" "sysdir" 
+		   "ta" "tab" 
+		   "tab1" "tab2" 
+		   "tabdisp"
+		   "tabi" 
+		   "table" "tabodds" "tabstat"
+		   "tabu" "tabul" "tabula" "tabulat" "tabulate"
+		   "te" "tes" "test"
+		   "testnl" "testparm" "tetrachoric"
+		   "tnbreg"
+		   "tob" "tobi" "tobit"
+		   "token" "tokeni" "tokeniz" "tokenize" 
+		   "total" "touch" 
+		   "tpoisson"
+		   "translate"
+		   "translator" "transmap" "treatreg" "truncreg"
+		   "tsline" "tsreport" "tsrline" "tsset" "tsunab" "ttest" "ttesti"
+		   "twoway"
+		   "ty" "typ" "type"
+		   "ucm" "unab" "unabcmd" "update" "using"
+		   "var" "varabbrev" "varbasic" "vargranger"  
+		   "varlmar" 
+		   "varm" "varma" "varman" "varmana" "varmanag" "varmanage" "varmanager" 
+		   "varnorm" "varsoc" "varstable" "varwle" 
+		   "vec" "veclmar" "vecnorm" "vecrank" "vecstable"
+		   "verinst" "view" "viewsource" "vwls"
+		   "which" "who" "wntestb" "wntestq" 
+		   "xchart" "xcorr"
+		   "xsh" "xshe" "xshel" "xshell" 
+		   "xtabond" "xtcloglog" 
+		   "xtdes" "xtdesc" "xtdescr" "xtdescri" "xtdescrib" "xtdescribe"
+		   "xtdpd" "xtdpdsys"
+		   "xtfrontier"
+		   "xtgee" "xtgls" "xthtaylor" "xtintreg" "xtivreg"
+		   "xtline" "xtlogit" "xtmelogit" "xtmepoisson" "xtmixed" 
+		   "xtnbreg" "xtpcse" "xtpoisson" "xtprobit"
+		   "xtrc" "xtreg" "xtregar" "xtset" "xtsum" "xttab" "xttest0" "xttobit" "xttrans"
+		   "zinb" "zip"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face))
 
-	  ;; things to use with the svy ... : prefix
-	  ;; can be fooled by svy brr, nothing but garbage:
-	  ;; another problem: don't know how to make the hilighted stuff in the middle
-	  ;;  optional
+	;; things to use with the svy ... : prefix
+	;; can be fooled by svy brr, nothing but garbage:
+	;; another problem: don't know how to make the hilighted stuff in the middle
+	;;  optional
 	(list
-	  (concat
-	   "\\<\\(svy\\)\\>"
-	   "[ \t]*,?.*?:[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"biprobit"
-			"clogit" "cloglog" "cnsreg"
-			"glm" "gnbreg" 
-			"heckman" "heckprob" "hetprob" 
-			"intreg" "ivprobit" "ivregress" "ivtobit"
-			"logistic" "logit"
-			"mean" "mprobit" "mlogit"
-			"nl"
-			"nbreg" "ologit" "oprobit"
-			"poisson" "probit" "proportion" 
-			"ratio" 
-			"reg" "regr" "regre" "regres" "regress"
-			"scobit" "slogit" "stcox" "streg"
-			"tab" "tabu" "tabul" "tabula" "tabulat" "tabulate" 
-			"tobit" "total" "treatreg" "truncreg"
-			"zinb" "zip"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face))
+	 (concat
+	  "\\<\\(svy\\)\\>"
+	  "[ \t]*,?.*?:[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "biprobit"
+		   "clogit" "cloglog" "cnsreg"
+		   "glm" "gnbreg" 
+		   "heckman" "heckprob" "hetprob" 
+		   "intreg" "ivprobit" "ivregress" "ivtobit"
+		   "logistic" "logit"
+		   "mean" "mprobit" "mlogit"
+		   "nl"
+		   "nbreg" "ologit" "oprobit"
+		   "poisson" "probit" "proportion" 
+		   "ratio" 
+		   "reg" "regr" "regre" "regres" "regress"
+		   "scobit" "slogit" "stcox" "streg"
+		   "tab" "tabu" "tabul" "tabula" "tabulat" "tabulate" 
+		   "tobit" "total" "treatreg" "truncreg"
+		   "zinb" "zip"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face))
 	;; more svy stuff
 	(list
-	  (concat
-	   "\\<\\(svy\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"bootstrap"
-			"brr"
-			"jack" "jackk" "jackkn" "jackkni" "jackknif" "jackknife" 
-			"linear" "lineari" "lineariz" "linearize" "linearized" 
-			"sdr"
-			) 'words))
-	   ".*?,?.*?:[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "gnbreg" 
-		  "heckman" "heckprob" 
-		  "intreg" "ivreg" 
-		  "logistic" "logit"
-		  "mean" "mlogit" 
-		  "nbreg" "ologit" "oprobit"
-		  "poisson" "probit" "proportion" 
-		  "ratio" 
-		  "reg" "regr" "regre" "regres" "regress" 
-		  "tab" "tabu" "tabul" "tabula" "tabulat" "tabulate" 
-		  "total"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-builtin-harmless-face))
+	 (concat
+	  "\\<\\(svy\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "bootstrap"
+		   "brr"
+		   "jack" "jackk" "jackkn" "jackkni" "jackknif" "jackknife" 
+		   "linear" "lineari" "lineariz" "linearize" "linearized" 
+		   "sdr"
+		   ) 'words))
+	  ".*?,?.*?:[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gnbreg" 
+		   "heckman" "heckprob" 
+		   "intreg" "ivreg" 
+		   "logistic" "logit"
+		   "mean" "mlogit" 
+		   "nbreg" "ologit" "oprobit"
+		   "poisson" "probit" "proportion" 
+		   "ratio" 
+		   "reg" "regr" "regre" "regres" "regress" 
+		   "tab" "tabu" "tabul" "tabula" "tabulat" "tabulate" 
+		   "total"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-builtin-harmless-face))
 
-	  ;; haver subcommands
+	;; haver subcommands
 	(list
-	  (concat
-	   "\\<\\(haver\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"des" "desc" "descr" "descri" "describ" "describe"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face))
+	 (concat
+	  "\\<\\(haver\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "des" "desc" "descr" "descri" "describ" "describe"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face))
 
 	(list
-	  (concat
-	   "\\<\\(haver\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(use\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-builtin-harmful-face))
+	 (concat
+	  "\\<\\(haver\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(use\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-builtin-harmful-face))
 
 	;; Conditional statements 
 	;; if might not work right ('cuz it is also a keyword)
@@ -3474,7 +3475,7 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face t))
 
-	  ;; variable types which appear as subcommands often
+	;; variable types which appear as subcommands often
 	;; this leads to some spurious highlighting; will need a fix
 	(list
 	 (concat
@@ -3499,217 +3500,217 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-subcommand-face t))
 
-	  ;; things used with display
-	  ;; since these are often split across lines, and Stata commands are hard
-	  ;; to delimit, this will highlight even if out of context
+	;; things used with display
+	;; since these are often split across lines, and Stata commands are hard
+	;; to delimit, this will highlight even if out of context
 
-	  ;;
-	  ;; plain display
-	  ;;
-	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "di" "dis" "disp" "displ" "displa" "display"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "_asis"
-		  "_c" "_co" "_con" "_cont" "_conti" "_contin" "_continu" "_continue"
-		  "_n" "_ne" "_new" "_newl" "_newli" "_newlin" "_newline" 
-		  "_quote"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-
-	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "di" "dis" "disp" "displ" "displa" "display"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"_r" "_re" "_req" "_requ" "_reque" "_reques" "_request"
-			) 'words))
-	   "([ \t]*"
-	   "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
-	   "[ \t]*)"
-	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-variable-name-face))
-	  ;; display things which take numbers
-	  ;; some left as is, because they are used in dictionaries...
-	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "di" "dis" "disp" "displ" "displa" "display"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "_char"
-		  "_col" "_colu" "_colum" "_column"
-		  "_d" "_du" "_dup"
-		  "_n" "_ne" "_new" "_newl" "_newli" "_newlin" "_newline"
-		  "_s" "_sk" "_ski" "_skip"
-			) 'words))
-	   "([ \t]*"
-	   "\\([1-9]+[0-9]*\\)"
-	   "[ \t]*)"
-	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-constant-face))
-	  ;;
-	  ;; other display subcommands
+	;;
+	;; plain display
+	;;
 	(list
 	 (concat
 	  (eval-when-compile 
 		(regexp-opt 
-       '(
-		 "di" "dis" "disp" "displ" "displa" "display"
-		 ) 'words))
-	   "[ \t]+"
-	   "\\<\\(as\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "err" "erro" "error" 
-		  "inp" "inpu" "input"
-		  "res" "resu" "resul" "result" 
-		  "text" "txt"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-subcommand-face t))
+		 '(
+		   "di" "dis" "disp" "displ" "displa" "display"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "_asis"
+		   "_c" "_co" "_con" "_cont" "_conti" "_contin" "_continu" "_continue"
+		   "_n" "_ne" "_new" "_newl" "_newli" "_newlin" "_newline" 
+		   "_quote"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "di" "dis" "disp" "displ" "displa" "display"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "_r" "_re" "_req" "_requ" "_reque" "_reques" "_request"
+		   ) 'words))
+	  "([ \t]*"
+	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
+	  "[ \t]*)"
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-variable-name-face))
+	;; display things which take numbers
+	;; some left as is, because they are used in dictionaries...
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "di" "dis" "disp" "displ" "displa" "display"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "_char"
+		   "_col" "_colu" "_colum" "_column"
+		   "_d" "_du" "_dup"
+		   "_n" "_ne" "_new" "_newl" "_newli" "_newlin" "_newline"
+		   "_s" "_sk" "_ski" "_skip"
+		   ) 'words))
+	  "([ \t]*"
+	  "\\([1-9]+[0-9]*\\)"
+	  "[ \t]*)"
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-constant-face))
+	;;
+	;; other display subcommands
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "di" "dis" "disp" "displ" "displa" "display"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(as\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "err" "erro" "error" 
+		   "inp" "inpu" "input"
+		   "res" "resu" "resul" "result" 
+		   "text" "txt"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
 
 	;; trust Stata corp to use different prepositions...
 	(list
 	 (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "di" "dis" "disp" "displ" "displa" "display"
-		 ) 'words))
-	   "[ \t]+"
-	   "\\<\\(in\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(smcl\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-subcommand-face t))
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "di" "dis" "disp" "displ" "displa" "display"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(in\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(smcl\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
 
-     ;;
-     ;; obsolete coloring
+	;;
+	;; obsolete coloring
 	(list
 	 (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "di" "dis" "disp" "displ" "displa" "display"
-		 ) 'words))
-	   "[ \t]+"
-	   "\\<\\(in\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "b" "bl" "blu" "blue" 
-		  "g" "gr" "gre" "gree" "green"
-		  "r" "re" "red"
-		  "w" "wh" "whi" "whit" "white"
-		  "y" "ye" "yel" "yell" "yello" "yellow"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face)
-	  '(3 ado-obsolete-face))
-     ;;
-     ;; foreach ... in
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "di" "dis" "disp" "displ" "displa" "display"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(in\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "b" "bl" "blu" "blue" 
+		   "g" "gr" "gre" "gree" "green"
+		   "r" "re" "red"
+		   "w" "wh" "whi" "whit" "white"
+		   "y" "ye" "yel" "yell" "yello" "yellow"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face)
+	 '(3 ado-obsolete-face))
+	;;
+	;; foreach ... in
 	(list
 	 (concat
 	  "\\<\\(foreach\\)\\>"
-	   "[ \t]+"
-	   "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
-	   "[ \t]+"
-	   "\\<\\(in\\)\\>"
-	   "[ \t]+"
-	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face)
-	  '(3 ado-subcommand-face t))
+	  "[ \t]+"
+	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
+	  "[ \t]+"
+	  "\\<\\(in\\)\\>"
+	  "[ \t]+"
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face)
+	 '(3 ado-subcommand-face t))
 
 	;; foreach ... of
 	(list
 	 (concat
 	  "\\<\\(foreach\\)\\>"
-	   "[ \t]+"
-	   "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
-	   "[ \t]+"
-	   "\\<\\(of\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "glo" "glob" "globa" "global"
-		  "loc" "loca" "local" 
-		  "new" "newl" "newli" "newlis" "newlist" 
-		  "num" "numl" "numli" "numlis" "numlist" 
-		  "var" "varl" "varli" "varlis" "varlist" 
-		 ) 'words))
-	   end-cmd-regexp )
+	  "[ \t]+"
+	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
+	  "[ \t]+"
+	  "\\<\\(of\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "glo" "glob" "globa" "global"
+		   "loc" "loca" "local" 
+		   "new" "newl" "newli" "newlis" "newlist" 
+		   "num" "numl" "numli" "numlis" "numlist" 
+		   "var" "varl" "varli" "varlis" "varlist" 
+		   ) 'words))
+	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
-	  ;; forvalues ... = ??
+	;; forvalues ... = ??
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "forv" "forva" "forval" "forvalu" "forvalue" "forvalues"
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
-	   "[ \t]*=[ \t]*"
-	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "forv" "forva" "forval" "forvalu" "forvalue" "forvalues"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
+	  "[ \t]*=[ \t]*"
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t))
 
-     ;; gettoken
+	;; gettoken
 	(list
-	  (concat
-	   "\\<\\(gettoken\\)\\>"
-	   "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
-	   "\\([ \t]+[a-zA-Z]+[a-zA-Z0-9_]*\\)"
-	   "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
-	   "\\([ \t]+[a-zA-Z]+[a-zA-Z0-9_]*\\)"
-        "[ \t]*:[ \t]*"
-		"\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
-		end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-variable-name-face t) '(4 ado-subcommand-face t)
-	  '(5 ado-variable-name-face t) '(6 ado-variable-name-face t))
+	 (concat
+	  "\\<\\(gettoken\\)\\>"
+	  "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
+	  "\\([ \t]+[a-zA-Z]+[a-zA-Z0-9_]*\\)"
+	  "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
+	  "\\([ \t]+\\(?:[0-9]+\\|[a-zA-Z]+[a-zA-Z0-9_]*\\)\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\(\\(?:[0-9]+\\|[a-zA-Z]+[a-zA-Z0-9_]*\\)\\)"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-variable-name-face t) '(4 ado-subcommand-face t)
+	 '(5 ado-variable-name-face t) '(6 ado-variable-name-face t))
 
 	(list
-	  (concat
-	   "\\<\\(gettoken\\)\\>"
-	   "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
-	   "\\(\\(?:[ \t]+[a-zA-Z]+[a-zA-Z0-9_]*\\)\\{1,2\\}\\)"
-        "[ \t]*:[ \t]*"
-		"\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
-		end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-variable-name-face t) '(4 ado-variable-name-face t))
+	 (concat
+	  "\\<\\(gettoken\\)\\>"
+	  "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
+	  "\\(\\(?:[ \t]+\\(?:[0-9]+\\|[a-zA-Z]+[a-zA-Z0-9_]*\\)\\)\\{1,2\\}\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\(\\(?:[0-9]+\\|[a-zA-Z]+[a-zA-Z0-9_]*\\)\\)"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-variable-name-face t) '(4 ado-variable-name-face t))
 
-	  ;; labels experimental
+	;; labels experimental
 	(list
 	 (concat
 	  "^\\(.*:\\)*[ \t]*"
@@ -3736,562 +3737,562 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(2 ado-builtin-harmless-face t) '(3 ado-subcommand-face t))
 
-	  ;; all Stata data-altering stuff
+	;; all Stata data-altering stuff
 	(list
 	 (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "_pctile" "_predict"
-		  "ap" "app" "appe" "appen" "append" 
-		  "bcskew0" "bs" "bsample" "bstrap"
-		  "bys" "byso" "bysor" "bysort" 
-		  "cd" "clear" "clonevar" "collapse" "compress" 
-		  "contract" "corr2data" "cross" "cttost" 
-		  "dec" "deco" "decod" "decode" "destring"
-		  "discard" "drawnorm" "drop" "dydx"
-		  "ed" "edi" "edit" "egen" 
-		  "en" "enc" "enco" "encod" "encode"
-		  "erase"
-		  "expand" "expandcl"
-		  "filef" "filefi" "filefil" "filefilt" "filefilte" "filefilter" 
-		  "fillin"
-		  "form" "forma" "format"
-		  "fracgen" "fracpred"
-		  "fvrevar"
-		  "g" "ge" "gen" "gene" "gener" "genera" "generat" "generate"
-		  "getmata" "gsort"
-		  "inf" "infi" "infile" "infix" 
-		  "inp" "inpu" "input"
-		  "insheet" "integ" "ipolate" 
-		  "joinby"
-		  "keep" 
-		  "lnskew0"
-		  "makecns"
-		  "mark" "markin" "markout" "mat"
-		  "mata" "matr" "matri" "matrix"
-		  "mkdir" "mkmat" "mkspline"
-		  "mleval" "mlmatsum" "mlsum""mlvecsum"
-		  "modify" 
-		  "mvdecode" "mvencode" 
-		  "nlogitgen" "nlpred" "nobreak" 
-		  "order" "orthog" "orthpoly"
-		  "ou" "out" "outf" "outfi" "outfil" "outfile"
-		  "outs" "outsh" "outshe" "outshee" "outsheet"
-		  "pctile" 
-		  "pkcollapse" "pkshape"
-		  "post" "postclose" "postfile" 
-		  "predict" "predictnl" "preserve" "putmata"
-		  "range" "recast" "recode" 
-		  "ren" "rena" "renam" "rename"
-		  "renpfix" "replace" "restore" "rm" "rmdir"
-		  "sappend" 
-		  "sa" "sav" "save" "saveold"
-		  "sample" "sdrop"
-		  "separate"
-		  "simul" "simulate" "sinfile" "smerge" 
-		  "smooth" "snapspan" 
-		  "so" "sor" "sort" "sortpreserve"
-		  "split"
-		  "ssave" "ssort" "stack" "statsby"
-		  "stbase" "stfill" "stgen" "stjoin" "stsplit" "sttocc" "sttoct"
-		  "suse" "svmat" "svymarkout" "sysuse"
-		  "tostring"
-		  "tsappend" "tsfill" "tsrevar"
-		  "u" "unzipfile" "us" "use" "uselabel"
-		  "webuse"
-		  "xi" "xi:" 
-		  "xmlsav" "xmlsave" "xmluse" 
-		  "xtile" "xpose" 
-		  "xtdata" "xtpred"
-		  "zipfile"
-		 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face))
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "_pctile" "_predict"
+		   "ap" "app" "appe" "appen" "append" 
+		   "bcskew0" "bs" "bsample" "bstrap"
+		   "bys" "byso" "bysor" "bysort" 
+		   "cd" "clear" "clonevar" "collapse" "compress" 
+		   "contract" "corr2data" "cross" "cttost" 
+		   "dec" "deco" "decod" "decode" "destring"
+		   "discard" "drawnorm" "drop" "dydx"
+		   "ed" "edi" "edit" "egen" 
+		   "en" "enc" "enco" "encod" "encode"
+		   "erase"
+		   "expand" "expandcl"
+		   "filef" "filefi" "filefil" "filefilt" "filefilte" "filefilter" 
+		   "fillin"
+		   "form" "forma" "format"
+		   "fracgen" "fracpred"
+		   "fvrevar"
+		   "g" "ge" "gen" "gene" "gener" "genera" "generat" "generate"
+		   "getmata" "gsort"
+		   "inf" "infi" "infile" "infix" 
+		   "inp" "inpu" "input"
+		   "insheet" "integ" "ipolate" 
+		   "joinby"
+		   "keep" 
+		   "lnskew0"
+		   "makecns"
+		   "mark" "markin" "markout" "mat"
+		   "mata" "matr" "matri" "matrix"
+		   "mkdir" "mkmat" "mkspline"
+		   "mleval" "mlmatsum" "mlsum""mlvecsum"
+		   "modify" 
+		   "mvdecode" "mvencode" 
+		   "nlogitgen" "nlpred" "nobreak" 
+		   "order" "orthog" "orthpoly"
+		   "ou" "out" "outf" "outfi" "outfil" "outfile"
+		   "outs" "outsh" "outshe" "outshee" "outsheet"
+		   "pctile" 
+		   "pkcollapse" "pkshape"
+		   "post" "postclose" "postfile" 
+		   "predict" "predictnl" "preserve" "putmata"
+		   "range" "recast" "recode" 
+		   "ren" "rena" "renam" "rename"
+		   "renpfix" "replace" "restore" "rm" "rmdir"
+		   "sappend" 
+		   "sa" "sav" "save" "saveold"
+		   "sample" "sdrop"
+		   "separate"
+		   "simul" "simulate" "sinfile" "smerge" 
+		   "smooth" "snapspan" 
+		   "so" "sor" "sort" "sortpreserve"
+		   "split"
+		   "ssave" "ssort" "stack" "statsby"
+		   "stbase" "stfill" "stgen" "stjoin" "stsplit" "sttocc" "sttoct"
+		   "suse" "svmat" "svymarkout" "sysuse"
+		   "tostring"
+		   "tsappend" "tsfill" "tsrevar"
+		   "u" "unzipfile" "us" "use" "uselabel"
+		   "webuse"
+		   "xi" "xi:" 
+		   "xmlsav" "xmlsave" "xmluse" 
+		   "xtile" "xpose" 
+		   "xtdata" "xtpred"
+		   "zipfile"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face))
 	;; clear commmands
 	(list
-	  (concat
-	   "\\<\\(clear\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			  "ado" "all"
-			  "mata" "matrix"
-			  "programs"
-			  "results"
-			) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  "\\<\\(clear\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "ado" "all"
+		   "mata" "matrix"
+		   "programs"
+		   "results"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
-	  ;; assignment of macros
-	  ;;  local macros have different naming conventions (boo)
-	  ;;  marksample added, because need harmful/scalar name
+	;; assignment of macros
+	;;  local macros have different naming conventions (boo)
+	;;  marksample added, because need harmful/scalar name
 	(list
-	  (concat
-	   "[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-			"gl" "glo" "glob" "globa" "global" 
-			"marksample"
-			"sca" "scal" "scala" "scalar" 
-			) 'words))
-	   "[ \t]+`*"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   )
-	  '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face t))
+	 (concat
+	  "[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "marksample"
+		   "sca" "scal" "scala" "scalar" 
+		   ) 'words))
+	  "[ \t]+`*"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  )
+	 '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face t))
 	;; local macro definition
 	(list
-	  (concat
-	   "[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "loc" "loca" "local" 
-			) 'words))
-	   "[ \t]+\\(?:\\(?:++\\|--\\|[`]+\\)?\\)"
-	   "\\([a-zA-Z_0-9]+\\)"
-	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t))
+	 (concat
+	  "[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+\\(?:\\(?:++\\|--\\|[`]+\\)?\\)"
+	  "\\([a-zA-Z_0-9]+\\)"
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t))
 
-	  ;; warning for local wrong--
+	;; warning for local wrong--
 	(list
-	  (concat
-	   "[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "loc" "loca" "local" 
-			) 'words))
-	   "[ \t]+"
-	   "\\(\\(?:`\\|[a-zA-Z_0-9]\\|'\\)+\\)"
-	   "\\(\\(?:++\\|--\\)\\)"
-	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
-	  '(3 ado-obsolete-face t))
+	 (concat
+	  "[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\(\\(?:`\\|[a-zA-Z_0-9]\\|'\\)+\\)"
+	  "\\(\\(?:++\\|--\\)\\)"
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
+	 '(3 ado-obsolete-face t))
 	;; scalars
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "sca" "scal" "scala" "scalar"
-		 ) 'words))
-	   "\\(\\(?:[ \t]+\\(?:def\\|defi\\|defin\\|define\\)\\)?\\)"
-	   "[ \t]+"
-	   "\\([a-zA-Z_][a-zA-Z0-9_]*\\)"
-	   )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
-	  '(3 ado-variable-name-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "sca" "scal" "scala" "scalar"
+		   ) 'words))
+	  "\\(\\(?:[ \t]+\\(?:def\\|defi\\|defin\\|define\\)\\)?\\)"
+	  "[ \t]+"
+	  "\\([a-zA-Z_][a-zA-Z0-9_]*\\)"
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-variable-name-face t))
 	;; scalar/macro drop etc.
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "ma" "mac" "macr" "macro"
-		 "sca" "scal" "scala" "scalar" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\<\\(drop\\)\\>"
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\b\\)"
-	   )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
-	  '(3 ado-variable-name-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "ma" "mac" "macr" "macro"
+		   "sca" "scal" "scala" "scalar" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(drop\\)\\>"
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\b\\)"
+	  )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
+	 '(3 ado-variable-name-face t))
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "ma" "mac" "macr" "macro"
-		 "sca" "scal" "scala" "scalar" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\<\\(drop\\)\\>"
-	   )
-	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "ma" "mac" "macr" "macro"
+		   "sca" "scal" "scala" "scalar" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(drop\\)\\>"
+	  )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\<\\(drop\\)\\>"
-	   "[ \t]+"
-	   "\\(\\(?:[a-zA-Z_0-9]+\\b\\)?\\)"
-	   )
-	  '(1 ado-builtin-harmful-face) '(2 ado-obsolete-face)
-	  '(3 ado-variable-name-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(drop\\)\\>"
+	  "[ \t]+"
+	  "\\(\\(?:[a-zA-Z_0-9]+\\b\\)?\\)"
+	  )
+	 '(1 ado-builtin-harmful-face) '(2 ado-obsolete-face)
+	 '(3 ado-variable-name-face t))
 
-	  ;;
-	  ;; an attempt to include the extended macro names
-	  ;; single word extended macro names
+	;;
+	;; an attempt to include the extended macro names
+	;; single word extended macro names
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-		  '(
-		  "adosubdir"
-		  "char" "cole" "coleq" 
-		  "colf" "colfu" "colful" "colfull" "colfulln" "colfullna" "colfullnam" "colfullname" "colfullnames" 
-		  "coln" "colna" "colnam" "colname" "colnames" 
-		  "constraint"
-		  "dirsep" 
-		  "di" "dir" "dis" "disp" "displ" "displa" "display" 
-		  "env" "envi" "envir" "enviro" "environ" "environm" "environme" "environmen" "environment" 
-		  "f" "fo" "for" "form" "forma" "format" 
-		  "lab" "labe" "label"
-		  "list"
-		  "permname" "piece" "properties" "pwd"
-		  "rowe" "roweq" 
-		  "rowf" "rowfu" "rowful" "rowfull" "rowfulln" "rowfullna" "rowfullnam" "rowfullname" "rowfullnames" 
-		  "rown" "rowna" "rownam" "rowname" "rownames" 
-		  "sort" "sorte" "sorted" "sortedb" "sortedby" "sysdir"
-		  "tempf" "tempfi" "tempfil" "tempfile" "tempv" "tempva" "tempvar" 
-		  "tsnorm" 
-		  "ty" "typ" "type"
-		  ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "adosubdir"
+		   "char" "cole" "coleq" 
+		   "colf" "colfu" "colful" "colfull" "colfulln" "colfullna" "colfullnam" "colfullname" "colfullnames" 
+		   "coln" "colna" "colnam" "colname" "colnames" 
+		   "constraint"
+		   "dirsep" 
+		   "di" "dir" "dis" "disp" "displ" "displa" "display" 
+		   "env" "envi" "envir" "enviro" "environ" "environm" "environme" "environmen" "environment" 
+		   "f" "fo" "for" "form" "forma" "format" 
+		   "lab" "labe" "label"
+		   "list"
+		   "permname" "piece" "properties" "pwd"
+		   "rowe" "roweq" 
+		   "rowf" "rowfu" "rowful" "rowfull" "rowfulln" "rowfullna" "rowfullnam" "rowfullname" "rowfullnames" 
+		   "rown" "rowna" "rownam" "rowname" "rownames" 
+		   "sort" "sorte" "sorted" "sortedb" "sortedby" "sysdir"
+		   "tempf" "tempfi" "tempfil" "tempfile" "tempv" "tempva" "tempvar" 
+		   "tsnorm" 
+		   "ty" "typ" "type"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t))
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   "\\<\\(copy\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "global" "local"
-		 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\<\\(copy\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "global" "local"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   "\\<\\(word\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(count\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\<\\(word\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(count\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   "\\<\\(word\\)\\>"
-	   "[ \t]+\\(?:[0-9]+\\|`[^ \t]*'\\)[ \t]+"
-	   "\\<\\(of\\)\\>"
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\<\\(word\\)\\>"
+	  "[ \t]+\\(?:[0-9]+\\|`[^ \t]*'\\)[ \t]+"
+	  "\\<\\(of\\)\\>"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
 	;; things with parens in them (sheesh)
 	;; not included above, incase someone uses a font which 
 	;;   has a background color
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   "\\<\\(e\\|r\\)\\>"
-	   "([ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "functions" "macros" "matrices" "scalars"
-		 ) 'words))
-	   "[ \t]*)"
-	   )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\<\\(e\\|r\\)\\>"
+	  "([ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "functions" "macros" "matrices" "scalars"
+		   ) 'words))
+	  "[ \t]*)"
+	  )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
-     ;; damn s(macros)
+	;; damn s(macros)
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   "\\<\\(s\\)\\>"
-	   "([ \t]*"
-	   "\\<\\(macros\\)\\>"
-	   "[ \t]*)"
-	   )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
-     ;; twin word macros length and subinstr
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\<\\(s\\)\\>"
+	  "([ \t]*"
+	  "\\<\\(macros\\)\\>"
+	  "[ \t]*)"
+	  )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	;; twin word macros length and subinstr
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "length" "subinstr"
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
-	  
-     ;; serset macros
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "length" "subinstr"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	
+	;; serset macros
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   "\\<\\(serset\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "N"
-		  "format" "k" "id" "max" "min" "type" "varnames" "varnum"
-		 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
-     ;; sheesh, now there are combined abbreviations!
-     ;;
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\<\\(serset\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "N"
+		   "format" "k" "id" "max" "min" "type" "varnames" "varnum"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	;; sheesh, now there are combined abbreviations!
+	;;
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "data"
-		  "val" "valu" "value" 
-		  "var" "vari" "varia" "variab" "variabl" "variable" 
-		 ) 'words))
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "l" "la" "lab" "labe" "label"
-		 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
-	  
-     ;; macro list commands start here
-     ;; single word commands
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "data"
+		   "val" "valu" "value" 
+		   "var" "vari" "varia" "variab" "variabl" "variable" 
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "l" "la" "lab" "labe" "label"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	
+	;; macro list commands start here
+	;; single word commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   "\\<\\(list\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "clean"
-		  "dups"
-		  "retok" "retoke" "retoken" "retokeni" "retokeniz" "retokenize"
-		  "sizeof"
-		  "sort"
-		  "uniq"
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
-	  '(5 ado-variable-name-face t))
-     ;; operator-like list commands
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\<\\(list\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "clean"
+		   "dups"
+		   "retok" "retoke" "retoken" "retokeni" "retokeniz" "retokenize"
+		   "sizeof"
+		   "sort"
+		   "uniq"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
+	 '(5 ado-variable-name-face t))
+	;; operator-like list commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   "\\<\\(list\\)\\>"
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*"
-	   "\\(?:[|&-]\\|==\\|===\\)"
-	   "[ \t]*"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-variable-name-face t)
-	  '(5 ado-variable-name-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\<\\(list\\)\\>"
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*"
+	  "\\(?:[|&-]\\|==\\|===\\)"
+	  "[ \t]*"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-variable-name-face t)
+	 '(5 ado-variable-name-face t))
 	;; special highlighting for 'in'---which is pretty whack
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   "\\<\\(list\\)\\>"
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*"
-	   "\\<\\(in\\)\\>"
-	   "[ \t]*"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-variable-name-face t)
-	  '(5 ado-subcommand-face t) '(6 ado-variable-name-face t))
-     ;; friggin' posof subcommand
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\<\\(list\\)\\>"
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*"
+	  "\\<\\(in\\)\\>"
+	  "[ \t]*"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-variable-name-face t)
+	 '(5 ado-subcommand-face t) '(6 ado-variable-name-face t))
+	;; friggin' posof subcommand
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   "\\<\\(list\\)\\>"
-	   "[ \t]+"
-	   "\\<\\(posof\\)\\>"
-	   "[ \t]+\".*?\"[ \t]+"
-	   "\\<\\(in\\)\\>"
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
-	  '(5 ado-subcommand-face t) '(6 ado-variable-name-face t))
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\<\\(list\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(posof\\)\\>"
+	  "[ \t]+\".*?\"[ \t]+"
+	  "\\<\\(in\\)\\>"
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
+	 '(5 ado-subcommand-face t) '(6 ado-variable-name-face t))
 
-     ;; all subcommand
+	;; all subcommand
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   "\\<\\(all\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "globals" "matrices" "scalars"
-		 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
-     ;; all numeric/string
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\<\\(all\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "globals" "matrices" "scalars"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	;; all numeric/string
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   "\\<\\(all\\)\\>"
-	   "[ \t]+"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "numeric" "string"
-		 ) 'words))
-	   "[ \t]+"
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\<\\(all\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "numeric" "string"
+		   ) 'words))
+	  "[ \t]+"
 	   "\\<\\(scalars\\)\\>"
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
@@ -4372,48 +4373,48 @@ Not implemented as much more than an experiment. ")
 	  ;; obsolete functions are after this list
 	  ;; finally included matrix functions
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		 "_byn1"  "_byn2" "_caller" 
-			 "abbrev" "abs" "acos" "asin" "atan" "atan2" "atanh" "autocode"
-			 "betaden" "binomial" "binomialp" "binomialtail" 
-			 "binormal" "bofd" "byteorder"
-			 "Cdhms" "Chms" "Clock" "Cmdyhms" "Cofc" "Cofd"
-			 "c" "ceil" "char" "chi2" "chi2tail" "cholesky" "chop" "cofC" "cofd" "comb" 
-			 "clip" "cloglog" "clock" 
-			 "colnumb" "colsof" "cond" "corr" "cos" 
-			 "daily" "date" "day"
-			 "det"
-			 "dgammapda" "dgammapdada" "dgammapdadx" "dgammapdx" "dgammapdxdx"
-			 "dhms"
-			 "diag" "diag0cnt" "digamma" 
-			 "dofb" "dofC" "dofc" "dofd" "dofh" "dofm" "dofq" "dofw" "dofy" "dow" "doy"
-			 "dunnettprob"
-			 "e" "el" "epsdouble" "epsfloat" "exp"
-			 "F" "Fden" "Ftail" "float" "floor" "fmtwidth" 
-			 "gammaden" "gammap" "gammaptail" "get"
-			 "hadamard" "halfyear" "halfyearly" "has_eprop" "hh" "hhC" "hofd" "hms" "hours" "hypergeometric" "hypergeometricp"
-			 "I" "ibeta" "ibetatail" "indexnot" "inlist" "inrange" "int"
-			 "inv" "invbinomial" "invbinomialtail" "invchi2" "invchi2tail" "invcloglog"
-			 "invdunnettprob"
-			 "invF" "invFtail" "invgammap" "invgammaptail" "invibeta" "invibetatail" "invlogit"
-			 "invnbinomial" "invnbinomialtail"
-			 "invnchi2" "invnFtail" "invnibeta" "invnormal" 
-			 "invpoisson" "invpoissontail"
-			 "invsym" "invttail" "invtukeyprob"
-			 "irecode" "issymetric" "itrim"
-			 "J"
-			 "length" "ln" "lnfactorial" "lngamma" "log" "log10" "logit" "lower" "ltrim" 
-			 "matmissing" "matrix" "matuniform" 
-			 "max" "maxbyte" "maxdouble" "maxfloat" "maxint" "maxlong" 
-			 "mdy" "mdyhms" "mi"
-			 "min" "minbyte" "mindouble" "minfloat" "minint" "minlong" "minutes"
-			 "missing" "mm" "mmC" "mod" "mofd" "month" "monthly" "mreldif"
-			 "msofhours" "msofminutes" "msofseconds"
-			 "nbetaden" "nchi2" 
-			 "nbinomial" "nbinomialp" "nbinomialtail"
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "_byn1"  "_byn2" "_caller" 
+		   "abbrev" "abs" "acos" "asin" "atan" "atan2" "atanh" "autocode"
+		   "betaden" "binomial" "binomialp" "binomialtail" 
+		   "binormal" "bofd" "byteorder"
+		   "Cdhms" "Chms" "Clock" "Cmdyhms" "Cofc" "Cofd"
+		   "c" "ceil" "char" "chi2" "chi2tail" "cholesky" "chop" "cofC" "cofd" "comb" 
+		   "clip" "cloglog" "clock" 
+		   "colnumb" "colsof" "cond" "corr" "cos" 
+		   "daily" "date" "day"
+		   "det"
+		   "dgammapda" "dgammapdada" "dgammapdadx" "dgammapdx" "dgammapdxdx"
+		   "dhms"
+		   "diag" "diag0cnt" "digamma" 
+		   "dofb" "dofC" "dofc" "dofd" "dofh" "dofm" "dofq" "dofw" "dofy" "dow" "doy"
+		   "dunnettprob"
+		   "e" "el" "epsdouble" "epsfloat" "exp"
+		   "F" "Fden" "Ftail" "float" "floor" "fmtwidth" 
+		   "gammaden" "gammap" "gammaptail" "get"
+		   "hadamard" "halfyear" "halfyearly" "has_eprop" "hh" "hhC" "hofd" "hms" "hours" "hypergeometric" "hypergeometricp"
+		   "I" "ibeta" "ibetatail" "indexnot" "inlist" "inrange" "int"
+		   "inv" "invbinomial" "invbinomialtail" "invchi2" "invchi2tail" "invcloglog"
+		   "invdunnettprob"
+		   "invF" "invFtail" "invgammap" "invgammaptail" "invibeta" "invibetatail" "invlogit"
+		   "invnbinomial" "invnbinomialtail"
+		   "invnchi2" "invnFtail" "invnibeta" "invnormal" 
+		   "invpoisson" "invpoissontail"
+		   "invsym" "invttail" "invtukeyprob"
+		   "irecode" "issymetric" "itrim"
+		   "J"
+		   "length" "ln" "lnfactorial" "lngamma" "log" "log10" "logit" "lower" "ltrim" 
+		   "matmissing" "matrix" "matuniform" 
+		   "max" "maxbyte" "maxdouble" "maxfloat" "maxint" "maxlong" 
+		   "mdy" "mdyhms" "mi"
+		   "min" "minbyte" "mindouble" "minfloat" "minint" "minlong" "minutes"
+		   "missing" "mm" "mmC" "mod" "mofd" "month" "monthly" "mreldif"
+		   "msofhours" "msofminutes" "msofseconds"
+		   "nbetaden" "nchi2" 
+		   "nbinomial" "nbinomialp" "nbinomialtail"
 			 "normal" "normalden" "nFden" "nFtail" "nibeta" "npnchi2" "nullmat"
 			 "poisson" "poissonp" "poissontail"
 			 "plural" "proper"
@@ -6634,7 +6635,6 @@ Not implemented as much more than an experiment. ")
 		 "foreach" 
 		 "forv" "forva" "forval" "forvalu" "forvalue" "forvalues" 
 		 "fvset" "fvunab"
-		 "gph"
 		 "graph"
 		 "haver"
 		 "icd9" "icdp"

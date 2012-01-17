@@ -1,9 +1,13 @@
 Version History:
 ---------------
-1.12.0.2:
+1.12.1.0
 
 * Re-fixed the bugs related to semi-colon delimited files. Maybe this
   time the fix will be real.
+
+* Fixed minor fontification bugs.
+
+1.12.0.1: not released to general public
 
 1.12.0.1:
 
