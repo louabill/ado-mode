@@ -1,4 +1,4 @@
-*! version 1.12.0 January 8, 2012 @ 13:41:14
+*! version 1.12.0 16jan2012
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -2705,10 +2705,12 @@ be a separate mode ... ugh */
    fvexpand
 
    gettoken foo : griminy, parse(" ,")
-   gettoken bleeble bauble: foo, parse(",")
+   gettoken bleeble bauble : foo, parse(",")
+   gettoken foo 1 : bubble
+   gettoken foo 0 : 0, parse(" ")
    gettoken (local) foo: complex
    gettoken (global) hey ho   : ho
-   gettoken (local) bleen (global) hooie: gomp
+   gettoken (local) bleen (global) hooie : gomp
    gettoken (local) bleen (local) bling : how
 
    if foo fuggy // because of the missing brace 
