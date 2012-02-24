@@ -1,4 +1,4 @@
-*! version 1.12.0 16jan2012
+*! version 1.12.0 February 19, 2012 @ 13:09:41
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -1020,7 +1020,7 @@ set trace off
    /* endless egen & options */
    egen
    egen = any() // really was renamed in Stata 9 to anyvalue()
-                //  highlights because of mata any() function
+   //  highlights because of mata any() function
    egen breeble = anycount()
    egen = anymatch()
    egen = anyvalue()
@@ -1853,7 +1853,7 @@ set trace off
    st_is 2 analysis
    st_show
    st_ct
- 
+   
    stbase
    stci
    stcox
@@ -2090,7 +2090,7 @@ set trace off
    tsfilter 
 
    tsfilter `foo' // should really decide what to do with commands
-                  //  allowing subcommands
+   //  allowing subcommands
    tsfilter bk // new in Stata 12 to ...
    tsfilter bw
    tsfilter cf
@@ -2456,7 +2456,7 @@ set trace off
    c(doublebuffer)
    c(reventries)
    c(fastscroll) // not platform dep in Stata 10, Unix-only in 11
-                 // Unix/Win only in 12
+   // Unix/Win only in 12
    c(revwindow) // obsolete in Stata 11 
    c(revkeyboard)
    c(varwindow) // obsolete in Stata 11 
@@ -2594,7 +2594,7 @@ set trace off
 #delimit cr
 
    /* all the dialog stuff is in syntax_tester.dlg, because the dlg stuff should really
-be a separate mode ... ugh */
+   be a separate mode ... ugh */
    discard
    di dis disp displ displa display
    display as text
@@ -2850,7 +2850,7 @@ be a separate mode ... ugh */
    local h : tempvar
    local h : tempf
    local h : tempfile
- 
+   
    /* macro lists */
 
    loc foo : list uniq bar
@@ -2982,7 +2982,7 @@ pause "fuggy"
 
    /* should fix the following (doesn't need to be flush left
    the problem really is that since define is now optional, it is hard
-for the syntax to be corrected */
+   for the syntax to be corrected */
    pr di
    program dir
 
@@ -3662,7 +3662,7 @@ version 12: fooie
    twoway bar foo || bar fee
 
    /* forget the stuff under twoway */
-      /* redone in the order of the commands themselves to accommodate abbrevs */  
+   /* redone in the order of the commands themselves to accommodate abbrevs */  
 
    gr tw scatter
    
@@ -3780,7 +3780,7 @@ version 12: fooie
    delete
    do /* used elsewhere */ 
    double /* used elsewhere */
-
+   
    else /* used elsewhere */
    eltypedef
    // end /* used elsewhere, commented out here because of indentation */
@@ -5501,6 +5501,8 @@ version /* used elsewhere */
 
    // messy
    {synopt:{opt min:abbrev}}
+
+   // annoying local foo = strpos(`gib', "`gab'")
 
    mat `foo' = (1 2 \ 3 4)
 end

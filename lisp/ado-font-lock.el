@@ -112,7 +112,7 @@ Not implemented as much more than an experiment. ")
 	;; it appears Stata accepts any version number
 	;; this just allows major[.0/max for particular version]
 	;; only 0's: 1, 4, 5, 7
-    ;; .1's: 2, 3, 6, 10, 11
+    ;; .1's: 2, 3, 6, 10, 11, 12
 	;; .2's: 8, 9
 	(list
 	 (concat
@@ -120,7 +120,7 @@ Not implemented as much more than an experiment. ")
 		(regexp-opt 
 		 '("vers" "versi" "versio" "version")
 		 'words))
-	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[01]\\)?[.]0\\)\\|\\(?:\\(?:[23689]\\|1[01]\\)[.]1\\)\\|\\(?:[89]\\|11\\)?[.]2\\|\\(?:\\(?:[1-9]\\|1[01]\\)?[^.]\\)\\)\\($\\|[ \t]*\\)"
+	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[012]\\)[.]0\\)\\|\\(?:\\(?:[23689]\\|1[012]\\)[.]1\\)\\|\\(?:[89]\\|11\\)[.]2\\|\\(?:\\(?:[1-9]\\|1[012]\\)[^.]\\)\\)\\($\\|[ \t]*\\)"
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; pause on/off
@@ -6397,7 +6397,7 @@ Not implemented as much more than an experiment. ")
 		   "ovtest"
 		   "pairwise" "period" "phtest" "predict" "profiles"
 		   "quantiles"
-		   "recovariance" 
+		   "recov" "recova" "recovar" "recovari" "recovaria" "recovarian" "recovarianc" "recovariance" 
 		   "res" "resi" "resid" "residu" "residua" "residual" "residuals" 
 		   "rotate" "rotatecompare"
 		   "sargan" 
@@ -6690,7 +6690,8 @@ Not implemented as much more than an experiment. ")
 	  '(1 ado-needs-subcommand-face))
 
 	;; simple *-style comments; w/o the [^/\n] term, old continuations fail
-	(list "^[ \t]*\\([*][^/\n].*\\)" '(1 ado-comment-face t))
+	(list "^[ \t]*\\([*]\\([^/].*\\|$\\)\\)" 
+		  '(1 ado-comment-face t) '(2 ado-comment-face t))
 
     ;; uh oh... things with multiple subcommands
 

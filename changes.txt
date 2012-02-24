@@ -2,6 +2,9 @@ Version History:
 ---------------
 1.12.1.0
 
+* Added ado-statacorp-defaults which sets indentations, timestamps and
+  the like to match StataCorp's style for editing.
+
 * Re-fixed the bugs related to semi-colon delimited files. Maybe this
   time the fix will be real.
 
