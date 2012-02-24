@@ -422,6 +422,8 @@ This will make ado-mode load when you open an ado or do file."
 ;; standard variables for any mode
   (interactive)
   (kill-all-local-variables)
+;; testing...doesn't seem to have an effect
+;;  (setq syntax-begin-function 'ado-beginning-of-command)
   (use-local-map ado-mode-map)
   (define-abbrev-table 'ado-mode-abbrev-table ())
   (setq local-abbrev-table ado-mode-abbrev-table)
@@ -1189,6 +1191,7 @@ and indenting"
   (save-excursion
 	(beginning-of-line)
 	(and (search-forward "*/" (point-at-eol) t)
+		 (not (re-search-forward "[ /t]*$" (point-at-eol) t))
 		 (not (search-backward "/*" (point-at-bol) t)))))
 
 (defun ado-out-of-nested-comment (&optional top from-level)
@@ -1897,6 +1900,16 @@ programs, even those defined in a funky way."
 	(re-search-forward "^[ \t]*\\([*]\\|$\\|vers\\|versi\\|version\\|\\(ca\\(p\\|pt\\|ptu\\|ptur\\|pture\\)[ \t]+p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+drop\\)\\)" (point-at-eol) t))
 	(forward-line)
 	(goto-char (point-at-bol))))
+
+(defun ado-statacorp-defaults ()
+  "Sets editing options to StataCorp default stamps and such for editing"
+  (interactive)
+  (set-variable 'ado-close-under-line-flag nil)
+  (set-variable 'ado-lowercase-date-flag t)
+  (set-variable 'ado-date-format "%d%b%Y")
+  (set-variable 'ado-initials-flag nil)
+  (message "ado-mode options set to StataCorp defaults"))
+
 			 
 ;;; Aquamacs emacs specifics (perhaps should be broken out?)
 (if (boundp 'aquamacsxb-version)
