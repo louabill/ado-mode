@@ -4929,7 +4929,7 @@ Not implemented as much more than an experiment. ")
 	   )
 	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
 	  '(3 ado-constant-face) '(4 ado-subcommand-face t) '(5 ado-constant-face))
-	  ;; making comments look like comments
+	  ;; making smcl comments look like comments
 	(list
 	 (concat
 	  "\\({\\)"
@@ -6690,7 +6690,7 @@ Not implemented as much more than an experiment. ")
 	  '(1 ado-needs-subcommand-face))
 
 	;; simple *-style comments; w/o the [^/\n] term, old continuations fail
-	(list "^[ \t]*\\([*]\\([^/].*\\|$\\)\\)" 
+	(list "^[ \t]*\\([*]\\([^/\n].*\\|$\\)\\)" 
 		  '(1 ado-comment-face t) '(2 ado-comment-face t))
 
     ;; uh oh... things with multiple subcommands
