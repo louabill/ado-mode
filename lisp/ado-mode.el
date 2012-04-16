@@ -1091,7 +1091,7 @@ Stata versions 11 and 12."
 	  (cond 
 	   ((search-forward-regexp "{manlink[ \t]+.*?[ \t]+" nil t)
 		(point)) ;; have name-start set properly already from official Stata help
-	   ((re-search-forward "{\\(bf\\|cmd\\|hi\\):help[ \t]+" nil t)
+	   ((re-search-forward "{\\(bf\\|cmd\\|hi\\):[ \t]+" nil t)
 		(point)) ;; name-start set properly by Stata 11 official help and some old help files
 	   ((search-forward "help for " nil t) ; very old help
 		(re-search-forward "{\\(bf\\|cmd\\|hi\\):" nil t))

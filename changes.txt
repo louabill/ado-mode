@@ -8,9 +8,14 @@ Version History:
 * Re-fixed the bugs related to semi-colon delimited files. Maybe this
   time the fix will be real.
 
+* Now replace multiple tabs/spaces with a single space when sending a
+  command to the clipboard for consumption by the Command window.
+  Necessary because the command window does not understand tab
+  characters.
+
 * Fixed minor fontification bugs.
 
-1.12.0.1: not released to general public
+1.12.0.2: not released to general public
 
 1.12.0.1:
 

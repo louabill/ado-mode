@@ -148,6 +148,8 @@ These cannot be modularized, because of ordering problems"
 		(returnString "") 
 		pareThru
 		matchString)
+	;; because the command window doesn't like tabs, turn sequences of spaces and tabs into single spaces
+	(setq theString (replace-regexp-in-string "[ 	]+" " " theString))
 	;; adding the space in case // are the last chars on a line
 	(while (setq pareThru (string-match "\\(^///\\|\\( \\|	\\)///\\|^//\\|\\( \\|	\\)//\\|/[*]\\|[*]/\\)" theString))
 	  (setq matchString (match-string 1 theString))
