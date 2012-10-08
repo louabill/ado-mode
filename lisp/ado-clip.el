@@ -57,7 +57,7 @@ As of yet, only -2, -1, and 0 actually are implemented."
 	   ((not what-code)
 		(word-at-point))
 	   ((= what-code -2) 
-		(filter-buffer-substring (point-min) (point-max) nil t))
+		(buffer-substring-no-properties (point-min) (point-max)))
 	   ((= what-code -1) ;; grab entire command
 		(let ((start-here
 			   (save-excursion
@@ -68,7 +68,7 @@ As of yet, only -2, -1, and 0 actually are implemented."
 				 (ado-end-of-command)
 				 (point)))
 			  (x-select-enable-clipboard t))
-		  (filter-buffer-substring start-here end-here nil t)))
+		  (buffer-substring-no-properties start-here end-here)))
 	   ((= what-code 0) ;; grab entire command
 		(let ((end-here
 			   (save-excursion

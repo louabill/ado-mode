@@ -1432,7 +1432,7 @@ working on regions."
 		   (point)))
 		 (x-select-enable-clipboard t))
 	(if asString
-		(filter-buffer-substring start-here end-here nil t)
+		(buffer-substring-no-properties start-here end-here)
 	  (kill-ring-save start-here end-here))
 	))
 
