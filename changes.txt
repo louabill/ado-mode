@@ -1,6 +1,9 @@
 Version History:
 ---------------
-1.12.1.0
+1.12.1.0: sent out for bug checking
+
+* fixed a bug introduced by the Emacs 24 change to the
+  filter-buffer-substring command
 
 * Added ado-statacorp-defaults which sets indentations, timestamps and
   the like to match StataCorp's style for editing.

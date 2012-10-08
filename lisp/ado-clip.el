@@ -4,7 +4,8 @@
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://homepage.mac.com/brising
 ;; Keywords: ado-mode
-;; Version:  0.5 11jan2012 (the 0.5 is an arbitrary number)
+;; Version:  0.5.1   8oct2012-updated for emacs 24 
+;; Version:  0.5    11jan2012 (the 0.5 is an arbitrary number)
 
 ;; This file is not part of GNU Emacs.
 

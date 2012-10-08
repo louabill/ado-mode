@@ -5,7 +5,7 @@
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://homepage.mac.com/brising
 ;; Keywords: ado-mode
-;; Version:  1.11.2.0 of April 8, 2011
+;; Version:  1.12.1.0 of October 8, 2012
 
 ;; This file is not part of GNU Emacs.
 
