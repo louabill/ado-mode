@@ -1,6 +1,6 @@
 Version History:
 ---------------
-1.12.1.0: sent out for bug checking
+1.12.1.0:
 
 * fixed a bug introduced by the Emacs 24 change to the
   filter-buffer-substring command
