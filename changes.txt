@@ -1,5 +1,9 @@
 Version History:
 ---------------
+1.12.1.1:
+
+* updated templates to 'version 12.1'
+
 1.12.1.0:
 
 * fixed a bug introduced by the Emacs 24 change to the
