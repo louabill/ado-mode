@@ -1,6 +1,6 @@
 ;; ado-mode.el --- ado mode, and its idiosyncratic commands.
 
-;; Copyright (C) 1996,..., 2011 Bill Rising
+;; Copyright (C) 1996,..., 2012 Bill Rising
 
 ;; Maintainer: Bill Rising, brising at stata dot com
 ;; Keywords: ado-mode, highlighting
@@ -911,8 +911,9 @@ needed. The command works differently depending on the type of file:
     the extension .class. This ensures that the class name and the
     class filename match.
 
-  .hlp files: looks for first {hi:help ...} or {cmd:help ...}, and takes
-    file name from the next chunk.
+  .sthlp files: looks for first {hi:help ...} or {cmd:help ...}, and takes
+    file name from the next chunk. This has problems with postestimation
+    help files.
 
   all other Stata-related files: These do not need anything within the
     file to match the file name in order to run properly. So... if the
