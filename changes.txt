@@ -4,6 +4,13 @@ Version History:
 
 * updated templates to 'version 12.1'
 
+* noticed that in Stata 12 for MS Windows, if you open the filter on the
+  review window, AutoIt changes the number of the Command window, so
+  that attempting to send commands to Stata sends the commands to the
+  filter instead. To fix the problem, move the Command window to the top
+  of the screen. There is no possible workaround for the problem, as it
+  is a bug in AutoIt.
+
 1.12.1.0:
 
 * fixed a bug introduced by the Emacs 24 change to the
