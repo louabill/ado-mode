@@ -1075,6 +1075,7 @@ cannot be determined from the file contents."
 						(t nil)))
 		(if (not name-start)
 			 (buffer-file-name)
+		  ;;; !! need to split out things which can have spaces,
 		  (re-search-forward "[a-zA-Z_]+[a-zA-Z0-9_]*\\b")
 		  (setq name-end (point))
 		  (concat (buffer-substring-no-properties name-start name-end) "." ado-extension))
