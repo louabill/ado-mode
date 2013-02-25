@@ -943,6 +943,11 @@ in sthlp (or hlp) files."
 		  (write-file filename ado-confirm-overwrite-flag)
 		  )
 	  (save-buffer))))
+
+(defun ado-show-ado-name ()
+  (interactive)
+  (message (ado-make-ado-name))
+  )
 		
 (defun ado-update-timestamp ()
   "Tries to do a nice job updating a timestamp for the file. Since
@@ -1060,27 +1065,45 @@ cannot be determined from the file contents."
   (let (name-start name-end)
     (save-excursion
       (goto-char (point-min))
+	  (if (or (string= ado-extension "hlp")
+			  (string= ado-extension "sthlp"))
+		  (ado-make-help-name) ;; split out b/c of Stata 12
 		(setq name-start
-				(cond ((string= ado-extension "class") 
-						 (re-search-forward "^class[ \t]+" nil t))
-						((string= ado-extension "ado")
-						 (re-search-forward "^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+\\(de\\(f\\|fi\\|fin\\|fine\\)[ \t]+\\)?" nil t))
-						((or (string= ado-extension "hlp")
-							 (string= ado-extension "sthlp"))
-						 (if (ado-find-help-name-start)
-							 (goto-char (ado-find-help-name-start))
-						   (error "Could not find help file name")))
-						((string= ado-extension "lbl")
-						 (re-search-forward "^[ \t]*^la\\(b\\|be\\|bel\\)[ \t+]+de\\(f\\|fi\\|fin\\|fine\\)[ \t]+" nil t))
-						(t nil)))
+			  (cond ((string= ado-extension "class") 
+					 (re-search-forward "^class[ \t]+" nil t))
+					((string= ado-extension "ado")
+					 (re-search-forward "^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+\\(de\\(f\\|fi\\|fin\\|fine\\)[ \t]+\\)?" nil t))
+					((string= ado-extension "lbl")
+					 (re-search-forward "^[ \t]*^la\\(b\\|be\\|bel\\)[ \t+]+de\\(f\\|fi\\|fin\\|fine\\)[ \t]+" nil t))
+					(t nil)))
 		(if (not name-start)
-			 (buffer-file-name)
+			(buffer-file-name)
 		  ;;; !! need to split out things which can have spaces,
 		  (re-search-forward "[a-zA-Z_]+[a-zA-Z0-9_]*\\b")
 		  (setq name-end (point))
 		  (concat (buffer-substring-no-properties name-start name-end) "." ado-extension))
-		)))
+		))))
 
+(defun ado-make-help-name ()
+  (interactive)
+  "Creates a file name from the contents of a help file, assuming that
+the ado-extension has been set properly. Throws an error if the name cannot be
+determined. This was split from \\[ado-make-file-name] because of big changes
+to help files in Stata 12 (and the initial buggy fix)."
+  (let ((debug-on-error t) name-start name-end full-name) ; titlepos syntaxpos (name-start nil))
+	(cond 
+	 ((search-forward-regexp "{manlink[ \t]+.*?[ \t]+\\(.*?\\)[ \t]*}" nil t)
+	  (setq full-name (mapconcat 'identity (split-string (match-string-no-properties 1 nil)) "_")))
+	 ((re-search-forward "{\\(bf\\|cmd\\|hi\\):[ \t]+\\(.*?\\)[ \t]*}" nil t)
+	  (setq full-name (mapconcat 'identity (split-string (match-string-no-properties 2 nil)) "_")))
+	 ((search-forward "help for " nil t) ; very old help
+	  (re-search-forward "{\\(bf\\|cmd\\|hi\\):[ \t]+\\([a-zA-Z_]+[a-zA-Z0-9_]*\\)\\b" nil t)
+	  (setq full-name (mapconcat 'identity (split-string (match-string-no-properties 1 nil)) "_")))
+	 (t (error "Could not figure out help file name!"))
+	)
+	(concat full-name "." ado-extension))
+  )
+  
 (defun ado-find-help-name-start ()
   "Returns the point at which the command documented in a help file starts.
 Need a function for this, because this location changed drastically between
