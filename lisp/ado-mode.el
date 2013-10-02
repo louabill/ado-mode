@@ -1922,9 +1922,10 @@ programs, even those defined in a funky way."
   (interactive)
   (goto-char (point-at-bol))
   (while (and (< (point) (point-max))
+	(goto-char (point-at-bol))
 	(re-search-forward "^[ \t]*\\([*]\\|$\\|vers\\|versi\\|version\\|\\(ca\\(p\\|pt\\|ptu\\|ptur\\|pture\\)[ \t]+p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+drop\\)\\)" (point-at-eol) t))
 	(forward-line)
-	(goto-char (point-at-bol))))
+	))
 
 (defun ado-statacorp-defaults ()
   "Sets editing options to StataCorp default stamps and such for editing"

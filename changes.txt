@@ -1,5 +1,11 @@
 Version History:
 ---------------
+1.13.0.0
+
+* Updated for Stata 13
+ 
+* Fixed highlighting bugs for -irf- and its subcommands
+
 1.12.1.1:
 
 * updated templates to 'version 12.1'
@@ -10,6 +16,15 @@ Version History:
   filter instead. To fix the problem, move the Command window to the top
   of the screen. There is no possible workaround for the problem, as it
   is a bug in AutoIt.
+
+* fixed a bug where the automatic naming of help files got fooled by
+  help files for topics with spaces in their names (e.g. regress
+  postestimation).
+
+* changed the way that // comments are recognized so that url's don't
+  get highlighted as comments
+
+* minor highlighting and behavior bug fixes
 
 1.12.1.0:
 
