@@ -7163,6 +7163,10 @@ Not implemented as much more than an experiment. ")
 	(list "^[ \t]*\\([*]\\([^/\n].*\\|$\\)\\)" 
 		  '(1 ado-comment-face t) '(2 ado-comment-face t))
 
+	;; trying c++ comments here, instead of in syntax table
+	(list "[ \t]+\\(//.*\\)$"
+		  '(1 ado-comment-face t))
+
     ;; uh oh... things with multiple subcommands
 
 	;; set <foo> on/off commands (must start a line)

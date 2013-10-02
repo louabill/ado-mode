@@ -93,9 +93,10 @@
 ;; commented out, because ' can be used too many places, now.
 ;  (modify-syntax-entry ?` "(\'" ado-mode-syntax-table)
 ;  (modify-syntax-entry ?\' ")`" ado-mode-syntax-table)
-  (modify-syntax-entry ?/ ". 124b" ado-mode-syntax-table)
+;  (modify-syntax-entry ?/ ". 124b" ado-mode-syntax-table)
+  (modify-syntax-entry ?/ ". 14" ado-mode-syntax-table)
   (modify-syntax-entry ?* ". 23n" ado-mode-syntax-table)
-  (modify-syntax-entry ?\n "> b" ado-mode-syntax-table)
+;  (modify-syntax-entry ?\n "> b" ado-mode-syntax-table)
   (modify-syntax-entry ?+ "_" ado-mode-syntax-table)
   (modify-syntax-entry ?- "_" ado-mode-syntax-table)
   (modify-syntax-entry ?= "_" ado-mode-syntax-table)
