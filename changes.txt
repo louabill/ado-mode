@@ -6,7 +6,7 @@ Version History:
  
 * Fixed highlighting bugs for -irf- and its subcommands
 
-1.12.1.1:
+1.12.1.1: (never released)
 
 * updated templates to 'version 12.1'
 
