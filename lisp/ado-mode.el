@@ -1,10 +1,10 @@
 ;; ado-mode.el --- ado mode, and its idiosyncratic commands.
 
-;; Copyright (C) 1996,..., 2012 Bill Rising
+;; Copyright (C) 1996,..., 2013 Bill Rising
 
 ;; Maintainer: Bill Rising, brising at stata dot com
 ;; Keywords: ado-mode, highlighting
-;; Version: 1.12.1.0 of 8oct2012
+;; Version: 1.13.0.0 of Oct 2, 2013
 ;;
 ;; the old version system was 0.stata-version times ten.update
 ;; the new version system is now 1.stataversion.statasubversion.update

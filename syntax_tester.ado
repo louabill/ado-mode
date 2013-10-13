@@ -5978,7 +5978,6 @@ version /* used elsewhere */
 
    mat `foo' = (1 2 \ 3 4)
 
-   http://this is a test
-
+   http://stata.com // this worked fine
 
 end

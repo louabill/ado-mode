@@ -1,11 +1,11 @@
 ;;; ado-font-lock.el --- all the endless font locking
-;; Copyright (c) 2003--2011
+;; Copyright (c) 2003--2013
 ;; Bill Rising
 ;; Author:   Bill Rising
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://homepage.mac.com/brising
 ;; Keywords: ado-mode
-;; Version:  1.12.1.0 of October 8, 2012
+;; Version:  1.13.0.0 of October 2, 2013
 
 ;; This file is not part of GNU Emacs.
 
