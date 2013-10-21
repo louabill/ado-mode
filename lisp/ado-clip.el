@@ -38,7 +38,7 @@
 
 (defun ado-grab-something (&optional what-code)
   "If a region is selected, return the region.
-Otherwise react to what-code is (this is a mess and should be redone)
+Otherwise react to what-code is (this is a mess; consider it obsolete)
 If what-code is
   nil, return the word at or before point,
    -2, return the entire buffer,
