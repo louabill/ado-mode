@@ -1,4 +1,4 @@
-*! version 1.12.0 September 27, 2013 @ 12:10:45
+*! version 1.13.1.0 October 30, 2013 @ 15:53:36
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -70,6 +70,8 @@ version 12.1
 version 12.2
 version 13
 version 13.0
+version 13.1
+version 13.2
 version 14
 version 14.0
 version 16
@@ -1341,7 +1343,10 @@ set trace off
    invchi2()
    invchi2tail()
    nchi2()
+   nchi2den()
+   nchi2tail()
    invnchi2()
+   invnchi2tail()
    npnchi2()
    // dunnet's multiple range
    dunnettprob()
@@ -2512,6 +2517,9 @@ set trace off
    power onecorrelation
    power twocorr
    power twocorrelations
+   power oneway
+   power twoway
+   power repeated
    /* end of the [PSS] manual */
    
    /* from the [SEM] manual */
@@ -2753,8 +2761,9 @@ set trace off
    arch
    arfima
    psdensity
+
    arima
-   
+  
    corrgram
    ac
    pac
@@ -2763,6 +2772,10 @@ set trace off
    dfactor
    dfgls
    dfuller
+
+   estat acplot
+   estat aroots
+
    dvech
    fcast c
    fcast com

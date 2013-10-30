@@ -1,5 +1,11 @@
 Version History:
 ---------------
+1.13.1.0
+
+* Updated for Stata 13.1
+
+* Fixed highlighting bug for // comments starting at the beginning of a line
+
 1.13.0.0
 
 * Updated for Stata 13

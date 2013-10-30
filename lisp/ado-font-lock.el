@@ -5,7 +5,7 @@
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://homepage.mac.com/brising
 ;; Keywords: ado-mode
-;; Version:  1.13.0.0 of October 2, 2013
+;; Version:  1.13.1.0 of October 30, 2013
 
 ;; This file is not part of GNU Emacs.
 
@@ -120,7 +120,7 @@ Not implemented as much more than an experiment. ")
 		(regexp-opt 
 		 '("vers" "versi" "versio" "version")
 		 'words))
-	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[0123]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[2389]\\|1[012]\\)[.]1\\)\\|\\(?:[89]\\|11\\)[.]2\\)\\($\\|[ \t]+\\|:\\)"
+	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[0123]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[2389]\\|1[0123]\\)[.]1\\)\\|\\(?:[89]\\|11\\)[.]2\\)\\($\\|[ \t]+\\|:\\)"
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; pause on/off
@@ -298,13 +298,16 @@ Not implemented as much more than an experiment. ")
 		   "onecorr" "onecorre" "onecorrel" "onecorrela" "onecorrelat" "onecorrelati" "onecorrelatio" "onecorrelation" 
 		   "onemean"
 		   "oneprop" "onepropo" "onepropor" "oneproport" "oneproporti" "oneproportio" "oneproportion"
-		   "onevar" "onevari" "onevaria" "onevarian" "onevarianc" "onevariance" 
+		   "onevar" "onevari" "onevaria" "onevarian" "onevarianc" "onevariance"
+		   "oneway"
 		   "pairedm" "pairedme" "pairedmea" "pairedmean" "pairedmeans" 
 		   "pairedpr" "pairedpro" "pairedprop" "pairedpropo" "pairedpropor" "pairedproport" "pairedproporti" "pairedproportio" "pairedproportion" "pairedproportions"
+		   "repeated"
 		   "twocorr" "twocorre" "twocorrel" "twocorrela" "twocorrelat" "twocorrelati" "twocorrelatio" "twocorrelation" "twocorrelations"
 		   "twomeans"
 		   "twoprop" "twopropo" "twopropor" "twoproport" "twoproporti" "twoproportio" "twoproportion" "twoproportions" 
 		   "twovar" "twovari" "twovaria" "twovarian" "twovarianc" "twovariance" "twovariances" 
+		   "twoway"
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -4615,7 +4618,7 @@ Not implemented as much more than an experiment. ")
 		   "invgammap" "invgammaptail" "invibeta" "invibetatail" "invlogit"
 		   "invnFtail" 
 		   "invnbinomial" "invnbinomialtail"
-		   "invnchi2" "invnibeta" "invnormal" "invnttail" 
+		   "invnchi2" "invnchi2tail" "invnibeta" "invnormal" "invnttail" 
 		   "invpoisson" "invpoissontail"
 		   "invsym"  "invt" "invttail" "invtukeyprob"
 		   "irecode" "issymetric" "itrim"
@@ -4628,8 +4631,9 @@ Not implemented as much more than an experiment. ")
 		   "missing" "mm" "mmC" "mod" "mofd" "month" "monthly" "mreldif"
 		   "msofhours" "msofminutes" "msofseconds"
 		   "nF" "nFden" "nFtail" 
-		   "nbetaden" "nchi2" 
+		   "nbetaden" 
 		   "nbinomial" "nbinomialp" "nbinomialtail"
+		   "nchi2" "nchi2den" "nchi2tail"
 		   "normal" "normalden" 
 		   "nibeta" 
 		   "npnF" "npnchi2" "npnt"
@@ -6710,8 +6714,8 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "abond" "alt" "alte" "alter" "altern" "alterna" "alternat" "alternati" "alternativ" "alternative" "alternatives"
-		   "anova" "anti" "archlm" 
+		   "abond" "acplot" "alt" "alte" "alter" "altern" "alterna" "alternat" "alternati" "alternativ" "alternative" "alternatives"
+		   "anova" "anti" "archlm" "aroots" 
 		   "bgo" "bgod" "bgodf" "bgodfr" "bgodfre" "bgodfrey"
 		   "boot" "boots" "bootst" "bootstr" "bootstra" "bootstrap" 
 		   "canontest" "clas" "class" "classfunctions" 
@@ -7164,8 +7168,8 @@ Not implemented as much more than an experiment. ")
 		  '(1 ado-comment-face t) '(2 ado-comment-face t))
 
 	;; trying c++ comments here, instead of in syntax table
-	(list "[ \t]+\\(//.*\\)$"
-		  '(1 ado-comment-face t))
+	(list "\\(^\\|[ \t]+\\)\\(//.*\\)$"
+		  '(1 ado-comment-face t) '(2 ado-comment-face))
 
     ;; uh oh... things with multiple subcommands
 
