@@ -7167,9 +7167,10 @@ Not implemented as much more than an experiment. ")
 	(list "^[ \t]*\\([*]\\([^/\n].*\\|$\\)\\)" 
 		  '(1 ado-comment-face t) '(2 ado-comment-face t))
 
+	;; c++ comments at very end to overwrite all other syntaxes
 	;; trying c++ comments here, instead of in syntax table
 	(list "\\(^\\|[ \t]+\\)\\(//.*\\)$"
-		  '(1 ado-comment-face t) '(2 ado-comment-face))
+		  '(1 ado-comment-face t) '(2 ado-comment-face t))
 
     ;; uh oh... things with multiple subcommands
 
