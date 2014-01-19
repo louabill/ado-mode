@@ -4,7 +4,18 @@ Version History:
 
 * Updated for Stata 13.1
 
-* Fixed highlighting bug for // comments starting at the beginning of a line
+* Fixed highlighting bug for // comments starting at the beginning of a
+  line
+
+* Fixed indenting bug for -mata- groups (things were fine for -mata:-
+  groups). 
+
+* Changed help.blp to say 'stored results' instead of 'saved results'.
+
+* Now am getting warning about syntax-propertize replacing
+  font-lock-syntactic-keywords for emacs 24.1 and
+  later. I'm not going to worry about this, yet---it is used for
+  #delimit and #review.
 
 1.13.0.0
 
