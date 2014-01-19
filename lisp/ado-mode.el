@@ -1266,7 +1266,7 @@ and indenting"
 	  (beginning-of-line)
       ;; words which start blocks
 	  ;; need to be careful, because of program dir, drop, and list
-      (setq depth (+ depth (how-many "^[ \t]*\\(input[ \t]+\\|\\(p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)\\([ \t]+d\\(ef\\|efi\\|efin\\|efine\\)\\)?\\)[ \t]+\\|mata:[ \t]*$\\)" 1 (point))))
+      (setq depth (+ depth (how-many "^[ \t]*\\(input[ \t]+\\|\\(p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)\\([ \t]+d\\(ef\\|efi\\|efin\\|efine\\)\\)?\\)[ \t]+\\|\\(mat\\(a\\|a:\\)\\)[ \t]*$\\)" 1 (point))))
 	  (setq depth (- depth (how-many "^[ \t]*p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+\\(d\\(i\\|ir\\)[ \t]*$\\|\\(\\(l\\|li\\|lis\\|list\\|drop\\)[ \t]+\\)[a-zA-Z_]+\\)" 1 (point))))
       ;; words which end blocks
       (setq ppsexp (parse-partial-sexp start (point)))
