@@ -481,6 +481,9 @@ This will make ado-mode load when you open an ado or do file."
   ;; delete auto-save-file when file is saved for real
   (make-local-variable 'delete-auto-save-files)
   (setq delete-auto-save-files t)
+  ;; !! just added
+  (make-local-variable 'before-save-hook)
+  (add-hook 'before-save-hook ado-before-save-file-hook)
   (use-local-map ado-mode-map)
   (setq mode-name "Ado")
   (setq major-mode 'ado-mode)
@@ -719,12 +722,15 @@ continuation characters."
 		(insert name)))
   (re-search-forward "\t" nil t)
   (if ado-fontify-new-flag (turn-on-font-lock))
+  ;; .ado, .class, and the outdated .hlp files are the only ones where
+  ;;     a decent name can be made
   (if (or
 	   (string= type "ado")
 	   (string= type "class")
 	   (string= type "hlp"))
 	  (ado-save-program)
-	(ado-save-program (concat name "." exten)))
+	(set-visited-file-name (concat name "." exten))
+	(ado-save-program))
   )
 
 (defun ado-new-do (&optional stayput name purpose)
@@ -887,7 +893,7 @@ something broken in that the insertion point is left in the wrong spot..."
 
 (defun ado-write-file-as-buffer-name ()
   "Takes care of the problem in emacs where a buffer can have its name 
-changed, but will write itself under it's regular filename."
+changed, but will write itself under it's regular filename. Not used anywhere?"
   (interactive)
   (let (this-buffer)
     (setq this-buffer (buffer-name))
@@ -898,64 +904,65 @@ changed, but will write itself under it's regular filename."
   )
 
 (defun ado-save-program (&optional filename)
-  "Saves file, doing its best to make a good file name and timestamp, if 
-needed. The command works differently depending on the type of file:
+  "Obsolete. Use the proper combination of a before-save-hook and
+\\[save-buffer] to save things nicely."
+  (interactive)
+  (save-buffer)
+)
 
-  .ado files: looks for the first 'program define' statement, and
-    attaches the extension .ado. This means that there is no worry
-    about the program name and file name being different. *Note* that
-    the 'program define' statement may be abbreviated according to
-    command rule, but must be at the start of a line. Also: it must be
-    the first program defined in the .ado file.
+;;   (setq ado-extension (ado-find-extension))
+;;   (if ado-update-timestamp-flag
+;; 	  (ado-update-timestamp))
+;;   ;; if file name specified, this is just a write-file
+;;   (unless filename
+;; ;;	  (write-file filename ado-confirm-overwrite-flag)
+;; 	;; try to get new name
+;; 	(setq filename (ado-make-ado-name)))
+;;   (if filename
+;; 	  (unless (string= (concat default-directory filename) (buffer-file-name))
+;; 		(set-visited-file-name filename)
+;; 		(if (and ado-confirm-overwrite-flag
+;; 				 (file-exists-p (buffer-file-name)))
+;; 			(unless (y-or-n-p (concat "Overwrite file " filename "? "))
+;; 			  (error "Canceled"))
+;; ;;		(write-file filename ado-confirm-overwrite-flag)
+;; 		  )))
+;;   (save-buffer))
 
-  .class files: looks for the first 'class' statement, and attaches
-    the extension .class. This ensures that the class name and the
-    class filename match.
-
-  .sthlp files: looks for first {hi:help ...} or {cmd:help ...}, and takes
-    file name from the next chunk. This has problems with postestimation
-    help files.
-
-  all other Stata-related files: These do not need anything within the
-    file to match the file name in order to run properly. So... if the
-    file starts with *! in the first line, ado-mode will check
-    lines starting with *!'s at the top of the program for something
-    approaching a filename with the proper extension. If it is found,
-    it will be used as the file name.
-
-If none of these tags are found, then the program tries to save
-the file as it's buffer name (without the <#> garbage).
+(defun ado-before-save-file ()
+  "The default before-save-hook. This updates the timestamp using
+\\[ado-update-timestamp] (if the ado-update-timestamp flag is set), then
+tries to determine a good file name using \\[ado-find-extension] and
+\\[ado-make-ado-name] (primarily in the case of ado-files and help files),
+before running \\[save-buffer].
 
 Timestamps are updated only if there is a '*! version xxx'
 statement in ado files, a {* Last Updated: } or a {* <date>}{...}
 in sthlp (or hlp) files."
   (interactive)
-  (setq ado-extension (ado-find-extension))
-  (if ado-update-timestamp-flag
-	  (ado-update-timestamp))
-  ;; if file name specified, this is just a write-file
-  (if filename
-	  (write-file filename ado-confirm-overwrite-flag)
-	;; try to get new name
-	(setq filename (ado-make-ado-name))
+;;  (message "Calling all hooks!")
+  (let ((filename (ado-make-ado-name)))
+	(setq ado-extension (ado-find-extension))
+	(if ado-update-timestamp-flag
+		(ado-update-timestamp))
+	;; if file name specified, this is just a write-file
 	(if filename
-		(if (string= (concat default-directory filename) (buffer-file-name))
-			(save-buffer)
-		  (write-file filename ado-confirm-overwrite-flag)
-		  )
-	  (save-buffer))))
+		(unless (string= (concat default-directory filename) (buffer-file-name))
+		  (set-visited-file-name filename)
+		  (if (and ado-confirm-overwrite-flag
+				   (file-exists-p (buffer-file-name)))
+			(unless (y-or-n-p (concat "Overwrite file " filename "? "))
+			  (error "Canceled"))
+;;		(write-file filename ado-confirm-overwrite-flag)
+			)))))
+  
 
-(defun ado-show-ado-name ()
-  (interactive)
-  (message (ado-make-ado-name))
-  )
-		
 (defun ado-update-timestamp ()
   "Tries to do a nice job updating a timestamp for the file. Since
 Stata has no conventions about headers for files, ado-mode will:
 
 Look for a '*! version xxx' statement in ado/do/ files, a {
-* version xxx } or a {smcl}<newline>{* <date>}{...} in sthlp (or hlp)
+* version xxx } or a {* <date>}{...} in sthlp (or hlp)
 files, or a version x.y.z <date> in other files."
   (interactive)
   (save-excursion
@@ -1004,12 +1011,14 @@ files, or a version x.y.z <date> in other files."
 ;; not use 'signal to identify the errors (write-file does not use a signal)
 
 (defun ado-set-ado-extension ()
-  "This function is now considered obsolete. Try using \\[ado-find-extension] 
+  "This function is obsolete. Try using \\[ado-find-extension] 
 instead, which returns a value instead of setting a variable."
   (interactive)
   (setq ado-extension (ado-find-extension)))
 
 (defun ado-show-extension ()
+  "Shows what ado-mode thinks the file extension for the current
+buffer should be by running \\[ado-find-extension]."
   (interactive)
 	(message (concat "I think the extension is " (ado-find-extension))
 	))
@@ -1018,7 +1027,9 @@ instead, which returns a value instead of setting a variable."
 (defun ado-find-extension (&optional message)
   "Decides from the file contents what the extension should be. Since Stata
 has started getting more complicated, will fall back to the current file
-if confused. Returns its best guess at the extension."
+if confused. Returns its best guess at the extension.
+
+To test this, try \\[ado-show-extension]."
   ;; try to find the name, trust the buffer if lost, but issue warning if
   ;; lost or a contradiction
   (let (first-program first-mata sez-file sez-contents)
@@ -1057,12 +1068,45 @@ if confused. Returns its best guess at the extension."
 		  sez-file)
 	  sez-contents)
 	))
-				  
+
+(defun ado-show-ado-name ()
+  "Shows what ado-mode thinks the name of the edited file should be by
+running \\[ado-make-ado-name]."
+  (interactive)
+  (message (ado-make-ado-name))
+  )
+						  
 (defun ado-make-ado-name ()
   (interactive)
   "Creates a file name from the contents of the file. Assumes that
-ado-extension has been set properly. Returns nil if the name of the file
-cannot be determined from the file contents."
+ado-extension has been set properly. (See \\[ado-find-extension] for 
+determining extensions.) Returns nil if the name of the file
+cannot be determined from the file contents. You can test this using
+\\[ado-show-ado-name].
+
+The command works differently depending on the type of file:
+
+  .ado files: looks for the first 'program define' statement, and
+    attaches the extension .ado. This means that there is no worry
+    about the program name and file name being different. *Note* that
+    the 'program define' statement may be abbreviated according to
+    command rule, but must be at the start of a line. Also: it must be
+    the first program defined in the .ado file.
+
+  .class files: looks for the first 'class' statement, and attaches
+    the extension .class. This ensures that the class name and the
+    class filename match.
+
+  .sthlp files: looks for first {hi:help ...} or {cmd:help ...}, and takes
+    file name from the next chunk. This has problems with postestimation
+    help files.
+
+  all other Stata-related files: These do not need anything within the
+    file to match the file name in order to run properly. So... if the
+    file starts with *! in the first line, ado-mode will check
+    lines starting with *!'s at the top of the program for something
+    approaching a filename with the proper extension. If it is found,
+    it will be used as the file name."
   (let (name-start name-end)
     (save-excursion
       (goto-char (point-min))
@@ -1078,7 +1122,7 @@ cannot be determined from the file contents."
 					 (re-search-forward "^[ \t]*^la\\(b\\|be\\|bel\\)[ \t+]+de\\(f\\|fi\\|fin\\|fine\\)[ \t]+" nil t))
 					(t nil)))
 		(if (not name-start)
-			(buffer-file-name)
+			(file-name-nondirectory (buffer-file-name))
 		  ;;; !! need to split out things which can have spaces,
 		  (re-search-forward "[a-zA-Z_]+[a-zA-Z0-9_]*\\b")
 		  (setq name-end (point))
@@ -1941,6 +1985,8 @@ programs, even those defined in a funky way."
 ;;; Aquamacs emacs specifics (perhaps should be broken out?)
 (if (boundp 'aquamacsxb-version)
     (define-key ado-mode-map [remap mac-key-save-file] 'ado-save-program))
+
+
 
 (provide 'ado-mode)
 ;; ado-mode.el ends here
