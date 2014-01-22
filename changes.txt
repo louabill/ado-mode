@@ -4,6 +4,10 @@ Version History:
 
 * Updated for Stata 13.1
 
+* Finally fixed up saving files so that standard save-file methods (e.g.
+  cmd-S in Aquamacs Emacs, File > Save File in all OS's) update
+  timestamps and keep backup copies. 
+
 * Fixed highlighting bug for // comments starting at the beginning of a
   line
 

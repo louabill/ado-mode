@@ -485,6 +485,14 @@ unique. If there are multiple best matches, you will get an error."
   :type 'boolean
   :group 'ado-stata-interaction)
 
+(defcustom ado-before-save-file-hook 'ado-before-save-file
+  "Set to the file hook you would like to use before saving files.
+Defaults to \\[ado-before-save-file], which behaves like the 
+now-deprecated \\[ado-save-program]. The utility of this hook is
+to allow OS-standard save shortcuts to work properly."
+  :type 'hook
+  )
+
 (provide 'ado-cus)
 
 ;;; ado-cus.el ends here
