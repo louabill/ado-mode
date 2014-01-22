@@ -1,7 +1,7 @@
-*! version 1.0.0 February 5, 2010 @ 13:56:09
+*! version 1.0.0 January 22, 2014 @ 13:12:37
 *! for examples of highlighting (not for Stata)
 program def font_highlighting_example
-version 11
+version 13
    /* this is a comment */
    // comments use ado-comment-face which inherits the font-lock-comment-face   
    

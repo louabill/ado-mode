@@ -1,9 +1,10 @@
-Ado-mode for emacs v. 20 and higher
+Ado-mode for emacs v. 22 and higher
 -----------------------------------
 
 This is the readme file for the ado-mode major mode made for editing Stata
-files nicely within emacs. It is designed for Stata 10.x, though it is
-useful for any version of Stata. It works fine in emacs version 21.
+files nicely within emacs. It is designed for Stata 13.x, though it is
+useful for any version of Stata. It works fine in emacs version 23. It
+should work in earlier versions, but this has not been tested well.
 
 Ado-mode provides the following useful features:
 . Context sensitive highlighting (aka font-locking) of Stata commands and
@@ -20,7 +21,7 @@ well as buffer-locally via menus.
 
 The installation instructions are at
 
-http://homepage.mac.com/brising/Stata/ado-mode_install.html
+http://louabill.org/Stata/ado-mode_install.html
 
 Some Extra Files:
 ----------------
@@ -44,8 +45,8 @@ Disclaimers:
 -----------
 
 You can use this to write ado, do, and help files for versions of Stata
-earlier than version 10, but it will highlight as though the files were for
-Stata version 10.
+earlier than version 13, but it will highlight as though the files were for
+Stata version 13.
 
 I would seriously doubt that the ado-mode works with xemacs.
 
