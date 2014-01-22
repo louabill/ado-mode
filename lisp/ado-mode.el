@@ -145,7 +145,8 @@
 (define-key ado-mode-map "\M-e"       'ado-end-of-command)
 ;;(define-key ado-mode-map "\C-c;"    'comment-region)
 ;;(define-key ado-mode-map "\C-c:"    'uncomment-region)
-(define-key ado-mode-map "\C-x\C-s"   'ado-save-program)
+;; finally not needed anymore!
+;;(define-key ado-mode-map "\C-x\C-s"   'ado-save-program)
 (define-key ado-mode-map "{"          'electric-ado-brace)
 (define-key ado-mode-map "}"          'electric-ado-closing-brace)
 (define-key ado-mode-map ";"          'electric-ado-semi)
@@ -344,7 +345,7 @@
 
 ;; initial mode defintion function
 (defun ado-mode ()
-  "Major mode for editing ado, do, sthlp, hlp, dlg, and smcl 
+  "Major mode for editing ado, do, mata, sthlp, hlp, dlg, and smcl 
 files for use in the Stata statistical package. It indents blocks 
 of code properly, highlights command names, (most) keywords, some
 more complicated command structures, strings, Stata macro names 
@@ -360,16 +361,16 @@ Here is a short list of the common commands which come with the mode:
 Things for dealing with files:
 - \\[ado-new-ado] will make a new buffer ready for a new ado file.
 - \\[ado-new-do] will make a buffer ready for a well-logged do file.
-- \\[ado-save-program] will save the current buffer and give it a good
-    timestamp (if the ado-update-timestamp-flag is true, which it is
-    by default). Ensures that the file name matches the name of the
-    command (ado program) or class being defined.
 - \\[ado-new-help] will start a new help file, ready for editing.
-- ado-mode can interact directly with Stat (Mac OS X and MS Windows only,
+- ado-mode can interact directly with Stata (Mac OS X and MS Windows only,
   for now) 
     \\[ado-send-command-to-stata] will send the current selection 
     to Stata for evaluation. If nothing is selected, the command containing
     the insertion bar will be sent.
+- saving a buffer will save the current buffer and give it a good
+    timestamp (if the ado-update-timestamp-flag is true, which it is
+    by default). Ensures that the file name matches the name of the
+    command (ado program) or class being defined.
     
 
 Things for changing style:
@@ -379,7 +380,7 @@ its enviroment using \\[customize-group ado-mode]. Other little things
 - \\[ado-tab-width-change] will change the tab-width for the current buffer.
 - \\[ado-toggle-flag] which asks for the name of a flag to toggle. Even
     easier: use the Options... submenu of the Ado-mode menu..
-Moving about indenting
+Fixing up indentation
 - \\[ado-indent-buffer] will re-indent the whole buffer.
 Things for special Stata manipulations
 - \\[ado-beginning-of-command] will move the point back to the beginning
@@ -903,11 +904,10 @@ changed, but will write itself under it's regular filename. Not used anywhere?"
       ))
   )
 
-(defun ado-save-program (&optional filename)
-  "Obsolete. Use the proper combination of a before-save-hook and
+(defalias 'ado-save-program 'save-buffer
+  "ado-save-program is obsolete as a special function.
+Use the proper combination of a before-save-hook and
 \\[save-buffer] to save things nicely."
-  (interactive)
-  (save-buffer)
 )
 
 ;;   (setq ado-extension (ado-find-extension))
