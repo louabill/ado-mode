@@ -1,5 +1,5 @@
 ;; this is ado-clip.el
-;; Copyright (c) 2009--2011
+;; Copyright (c) 2009--2012
 ;; Author:   Bill Rising
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://homepage.mac.com/brising

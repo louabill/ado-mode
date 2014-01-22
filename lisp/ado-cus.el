@@ -1,5 +1,5 @@
 ;;; ado-mode--cus.el---customization for all things ado-mode
-;; Copyright (c) 2003--2011
+;; Copyright (c) 2003--2014
 ;; Bill Rising
 ;;   the style in which this is written was learned from
 ;;   ultex-cus.el which customizes
@@ -10,7 +10,7 @@
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://homepage.mac.com/brising
 ;; Keywords: ado-mode
-;; Version:  0.15 of 06jan2011
+;; Version:  0.16 of 20jan2014
 
 ;; This file is not part of GNU Emacs.
 
