@@ -688,51 +688,59 @@ continuation characters."
 
 (defun ado-new-generic (type exten srcstr &optional stayput name purpose cusblp)
   "Allows overloading the new program to work for ado, class, do, mata and other files"
-  (unless name
-	(setq name (read-from-minibuffer (concat "What is the name of the " type "? "))))
-  (unless purpose
-	(setq purpose (read-from-minibuffer "What does it do? ")))
-  (switch-to-buffer
-   (generate-new-buffer
-    (generate-new-buffer-name (concat name "." exten))))
-  (ado-mode)
-  (if cusblp
-	  (ado-insert-boilerplate cusblp nil t)
-	(ado-insert-boilerplate (concat exten ".blp")))
-  (if (and ado-new-dir (not stayput) (not (string= type "do-file")))
-      (if (y-or-n-p "Put in 'new' directory? ")
-	  (cd (directory-file-name ado-new-dir))))
-  (ado-mode)
-  (goto-char (point-min))
-  (end-of-line)
-  (insert (ado-nice-current-date))
-  (search-forward "*!")
-  (end-of-line)
-  (insert purpose)
-  (if srcstr
-	  (if (string= "do-file" type)
-		  (progn
-			(while (search-forward srcstr nil t)
-			  (replace-match name))
-			(goto-char (point-min))
-			;; awful hack
-			(re-search-forward "^clear[ /t]*\\(all\\)?")
-			(forward-char))
-		(search-forward srcstr)
-		(forward-char)
-		(insert name)))
-  (re-search-forward "\t" nil t)
-  (if ado-fontify-new-flag (turn-on-font-lock))
-  ;; .ado, .class, and the outdated .hlp files are the only ones where
-  ;;     a decent name can be made
-  (if (or
-	   (string= type "ado")
-	   (string= type "class")
-	   (string= type "hlp"))
-	  (ado-save-program)
-	(set-visited-file-name (concat name "." exten))
-	(ado-save-program))
-  )
+  (let (fullname buffullname (keepbuf t))
+	(unless name
+	  (setq name (read-from-minibuffer (concat "What is the name of the " type "? "))))
+	(setq fullname (concat name "." exten))
+	(unless purpose
+	  (setq purpose (read-from-minibuffer "What does it do? ")))
+	(setq buffullname
+		  (switch-to-buffer (generate-new-buffer fullname)))
+	(ado-mode)
+	(if cusblp
+		(ado-insert-boilerplate cusblp nil t)
+	  (ado-insert-boilerplate (concat exten ".blp")))
+	(if (and ado-new-dir (not stayput) (not (string= type "do-file")))
+		(if (y-or-n-p "Put in 'new' directory? ")
+			(cd (directory-file-name ado-new-dir))))
+	(if (file-exists-p fullname)
+		(setq keepbuf (y-or-n-p (concat "File " fullname " already exists! Overwrite?"))))
+	(if keepbuf
+		(progn
+		;;  (ado-mode)
+		  ;; check to see if this is really new
+		  (goto-char (point-min))
+		  (end-of-line)
+		  (insert (ado-nice-current-date))
+		  (search-forward "*!")
+		  (end-of-line)
+		  (insert purpose)
+		  (if srcstr
+			  (if (string= "do-file" type)
+				  (progn
+					(while (search-forward srcstr nil t)
+					  (replace-match name))
+					(goto-char (point-min))
+					;; awful hack
+					(re-search-forward "^clear[ /t]*\\(all\\)?")
+					(forward-char))
+				(search-forward srcstr)
+				(forward-char)
+				(insert name)))
+		  (re-search-forward "\t" nil t)
+		  (if ado-fontify-new-flag (turn-on-font-lock))
+		  ;; .ado, .class, and the outdated .hlp files are the only ones where
+		  ;;     a decent name can be made
+		  (if (or
+			   (string= type "ado")
+			   (string= type "class")
+			   (string= type "hlp"))
+			  (ado-save-program)
+			(set-visited-file-name (concat name "." exten))
+			(ado-save-program))
+		  )
+	  (kill-buffer buffullname)
+	  )))
 
 (defun ado-new-do (&optional stayput name purpose)
   "Makes a new do-file by inserting the file do.blp from the template
@@ -970,7 +978,7 @@ files, or a version x.y.z <date> in other files."
     (if (or (string= ado-extension "ado") 
 			(string= ado-extension "class") 
 			(string= ado-extension "do")) 
-		(if (re-search-forward "^\*![ \t]+version[ \t]+[0-9\.]*[ \t]*" (point-max) t)
+		(if (re-search-forward "^[*]![ \t]+version[ \t]+[0-9\.]*[ \t]*" (point-max) t)
 			(progn
 			  (delete-region (point) (point-at-eol))
 			  (insert (ado-nice-current-date))
@@ -978,7 +986,7 @@ files, or a version x.y.z <date> in other files."
       (if (or
 		   (string= ado-extension "hlp")
 		   (string= ado-extension "sthlp"))
-		  (if (search-forward "\[*] Last Updated: " (point-max) t)
+		  (if (search-forward "[*] Last Updated: " (point-max) t)
 			  (progn
 				(delete-region (point) (point-at-eol))
 				(insert (ado-nice-current-date))
@@ -999,7 +1007,7 @@ files, or a version x.y.z <date> in other files."
 						(insert (ado-nice-current-date))
 						(insert "}{...}")))))))
 	;;; not in ado or help file
-		(if (re-search-forward "^\\(\[*]!\\)*[ \t]+[Vv][Ee][Rr][Ss][Ii][Oo][Nn][ \t]+[0-9\.]*[ \t]*" (point-max) t)
+		(if (re-search-forward "^\\([*]!\\)*[ \t]+[Vv][Ee][Rr][Ss][Ii][Oo][Nn][ \t]+[0-9\.]*[ \t]*" (point-max) t)
 			(progn
 			  (delete-region (point) (point-at-eol))
 			  (insert (ado-nice-current-date))
