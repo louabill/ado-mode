@@ -2,6 +2,9 @@ Version History:
 ---------------
 1.13.1.1
 
+* Fixed a small bug with version numbers in non-ado, non-class, non-do
+  files
+
 * Fixed a problem introduced by the cmd-S saving in 1.13.1.0 which
   allowed a newly created file to overwrite an existing file without
   warning.
