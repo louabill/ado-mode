@@ -43,7 +43,7 @@
 
 (defgroup ado-font-lock nil
   "Ado mode font lock (highlighting) faces."
-  :tag "Ado Fonts"
+  :tag "Ado fonts"
   :group 'ado)
 
 ;; default correspondence for font-lock faces:

@@ -54,9 +54,14 @@
   :tag "Ado essentials"
   :group 'ado)
 
-(defgroup ado-style nil
-  "Look and Style of ado-mode---fonts, indentation and such."
-  :tag "Ado mode style"
+(defgroup ado-files nil
+  "Specifying information about file locations and behaviors."
+  :tag "Ado files"
+  :group 'ado)
+
+(defgroup ado-help-info nil
+  "Information needed for making good Stata documentation."
+  :tag "Ado help file info"
   :group 'ado)
 
 (defgroup ado-path nil
@@ -65,17 +70,17 @@ syntax highlighting for user-written commands."
   :tag "adopath information"
   :group 'ado)
 
-(defgroup ado-help-info nil
-  "Information needed for making good Stata documentation."
-  :tag "Ado help file info"
-  :group 'ado)
-
 (defgroup ado-stata-interaction nil
   "How to work when passing information to Stata."
-  :tag "Ado-stata interaction"
+  :tag "Ado-Stata interaction"
   :group 'ado)
 
-(defgroup ado-everthing-else nil
+(defgroup ado-style nil
+  "Look and Style of ado-mode: indentation and such."
+  :tag "Ado style"
+  :group 'ado)
+
+(defgroup ado-zmisc nil
   "Everything else, the dreaded miscellaneous category."
   :tag "Ado miscellaneous"
   :group 'ado)
@@ -196,7 +201,7 @@ know what you are doing...and I don't know when this should be set."
   "Controls whether files opened from along the adopath shold be opened
 as read-only. This defaults to t, to be safe."
   :type 'boolean
-  :group 'ado-everything-else)
+  :group 'ado-files)
 
 ;; a couple of variables needed for help files.
 (defcustom ado-signature-file nil
