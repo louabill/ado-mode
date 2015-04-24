@@ -4089,20 +4089,20 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t))
 
 	;; warning for local wrong--
-	;; (list
-	;;  (concat
-	;;   "[ \t]*"
-	;;   (eval-when-compile 
-	;; 	(regexp-opt 
-	;; 	 '(
-	;; 	   "loc" "loca" "local" 
-	;; 	   ) 'words))
-	;;   "[ \t]+"
-	;;   "\\(\\(?:`\\|[a-zA-Z_0-9]\\|'\\)+\\)"
-	;;   "\\(\\(?:++\\|--\\)\\)"
-	;;   )
-	;;  '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
-	;;  '(3 ado-obsolete-face t))
+	(list
+	 (concat
+	  "[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\(\\(?:`\\|[a-zA-Z_0-9]\\|'\\)+\\)"
+	  "\\(\\(?:++\\|--\\)\\)"
+	  )
+	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
+	 '(3 ado-obsolete-face t))
 	;; scalars
 	(list
 	 (concat

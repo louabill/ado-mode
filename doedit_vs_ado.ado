@@ -19,7 +19,7 @@ normal()
 import
 // a subcommand highlights differently
 import excel
-// obsolete command are garish
+// obsolete commands are garish
 display in green
 // nothing special for numbers or operators (which include parens)
 display 4 + (2*9)^14/2

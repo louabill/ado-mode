@@ -1144,16 +1144,21 @@ the ado-extension has been set properly. Throws an error if the name cannot be
 determined. This was split from \\[ado-make-file-name] because of big changes
 to help files in Stata 12 (and the initial buggy fix)."
   (let ((debug-on-error t) name-start name-end full-name) ; titlepos syntaxpos (name-start nil))
-	(cond 
-	 ((search-forward-regexp "{manlink[ \t]+.*?[ \t]+\\(.*?\\)[ \t]*}" nil t)
-	  (setq full-name (mapconcat 'identity (split-string (match-string-no-properties 1 nil)) "_")))
-	 ((re-search-forward "{\\(bf\\|cmd\\|hi\\):[ \t]+\\(.*?\\)[ \t]*}" nil t)
-	  (setq full-name (mapconcat 'identity (split-string (match-string-no-properties 2 nil)) "_")))
-	 ((search-forward "help for " nil t) ; very old help
-	  (re-search-forward "{\\(bf\\|cmd\\|hi\\):[ \t]+\\([a-zA-Z_]+[a-zA-Z0-9_]*\\)\\b" nil t)
-	  (setq full-name (mapconcat 'identity (split-string (match-string-no-properties 1 nil)) "_")))
-	 (t (error "Could not figure out help file name!"))
-	)
+	(save-excursion
+	  (goto-char (point-min))
+	  (cond 
+	   ((search-forward-regexp "{manlink[ \t]+.*?[ \t]+\\(.*?\\)[ \t]*}" nil t)
+		(setq full-name (mapconcat 'identity (split-string (match-string-no-properties 1 nil)) "_")))
+	   ((re-search-forward "{\\(bf\\|cmd\\|hi\\):[ \t]*help[ \t]+\\(.*?\\)[ \t]*}" nil t)
+		(setq full-name (mapconcat 'identity (split-string (match-string-no-properties 2 nil)) "_")))
+	   ((re-search-forward "{\\(bf\\|cmd\\|hi\\):[ \t]*\\(.*?\\)[ \t]*}" nil t)
+		(setq full-name (mapconcat 'identity (split-string (match-string-no-properties 2 nil)) "_")))
+	   ((search-forward "help for " nil t) ; very old help
+		(re-search-forward "{\\(bf\\|cmd\\|hi\\):[ \t]*\\([a-zA-Z_]+[a-zA-Z0-9_]*\\)\\b" nil t)
+		(setq full-name (mapconcat 'identity (split-string (match-string-no-properties 1 nil)) "_")))
+	   (t (error "Could not figure out help file name!"))
+	   )
+	  )
 	(concat full-name "." ado-extension))
   )
   
