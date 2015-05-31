@@ -21,7 +21,10 @@ VERSION 11.1
 VERSION 12
 VERSION 12.1
 VERSION 13
+VERSION 13.1
 VERSION 14
+VERSION 14.0
+VERSION 15
 
 INCLUDE fuggy
 
@@ -49,12 +52,17 @@ FRAME
 COLOR
 EXP
 HLINK // new in Stata 11
+TREEVIEW // new in Stata 14
 OK
 SUBMIT
 CANCEL
 COPY
 HELP
 RESET
+
+MODAL
+SYNCHRONOUS_ONLY
+
 
 SCRIPT
   BEGIN
@@ -81,11 +89,13 @@ PROGRAM
    exit
    require "hubba"
    stopbox stop
+   stopbox note
    stopbox rusure
   END
 
 /* hmm... here come some functions for dialogs only ... these really do belong in another mode */
 /*  these are class methods, so they really are attached only by a.b.whatever */
+// boolean functions coming in flow control section
 d1.isdefault()
 d1.isenabled()
 d1.isnumlist()
@@ -98,6 +108,12 @@ d1.isgt()
 d1.isge()
 d1.islt()
 d1.isle()
+d1.isNumlistEQ()  // new in Stata 13
+d1.isNumlistLT()  // new in Stata 13
+d1.isNumlistLE()  // new in Stata 13
+d1.isNumlistGT()  // new in Stata 13
+d1.isNumlistGE()  // new in Stata 13
+d1.isNumlistInRange()  // new in Stata 13
 d1.startswith()
 fooey.endswith()
 blooey.contains()
@@ -120,6 +136,10 @@ allowxi
 xi
 clear
 stata
+stata hidden 
+stata hidden immediate
+stata hidden queue
+
 
 PROGRAM
   BEGIN

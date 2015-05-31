@@ -111,16 +111,16 @@ Not implemented as much more than an experiment. ")
 
 	;; it appears Stata accepts any version number
 	;; this just allows major[.0/max for particular version]
-	;; only 0's: 1, 4, 5, 7
-    ;; .1's: 2, 3, 6, 10, 11, 12
-	;; .2's: 8, 9
+	;; only 0's: 1, 4, 5, 7, 14 (so far)
+    ;; .1's: 2, 3, 6, 10, 12, 13
+	;; .2's: 8, 9, 11
 	(list
 	 (concat
 	  (eval-when-compile 
 		(regexp-opt 
 		 '("vers" "versi" "versio" "version")
 		 'words))
-	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[0123]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[2389]\\|1[0123]\\)[.]1\\)\\|\\(?:[89]\\|11\\)[.]2\\)\\($\\|[ \t]+\\|:\\)"
+	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[01234]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[0123]\\)[.]1\\)\\|\\(?:[89]\\|11\\)[.]2\\)\\($\\|[ \t]+\\|:\\)"
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; pause on/off
@@ -169,6 +169,77 @@ Not implemented as much more than an experiment. ")
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-obsolete-face))
+
+	;; various bayes commands
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "bayesgraph"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "matrix"
+		   "name"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "bayesstats"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "ess"
+		   "ic"
+		   "summ" "summa" "summar" "summary"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "bayestest"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "int" "inte" "inter" "interv" "interva" "interval"
+		   "model"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; churdle commands
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "churdle"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "exp" "expo" "expon" "expone" "exponen" "exponent" "exponenti" "exponentia" "exponential"
+		   "lin" "line" "linea" "linear"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; the cluster commands
 	(list
@@ -243,6 +314,34 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+    ;; the copyright commands
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "copyright"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "apache"
+		   "boost"
+		   "icd10"
+		   "icu"
+		   "lapack"
+		   "libharu"
+		   "libping"
+		   "mersennetwister"
+		   "miglayout"
+		   "scintilla"
+		   "ttf2pt1"
+		   "zlib"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
 	;; discrim commands
 	(list
 	 (concat
@@ -259,6 +358,24 @@ Not implemented as much more than an experiment. ")
 		   "lda"
 		   "logistic"
 		   "qda"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; fracreg commands
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "fracreg"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "log" "logi" "logit" 
+		   "pr" "pro" "prob" "probi" "probit" 
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -347,7 +464,7 @@ Not implemented as much more than an experiment. ")
 		   "log" "logr" "logra" "logran" "logrank" 
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 '(1 ado-obsolete-face) '(2 ado-subcommand-face t))
 
 
 	;; set command and its variations
@@ -366,15 +483,15 @@ Not implemented as much more than an experiment. ")
 		(regexp-opt 
 		 '(
 		   "a" "ad" "ado" "ados" "adosi" "adosiz" "adosize" 
-		   "autotabgraphs"
-		   "cformat"
+		   "cformat" "clevel"
 		   "fvwrap"
 		   "haverdir"
 		   "httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
 		   "l" "le" "lev" "leve" "level"
 		   "li" "lin" "line" 
 		   "lineg" "linega" "linegap" 
-		   "lines" "linesi" "linesiz" "linesize" 
+		   "lines" "linesi" "linesiz" "linesize"
+		   "locale_functions" "locale_ui"
 		   "mat" "mats" "matsi" "matsiz" "matsize"
 		   "maxdb" "maxiter" "max_memory" "maxvar" "min_memory"
 		   "niceness" "notifyuser"
@@ -382,7 +499,8 @@ Not implemented as much more than an experiment. ")
 		   "pa" "pag" "page" "pages" "pagesi" "pagesiz" "pagesize"
 		   "pformat"
 		   "processors"
-		   "reventr" "reventri" "reventrie" "reventries" 
+		   "reventr" "reventri" "reventrie" "reventries"
+		   "rngstate"
 		   "scheme" "scrollbufsize"
 		   "se" "see" "seed"
 		   "segmentsize"
@@ -410,7 +528,8 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "charset" "checksum" "coeftabresults" "copycolor"
+		   "autotabgraphs"
+		   "checksum" "coeftabresults" "copycolor"
 		   "dockable"
 		   "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
 		   "doublebuffer" "dp"
@@ -428,10 +547,11 @@ Not implemented as much more than an experiment. ")
 		   "matastrict"
 		   "mo" "mor" "more" 
 		   "notifyuser"
+		   "odbcdriver"
 		   "odbcm" "odbcmg" "odbcmgr" 
 		   "ou" "out" "outp" "outpu" "output"
 		   "pinnable" "playsnd" "printcolor"
-		   "r" "revkeyboard" "rm" "rms" "rmsg"
+		   "r" "revkeyboard" "rm" "rms" "rmsg" "rng"
 		   "searchdefault"
 		   "showbaselevels" "showemptycells" "showomitted"
 		   "smoothf" "smoothfo" "smoothfon" "smoothfont" "smoothfonts" 
@@ -469,6 +589,8 @@ Not implemented as much more than an experiment. ")
 	  "\\|"
 	  "\\(?:log\\(?:t\\|ty\\|typ\\|type\\)[ \t]+\\(?:t\\|te\\|tex\\|text\\|s\\|sm\\|smc\\|smcl\\)\\)"
 	  "\\|"
+	  "\\(?:odbcdriver[ \t]+\\(?:ansi\\|unicode\\)\\)"
+	  "\\|"
 	  "\\(?:odbc\\(?:\\m\\|\\mg\\|mgr\\)[ \t]+\\(?:iodbc\\|unixodbc\\)\\)"
 	  "\\|"
 	  "\\(?:printcolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)\\)"
@@ -495,6 +617,7 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
+		   "autotabgraphs"
 		   "checksum" "coeftabresults"
 		   "dockable"
 		   "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
@@ -507,7 +630,8 @@ Not implemented as much more than an experiment. ")
 		   "locksplit" "locksplitt" "locksplitte" "locksplitter" "locksplitters"
 		   "lstretch"
 		   "matastrict"
-		   "mo" "mor" "more" 
+		   "mo" "mor" "more"
+		   "notifyuser"
 		   "pinnable"
 		   "playsnd"
 		   "r" "revkeyboard" "rm" "rms" "rmsg"
@@ -531,7 +655,7 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 										;
-	;; set charset command, with its odd subsubcommands
+	;; set charset command, with its odd subsubcommands (obsolete in Stata 14)
 	(list
 	 (concat
 	  "^[ \t]*"
@@ -553,9 +677,9 @@ Not implemented as much more than an experiment. ")
 		   "latin1" "mac"
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
+	 '(1 ado-builtin-harmless-face t) '(2 ado-obsolete-face t) '(3 ado-obsolete-face))
 
-	;; set charset command, with its odd subsubcommands
+	;; set rng command, with its odd subsubcommands
 	(list
 	 (concat
 	  "^[ \t]*"
@@ -568,13 +692,13 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "charset"
+		   "rng"
 		   ) 'words))
 	  "[ \t]+"
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "latin1" "mac"
+		   "default" "kiss32" "mt64"
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
@@ -688,7 +812,8 @@ Not implemented as much more than an experiment. ")
 		(regexp-opt 
 		 '(
 		   "ANSI" 
-		   "b" "be" "bee" "beep" "contents" 
+		   "b" "be" "bee" "beep"
+		   "charset" "contents" 
 		   "d" "di" "dis" "disp" "displ" "displa" "display"
 		   "help"
 		   "IBM" 
@@ -1556,7 +1681,7 @@ Not implemented as much more than an experiment. ")
 		(regexp-opt 
 		 '(
 		   "bar" "box"
-		   "combine" "copy"
+		   "close" "combine" "copy"
 		   "des" "desc" "descr" "descri" "describ" "describe" 
 		   "di" "dir" "dis" "disp" "displ" "displa" "display"
 		   "dot"
@@ -1564,7 +1689,8 @@ Not implemented as much more than an experiment. ")
 		   "hbar" "hbox"
 		   "matrix"
 		   "pie" "play" "print"
-		   "q" "qu" "que" "quer" "query" 
+		   "q" "qu" "que" "quer" "query"
+		   "replay"
 		   "save" "set"
 		   "tw" "two" "twow" "twowa" "twoway"
 		   ) 'words))
@@ -1687,7 +1813,7 @@ Not implemented as much more than an experiment. ")
 		   "lfit" "lfitci"
 		   "lowess" "lpoly" "lpolyci"
 		   "mband" "mspline"
-		   "pcarrow" "pcarrowi" "pcbarrow" "pcbarrowi" "pccapsym" "pci" "pcscatter" "pcspike"
+		   "pcarrow" "pcarrowi" "pcbarrow"  "pccapsym" "pci" "pcscatter" "pcspike"
 		   "qfit" "qfitci"
 		   "rarea" "rbar" "rcap" "rcapsym" 
 		   "rcon" "rconn" "rconne" "rconnec" "rconnect" "rconnecte" "rconnected" 
@@ -1757,20 +1883,20 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	
-	;; icd9, icd9p commands
+	;; icd9, icd9p, icd10 commands
 	(list
 	 (concat
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "icd9" "icd9p"
+		   "icd9" "icd9p" "icd10"
 		   ) 'words))
 	  "[ \t]+"
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
 		   "check"
-		   "l" "lo" "loo" "look" "looku" "lookup"
+		   "look" "looku" "lookup"
 		   "q" "qu" "que" "quer" "query" 
 		   "sea" "sear" "searc" "search" 
 		   ) 'words))
@@ -1783,7 +1909,7 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "icd9" "icd9p"
+		   "icd9" "icd9p" "icd10"
 		   ) 'words))
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -1794,6 +1920,46 @@ Not implemented as much more than an experiment. ")
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
+	;; irt commands
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "irt"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "1pl" "2pl" "3pl"
+		   "gpcm" "grm"
+		   "hybrid"
+		   "nrm"
+		   "pcm"
+		   "rsm"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
+
+	;; irtgraph commands
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "irtgraph"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "icc" "iif"
+		   "tcc" "tic"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 	
 	;; fvset commands
 	(list
@@ -1934,7 +2100,8 @@ Not implemented as much more than an experiment. ")
 		   ) 'words))
 	  "[ \t]+"
 	  "\\<\\(drop\\)\\>"
-	  "\\(\\(?:[ \t]+[a-zA-Z][a-zA-Z0-9_]*\\)+\\)"
+	  "[ \t]+"
+	  "\\(\\(?:[a-zA-Z][a-zA-Z0-9_]*[ \t]*\\)+\\)"
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t) '(3 ado-matrix-name-face))
 
@@ -2295,6 +2462,7 @@ Not implemented as much more than an experiment. ")
 		   "out" "outp" "outpu" "output" 
 		   "oth" "othe" "other" 
 		   "trace"
+		   "unicode"
 		   "up" "upd" "upda" "updat" "update" 
 		   ) 'words))
 	  end-cmd-regexp )
@@ -2595,10 +2763,36 @@ Not implemented as much more than an experiment. ")
 		(regexp-opt 
 		 '(
 		   "l" "li" "lis" "list"
-		   "set"
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  "\\<\\(sysdir\\)\\>"
+	  "[ \t]+"
+	  "\\(set\\)"
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  "\\<\\(sysdir\\)\\>"
+	  "[ \t]+"
+	  "\\(set\\)"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "BASE"
+		   "OLDPLACE"
+		   "PERSONAL" "PLUS"
+		   "SITE" "STATA"
+		   "UPDATES"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
 
 	(list
 	 (concat
@@ -3102,7 +3296,7 @@ Not implemented as much more than an experiment. ")
 	  "\\<\\(variable\\)\\>"
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
-	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	 '(3 ado-obsolete-face t) '(4 ado-obsolete-face t))
 	;; platform-specific windows manage
 	;; need better way to work with platform-specific commands
 	(list
@@ -3123,6 +3317,7 @@ Not implemented as much more than an experiment. ")
 		(regexp-opt 
 		 '(
 		   "associate"
+		   "docklabel"
 		   "maintitle"
 		   ) 'words))
 	  end-cmd-regexp )
@@ -3360,7 +3555,7 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
 
-	;; here are some keywords which appear in the middle of lines
+	;; commands
 	;; note that the really short abbreviations could make a mess of things
 	;;
 	;; These are split to allow compiling!
@@ -3371,7 +3566,7 @@ Not implemented as much more than an experiment. ")
 		 '(
 		   "_coef_table" "_crcswxx"
 		   "_datasig" "_datasign" "_datasigna" "_datasignat" "_datasignatu" "_datasignatur" "_datasignature" 
-		   "_qreg" "_rmcoll" "_rmdcoll" "_robust"
+		   "_rmcoll" "_rmdcoll" "_robust"
 		   "#r" "#re" "#rev" "#revi" "#revie" "#review" 
 		   "about" "ac" "acprplot" 
 		   "ado" "adopath" "adoupdate" "alpha" "ameans" 
@@ -3383,16 +3578,16 @@ Not implemented as much more than an experiment. ")
 		   "asroprobit"
 		   "ass" "asse" "asser" "assert" 
 		   "avplot" "avplots"
+		   "bayesmh" "bayesgraph"
 		   "b" "be" "bee" "beep"
-		   "binreg" "biprobit" "biplot" "bitest" "bitesti" "blogit"
-		   "bootstrap" "boxcox" "bprobit" "br" "break" "brier" 
+		   "betareg" "binreg" "biprobit" "biplot" "bitest" "bitesti"
+		   "bootstrap" "boxcox" "br" "break" "brier" 
 		   "bro" "brow" "brows" "browse" 
 		   "brr" "bsqreg" "bstat"
 		   "ca" "cabiplot" "camat" "candisc" "canon" "caprojection" "cat" 
 		   "cc" "cci" "cchart" "centile" "cf" 
-		   "ch" "changeeol" "che"
+		   "changeeol"
 		   "checkestimationsample" "checksum" 
-		   "chel" "chelp"
 		   "ci" "cii" 
 		   "clog" "clogi" "clogit" "clogitp" "cloglog"
 		   "cls"
@@ -3405,7 +3600,7 @@ Not implemented as much more than an experiment. ")
 		   "cor" "corc" "corr" "corre" "correl" "correla" "correlat" "correlate"
 		   "corrgram"
 		   "cou" "coun" "count" 
-		   "cox"	"cprplot"  "cs" "csi" 
+		   "cox" "cpoisson" "cprplot"  "cs" "csi" 
 		   "ct" "ctset" 
 		   "cumsp" "cumul" "cusum"
 		   "command"
@@ -3437,13 +3632,13 @@ Not implemented as much more than an experiment. ")
 		   "fl" "fli" "flis" "flist"
 		   "for" "fp" "fpredict" 
 		   "fracplot" "frontier" "fsl" "fvexpand"
-		   "gladder" "gllamm" "glm" "glmpred" "glogit" 
+		   "gladder" "gllamm" "glm" "glmpred" 
 		   "gmm" "gnbreg"
-		   "gphdot" "gphpen" "gprobit" "gr7" "graph7" "grmeanby" "gsem"
+		   "gphdot" "gphpen" "gr7" "graph7" "grmeanby" "gsem"
 		   "h"
-		   "hadimvo" "hausman" "heckman" "heckoprobit" "heckprobit" 
+		   "hadimvo" "hausman" "heckman" "heckoprobit" "heckprob" "heckprobit" 
 		   "he" "hel" "help" 
-		   "hetprobit" "hexdump" "hilite"
+		   "hetprob" "hetprobit" "hexdump" "hilite"
 		   "hist" "histo" "histog" "histogr" "histogra" "histogram" 
 		   "hlu" "hotel" "hotelling"
 		   "icc" "include" "ins" "insp" "inspe" "inspec" "inspect" "intreg" 
@@ -3479,7 +3674,7 @@ Not implemented as much more than an experiment. ")
 		   "mds" "mdsconfig" "mdslong" "mdsmat" "mdsshepard"
 		   "mean" "mecloglog" "median" "meglm" "memory" 
 		   "melogit" "menbreg" "meologit" "meoprobit" 
-		   "mepoisson" "meprobit" "meqrlogit" "meqrpoisson"
+		   "mepoisson" "meprobit" "meqrlogit" "meqrpoisson" "mestreg"
 		   "mfp" "mhodds"
 		   "mixed"
 		   "mlexp" "mlog" "mlogi" "mlogit"
@@ -3499,7 +3694,7 @@ Not implemented as much more than an experiment. ")
 		   "pac" "pca" "pcamat" "pchart" "pchi" "pcorr" "pergram" "permute" "personal"
 		   "pkcross" "pkequiv" "pkexamine" "pksumm"
 		   "pl" "plo" "plot"
-		   "pnorm" "poisson" "pperron"
+		   "pnorm" "poisson" "postest" "pperron"
 		   "prais" "print"
 		   "prob" "probi" "probit"
 		   "procoverlay" "procrustes" "proportion"
@@ -3586,7 +3781,7 @@ Not implemented as much more than an experiment. ")
 		   "xtline" "xtlogit"  
 		   "xtnbreg" "xtologit" "xtoprobit" "xtpcse" "xtpoisson" "xtprobit"
 		   "xtrc" "xtreg" "xtregar" "xtset" "xtsum" "xttab" "xttest0" "xttobit" "xttrans"
-		   "zinb" "zip"
+		   "zinb" "zip" "ztest" "ztesti"
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
@@ -3602,26 +3797,43 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "biprobit"
-		   "clogit" "cloglog" "cnsreg"
-		   "etregress"
-		   "glm" "gnbreg" 
-		   "heckman" "heckoprobit" "heckprob" "hetprob" 
+		   "betareg" "biprobit"
+		   "clogit" "cloglog" "cnsreg" "cpoisson"
+		   "etpoisson" "etregress"
+		   "fracreg" 
+		   "glm" "gnbreg" "gsem"
+		   "heckman" "heckoprobit" "heckprob" "heckprobit" "hetprob" 
 		   "intreg" "ivprobit" "ivregress" "ivtobit"
 		   "logistic" "logit"
-		   "mean" "mprobit" "mlogit"
+		   "mecloglog" "mean" "meglm" "melogit" "menbreg" "meologit" "meoprobit"
+		   "mepoisson" "meprobit" "mestreg"
+		   "mprobit" "mlogit"
 		   "nl"
 		   "nbreg" "ologit" "oprobit"
 		   "poisson" "probit" "proportion" 
 		   "ratio" 
 		   "reg" "regr" "regre" "regres" "regress"
 		   "scobit" "sem" "slogit" "stcox" "streg"
-		   "tab" "tabu" "tabul" "tabula" "tabulat" "tabulate" 
-		   "tnbreg" "tobit" "total" "treatreg" "truncreg"
+		   "tab" "tabu" "tabul" "tabula" "tabulat" "tabulate"
+		   "tnbreg" "tobit" "total" "tpoisson" "truncreg"
 		   "zinb" "zip"
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face))
+	;; svy stuff with sub commands (so let the command do its highlighting)
+	(list
+	 (concat
+	  "\\<\\(svy\\)\\>"
+	  "[ \t]*,?.*?:[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "churdle"
+		   "fracreg"
+		   "irt"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face))
 	;; more svy stuff
 	(list
 	 (concat
@@ -3996,6 +4208,7 @@ Not implemented as much more than an experiment. ")
 		   "getmata" "gsort"
 		   "inf" "infi" "infile" "infix" 
 		   "inp" "inpu" "input"
+		   "insobs"
 		   "integ" "ipolate" 
 		   "joinby"
 		   "keep" 
@@ -4010,7 +4223,6 @@ Not implemented as much more than an experiment. ")
 		   "nlogitgen" "nlpred" "nobreak" 
 		   "order" "orthog" "orthpoly"
 		   "ou" "out" "outf" "outfi" "outfil" "outfile"
-		   "outs" "outsh" "outshe" "outshee" "outsheet"
 		   "pctile" 
 		   "pkcollapse" "pkshape"
 		   "post" "postclose" "postfile" 
@@ -4201,6 +4413,35 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t))
 
+		;; single word extended macro names
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  "\\(sysdir\\)"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "BASE"
+		   "PERSONAL"
+		   "PLUS"
+		   "SITE"
+		   "STATA"
+		   "UPDATE"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+
+
 	(list
 	 (concat
 	  (eval-when-compile 
@@ -4218,6 +4459,7 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+
 	(list
 	 (concat
 	  (eval-when-compile 
@@ -4296,7 +4538,9 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "copy" "length" "subinstr"
+		   "copy"
+		   "strlen" "subinstr"
+		   "udstrlen" "ustrlen" 
 		   ) 'words))
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -4511,27 +4755,28 @@ Not implemented as much more than an experiment. ")
 	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
 	  '(5 ado-subcommand-face t))
 
-	 ;; obsolete macro extended commands
+	;; obsolete macro extended commands
 	(list
-	  (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "gl" "glo" "glob" "globa" "global" 
-		  "loc" "loca" "local" 
-		 ) 'words))
-	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-	   "[ \t]*:[ \t]*"
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "tempf" "tempfi" "tempfil" "tempfile" "tempv" "tempva" "tempvar" 
-		 ) 'words))
-	   end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
-	  '(3 ado-obsolete-face t))
-
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "gl" "glo" "glob" "globa" "global" 
+		   "loc" "loca" "local" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "length"
+		   "tempf" "tempfi" "tempfil" "tempfile" "tempv" "tempva" "tempvar" 
+		   ) 'words))
+	  end-cmd-regexp)
+	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-obsolete-face t))
+	
 	  ;; choosing temp names
 	(list
 	  (concat
@@ -4581,9 +4826,8 @@ Not implemented as much more than an experiment. ")
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
-	  ;; stata functions i.e. things which require () after them 
-	  ;; obsolete functions are after this list
-	  ;; finally included matrix functions
+	;; stata functions i.e. things which require () after them 
+	;; obsolete functions are after this list
 	(list
 	 (concat
 	  (eval-when-compile 
@@ -4595,7 +4839,9 @@ Not implemented as much more than an experiment. ")
 		   "binormal" "bofd" "byteorder"
 		   "Cdhms" "Chms" "Clock" "Cmdyhms" "Cofc" "Cofd"
 		   "c" "ceil" "char" "chi2" "chi2tail" "chi2den" 
-		   "cholesky" "chop" "cofC" "cofd" "comb" 
+		   "cholesky" "chop" "cofC" "cofd"
+		   "collatorlocale" "collatorversion"
+		   "comb" 
 		   "clip" "cloglog" "clock" 
 		   "colnumb" "colsof" "cond" "corr" "cos" 
 		   "daily" "date" "day"
@@ -4606,6 +4852,7 @@ Not implemented as much more than an experiment. ")
 		   "dofb" "dofC" "dofc" "dofd" "dofh" "dofm" "dofq" "dofw" "dofy" "dow" "doy"
 		   "dunnettprob"
 		   "e" "el" "epsdouble" "epsfloat" "exp"
+		   "exponential" "exponentialden" "exponentialtail" 
 		   "F" "Fden" "Ftail" 
 		   "fileexists" "fileread" "filereaderror" "filewrite"
 		   "float" "floor" "fmtwidth" 
@@ -4616,14 +4863,24 @@ Not implemented as much more than an experiment. ")
 		   "inv" "invbinomial" "invbinomialtail" "invchi2" "invchi2tail" "invcloglog"
 		   "invdunnettprob"
 		   "invgammap" "invgammaptail" "invibeta" "invibetatail" "invlogit"
-		   "invnFtail" 
+		   "invnF" "invnFtail" 
 		   "invnbinomial" "invnbinomialtail"
-		   "invnchi2" "invnchi2tail" "invnibeta" "invnormal" "invnttail" 
+		   "invnchi2" "invnchi2tail"
+		   "invexponential" "invexponentialtail" 
+		   "invnibeta"
+		   "invlogistic" "invlogistictail"
+		   "invnormal" "invnt" "invnttail" 
 		   "invpoisson" "invpoissontail"
 		   "invsym"  "invt" "invttail" "invtukeyprob"
-		   "irecode" "issymetric" "itrim"
+		   "invweibull" "invweibullph" "invweibullphtail" "invweibulltail"
+		   "irecode" "issymetric" 
 		   "J"
-		   "length" "ln" "lnfactorial" "lngamma" "log" "log10" "logit" "lower" "ltrim" 
+		   "ln" "lnfactorial" "lngamma"
+		   "lnigammaden" "lniwishartden"
+		   "lnmvnormalden" "lnwishartden"
+		   "log" "log10"
+		   "logistic" "logisticden" "logistictail"
+		   "logit"  
 		   "matmissing" "matrix" "matuniform" 
 		   "max" "maxbyte" "maxdouble" "maxfloat" "maxint" "maxlong" 
 		   "mdy" "mdyhms" "mi"
@@ -4640,25 +4897,48 @@ Not implemented as much more than an experiment. ")
 		   "nt" "ntden" "nttail"
 		   "nullmat"
 		   "poisson" "poissonp" "poissontail"
-		   "plural" "proper"
+		   "plural" 
 		   "qofd" "quarter" "quarterly"
 		   "r" "rbeta" "rbinomial" "rchi2" "real" "recode"
 		   "regexm" "regexr" "regexs"
-		   "reldif" "replay" "return" "reverse" 
-		   "rgamma" "rhypergeometric" "rnbinomial" "rnormal"
-		   "round" "rownumb" "rowsof" "rpoisson" "rt" "rtrim" "runiform"
+		   "reldif" "replay" "return"  
+		   "rgamma" "rexponential" "rhypergeometric" "rlogistic"
+		   "rnbinomial" "rnormal"
+		   "round" "rownumb" "rowsof" "rpoisson" "rt"
+		   "runiform" "runiformint" "rweibull" "rweibullph"
 		   "s" "scalar" "seconds" "sign" "sin" "soundex" "soundex_nara"
 		   "sqrt" "ss" "ssC"
-		   "string" "strlen" "strmatch" "strofreal" "strpos" "strtoname"
+		   "string"
+		   "stritrim" "strlen" "strlower" "strltrim"
+		   "strmatch" "strofreal" "strpos" "strproper"
+		   "strreverse" "strrtrim" "strtoname" "strrtrim" "strupper"
 		   "subinstr" "subinword" "substr" "sum" 
 		   "sw" "sweep"
 		   "t"
 		   "tC"
-		   "tan" "tanh" "tc" "td" "tden" "th" "tin" "tm" "tq" "trace" "trigamma" "trim" "trunc" "ttail" "tukeyprob" "tw" "twithin"
-			  "upper"
-			  "vec" "vecdiag"
-			  "week" "weekly" "wofd" "word" "wordcount"
-			  "year" "yearly" "yh" "ym" "yofd" "yq" "yw"
+		   "tan" "tanh" "tc" "td" "tden" "th" "tin" "tm"
+		   "tobytes"
+		   "tq" "trace" "trigamma" "trunc" "ttail" "tukeyprob" "tw" "twithin"
+		   "uchar" "udstrlen" "uisdigit"
+		   "ustrcompare" "ustrcompareex"
+		   "ustrfix" "ustrfrom"
+		   "ustrinvalidcnt"
+		   "ustrleft" "ustrlen" "ustrlower" "ustrltrim"
+		   "ustrnormalize"
+		   "ustrpos"
+		   "ustrregexm" "ustrregexra" "ustrregexrf" "ustrregexs"
+		   "ustrreverse" "ustrright" "ustrrpos" "ustrrtrim"
+		   "ustrsortkey" "ustrsortkeyex"
+		   "ustrtitle" "ustrto" "ustrtohex" "ustrtoname" "ustrtrim"
+		   "ustrunescape" "ustrupper"
+		   "ustrword" "ustrwordcount"
+		   "usubinstr" "usubstr"
+		   "upper"
+		   "vec" "vecdiag"
+		   "week" "weekly"
+		   "weibull" "weibullden" "weibullph" "weibullphden" "weibullphtail" "weibulltail"
+		   "wofd" "word" "wordbreaklocale" "wordcount"
+		   "year" "yearly" "yh" "ym" "yofd" "yq" "yw"
 
 		 ) 'words))
 	   "("
@@ -4680,13 +4960,17 @@ Not implemented as much more than an experiment. ")
 			"group"
 			"h" 
 			"index"
-			"invchi" "invfprob" "invnchi" "invnorm" 
+			"invchi" "invfprob" "invnchi" "invnorm"
+			"itrim"
 			"issym"
-			"lnfact"
+			"length" "lnfact" "lower" "ltrim"
 			"m" "match"
 			"nchi" "norm" "normd" "normden" "normprob" "npnchi"
-			"q" 
-			"syminv" "tprob" 
+			"proper"
+			"q"
+			"reverse" "rtrim"
+			"syminv"
+			"tprob" "trim"
 			"uniform" "uniform0"
 			"y"
 			"w"
@@ -5193,7 +5477,7 @@ Not implemented as much more than an experiment. ")
        '(
 		  "ado"
 		  "browse"
-		  "c" "char"
+		  "char"
 		  "dialog"
 		  "help" "helpb"
 		  "manlink" "manlinki" "manpage" "mansection" "marker" "matacmd"
@@ -5551,7 +5835,43 @@ Not implemented as much more than an experiment. ")
 	  '(5 ado-subcommand-face t) '(6 ado-subcommand-face t) 
 	  '(7 ado-constant-face t) '(8 ado-subcommand-face t) 
 	  '(9 ado-constant-face t))
-    
+
+	;; special smcl characters... ugh
+	(list
+	 (concat
+	  "\\({\\)"
+	  "[ \t]*"
+	  "\\(c\\)"
+	  "[ \t]*"
+	  "\\(\\(?:[AEIOUaeiou]['^:]\\|[AEIOUaeiou]'g\\|[ANOano]~\\|[Yy][':=]\\|[Cc],\\|[Oo]/\\|r[?!]\\|E=\\|S?|\\|L?-\\|+\\)\\)"
+	  "[ \t]*"
+	  "\\(}\\)"
+	  )
+	 '(1 ado-constant-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face) '(4 ado-constant-face)
+	 )
+	;; special chars which have wordlike names
+	(list
+	 (concat
+	  "\\({\\)"
+	  "[ \t]*"
+	  "\\(c\\)"
+	  "[ \t]*"
+	  "[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "AE"
+		   "BRC" "BLC" "BT"
+		   "LT" "RT"
+		   "TLC" "TRC" "TT"
+		   "ae" "ss"
+		 ) 'words))	  
+	  "\\(}\\)"
+	  )
+	 '(1 ado-constant-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face) '(4 ado-constant-face)
+    )
 	  ;; class stuff
 ;;; builtin prefix operators
 	(list
@@ -5671,7 +5991,9 @@ Not implemented as much more than an experiment. ")
 		  "ALPHA" "Mons" "Months" "MP" "N" "SE" "Wdays" "Weekdays"
 		  "adopath" "adosize" "alpha" 
 		  "bit" "born_date" "byteorder"
-		  "cformat" "changed" "checksum" "cmdlen" 
+		  "cformat"
+		  "changed" "charlen" "checksum"
+		  "clevel" "cmdlen" 
 		  "coeftabresults" "console" "copycolor" 
 		  "current_time" "current_date"
 		  "dirsep" "dp"
@@ -5682,33 +6004,37 @@ Not implemented as much more than an experiment. ")
 		  "haverdir" "hostname"
 		  "httpproxy" "httpproxyauth" "httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
 		  "k"
-		  "level" "linegap" "linesize" "logtype" "lstretch"
+		  "level" "linegap" "linesize"
+		  "locale_functions" "locale_icudflt" "locale_ui"
+		  "logtype" "lstretch"
 		  "machine_type" "macrolen" 
 		  "matacache" "matafavor" "matalibs" "matalnum" "matamofirst" "mataoptimize" "matastrict"
 		  "matsize" 
-		  "max_N_current" "max_N_theory" "max_cmdlen" 
-		  "max_k_current" "max_k_theory" 
-		  "max_macrolen" "max_matsize" "max_width_current" "max_width_theory" 
+		  "max_N_theory" "max_cmdlen" 
+		  "max_k_theory" 
+		  "max_macrolen" "max_matsize" "max_memory" "max_width_theory" 
 		  "maxbyte" "maxdb" "maxdouble" "maxfloat" "maxint" "maxiter" 
 		  "maxlong" "maxstrvarlen" "maxstrlvarlen" "maxvar" "maxvlabellen" 
 		  "memory"
 		  "min_matsize" "min_memory"
 		  "minbyte" "mindouble" "minfloat" "minint" "minlong"
 		  "mode" "more"
-		  "namelen" "niceness" "noisily"
+		  "namelenbyte" "namelenchar"
+		  "niceness" "noisily"
 		  "odbcmgr" "os" "osdtl"
 		  "pagesize" "pformat" "pi" "printcolor" 
 		  "processors" "processors_lic" "processors_mach" "processors_max" "pwd"
 		  "rc" "reventries" "rmsg" "rmsg_time"
-		  "scheme" "scrollbufsize" "searchdefault" "seed" "segmentsize" "sformat"
+		  "rng" "rng_current" "rngstate"
+		  "scheme" "scrollbufsize" "searchdefault" "segmentsize" "sformat"
 		  "showbaselevels" "showemptycells" "showomitted"
 		  "smallestdouble" "stata_version"
 		  "sysdir_base" "sysdir_oldplace" "sysdir_personal" "sysdir_plus" "sysdir_site" "sysdir_stata"
 		  "sysdir_updates" 
 		  "timeout1" "timeout2" "tmpdir"
 		  "trace" "tracedepth" "traceexpand" "tracehilite" "traceindent" "tracenumber" "tracesep" "type"
-		  "username"
-		  "varabbrev" "version" "version_rng"
+		  "username" "userversion"
+		  "varabbrev" "version" 
 		  "width" 
 			) 'words))
 	   "[ \t]*"
@@ -5726,7 +6052,6 @@ Not implemented as much more than an experiment. ")
 		 (regexp-opt 
 		  '(
 			"autotabgraphs"
-			"charset"
 			"dockable" "dockingguides" "doublebuffer"
 			"eolchar"
 			"fastscroll"
@@ -5753,17 +6078,19 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
+		   "charset"
 		   "floatresults" "floatwindows"
 		   "icmap"
 		   "macgphengine"
 		   "max_N_current" "max_k_current" "max_width_current"
+		   "namelen"
 		   "smalldlg"
 		   "persistfv" "persistvtopic" "piccomments"
 		   "revwindow"
-		   "smalldlg" 
-		   "smoothsize"
+		   "seed"
+		   "smalldlg" "smoothsize"
 		   "use_atsui_graph" "use_qd_text"
-		   "varlabelpos" "varwindow" "virtual"
+		   "varlabelpos" "varwindow" "version_rng" "virtual"
 		   "xptheme"
 		   ) 'words))
 	  "[ \t]*"
@@ -5785,7 +6112,7 @@ Not implemented as much more than an experiment. ")
 		 "VERSION"
 		 ) 'words))
 	   "[ \t]+"
-	  "\\(\\(?:\\(?:[89]\\|1[0123]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[89]\\|1[012]\\)[.]1\\)\\|\\(?:[89]\\|11\\)[.]2\\)\\($\\|[ \t]+\\)"
+	  "\\(\\(?:\\(?:[89]\\|1[01234]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[89]\\|1[0123]\\)[.]1\\)\\|\\(?:[89]\\|11\\)[.]2\\)\\($\\|[ \t]+\\)"
 	   )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	  ;; general builtins for dialogs
@@ -5807,6 +6134,7 @@ Not implemented as much more than an experiment. ")
 		  "OK"
 		  "RADIO" "RESET"
 		  "SPINNER" "SUBMIT"
+		  "TREEVIEW"
 		  "VARLIST" "VARNAME"
 		 ) 'words))
 	  end-cmd-regexp )
@@ -5838,8 +6166,9 @@ Not implemented as much more than an experiment. ")
 		  "GROUPBOX"
 		  "HLINK"
 		  "LIST"
+		  "MODAL"
 		  "POSITION" "PROGRAM"
-		  "SCRIPT"
+		  "SCRIPT" "SYNCHRONOUS_ONLY"
 		  "TEXT" "TEXTBOX"
 		  "allowxi"
 		  "beginoptions" "by" "bysort"
@@ -5886,7 +6215,42 @@ Not implemented as much more than an experiment. ")
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	  ;; stata dialog functions i.e. things which require () after them 
+	;; annoying -stata- command
+	(list
+	  (concat
+	   "\\<\\(stata\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+		  "hidden"
+			) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	(list
+	  (concat
+	   "\\<\\(stata\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(hidden\\)\\>"
+	   )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	(list
+	  (concat
+	   "\\<\\(stata\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(hidden\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+		  "immediate" "queue"
+			) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+
+	;; stata dialog functions i.e. things which require () after them 
 	(list
 	  (concat
 	   "\\>"
@@ -5896,6 +6260,7 @@ Not implemented as much more than an experiment. ")
 		  '(
 			"contains"
 			"endswith"
+			"isNumlistEQ" "isNumlistGE" "isNumlistGT" "isNumlistInRange" "isNumlistLE" "isNumlistLT"
 			"isdefault" "isenabled" "iseq" "iseqignorecase" "isge" "isgt" 
 			"isle" "islt" "isneq" "isnumlist" 
 			"isvalidname" "isvarname" "isvisible"
@@ -6612,47 +6977,51 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "_huber"
+		   "_huber" "_qreg" 
 		   "adjust"
 		   "aorder"
 		   "archlm"
-		   "bgodfrey" "bstrap"
-		   "chdir" "cnr" "cnre" "cnreg" 
+		   "bgodfrey" "blogit" "bprobit" "bstrap"
+		   "chdir"
+		   "ch" "che" "chel" "chelp" 
+		   "cnr" "cnre" "cnreg" 
 		   "dprobit" "durbina" "dwstat"
 		   "ereg" "ereghet"
-		  "fdades" "fdadesc" "fdadescr" "fdadescri" "fdadescrib" "fdadescribe" 
-		  "fdasav" "fdasave" 
-		  "fdause"
-		  "findit" 
-		  "fracgen" "fracpoly"
-		  "gamma" "gammahet"
-		  "gompertz" "gompertzhet"
-		  "greigen"
-		  "haver"
-		  "heckprob" "hetprob" "hsearch"
-		  "iis" "impute" "insheet" "ivreg"
-		  "hettest" "hareg" "hereg" "hlogit" "hprobit" "hreg" "huber"
-		  "imtest"
-		  "llogist" "llogistic" "llogistichet" "lnormal" "lnormalhet"
-		  "lo" "loo" "look" "looku" "lookup"
-		  "mfx"
-		  "mov" "move" 
-		  "nlinit"
-		  "ovtest"
-		  "lstat"
-		  "poisgof"
-		  "sampsi" 
-		  "shelltool"
-		  "simul" "spikeplt" "stcurv" "stphtest" 
-		  "svyintrg" "svylc" "svymlog" "svyolog" "svyoprob" "svypois" "svyprobt" "svyreg" "svytest" 
-		  "szroeter"
-		  "tis" "treatreg" 
-		  "varfcast" "varirf" "vce" "vif"
-		  "weibull" "weibullhet"
-		  "xtclog" "xtcorr" "xthaus" "xtrchh" 
-		  "xtmelogit" "xtmepoisson" "xtmixed"
-		  "xtpois"
-		  "ztnb" "ztb"
+		   "fdades" "fdadesc" "fdadescr" "fdadescri" "fdadescrib" "fdadescribe" 
+		   "fdasav" "fdasave" 
+		   "fdause"
+		   "findit" 
+		   "fracgen" "fracpoly"
+		   "gamma" "gammahet"
+		   "glogit"
+		   "gompertz" "gompertzhet"
+		   "gprobit" "greigen"
+		   "haver"
+		   "hsearch"
+		   "iis" "impute" "insheet" "ivreg"
+		   "hettest" "hareg" "hereg" "hlogit" "hprobit" "hreg" "huber"
+		   "imtest"
+		   "llogist" "llogistic" "llogistichet" "lnormal" "lnormalhet"
+		   "lo" "loo" "look" "looku" "lookup"
+		   "mfx"
+		   "mov" "move" 
+		   "nlinit"
+		   "ovtest"
+		   "outs" "outsh" "outshe" "outshee" "outsheet"
+		   "lstat"
+		   "poisgof"
+		   "sampsi" 
+		   "shelltool"
+		   "simul" "spikeplt" "stcurv" "stphtest" 
+		   "svyintrg" "svylc" "svymlog" "svyolog" "svyoprob" "svypois" "svyprobt" "svyreg" "svytest" 
+		   "szroeter"
+		   "tis" "treatreg" 
+		   "varfcast" "varirf" "vce" "vif"
+		   "weibull" "weibullhet"
+		   "xtclog" "xtcorr" "xthaus" "xtrchh" 
+		   "xtmelogit" "xtmepoisson" "xtmixed"
+		   "xtpois"
+		   "ztnb" "ztb"
 		  ) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-obsolete-face))
@@ -6730,7 +7099,7 @@ Not implemented as much more than an experiment. ")
 		   "correlation" "correlations" 
 		   "cov" "cova" "covar" "covari" "covaria" "covarian" "covarianc" "covariance" 
 		   "cv"
-		   "distances" 
+		   "df" "distances" 
 		   "dur" "durb" "durbi" "durbin" "durbina" "durbinal" "durbinalt" 
 		   "dwa" "dwat" "dwats" "dwatso" "dwatson" 
 		   "eff" "effe" "effec" "effect" "effects" 
@@ -6761,12 +7130,13 @@ Not implemented as much more than an experiment. ")
 		   "ovt" "ovte" "ovtes" "ovtest" 
 		   "pairwise" "period" "phtest" "predict" "profiles"
 		   "quantiles"
-		   "recov" "recova" "recovar" "recovari" "recovaria" "recovarian" "recovarianc" "recovariance" 
+		   "recov" "recova" "recovar" "recovari" "recovaria" "recovarian" "recovarianc" "recovariance"
+		   "report"
 		   "res" "resi" "resid" "residu" "residua" "residual" "residuals" 
 		   "rotate" "rotatecompare"
-		   "sargan" 
+		   "sargan" "sbknown" 
 		   "score" "scoret" "scorete" "scoretes" "scoretest" "scoretests" 
-		   "sd" "se" "size" "smc" 
+		   "sd" "se" "single" "size" "smc" 
 		   "sta" "stab" "stabl" "stable" 
 		   "std" "stdi" "stdiz" "stdize" 
 		   "strata" "stress" "structure"
@@ -6966,6 +7336,115 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+	;; unicode commands, harmless
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "unicode" 
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "analyze"
+		   "coll" "colla" "collat" "collato" "collator"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; unicode commands, harmful
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "unicode" 
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "conv" "conve" "conver" "convert"
+		   "erasebackups"
+		   "restore"
+		   "retr" "retra" "retran" "retrans" "retransl" "retransla" "retranslat" "retranslate"
+		   "tr" "tra" "tran" "trans" "transl" "transla" "translat" "translate" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
+	;; incomplete unicode commands
+	;; unicode locale/uipackage commands
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "unicode" 
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "en" "enc" "enco" "encod" "encodi" "encodin" "encoding" 
+		   "loc" "loca" "local" "locale"
+		   "ui" "uip" "uipa" "uipac" "uipack" "uipacka" "uipackag" "uipackage" 
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face t) '(2 ado-needs-subcommand-face t))
+
+
+	;; unicode encoding command
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "unicode" 
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "en" "enc" "enco" "encod" "encodi" "encodin" "encoding" 
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "alias"
+		   "list"
+		   "set"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+
+	;; unicode locale/uipackage commands
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "unicode" 
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "loc" "loca" "local" "locale"
+		   "ui" "uip" "uipa" "uipac" "uipack" "uipacka" "uipackag" "uipackage" 
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "list"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+
 	;; things which are partially obsolete
 
 	(list
@@ -7088,8 +7567,10 @@ Not implemented as much more than an experiment. ")
 		 "_return"
 		 "ado"
 		 "bcal"
+		 "bayesstats" "bayestest"
 		 "call"
 		 "char"
+		 "churdle"
 		 "classutil"
 		 "cluster" "clustermat"
 		 "cmdlog"
@@ -7104,12 +7585,13 @@ Not implemented as much more than an experiment. ")
 		 "fcast" "file" 
 		 "fore" "forec" "foreca" "forecas" "forecast" 
 		 "foreach" 
-		 "forv" "forva" "forval" "forvalu" "forvalue" "forvalues" 
+		 "forv" "forva" "forval" "forvalu" "forvalue" "forvalues"
+		 "fracreg"
 		 "fvset" "fvunab"
 		 "graph"
 		 "icd9" "icdp"
 		 "import"
-		 "irf"
+		 "irf" "irt" "irtgraph"
 		 "la" "lab" "labe" "label" 
 		 "log"
 		 "mat" "matname" "mat_put_rr" "matr" "matri" "matrix"
@@ -7141,7 +7623,7 @@ Not implemented as much more than an experiment. ")
 		 "translator" "transmap"
 		 "tsfilter" "tssmooth" "tsunab"
 		 "twoway"
-		 "unab"
+		 "unab" "unicode"
 		 "vers" "versi" "versio" "version" 
 		 "view"
 		 "win" "wind" "windo" "window" 

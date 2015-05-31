@@ -1,4 +1,4 @@
-*! version 1.13.1.0 October 30, 2013 @ 15:53:36
+*! version 1.14.0.0 May 31, 2015 @ 13:41:42
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -74,6 +74,7 @@ version 13.1
 version 13.2
 version 14
 version 14.0
+version 14.1
 version 16
 version 20
 version 44
@@ -85,7 +86,7 @@ version 44
    /* stuff from incremental updates which need to be moved when new manuals come out */
    include
    
-   /* functions in the order of the manuals (for checking for obsolete functions... */
+   /* commands in the order of the manuals (for checking for obsolete commands... */
    /* some arbitrary usages */
    _b[foobar]
    _coef[bleen]
@@ -102,6 +103,7 @@ version 44
    asclogit
    asmprobit
    asroprobit
+   betareg // new in Stata 14
    binreg
    biprobit
    bitest bitesti
@@ -111,6 +113,11 @@ version 44
    bsample
    bstat
    centile
+   churdle               // new in Stata 14; incomplete 
+   churdle lin           // new in Stata 14 
+   churdle linear        // new in Stata 14 
+   churdle exp           // new in Stata 14 
+   churdle exponential   // new in Stata 14 
    ci cii
    clog clogi clogit
    cloglog
@@ -126,9 +133,9 @@ version 44
    const defin 
    constr d
    constr dir
-   constra drop
    cons l
    constrai list
+   constra drop
    constrain get
    constraint free
    /* bad constraints -- should not highlight, except as mata reserves */
@@ -137,11 +144,26 @@ version 44
    const fre
    /* end constraint */
    contrast
-   copyright
+   copyright   // subcommands new in Stata 14
+   copyright apache
+   copyright boost
+   copyright icd10
+   copyright icu
+   copyright lapack
+   copyright libharu
+   copyright libping
+   copyright mersennetwister
+   copyright miglayout
+   copyright scintilla
+   copyright ttf2pt1
+   copyright zlib
+   copyright foobar // error (which could be marked well but why?)
    cor corr corre correl correla correlat correlate
    pwcorr
+   cpoisson // new in Stata 14 
    cumul
    cusum
+
    db
    set maxdb
    /* diagnostic plots */
@@ -165,6 +187,20 @@ version 44
    
    eivreg
 
+   // epitab commands
+   // removed from [ST] and moved to [R] in Stata 14
+   ir
+   iri
+   cs
+   csi
+   cc
+   cci
+   tabodds
+   mhodds
+   mcc
+   mcci
+   // end epitab
+
    esize two
    esize twosam
    esize twosample
@@ -177,6 +213,14 @@ version 44
    // common estat
    estat ic
    estat su
+   estat summarize
+   estat vce
+   // listed after 'common estat' in [R] in Stata 14
+   estat clas // ivprobit
+   estat classification // ivprobit logistic logit probit
+   estat gof
+   estat su
+   estat summar
    estat summarize
    estat vce
    
@@ -223,7 +267,8 @@ version 44
    estima stat
    estimates stats
    // once again: highlight because -estimates- allows 0 subcommands
-   estim ch // estimates change is not in Stata 11
+   // estimates change is not in Stata 11
+   estim ch // highlights -ch- as obsolete because of -chelp-'s demise
    estima change
    /* end estimates */
    e // dumb abbreviation
@@ -239,6 +284,14 @@ version 44
    fp gen
    fp gener
    fp generate
+
+   // fracreg new in Stata 14 
+   fracreg log
+   fracreg logit
+   fracreg pr
+   fracreg prob
+   fracreg probit
+   // end fracreg
    
    frontier
    fvrevar
@@ -249,14 +302,16 @@ version 44
    fvset design
    fvset clear
    fvset report
+   fvset cl // bad
+   fvset repo // bad
    
    gllamm
    glm
 
-   blogit
-   bprobit
-   glogit
-   gprobit
+   blogit  // obsolete in Stata 14 
+   bprobit // obsolete in Stata 14 
+   glogit  // obsolete in Stata 14 
+   gprobit // obsolete in Stata 14 
 
    gmm
    grmeanby
@@ -264,15 +319,15 @@ version 44
    hausman
    heckman
    heckoprobit
-   // supposed to be obsolete in Stata 13 (though heckprob.ado exists)
-   heckprob 
+   heckprob // synonym for heckprobit (urg) in Stata 14
+   heckprobit
    h he hel help
-   ch che chel chelp
+   ch che chel chelp // obsolete in Stata 14
    whelp
    hetprobit
-   hetprob // obsolete in Stata 13
+   hetprob // synonym for hetprobit in Stata 14
    hist histo histog histogr histogra histogram
-   hsearch // obsolete in Stata 13 
+   hsearch // obsolete in Stata 12
 
    icc
    
@@ -349,6 +404,7 @@ version 44
    marginsplot
    set mat
    set matsize
+   // inside 'maximize' help
    set maxiter
    mean
    // mfp is simple now; in Stata 11 it became a prefix command
@@ -392,8 +448,12 @@ version 44
    ml report
    ml trace // should not highlight
    ml trace on
+   ml trace off
+   ml trace foo // no highlight
    ml count // OK
    ml count clear
+   ml count on
+   ml count off
    ml max
    ml maximize
    ml gr
@@ -460,6 +520,7 @@ version 44
    set httpproxyauth bleen // bad
    set httpproxyauth on
    set httpproxyauth off
+   set httpproxyuser
    set httpproxypw
    set timeout1
    set timeout2
@@ -470,27 +531,18 @@ version 44
    nlogit
    nlogitgen
    nlogittree
+   estat alternatives
    nlsur
    nptrend
    
-   olog
-   ologi
-   ologit 
+   olog ologi ologit 
 
-   on
-   one
-   onew
-   onewa
-   oneway
+   on one onew onewa oneway
 
-   oprob
-   oprobi
-   oprobit
+   oprob oprobi oprobit
 
    orthog
-   orthpoly   pkshape   pkshape
-
-
+   orthpoly   
 
    pcorr
    permute
@@ -504,12 +556,12 @@ version 44
 
    poisson
    poisgof  // obsolete in Stata 9
+   estat gof
+   postest  // new in Stata 14; strange to have in a do-file
    predict
    predictnl
    
-   prob
-   probi
-   probit
+   prob probi probit
 
    dprobit // obsolete in Stata 11
 
@@ -534,7 +586,7 @@ version 44
    iqreg
    sqreg
    bsqreg
-   _qreg
+   _qreg // obsolete in Stata 13 
    // end qreg
    q
    query
@@ -554,6 +606,7 @@ version 44
    query update
    qu trace
    q mata
+   que unicode  // new in Stata 14 
    q oth
    q other
    query `foo'
@@ -567,23 +620,20 @@ version 44
    regress : regress : regress
    regress a b, vce(robust) 
 
-   reg
-   regr
-   regre
-   regres
-   regress   
+   reg regr regre regres regress   
 
    #r #re #rev #revi #revie #review
-   /* don't seem to be in manuals anymore */
+   /* _rmcoll in [P] _huber obsolete */
    _rmcoll _huber
    
    roccomp
-   rocfit
    rocgold
+   rocfit
    // rocfit post-est
    rocplot
 
    rocreg
+   estat nproc
    rocregplot
    roctab
    
@@ -610,13 +660,16 @@ version 44
    /* set commands */
    set a
    set adosize
-   set autotabgraphs // win only
+   set autotabgraphs // not done
+   set autotabgraphs on // win only
+   set autotabgraphs off // win only
    set cformat // added in Stata 11.1
-   set charset mac
-   set charset latin1
+   set charset mac     // obsolete in Stata 14
+   set charset latin1  // // obsolete in Stata 14
    
    set checksum on
    set checksum off
+   set clevel // new in Stata 14 
    set coeftabresults on
    set coeftabresults off
    set conren // unix console only
@@ -674,6 +727,7 @@ version 44
    set fastscroll
    set fastscroll on
    set fastscroll off
+   // out of pdf docs in Stata 14, but still has help file
    set floatresults
    set floatresults on
    set floatresults off
@@ -713,6 +767,8 @@ version 44
    set linegap
    set li
    set linesize
+   set locale_functions // new in Stata 14 
+   set locale_ui        // new in Stata 14 
    set locksplit
    set locksplit on
    set locksplitters off
@@ -721,7 +777,7 @@ version 44
    set logtype text
    set logty s
    set logtype smcl
-   set lstretch
+   set lstretch // technically legal
    set lstretch on
    set lstretch off
    set macgph quartz // obsolete in Stata 11
@@ -740,6 +796,8 @@ version 44
    set more off
    set niceness
    set notifyuser
+   set notifyuser off
+   set notifyuser on
    set ob
    set obs
    set odbcmg
@@ -784,10 +842,15 @@ version 44
    set rmsg
    set r on
    set rmsg off
+   set rng // new in Stata 14 ; must have type set
+   set rng default // new in Stata 14 
+   set rng mt64    // new in Stata 14 
+   set rng kiss32  // new in Stata 14 
+   set rngstate    // new in Stata 14 
    set scheme
    set scrollbufsize
-   set searchd local
    set searchdefault
+   set searchd local
    set searchdefault net
    set searchdefault all
    set se
@@ -856,11 +919,14 @@ set trace off
    set virt on // obsolete in Stata 12
    set virtual off // obsolete in Stata 12
    /* undocumented starting in Stata 10, but still legal */
+   /*  can still find info via -help xptheme- */
    set xptheme on
+
    // documented in -set- also, hence the duplication
    set cformat
    set pformat
    set sformat
+
    set_defaults
    set_defaults mem
    set_defaults memory
@@ -878,10 +944,13 @@ set trace off
    set_defaults update
    set_defaults trace
    set_defaults mata
+   set_defaults unicode
    set_defaults oth
    set_defaults other
    set_defaults _all
    set defaults
+
+   // other set commands are already in the above list
    /* end set commands */
 
    signrank
@@ -906,20 +975,11 @@ set trace off
    ssc uninstall
    ssc type
    ssc copy
+
    stem
    /* stepwise or sw now has a syntax bad for highlighting */
    stepwise
-   // a bit out of place
-   ret
-   ret list
-   return list
-   ereturn
-   eret li
-   ereturn list
-   sretu
-   sret li
-   sret list
-   suest
+   // stepwise replaced the following (which do not follow the alphabetical order of the manuals)
    sw // should be neutral
    /* sw commands no longer exist, due to syntax changes */
    sw clogit
@@ -948,6 +1008,16 @@ set trace off
    sw weibull
    sw gompertz                          /* out of date */
    /* end sw commands */
+   // a bit out of place
+   ret
+   ret list
+   return list
+   ereturn
+   eret li
+   ereturn list
+   sretu
+   sret li
+   sret list
    suest 
    su sum summ summa summar summari summariz summarize
    sunflower
@@ -1033,8 +1103,38 @@ set trace off
    zip
    ztnb // obsolete in Stata 12
    ztb  // obsolete in at least Stata 9---was this ever a Stata command?
+   ztest  // new in Stata 14
+   ztesti // new in Stata 14
 
    /* endless postestimation */ 
+   // common across most estimation commands (most also elsewhere)
+   contrast
+   estimates
+   forecast
+   fracplot
+   fracpred
+   hausman
+   lincom
+   linktest
+   lrtest
+   margins
+   marginsplot
+   nlcom
+   predict
+   predictnl
+   pwcompare
+   suest
+   test
+   testnl
+   fp plot
+   fp predict
+   lroc
+   lsens
+   fracplot
+   fracpred
+   rocplot
+   rocregplot
+   
    // estat (from [R])
    // (some) obsolete versions included for testing
    estat alt
@@ -1082,6 +1182,8 @@ set trace off
    estat ovt
    estat ovtest // anova regress
    estat predict // exlogistic
+   estat sbknown // ivregress
+   estat single //  ivregress
    estat se  // exlogistic expoisson
    szroeter
    estat szr
@@ -1101,21 +1203,47 @@ set trace off
    lvr2plot
    rvfplot
    rvpplot
-   contrast // areg
-   forecast // fully worked on in [TS]
-   fp plot
-   fp predict
-   lroc
-   lsens
-   fracplot // mfp
-   fracpred // mfp
-   rocplot
-   rocregplot
-   
-   /* types of commands, which have their own highlighting */
-   estat 
-   estimates
+
    /* end subcommand using postestimation */
+
+   /* from Bayes manual; all initially introduced in Stata 14 */
+   bayesmh
+   bayesgraph
+   bayesgraph matrix
+   /* no special highlighting yet */
+   /*   no special highlighting from here out for _all */
+   bayesgraph name _all
+
+   bayesstats // incomplete
+
+   bayesstats ess
+   bayesstats ess _all
+
+   bayesstats ic
+
+   bayesstats summ
+   bayesstats summary
+   bayesstats sum _all // sum not complete
+   bayesstats summary _loglikelihood
+
+   bayestest // incomplete
+
+   bayestest int
+   bayestest inter
+   bayestest interval
+
+   bayestest model
+
+   set clevel
+
+   /* Bayes postestimation; all initially introduced in Stata 14 */
+   bayesgraph
+   bayesstats ess
+   bayesstats summary
+   bayesstats ic
+   bayestest model
+   bayestest interval
+   
    
    /* from [D] data management manual */
    ap app appe appen append
@@ -1180,7 +1308,8 @@ set trace off
    dir
    ls
    drawnorm
-   drop keep
+   drop
+   keep
    ds
    /* duplicates */
    duplicates r
@@ -1262,10 +1391,11 @@ set trace off
    /* end egen */
    en enc enco encod encode
    dec deco decod decode
-   erase rm
+   erase
+   rm
    expand
    expandcl
-   // export commands
+   // export commands (all documented under -import-)
    export delimited
    export excel
    export sasxport
@@ -1276,239 +1406,253 @@ set trace off
    filef filefi filefil filefilt filefilte filefilter 
    fillin
    form forma format
-   /* functions */
-   /* math functions */
-   abs()
-   acos()
-   acosh()
-   asin()
-   asinh()
-   atan()
-   atan2()
-   atanh()
-   ceil()
-   cloglog()
-   comb()
-   cos()
-   cosh()
-   digamma()
-   exp()
-   floor()
-   int()
-   invcloglog()
-   invlogit()
-   ln()
-   lnfact()  // obsolete
-   lnfactorial()
-   lngamma()
-   log()
-   log10()
-   logit()
-   max()
-   min()
-   mod()
-   reldif()
-   round()
-   sign()
-   sin()
-   sinh()
-   sqrt()
-   sum()
-   tan()
-   tanh()
-   trigamma()
-   trunc()
-   /* probability functions */
-   /* beta density */
-   ibeta()
-   betaden()
-   Binomial() /* finally changed to binomialtail in Stata 10 */
-   ibetatail()
-   invibeta()
-   invibetatail()
-   nibeta()
-   nbetaden()
-   invnibeta()
-   // binomial
-   binomial()
-   binomialp()
-   binomialtail()
-   invbinomial()
-   invbinomialtail()
-   binorm()
-   // chi2
-   chi2()
-   chi2den()
-   chi2tail()
-   invchi2()
-   invchi2tail()
-   nchi2()
-   nchi2den()
-   nchi2tail()
-   invnchi2()
-   invnchi2tail()
-   npnchi2()
-   // dunnet's multiple range
-   dunnettprob()
-   invdunnettprob()
-   // F and noncentral F
-   F()
-   Fden()
-   Ftail()
-   invF()
-   invFtail()
-   nF()
-   nFden()
-   nFtail()
-   invnFtail()
-   npnF()
-   // gamma
-   gammap()
-   gammaden()
-   gammaptail()
-   invgammap()
-   invgammaptail()
-   dgammapda()
-   dgammapdada()
-   dgammapdadx()
-   dgammapdx()
-   dgammapdxdx()
-   // hypergeometric
-   hypergeometric()
-   hypergeometricp()
-   // negative binomial
-   nbinomial()
-   nbinomialp()
-   nbinomialtail()
-   invnbinomial()
-   invnbinomialtail()
+   
+   g ge gen gene gener genera generat generate
+   replace
+   set ty
+   set type float
+   set type double
+   set type foo
+   gsort
+   hexdump
+   /* icd9 commands */
+   icd9 check
+   icd9p check
+   icd9 clean
+   icd9p clean
+   icd9 gen
+   icd9p generate
+ 
+   icd9 l  // works in practice but is not documented as such
+   icd9 look
+   icd9p lookup
+   icd9 sea
+   icd9p search
+   icd9 q
+   icd9 query
+   /* icd10 commands, introduced in Stata 14 */
+   /*   these match icd9 commands, at least to start with */
+   icd10 check
+   icd10 clean
+   icd10 gen
+   icd10 generate
+ 
+   icd10 l  // does not work (which matches documentation)
+   icd10 look
+   icd10 lookup
+   icd10 sea
+   icd10 search
+   icd10 q
+   icd10 query
+   /* end icd9, icd9p, icd10 commands */
 
-   // normal, log-normal, bynormal
-   binormal()
-   norm()  /* obsolete in Stata BUT mata function*/
-   normal()
-   normden()
-   normalden()
-   invnorm()
-   invnormal()
-   lnnormal()
-   lnnormalden()
-   // Poisson
-   poisson()
-   poissonp()
-   poissontail()
-   invpoisson()
-   invpoissontail()
-   // Student's t
-   t()
-   tden()
-   ttail()
-   invt() // went obsolete in Stata 7, resurrected in Stata 13
-   invttail()
-   nt()
-   ntden()
-   nttail()
-   invnttail()
-   npnt()
-   // tukey studentized range
-   tukeyprob()
-   invtukeyprob()
-   /* random number functions */
-   uniform()
-	runiform()
-   rbeta()
-	rbinomial()
-	rchi2()
-	rgamma()
-	rhypergeometric()
-	rnbinomial()
-	rnormal()
-	rpoisson()
-	rt()
-   /* string functions */ 
-   abbrev()
-   char()
-   index()
-   indexnot()
-   itrim()
-   length()
-   lower()
-   ltrim()
-   match()
-   plural()
-   proper()
-   real()
-   regexm()
-   regexr()
-   regexs()
-   reverse()
-   rtrim()
-   soundex()
-   soundex_nara()
-   strcat() // no highlight; fake entry in manual
-   strdup() // no highlight; fake entry in manual
-   string()
-   strlen()
-   strlower()
-   strltrim()
-   strmatch()
-   strofreal()
-   strpos()
-   strproper()
-   strreverse()
-   strrtrim()
-   strtoname()
-   strtrim()
-   strupper()
-   subinstr()
-   subinword()
-   substr()
-   trim()
-   upper()
-   word()
-   wordcount()
-   /* programming functions */
-   autocode()
-   byteorder()
-   c()
-   _caller()
-   chop()
-   clip()
-   cond()
-   e()
-   epsdouble()
-   epsfloat()
-   fileexists() // became Stata function in Stata 13
-   fileread()
-   filereaderror()
-   filewrite()
-   float()
-   fmtwidth()
-   group()
-   has_eprop()
-   inlist()
-   inrange()
-   irecode()
-   matrix()
-   maxbyte()
-   maxdouble()
-   maxfloat()
-   maxint()
-   maxlong()
-   mi()
-   minbyte()
-   mindouble()
-   minfloat()
-   minint()
-   minlong()
-   missing()
-   r(this should not really highlight)
-   recode()
-   replay()
-   return()
-   s()
-   scalar()
-   smallestdouble()
+   // import/export commands
+   import delim
+   import delimited
+   export delim
+   export delimited
+
+   import exc
+   import excel
+   export exc
+   export excel
+
+   import hav
+   import haver
+   export hav
+   export haver
+   set haverdir "/whatever"
+
+   import sasxport
+   export sasxport
+   impute
+   inf using
+   infile
+   infix
+   insobs // new in Stata 14 (currently out of order in manuals)
+   inp inpu input
+   insheet // obsolete in Stata 13
+   ins insp inspe inspec inspect
+   ipolate
+   isid
+   joinby
+   /* label */
+   la // incomplete
+   la da
+   label data
+   la var
+   label variable
+   la display as error // bad subcommands
+   /* inside of a comment label define aaahhh */
+   la de
+   label define
+   la val
+   lab val
+   label values
+   la di
+   label dir
+   la l
+   label l
+   label list
+   label copy
+   lab drop
+   labe save
+   /* end label */
+   la lang
+   label language
+   labelbook
+   numlabel
+   uselabel
+   l li lis list
+   fl fli flis flist
+   lookfor
+   memory
+   set mem 5b // obsolete in Stata 12
+   q mem
+   set vir on // obsolete in Stata 12
+   set virtual off // obsolete in Stata 12
+   set maxvar
+   set niceness
+   set min_memory
+   set max_memory
+   set segmentsize
+
+   mer
+   merge
+   mer 1:1
+   merg m:1
+   merge 1:m
+   merge m:m
+   mkdir
+   mvencode
+   mvdecode
+   /* notes */
+   note
+   notes
+   note: hee hee
+   note list
+   notes l
+   note drop
+   note search
+   notes replace
+   notes renumber
+   set ob 93
+   set obs 12
+   /* odbc */
+   odbc 
+   odbc li
+   odbc list
+   odbc q
+   odbc query
+   odbc des
+   odbc describe
+   odbc lo
+   odbc load
+   odbc in
+   odbc insert
+   odbc exe(needed)
+   odbc exec(needed)
+   odbc sql(needed)
+   odbc sqlfile(needed)
+   odbc sql // forgot paren
+   set odbcdriver // new in Stata 14
+   set odbcdriver ansi
+   set odbcdriver unicode
+   set odbcm iodbc
+   set odbcmgr unixodbc
+   /* end odbc */
+   order
+   mov move aorder // obsolete in Stata 11
+   ou out outf outfi outfil outfile
+   outs outsh outshe outshee outsheet // obsolete in Stata 13
+   pctile
+   xtile
+   _pctile
+   putmata
+   getmata
+   range
+   recast
+   recode
+   ren rena renam rename renpfix
+   /* reshape ... */
+   reshape long
+   reshape wide
+   reshape error
+   reshape i
+   reshape j
+   reshape xij
+   reshape xi
+   reshape
+   reshape q
+   reshape query
+   reshape clear
+   // end reshape
+   rmdir
+   sample
+   sa sav save
+   saveold
+   separate
+   sh she shel shell
+   xsh xshe xshel xshell
+   // snapshot
+   snapshot save
+   snapshot label
+   snapshot restore
+   snapshot list
+   snapshot erase
+   // end snapshot
+   so sor sort
+   split
+   stack
+   statsby
+   sysuse auto
+   sysuse dir
+   ty typ type
+
+   /* unicode commands; introduced in Stata 14 */
+   unicode // incomplete
+   unicode coll
+   unicode collator
+
+   unicode conv
+   unicode convert
+
+   unicode encoding // not complete
+   unicode encoding list
+   unicode encod alias
+   unicode en set
+
+   unicode locale // incomplete
+   unicode loc list
+   unicode locale list
+   unicode uipackage // incomplete
+   unicode ui list
+   unicode uipackage list
+
+   unicode analyze
+   unicode tr
+   unicode translate
+   unicode retr
+   unicode retranslate
+   unicode restore
+   unicode erasebackups
+
+   u us use
+
+   varm varma varman varmana varmanag varmanage
+   webuse
+   webuse query
+   webuse set
+   xmlsav xmlsave
+   xmluse
+   xpose
+   zipfile
+   unzipfile
+   /* end [D] data management */
+
+   /* begin [FN] functions (split out in Stata 14) */
+   /* functions (moved to their own manual in Stata 14 */
+   /*  order changed to match split order in Stata 14 manual */
    /* date functions */
    bofd()
    Cdhms()
@@ -1584,222 +1728,403 @@ set trace off
    w()
    y()
 
-   /* time series functions */
-   tin()
-   twithin()
-   
-   /* matrix to matrix */
+   /* math functions */
+   /* trig split from math in Stata 14, because trig must not be math */
+   abs()
+   ceil()
+   cloglog()
+   comb()
+   digamma()
+   exp()
+   floor()
+   int()
+   invcloglog()
+   invlogit()
+   ln()
+   lnfact()  // obsolete
+   lnfactorial()
+   lngamma()
+   log()
+   log10()
+   logit()
+   max()
+   min()
+   mod()
+   reldif()
+   round()
+   sign()
+   sqrt()
+   sum()
+   trigamma()
+   trunc()
+   /* matrix functions (whether matrix or scalar result) */
    cholesky()
+   colnumb()
+   colsof()
    corr()
+   det()
    diag()
+   diag0cnt()
+   el()
    get()
    hadamard()
    I()
    inv()
    invsym()
-   J()
-   matuniform()
-   nullmat()
-   sweep()
-   syminv()
-   vec()
-   vecdiag()
-   /* matrix to scalar */
-   colnumb()
-   colsof()
-   det()
-   diag0cnt()
-   el()
    issym()
    issymmetric()
+   J()
    matmissing()
+   matuniform()
    mreldif()
+   nullmat()
    rownumb()
    rowsof()
+   sweep()
+   syminv()
    trace()
-   /* end functions */
-   g ge gen gene gener genera generat generate
-   replace
-   set ty
-   set type float
-   set type double
-   set type foo
-   gsort
-   hexdump
-   /* icd9 commands */
-   icd9 check
-   icd9p check
-   icd9 clean
-   icd9p clean
-   icd9 gen
-   icd9p generate
-   icd9 l
-   icd9p lookup
-   icd9 sea
-   icd9p search
-   icd9 q
-   icd9 query
-   // import commands
-   import delim
-   import delimited
-   export delim
-   export delimited
-   import excel
-   import sasxport
-   import hav
-   import haver
-   export hav
-   export haver
-   set haverdir "/whatever"
-   import sasxport
-   export sasxport
-   impute
-   inf using
-   infile
-   infix
-   inp inpu input
-   insheet // obsolete in Stata 13
-   ins insp inspe inspec inspect
-   ipolate
-   isid
-   joinby
-   /* label */
-   la // incomplete
-   la da
-   label data
-   la var
-   label variable
-   la display as error // bad subcommands
-   /* inside of a comment label define aaahhh */
-   la de
-   label define
-   la val
-   lab val
-   label values
-   la di
-   label dir
-   la l
-   label l
-   label list
-   label copy
-   lab drop
-   labe save
-   /* end label */
-   la lang
-   label language
-   labelbook
-   numlabel
-   uselabel
-   l li lis list
-   fl fli flis flist
-   lookfor
-   memory
-   set mem 5b // obsolete in Stata 12
-   q mem
-   set vir on // obsolete in Stata 12
-   set virtual off // obsolete in Stata 12
-   set maxvar
-   set niceness
-   set min_memory
-   set max_memory
-   set segmentsize
+   vec()
+   vecdiag()
+   /* programming functions */
+   autocode()
+   byteorder()
+   c()
+   _caller()
+   chop()
+   clip()
+   cond()
+   e()
+   epsdouble()
+   epsfloat()
+   fileexists() // became Stata function in Stata 13
+   fileread()
+   filereaderror()
+   filewrite()
+   float()
+   fmtwidth()
+   group()
+   has_eprop()
+   inlist()
+   inrange()
+   irecode()
+   matrix()
+   maxbyte()
+   maxdouble()
+   maxfloat()
+   maxint()
+   maxlong()
+   mi()
+   minbyte()
+   mindouble()
+   minfloat()
+   minint()
+   minlong()
+   missing()
+   r(this should not really highlight)
+   recode()
+   replay()
+   return()
+   s()
+   scalar()
+   smallestdouble()
 
-   mer
-   merge
-   mer 1:1
-   merg m:1
-   merge 1:m
-   merge m:m
-   mkdir
-   mvencode
-   mvdecode
-   /* notes */
-   notes: fjeje
-   note list
-   notes l
-   note drop
-   note search
-   notes replace
-   notes renumber
-   set obs 12
-   /* odbc */
-   odbc 
-   odbc li
-   odbc list
-   odbc q
-   odbc query
-   odbc des
-   odbc describe
-   odbc lo
-   odbc load
-   odbc in
-   odbc insert
-   odbc exe(needed)
-   odbc exec(needed)
-   odbc sql(needed)
-   odbc sqlfile(needed)
-   odbc sql // forgot paren
-   set odbcm iodbc
-   set odbcmgr unixodbc
-   /* end odbc */
-   order
-   mov move aorder // obsolete in Stata 11
-   ou out outf outfi outfil outfile
-   outs outsh outshe outshee outsheet
-   pctile
-   xtile
-   _pctile
-   putmata
-   getmata
-   range
-   recast
-   recode
-   ren rena renam rename renpfix
-   /* reshape ... */
-   reshape long
-   reshape wide
-   reshape error
-   reshape i
-   reshape j
-   reshape xij
-   reshape xi
-   reshape
-   reshape q
-   reshape query
-   reshape clear
-   // end reshape
-   rmdir
-   sample
-   sa save
-   saveold
-   separate
-   sh she shel shell
-   xsh xshe xshel xshell
-   // snapshot
-   snapshot save
-   snapshot label
-   snapshot restore
-   snapshot list
-   snapshot erase
-   // end snapshot
-   so sor sort
-   split
-   stack
-   statsby
-   sysuse auto
-   sysuse dir
-   ty typ type
-   u us use
-   varm varma varman varmana varmanag varmanage
-   webuse
-   webuse query
-   webuse set
-   xmlsav xmlsave
-   xmluse
-   xpose
-   zipfile
-   unzipfile
-   /* end [D] data management */
+   /* random number functions */
+   rbeta()
+	rbinomial()
+	rchi2()
+   rexponential() // new in Stata 14 
+	rgamma()
+	rhypergeometric()
+   rlogistic()   // new in Stata 14 
+	rnbinomial()
+	rnormal()
+	rpoisson()
+	rt()
+   uniform()
+	runiform()
+   runiformint() // new in Stata 14
+   rweibull()    // new in Stata 14
+   rweibullph()  // new in Stata 14
+
+   /* selecting time-span functions [hunh?] */
+   tin()
+   twithin()
+
+
+   /* so-called statistical functions, most of which are probability functions */
+   /* beta density */
+   betaden()
+   Binomial() /* finally changed to binomialtail in Stata 10 */
+   // binomial
+   binomial()
+   binomialp()
+   binomialtail()
+
+   binorm()
+   binormal()
+   
+   // chi2
+   chi2()
+   chi2den()
+   chi2tail()
+
+   // dgamma
+   dgammapda()
+   dgammapdada()
+   dgammapdadx()
+   dgammapdx()
+   dgammapdxdx()
+
+   // dunnet's multiple range
+   dunnettprob()
+
+   // exponential; new in Stata 14 
+   exponential()
+   exponentialden()
+   exponentialtail()
+
+   // F (non-central F is later)
+   F()
+   Fden()
+   Ftail()
+
+   // gamma
+   gammaden()
+   gammap()
+   gammaptail()
+
+   // hypergeometric
+   hypergeometric()
+   hypergeometricp()
+
+   ibeta()
+   ibetatail()
+
+   // now all -inv- functions are lumped together. shame shame
+   invbinomial()
+   invbinomialtail()
+
+   invchi2()
+   invchi2tail()
+
+   invdunnettprob()
+
+   invexponential()       // new in Stata 14 
+   invexponentialtail()   // new in Stata 14 
+
+   invF()
+   invFtail()
+
+   invgammap()
+   invgammaptail()
+
+   invibeta()
+   invibetatail()
+
+   invlogistic()         // new in Stata 14 
+   invlogistictail()     // new in Stata 14 
+
+   invnbinomial()
+   invnbinomialtail()
+
+   invnchi2()
+   invnchi2tail()
+
+   invnF()              // new in Stata 14
+   invnFtail()
+
+   invnibeta()
+
+   invnorm()
+   invnormal()
+
+   invnt()             // new in Stata 14 
+   invnttail()
+
+   invpoisson()
+   invpoissontail()
+
+   invt() // went obsolete in Stata 7, resurrected in Stata 13
+   invttail()
+
+   invtukeyprob()
+
+   invweibull()        // new in Stata 14
+   invweibullph()      // new in Stata 14 
+   invweibullphtail()  // new in Stata 14 
+   invweibulltail()    // new in Stata 14
+
+   lnigammaden()       // new in Stata 14
+   lniwishartden()     // new in Stata 14
+   lnmvnormalden()     // new in Stata 14
+   lnnormal()
+   lnnormalden()
+   lnwishartden()      // new in Stata 14
+
+   logistic()          // new in Stata 14
+   logisticden()       // new in Stata 14
+   logistictail()      // new in Stata 14
+   
+   nbetaden()
+   
+   // negative binomial
+   nbinomial()
+   nbinomialp()
+   nbinomialtail()
+
+   // non-central chi2
+   nchi2()
+   nchi2den()
+   nchi2tail()
+
+   // non-central F
+   nF()
+   nFden()
+   nFtail()
+
+   nibeta()
+ 
+   // normal, log-normal, bynormal
+   norm()  /* obsolete in Stata BUT mata function*/
+   normal()
+   normden()
+   normalden()
+
+   npnchi2()
+   npnF()
+   npnt()
+
+   nt()
+   ntden()
+   nttail()
+
+   // Poisson
+   poisson()
+   poissonp()
+   poissontail()
+
+   // Student's t
+   t()
+   tden()
+   ttail()
+
+   // tukey studentized range
+   tukeyprob()
+
+   // all weibull new in Stata 14
+   weibull()
+   weibullden()
+   weibullph()
+   weibullphden()
+   weibullphtail()
+   weibulltail()
+
+   /* string functions */ 
+   abbrev()
+   char()
+   collatorlocale() // new in Stata 14 
+   collatorversion() // new in Stata 14 
+   index()
+   indexnot()
+   itrim()  // obsolete in Stata 14
+   length() // obsolete in Stata 14 
+   lower()  // obsolete in Stata 14 
+   ltrim()  // obsolete in Stata 14 
+   match()
+   plural()
+   proper() // obsolete in Stata 14 
+   real()
+   regexm()
+   regexr()
+   regexs()
+   reverse() // obsolete in Stata 14 
+   rtrim()   // obsolete in Stata 14 
+   soundex()
+   soundex_nara()
+   strcat() // no highlight; fake entry in manual
+   strdup() // no highlight; fake entry in manual
+   string()
+   // new in Stata 14: -str- prefix for many string functions 
+   stritrim() 
+   strlen()
+   strlower() 
+   strltrim() 
+   strmatch() 
+   strofreal() 
+   strpos() 
+   strproper() 
+   strreverse() 
+   strrtrim() 
+   strtoname()
+   strtrim()
+   strupper()
+   // end of new Stata 14 -str- functions
+   subinstr()
+   subinword()
+   substr()
+   tobytes()  // new in Stata 14 
+   trim()  // obsolete in Stata 14
+
+   // new in Stata 14: -u- prefix functions for unicode
+   
+   uchar()
+   udstrlen()
+   uisdigit()
+   ustrcompare()
+   ustrcompareex()
+   ustrpos()
+   ustrrpos()
+   ustrfix()
+   ustrfrom()
+   ustrinvalidcnt()
+   ustrleft()
+   ustrlen()
+   ustrlower()
+   ustrltrim()
+   ustrnormalize()
+   ustrregexm()
+   ustrregexra()
+   ustrregexrf()
+   ustrregexs()
+   ustrreverse()
+   ustrright()
+   ustrrtrim()
+   ustrsortkey()
+   ustrsortkeyex()
+   ustrtitle()
+   ustrto()
+   ustrtohex()
+   ustrtoname()
+   ustrtrim()
+   ustrunescape()
+   ustrupper()
+   ustrword()
+   ustrwordcount()
+   usubinstr()
+   usubstr()
+   // end Stata 14 -u- prefix functions
+   upper() // obsolete in Stata 14 
+   word()
+   wordbreaklocale()
+   wordcount()
+   
+   /* trig split from math in Stata 14, because trig must not be math */
+   acos()
+   acosh()
+   asin()
+   asinh()
+   atan()
+   atan2()
+   atanh()
+   cos()
+   cosh()
+   sin()
+   sinh()
+   tan()
+   tanh()
+
+   /* end [FN] functions manual*/
+
 
    /* [G] the miserable graph commands... */
    // gr7 and graph7 are now 'previously documented' (Stata 9)
@@ -1813,6 +2138,10 @@ set trace off
 
    graph box
    graph hbox
+
+   // new in Stata 14 
+   gra close
+   graph close
 
    graph combine
 
@@ -1872,6 +2201,8 @@ set trace off
    cumsp
    xcorr
    wntestb
+   estat acplot
+   estat aroots
 
    varfcast graph
    varirf graph
@@ -1904,6 +2235,12 @@ set trace off
    lroc
    lsens
 
+   // !! come back to check when all done
+   irtgraph icc
+   irtgraph tcc
+   irtgraph iif
+   irtgraph tif
+
    biplot
    cluster dendrogram
    screeplot
@@ -1926,10 +2263,11 @@ set trace off
    serrbar
 
    marginsplot
-   power, graph !! come back
+   power, graph 
    tabodds
-   teffects overlap !! come back
+   teffects overlap
    pkexamine
+   bayesgraph
 
    /* end of so-called graph other */
    gr pie
@@ -1939,13 +2277,17 @@ set trace off
    gr play
 
    graph print
+
    gr q
    graph query
 
-   graph rename 
+   graph rename
+
+   graph replay
+   
    gr save
 
-   // !! graph set needs fixing...
+   // graph set
    gr set print 
    graph set ps   
    graph set eps 
@@ -1967,6 +2309,7 @@ set trace off
    
    graph twoway area y
    twoway area
+   twoway bar
    gr twoway bar
    graph twoway bar y
    tw con
@@ -1981,21 +2324,26 @@ set trace off
    tw dot
    graph twoway dot y
    graph twoway dropline y
+
    gr twoway fp // should not be light blue (and is not)
    graph twoway fpfit y
    graph twoway fpfitci y
    graph twoway function y
    graph twoway hist
    tw histogram
+
    graph twoway kdensity
+
    graph twoway lfit
    graph twoway lfitci
    gr two line
    twow line
    line foo bar // twoway optional for line
+
    graph twoway lowess
    tw lpoly
    two lpolyci
+
    graph twoway mband
    graph twoway mspline
 
@@ -2003,12 +2351,13 @@ set trace off
    twoway pcbarrow
 
    two pcarrowi
-   tw pcbarrowi
+   tw pcbarrowi // turns out this never existed
 
    two pccapsym
    twoway pci
    two pcscatter
    two pcspike
+
    graph twoway qfit
    graph twoway qfitci
    graph twoway rarea
@@ -2064,13 +2413,40 @@ set trace off
    set scheme
    /* end [G] manual */
 
+   /* [IRT] manual (new in Stata 14) */
+   // skipping the -irt- section and putting commands in the order of the manual
+   // estimation commands all at the end for now
+   irt  // incomplete
+   irt 1pl
+   irt 2pl
+   irt 3pl
+
+   irt grm
+   irt nrm
+   irt pcm
+   irt gpcm
+   irt rsm
+   irt hybrid
+
+   // irt-specific postestimation commands
+   estat report
+   irtgraph // incomplete
+   irtgraph icc
+   irtgraph iif
+   irtgraph tcc
+   irtgraph tic
+
+   /* end [IRT] manual */
+
    /* [ME] manual (new in Stata 13) */
    mecloglog
    estat group
+   
    meglm
    melogit
    estat group
    estat icc
+   
    menbreg
    meologit
    meoprobit
@@ -2081,7 +2457,15 @@ set trace off
    estat recovariance
    estat icc
    meqrpoisson
+   mestreg // new in Stata 14
+   stcurve
+   estat group
    mixed
+   estat df // new in Stata 14 
+   estat group
+   estat icc
+   estat recovariance
+   estat wcorrelation
    /* end of [ME] manual */
 
    // the [MI] multiple imputation manual...all new in Stata 11
@@ -2133,13 +2517,17 @@ set trace off
    mi imp // incomplete
    mi impute // incomplete
    mi imp chain // new in Stata 12 
-   mi impute chained // new in Stata 12 
+   mi impute chained // new in Stata 12
+   
    mi imp intreg // new in Stata 12 
    mi impute intreg // new in Stata 12 
+
    mi imp logi
    mi impu logit
+   
    mi imput mlog
    mi impute mlogit
+   
    mi imp mon
    mi impute monotone
    mi imp mvn
@@ -2196,8 +2584,8 @@ set trace off
    mi set flong
    mi set flongs
    mi set flongsep
-   mi set M
-   mi set m
+   mi unset
+   // mi register is under mi set
    // look carefully...on one line
    mi reg // incomplete, but regress is winning the battle here
    mi regi // incomplete
@@ -2234,7 +2622,7 @@ set trace off
    mi st
    mi tsset
    mi xtset
-   /* end [MI] multiple imputation */
+   /* end [MI] multiple imputation */ 
 
    /* from [MV] multivariate statistics */
    alpha
@@ -2417,7 +2805,9 @@ set trace off
    scoreplot
    screeplot
    /* end factor estat stuff */
+
    hotelling
+
    mano manov manova
    manovatest
    screeplot
@@ -2448,6 +2838,7 @@ set trace off
    
    /* end mds postestimation */
    mdslong
+
    mdsmat
 
    mvreg
@@ -2481,6 +2872,7 @@ set trace off
    scoreplot
    screeplot
    /* end pca postestimation */
+
    procrustes
    /* procrustes postestimation */
    estat compare
@@ -2495,6 +2887,1375 @@ set trace off
    greigen /* obsolete in Stata 9 */
    scree // listed as synonym for -screeplot- in Stata 13 manual
    screeplot
+
+   /* [P] programming manual, moved in list in Stata 14 */
+   nobreak
+   break
+   /* not highlighting byable() stuff, because an option */
+   program dingle, rclass byable(recall)
+   end
+   program foobar, sclass byable(onecall)
+   end
+   cap
+   capture
+   char `foo'
+   char
+   char define
+   char l
+   char list
+   char ren
+   char rename
+   // a meager attempt at highlighting class programming
+   // really just highlighting the tails from the built-in functions
+   //   (for updating: jumped to section 8.1 in Stata 14)
+   a.bc.new
+   ab.b.copy
+   a.compress.ref
+   a.objtype
+   a.b.isa
+   a.b.classname
+   a.b.isofclass
+   a.b.objkey
+   a.c.uname
+   a.b.ref_n
+   a.b.arrnels
+   a.b.arrindexof
+   a.b.classmv
+   a.b.instancemv
+   a.b.dynamicmv
+   a.b.superclass
+   // built-in modifiers
+   a.b.Declare
+   a.b.Arrdropel
+   a.b.Arrdropall
+   a.b.Arrpop
+   a.c.Arrpush
+
+   // cannot seem to get these to work well
+   //   making . highlight differently is really hard, because it shows
+   //   up in too many contexts
+   // will not ever fix, as these are supposedly withering
+   
+   .Global.foo.gringo
+   .Local.d.e.f
+   .Super.q.e.d
+   4.2
+   
+
+   class fooey {
+      class:
+      classw:
+      classwide:
+      instance:
+      instancespecific:
+      } 
+
+   // now outside of overarching 'class' section
+   class exit
+   class bl33n
+   
+   classutil drop
+   classutil d
+   classutil describe
+   classutil dir
+   classutil cdir
+   classutil which
+   classutil `foo' // fails on purpose
+
+   /* confirm commands */
+   conf e
+   confi existence
+   confir new f
+   confirm file
+
+   conf numeric fo
+   conf str for
+   conf string form
+   conf date forma
+
+   /* confirm ts was replaced by confirm date in Stata 10,  */
+   conf ts format
+   conf name
+   confi names
+   confirm int number // should fail---no abbrev allowed for -integer-
+   conf n
+   conf num
+   confir integer n
+   confirm number
+   conf mat
+   confirm matrix
+   conf sca
+   conf scalar
+
+   confirm `foo' // won't confirm because of need for subcommand
+   confirm numeric var // ok
+   confirm numeric var() // fails
+   confirm numeric `var' // fails --- good? bad?
+
+   conf new v
+   conf numeric va
+   confirm str var
+   confirm string vari
+   confirm byte varia
+   confirm int variab
+   conf long variabl
+   conf float variable
+   conf double v
+   confirm str11 v
+   confirm str9 var
+   confirm str244 var
+   confirm str455 var
+   confirm str2045 var
+   confirm str2046 var // fails
+   confirm strL var
+
+   continue
+
+   /* oh no! the cclass stuff */
+   cret l
+   creturn list
+
+   c( current_date )
+   c(current_date)
+   c(current_time)
+   c(rmsg_time)
+   c(stata_version)
+   c(version)
+   c(userversion) // new in Stata 14 
+   c(born_date)
+   c(flavor)
+   c(bit) // new in Stata 12
+   c(SE)
+   c(MP)
+   c(processors)
+   c(processors_lic)
+   c(processors_mach)
+   c(processors_max)
+   c(mode)
+   c(console)
+   c(os)
+   c(osdtl)
+   c(hostname) // new in Stata 13 
+   c(machine_type)
+   c(byteorder)
+   c(username)
+
+   c(sysdir_stata)
+   c(sysdir_updates) // (technically obsolete in Stata 13)
+   c(sysdir_base)
+   c(sysdir_site)
+   c(sysdir_plus)
+   c(sysdir_personal)
+   c(sysdir_oldplace)
+   c(tmpdir)
+   c(adopath)
+   c(pwd)
+   c(dirsep)
+
+   c(max_N_theory)
+   c(max_N_current)  // obsolete in Stata 12
+   c(max_k_theory)
+   c(max_k_current) // obsolete in Stata 12
+   c(max_width_theory)
+   c(max_width_current) // obsolete in Stata 12
+   c(max_matsize)
+   c(min_matsize)
+   c(max_macrolen)
+   c(macrolen)
+   c(charlen)    // new in Stata 14
+   c(max_cmdlen)
+   c(cmdlen)
+   c(namelen)   // undocumented/obsolete in Stata 14
+   c(namelenbyte)
+   c(namelenchar)
+   c(eqlen)
+   // numeric and string limits
+   c(mindouble)
+   c(maxdouble)
+   c(epsdouble)
+   c(smallestdouble)
+   c(minfloat)
+   c(maxfloat)
+   c(epsfloat)
+   c(minlong)
+   c(maxlong)
+   c(minint)
+   c(maxint)
+   c(minbyte)
+   c(maxbyte)
+   c(maxstrvarlen)
+   c(maxstrlvarlen) // new in Stata 13 
+   c(maxvlabellen) // new in Stata 13 
+   // current dataset
+   c(N)
+   c(k)
+   c(width)
+   c(changed)
+   c(filename)
+   c(filedate)
+   // memory
+   c(memory)
+   c(maxvar)
+   c(matsize)
+   c(niceness) // new in Stata 12
+   c(min_memory) // new in Stata 12
+   c(max_memory)   // new in Stata 14 
+   c(segmentsize) // new in Stata 12
+   // output
+   c(more)
+   c(rmsg)
+   c(dp)
+   c(linesize)
+   c(pagesize)
+   c(logtype)
+   c(noisily)
+   c(charset) // new in Stata 13 mac only, obsolete in Stata 14 
+   c(eolchar)
+   c(notifyuser)
+   c(playsnd)
+   c(icmap) // obsolete in Stata 10
+   c(include_bitmap) // mac only new in Stata 12
+   c(level)
+   c(clevel)  // new in Stata 14 
+   c(showbaselevels) // new in Stata 11.1
+   c(showemptycells) // new in Stata 11.1
+   c(showomitted) // new in Stata 11.1
+   c(fvlabel) // new in Stata 13
+   c(fvwrap) // new in Stata 13
+   c(fvwrapon) // new in Stata 13
+   c(lstretch) // new in Stata 12
+   c(cformat) // new in Stata 11.1
+   c(sformat) // new in Stata 11.1
+   c(pformat) // new in Stata 11.1
+   c(coeftabresults)  // new in Stata 13 
+   // interface
+   c(dockable)
+   c(dockingguides)
+   c(floatresults) // obsolete in Stata 10 or so
+   c(floatwindows) // obsolete in Stata 10 or so
+   c(locksplitters)
+   c(persistfv)  // obsolete in Stata 12
+   c(persistvtopic) // obsolete in Stata 12
+   c(pinnable)
+   c(doublebuffer)
+   c(reventries)
+   c(fastscroll) // not platform dep in Stata 10, Unix-only in 11
+   // Unix/Win only in 12
+   c(revwindow) // obsolete in Stata 11 
+   c(revkeyboard)
+   c(varwindow) // obsolete in Stata 11 
+   c(varkeyboard)
+   c(smoothfonts)
+   c(use_qd_text) // obsolete in Stata 11 
+   c(smoothsize) // obsolete in Stata 11 
+   c(use_atsui_graph) // obsolete in Stata 11 
+   c(linegap)
+   c(scrollbufsize)
+   c(varlabelpos) // looks to be obsolete in Stata 11
+   c(maxdb)
+   c(smalldlg)  // obsolete in Stata 10 
+   c(xptheme)   // obsolete in Stata 10 
+   // graphics
+   c(graphics)
+   c(autotabgraphs)
+   c(scheme)
+   c(printcolor)
+   c(copycolor)
+   c(macgphengine)
+   c(piccomments)
+   // efficiency
+   c(adosize)
+   c(virtual)  // obsolete in Stata 12
+   // network
+   c(checksum)
+   c(timeout1)
+   c(timeout2)
+   c(httpproxy)
+   c(httpproxyhost)
+   c(httpproxyport)
+   c(httpproxyauth)
+   c(httpproxyuser)
+   c(httpproxypw)
+   // update settings (not in Unix yet)
+   c(update_query)
+   c(update_interval)
+   c(update_prompt)
+   // trace settings
+   c(trace)
+   c(tracedepth)
+   c(tracesep)
+   c(traceindent)
+   c(traceexpand)
+   c(tracenumber)
+   c(tracehilite)
+   // mata
+   c(matastrict)
+   c(matalnum)
+   c(mataoptimize)
+   c(matafavor)
+   c(matacache)
+   c(matalibs)
+   c(matamofirst)
+   // unicode settings (new in Stata 14)
+   c(locale_ui)
+   c(locale_functions)
+   c(locale_icudflt)
+   // other settings
+   c(type)
+   c(maxiter)
+   c(searchdefault)
+   c(seed)   // obsolete in Stata 14 (replaced by c(rngstate))
+   c(rng)
+   c(rng_current)
+   c(rngstate)
+   c(version_rng) // new in Stata 11.2, returns 14 in Stata 14, no docs
+   c(varabbrev)
+   c(emptycells) // new in Stata 12
+   c(haverdir) // new in Stata 13 
+   c(odbcmgr)
+   c(`foo')
+   // other (uh notsettings?)
+   c(pi)
+   c(alpha)
+   c(ALPHA)
+   c(Mons)
+   c(Months)
+   c(Wdays)
+   c(Weekdays)
+   c(rc)
+   "`c(pi)'"
+
+   /* end of that mess */
+   _datasig
+   _datasignature
+   #d cr
+#delimit ;
+
+   this is another command;
+   this is fine
+     this is fine, too;
+   this is ok;
+#delimit cr
+   this is ok /// this should look like a comment
+     this is indented as a continuation
+   here is something // this is a comment
+   this is fine
+   
+#delimit ;
+   
+   this is funny?;
+   this
+     
+     /* this */
+     command
+     continuation;
+   
+   this is a test /// this is a comment
+     this is not a comment /// some more comments
+     this is fine!;
+   
+   this is OK;
+   
+   commands 
+     this should behave as a continuation?;
+   this is a new line;
+   if this==that {;
+      this is an if clause
+        another continuation;
+      };  
+   foo;       glue; silly;
+   this is a continuation, it should indent properly
+     this is ok;
+   
+   if this | that {;
+      indent;
+      }; 
+   whooie!
+     continuation;
+   
+   
+#delimit cr
+   
+   this "#delim ;" is inside quotations, and hence is invalid
+
+   if {
+      test
+      }   
+   
+#delimit cr
+
+   /* all the dialog stuff is in syntax_tester.dlg, because the dlg stuff should really
+   be a separate mode ... ugh */
+
+   discard
+
+   di dis disp displ displa display
+   display as text
+   display as txt
+   display as res
+   display as result
+   display as err
+   display as error
+   display as inp
+   display as input
+   display in smcl
+   display _asis
+   display _s(4)
+   display _skip(3)
+   display _col(4)
+   display _column(2)
+   display _n // displays as a constant because of system constant _n 
+   display _new(3)
+   display _newline(3)
+   display _newline 
+   display _c
+   display _continue
+   display _d(4)
+   display _dup(3)
+   display _r(fuggy)
+   display _request(jiminy)
+   display _char(4)
+   display in blue
+   display in red
+   display in yellow
+   
+
+   /* ereturn... */
+   eret loc bleen
+   eret local
+   eretu sca
+   eretur scalar bloor
+   ereturn mat freen
+   eret matrix
+   eretu clear
+   ereturn `foo' // should fail
+   eretur li
+   ereturn list
+   eret post
+   eretu repost
+   eretur di
+   ereturn display
+
+   /* number not highlighted, because it can be an expression */
+   err 444
+   error 666
+
+   /* estat programming has nothing worthwhile */
+   // _estimates commands
+   _est h
+   _esti hold
+   _estim u
+   _estima unhold
+   _estimat dir
+   _estimate clear
+   _estimates drop
+   _estimates `foo' // fails...should it?
+   
+   e // why is this a valid abbrev?
+   exit
+
+   file // not complete
+   file open
+   file r
+   file read
+   file w
+   file write
+   file seek
+   file set
+   file close
+   file q
+   file query
+
+   findfile
+
+   foreach bleen // incomplete
+   foreach grue in shadows {
+      }
+   foreach bleen of loc hooie {
+      }
+   foreach mike of local frantie {
+      }
+   foreach small of glo biggie {
+      }
+   foreach big of global smallie {
+      }
+   foreach var of var thevars {
+      }
+   foreach var of varlist thevars {
+      }
+   foreach makeme of new newvarlist {
+      }
+   foreach makeme of newlist newvarlist {
+      }
+   foreach number of num somenumlist {
+      }
+   foreach number of numlist somenumlist {
+      }
+   forv // incomplete
+   forvalues bleen // incomplete
+   forv fooie=1/4 {
+      }
+   forvalues aNum = 2(3)14 {
+      }
+
+   fvexpand
+
+   gettoken foo : griminy, parse(" ,")
+   gettoken bleeble bauble : foo, parse(",")
+   gettoken foo 1 : bubble
+   gettoken foo 0 : 0, parse(" ")
+   gettoken (local) foo: complex
+   gettoken (global) hey ho   : ho
+   gettoken (local) bleen (global) hooie : gomp
+   gettoken (local) bleen (local) bling : how
+
+   if foo fuggy // because of the missing brace 
+   if `this' that
+   if `those' {
+      something
+      }
+   if foo {
+      fuggy
+      }
+   else `fortuna' // missing right brace
+   else frantabulous
+   else {
+      frantabulous
+      }
+   // should not highlight as command
+   bleen else bling
+
+   include somefile.doh
+
+   javacall // new in Stata 13 
+   
+   levelsof
+
+   /* macro stuff */
+   gl fooie
+   global fooie
+   global `l`fooie''
+   display $fooie
+   display $`bleen' // skip the highlight? 
+   lo hmm // should be bad, because minabbrev is loc
+   loc ``ooie''
+   local fooie
+   tempvar ding
+   tempvar tmp1 foo4 
+   tempname dong
+   tempname ding dong
+   tempfile the
+   tempfile this is a test of many files
+   /* right */
+   loc ++witch
+   local --is
+   /* wrong --- will highlight with obsolete */
+   loc which--
+   local wrong++
+   /* right, though this points to the need for highlighting operators */
+   display `foo++'
+   display `++foo'
+   display `--foo'
+   display `--`foo''
+   display `+++foo' // wrong
+   macro define bleen // obsolete
+   ma di
+   macro dir
+   ma drop bleen
+   macro drop 123 // illegal name
+   ma l
+   macro list
+   ma s
+   macro shift
+
+   glo fooey : properties
+   glo dingle : ty
+   global dingle : type
+   loc dingle : f
+   local dingle : format
+   gl s : val l ugh
+   gl h : val lab
+   global h : value label
+   loc h : var l
+   local h: variable label
+   gl h : data l
+   global h: data label
+   local h: sort
+   local h: sortedby
+   loc h : lab
+   local h : label
+   gl h : constraint
+   global h: constraint
+   loc h : char
+   local h: char
+   gl h : permname
+   global h : permname
+   local durn: adosubdir "howdy"
+   loc h : dir
+   local h: sysdir
+   local foo: sysdir STATA
+   local foo: sysdir   BASE
+   local foo: sysdir SITE
+   global blah: sysdir PLUS
+   local foo: sysdir PERSONAL
+   gl h : env
+   global h : environment
+   loc h : e(scalars)
+   local h : e(macros)
+   gl h: e(matrices)
+   global h: e(functions)
+   loc h : r(scalars)
+   local h : r(macros)
+   gl h: r(matrices)
+   global h: r(functions)
+   loc h: s(macros)
+   global h: all globals
+   global h: all scalars
+   loc h: all matrices
+   local h: all numeric scalars
+   local h: all string scalars
+   local h: all scalars
+   local h: di
+   local h: display
+   gl h : list
+   global h : rown
+   gl h : rownames
+   local h : coln
+   local h :colnames
+   local h : rowf
+   local h : rowfullnames
+   local h : colf
+   local h : colfullnames
+   local h : rowe
+   local h : roweq
+   local h : cole
+   local h : coleq
+   glo foo: tsnorm
+   local g : copy loc
+   local h : copy local
+   local h : copy gl
+   local b : copy global
+   local h : word // should fail
+   local h : word count
+   /* maybe should change the number highlight? */
+   loc h : word 43 of
+   local h : word `foo' of bar
+   /* should fail */
+   local h : word me of you 
+   local h : piece
+   local h : length loc // obsolete in Stata 14 
+   local h : strlen loc       // new in Stata 14 
+   local h : ustrlen local    // new in Stata 14 
+   local h : udstrlen gl      // new in Stata 14 
+   local h : subinstr gl
+   local h : subinstr global hi
+   local h : subinstr loc ho
+   local h : subinstr local
+   /* these have become undocumented  */
+   local h : tempv
+   local h : tempvar
+   local h : tempf
+   local h : tempfile
+   
+   /* macro lists */
+
+   loc foo : list uniq bar
+   global foo : list dups bar
+   glob foo: list sort bar
+   loca foo : list retok bar
+   local foo:list retokenize bar
+   glo foo : list clean bar
+   glob foo : list a | b // perhaps operator highlighting would be good
+   globa foo: list c & d
+   global foo : list ding - dong
+   global foo: list this == that
+   global foo: list this === that
+   loc foo: list hey in ho // perhaps 'in' should highlight as operator?
+   local foo: list sizeof hey
+   local foo: list posof "this is something" in hooie
+
+   /* ahh the macros are over */
+
+   makecns a
+   matcproc a b // should not highlight because 3 matrices are needed
+   matcproc a b c
+
+   marksample hooie // hooie is a macro name
+   mark
+   markout
+   markin
+   svymarkout fiem // fiem is a variable name
+
+   matlist
+   
+   /* matrix commands */
+   mat ac m
+   matr accum matt
+   matri glsa matt
+   matrix glsaccum matt
+   mat opaccum matt
+   matrix veca matt
+   matrix vecaccum matt
+
+   /* not listed but still accepted */
+   matr makeCns foo // should be obsolete 
+   matri dispCns // should be obsolete
+
+   /* dangerous keyword highlighting which is unavoidable */
+   mat def foo
+   mat defin // correct by the way Stata works
+   mat foo
+   mat `foo'
+   mat define bleen
+   matrix in
+   mat in blam
+   mat input bling
+   matrix jjj
+
+   mat dis foo
+   matrix dissimilarity bleen
+   
+   mat eigenval vgy mmk
+   mat eigenvalues bleeble blob 
+   /* nothing for matrix get */
+   mat_put_rr bling
+   
+   mkmat
+   svmat fooey
+   svmat double noodle
+   matname foo
+
+   mat rown njk = kjj
+   matrix rownames rrr = ccc
+   mat coln ccc = rrr
+   matrix colnames ccc = rrr
+   mat rowe hi = ho
+   mat roweq ho = hi
+   mat cole ho = hi
+   mat coleq ho = hi
+
+   mat sco fooey
+   matrix score fooey
+
+   mat svd g h j
+
+   mat syme jwjwk foo
+   matrix symeigen jwjwk foo
+
+   matrix d
+   matrix dir
+   mat l bleen
+   matrix list bleen
+   matrix ren foo bar
+   matrix rename foo bar
+   /* !! not quite right, but I'm really stumped. */
+   matrix drop mat1 mat2 mat3 mat4
+   matrix drop _all
+   matrix `foo' // no real way to highlight, because `foo' could be matrix or subcommand
+   
+   /* phew, matrix is finally done */
+
+   mor
+   more
+
+   numlist
+
+pause on
+pause off
+pause "fuggy"
+
+   /* don't know what would be different here */
+   program fooey, plugin
+      /* hmm.... */
+   end
+   
+   postfile
+   post
+   postclose
+   postutil dir
+   postutil clear
+
+   _predict
+
+   preserve
+   restore
+   
+   pr def foo
+      pro bar
+         "this is a string"
+         display "local freddy hunh?"
+      end
+   end
+   
+
+   /* should fix the following (doesn't need to be flush left
+   the problem really is that since define is now optional, it is hard
+   for the syntax to be corrected */
+   pr di
+   program dir
+
+   program drop fooie
+   pr l fooie
+   program list fooie 
+
+   // putexcel new in Stata 13
+   putexcel
+   putexcel set
+   putexcel describe
+   putexcel clear   
+   
+   qui blah
+   quietly {
+      n bling
+      noisily blang
+      }
+   nois : foo
+   set ou p
+   set output proc
+   set output i
+   set ou inform
+   set ou e
+   set output error
+
+   _ret hold
+   _retu res
+   _retur restore
+   _return drop
+   _return dir
+   _return `foo'
+
+   // return and its relatives
+   return `foo' // highlights like mata
+   ret li
+   retu list
+   ret clear
+   retu sca foo
+   return scalar foo
+   ret loc foo
+   return local foo
+   /* the third item ought to be a matrix */
+   ret mat matt hhh
+   return matrix matt mmm
+   ret add
+   return add
+
+   eretu li
+   eretur list
+   eret clear
+   ereturn clear
+   eret post m1 m2
+   ereturn post
+   eret sca
+   ereturn scalar
+   eret loc foo
+   ereturn local foo
+   eretu mat short
+   ereturn matrix bleen
+   eret repost
+   ereturn repost
+
+   sretu li
+   sreturn list
+   sret clear
+   sret loc foo
+   sreturn local foo
+   /* end return commands */
+   
+   _rmcoll
+   _rmdcoll
+
+   set r on
+   set rmsg on
+   set rmsg off
+   
+   _robust
+
+   /* sca is an ambiguous abbreviation sc for scatterplot and sca for scalar ! */
+   sca foo
+   scalar define foo
+   scalar foo
+   scalar di
+   scalar dir
+   sca l
+   sca list 
+   scalar drop
+
+   /* serset commands */
+
+   serset cr
+   serset create
+   serset create_xmedians
+   serset create_cspline
+   serset set
+   serset sort
+   serset su
+   serset summarize
+   serset
+   serset use
+   serset reset_id
+   serset drop
+   serset clear
+   serset dir
+   file sersetwrite 
+   file sersetread
+
+   /* oops - Stata has extended macro functions just for serset */
+
+   loc foo: serset id
+   loc foo: serset k
+   loc foo: serset N
+   loc foo: serset varnum
+   glo foo: serset type
+   glo foo: serset format
+   glo foo: serset varnames
+   glo foo: serset min
+   glo foo: serset max
+
+   // perhaps -default- should highlight?
+   set locale_functions default // new in Stata 14
+   // do not want to allow all possible aliases!
+   set locale_functions latin1  // new in Stata 14 
+   
+   set locale_ui default   // new in Stata 14 
+   set locale_ui macroman  // new in Stata 14 
+   
+   signestimationsample
+   checkestimationsample
+   
+   sleep
+
+   /* smcl */
+
+   INCLUDE help
+   /* syntax 1 and 2 */
+   {sf}
+   {sf:foo}
+   {it}
+   {it:foo}
+   {bf}
+   {bf:bar}
+   {sf should fail} // should fail
+   {sf should:fail} // should fail
+   
+   {input}
+   {input:foo}
+   {error}
+   {error:hahah}
+   {result}
+   {result:shocking}
+   {text}
+   {text:for later reading}
+
+   {inp} // should not fail
+   {inp:foo}
+   {err}
+   {err:hahah}
+   {res}
+   {res:shock}
+   {txt}
+   {txt:later}
+
+   {cmd}
+   {cmd:Go Home!}
+   /* hybrid syntax */
+   {cmdab:this:that}
+
+   /* no checking for bad opt syntax */
+   {opt fooey}
+   {opt foo(bar)}
+   {opt foo(bar,yah)}
+   {opt foo(bar|yah)}
+   {opt foo:bar}
+   {opt foo:bar(3)}
+   {opt foo:bar(from,to)}
+   {opt foo:bar(this|that)}
+   {opt foo(a,)} // really is wrong, but hey...
+
+   /* syntax 1 & 2 */
+   {hilite}
+   {hilite:of the day}
+   {hi}
+   {hi:how are you}
+   {hil:should not work}
+
+   /* syntax 2 & 3 */
+   {ul on}
+   {ul:is no. 1 in basketball}
+   {ul off}
+   {ul bogus} // should fail
+
+   /* syntax 2 & 3 (book says 2 & 4 but illustrates with 2 & 3) */
+   {*:comment}
+   {* this is a comment}
+
+   {hline}
+   {hline 20}
+   {hline bogus} // should fail 
+   {.-}
+   {hline `this'}
+
+   {dup 23:some}
+   {dup `foo':some}
+   {dup bogus:some} // should fail 
+
+   {c 666}
+   {char 333}
+   {char bogus}
+
+   {reset}
+   
+   /* link commands.... */
+   {help someword}
+   {help someword:clickable phrase}
+   {helpb bold}
+   {helpb bold:hack}
+   {manhelp unix GS}
+   {manhelp unix GS:eunuchs}
+   {manhelp damn G:its own syntax}
+   {manhelpi fooey Q:cakes}
+   /* these should fail */
+   {manhelp unix} // should fail 
+   {manhelp this should fail:if I had time} // should fail 
+   {manhelpi fooey} // should fail 
+   /* need yet another @#@#$@ syntax for this hack */
+   {help stata##anchors}
+   {help stata##anchor|viewer}
+   {help stata##anchor:subtext}
+   {help stata##anchor|viewer:subtext}
+   {marker jumphere}{...}
+   {marker ...}
+   {help_d:fooie}
+
+   {newvar}
+   {newvar:13}
+   {var}
+   {var:fooey}
+   {varname}
+   {varname:fooey}
+   {vars}
+   {vars:huey duey looie}
+   {varlist}
+   {varlist: huey duey looie}
+   {depvar}
+   {depvar:fooey gooey}
+   {depvars}
+   {depvars: ha ho}
+   {depvarlist}
+   {depvarlist: hee high ho}
+   {indepvars}
+   {indepvars: hoo who}
+   {ifin}
+   {weight}
+   {dtype}
+   {search goofay}
+   {search goofus galant:clickable}
+   {search_d:fooey}
+
+   {dialog hello}
+   {dialog hellp:clickable}
+   {browse fooey}
+   {browse fooey:click}
+   {view fooey}
+   {view fooey:click}
+   {view_d fail}
+   {view_d:hahah}
+   {manpage docs}
+   {manpage docs:awfully unixy}
+   {mansection dopey}
+   {mansection dopey:droopy}
+   {manlink hahahah} // should not work
+   {manlinki R summarize}
+   
+   {news:is bad}
+   {net fishing}
+   {net fishing:wide}
+   {net_d fail} // should fail
+   {net_d:hello}
+   {netfrom_d:howdydoody}
+   {ado foo}
+   {ado foo:bar}
+   {ado_d : bar}
+   {update howdy}
+   {update howdy:doody}
+   {update_d:morning}
+   {back:and forth}
+   {clearmore:fooey}
+   {stata corp}
+   {stata corp:click}
+   {matacmd arrg}
+   {matacmd arrg:ahoy}
+   /* for line mode */
+   {title:howdy doody}
+   {center:middle}
+   {centre:muggle}
+   {center 35:bleen}
+   {centre 42:voldemort}
+   {center bogus:haha} // should fail
+   {rcenter:teehee}
+   {rcentre 33:friday!}
+
+   {right:wing neocon}
+   {lalign 69:ihtfp}
+   {ralign 666:nationalist}
+   // dlgtab is a pain b/c of 1 or 2 possible numbers
+   {dlgtab 34:fooey}
+   {dlgtab 4 2: hello} // should change numbers to variable-face
+   {dlgtab 1 2 3: fails}
+   {dlgtab : fooey}
+   {...}
+   {col bogus} // should fail 
+   {col 32}
+   {col `this'}
+   {space bogus} // should fail 
+   {space 43}
+   {tab}
+
+   /* for paragraph mode */
+   {p}
+   {p 4}
+   {p bogus} // should fail 
+   {p `hoo'}
+   {p 3 4}
+   {p 3 `foo' 5}
+   {p 3 4 5 oh no} // should fail
+   {p 1 2 3 4}
+   /* uh oh, all sorts of equivalent directives */
+   {pstd}
+   {psee}
+   {phang}
+   {pmore}
+   {pin}
+   {phang2}
+   {pmore2}
+   {pin2}
+   {phang3}
+   {pmore3}
+   {pin3}
+   // back to odd syntax directives
+   {p_end}
+   {p2colset 1 2 3} // should fail
+   {p2colset 1 2 `foo' 4}
+   {p2colset 1 2 3 4 5} // should fail
+   {p2col 1 2 3} // should fail
+   {p2col 1 2 3 4:something goes here}
+   {p2col: something goes here}
+   {p2col 1 2:this is bad}
+   {p2line 1 2}
+   {p2line}
+   {p2line 1 2 `bad'}
+   {p2colreset}
+
+   {synoptset}
+   {synoptset 6}
+   {synoptset `foo'}
+   {synoptset 5 tabbed}
+   {synoptset 12 notes}
+   {synoptset 5 6} // should fail 
+   {synopthdr}
+   {synopthdr: damn}
+   {syntab: this}
+   {synopt: is}
+   {p2coldent: no fun}
+   {synoptline}
+
+   {bind:all this together}
+   {break}
+   // other odd modes
+   {asis}
+   {s6hlp}
+   {ccl pi}
+   {ccl current_date}
+   // looks nice below, but not really full of testing
+   {char 7}
+   {c S|}
+   {c -}
+   {c |}
+   {c +}
+   {c TT}
+   {c BT}
+   {c LT}
+   {c RT}
+   {c TLC}
+   {c TRC}
+   {c BRC}
+   {c BLC}
+   // all the 'western european characters'
+   {c a'} á {c e'} é {c i'} í {c o'} ó {c u'} ú
+   {c A'} Á {c E'} É {c I'} Í {c O'} Ó {c U'} Ú
+   {c a'g} à {c e'g} è {c i'g} ì {c o'g} ò {c u'g} ù
+   {c A'g} À {c E'g} È {c I'g} Ì {c O'g} Ò {c U'g} Ù
+   {c a^} â {c e^} ê {c i^} î {c o^} ô {c u^} û
+   {c A^} Â {c E^} Ê {c I^} Î {c O^} Ô {c U^} Û
+   {c a~} ã {c o~} õ
+   {c A~} Ã {c O~} Õ
+   {c a:} ä {c e:} ë {c i:} ï {c o:} ö {c u:} ü
+   {c A:} Ä {c E:} Ë {c I:} Ï {c O:} Ï {c U:} Ü
+   {c ae} æ {c c,} ç {c n~} ñ {c o/} ø {c y'} ´y
+   {c AE} Æ {c C,} Ç {c N~} Ñ {c O/} Ø {c Y'} ´Y
+   {c y:} ÿ {c ss} ß {c r?} ¿ {c r!} ¡
+   {c L-} £ {c Y=} ¥ {c E=} €
+   // smcl allowed in graphs shown with the graph-specific stuff
+   // smcl found in help files which is not documented
+   {vieweralsosee "somename" "help somename"}
+   {viewerdialog "somename" "help that"}
+   {viewerjumpto "this" "help this"}
+   
+   /* end smcl, finally */
+
+   args mac mactheknife
+   args foo
+   args foo1 foo2 foo3 foo4
+
+   /* syntax */
+   /* no attempt to get this to fontify properly, sadly enough, because there really is no grammar to the syntax statement */
+   syntax
+
+   varlist
+   varname
+   newvarlist
+   newvarname
+   exp
+   weight
+   if
+   in
+   using
+   options
+
+   /* back to things I can handle */
+   sysdir
+   sysdir l
+   sysdir list
+   sysdir set
+   sysdir set BASE
+   sysdir set STATA
+   sysdir set SITE
+   sysdir set UPDATES  // technically out-of-date
+   sysdir set PLUS
+   sysdir set PERSONAL
+   sysdir set NOGOOD
+   
+   personal
+   personal dir
+   adopath
+   // no subcommand highlighting...
+   adopath + dingle 
+   adopath ++ freeble
+   adopath - foo
+   set a 30
+   set adosize 99
+
+   tabdisp
+
+   timer clear
+   timer clear 3
+   timer off // should fail
+   timer on 4
+   timer off 14
+   timer list
+   timer list 55
+   timer off // should fail 
+
+   token tokeni tokeniz tokenize
+
+set tr on
+set trace off
+   /* perhaps should add numbers as trailing argument. Some other day. */
+   set traced 44
+   set tracedepth 34
+   set tracee on
+   set traceexpand off
+   set tracesep on
+   set traces off
+   set tracei on
+   set traceindent off
+   set tracen on
+   set tracenumber off
+   set traceh "fooey"
+   set tracehilite "hehe"
+
+   unab lfoo : dingle
+   tsunab lfoo : dongle
+   fvunab bleen: doodle
+
+   unabcmd
+   novarabbrev
+   varabbrev 
+
+   /* more complicated version commands :<( */
+vers 8
+version 12: fooie
+   viewsource
+
+   while foo {
+      this is some stuff
+      }
+   /* window commands... were moved out of the manual before Stata 9*/
+   /* put back in the manual in Stata 13 */
+   /* platform dependencies not highlighted */
+   window
+   win fop
+   window fopen
+   win
+   win fs
+   window fsave
+
+   window manag // incomplete
+   win man minimize
+   window manage restore
+   win manag prefs // incomplete
+   win man prefs load
+   win man prefs save
+   win man prefs default
+   win man update variable // obsolete in Stata 13 
+   win man associate // windows only
+   win man maintitle // not complete, but last word is indefinite 
+   window man maintitle "fooey" // unix and windows
+   windo manag maintitle reset // unix and windows
+   windo mana docklabel // mac only 
+   window man forward // incomplete
+   window manage forward command
+   window manage forward doeditor
+   window manage forward graph
+   window manage forward help
+   window manage forward results
+   window manage forward review
+   window manage forward variables
+   window manage forward viewer
+
+   wind mana print // incomplete
+   win man print graph
+   win man forward graph
+   win man close graph
+   win man rename graph
+
+   win man print viewer
+   win man forward viewer
+   win man close viewer
+
+   win menu // incomplete
+   window m clear
+   win menu append // incomplete
+   win menu append submenu
+   win m append item
+   window menu append separator
+   window menu refresh
+   window menu add_recentfiles
+
+   /* obsolete?? */
+   window menu popout
+   window menu set
+   window menu append popout
+   window menu append   string
+
+   window push
+   
+   windo stop // incomplete
+   window stop stop
+   window stopbox note
+   window stop rusure
+   /* end programming manual */
+
+
 
    /* from the [PSS] manual */
    /* skipping omnibus -power- section */
@@ -2526,7 +4287,9 @@ set trace off
    // this is strange, because there really are just 2 commands
  
    estat eform
-   estat ic
+   estat ic // not listed obsolete in Stata 11
+
+      estat ic
    estat eqg
    estat eqgof
    estat eqt
@@ -2577,18 +4340,7 @@ set trace off
    ctset
    cttost
    
-   ir
-   iri
-   cs
-   csi
-   cc
-   cci
-   tabodds
-   mhodds
-   mcc
-   mcci
-   
-   ltable
+  ltable
    snapspan
    st_is 2 full // hmmm....
    st_is 2 analysis
@@ -2653,7 +4405,7 @@ set trace off
    sttocc
    sttoct
    stvary
-
+   /* end [ST] manual */
    /* from the [SVY] survey data manual */
    /* difficult to order, because of the manual */
    /* not using the intro for ordering */
@@ -2677,7 +4429,8 @@ set trace off
    svy: proportion
    svy: ratio
    svy:total
-
+   svy: churdle 
+   svy: churdle linear // new in Stata 14 
    svy: cnreg // obsolete in Stata 11
    svy: cnsreg
    svy: etregress
@@ -2687,10 +4440,11 @@ set trace off
    svy: reg
    svy: regress
    svy: tobit
-   svy: treatreg
+   svy: treatreg // obsolete in Stata 14
    svy: truncreg
 
    svy: sem
+   svy: gsem   // new in Stata 14 
 
    svy: stcox
    svy: streg
@@ -2709,11 +4463,17 @@ set trace off
    svy: ologit
    svy: oprobit
    svy: slogit
-   
+
+   svy: betareg // new in Stata 14 
+   svy: fracreg // new in Stata 14
+
+   svy: cpoisson   // new in Stata 14 
+   svy: etpoisson  // new in Stata 14 
    svy: gnbreg
    svy: nbreg
    svy: poisson
    svy: tnbreg
+   svy: tpoisson   // new in Stata 14 
    svy: zinb
    svy: zip
    svy: ztnb
@@ -2726,13 +4486,37 @@ set trace off
    svy: heckman
    svy: heckoprobit
    svy: heckprob
+   svy: heckprobit
    /* ivreg outdated as of Stata 10 */
    svy: ivreg
+
+   /* mlmm new in Stata 14 */
+   svy: mecloglog
+   svy: meglm
+   svy: melogit
+   svy: menbreg
+   svy: meologit
+   svy: meoprobit
+   svy: mepoisson
+   svy: meprobit
+   svy: mestreg
+
+   /* irt new in Stata 14 */
+   svy: irt
+   svy: irt 1pl
+   svy: irt 2pl
+   svy: irt 3pl
+   svy: irt grm
+   svy: irt nrm
+   svy: irt pcm
+   svy: irt rsm
+   svy: irt hybrid
    
    svy jack: logistic
    svy linear: gnbreg
    svy bootstrap: logistic
    svy brr: gnbreg
+   brr: irt 1pl @@
    svy sdr: regress // added in Stata 11.1
    sdr: regress // added in Stata 11.1
    
@@ -3019,1305 +4803,6 @@ set trace off
 
    /* end stuff from [XT] */
 
-   /* [P] programming manual */
-   nobreak
-   break
-   /* not highlighting byable() stuff, because an option */
-   program dingle, rclass byable(recall)
-   end
-   program foobar, sclass byable(onecall)
-   end
-   cap
-   capture
-   char `foo'
-   char
-   char define
-   char l
-   char list
-   char ren
-   char rename
-   // a meager attempt at highlighting class programming
-   // really just highlighting the tails from the built-in functions
-   a.bc.new
-   ab.b.copy
-   a.compress.ref
-   a.objtype
-   a.b.isa
-   a.b.classname
-   a.b.isofclass
-   a.b.objkey
-   a.c.uname
-   a.b.ref_n
-   a.b.arrnels
-   a.b.arrindexof
-   a.b.classmv
-   a.b.instancemv
-   a.b.dynamicmv
-   a.b.superclass
-   // built-in modifiers
-   a.b.Declare
-   a.b.Arrdropel
-   a.b.Arrdropall
-   a.b.Arrpop
-   a.c.Arrpush
-
-   // cannot seem to get these to work well
-   //   making . highlight differently is really hard, because it shows
-   //   up in too many contexts
-   // will not ever fix, as these are supposedly withering
-   
-   .Global.foo.gringo
-   .Local.d.e.f
-   .Super.q.e.d
-   4.2
-   
-
-   class fooey {
-      classwide:
-      instance:
-      instancespecific:
-      } 
-   
-   class exit
-   class bl33n
-   
-   classutil drop
-   classutil d
-   classutil describe
-   classutil dir
-   classutil cdir
-   classutil which
-   classutil `foo' // fails on purpose
-
-   /* confirm commands */
-   conf e
-   confi existence
-   confir new f
-   confirm file
-
-   conf numeric fo
-   conf str for
-   conf string form
-   conf date forma
-
-   /* confirm ts was replaced by confirm date in Stata 10,  */
-   conf ts format
-   conf name
-   confi names
-   confirm int number // should fail---no abbrev allowed for -integer-
-   conf n
-   confir integer n
-   confirm number
-   conf mat
-   confirm matrix
-   conf sca
-   conf scalar
-
-   confirm `foo' // won't confirm because of need for subcommand
-   confirm numeric var // ok
-   confirm numeric var() // fails
-   confirm numeric `var' // fails --- good? bad?
-
-   conf new v
-   conf numeric va
-   confirm str var
-   confirm string vari
-   confirm byte varia
-   confirm int variab
-   conf long variabl
-   conf float variable
-   conf double v
-   confirm str11 v
-   confirm str9 var
-   confirm str244 var
-   confirm str455 var
-   confirm str2045 var
-   confirm str2046 var // fails
-   confirm strL var
-
-   continue
-
-   /* oh no! the cclass stuff */
-   cret l
-   creturn list
-
-   c( current_date )
-   c(current_date)
-   c(current_time)
-   c(rmsg_time)
-   c(stata_version)
-   c(version)
-   c(born_date)
-   c(flavor)
-   c(bit) // new in Stata 12
-   c(SE)
-   c(MP)
-   c(processors)
-   c(processors_lic)
-   c(processors_mach)
-   c(processors_max)
-   c(mode)
-   c(console)
-   c(os)
-   c(osdtl)
-   c(hostname) // new in Stata 13 
-   c(machine_type)
-   c(byteorder)
-   c(username)
-
-   c(sysdir_stata)
-   c(sysdir_updates) // (technically obsolete in Stata 13)
-   c(sysdir_base)
-   c(sysdir_site)
-   c(sysdir_plus)
-   c(sysdir_personal)
-   c(sysdir_oldplace)
-   c(tmpdir)
-   c(adopath)
-   c(pwd)
-   c(dirsep)
-
-   c(max_N_theory)
-   c(max_N_current)  // obsolete in Stata 12
-   c(max_k_theory)
-   c(max_k_current) // obsolete in Stata 12
-   c(max_width_theory)
-   c(max_width_current) // obsolete in Stata 12
-   c(max_matsize)
-   c(min_matsize)
-   c(max_macrolen)
-   c(macrolen)
-   c(max_cmdlen)
-   c(cmdlen)
-   c(namelen)
-   c(eqlen)
-   // numeric and string limits
-   c(mindouble)
-   c(maxdouble)
-   c(epsdouble)
-   c(smallestdouble)
-   c(minfloat)
-   c(maxfloat)
-   c(epsfloat)
-   c(minlong)
-   c(maxlong)
-   c(minint)
-   c(maxint)
-   c(minbyte)
-   c(maxbyte)
-   c(maxstrvarlen)
-   c(maxstrlvarlen) // new in Stata 13 
-   c(maxvlabellen) // new in Stata 13 
-   // current dataset
-   c(N)
-   c(k)
-   c(width)
-   c(changed)
-   c(filename)
-   c(filedate)
-   // memory
-   c(memory)
-   c(maxvar)
-   c(matsize)
-   c(niceness) // new in Stata 12
-   c(min_memory) // new in Stata 12
-   c(segmentsize) // new in Stata 12
-   // output
-   c(more)
-   c(rmsg)
-   c(dp)
-   c(linesize)
-   c(pagesize)
-   c(logtype)
-   c(noisily)
-   c(charset) // new in Stata 13 mac only
-   c(eolchar)
-   c(notifyuser)
-   c(playsnd)
-   c(icmap) // obsolete in Stata 10
-   c(include_bitmap) // mac only new in Stata 12
-   c(level)
-   c(showbaselevels) // new in Stata 11.1
-   c(showemptycells) // new in Stata 11.1
-   c(showomitted) // new in Stata 11.1
-   c(fvlabel) // new in Stata 13
-   c(fvwrap) // new in Stata 13
-   c(fvwrapon) // new in Stata 13
-   c(lstretch) // new in Stata 12
-   c(cformat) // new in Stata 11.1
-   c(sformat) // new in Stata 11.1
-   c(pformat) // new in Stata 11.1
-   c(coeftabresults)  // new in Stata 13 
-   // interface
-   c(dockable)
-   c(dockingguides)
-   c(floatresults) // obsolete in Stata 10 or so
-   c(floatwindows) // obsolete in Stata 10 or so
-   c(locksplitters)
-   c(persistfv)  // obsolete in Stata 12
-   c(persistvtopic) // obsolete in Stata 12
-   c(pinnable)
-   c(doublebuffer)
-   c(reventries)
-   c(fastscroll) // not platform dep in Stata 10, Unix-only in 11
-   // Unix/Win only in 12
-   c(revwindow) // obsolete in Stata 11 
-   c(revkeyboard)
-   c(varwindow) // obsolete in Stata 11 
-   c(varkeyboard)
-   c(smoothfonts)
-   c(use_qd_text) // obsolete in Stata 11 
-   c(smoothsize) // obsolete in Stata 11 
-   c(use_atsui_graph) // obsolete in Stata 11 
-   c(linegap)
-   c(scrollbufsize)
-   c(varlabelpos) // looks to be obsolete in Stata 11
-   c(maxdb)
-   /* obsolete in Stata 10 */
-   c(smalldlg)
-   c(xptheme)
-   // graphics
-   c(graphics)
-   c(autotabgraphs)
-   c(scheme)
-   c(printcolor)
-   c(copycolor)
-   c(macgphengine)
-   c(piccomments)
-   // efficiency
-   c(adosize)
-   c(virtual)  // obsolete in Stata 12
-   // network
-   c(checksum)
-   c(timeout1)
-   c(timeout2)
-   c(httpproxy)
-   c(httpproxyhost)
-   c(httpproxyport)
-   c(httpproxyauth)
-   c(httpproxyuser)
-   c(httpproxypw)
-   // update settings (not in Unix yet)
-   c(update_query)
-   c(update_interval)
-   c(update_prompt)
-   // trace settings
-   c(trace)
-   c(tracedepth)
-   c(tracesep)
-   c(traceindent)
-   c(traceexpand)
-   c(tracenumber)
-   c(tracehilite)
-   // mata
-   c(matastrict)
-   c(matalnum)
-   c(mataoptimize)
-   c(matafavor)
-   c(matacache)
-   c(matalibs)
-   c(matamofirst)
-   // other settings
-   c(type)
-   c(maxiter)
-   c(searchdefault)
-   c(seed)
-   c(version_rng) // new in Stata 11.2
-   c(varabbrev)
-   c(emptycells) // new in Stata 12
-   c(haverdir) // new in Stata 13 
-   c(odbcmgr)
-   c(`foo')
-   // other (uh notsettings?)
-   c(pi)
-   c(alpha)
-   c(ALPHA)
-   c(Mons)
-   c(Months)
-   c(Wdays)
-   c(Weekdays)
-   c(rc)
-   "`c(pi)'"
-
-   /* end of that mess */
-   _datasig
-   _datasignature
-   #d cr
-#delimit ;
-
-   this is another command;
-   this is fine
-     this is fine, too;
-   this is ok;
-#delimit cr
-   this is ok /// this should look like a comment
-     this is indented as a continuation
-   here is something // this is a comment
-   this is fine
-   
-#delimit ;
-   
-   this is funny?;
-   this
-     
-     /* this */
-     command
-     continuation;
-   
-   this is a test /// this is a comment
-     this is not a comment /// some more comments
-     this is fine!;
-   
-   this is OK;
-   
-   commands 
-     this should behave as a continuation?;
-   this is a new line;
-   if this==that {;
-      this is an if clause
-        another continuation;
-      };  
-   foo;       glue; silly;
-   this is a continuation, it should indent properly
-     this is ok;
-   
-   if this | that {;
-      indent;
-      }; 
-   whooie!
-     continuation;
-   
-   
-#delimit cr
-   
-   this "#delim ;" is inside quotations, and hence is invalid
-
-   if {
-      test
-      }   
-   
-#delimit cr
-
-   /* all the dialog stuff is in syntax_tester.dlg, because the dlg stuff should really
-   be a separate mode ... ugh */
-
-   discard
-   di dis disp displ displa display
-   display as text
-   display as txt
-   display as res
-   display as result
-   display as err
-   display as error
-   display as inp
-   display as input
-   display in smcl
-   display _asis
-   display _s(4)
-   display _skip(3)
-   display _col(4)
-   display _column(2)
-   display _n // displays as a constant because of system constant _n 
-   display _new(3)
-   display _newline(3)
-   display _newline 
-   display _c
-   display _continue
-   display _d(4)
-   display _dup(3)
-   display _r(fuggy)
-   display _request(jiminy)
-   display _char(4)
-   display in blue
-   display in red
-   display in yellow
-   
-
-   /* ereturn... */
-   eret loc bleen
-   eret loca
-   eretu sca
-   eretur scalar bloor
-   ereturn mat freen
-   eret matrix
-   eretu clear
-   ereturn `foo' // should fail
-   eretur li
-   ereturn list
-   eret post
-   eretu repost
-   eretur di
-   ereturn display
-
-   /* number not highlighted, because it can be an expression */
-   err 444
-   error 666
-
-   _est h
-   _esti hold
-   _estim u
-   _estima unhold
-   _estimat dir
-   _estimate clear
-   _estimates drop
-   _estimates `foo' // fails...should it?
-   
-   e // why is this a valid abbrev?
-   exit
-
-   file open
-   file r
-   file read
-   file w
-   file write
-   file seek
-   file set
-   file close
-   file q
-   file query
-
-   findfile
-
-   foreach bleen // incomplete
-   foreach grue in shadows {
-      }
-   foreach bleen of loc hooie {
-      }
-   foreach mike of local frantie {
-      }
-   foreach small of glo biggie {
-      }
-   foreach big of global smallie {
-      }
-   foreach var of var thevars {
-      }
-   foreach var of varlist thevars {
-      }
-   foreach makeme of new newvarlist {
-      }
-   foreach makeme of newlist newvarlist {
-      }
-   foreach number of num somenumlist {
-      }
-   foreach number of numlist somenumlist {
-      }
-   forv // incomplete
-   forvalues bleen // incomplete
-   forv fooie=1/4 {
-      }
-   forvalues aNum = 2(3)14 {
-      }
-
-   fvexpand
-
-   gettoken foo : griminy, parse(" ,")
-   gettoken bleeble bauble : foo, parse(",")
-   gettoken foo 1 : bubble
-   gettoken foo 0 : 0, parse(" ")
-   gettoken (local) foo: complex
-   gettoken (global) hey ho   : ho
-   gettoken (local) bleen (global) hooie : gomp
-   gettoken (local) bleen (local) bling : how
-
-   if foo fuggy // because of the missing brace 
-   if `this' that
-   if `those' {
-      something
-      }
-   if foo {
-      fuggy
-      }
-   else `fortuna' // missing right brace
-   else frantabulous
-   else {
-      frantabulous
-      }
-   // should not highlight as command
-   bleen else bling
-
-   include somefile.doh
-
-   javacall // new in Stata 13 
-   
-   levelsof
-
-   /* macro stuff */
-   gl fooie
-   global fooie
-   global `l`fooie''
-   display $fooie
-   display $`bleen' // skip the highlight? 
-   lo hmm // should be bad, because minabbrev is loc
-   loc ``ooie''
-   local fooie
-   tempvar ding
-   tempvar tmp1 foo4 
-   tempname dong
-   tempname ding dong
-   tempfile the
-   tempfile this is a test of many files
-   /* right */
-   loc ++witch
-   local --is
-   /* wrong --- will highlight with obsolete */
-   loc which--
-   local wrong++
-   /* right, though this points to the need for highlighting operators */
-   display `foo++'
-   display `++foo'
-   display `--foo'
-   display `--`foo''
-   display `+++foo' // wrong
-   macro define bleen // obsolete
-   ma di
-   macro dir
-   ma drop bleen
-   macro drop 123 // illegal name
-   ma l
-   macro list
-   ma s
-   macro shift
-
-   glo fooey : properties
-   glo dingle : ty
-   global dingle : type
-   loc dingle : f
-   local dingle : format
-   gl h : val lab
-   global h : value label
-   loc h : var l
-   local h: variable label
-   gl h : data l
-   global h: data label
-   local h: sort
-   local h: sortedby
-   loc h : lab
-   local h : label
-   gl h : constraint
-   global h: constraint
-   loc h : char
-   local h: char
-   gl h : permname
-   global h : permname
-   local durn: adosubdir "howdy"
-   loc h : dir
-   local h: sysdir
-   gl h : env
-   global h : environment
-   loc h : e(scalars)
-   local h : e(macros)
-   gl h: e(matrices)
-   global h: e(functions)
-   loc h : r(scalars)
-   local h : r(macros)
-   gl h: r(matrices)
-   global h: r(functions)
-   loc h: s(macros)
-   global h: all globals
-   global h: all scalars
-   loc h: all matrices
-   local h: all numeric scalars
-   local h: all string scalars
-   local h: all scalars
-   local h: di
-   local h: display
-   gl h : list
-   global h : rown
-   gl h : rownames
-   local h : coln
-   local h :colnames
-   local h : rowf
-   local h : rowfullnames
-   local h : colf
-   local h : colfullnames
-   local h : rowe
-   local h : roweq
-   local h : cole
-   local h : coleq
-   glo foo: tsnorm
-   local g : copy loc
-   local h : copy local
-   local h : copy gl
-   local b : copy global
-   local h : word // should fail
-   local h : word count
-   /* maybe should change the number highlight? */
-   loc h : word 43 of
-   local h : word `foo' of bar
-   /* should fail */
-   local h : word me of you 
-   local h : piece
-   local h : length loc
-   local h : length local
-   local h : length gl
-   local h : length global hii
-   local h : subinstr gl
-   local h : subinstr global hi
-   local h : subinstr loc ho
-   local h : subinstr local
-   /* these have become undocumented  */
-   local h : tempv
-   local h : tempvar
-   local h : tempf
-   local h : tempfile
-   
-   /* macro lists */
-
-   loc foo : list uniq bar
-   global foo : list dups bar
-   glob foo: list sort bar
-   loca foo : list retok bar
-   local foo:list retokenize bar
-   glo foo : list clean bar
-   glob foo : list a | b // perhaps operator highlighting would be good
-   globa foo: list c & d
-   global foo : list ding - dong
-   global foo: list this == that
-   global foo: list this === that
-   loc foo: list hey in ho // perhaps 'in' should highlight as operator?
-   local foo: list sizeof hey
-   local foo: list posof "this is something" in hooie
-
-   /* ahh the macros are over */
-
-   makecns a
-   matcproc a b // should not highlight because 3 matrices are needed
-   matcproc a b c
-
-   marksample hooie // hooie is a macro name
-   mark
-   markout
-   markin
-   svymarkout fiem // fiem is a variable name
-
-   matlist
-   
-   /* matrix commands */
-   mat ac m
-   matr accum matt
-   matri glsa matt
-   matrix glsaccum matt
-   mat opaccum matt
-   matrix veca matt
-   matrix vecaccum matt
-
-   /* not listed but still accepted */
-   matr makeCns foo // should be obsolete 
-   matri dispCns // should be obsolete
-
-   /* dangerous keyword highlighting which is unavoidable */
-   mat def foo
-   mat defin
-   mat foo
-   mat `foo'
-   mat define bleen
-   matrix in
-   mat in blam
-   mat input bling
-   matrix jjj
-
-   mat dis foo
-   matrix dissimilarity bleen
-   
-   mat eigenval vgy mmk
-   mat eigenvalues bleeble blob 
-   /* nothing for matrix get */
-   mat_put_rr bling
-   
-   mkmat
-   svmat fooey
-   svmat double noodle
-   matname foo
-
-   mat rown njk = kjj
-   matrix rownames rrr = ccc
-   mat coln ccc = rrr
-   matrix colnames ccc = rrr
-   mat rowe hi = ho
-   mat roweq ho = hi
-   mat cole ho = hi
-   mat coleq ho = hi
-
-   mat sco fooey
-   matrix score fooey
-
-   mat svd g h j
-
-   mat syme jwjwk foo
-   matrix symeigen jwjwk foo
-
-   matrix d
-   matrix dir
-   mat l bleen
-   matrix list bleen
-   matrix ren foo bar
-   matrix rename foo bar
-   /* !! not quite right, but I'm really stumped. */
-   matrix drop   mat1 mat2 mat3 mat4
-   matrix drop _all
-   matrix `foo' // no real way to highlight, because `foo' could be matrix or subcommand
-   
-   /* phew, matrix is finally done */
-
-   mor
-   more
-
-   numlist
-
-pause on
-pause off
-pause "fuggy"
-
-   /* don't know what would be different here */
-   program fooey, plugin
-      /* hmm.... */
-   end
-   
-   postfile
-   post
-   postclose
-   postutil dir
-   postutil clear
-
-   _predict
-   preserve
-   restore
-   
-   pr def foo
-      pro bar
-         "this is a string"
-         display "local freddy hunh?"
-      end
-   end
-   
-
-   /* should fix the following (doesn't need to be flush left
-   the problem really is that since define is now optional, it is hard
-   for the syntax to be corrected */
-   pr di
-   program dir
-
-   program drop fooie
-   pr l fooie
-   program list fooie 
-
-   // putexcel new in Stata 13
-   putexcel
-   putexcel set
-   putexcel describe
-   putexcel clear   
-   
-   qui blah
-   quietly {
-      n bling
-      noisily blang
-      }
-   set ou p
-   set output proc
-   set output i
-   set ou inform
-   set ou e
-   set output error
-
-   _ret hold
-   _retu res
-   _retur restore
-   _return drop
-   _return dir
-   _return `foo'
-
-   // return and its relatives
-   return `foo' // highlights like mata
-   ret li
-   ret clear
-   retu sca foo
-   return sca foo
-   ret loc foo
-   return local foo
-   /* the third item ought to be a matrix */
-   ret mat matt hhh
-   return matrix matt mmm
-   ret add
-   return add
-
-   eretu li
-   eretur list
-   eret clear
-   ereturn clear
-   eret post m1 m2
-   ereturn post
-   eret sca
-   ereturn scalar
-   eret loc foo
-   ereturn local foo
-   eretu mat short
-   ereturn matrix bleen
-   eret repost
-   ereturn repost
-
-   sretu li
-   sreturn list
-   sret clear
-   sret loc foo
-   sreturn local foo
-   /* end return commands */
-   
-   _rmcoll
-   _rmdcoll
-
-   set r on
-   set rmsg on
-   set rmsg off
-   
-   _robust
-
-   /* sca is an ambiguous abbreviation sc for scatterplot and sca for scalar ! */
-   sca foo
-   scalar define foo
-   scalar foo
-   scalar di
-   scalar dir
-   sca l
-   sca list 
-   scalar drop
-
-   /* serset commands */
-
-   serset cr
-   serset create
-   serset create_xmedians
-   serset create_cspline
-   serset set
-   serset sort
-   serset su
-   serset summarize
-   serset
-   serset use
-   serset reset_id
-   serset drop
-   serset clear
-   serset dir
-   file sersetwrite 
-   file sersetread
-
-   /* oops - Stata has extended macro functions just for serset */
-
-   loc foo: serset id
-   loc foo: serset k
-   loc foo: serset N
-   loc foo: serset varnum
-   glo foo: serset type
-   glo foo: serset format
-   glo foo: serset varnames
-   glo foo: serset min
-   glo foo: serset max
-
-   signestimationsample
-   checkestimationsample
-   
-   sleep
-
-   /* smcl */
-
-   INCLUDE help
-   /* syntax 1 and 2 */
-   {sf}
-   {sf:foo}
-   {it}
-   {it:foo}
-   {bf}
-   {bf:bar}
-   {sf should fail} // should fail
-   {sf should:fail} // should fail
-   
-   {input}
-   {input:foo}
-   {error}
-   {error:hahah}
-   {result}
-   {result:shocking}
-   {text}
-   {text:for later reading}
-
-   {inp} // should not fail
-   {inp:foo}
-   {err}
-   {err:hahah}
-   {res}
-   {res:shock}
-   {txt}
-   {txt:later}
-
-   {cmd}
-   {cmd:Go Home!}
-   /* hybrid syntax */
-   {cmdab:this:that}
-
-   /* no checking for bad opt syntax */
-   {opt fooey}
-   {opt foo(bar)}
-   {opt foo(bar,yah)}
-   {opt foo(bar|yah)}
-   {opt foo:bar}
-   {opt foo:bar(3)}
-   {opt foo:bar(from,to)}
-   {opt foo:bar(this|that)}
-   {opt foo(a,)} // really is wrong, but hey...
-
-   /* syntax 1 & 2 */
-   {hilite}
-   {hilite:of the day}
-   {hi}
-   {hi:how are you}
-
-   /* syntax 2 & 3 */
-   {ul on}
-   {ul:is no. 1 in basketball}
-   {ul off}
-   {ul bogus} // should fail
-
-   /* syntax 2 & 3 (book says 2 & 4 but illustrates with 2 & 3) */
-   {*:comment}
-   {* this is a comment}
-
-   {hline}
-   {hline 20}
-   {hline bogus} // should fail 
-   {.-}
-   {hline `this'}
-
-   {dup 23:some}
-   {dup `foo':some}
-   {dup bogus:some} // should fail 
-
-   {c 666}
-   {char 333}
-   {char bogus}
-
-   {reset}
-   
-   /* link commands.... */
-   {help someword}
-   {help someword:clickable phrase}
-   {helpb bold}
-   {helpb bold:hack}
-   {manhelp unix GS}
-   {manhelp unix GS:eunuchs}
-   {manhelp damn G:its own syntax}
-   {manhelpi fooey Q:cakes}
-   /* these should fail */
-   {manhelp unix} // should fail 
-   {manhelp this should fail:if I had time} // should fail 
-   {manhelpi fooey} // should fail 
-   /* need yet another @#@#$@ syntax for this hack */
-   {help stata##anchors}
-   {help stata##anchor|viewer}
-   {help stata##anchor:subtext}
-   {help stata##anchor|viewer:subtext}
-   {marker jumphere}{...}
-   {marker ...}
-   {help_d:fooie}
-
-   {newvar}
-   {newvar:13}
-   {var}
-   {var:fooey}
-   {varname}
-   {varname:fooey}
-   {vars}
-   {vars:huey duey looie}
-   {varlist}
-   {varlist: huey duey looie}
-   {depvar}
-   {depvar:fooey gooey}
-   {depvars}
-   {depvars: ha ho}
-   {depvarlist}
-   {depvarlist: hee high ho}
-   {indepvars}
-   {indepvars: hoo who}
-   {ifin}
-   {weight}
-   {dtype}
-   {search goofay}
-   {search goofus galant:clickable}
-   {search_d:fooey}
-
-   {dialog hello}
-   {dialog hellp:clickable}
-   {browse fooey}
-   {browse fooey:click}
-   {view fooey}
-   {view fooey:click}
-   {view_d:hahah}
-   {manpage docs}
-   {manpage docs:awfully unixy}
-   {mansection dopey}
-   {mansection dopey:droopy}
-   {manlink hahahah}
-   {manlinki R summarize}
-   
-   {news:is bad}
-   {net fishing}
-   {net fishing:wide}
-   {net_d fail} // should fail
-   {net_d:hello}
-   {netfrom_d:howdydoody}
-   {ado foo}
-   {ado foo:bar}
-   {ado_d : bar}
-   {update howdy}
-   {update howdy:doody}
-   {update_d:morning}
-   {back:and forth}
-   {clearmore:fooey}
-   {stata corp}
-   {stata corp:click}
-   {matacmd arrg}
-   {matacmd arrg:ahoy}
-   /* for line mode */
-   {title:howdy doody}
-   {center:middle}
-   {centre:muggle}
-   {center 35:bleen}
-   {centre 42:voldemort}
-   {center bogus:haha} // should fail
-   {rcenter:teehee}
-   {rcentre 33:friday!}
-
-   {right:wing neocon}
-   {lalign 69:ihtfp}
-   {ralign 666:nationalist}
-   // dlgtab is a pain b/c of 1 or 2 possible numbers
-   {dlgtab 34:fooey}
-   {dlgtab 4 2: hello} // should change numbers to variable-face
-   {dlgtab 1 2 3: fails}
-   {dlgtab : fooey}
-   {...}
-   {col bogus} // should fail 
-   {col 32}
-   {col `this'}
-   {space bogus} // should fail 
-   {space 43}
-   {tab}
-
-   /* for paragraph mode */
-   {p}
-   {p 4}
-   {p bogus} // should fail 
-   {p `hoo'}
-   {p 3 4}
-   {p 3 `foo' 5}
-   {p 3 4 5 oh no} // should fail 
-   /* uh oh, all sorts of equivalent directives */
-   {pstd}
-   {psee}
-   {phang}
-   {pmore}
-   {pin}
-   {phang2}
-   {pmore2}
-   {pin2}
-   {phang3}
-   {pmore3}
-   {pin3}
-   // back to odd syntax directives
-   {p_end}
-   {p2colset 1 2 `foo' 4}
-   {p2colset 1 2 3 4 5} // should fail 
-   {p2col 1 2 3 4:something goes here}
-   {p2col: something goes here}
-   {p2col 1 2:this is bad}
-   {p2line 1 2}
-   {p2line}
-   {p2line 1 2 `bad'}
-   {p2colreset}
-   {p2colset 1 2 3 4}
-   {p2col 2 3 4 5: fooey}
-   {p2col : first col} // should fail ?
-   {p2colreset}
-   {synoptset}
-   {synoptset 6}
-   {synoptset `foo'}
-   {synoptset 5 tabbed}
-   {synoptset 12 notes}
-   {synoptset 5 6} // should fail 
-   {synopthdr}
-   {synopthdr: damn}
-   {syntab: this}
-   {synopt: is}
-   {p2coldent: no fun}
-   {synoptline}
-   {bind:all this together}
-   {break}
-   // other odd modes
-   {asis}
-   {s6hlp}
-   {ccl pi}
-   {ccl current_date}
-   // looks nice below, but not really full of testing
-   {char 7}
-   {c S|}
-   {c -}
-   {c |}
-   {c +}
-   {c TT}
-   {c BT}
-   {c LT}
-   {c RT}
-   {c TLC}
-   {c TRC}
-   {c BRC}
-   {c BLC}
-
-   // smcl allowed in graphs shown with the graph-specific stuff
-   // smcl found in help files which is not documented
-   {vieweralsosee "somename" "help somename"}
-   {viewerdialog "somename" "help that"}
-   {viewerjumpto "this" "help this"}
-   
-   /* end smcl, finally */
-
-   args mac mactheknife
-   args foo
-   args foo1 foo2 foo3 foo4
-
-   /* syntax */
-   /* no attempt to get this to fontify properly, sadly enough, because there really is no grammar to the syntax statement */
-   syntax
-
-   varlist
-   varname
-   newvarlist
-   newvarname
-   exp
-   weight
-   if
-   in
-   using
-   options
-
-   /* back to things I can handle */
-   sysdir
-   sysdir l
-   sysdir list
-   sysdir set
-   personal
-   personal dir
-   adopath
-   // no subcommand highlighting...
-   adopath + dingle 
-   adopath ++ freeble
-   adopath - foo
-   set a 30
-   set adosize 99
-
-   tabdisp
-
-   timer clear
-   timer clear 3
-   timer on 4
-   timer off 14
-   timer list 55
-   timer off // should fail 
-
-   token tokeni tokeniz tokenize
-
-set tr on
-set trace off
-   /* perhaps should add numbers as trailing argument. Some other day. */
-   set traced 44
-   set tracedepth 34
-   set tracee on
-   set traceexpand off
-   set tracesep on
-   set traces off
-   set tracei on
-   set traceindent off
-   set tracen on
-   set tracenumber off
-   set traceh "fooey"
-   set tracehilite "hehe"
-
-   unab lfoo : dingle
-   tsunab lfoo : dongle
-   fvunab bleen: doodle
-
-   unabcmd
-   novarabbrev
-   varabbrev 
-
-   /* more complicated version commands :<( */
-vers 8
-version 12: fooie
-   viewsource
-
-   while foo {
-      this is some stuff
-      }
-   /* window commands... have been moved out of the manual?!?*/
-   /*  so...maintenance will be cut down, because looking at help is bad */
-   /* platform dependencies not highlighted */
-   window
-   win fop
-   window fopen
-   win
-   win fs
-   window fsave
-   window manag // incomplete
-   win man minimize
-   window manage restore
-   win manag prefs // incomplete
-   win man prefs load
-   win man prefs save
-   win man prefs default
-   win man update variable
-   win man associate // windows only
-   win man maintitle // not complete, but last word is indefinite 
-   window man maintitle "fooey" // unix and windows
-   windo manag maintitle reset // unix and windows
-   window man forward // incomplete
-   window manage forward command
-   window manage forward doeditor
-   window manage forward graph
-   window manage forward help
-   window manage forward results
-   window manage forward review
-   window manage forward variables
-   window manage forward viewer
-
-   wind mana print // incomplete
-   win man print graph
-   win man forward graph
-   win man close graph
-   win man rename graph
-
-   win man print viewer
-   win man forward viewer
-   win man close viewer
-
-   win menu // incomplete
-   window m clear
-   win menu append // incomplete
-   win menu append submenu
-   win m append item
-   window menu append separator
-   window menu refresh
-   window menu add_recentfiles
-
-   /* obsolete?? */
-   window menu popout
-   window menu set
-   window menu append popout
-   window menu append   string
-
-   window push
-   
-   windo stop // incomplete
-   window stop stop
-   window stopbox note
-   window stop rusure
-   /* end programming manual */
 
    /* now for some Mata content */
    /* first - all the reserved words */
