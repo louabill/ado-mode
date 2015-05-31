@@ -365,11 +365,7 @@ Not implemented as much more than an experiment. ")
 	;; fracreg commands
 	(list
 	 (concat
-	  (eval-when-compile 
-		(regexp-opt 
-		 '(
-		   "fracreg"
-		   ) 'words))
+	  "\\(\\<fracreg\\>\\)"
 	  "[ \t]+"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -380,25 +376,35 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	;; mgarch commands
-	(list
-	 (concat
-	  (eval-when-compile 
-		(regexp-opt 
-		 '(
-		   "mgarch"
-		   ) 'words))
-	  "[ \t]+"
-	  (eval-when-compile 
-		(regexp-opt 
-		 '(
-		   "ccc"
-		   "dcc"
-		   "dvech"
-		   "vcc"
-		   ) 'words))
-	  end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 ;; mgarch commands
+	 (list
+	  (concat
+	   "\\(\\<mgarch\\>\\)"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"ccc"
+			"dcc"
+			"dvech"
+			"vcc"
+			) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	 ;; mswitch commands
+	 (list
+	  (concat
+	   "\\(\\<mswitch\\>\\)"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"ar"
+			"dr"
+			) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; power commands
 	(list
@@ -3653,7 +3659,7 @@ Not implemented as much more than an experiment. ")
 		   "do" 
 		   "doed" "doedi" "doedit" 
 		   "dotplot"
-		   "ds" "dstdize" "dvech"
+		   "ds" "dstdize" 
 		   "eivreg" "eq" "esizei"
 		   "est" "esti" "estim" "estima" "estimat" "estimate" "estimates" 
 		   "eteffects" "etpoisson" "etregress"
@@ -7016,7 +7022,7 @@ Not implemented as much more than an experiment. ")
 		   "chdir"
 		   "ch" "che" "chel" "chelp" 
 		   "cnr" "cnre" "cnreg" 
-		   "dprobit" "durbina" "dwstat"
+		   "dprobit" "durbina" "dvech" "dwstat"
 		   "ereg" "ereghet"
 		   "fdades" "fdadesc" "fdadescr" "fdadescri" "fdadescrib" "fdadescribe" 
 		   "fdasav" "fdasave" 
@@ -7131,7 +7137,7 @@ Not implemented as much more than an experiment. ")
 		   "cov" "cova" "covar" "covari" "covaria" "covarian" "covarianc" "covariance" 
 		   "cv"
 		   "df" "distances" 
-		   "dur" "durb" "durbi" "durbin" "durbina" "durbinal" "durbinalt" 
+		   "dur" "duration" "durb" "durbi" "durbin" "durbina" "durbinal" "durbinalt" 
 		   "dwa" "dwat" "dwats" "dwatso" "dwatson" 
 		   "eff" "effe" "effec" "effect" "effects" 
 		   "eform"
@@ -7165,7 +7171,7 @@ Not implemented as much more than an experiment. ")
 		   "report"
 		   "res" "resi" "resid" "residu" "residua" "residual" "residuals" 
 		   "rotate" "rotatecompare"
-		   "sargan" "sbknown" 
+		   "sargan" "sbknown" "sbsingle"
 		   "score" "scoret" "scorete" "scoretes" "scoretest" "scoretests" 
 		   "sd" "se" "single" "size" "smc" 
 		   "sta" "stab" "stabl" "stable" 
@@ -7176,7 +7182,8 @@ Not implemented as much more than an experiment. ")
 		   "svyset"
 		   "szr" "szro" "szroe" "szroet" "szroete" "szroeter" 
 		   "table"
-		   "tef" "teff" "teffe" "teffec" "teffect" "teffects" 
+		   "tef" "teff" "teffe" "teffec" "teffect" "teffects"
+		   "transition"
 		   "vce" "vif"
 		   "wcorrelation"
 		   ) 'words))
@@ -7631,6 +7638,7 @@ Not implemented as much more than an experiment. ")
 		 "mi"
 		 "ml"
 		 "misstable"
+		 "mswitch"
 		 "mvtest"
 		 "net"
 		 "note" "notes" 

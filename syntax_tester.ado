@@ -1,4 +1,4 @@
-*! version 1.14.0.0 May 31, 2015 @ 13:58:08
+*! version 1.14.0.0 May 31, 2015 @ 14:19:22
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -4559,10 +4559,13 @@ version 12: fooie
    /* [TS] time series */
    arch
    arfima
+   estat acplot
+   irf
    psdensity
 
    arima
-  
+   estat aroots
+   
    corrgram
    ac
    pac
@@ -4574,8 +4577,10 @@ version 12: fooie
 
    estat acplot
    estat aroots
+   estat sbknown // new in Stata 14
+   estat sbsingle // new in Stata 14 
 
-   dvech
+   dvech  // obsolete in Stata 12 
    fcast c
    fcast com
    fcast compute
@@ -4655,7 +4660,15 @@ version 12: fooie
    irf set
    irf t
    irf table
+   irf table irf
+   irf table oirf
+   irf table dm
+   irf tabl cirf
+   irf tab coirf
    irf tab cdm
+   irf tab fevd
+   irf tab sirf
+   irf tab sfevd
    irf tab foo // foo should fail
 
    mgarch
@@ -4663,6 +4676,13 @@ version 12: fooie
    mgarch dcc
    mgarch dvech 
    mgarch vcc // to here....
+
+   mswitch  // new in Stata 14 
+   mswitch dr
+   mswitch ar
+   
+   estat transition   // new in Stata 14 
+   estat duration     // new in Stata 14 
 
    newey
    pergram
@@ -4701,7 +4721,7 @@ version 12: fooie
    tsrevar
    tsset
 
-   tssmooth
+@@   tssmooth
    
    tssmooth `foo'
    tssmooth breeble // should tssmooth unhighlight?
