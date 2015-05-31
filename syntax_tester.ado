@@ -1,4 +1,4 @@
-*! version 1.14.0.0 May 31, 2015 @ 13:41:42
+*! version 1.14.0.0 May 31, 2015 @ 13:58:08
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -4422,6 +4422,7 @@ version 12: fooie
    estat gof
    estat vce
    /* end estat commands */
+   /* all the -svy whatever- come after the allowable estimation commands */
    /* survey commands as listed in the order of the survey estimation section */
    brr
 
@@ -4516,7 +4517,7 @@ version 12: fooie
    svy linear: gnbreg
    svy bootstrap: logistic
    svy brr: gnbreg
-   brr: irt 1pl @@
+   brr: irt 1pl 
    svy sdr: regress // added in Stata 11.1
    sdr: regress // added in Stata 11.1
    
@@ -4530,8 +4531,22 @@ version 12: fooie
    /* end of the [SVY] survey stats book */
 
    /* [TE] (new in Stata 13 */
+   eteffects  // new in Stata 14 
    etpoisson
    etregress
+   /* stteffects in order of sections, not intro, leave out postest */
+   /* stteffects new in Stata 14 */
+   stteffects
+   stteffects ipw
+   stteffects ipwra
+   stteffects ra
+   stteffects wra
+   /* tebalance new in Stata 14 */
+   tebalance
+   tebalance box
+   tebalance density
+   tebalance overid
+   tebalance summarize
    teffects
    teffects aipw
    teffects ipw

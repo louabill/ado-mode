@@ -879,11 +879,42 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+    ;; the stteffects
+	(list
+	 (concat
+	  "\\(\\<stteffects\\>\\)"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "ipw"
+		   "ipwra"
+		   "ra"
+		   "wra"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+    ;; the tebalance
+	(list
+	 (concat
+	  "\\(\\<tebalance\\>\\)"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "box"
+		   "density"
+		   "overid"
+		   "summarize"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
     ;; the teffects
 	(list
 	 (concat
-	  (eval-when-compile 
-		(regexp-opt '("teffects") 'words))
+	  "\\(\\<teffects\\>\\)"
 	  "[ \t]+"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -3625,7 +3656,7 @@ Not implemented as much more than an experiment. ")
 		   "ds" "dstdize" "dvech"
 		   "eivreg" "eq" "esizei"
 		   "est" "esti" "estim" "estima" "estimat" "estimate" "estimates" 
-		   "etpoisson" "etregress"
+		   "eteffects" "etpoisson" "etregress"
 		   "exlogistic" "expoisson"
 		   "fac" "fact" "facto" "factor" "factormat"
 		   "findfile" "fit"
@@ -7618,7 +7649,8 @@ Not implemented as much more than an experiment. ")
 		 "st_is"
 		 "stopbox"
 		 "stpow" "stpowe" "stpower"
-		 "teffects"
+		 "stteffects"
+		 "tebalance" "teffects"
 		 "timer"
 		 "translator" "transmap"
 		 "tsfilter" "tssmooth" "tsunab"
