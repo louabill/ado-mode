@@ -3069,7 +3069,7 @@ Not implemented as much more than an experiment. ")
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
-	;; the irf functions which are obsolete
+	;; the irf commands which are obsolete
 	(list
 	 (concat
 	  "\\<\\(irf\\)\\>"
@@ -3083,8 +3083,8 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-obsolete-face t))
 
-	;; obsolete varirf functions
-	;; the varirf functions which leave data alone
+	;; obsolete varirf commands
+	;; the varirf commands which leave data alone
 	(list
 	 (concat
 	  "\\<\\(varirf\\)\\>"
@@ -6560,6 +6560,7 @@ Not implemented as much more than an experiment. ")
 	  '(1 ado-mata-function-name-face t))
 	  ;; _ functions... perhaps the _ should be split off?
 
+	;; docx mata functions
 	(list
 	  (concat
 	   "\\b\\(_docx_\\)"
@@ -6582,6 +6583,20 @@ Not implemented as much more than an experiment. ")
 	   "("
 	   )
 	  '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
+	;; pdf* mata class functions (hence the required leading .)
+	(list
+	 (concat
+	  "[.]"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "close"
+		   "save"
+		   "setPageSize"
+		   ) t ))
+	  "("
+	  )
+	 '(1 ado-mata-function-name-face t))
 
 	;; mata commands
 	(list
