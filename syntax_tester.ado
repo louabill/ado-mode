@@ -1,4 +1,4 @@
-*! version 1.14.0.0 June 1, 2015 @ 14:07:55
+*! version 1.14.0.0 June 1, 2015 @ 16:11:20
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -4847,6 +4847,7 @@ version 12: fooie
 
 
    /* now for [M] Mata content, out of order */
+
    /* first - all the reserved words */
    // these *should* have proper highlighting, but the mata
    //   highlighting is not very sophisticated, yet
@@ -5899,9 +5900,9 @@ version /* used elsewhere */
    pathsubsysdir()
    pathsearchlist()
 
-   // Pdf* functions (new in Stata 14)@@
+   // Pdf* functions (new in Stata 14)
    PdfDocument()
-   // uh oh... class declarations
+   // uh oh... class methods
    p.save()
    p.close()
    p.setPageSize()
@@ -5984,7 +5985,7 @@ version /* used elsewhere */
    t.fillStataMatrix()
    t.fillMataMatrix()
    t.fillData()
-   /* end Pdf*
+   /* end Pdf* */
 
 
    pinv()
@@ -6041,24 +6042,30 @@ version /* used elsewhere */
 
    rows()
    cols()
-   length()
+   length() // not obsolete in mata!
 
    rowshape()
    colshape()
 
-   // mata random number stuff
+   // mata random number stuff (much of it similar to Stata)
    runiform()
+   runiformint() // new in Stata 14
    rseed()
+   rngstate() // new in Stata 14 
    rbeta()
    rbinomial()
    rchi2()
    rdiscrete()
+   rexponential() // new in Stata 14 
    rgamma()
    rhypergeometric()
+   rlogistic() // new in Stata 14
    rnbinomial()
    rnormal()
    rpoisson()
    rt()
+   rweibull() // new in Stata 14
+   rweibullph() // new in Stata 14 
 
    runningsum()
    quadrunningsum()
@@ -6259,11 +6266,19 @@ version /* used elsewhere */
 
    /* strdup() is not really a function --- use * */
    strlen()
+   ustrlen()   // new in Stata 14
+   ustrinvalidcnt()  // new in Stata 14
+   udstrlen() // new in Stata 14
    strmatch()
    strofreal()
    strpos()
+   strrpos() // new in Stata 14, mata only
+   ustrpos() // new in Stata 14
+   ustrrpos() // new in Stata 14
    strreverse()
+   ustrreverse() // new in Stata 14
    strtoname()
+   ustrtoname()  // new in Stata 14
    
    strtoreal()
    _strtoreal()
@@ -6273,18 +6288,35 @@ version /* used elsewhere */
    strrtrim()
    strtrim()
 
+   ustrltrim()  // new in Stata 14 
+   ustrrtrim()  // new in Stata 14 
+   ustrtrim()   // new in Stata 14 
+
    strupper()
    strlower()
    strproper()
 
+   ustrupper()  // new in Stata 14 
+   ustrlower()  // new in Stata 14 
+   ustrtitle()  // new in Stata 14 
+
    subinstr()
    subinword()
+
+   usubinstr()  // new in Stata 14 
 
    sublowertriangle()
    _sublowertriangle()
    
    _substr()
+
+   _usubstr() // new in Stata 14 mata only
+   
    substr()
+
+   usubstr()  // new in Stata 14
+
+   udsubstr() // new in Stata 14 mata only
 
    rowsum()
    colsum()
@@ -6344,6 +6376,24 @@ version /* used elsewhere */
    unlink()
    _unlink()
 
+   ustrcompare() // new in Stata 14
+   ustrsortkey() // new in Stata 14
+   ustrcompareex() // new in Stata 14
+   ustrsortkeyex() // new in Stata 14
+
+   ustrfix() // new in Stata 14
+
+   ustrnormalize() // new in Stata 14
+
+   ustrto()    // new in Stata 14 
+   ustrfrom()  // new in Stata 14
+
+   ustrunescape() // new in Stata 14
+   ustrtohex()    // new in Stata 14
+
+   ustrword()      // new in Stata 14 
+   ustrwordcount() // new in Stata 14
+
    valofexternal()
 
    Vandermonde()
@@ -6364,27 +6414,60 @@ version /* used elsewhere */
    // Step 3: setting sheet
    B.add_sheet()
    B.set_sheet()
+   B.set_sheet_gridlines() // new in Stata 14
+   B.set_sheet_merge() // new in Stata 14
    B.clear_sheet()
+   B.delete_sheet() // new in Stata 14 
+   B.delete_sheet_merge() // new in Stata 14 
    B.get_sheets()
    // Step 4: reading/writing info
-   B.set_missing()
    B.get_string()
    B.get_number()
    B.get_cell_type()
    B.put_string()
    B.put_number()
+   B.put_formula() // new in Stata 14
+   B.put_picture() // new in Stata 14 
+   B.set_missing()
+   // Cell Formatting (new in Stata 14)
+   B.set_number_format()
+   B.set_vertical_align()
+   B.set_horizontal_align()
+   B.set_border()
+   B.set_left_border()
+   B.set_right_border()
+   B.set_top_border()
+   B.set_bottom_border()
+   B.set_diagonal_border()
+   B.set_fill_pattern()
+   B.set_column_width()
+   B.set_row_height()
+   // Text formatting (new in Stata 14)
+   B.set_font()
+   B.set_font_bold()
+   B.set_font_italic()
+   B.set_font_strikeout()
+   B.set_font_underline()
+   B.set_font_script()
+   B.set_text_wrap()
+   B.set_shrink_to_fit()
+   B.set_text_rotate()
+   B.set_text_indent()
+   B.set_format_lock()
+   B.set_format_hidden()
    // Utility functions
    B.query()
    B.get_colnum()
+   B.set_keep_cell_format() // new in Stata 14
    B.set_error_mode()
    B.get_last_error()
    foo.get_last_error_message()
+
+   /* end of [M] mata manual */
    
    /* now for some things which give trouble... */
 
-
-   
-   
+  
    /* macros showing up inside other constructions */
    local ding `r(foo)'
    local dong "this is `bramble' and this is `r(foo)'"

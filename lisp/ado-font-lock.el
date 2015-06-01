@@ -4983,7 +4983,8 @@ Not implemented as much more than an experiment. ")
 	  '(1 ado-function-name-face t))
 
 	  ;;
-	  ;; obsolete functions requiring () after them
+	;; obsolete functions requiring () after them
+	;; -length()- is obsolete in Stata but not in Mata(!)
 	(list
 	  (concat
 	   (eval-when-compile 
@@ -5000,7 +5001,7 @@ Not implemented as much more than an experiment. ")
 			"invchi" "invfprob" "invnchi" "invnorm"
 			"itrim"
 			"issym"
-			"length" "lnfact" "lower" "ltrim"
+			"lnfact" "lower" "ltrim"
 			"m" "match"
 			"nchi" "norm" "normd" "normden" "normprob" "npnchi"
 			"proper"
@@ -6553,7 +6554,7 @@ Not implemented as much more than an experiment. ")
 		  "_st_varindex"
 		  "_stata" "_strtoreal" "_sublowertriangle" "_substr" "_svd" "_svd_la" "_svdsv" "_svsolve" "_symeigensystem" "_symeigenvalues"
 		  "_transpose" "_transposeonly"
-		  "_unlink" "_uppertriangle" 
+		  "_unlink" "_uppertriangle" "_usubstr"
 		 ) t))
 	   "("
 	   )
@@ -6583,21 +6584,6 @@ Not implemented as much more than an experiment. ")
 	   "("
 	   )
 	  '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
-	;; pdf* mata class functions (hence the required leading .)
-	(list
-	 (concat
-	  "[.]"
-	  (eval-when-compile
-		(regexp-opt
-		 '(
-		   "close"
-		   "save"
-		   "setPageSize"
-		   ) t ))
-	  "("
-	  )
-	 '(1 ado-mata-function-name-face t))
-
 	;; mata commands
 	(list
 	  (concat
@@ -6637,6 +6623,7 @@ Not implemented as much more than an experiment. ")
 		  "LA_ZHGEQZ" "LA_ZHSEIN" "LA_ZHSEQR" 
 		  "LA_ZTGSEN" "LA_ZTGEVC" "LA_ZTREVC" "LA_ZTRSEN" "LA_ZUNGHR"
 		  "Lmatrix"
+		  "PdfDocument" "PdfParagraph" "PdfTable" "PdfText"
 		  "Re" "Toeplitz" "Vandermonde"
 		  "acosh" "adosubdir" "all" "allof" "any" "anyof" 
 		  "arg" "args"
@@ -6704,14 +6691,15 @@ Not implemented as much more than an experiment. ")
 		 ) 'words))
 	   "("
 	   )
-	  '(1 ado-mata-function-name-face t))
+	 '(1 ado-mata-function-name-face t))
 	(list
 	 (concat
-	   (eval-when-compile 
-		 (regexp-opt 
-       '(
-		  "lefteigensystem" "lefteigensystemselectf" "lefteigensystemselecti" "lefteigensystemselectr"
-		  "leftgeigensystem" "leftgeigensystemelectf" "leftgeigensystemelecti" "leftgeigensystemelectr"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "lefteigensystem" "lefteigensystemselectf" "lefteigensystemselecti" "lefteigensystemselectr"
+		   "leftgeigensystem" "leftgeigensystemelectf" "leftgeigensystemelecti" "leftgeigensystemelectr"
+		   "length"
 		  "liststruct" "lnnormal" "lnnormalden" "lowertriangle" "lud" "luinv" "lusolve"
 		  "makesymmetric" "matexpsym" "matlogsym" "matpowersym" "maxindex"
 		  "mean" "meanvariance" "minindex" "minmax" "missingof" "mkdir"
@@ -6727,7 +6715,7 @@ Not implemented as much more than an experiment. ")
 		  "pi" "pinv"
 		  "polyadd" "polyderiv" "polydiv" "polyeval" "polyinteg" "polymult" "polyroots" "polysolve" "polytrim"
 		  "printf" "pwd"
-		  "range" "rangen" "rmdir" "rmexternal" "rowmax" "rowmissing" "rowscalefactors"
+		  "range" "rangen" "rmdir" "rmexternal" "rngstate" "rowmax" "rowmissing" "rowscalefactors"
 		  "qrd" "qrdp" "qrinv" "qrsolve" 
 		  "quadcorrelation" "quadcross" "quadcrossdev" "quadrant" "quadcolsum" 
 		  "quadmeanvariance" "quadrowsum" "quadrunningsum" "quadsum" "quadvariance" 
@@ -6741,16 +6729,15 @@ Not implemented as much more than an experiment. ")
 		  "solveupper"
 		  "sort" "spline3" "spline3eval" "sprintf"
 		  "st_select" "stata" "statasetversion" "stataversion" 
-		  "stritrim" "strltrim" "strreverse" "strrtrim" "strtoreal" "strtrim" "strlower" "strproper" "strupper"
+		  "stritrim" "strltrim" "strreverse" "strrpos" "strrtrim" "strtoreal" "strtrim" "strlower" "strproper" "strupper"
 		  "sublowertriangle"
 		  "svd" "svdsv" "svsolve" "swap"
 		  "symeigensystem" "symeigensystemselecti" "symeigensystemselectr" "symeigenvalues"
 		  "timer" 
 		  "tokenallowhex" "tokenallownum" "tokenget" "tokengetall" "tokeninit" "tokeninitstata" "tokenoffset" 
 		  "tokenpeek" "tokenrest" "tokens" "tokenset" "tokenpchars" "tokenqchars" "tokenwchars" "transposeonly"
-		  "uniqrows" "unitcircle"
+		  "udsubstr" "uniqrows" "unitcircle" "unlink" "unorder" "uppertriangle"
 		  "valofexternal" "variance" "vec" "vech"
-		  "unlink" "unorder" "uppertriangle"
 		 ) 'words))
 	   "("
 	   )
@@ -6935,20 +6922,45 @@ Not implemented as much more than an experiment. ")
 	   )
 	  '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
 
-	;; mata xl class functions
+
+	;; mata xl class functions and pdf class functions
 	(list
 	  (concat
 	   "\\([.]\\)"
 	   (eval-when-compile 
 		 (regexp-opt 
 		  '(
+		   "addImage" "addLineBreak" "addNewPage" "addParagraph" "addString" "addTable" "addText"
 			"add_sheet"
-			"clear_book" "clear_sheet" "close_book" "create_book"
+			"clearContent" "clear_book" "clear_sheet" "close" "close_book" "create_book"
+			"delete_sheet" "delete_sheet_merge"
+			"fillData" "fillMataMatrix" "fillStataMatrix"
 			"get_cell_type" "get_colnum" "get_last_error" "get_last_error_message" "get_number" "get_sheets" "get_string"
+			"init"
 			"load_book"
-			"put_number" "put_string"
+			"put_formula" "put_number" "put_picture" "put_string"
 			"query"
-			"set_error_mode" "set_missing" "set_mode" "set_sheet"
+			"save"
+			"setBgColor" "setBorderColor" "setBorderWidth" "setBottomSpacing"
+			"setCellBgColor" "setCellBorderWidths" "setCellBottomBorderWidth" "setCellBottomMargin" "setCellColSpan" "setCellColor" "setCellFont" "setCellFontSize" "setCellLeftBorderWidth" "setCellLeftMargin" "setCellMargins" "setCellRightBorderWidth" "setCellRightMargin" "setCellRowSpan" "setCellSpan" "setCellTopBorderWidth" "setCellTopMargin"
+			"setCellContentImage" "setCellContentHAlignment" "setCellContentTable" "setCellContentVAlignment"
+			"setContentHAlignment" "setContentImage" "setCellContentParagraph" "setCellContentString" "setContentTable" "setContentVAlignment"
+			"setColor" "setColumnWidths" "setFirstIndent" "setFont" "setFontSize" "setHAlignment" "setIndentation" "setLeftIndent" "setLineSpace" "setMargins" "setPageSize" "setRightIndent" "setStrikethru" "setSubscript" "setSuperscript" "setTopSpacing" "setTotalWidth" "setUnderline" "setWidthPercent"
+			"set_border" "set_bottom_border"
+			"set_column_width"
+			"set_diagonal_border"
+			"set_error_mode"
+			"set_fill_pattern" "set_font" "set_font_bold" "set_font_italic" "set_font_script" "set_font_strikeout" "set_font_underline" "set_format_hidden" "set_format_lock"
+			"set_keep_cell_format"
+			"set_left_border"
+			"set_horizontal_align"
+			"set_missing" "set_mode"
+			"set_number_format"
+			"set_right_border" "set_row_height"
+			"set_sheet" "set_sheet_gridlines" "set_sheet_merge" "set_shrink_to_fit"
+			"set_text_indent" "set_text_rotate" "set_text_wrap"
+			"set_top_border"
+			"set_vertical_align"
 			) t ))
 	   "("
 	   )
