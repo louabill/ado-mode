@@ -1,4 +1,4 @@
-*! version 1.14.0.0 May 31, 2015 @ 14:19:22
+*! version 1.14.0.0 June 1, 2015 @ 13:05:23
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -92,7 +92,7 @@ version 44
    _coef[bleen]
    _se[freeble]
 
-   /* first... the general reference manuals */
+   /* first... [R] the general reference manuals */
    about
    adjust // obsolete in Stata 11
    adoupdate
@@ -1205,8 +1205,9 @@ set trace off
    rvpplot
 
    /* end subcommand using postestimation */
+   /* end [R] */
 
-   /* from Bayes manual; all initially introduced in Stata 14 */
+   /* from Bayes manual [BAYES]; all initially introduced in Stata 14 */
    bayesmh
    bayesgraph
    bayesgraph matrix
@@ -2888,6 +2889,8 @@ set trace off
    scree // listed as synonym for -screeplot- in Stata 13 manual
    screeplot
 
+   /* end of [MV] manual */
+
    /* [P] programming manual, moved in list in Stata 14 */
    nobreak
    break
@@ -4406,6 +4409,7 @@ version 12: fooie
    sttoct
    stvary
    /* end [ST] manual */
+
    /* from the [SVY] survey data manual */
    /* difficult to order, because of the manual */
    /* not using the intro for ordering */
@@ -4721,7 +4725,7 @@ version 12: fooie
    tsrevar
    tsset
 
-@@   tssmooth
+   tssmooth
    
    tssmooth `foo'
    tssmooth breeble // should tssmooth unhighlight?
@@ -4756,8 +4760,8 @@ version 12: fooie
    /* end var post estimation commands */
    svar
    varbasic
-   /* varfcast is obsolete as of July 23, 2004 */
-   /* varirf is obsolete as of July 23, 2004 */
+   varfcast  // obsolete as of July 23, 2004
+   varirf    // obsolete as of July 23, 2004
    vargranger
    varlmar
    varnorm
@@ -4778,7 +4782,7 @@ version 12: fooie
    wntestb
    wntestq
    xcorr
-   /* end time-series */
+   /* end time-series [TS] */
    
    /* stuff from the crossectional timeseries book */
    /* now called the [XT] longitudinal/panel data book */
@@ -4824,6 +4828,9 @@ version 12: fooie
    xttest0
    xtregar
    xtset
+   xtstreg // new in Stata 14
+   stcurve
+   
    xtsum
    xttab
    xttrans
@@ -4839,7 +4846,7 @@ version 12: fooie
    /* end stuff from [XT] */
 
 
-   /* now for some Mata content */
+   /* now for [M] Mata content, out of order */
    /* first - all the reserved words */
    // these *should* have proper highlighting, but the mata
    //   highlighting is not very sophisticated, yet
@@ -4866,7 +4873,8 @@ version 12: fooie
    
    else /* used elsewhere */
    eltypedef
-   // end /* used elsewhere, commented out here because of indentation */
+   mata
+   end /* used elsewhere, commented out here because of indentation */
    enum
    explicit
    export
@@ -4936,8 +4944,8 @@ version 12: fooie
    vector
 version /* used elsewhere */
    virtual
-   volatile
    void
+   volatile
 
    while /* used elsewhere */ 
    

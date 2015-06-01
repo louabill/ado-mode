@@ -3817,7 +3817,7 @@ Not implemented as much more than an experiment. ")
 		   "xtgee" "xtgls" "xthtaylor" "xtintreg" "xtivreg"
 		   "xtline" "xtlogit"  
 		   "xtnbreg" "xtologit" "xtoprobit" "xtpcse" "xtpoisson" "xtprobit"
-		   "xtrc" "xtreg" "xtregar" "xtset" "xtsum" "xttab" "xttest0" "xttobit" "xttrans"
+		   "xtrc" "xtreg" "xtregar" "xtset" "xtstreg" "xtsum" "xttab" "xttest0" "xttobit" "xttrans"
 		   "zinb" "zip" "ztest" "ztesti"
 		   ) 'words))
 	  end-cmd-regexp )
