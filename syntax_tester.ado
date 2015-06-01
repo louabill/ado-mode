@@ -1,4 +1,4 @@
-*! version 1.14.0.0 June 1, 2015 @ 13:05:23
+*! version 1.14.0.0 June 1, 2015 @ 14:07:55
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -4964,8 +4964,9 @@ version /* used elsewhere */
    end
 
    mata
-   this is mata code (which needs no end statement, as it really needs to be a block, I think.) Sheesh!
-   what about this
+      this is mata code (which needs no end statement, as it really needs to be a block, I think.) Sheesh!
+      what about this
+   end
    
    mata clear
    mata d
@@ -5037,6 +5038,9 @@ version /* used elsewhere */
    ascii()
    char()
 
+   // uchar out of order in Stata 14 manual
+   uchar()
+   
    assert()
    asserteq()
 
@@ -5699,6 +5703,8 @@ version /* used elsewhere */
    lnnormal()
    // binormal
    binormal()
+   // multivariate normal
+   lnmvnormalden()  // new in Stata 14
    // beta
    betaden()
    ibeta()
@@ -5712,21 +5718,27 @@ version /* used elsewhere */
    invbinomial()
    invbinomialtail()
    // chi-squared
-   chi2()
    chi2den()
+   chi2()
    chi2tail()
    invchi2()
    invchi2tail()
    // Dunnett's multiple range (new in Stata 12)
    dunnettprob()
    invdunnettprob()
+   // Exponential (new in Stata 14)
+   exponentialden()
+   exponential()
+   exponentialtail()
+   invexponential()
+   invexponentialtail()
    // F
    Fden()
    F()
    Ftail()
    invF()
    invFtail()
-   // Gamma
+   // Gamma and inverse gamma
    gammaden()
    gammap()
    gammaptail()
@@ -5737,9 +5749,16 @@ version /* used elsewhere */
    dgammapdada()
    dgammapdadx()
    dgammapdxdx()
+   lnigammaden() // new in Stata 14
    // Hypergeometric
    hypergeometricp()
    hypergeometric()
+   // Logistic (new in Stata 14)
+   logisticden()
+   logistic()
+   logistictail()
+   invlogistic()
+   invlogistictail()
    // Negative binomial
    nbinomialp()
    nbinomial()
@@ -5751,19 +5770,24 @@ version /* used elsewhere */
    nibeta()
    invnibeta()
    // Noncentral chi-squared
+   nchi2den() // new in Stata 14
    nchi2()
+   nchi2tail()  // new in Stata 14
    invnchi2()
+   invnchi2tail()  // new in Stata 14 
    npnchi2()
    // Noncentral F
-   nF() // new in Stata 13 
    nFden()
+   nF() // new in Stata 13 
    nFtail()
+   invnF() // new in Stata 14 
    invnFtail()
    npnF() // new in Stata 13
    // noncentral t (all new in Stata 13)
-   nt()
    ntden()
+   nt()
    nttail()
+   invnt() // new in Stata 14 
    invnttail()
    npnt()
    // Poisson
@@ -5773,15 +5797,27 @@ version /* used elsewhere */
    invpoisson()
    invpoissontail()
    // Student's t
-   t() // new in Stata 13
    tden()
+   t() // new in Stata 13
    ttail()
    invt() // new in Stata 13 
    invttail()
    // Tukey Studentized Range (new in Stata 12)
    tukeyprob()
    invtukeyprob()
-
+   // Weibull (new in Stata 14)
+   weibullden()
+   weibull()
+   weibulltail()
+   invweibull()
+   invweibulltail()
+   // Weibull proportional hazards (new in Stata 14)
+   weibullphden()
+   weibullph()
+   weibullphtail()
+   invweibullph()
+   invweibullphtail()
+   
    /* phooey, optimize to the max */
    optimize_init()
    optimize_init_which()
@@ -5862,6 +5898,94 @@ version /* used elsewhere */
    pathlist()
    pathsubsysdir()
    pathsearchlist()
+
+   // Pdf* functions (new in Stata 14)@@
+   PdfDocument()
+   // uh oh... class declarations
+   p.save()
+   p.close()
+   p.setPageSize()
+   p.setMargins()
+   p.setHAlignment()
+   p.setLineSpace()
+   p.setBgColor()
+   p.setColor()
+   p.setFont()
+   p.addImage()
+   p.addParagraph()
+   p.addTable()
+   p.addNewPage()
+   p.addLineBreak()
+
+   PdfParagraph()
+   p.addString()
+   p.addText()
+   p.clearContent()
+   p.setFirstIndent()
+   p.setLeftIndent()
+   p.setRightIndent()
+   p.setTopSpacing()
+   p.setBottomSpacing()
+   p.setBgColor()
+   p.setColor()
+   p.setFont()
+   p.setFontSize()
+   p.setUnderline()
+   p.setStrikethru()
+   p.setHAlignment()
+   p.setLineSpace()
+
+   PdfText()
+   t.setBgColor()
+   t.setColor()
+   t.setFont()
+   t.setFontSize()
+   t.setUnderline()
+   t.setStrikethru()
+   t.setSuperscript()
+   t.setSubscript()
+   t.addString()
+   t.clearContent()
+
+   PdfTable()
+   t.init()
+   t.setTotalWidth()
+   t.setColumnWidths()
+   t.setWidthPercent()
+   t.setIndentation()
+   t.setHAlignment()
+   t.setBorderWidth()
+   t.setBorderColor()
+   t.setTopSpacing()
+   t.setBottomSpacing()
+   t.setCellContentString()
+   t.setCellContentParagraph()
+   t.setCellContentImage()
+   t.setCellContentTable()
+   t.setCellContentHAlignment()
+   t.setCellContentVAlignment()
+   t.setCellBgColor()
+   t.setCellBorderWidths()
+   t.setCellLeftBorderWidth()
+   t.setCellRightBorderWidth()
+   t.setCellTopBorderWidth()
+   t.setCellBottomBorderWidth()
+   t.setCellMargins()
+   t.setCellLeftMargin()
+   t.setCellRightMargin()
+   t.setCellTopMargin()
+   t.setCellBottomMargin()
+   t.setCellFont()
+   t.setCellFontSize()
+   t.setCellColor()
+   t.setCellSpan()
+   t.setCellRowSpan()
+   t.setCellColSpan()
+   t.fillStataMatrix()
+   t.fillMataMatrix()
+   t.fillData()
+   /* end Pdf*
+
 
    pinv()
    _pinv()
