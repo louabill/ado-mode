@@ -31,7 +31,7 @@ Dim $pasteMe
 if $numArgs = 0 Then
 	badFirstArg("")
 Else
-	$doThis = $CmdLine[1]	
+	$doThis = $CmdLine[1]
 	if ($doThis <> "command") AND ($doThis <>  "menu") AND ($doThis <> "dofile") AND ($doThis <> "include") Then
 		badFirstArg($doThis)
 	EndIf
@@ -57,7 +57,7 @@ Else
 				EndIf
 			EndIf
 		EndIf
-	EndIf	
+	EndIf
 EndIf
 
 $pasteMe=ClipGet()
@@ -111,7 +111,7 @@ Next
 Func badFirstArg($badArg)
 	if $badArg="" Then
 		$badArg="nothing"
-	EndIf	
+	EndIf
 	MsgBox(16,"Oh no!","The first argument must be ""command"", ""menu"", or ""dofile""---you had " & $badArg)
 	Exit(2)
 EndFunc
@@ -122,7 +122,7 @@ func errNoStatas($what)
 endFunc
 
 Func doTmpDofile($theStataName, $tmpDoFile, $doThis, $stataInBack)
-	Local $fullTempDo = @TempDir & "\" & $tmpDoFile 
+	Local $fullTempDo = @TempDir & "\" & $tmpDoFile
 	Local $fh = FileOpen($fullTempDo, 2)
 	;; MsgBox(0,"Testing...","Want to submit " & ClipGet() & " to file handle " & $fh)
 	FileWrite($fh,ClipGet() & @CRLF)
@@ -143,17 +143,17 @@ Func doTmpDofile($theStataName, $tmpDoFile, $doThis, $stataInBack)
 	Else
 		if $stataInBack = "" Then
 			WinActivate($theStataName)
-		EndIf	
+		EndIf
 		if $doThis = "dofile" Then
 			sendToCommand($theStataName, "do " & $fullTempDo)
-		Else	
+		Else
 			sendToCommand($theStataName, "include " & $fullTempDo)
 		EndIf
 	EndIf
 EndFunc
 
 Func doViaMenu(ByRef $theStataName)
-	;; Cannot use WinMenuSelectItems, because Stata's menus are not menus, 
+	;; Cannot use WinMenuSelectItems, because Stata's menus are not menus,
 	;;   they are popup controls with no names
 	;; Stata is already frontmost, but be sure
 	;; WinActivate($theStataName)---for whatever reason, this causes an error
@@ -161,7 +161,7 @@ Func doViaMenu(ByRef $theStataName)
 	Sleep(20)
 	if WinExists("[TITLE:User; CLASS:XTPPopupBar]") = 1 Then
 		seterror(1)
-	EndIf	
+	EndIf
 EndFunc
 
 Func createMenuItems(ByRef $theStataName, ByRef $tmpDoFile)
@@ -176,7 +176,11 @@ Func sendToCommand(ByRef $theStataName,byRef $theString)
 ;;  following 2 lines suggested by code from Jeffery Arnold and Matthew Botsch
 ;;    they look a lot like the lines I had commented out before
 	ControlSetText($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString)
-	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", "{ENTER}")	
+	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", "{ENTER}")
+;;  Uhoh, it seems the control type changed in Stata 14
+;;     Should fix to just do one control send, but this will do for now
+	ControlSend($theStataName,"","[CLASS:Scintilla;Instance:1]", $theString,1)
+	ControlSend($theStataName,"","[CLASS:Scintilla;Instance:1]", "{ENTER}")
 ;	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString & "{ENTER}")
 ;	ControlSetText($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString)
 ;	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", "{ENTER}")
@@ -212,7 +216,7 @@ func findMatchingStatas($sInstance="",$sVersion="",$sFlavor="",$strictMatchFlag=
 	Else
 		$sInstance = "\A" & $sInstance & " -"
 	EndIf
-		
+
 	Local $sOptions[3] = [$sInstance, ".*" & $sVersion & ".*", ".*" & $sFlavor & ".*"]
 	$theStatas = WinList("[REGEXPTITLE:(Stata/(IC|SE|MP))|(Small Stata)]")
 	;; _ArrayDisplay($theStatas,"Here are the statas")
@@ -256,5 +260,5 @@ func findMatchingStatas($sInstance="",$sVersion="",$sFlavor="",$strictMatchFlag=
 	Return $matchingStatas
 EndFunc
 
-	
-	
+
+
