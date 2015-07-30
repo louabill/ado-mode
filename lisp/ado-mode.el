@@ -438,7 +438,8 @@ This will make ado-mode load when you open an ado or do file."
 ;  (make-local-variable 'indent-region-function)
 ;  (setq indent-region-function 'ado-indent-function)
   (make-local-variable 'paragraph-start)
-  (setq paragraph-start (concat "$\\|" page-delimiter))
+;; changed June 26, 2015 to same def as from c-mode
+  (setq paragraph-start (concat "[ 	]*\\(//\\|///\\|\\**\\)[ 	]*$\\|^" page-delimiter))
   (make-local-variable 'paragraph-separate)
   (setq paragraph-separate paragraph-start)
   ;; comment definitions
