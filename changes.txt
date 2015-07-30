@@ -1,8 +1,20 @@
 Version History:
 ---------------
+1.14.0.0
+
+* Updated for Stata 14 syntax
+
+* Had to change script for sending text to Stata for Windows to use
+  method equivalent to copy and paste (This happened because of the
+  change of the control type for the Command window to a type which
+  doesn't let its text get set.)
+
+* Updated templates for .ado, .do, and .mata files to use -version 14-
+  commands
+
 1.13.1.1
 
-* Fixed an embarrassing omission in the customization group for ado-mode.
+* Fixed an embarrassing omission in the customization group for ado-mode
 
 * Fixed a small bug with version numbers in non-ado, non-class, non-do
   files
