@@ -1,4 +1,4 @@
-*! version 1.14.0.0 June 1, 2015 @ 16:11:20
+*! version 1.14.0.0 November 5, 2015 @ 22:11:52
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -118,7 +118,17 @@ version 44
    churdle linear        // new in Stata 14 
    churdle exp           // new in Stata 14 
    churdle exponential   // new in Stata 14 
-   ci cii
+   ci cii                // changed in Stata 14.1
+   ci mean
+   ci means
+   ci prop
+   ci proportions
+   ci var
+   ci variances
+   cii mean
+   cii prop
+   cii variances
+   
    clog clogi clogit
    cloglog
    cls

@@ -1,11 +1,11 @@
 ;;; ado-font-lock.el --- all the endless font locking
-;; Copyright (c) 2003--2013
+;; Copyright (c) 2003--2015
 ;; Bill Rising
 ;; Author:   Bill Rising
 ;; Maintainer: Same <brising@alum.mit.edu>
-;;             URL: http://homepage.mac.com/brising
+;;             URL: http://louabill.org/stata
 ;; Keywords: ado-mode
-;; Version:  1.13.1.0 of October 30, 2013
+;; Version:  1.14.1.0 of November 5, 2015
 
 ;; This file is not part of GNU Emacs.
 
@@ -1070,6 +1070,26 @@ Not implemented as much more than an experiment. ")
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
+	;; the ci commands
+	(list
+	 (concat
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "ci" "cii"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "mean" "means"
+		   "prop" "propo" "propor" "proport" "proporti" "proportio" "proportion" "proportions"
+		   "var" "vari" "varia" "varian" "varianc" "variance" "variances"
+		   ) 'words))
+	  end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
 
     ;; the constraint commands
 	(list
@@ -3625,7 +3645,6 @@ Not implemented as much more than an experiment. ")
 		   "cc" "cci" "cchart" "centile" "cf" 
 		   "changeeol"
 		   "checkestimationsample" "checksum" 
-		   "ci" "cii" 
 		   "clog" "clogi" "clogit" "clogitp" "cloglog"
 		   "cls"
 		   "close" "clustermat" "cmdlog" "cmdtool" 
@@ -7636,6 +7655,7 @@ Not implemented as much more than an experiment. ")
 		 "call"
 		 "char"
 		 "churdle"
+		 "ci" "cii" 
 		 "classutil"
 		 "cluster" "clustermat"
 		 "cmdlog"
