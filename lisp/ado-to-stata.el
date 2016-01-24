@@ -1,10 +1,10 @@
 ;;; ado-to-stata.el --- Passing code to a running Stata from emacs
-;; Copyright (c) 2009--2011
+;; Copyright (c) 2009--2016
 ;; Bill Rising
 ;;
 ;; Author:   Bill Rising
-;; Maintainer: Same <brising@mac.com>
-;;             URL: http://homepage.mac.com/brising
+;; Maintainer: Same <brising@alum.mit.edu>
+;;             URL: http://louabill.org/stata
 ;; Keywords: ado-mode
 ;; Version:  0.2 of May 9, 2011
 

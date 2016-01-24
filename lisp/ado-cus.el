@@ -1,5 +1,5 @@
 ;;; ado-mode--cus.el---customization for all things ado-mode
-;; Copyright (c) 2003--2014
+;; Copyright (c) 2003--2016
 ;; Bill Rising
 ;;   the style in which this is written was learned from
 ;;   ultex-cus.el which customizes
@@ -8,7 +8,7 @@
 
 ;; Author:   Bill Rising
 ;; Maintainer: Same <brising@alum.mit.edu>
-;;             URL: http://homepage.mac.com/brising
+;;             URL: http://louabill.org/stata
 ;; Keywords: ado-mode
 ;; Version:  0.16 of 20jan2014
 

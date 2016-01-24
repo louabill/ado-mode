@@ -1,5 +1,11 @@
 Version History:
 ---------------
+1.14.1.0
+
+* Updated -ci- highlighting for new subcommands of -ci-
+
+* Updated all templates to -version 14.1-, even the class template.
+
 1.14.0.0
 
 * Updated for Stata 14 syntax

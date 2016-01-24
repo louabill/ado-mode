@@ -1,8 +1,8 @@
 ;; this is ado-clip.el
-;; Copyright (c) 2009--2012
+;; Copyright (c) 2009--2016
 ;; Author:   Bill Rising
 ;; Maintainer: Same <brising@alum.mit.edu>
-;;             URL: http://homepage.mac.com/brising
+;;             URL: http://louabill.org/stata
 ;; Keywords: ado-mode
 ;; Version:  0.5.1   8oct2012-updated for emacs 24 
 ;; Version:  0.5    11jan2012 (the 0.5 is an arbitrary number)

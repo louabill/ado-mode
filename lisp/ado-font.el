@@ -1,13 +1,13 @@
 ;;; ado-font.el --- simple definition of font faces
-;; Copyright (c) 2003,...,2010
+;; Copyright (c) 2003--2016
 ;; Bill Rising
 ;;   much of this sponged from the ultex-cus.el which customizes
 ;;   the UltraTex mode (highly recommended) by
 ;; Mark Haiman, Nick Reingold, John Palmieri
 
 ;; Author:   Bill Rising
-;; Maintainer: Same <brising@mac.com>
-;;             URL: http://homepage.mac.com/brising
+;; Maintainer: Same <brising@alum.mit.edu>
+;;             URL: http://louabill.org/stata
 ;; Keywords: ado-mode
 ;; Version:  0.11 of July 20, 2010
 

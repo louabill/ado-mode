@@ -1,10 +1,10 @@
 ;; ado-mode.el --- ado mode, and its idiosyncratic commands.
 
-;; Copyright (C) 1996,..., 2014 Bill Rising
+;; Copyright (C) 1996,..., 2016 Bill Rising
 
 ;; Maintainer: Bill Rising, brising at stata dot com
 ;; Keywords: ado-mode, highlighting
-;; Version: 1.13.1.0 of Jan 22, 2014
+;; Version: 1.14.1.0 of Jan 24, 2016
 ;;
 ;; the old version system was 0.stata-version times ten.update
 ;; the new version system is now 1.stataversion.statasubversion.update
@@ -641,7 +641,7 @@ continuation characters."
 		  (setq found-it nil)
 		  (end-of-line)))
 	 (unless found-it
-		(unless (looking-back "[ \t]+")
+		(unless (looking-back "[ \t]+" (point-at-bol))
 		  (insert " "))
 		(insert cont-string)
 		(forward-char (- cont-length)))
