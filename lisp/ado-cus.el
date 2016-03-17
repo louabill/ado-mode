@@ -432,12 +432,12 @@ overlap."
 
 (defcustom ado-stata-home 
   (cond ((string= system-type "darwin") "/Applications/Stata/")
-		((string= system-type "windows-nt") "C:/Program Files/Stata12/")
+		((string= system-type "windows-nt") "C:/Program Files (x86)/Stata14/")
 		(t "/usr/local/stata12"))
   "Set to the location of your Stata executable(s) if you want
 Emacs to launch a particular version of Stata for setting your 
 adopath or if you always launch Stata before sending code from
-Emacs. Defaults to the the typical install location for Stata 12."
+Emacs. Defaults to the the typical install location for Stata 14."
   :type '(choice (const nil) directory)
   :group 'ado-stata-interaction)
 
