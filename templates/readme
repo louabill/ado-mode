@@ -1,0 +1,27 @@
+There are some general rules about templates, if you would like to
+use ado-new-generic to fill them in partially: 
+
+All files are assumed to contain either at least two *! lines or none.
+
+The first *! (if any) should look like
+*! version a.b.c 
+where a.b.c is the default first value you would like. There must be
+a space after the a.b.c.
+
+The second *! should be
+*! 
+with a trailing space. This is where the purpose of the file gets put.
+
+If the name of the file is needed somewhere in the file (such as for
+ado-files or for autologging do-files), put in 
+  putNameHere
+everywhere the name should go.
+
+So that ado-mode knows where to start editing, put a
+  startHere
+in the file. If this is missing, the mode will start at the top of the
+file. 
+
+As a side note: there are many extra .blp files which were useful 15
+or more years ago. I have not removed them because there could be
+someone that still uses them.

@@ -3,10 +3,27 @@ Version History:
 1.14.1.0
 
 * Updated -ci- highlighting for new subcommands of -ci-
+<<<<<<< Updated upstream
+=======
 
-* Updated all templates to -version 14.1-, even the class template.
+* Added a new template called doado.blp. It is for starting a new
+  ado-file within a self-logging do-file so that debugging goes faster. 
 
-1.14.0.0
+* Made the embarrassing fix to the default location of the windows
+  executable. By default, ado-mode assumes that you installed a 64-bit
+  version in Windows.
+
+* Changed the template so that if you tell emacs where Stata lives by
+  setting ado-stata-home, the templates will have the version of your
+  Stata. No more updating templates for each version of Stata.
+>>>>>>> Stashed changes
+
+* Changed the way that templates work, so that it is easier to have more
+  complex templates. If you used the ado-new-generic function to create
+  your own commands for templates, those commands might break. Look at
+  the readme in the templates directory for more information.
+
+ 1.14.0.0
 
 * Updated for Stata 14 syntax
 

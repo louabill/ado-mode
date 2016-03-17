@@ -4,7 +4,7 @@
 
 ;; Maintainer: Bill Rising, brising at stata dot com
 ;; Keywords: ado-mode, highlighting
-;; Version: 1.14.1.0 of Jan 24, 2016
+;; Version: 1.14.1.0 of March 17, 2016
 ;;
 ;; the old version system was 0.stata-version times ten.update
 ;; the new version system is now 1.stataversion.statasubversion.update
@@ -209,6 +209,8 @@
   '("Help file" . ado-new-help))
 (define-key ado-mode-map [menu-bar ado new ado-new-cscript]
   '("Cert script" . ado-new-cscript))
+(define-key ado-mode-map [menu-bar ado new ado-new-doado]
+  '("New program in do-file" . ado-new-doado))
 (define-key ado-mode-map [menu-bar ado new ado-insert-new-program]
   '("Insert new subprogram" . ado-insert-new-program))
 (define-key ado-mode-map [menu-bar ado new ado-new-program]
@@ -687,20 +689,23 @@ continuation characters."
 	(insert "}"))
   )
 
-(defun ado-new-generic (type exten srcstr &optional stayput name purpose cusblp)
-  "Allows overloading the new program to work for ado, class, do, mata and other files"
-  (let (fullname buffullname (keepbuf t))
+(defun ado-new-generic (type exten &optional stayput name purpose cusblp)
+  "Allows overloading the new program to work for ado, class, do, mata and other files."
+  (let (fullname buffullname (keepbuf t) (searchstr "startHere"))
 	(unless name
 	  (setq name (read-from-minibuffer (concat "What is the name of the " type "? "))))
 	(setq fullname (concat name "." exten))
-	(unless purpose
-	  (setq purpose (read-from-minibuffer "What does it do? ")))
 	(setq buffullname
 		  (switch-to-buffer (generate-new-buffer fullname)))
 	(ado-mode)
 	(if cusblp
 		(ado-insert-boilerplate cusblp nil t)
 	  (ado-insert-boilerplate (concat exten ".blp")))
+	(unless purpose
+	  (goto-char (point-min))
+	  (if (search-forward "*!")
+		  (setq purpose (read-from-minibuffer "What does it do? ")))
+	  )
 	(if (and ado-new-dir (not stayput) (not (string= type "do-file")))
 		(if (y-or-n-p "Put in 'new' directory? ")
 			(cd (directory-file-name ado-new-dir))))
@@ -708,27 +713,27 @@ continuation characters."
 		(setq keepbuf (y-or-n-p (concat "File " fullname " already exists! Overwrite?"))))
 	(if keepbuf
 		(progn
-		;;  (ado-mode)
-		  ;; check to see if this is really new
+		  (if (string= ado-version-command "")
+			(ado-reset-version-command))
 		  (goto-char (point-min))
-		  (end-of-line)
-		  (insert (ado-nice-current-date))
-		  (search-forward "*!")
-		  (end-of-line)
-		  (insert purpose)
-		  (if srcstr
-			  (if (string= "do-file" type)
-				  (progn
-					(while (search-forward srcstr nil t)
-					  (replace-match name))
-					(goto-char (point-min))
-					;; awful hack
-					(re-search-forward "^clear[ /t]*\\(all\\)?")
-					(forward-char))
-				(search-forward srcstr)
-				(forward-char)
-				(insert name)))
-		  (re-search-forward "\t" nil t)
+		  (while (search-forward "stata!!version" nil t)
+			(replace-match ado-version-command))
+		  (goto-char (point-min))
+		  (if (search-forward "*!")
+			  (progn
+				(end-of-line)
+				(insert (ado-nice-current-date))
+				(if (search-forward "*!")
+					(progn
+					  (end-of-line)
+					  (insert purpose)
+					  ))))
+		  (goto-char (point-min))
+		  (while (search-forward "putNameHere" nil t)
+			(replace-match name))
+		  (goto-char (point-min))
+		  (while (search-forward searchstr nil t)
+			(replace-match ""))
 		  (if ado-fontify-new-flag (turn-on-font-lock))
 		  ;; .ado, .class, and the outdated .hlp files are the only ones where
 		  ;;     a decent name can be made
@@ -748,7 +753,7 @@ continuation characters."
 directory. The do-file is made to keep its own named log so that it
 can be called by other do-files."
   (interactive)
-  (ado-new-generic "do-file" "do" "putNameHere" stayput name purpose))
+  (ado-new-generic "do-file" "do" stayput name purpose))
 
 (defun ado-new-mata (&optional stayput name purpose)
   "Makes a new buffer by inserting the file mata.blp from the template
@@ -757,7 +762,7 @@ itself. Asks if the file should be saved in the `new' directory. If the
 answer is no, the file will be saved in the current working directory.
 Bound to \\[ado-new-mata]"
   (interactive)
-  (ado-new-generic "mata file" "mata" nil stayput name purpose))
+  (ado-new-generic "mata file" "mata" stayput name purpose))
 
 (defun ado-new-class (&optional stayput name purpose)
   "Makes a new buffer by inserting the file class.blp from the template
@@ -766,7 +771,7 @@ itself. Asks if the file should be saved in the `new' directory. If the
 answer is no, the file will be saved in the current working directory.
 Bound to \\[ado-new-class]" 
   (interactive)
-  (ado-new-generic "class" "class" "class" stayput name purpose)
+  (ado-new-generic "class" "class" stayput name purpose)
   )
 
 (defun ado-new-program (&optional stayput name purpose)
@@ -776,9 +781,19 @@ itself. Asks if the file should be saved in the `new' directory. If the
 answer is no, the file will be saved in the current working directory.
 Bound to \\[ado-new-program]" 
   (interactive)
-  (ado-new-generic "program" "ado" "program define" stayput name purpose))
+  (ado-new-generic "program" "ado" stayput name purpose))
 
 (defalias 'ado-new-ado 'ado-new-program)
+
+(defun ado-new-doado (&optional stayput name purpose)
+"Makes a new buffer by inserting the file doado.blp from the template
+directory, so that a new program is within a do-file for easier debugging.
+Inserts the proper name for the new command and the ado file
+itself. Asks if the file should be saved in the `new' directory. If the
+answer is no, the file will be saved in the current working directory.
+Bound to \\[ado-new-doado]" 
+  (interactive)
+  (ado-new-generic "program" "do" stayput name purpose "doado.blp"))
 
 (defun ado-marker-program ()
   (interactive)
