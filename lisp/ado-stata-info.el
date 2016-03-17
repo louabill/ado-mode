@@ -152,8 +152,7 @@ so it can be `concat'ted directly with a file name."
 	 (t (error "Nothing for unix yet")))
 	(setq tmpLog (concat (ado-system-tmp-dir) "stata.log"))
 	;; visit tmp directory and manipulate the log
-	(save-excursion
-	  (set-buffer (get-buffer-create tmpBuffer))
+	(with-current-buffer (get-buffer-create tmpBuffer)
 	  (insert-file-contents tmpLog nil nil nil t)
 	  ;; need to get rid of nasty \'s from windows paths
 	  (if (string= system-type "windows-nt")
@@ -167,7 +166,7 @@ so it can be `concat'ted directly with a file name."
 	  (unless (search-forward "r(" (point-at-eol) t)
 		  (setq theFile (ado-strip-after-newline (thing-at-point 'line))))
 	  )
-	(kill-buffer tmpBuffer)
+	; (kill-buffer tmpBuffer)
    ; (delete-file tmpLog) ;; left hanging around for checking
 	theFile
 	))

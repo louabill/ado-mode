@@ -1,4 +1,4 @@
-;; ado-mode.el --- ado mode, and its idiosyncratic commands.
+;;; ado-mode.el --- ado mode, and its idiosyncratic commands.
 
 ;; Copyright (C) 1996,..., 2016 Bill Rising
 
