@@ -178,8 +178,9 @@ Func sendToCommand(ByRef $theStataName,byRef $theString)
 	ControlSetText($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString)
 	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", "{ENTER}")
 ;;  Uhoh, it seems the control type changed in Stata 14
-;;     Should fix to just do one control send, but this will do for now
-	ControlSend($theStataName,"","[CLASS:Scintilla;Instance:1]", $theString,1)
+;;    ControlSetText() no longer works... it just puts in the first letter
+	ControlSetText($theStataName,"","[CLASS:Scintilla;Instance:1]", $theString)
+;	ControlSend($theStataName,"","[CLASS:Scintilla;Instance:1]", $theString,1)
 	ControlSend($theStataName,"","[CLASS:Scintilla;Instance:1]", "{ENTER}")
 ;	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString & "{ENTER}")
 ;	ControlSetText($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString)
