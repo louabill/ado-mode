@@ -2,6 +2,10 @@ Version History:
 ---------------
 1.14.1.0
 
+* Made the embarrassing fix to the default location of the windows
+  executable. By default, ado-mode assumes that you installed a 64-bit
+  version in Windows.
+
 * Updated -ci- highlighting for new subcommands of -ci-
 
 * Updated all templates to -version 14.1-, even the class template.

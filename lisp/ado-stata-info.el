@@ -98,9 +98,9 @@ from a new Stata sesson."
 	  )
 	 ((string= system-type "windows-nt")
 	  (cond
-	   ((file-exists-p (concat stataDir "Stata.exe")) (concat stataDir "Stata"))
-	   ((file-exists-p (concat stataDir "StataSE.exe")) (concat stataDir "StataSE.exe"))
-	   ((file-exists-p (concat stataDir "StataMP.exe")) (concat stataDir "StataMP.exe"))
+	   ((file-exists-p (concat stataDir "Stata-64.exe")) (concat stataDir "Stata-64"))
+	   ((file-exists-p (concat stataDir "StataSE-64.exe")) (concat stataDir "StataSE-64.exe"))
+	   ((file-exists-p (concat stataDir "StataMP-64.exe")) (concat stataDir "StataMP-64.exe"))
 	   (t (error (concat "Could not find any Stata in " lookhere))))
 	  )
 	 (t (error "Nothing for unix yet")))
