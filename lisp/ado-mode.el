@@ -696,11 +696,15 @@ continuation characters."
 	  (setq name (read-from-minibuffer (concat "What is the name of the " type "? "))))
 	(setq fullname (concat name "." exten))
 	(setq buffullname
-		  (switch-to-buffer (generate-new-buffer fullname)))
+;		  (switch-to-buffer (generate-new-buffer fullname)))
+		  (set-buffer (generate-new-buffer fullname)))
 	(ado-mode)
 	(if cusblp
 		(ado-insert-boilerplate cusblp nil t)
-	  (ado-insert-boilerplate (concat exten ".blp")))
+	  (ado-insert-boilerplate
+	   (if (and (string= type "program") (string= exten "do"))
+		   "doado.blp"
+		 (concat exten ".blp"))))
 	(unless purpose
 	  (goto-char (point-min))
 	  (if (search-forward "*!")
@@ -737,6 +741,7 @@ continuation characters."
 		  (if ado-fontify-new-flag (turn-on-font-lock))
 		  ;; .ado, .class, and the outdated .hlp files are the only ones where
 		  ;;     a decent name can be made
+		  (switch-to-buffer buffullname)
 		  (if (or
 			   (string= type "ado")
 			   (string= type "class")
@@ -746,7 +751,8 @@ continuation characters."
 			(ado-save-program))
 		  )
 	  (kill-buffer buffullname)
-	  )))
+	  )
+	))
 
 (defun ado-new-do (&optional stayput name purpose)
   "Makes a new do-file by inserting the file do.blp from the template
@@ -793,7 +799,7 @@ itself. Asks if the file should be saved in the `new' directory. If the
 answer is no, the file will be saved in the current working directory.
 Bound to \\[ado-new-doado]" 
   (interactive)
-  (ado-new-generic "program" "do" stayput name purpose "doado.blp"))
+  (ado-new-generic "program" "do" stayput name purpose))
 
 (defun ado-marker-program ()
   (interactive)
