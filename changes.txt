@@ -8,9 +8,28 @@ Version History:
 
 * Updated -ci- highlighting for new subcommands of -ci-
 
-* Updated all templates to -version 14.1-, even the class template.
+* Fixed up sending to Stata for Windows. It seems that the text has to
+  be translated into utf16 for the pasting to work properly. If you have
+  trouble with this, try setting emacs to use utf8 as its encoding.
 
-1.14.0.0
+* Added a new template called testado.blp. It makes a dofile which
+  -includes- the ado file of the same name within a self-logging do-file
+  so that debugging goes faster.   
+
+* Made the embarrassing fix to the default location of the windows
+  executable. By default, ado-mode assumes that you installed a 64-bit
+  version in Windows.
+
+* Changed the templates so that if you tell emacs where Stata lives by
+  setting ado-stata-home, the templates will have the version of your
+  Stata. No more updating templates for each version of Stata.
+
+* Changed the way that templates work, so that it is easier to have more
+  complex templates. If you used the ado-new-generic function to create
+  your own commands for templates, those commands might break. Look at
+  the readme in the templates directory for more information.
+
+ 1.14.0.0
 
 * Updated for Stata 14 syntax
 

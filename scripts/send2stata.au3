@@ -171,6 +171,7 @@ Func createMenuItems(ByRef $theStataName, ByRef $tmpDoFile)
 EndFunc
 
 Func sendToCommand(ByRef $theStataName,byRef $theString)
+   Local $theBin, $newStr
 ;	$theString = StringRegExpReplace($theString,"([+{}!^#])","{\1}",0)
 ;	msgbox(0,"hunh",$theString)
 ;;  following 2 lines suggested by code from Jeffery Arnold and Matthew Botsch
@@ -178,13 +179,13 @@ Func sendToCommand(ByRef $theStataName,byRef $theString)
 	ControlSetText($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString)
 	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", "{ENTER}")
 ;;  Uhoh, it seems the control type changed in Stata 14
-;;    ControlSetText() no longer works... it just puts in the first letter
-	ControlSetText($theStataName,"","[CLASS:Scintilla;Instance:1]", $theString)
+;;    ControlSetText() no longer works... unless things are converted to utf16
+   $theBin = StringToBinary($theString,4)
+   $theBin &= StringRight("0000",Mod(StringLen($theBin),4)+2)
+   $newStr = BinaryToString($theBin,2)
+	ControlSetText($theStataName,"","[CLASS:Scintilla;Instance:1]", $newStr)
 ;	ControlSend($theStataName,"","[CLASS:Scintilla;Instance:1]", $theString,1)
 	ControlSend($theStataName,"","[CLASS:Scintilla;Instance:1]", "{ENTER}")
-;	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString & "{ENTER}")
-;	ControlSetText($theStataName,"","[CLASS:RichEdit20A;Instance:1]", $theString)
-;	ControlSend($theStataName,"","[CLASS:RichEdit20A;Instance:1]", "{ENTER}")
 	if @error Then
 		MsgBox(16,"Oh no!", "Could not send to Command window")
 		exit(666)
@@ -260,6 +261,3 @@ func findMatchingStatas($sInstance="",$sVersion="",$sFlavor="",$strictMatchFlag=
 ;; these are sorted, so it is easy to look at them
 	Return $matchingStatas
 EndFunc
-
-
-

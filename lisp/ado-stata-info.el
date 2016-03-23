@@ -106,6 +106,24 @@ from a new Stata sesson."
 	 (t (error "Nothing for unix yet")))
 	))
 
+;; if Stata cannot be found, this defaults to "version !!??"
+;; not a great idea to use this for the version because the point of
+;;   ado-mode is to highlight for a particular version...
+(defun ado-get-stata-version ()
+  (interactive)
+  (let (theVersion)
+	(condition-case nil
+	  (setq theVersion (ado-get-one-result "version"))
+	(error nil)
+	)
+	(if theVersion
+		theVersion
+	  "version !!??")
+	))
+
+(defun ado-reset-version-command ()
+  (set-variable 'ado-version-command (ado-get-stata-version))
+  )
 
 (defun ado-show-stata ()
   (interactive)
@@ -134,40 +152,44 @@ so it can be `concat'ted directly with a file name."
 	 )
 	)
 
-(defun ado-get-filename-from-stata (theCommand theArgs)
+(defun ado-get-one-result (theCommand &optional theArgs)
+  ;; doesn't work if the result is wrapped; should fix
   (interactive)
   (let ((tmpBuffer " *stata log*")
-		theFile tmpLog)
+		theResult tmpLog)
 	(cond 
 	 ((string= system-type "darwin")
 	  (shell-command 
 	   (concat "cd " (ado-system-tmp-dir) " ; " 
-			   (ado-find-stata) " -q -b -e '" theCommand "' '" theArgs "'"))
-	  )
+			   (ado-find-stata) " -q -b -e '" theCommand "'"
+			   (if theArgs (concat " '" theArgs "'"))
+	   )))
 	 ((string= system-type "windows-nt")
 	  (shell-command 
 	   (concat "cd " (ado-system-tmp-dir) " & \"" 
-			   (ado-find-stata) "\" /q /e  " theCommand " \"" theArgs "\""))
-	  )
+			   (ado-find-stata) "\" /q /e  " theCommand
+			   (if theArgs (concat " \"" theArgs "\""))
+	  )))
 	 (t (error "Nothing for unix yet")))
 	(setq tmpLog (concat (ado-system-tmp-dir) "stata.log"))
 	;; visit tmp directory and manipulate the log
 	(with-current-buffer (get-buffer-create tmpBuffer)
 	  (insert-file-contents tmpLog nil nil nil t)
-	  ;; need to get rid of nasty \'s from windows paths
-	  (if (string= system-type "windows-nt")
-		  (progn
-			(goto-char (point-min))
-			(while (search-forward "\\" nil t)
-			  (replace-match "/"))
-			))
 	  (goto-char (point-max))
 	  (forward-line -1)
 	  (unless (search-forward "r(" (point-at-eol) t)
-		  (setq theFile (ado-strip-after-newline (thing-at-point 'line))))
+		  (setq theResult (ado-strip-after-newline (thing-at-point 'line))))
 	  )
-	; (kill-buffer tmpBuffer)
-   ; (delete-file tmpLog) ;; left hanging around for checking
+	theResult
+	))
+
+(defun ado-get-filename-from-stata (theCommand theArgs)
+  (interactive)
+  ;; need to get rid of nasty \'s from windows paths
+  (let ((theFile (ado-get-one-result theCommand theArgs)))
+	(if (string= system-type "windows-nt")
+		(replace-regexp-in-string "\\\\" "/" theFile)
+	  )
 	theFile
 	))
 

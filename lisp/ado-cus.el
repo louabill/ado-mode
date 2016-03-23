@@ -10,7 +10,7 @@
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://louabill.org/stata
 ;; Keywords: ado-mode
-;; Version:  0.16 of 20jan2014
+;; Version:  0.17 of 17mar2016
 
 ;; This file is not part of GNU Emacs.
 
@@ -45,28 +45,26 @@
 (defgroup ado nil
   "Ado mode: major mode for editing ado and do files for Stata."
   :tag "Ado mode"
-;  :link '(custom-manual "(ultra)Top")
-;  :link '(url-link :tag "Home Page" "http://www.math.washington.edu/~palmieri/Emacs/ultratex.html")
   :group 'local)
 
 (defgroup ado-essentials nil
-  "Items which must be customized to get ado-mode running properly."
+  "Settings to get ado-mode running properly."
   :tag "Ado essentials"
   :group 'ado)
 
 (defgroup ado-files nil
-  "Specifying information about file locations and behaviors."
+  "Information about file locations and behaviors."
   :tag "Ado files"
   :group 'ado)
 
 (defgroup ado-help-info nil
-  "Information needed for making good Stata documentation."
+  "Information for making good Stata documentation."
   :tag "Ado help file info"
   :group 'ado)
 
 (defgroup ado-path nil
-  "Locations of directories appearing in your ado-path. Used to add
-syntax highlighting for user-written commands."
+  "Locations of directories appearing in your ado-path. Set
+to add syntax highlighting for user-written commands."
   :tag "adopath information"
   :group 'ado)
 
@@ -433,12 +431,20 @@ overlap."
 (defcustom ado-stata-home 
   (cond ((string= system-type "darwin") "/Applications/Stata/")
 		((string= system-type "windows-nt") "C:/Program Files (x86)/Stata14/")
-		(t "/usr/local/stata12"))
+		(t "/usr/local/stata"))
   "Set to the location of your Stata executable(s) if you want
 Emacs to launch a particular version of Stata for setting your 
 adopath or if you always launch Stata before sending code from
 Emacs. Defaults to the the typical install location for Stata 14."
   :type '(choice (const nil) directory)
+  :group 'ado-stata-interaction)
+
+(defcustom ado-version-command ""
+  "Set to the version command you would like at the top of your
+do-, ado-, mata- and class-files. If left unset, it will try to
+find your version the first time it is needed. Must start with
+version to be useful."
+  :type 'string
   :group 'ado-stata-interaction)
 
 (defcustom ado-temp-dofile ""
