@@ -6,9 +6,6 @@
 ;; Keywords: ado-mode, highlighting
 ;; Version: 1.14.1.0 of March 23, 2016
 ;;
-;; the old version system was 0.stata-version times ten.update
-;; the new version system is now 1.stataversion.statasubversion.update
-;; 
 ;; This file is NOT part of GNU Emacs.
 
 ;; This ado-mode is free software; you can redistribute it and/or modify
@@ -710,9 +707,14 @@ continuation characters."
 	  (if (search-forward "*!")
 		  (setq purpose (read-from-minibuffer "What does it do? ")))
 	  )
-	(if (and ado-new-dir (not stayput) (not (string= type "do-file")))
-		(if (y-or-n-p "Put in 'new' directory? ")
-			(cd (directory-file-name ado-new-dir))))
+	(if (and (or ado-new-dir ado-personal-dir) (not stayput) (not (string= type "do-file")))
+		(if ado-new-dir
+			(if (y-or-n-p "Put in 'new' directory? ")
+				(cd (directory-file-name ado-new-dir)))
+		  (if ado-personal-dir
+			  (if (y-or-n-p "Put in 'personal' directory? ")
+				  (cd (directory-file-name ado-personal-dir)))
+			)))
 	(if (file-exists-p fullname)
 		(setq keepbuf (y-or-n-p (concat "File " fullname " already exists! Overwrite?"))))
 	(if keepbuf

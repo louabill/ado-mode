@@ -2,11 +2,7 @@ Version History:
 ---------------
 1.14.1.0
 
-* Made the embarrassing fix to the default location of the windows
-  executable. By default, ado-mode assumes that you installed a 64-bit
-  version in Windows.
-
-* Updated -ci- highlighting for new subcommands of -ci-
+* Updated -ci- highlighting for new subcommands of -ci-.
 
 * Fixed up sending to Stata for Windows. It seems that the text has to
   be translated into utf16 for the pasting to work properly. If you have
@@ -15,6 +11,13 @@ Version History:
 * Added a new template called testado.blp. It makes a dofile which
   -includes- the ado file of the same name within a self-logging do-file
   so that debugging goes faster.   
+
+* Updated the saving of new programs (ado-files) to ask about saving to
+  ado-personal-dir if ado-new-dir doesn't exist (and ado-personal-dir
+  does). The whole concept of the 'new' directory was a leftover from
+  when Stata first introduced the adopath but didn't separate downloads
+  from personal programs. (The last remnant of this in official Stata is
+  in c(sysdir_oldplace)).
 
 * Made the embarrassing fix to the default location of the windows
   executable. By default, ado-mode assumes that you installed a 64-bit

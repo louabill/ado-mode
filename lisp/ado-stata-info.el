@@ -1,12 +1,12 @@
 ;;; ado-stata-info --- Passing code to a running Stata from emacs
-;; Copyright (c) 2011-2014
+;; Copyright (c) 2011-2016
 ;; Bill Rising
 ;;
 ;; Author:   Bill Rising
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://louabill.org/stata
 ;; Keywords: ado-mode
-;; Version:  0.1.3 of Oct 22, 2013
+;; Version:  0.1.4 of March 23, 2016
 
 ;;; a collection of command for gathering info from Stata
 ;;;  (of course, this does not (yet) mean gathering info from a running Stata)
@@ -112,10 +112,10 @@ from a new Stata sesson."
 (defun ado-get-stata-version ()
   (interactive)
   (let (theVersion)
-	(condition-case nil
+;	(condition-case nil
 	  (setq theVersion (ado-get-one-result "version"))
-	(error nil)
-	)
+;	(error nil)
+;	)
 	(if theVersion
 		theVersion
 	  "version !!??")
@@ -133,6 +133,11 @@ from a new Stata sesson."
 (defun ado-show-tmp-dir ()
   (interactive)
   (message (concat "Found: " (ado-system-tmp-dir)))
+  )
+
+(defun ado-show-stata-version ()
+  (interactive)
+  (message (concat "Found: " (ado-get-stata-version)))
   )
 
 (defun ado-system-tmp-dir ()
