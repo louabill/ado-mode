@@ -4,14 +4,19 @@ Version History:
 
 * Updated -ci- highlighting for new subcommands of -ci-
 
-* Added a new template called doado.blp. It is for starting a new
-  ado-file within a self-logging do-file so that debugging goes faster. 
+* Fixed up sending to Stata for Windows. It seems that the text has to
+  be translated into utf16 for the pasting to work properly. If you have
+  trouble with this, try setting emacs to use utf8 as its encoding.
+
+* Added a new template called testado.blp. It makes a dofile which
+  -includes- the ado file of the same name within a self-logging do-file
+  so that debugging goes faster.   
 
 * Made the embarrassing fix to the default location of the windows
   executable. By default, ado-mode assumes that you installed a 64-bit
   version in Windows.
 
-* Changed the template so that if you tell emacs where Stata lives by
+* Changed the templates so that if you tell emacs where Stata lives by
   setting ado-stata-home, the templates will have the version of your
   Stata. No more updating templates for each version of Stata.
 

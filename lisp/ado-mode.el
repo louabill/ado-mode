@@ -4,7 +4,7 @@
 
 ;; Maintainer: Bill Rising, brising at stata dot com
 ;; Keywords: ado-mode, highlighting
-;; Version: 1.14.1.0 of March 17, 2016
+;; Version: 1.14.1.0 of March 23, 2016
 ;;
 ;; the old version system was 0.stata-version times ten.update
 ;; the new version system is now 1.stataversion.statasubversion.update
@@ -209,8 +209,8 @@
   '("Help file" . ado-new-help))
 (define-key ado-mode-map [menu-bar ado new ado-new-cscript]
   '("Cert script" . ado-new-cscript))
-(define-key ado-mode-map [menu-bar ado new ado-new-doado]
-  '("New program in do-file" . ado-new-doado))
+(define-key ado-mode-map [menu-bar ado new ado-new-testado]
+  '("New do-file for program testing" . ado-new-testado))
 (define-key ado-mode-map [menu-bar ado new ado-insert-new-program]
   '("Insert new subprogram" . ado-insert-new-program))
 (define-key ado-mode-map [menu-bar ado new ado-new-program]
@@ -703,7 +703,7 @@ continuation characters."
 		(ado-insert-boilerplate cusblp nil t)
 	  (ado-insert-boilerplate
 	   (if (and (string= type "program") (string= exten "do"))
-		   "doado.blp"
+		   "testado.blp"
 		 (concat exten ".blp"))))
 	(unless purpose
 	  (goto-char (point-min))
@@ -791,13 +791,13 @@ Bound to \\[ado-new-program]"
 
 (defalias 'ado-new-ado 'ado-new-program)
 
-(defun ado-new-doado (&optional stayput name purpose)
-"Makes a new buffer by inserting the file doado.blp from the template
-directory, so that a new program is within a do-file for easier debugging.
-Inserts the proper name for the new command and the ado file
-itself. Asks if the file should be saved in the `new' directory. If the
-answer is no, the file will be saved in the current working directory.
-Bound to \\[ado-new-doado]" 
+(defun ado-new-testado (&optional stayput name purpose)
+"Makes a new buffer by inserting the file testado.blp from the template
+directory. The templay is a do-file which -includes- an ado-file by the
+same name for easier debugging. Asks if the do-file should be saved in 
+the `new' directory. If the answer is no, the file will be saved in the 
+current working directory.
+Bound to \\[ado-new-testado]" 
   (interactive)
   (ado-new-generic "program" "do" stayput name purpose))
 
