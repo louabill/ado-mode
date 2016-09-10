@@ -172,7 +172,7 @@ If as-default is t, just send everything via the default method."
 		  ;; bad behavior, because it overwrites the pasteboard
 		  (let ((x-select-enable-clipboard t))
 			;; (message (concat "Want to call ->" (concat "do " (buffer-file-name))))
-			(funcall interprogram-cut-function (concat "do " (buffer-file-name)))
+			(funcall interprogram-cut-function (concat "do \"" (buffer-file-name) "\""))
 			(ado-send-clip-to-stata "command" ado-comeback-flag)))
 	  (ado-send-command-to-stata t)
 	  )))

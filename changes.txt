@@ -1,5 +1,12 @@
 Version History:
 ---------------
+1.14.2.0
+
+* Added -icd10 search- (in reality, this had been added earlier,
+  incorrectly, in ado-mode 1.14.0.0)
+
+* Updated version to accept 14.2
+
 1.14.1.0
 
 * Updated -ci- highlighting for new subcommands of -ci-.
