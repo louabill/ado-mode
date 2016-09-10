@@ -1,4 +1,4 @@
-*! version 1.14.0.0 November 8, 2015 @ 10:55:25
+*! version 1.14.0.0 September 10, 2016 @ 09:54:42
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -76,6 +76,7 @@ version 14
 version 14.0
 version 14.1
 version 14.2
+version 14.3
 version 16
 version 20
 version 44
@@ -1449,10 +1450,9 @@ set trace off
    icd10 gen
    icd10 generate
  
-   icd10 l  // does not work (which matches documentation)
    icd10 look
    icd10 lookup
-   icd10 sea
+   icd10 sea     // added in Stata 14.2
    icd10 search
    icd10 q
    icd10 query
