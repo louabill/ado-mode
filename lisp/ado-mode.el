@@ -2009,6 +2009,12 @@ programs, even those defined in a funky way."
 	(forward-line)
 	))
 
+(defun ado-set-window-width (n)
+  "Set the selected window's width."
+  (interactive "NWindow width:")
+  (set-frame-width (selected-frame) n)
+  )
+
 (defun ado-statacorp-defaults ()
   "Sets editing options to StataCorp default stamps and such for editing"
   (interactive)
@@ -2016,6 +2022,8 @@ programs, even those defined in a funky way."
   (set-variable 'ado-lowercase-date-flag t)
   (set-variable 'ado-date-format "%d%b%Y")
   (set-variable 'ado-initials-flag nil)
+  (set-variable 'tab-width 8)
+  (ado-set-window-width 80)
   (message "ado-mode options set to StataCorp defaults"))
 
 			 
