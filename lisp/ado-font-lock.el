@@ -4210,10 +4210,9 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t) '(4 ado-variable-name-face t))
 
-	;; labels experimental
+	;; labels no longer experimental
 	(list
 	 (concat
-	  "^\\(.*:\\)*[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4235,7 +4234,7 @@ Not implemented as much more than an experiment. ")
 		   "var" "vari" "varia" "variab" "variabl" "variable"
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(2 ado-builtin-harmless-face t) '(3 ado-subcommand-face t))
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	;; all Stata data-altering stuff
 	(list

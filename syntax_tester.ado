@@ -1,4 +1,4 @@
-*! version 1.14.0.0 September 10, 2016 @ 09:54:42
+*! version 1.14.0.0 October 3, 2016 @ 16:41:20
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -6738,5 +6738,9 @@ version /* used elsewhere */
    mat `foo' = (1 2 \ 3 4)
 
    http://stata.com // this worked fine
+
+   quietly label variable
+
+   import excel
 
 end

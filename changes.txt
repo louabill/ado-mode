@@ -2,6 +2,8 @@ Version History:
 ---------------
 1.14.2.0
 
+* Thanks to Fixed ado-send-to-stata to allow spaces in file names 
+
 * Added -icd10 search- (in reality, this had been added earlier,
   incorrectly, in ado-mode 1.14.0.0)
 
