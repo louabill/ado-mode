@@ -27,4 +27,4 @@ Installation is not as simple as it could be, so there (will be) installation in
 
 **Please** let me know if there are any troubles with the installations, since there are little quirks with cross-platform Emacs stuff.
 
-`ado-mode` is on Twitter: @ado-mode. The real reason for this is to have an easy RSS feed for finding out about updates: [http://twitter.com/statuses/user_timeline/106578815.rss](http://twitter.com/statuses/user_timeline/106578815.rss)
+`ado-mode` is on Twitter: @ado-mode. The real reason for this is to have an easy RSS feed for finding out about updates: [https://twitter.com/adomode](https://twitter.com/adomode)
