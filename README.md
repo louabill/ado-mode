@@ -23,7 +23,7 @@ Here are the things which make life easier when using the `ado-mode`:
   * Stata's `smcl` directives are correctly highlighted, which saves time when writing help files.
   * Parentheses, braces and double-quotes are balanced.
 
-Installation is not as simple as it could be, so there (will be) installation instructions on the wiki. (!! fixme: Anyways, here are the [installation instructions, for now:] (http://louabill.org/Stata/ado-mode_install.html).)
+Installation is not as simple as it could be, so there (will be) installation instructions on the wiki. For now, the [installation instructions](http://louabill.org/Stata/ado-mode_install.html) are back on the old webpage.)
 
 **Please** let me know if there are any troubles with the installations, since there are little quirks with cross-platform Emacs stuff.
 
