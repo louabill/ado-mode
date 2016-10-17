@@ -1,6 +1,6 @@
-Version History:
----------------
-1.14.2.0
+# Version History
+
+## 1.14.2.0
 
 * Thanks to Fixed ado-send-to-stata to allow spaces in file names 
 
@@ -9,7 +9,7 @@ Version History:
 
 * Updated version to accept 14.2
 
-1.14.1.0
+## 1.14.1.0
 
 * Updated -ci- highlighting for new subcommands of -ci-.
 
@@ -41,7 +41,7 @@ Version History:
   your own commands for templates, those commands might break. Look at
   the readme in the templates directory for more information.
 
- 1.14.0.0
+## 1.14.0.0
 
 * Updated for Stata 14 syntax
 
@@ -53,7 +53,7 @@ Version History:
 * Updated templates for .ado, .do, and .mata files to use -version 14-
   commands
 
-1.13.1.1
+## 1.13.1.1
 
 * Fixed an embarrassing omission in the customization group for ado-mode
 
@@ -66,7 +66,7 @@ Version History:
 
 * Small fixes to templates.
 
-1.13.1.0
+## 1.13.1.0
 
 * Updated for Stata 13.1
 
@@ -87,13 +87,13 @@ Version History:
   later. I'm not going to worry about this, yet---it is used for
   #delimit and #review.
 
-1.13.0.0
+## 1.13.0.0
 
 * Updated for Stata 13
  
 * Fixed highlighting bugs for -irf- and its subcommands
 
-1.12.1.1: (never released)
+## 1.12.1.1: (never released)
 
 * updated templates to 'version 12.1'
 
@@ -113,7 +113,7 @@ Version History:
 
 * minor highlighting and behavior bug fixes
 
-1.12.1.0:
+## 1.12.1.0
 
 * fixed a bug introduced by the Emacs 24 change to the
   filter-buffer-substring command
@@ -131,9 +131,9 @@ Version History:
 
 * Fixed minor fontification bugs.
 
-1.12.0.2: not released to general public
+## 1.12.0.2: not released to general public
 
-1.12.0.1:
+## 1.12.0.1
 
 * Added two new commands for opening any file on the adopath (think:
   editing in place of -viewsource-): ado-open-command, which tries to
@@ -170,8 +170,7 @@ Version History:
 
 * Fixed minor fontification (highlighting) bugs.
 
-
-1.12.0.0:
+## 1.12.0.0
 
 * Updated for Stata 12
 
@@ -203,7 +202,7 @@ Version History:
 
 * Changed formatting in this version history to make it more readable.
 
-1.11.2.1:
+## 1.11.2.1
 
 * Fixed bug for sending via do-file on the Mac, where the working
   directory would be changed to the users tmp directory
@@ -219,7 +218,7 @@ Version History:
   includes, because this should be handled by the script passing the
   clipboard to Stata.
 
-1.11.2.0:
+## 1.11.2.0
 
 * Updated to allow -version 11.2-
 
@@ -249,7 +248,7 @@ Version History:
   waiting to see if there was an error in passing code, so debugging is
   really hard for me, being a non-Windows user. 
 
-1.11.1.2:
+## 1.11.1.2
 
 * BEHAVIOR CHANGE: if you have a .ado-signature file, see the last 
   item.
@@ -257,36 +256,41 @@ Version History:
 * Added support for sending code to Stata when there are multiple
   instances of Stata running (MS Windows only). How the code is sent is
   ruled by 5 options:
-    ado-send-to-all-flag: if this is t, then all instances get the sent
+  * ado-send-to-all-flag: if this is t, then all instances get the sent
       code.
-    ado-stata-version, ado-stata-flavor, and ado-stata-instance:
-    When these filters are specified, emacs will look at all running
-      instances and count the number of these that are matched (note
-      that the default values will match any Stata). If
-      ado-strict-match-flag is nil (the default), *all* Statas which tie
-      for most matches are considered candidates for the code. (This is
-      done so that when all are at their default values, they will
-      always match any running Stata.) If ado-strict-match-flag is t,
-      then only those which match all 3 filters are candidates.
-   Some examples:
-    For each of the following, suppose that there are two instances of
-      StataMP 11.1, one instance of StataSE 10.1 running, and one
-      instance of StataMP 10.1 running.
-    If no filters are set, the ado-strict-match-flag is nil, there will
-      be 4 matching Statas. If the ado-send-to-all-flag is false, you
-      will get an error, if the ado-send-to-all flag is true, all 4
-      instances will get the same command.
-      If ado-strict-match-flag is t, there will also be 4 matching
-      Statas.
-    If ado-stata-flavor is "SE", and the other filters are unset, there
-      will be 1 matching Stata, regardless of the state of the
-      ado-strict-match-flag.
-    If ado-stata-version is 12, and ado-stata-flavor is "MP", there will
-      be 0 matching Statas if the ado-strict-match-flag is t (because no
-      Stata is Stata 12), but there will be 3 matching Statas if
-      ado-strict-matching is nil, because the 3 StataMP instances will
-      all match 2 out of 3 filters (the "MP" filter and the unset
-      filter).
+  *  ado-stata-version, ado-stata-flavor, and ado-stata-instance:
+
+When these filters are specified, emacs will look at all running
+instances and count the number of these that are matched (note
+that the default values will match any Stata). If
+ado-strict-match-flag is nil (the default), *all* Statas which tie
+for most matches are considered candidates for the code. (This is
+done so that when all are at their default values, they will
+always match any running Stata.) If ado-strict-match-flag is t,
+then only those which match all 3 filters are candidates.
+
+Some examples:
+
+For each of the following, suppose that there are two instances of
+StataMP 11.1, one instance of StataSE 10.1 running, and one
+instance of StataMP 10.1 running.
+
+If no filters are set, the ado-strict-match-flag is nil, there will be 4
+matching Statas. If the ado-send-to-all-flag is false, you will get an
+error, if the ado-send-to-all flag is true, all 4 instances will get the
+same command.  If ado-strict-match-flag is t, there will also be 4
+matching Statas. 
+
+If ado-stata-flavor is "SE", and the other filters are unset, there
+will be 1 matching Stata, regardless of the state of the
+ado-strict-match-flag.
+
+If ado-stata-version is 12, and ado-stata-flavor is "MP", there will
+be 0 matching Statas if the ado-strict-match-flag is t (because no
+Stata is Stata 12), but there will be 3 matching Statas if
+ado-strict-matching is nil, because the 3 StataMP instances will
+all match 2 out of 3 filters (the "MP" filter and the unset
+filter).
 
 * Added new functions for working with blocks of codes:
   ado-balance-braces will balance {[()]} outside of strings and
@@ -327,7 +331,8 @@ Version History:
     email: brising@stata.com{break}
     web: {browse "http://homepage.mac.com/brising":http://homepage.mac.com/brising}
   This will affect at least one person (me).
-1.11.1.1:
+
+## 1.11.1.1
 
 * Added fontification for ado files in Stata's -sysdir- locations. So,
   for example, if you download the command -renvars-, -renvars- will now
@@ -345,7 +350,8 @@ Version History:
 
 * Fixed an embarrassing bug for using the comeback flag in windows. It
   looks like I didn't test it much originally, if at all.
-1.11.1.0:
+
+## 1.11.1.0
 
 * Updated for Stata 11.1
 
@@ -362,12 +368,12 @@ Version History:
 
 * Various highlighting bug fixes.
 
-1.11.0.1:
+## 1.11.0.1
 
 * Fixed a bug where sending code to Stata from MS Windows via a do-file
   failed.
 
-1.11.0.0:
+## 1.11.0.0
 
 * Added functionality for sending code to Stata in MS Windows. So...it
   is now possible to send code to Stata from both Mac OS X and MS
@@ -392,7 +398,7 @@ Version History:
 
 * Changed the templates to default to version 11
 
-1.10.1.2:
+## 1.10.1.2
 
 * (Finally) changed the update of the time stamp to not add the old
 timestamp to the kill ring.
@@ -402,7 +408,7 @@ part of the whitespace before the comment string. This could occur when
 lines were split. To shut off tabs when splitting lines, set
 indent-tabs-mode to nil.
 
-1.10.1.1: 
+## 1.10.1.1
 
 * Added functionality for sending regions or commands to Stata, at least
   inside Mac OS X(!). The design *should* make it possible to implement the
@@ -461,7 +467,9 @@ indent-tabs-mode to nil.
 
 * Updated the template for help files.
 
-1.10.0.0: Added several bits of functionality suggested by Uli Kohler:
+## 1.10.0.0
+
+Added several bits of functionality suggested by Uli Kohler:
 
 * changed method for indenting so that do-files are properly indented:
   the indentation is incremented by each defined program (program [define])
@@ -482,6 +490,7 @@ indent-tabs-mode to nil.
 
 * created ado-strmacify-selection-or-word which macifies and then stringifies
   the object of interest.
+
 Other changes:
 
 * added Stata 10 commands, functions, and the like.
@@ -507,39 +516,45 @@ Other changes:
 
 * arbitrary bug fixes to some of the more complicated highlighting.
 
-0.92.0: Added additional functions introduced in online updates. Some are
+## 0.92.0
+
+* Added additional functions introduced in online updates. Some are
   from before the 20jan2006 update, sad to say. Fixed bug for indentation
   before special commands (like end or version). This changed the behavior
   of ado-beginning-of-command [M-a] to sit still when in a blank line when
   the delimiter is cr.
 
 * fixed bad fontification 
-** of local when used as local ``foo'' with double quotes.   
-** of tempvar, tempfile, tempname when followed by quoted local macro.
+  * of local when used as local ``foo'' with double quotes.   
+  * of tempvar, tempfile, tempname when followed by quoted local macro.
 
 * added code which runs if the user is using Aquamacs emacs. Not sure of
   the wisdom of having this in the main file, perhaps it will be broken out
   in the future. 
 
-0.91.2: Added Mata functions introduced in the 20jan2006 update to Stata,
+# 0.91.2
+
+* Added Mata functions introduced in the 20jan2006 update to Stata,
   and added the ado-hacks.el file, which includes a function defined in
   Stata 22, but not earlier: line-number-at-pos. This handy function is
   good for complicated indentations and for jumping back to the beginning
   of commands... but missing it will break emacs 21.whatever.
 
-0.91.1: Separated change history off.
+# 0.91.1
+
+* Separated change history off.
 
 * changed format of new history entries
 
 * changed all my addresses to my new job forgot this in 0.91.0.
 
 * changed behavior for saving files to be more emacs-like.
-** When saving a file under its old name, there is no confirmation, like usual
+  * When saving a file under its old name, there is no confirmation, like usual
    emacs saving
-** if ado-mode, ahem, corrects the file name *and* there is a saved file of that
+  * if ado-mode, ahem, corrects the file name *and* there is a saved file of that
    name in the default directory already, it *will* prompt, to avoid mistaken
    overwrites. 
-** thanks to Brendan Halpin for pointing this out
+  * thanks to Brendan Halpin for pointing this out
 
 * fixed some minor programming badness, such as using insert-file when
   insert-file-contents was the proper command to use.
@@ -554,47 +569,68 @@ Other changes:
   extra level of indentation. (requested by Patrick Ball) 
 
 * Mata changes
-** added new faces for current mata keywords, future mata keywords, and
+
+  * added new faces for current mata keywords, future mata keywords, and
    mata functions (though the mata function face defaults to the regular
    function face.
-** included all the mata functions, as far as I can tell.
-** did not change anything else with indentation for Mata functions.
+  * included all the mata functions, as far as I can tell.
+  * did not change anything else with indentation for Mata functions.
 
-0.91.0: Fixed highlighting to work with all new Stata commands
+# 0.91.0
+
+* Fixed highlighting to work with all new Stata commands
   except the new Mata commands. They will arrive in another update.
   No real changes to the underpinnings.
 
-0.82.5: Fixed numerous problems with indenting and moving to
+# 0.82.5
+
+* Fixed numerous problems with indenting and moving to
   the beginning and end of commands when using semi-colons as
   the delimiter. Bound M-e to ado-end-of-command. Fixed the
   behavior of this and ado-beginning-of-command. 
 
-0.82.4: Hacked the highlighting to make embedded strings, a la
+# 0.82.4
+
+* Hacked the highlighting to make embedded strings, a la
   `"this is "embedded", you know"'
   look right. Emacs won't treat them properly internally, but
   at least they will look like strings.
 
-0.82.3: Added the new commands related to time series from the July 23,
+# 0.82.3
+
+* Added the new commands related to time series from the July 23,
   2004 update of Stata. Made the now obsolete -varfcast- and -varinf- show
   up as obsolete.
 
-0.82.2: Fixed the bug where ado-mode got confused by opening .do files
+# 0.82.2
+
+* Fixed the bug where ado-mode got confused by opening .do files
   which had subprogram defined in them.
 
-0.82.1: Added the new commands, macro extended commands and new SMCL
+# 0.82.1
+* Added the new commands, macro extended commands and new SMCL
   directives from the July 1, 2004 update of Stata. Minor stuff.
 
-0.82: Changed behavior when -do- files are saved to fix the bug that would cause 
+#0.82
+
+* Changed behavior when -do- files are saved to fix the bug that would cause 
   -do- files which defined programs to get saved as -ado- files named after the 
   first locally defined program. Other bug fixes for highlighting of some
   lesser-used constructions.
 
-0.81: Changed behavior of open and close quotes (` and ') so that they no longer
+#0.81
+
+* Changed behavior of open and close quotes (` and ') so that they no longer
   behave like parentheses, meaning that they don't flash and don't affect indentation.
   This should have been done earlier when ' was allowed for matrix transposition.
 
-0.80: Serious upgrade: made to work with Stata 8, customization groups added,
+#0.80
+
+* Serious upgrade: made to work with Stata 8, customization groups added,
   font-locking made more flexible, buffer-local changes to indentation and
   the like added.
 
-<0.80: Updates for Stata changes - out-of-date emacs code.
+# before 0.80
+
+*  Updates for Stata changes  out-of-date emacs code.
+
