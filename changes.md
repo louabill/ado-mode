@@ -2,7 +2,10 @@
 
 ## 1.14.2.0
 
-* Thanks to Fixed ado-send-to-stata to allow spaces in file names 
+* Thanks to [Leo](https://www.emacswiki.org/emacs/halloleo), for a fix
+  to allow ado-send-to-stata to allow spaces in file names. Though
+  spaces in do-files, ado-files and the like are not legal in Stata,
+  this can still be worthwhile.
 
 * Added -icd10 search- (in reality, this had been added earlier,
   incorrectly, in ado-mode 1.14.0.0)
