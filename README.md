@@ -4,7 +4,7 @@ The `ado-mode` is a major [editing] mode for Emacs which allows truly good editi
 
 Emacs versions 25, 24, and 23 are supported.
 
-Here is the <a href="changes.txt">change log</a> which says what is new.
+Here is the <a href="changes.md">change log</a> which says what is new.
 
 The current version is <strong>1.14.2.0</strong>, which is made for Stata 14.2. It works just fine with earlier versions of Stata, but it will highlight commands as though you were using Stata 14.2.
 
@@ -17,7 +17,7 @@ Here are the things which make life easier when using the `ado-mode`:
   * Downloaded and personal user-written commands can be automatically highlighted once Emacs knows where they are kept.
   * Templates for common files, such as do-files which keep their own logs, ado-files, do-files made for testing and debugging ado-files, and (most importantly, perhaps) Stata help files.
   * Automatic indentation so that long `if`, `foreach`, `forvalues`, and `while` blocks get closed. Many types of indentation styles are supported.
-  * Along the same lines, you can open Stata help files (in Stata, of course) from Emacs in Mac OS X and MS Windows. 
+  * Along the same lines, you can open Stata help files (in Stata, of course) from Emacs in OS X and MS Windows. 
   * The name of the ado file always matches the name of the program defined, even if you change the program's name.
   * Ado-files get a time stamp which can be formatted in a variety of ways.
   * Stata's `smcl` directives are correctly highlighted, which saves time when writing help files.
