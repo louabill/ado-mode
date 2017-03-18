@@ -1,16 +1,16 @@
-# The ado-mode for Emacs</a></h2>
+# The ado-mode for Emacs
 
-The `ado-mode` is a major [editing] mode for Emacs which allows truly good editing of Stata, namely `do`, `ado`, `sthlp`, `smcl`, and `mata` files. Here is a <a href="ado_highlighting.png">screenshot</a> to see what the highlighting does. The mode also handles indentation, date stamps, and includes templates for writing help files, project do-files and the like.
+The `ado-mode` is a major [editing] mode for Emacs which allows truly good editing of Stata, namely `do`, `ado`, `sthlp`, `smcl`, and `mata` files. Here is a [screenshot](ado_highlighting.png) to see what the highlighting does. The mode also handles indentation, date stamps, and includes templates for writing help files, project do-files and the like.
 
 Emacs versions 25, 24, and 23 are supported.
 
-Here is the <a href="changes.md">change log</a> which says what is new.
+Here is the [change log](changes.md) which says what is new.
 
-The current version is <strong>1.14.2.0</strong>, which is made for Stata 14.2. It works just fine with earlier versions of Stata, but it will highlight commands as though you were using Stata 14.2.
+The current version is **1.14.2.0**, which is made for Stata 14.2. It works just fine with earlier versions of Stata, but it will highlight commands as though you were using Stata 14.2.
 
 Here are the things which make life easier when using the `ado-mode`:
 
-  * `ado-mode` can communicate well with Stata itself, sending code directly to Stata for evaluation. This works for both OS X and MS Windows. It does not yet work for any non-OS-X unix. For an explanation of the settings (along with hints for how to port it), please <a href="send2stata.html">look here</a>.
+  * `ado-mode` can communicate well with Stata itself, sending code directly to Stata for evaluation. This works for both OS X and MS Windows. It does not yet work for any non-OS-X unix. For an explanation of the settings (along with hints for how to port it), please [look here](send2stata.html).
   * Ability to open any file on the default ado-path, even automagically opening the ado-file for the current command.
   * Context-sensitive highlighting keeps typos to a minimum. Stata's commands and keywords are highlighted if abbreviated correctly.
   * Commands which need subcommands are highlighted differently, so that you know a subcommand is needed.

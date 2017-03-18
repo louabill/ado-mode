@@ -23,7 +23,7 @@ import excel
 display in green
 // nothing special for numbers or operators (which include parens)
 display 4 + (2*9)^14/2
-// there are also mata highlights which are bad
+// there are also mata highlights which could be better
 mata:
    transmorphic vector aFunction(real matrix X, string scalar i, pointer p)
    {
