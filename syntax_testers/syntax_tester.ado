@@ -1,4 +1,4 @@
-*! version 1.14.0.0 October 3, 2016 @ 16:41:20
+*! version 1.14.0.0 March 17, 2017 @ 23:18:05
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -77,6 +77,9 @@ version 14.0
 version 14.1
 version 14.2
 version 14.3
+version 15
+version 15.0
+version 15.1
 version 16
 version 20
 version 44
@@ -103,9 +106,10 @@ version 44
    // anova postestimation skipped because it matches regress
    areg
    asclogit
+   asmixlogit            // new in Stata 15
    asmprobit
    asroprobit
-   betareg // new in Stata 14
+   betareg               // new in Stata 14
    binreg
    biprobit
    bitest bitesti
@@ -134,7 +138,7 @@ version 44
    clog clogi clogit
    cloglog
    cls
-   cnr cnre cnreg // obsolete as of Stata 11
+   cnr cnre cnreg        // obsolete as of Stata 11
    cnsreg
    /* constraint commands */
    /* first w/o anything */
@@ -150,29 +154,34 @@ version 44
    constra drop
    constrain get
    constraint free
-   /* bad constraints -- should not highlight, except as mata reserves */
+   /* bad constraints -- should not highlight, except as mata reserved words */
    /* oops... need to fix for the const abbreviations....*/
    const ge
    const fre
    /* end constraint */
    contrast
-   copyright   // subcommands new in Stata 14
+   copyright             // subcommands new in Stata 14
    copyright apache
+   copyright autolink    // new in Stata 15
    copyright boost
+   copyright flexmark    // new in Stata 15
+   copyright hamcrest    // new in Stata 15
    copyright icd10
    copyright icu
+   copyright jsoup       // new in Stata 15
    copyright lapack
    copyright libharu
-   copyright libping
+   copyright libpng
    copyright mersennetwister
    copyright miglayout
    copyright scintilla
+   copyright slf4j       // new in Stata 15
    copyright ttf2pt1
    copyright zlib
    copyright foobar // error (which could be marked well but why?)
    cor corr corre correl correla correlat correlate
    pwcorr
-   cpoisson // new in Stata 14 
+   cpoisson              // new in Stata 14 
    cumul
    cusum
 
@@ -186,7 +195,7 @@ version 44
    pnorm
    pchi
    qchi
-   /* end... */
+   /* end... diag plots */
    di dis disp displ displa display
    do
    ru
@@ -317,7 +326,7 @@ version 44
    fvset cl // bad
    fvset repo // bad
    
-   gllamm
+   gllamm  // will only highlight if it is installed
    glm
 
    blogit  // obsolete in Stata 14 
@@ -331,6 +340,7 @@ version 44
    hausman
    heckman
    heckoprobit
+   heckpoisson           // new in Stata 15
    heckprob // synonym for heckprobit (urg) in Stata 14
    heckprobit
    h he hel help
@@ -338,6 +348,7 @@ version 44
    whelp
    hetprobit
    hetprob // synonym for hetprobit in Stata 14
+   hetregress            // new in Stata 15
    hist histo histog histogr histogra histogram
    hsearch // obsolete in Stata 12
 
@@ -349,7 +360,7 @@ version 44
    ivpoisson cfunction
 
    ivprobit
-   ivreg /* obsolete in Stata 10 */
+   ivreg                 /* obsolete in Stata 10 */
    ivregress
    ivtobit
 
@@ -369,8 +380,8 @@ version 44
    
    set l
    set level
-   lfit  // obsolete in Stata 9 
-   score // obsolete in Stata 9
+   lfit                  // obsolete in Stata 9 
+   score                 // obsolete in Stata 9
    lincom
    linktest
    lnskew0
@@ -385,6 +396,7 @@ version 44
    log close
    log of
    log off
+   log using  // highlights as standard blue 'using'
    cmdlog
    cmdlog c
    cmdlog close
@@ -527,6 +539,7 @@ version 44
    /* netio, which is also in set */
    se httpproxy on
    set httpproxy off
+   set httpproxy foo // no good
    set httpproxyhost
    se httpproxyport
    set httpproxyauth bleen // bad
@@ -543,10 +556,14 @@ version 44
    nlogit
    nlogitgen
    nlogittree
+   estat alt
    estat alternatives
    nlsur
+   npregress kernel      // new in Stata 15
+   npregress  // incomplete
    nptrend
-   
+
+   // @@ start here
    olog ologi ologit 
 
    on one onew onewa oneway

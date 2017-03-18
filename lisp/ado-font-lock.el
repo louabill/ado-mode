@@ -120,7 +120,7 @@ Not implemented as much more than an experiment. ")
 		(regexp-opt 
 		 '("vers" "versi" "versio" "version")
 		 'words))
-	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[01234]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[01234]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\|:\\)"
+	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[012345]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[01234]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\|:\\)"
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; pause on/off
@@ -326,16 +326,19 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "apache"
+		   "apache" "autolink"
 		   "boost"
+		   "flexmark"
+		   "hamcrest"
 		   "icd10"
 		   "icu"
+		   "jsoup"
 		   "lapack"
 		   "libharu"
-		   "libping"
+		   "libpng"
 		   "mersennetwister"
 		   "miglayout"
-		   "scintilla"
+		   "scintilla" "slf4j"
 		   "ttf2pt1"
 		   "zlib"
 		   ) 'words))
@@ -405,6 +408,21 @@ Not implemented as much more than an experiment. ")
 			) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	 ;; the one an only npregress command
+	 (list
+	  (concat
+	   "\\(\\<npregress\\>\\)"
+	   "[ \t]+"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"kernel"
+			) 'words))
+	   end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	 
 
 	;; power commands
 	(list
@@ -3631,6 +3649,7 @@ Not implemented as much more than an experiment. ")
 		   "arch" "areg" "arfima" "arima" 
 		   "as" 
 		   "asclogit"
+		   "asmixlogit"
 		   "asmprobit"
 		   "asroprobit"
 		   "ass" "asse" "asser" "assert" 
@@ -3692,9 +3711,11 @@ Not implemented as much more than an experiment. ")
 		   "gmm" "gnbreg"
 		   "gphdot" "gphpen" "gr7" "graph7" "grmeanby" "gsem"
 		   "h"
-		   "hadimvo" "hausman" "heckman" "heckoprobit" "heckprob" "heckprobit" 
+		   "hadimvo" "hausman"
+		   "heckman" "heckoprobit" "heckpoisson" "heckprob" "heckprobit" 
 		   "he" "hel" "help" 
-		   "hetprob" "hetprobit" "hexdump" "hilite"
+		   "hetprob" "hetprobit" "hetregress"
+		   "hexdump" "hilite"
 		   "hist" "histo" "histog" "histogr" "histogra" "histogram" 
 		   "hlu" "hotel" "hotelling"
 		   "icc" "include" "ins" "insp" "inspe" "inspec" "inspect" "intreg" 
@@ -7686,6 +7707,7 @@ Not implemented as much more than an experiment. ")
 		 "misstable"
 		 "mswitch"
 		 "mvtest"
+		 "npregress"
 		 "net"
 		 "note" "notes" 
 		 "odbc"
