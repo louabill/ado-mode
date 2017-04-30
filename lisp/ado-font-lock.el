@@ -508,6 +508,7 @@ Not implemented as much more than an experiment. ")
 		 '(
 		   "a" "ad" "ado" "ados" "adosi" "adosiz" "adosize" 
 		   "cformat" "clevel"
+		   "fredkey"
 		   "fvwrap"
 		   "haverdir"
 		   "httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
@@ -524,7 +525,7 @@ Not implemented as much more than an experiment. ")
 		   "pformat"
 		   "processors"
 		   "reventr" "reventri" "reventrie" "reventries"
-		   "rngstate"
+		   "rngstate" "rngstream"
 		   "scheme" "scrollbufsize"
 		   "se" "see" "seed"
 		   "segmentsize"
@@ -558,9 +559,8 @@ Not implemented as much more than an experiment. ")
 		   "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
 		   "doublebuffer" "dp"
 		   "emptycells" 
-		   "eolch" "eolcha" "eolchar" 
 		   "fastscroll" "floatresults" "floatwindows"
-		   "fvlabel" "fvwrapon" 
+		   "fvlabel" "fvtrack" "fvwrapon"
 		   "g" "gr" "gra" "grap" "graph" "graphi" "graphic" "graphics"
 		   "httpproxy" 
 		   "httpproxya" "httpproxyau" "httpproxyaut" "httpproxyauth" 
@@ -572,7 +572,7 @@ Not implemented as much more than an experiment. ")
 		   "mo" "mor" "more" 
 		   "notifyuser"
 		   "odbcdriver"
-		   "odbcm" "odbcmg" "odbcmgr" 
+		   "odbcmgr" 
 		   "ou" "out" "outp" "outpu" "output"
 		   "pinnable" "playsnd" "printcolor"
 		   "r" "revkeyboard" "rm" "rms" "rmsg" "rng"
@@ -609,13 +609,13 @@ Not implemented as much more than an experiment. ")
 	  "\\|"
 	  "\\(?:dp[ \t]+\\(?:com\\|comm\\|comma\\|per\\|peri\\|perio\\|period\\)\\)"
 	  "\\|"
-	  "\\(?:eolc\\(?:h\\|ha\\|har\\)[ \t]+\\(?:mac\\|unix\\)\\)"
+	  "\\(?:fvtrack[ \t]+\\(?:term\\|factor\\)\\)"
 	  "\\|"
 	  "\\(?:log\\(?:t\\|ty\\|typ\\|type\\)[ \t]+\\(?:t\\|te\\|tex\\|text\\|s\\|sm\\|smc\\|smcl\\)\\)"
 	  "\\|"
 	  "\\(?:odbcdriver[ \t]+\\(?:ansi\\|unicode\\)\\)"
 	  "\\|"
-	  "\\(?:odbc\\(?:\\m\\|\\mg\\|mgr\\)[ \t]+\\(?:iodbc\\|unixodbc\\)\\)"
+	  "\\(?:odbcmgr[ \t]+\\(?:iodbc\\|unixodbc\\)\\)"
 	  "\\|"
 	  "\\(?:printcolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)\\)"
 	  "\\|"
@@ -722,7 +722,7 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "default" "kiss32" "mt64"
+		   "default" "kiss32" "mt64" "mt64s"
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
@@ -860,6 +860,30 @@ Not implemented as much more than an experiment. ")
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
+
+	;; set eolchar command (obsolete)
+	(list
+	 (concat
+	  "^[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "se" "set"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "eolch" "eolcha" "eolchar" 		   
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mac" "unix"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-obsolete-face t) '(3 ado-obsolete-face))
 
 	(list
 	 (concat
@@ -3858,7 +3882,7 @@ Not implemented as much more than an experiment. ")
 		   "xtline" "xtlogit"  
 		   "xtnbreg" "xtologit" "xtoprobit" "xtpcse" "xtpoisson" "xtprobit"
 		   "xtrc" "xtreg" "xtregar" "xtset" "xtstreg" "xtsum" "xttab" "xttest0" "xttobit" "xttrans"
-		   "zinb" "zip" "ztest" "ztesti"
+		   "zinb" "zip" "zoprobit" "ztest" "ztesti"
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))

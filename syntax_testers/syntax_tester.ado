@@ -1,4 +1,4 @@
-*! version 1.14.0.0 March 17, 2017 @ 23:18:05
+*! version 1.14.0.0 29apr2017
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -563,7 +563,6 @@ version 44
    npregress  // incomplete
    nptrend
 
-   // @@ start here
    olog ologi ologit 
 
    on one onew onewa oneway
@@ -576,6 +575,7 @@ version 44
    pcorr
    permute
 
+   // in the order of the manual and not in the -pk- Vorkapitel
    pkcollapse
    pkcross
    pkequiv
@@ -654,7 +654,8 @@ version 44
    #r #re #rev #revi #revie #review
    /* _rmcoll in [P] _huber obsolete */
    _rmcoll _huber
-   
+
+   /* following manual rather than short entry */
    roccomp
    rocgold
    rocfit
@@ -696,9 +697,12 @@ version 44
    set charset mac     // obsolete in Stata 14
    set charset latin1  // // obsolete in Stata 14
    
+   set checksum // incomplete
    set checksum on
    set checksum off
-   set clevel // new in Stata 14 
+   
+   set clevel // new in Stata 14
+   set coeftabresults // incomplete
    set coeftabresults on
    set coeftabresults off
    set conren // unix console only
@@ -738,6 +742,8 @@ version 44
    set dockingg
    set dockingg on
    set dockingguides off
+
+   set doublebuffer
    set doublebuffer on
    set doublebuffer off
    set `foo'
@@ -749,6 +755,9 @@ version 44
    set emptycells
    set emptycells keep
    set emptycells drop
+
+   // set eolchar undocumented as of Stata 15
+   // not sure if subcommands 
    set eolch 
    set eolcha
    set eolch mac
@@ -760,11 +769,21 @@ version 44
    set floatresults
    set floatresults on
    set floatresults off
+   
    set floatwindows on
    set floatwindows off
+
+   set fredkey // new in Stata 15
+   
    set fvlabel // incomplete
    set fvlabel on
    set fvlabel off
+
+   set fvtrack
+   set fvtrack term
+   set fvtrack factor
+   set fvtrack foobar
+   
    set fvwrap
    set fvwrapon
    set fvwrapon word
@@ -809,6 +828,7 @@ version 44
    set lstretch // technically legal
    set lstretch on
    set lstretch off
+   // set mata-etc comes later
    set macgph quartz // obsolete in Stata 11
    set macgphengine quickdraw // obsolete in Stata 11
    set mat
@@ -829,8 +849,15 @@ version 44
    set notifyuser on
    set ob
    set obs
+   set odbcdriver
+   set odbcdriver unicode
+   set odbcdriver ansi
+
+   // set odbcmg abbreviation obsolete as of Stata 15
    set odbcmg
    set odbcmg iodbc
+   set odbcmgr
+   set odbcmgr iodbc
    set odbcmgr unixodbc
    set ou
    set ou proc
@@ -873,9 +900,11 @@ version 44
    set rmsg off
    set rng // new in Stata 14 ; must have type set
    set rng default // new in Stata 14 
-   set rng mt64    // new in Stata 14 
+   set rng mt64    // new in Stata 14
+   set rng mt64s   // new in Stata 15
    set rng kiss32  // new in Stata 14 
-   set rngstate    // new in Stata 14 
+   set rngstate    // new in Stata 14
+   set rngstream   // new in Stata 15
    set scheme
    set scrollbufsize
    set searchdefault
@@ -903,7 +932,7 @@ version 44
    set smoothsize 12 // looks to be obsolete in Stata 12
    set timeout1
    set timeout2
-set trace
+   set trace
 set tr on
 set trace off
    set traced
@@ -984,12 +1013,15 @@ set trace off
 
    signrank
    signtest
+
    simulate
    sktest
    slogit
    smooth
+
    spearman
    ktau
+
    spikeplot
    ssc
    ssc new
@@ -1039,6 +1071,7 @@ set trace off
    /* end sw commands */
    // a bit out of place
    ret
+   ret li
    ret list
    return list
    ereturn
@@ -1051,8 +1084,10 @@ set trace off
    su sum summ summa summar summari summariz summarize
    sunflower
    sureg
+   
    swilk
    sfrancia
+
    symmetry
    symmi
 
@@ -1062,8 +1097,10 @@ set trace off
    tab1
    tab2
    tabi
+
    te tes test
    testparm
+
    testnl
    tetrachoric
    tnbreg // new in Stata 11.1
@@ -1084,8 +1121,10 @@ set trace off
    transmap def
    transmap define
    transmap `foo'
+   
    treatreg // obsolete in Stata 13
    truncreg
+
    ttest
    ttesti
 
@@ -1129,13 +1168,15 @@ set trace off
    xi
 
    zinb
+   zoprobit // new in Stata 15
    zip
    ztnb // obsolete in Stata 12
    ztb  // obsolete in at least Stata 9---was this ever a Stata command?
    ztest  // new in Stata 14
    ztesti // new in Stata 14
 
-   /* endless postestimation */ 
+   /* endless postestimation */
+   // not checked too much for Stata 15 !!
    // common across most estimation commands (most also elsewhere)
    contrast
    estimates
@@ -1166,6 +1207,7 @@ set trace off
    
    // estat (from [R])
    // (some) obsolete versions included for testing
+   // not sure how to test for new stuff....
    estat alt
    estat alternatives  // asclogit ascprobit asroprobit nlogit
    archlm
@@ -1235,6 +1277,8 @@ set trace off
 
    /* end subcommand using postestimation */
    /* end [R] */
+
+   /* @@ start here */
 
    /* from Bayes manual [BAYES]; all initially introduced in Stata 14 */
    bayesmh
