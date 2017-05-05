@@ -1,4 +1,4 @@
-*! version 1.14.0.0 29apr2017
+*! version 1.14.0.0 May 1, 2017 @ 09:34:30
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -757,11 +757,11 @@ version 44
    set emptycells drop
 
    // set eolchar undocumented as of Stata 15
-   // not sure if subcommands 
    set eolch 
    set eolcha
    set eolch mac
    set eolchar unix
+
    set fastscroll
    set fastscroll on
    set fastscroll off
