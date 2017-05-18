@@ -345,6 +345,8 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+	;; dyndoc tags
+	
 	;; discrim commands
 	(list
 	 (concat
@@ -3694,7 +3696,7 @@ Not implemented as much more than an experiment. ")
 		   "checkestimationsample" "checksum" 
 		   "clog" "clogi" "clogit" "clogitp" "cloglog"
 		   "cls"
-		   "close" "clustermat" "cmdlog" "cmdtool" 
+		   "close" "cmdlog" "cmdtool" 
 		   "cnsreg" "codebook" "compare" 
 		   "cons" "const" "constr" "constra" "constrai" "constrain" "constraint"
 		   "continue"
@@ -6117,10 +6119,10 @@ Not implemented as much more than an experiment. ")
 		  "clevel" "cmdlen" 
 		  "coeftabresults" "console" "copycolor" 
 		  "current_time" "current_date"
-		  "dirsep" "dp"
+		  "dirsep" "dp" "dyndoc_version"
 		  "emptycells" "eolchar" "epsdouble" "epsfloat" "eqlen"
-		  "filedate" "filename" "flavor"
-		  "fvlabel" "fvwrap" "fvwrapon"
+		  "filedate" "filename" "flavor" "fredkey"
+		  "fvlabel" "fvtrack" "fvwrap" "fvwrapon"
 		  "graphics"
 		  "haverdir" "hostname"
 		  "httpproxy" "httpproxyauth" "httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
@@ -6142,11 +6144,11 @@ Not implemented as much more than an experiment. ")
 		  "mode" "more"
 		  "namelenbyte" "namelenchar"
 		  "niceness" "noisily"
-		  "odbcmgr" "os" "osdtl"
+		  "odbcdriver" "odbcmgr" "os" "osdtl"
 		  "pagesize" "pformat" "pi" "printcolor" 
 		  "processors" "processors_lic" "processors_mach" "processors_max" "pwd"
 		  "rc" "reventries" "rmsg" "rmsg_time"
-		  "rng" "rng_current" "rngstate"
+		  "rng" "rng_current" "rngseed_mt64s" "rngstate" "rngstream"
 		  "scheme" "scrollbufsize" "searchdefault" "segmentsize" "sformat"
 		  "showbaselevels" "showemptycells" "showomitted"
 		  "smallestdouble" "stata_version"
@@ -6200,6 +6202,7 @@ Not implemented as much more than an experiment. ")
 		(regexp-opt 
 		 '(
 		   "charset"
+		   "eolchar"
 		   "floatresults" "floatwindows"
 		   "icmap"
 		   "macgphengine"

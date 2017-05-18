@@ -1,4 +1,4 @@
-*! version 1.14.0.0 May 9, 2017 @ 09:44:10
+*! version 1.14.0.0 May 18, 2017 @ 10:41:30
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -2731,6 +2731,7 @@ set trace off
    mi imput reg
    mi impute regress
    mi imp truncreg // new in Stata 12
+   mi impute foobar // technically ok if foobar is a user method
 
    mi merge // incomplete
    mi merge 1:1
@@ -2758,6 +2759,7 @@ set trace off
    mi ptrace describe
    mi ptrace use
 
+   mi ren
    mi rename
    mi replace0
    mi reset
@@ -2776,7 +2778,6 @@ set trace off
    mi set flong
    mi set flongs
    mi set flongsep
-   mi unset
    // mi register is under mi set
    // look carefully...on one line
    mi reg // incomplete, but regress is winning the battle here
@@ -2846,7 +2847,8 @@ set trace off
    /* cluster commands */
    /* now ordered by the manual */
    /* omnibus -cluster- entry ignored */
-   
+
+   clustermat
    clustermat s
    clustermat singlelinkage
    clustermat a
@@ -2867,7 +2869,7 @@ set trace off
    cluster 
    cluster dend
    cluster dendrogram
-   /* cluster tree is listed in online help as synonym for cluster dendogram */
+   /* cluster tree is a synonym for cluster dendogram */
    cluster tr
    cluster tree
 
@@ -3092,6 +3094,7 @@ set trace off
    end
    cap
    capture
+   
    char `foo'
    char
    char define
@@ -3172,9 +3175,9 @@ set trace off
    conf name
    confi names
    confirm int number // should fail---no abbrev allowed for -integer-
+   confir integer n
    conf n
    conf num
-   confir integer n
    confirm number
    conf mat
    confirm matrix
@@ -3215,7 +3218,8 @@ set trace off
    c(rmsg_time)
    c(stata_version)
    c(version)
-   c(userversion) // new in Stata 14 
+   c(userversion) // new in Stata 14
+   c(dyndoc_version) // new in Stata 15
    c(born_date)
    c(flavor)
    c(bit) // new in Stata 12
@@ -3304,7 +3308,7 @@ set trace off
    c(logtype)
    c(noisily)
    c(charset) // new in Stata 13 mac only, obsolete in Stata 14 
-   c(eolchar)
+   c(eolchar) // no longer documented in Stata 15
    c(notifyuser)
    c(playsnd)
    c(icmap) // obsolete in Stata 10
@@ -3317,6 +3321,7 @@ set trace off
    c(fvlabel) // new in Stata 13
    c(fvwrap) // new in Stata 13
    c(fvwrapon) // new in Stata 13
+   c(fvtrack) // new in Stata 15 
    c(lstretch) // new in Stata 12
    c(cformat) // new in Stata 11.1
    c(sformat) // new in Stata 11.1
@@ -3402,11 +3407,15 @@ set trace off
    c(rng)
    c(rng_current)
    c(rngstate)
+   c(rngseed_mt64s) // new in Stata 15 
+   c(rngstream) // new in Stata 15
    c(version_rng) // new in Stata 11.2, returns 14 in Stata 14, no docs
    c(varabbrev)
    c(emptycells) // new in Stata 12
    c(haverdir) // new in Stata 13 
    c(odbcmgr)
+   c(odbcdriver) // new sometime in Stata 14
+   c(fredkey) // new in Stata 15
    c(`foo')
    // other (uh notsettings?)
    c(pi)
