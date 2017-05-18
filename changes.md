@@ -4,6 +4,8 @@
 
 * Updated for Stata 15
 
+* Fixed a bug in indentation of abbreviations of #delimit
+
 * Fixed a bug in creating help file filenames.
 
 ## 1.14.2.0

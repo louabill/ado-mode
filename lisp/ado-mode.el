@@ -1390,7 +1390,7 @@ be customized using '\\[customize-group] ado-mode'."
 	    (watch-for-semi (ado-delimit-is-semi)))
 	(beginning-of-line)
 	(setq beg (point))
-	(cond ((and ado-delimit-indent-flag (looking-at "[ \t]*#d\\(e\\|el\\|eli\\|elim\\|elimi\\|elimit\\)"))	;#delimits belong at delimit indent
+	(cond ((and ado-delimit-indent-flag (looking-at "[ \t]*#d\\(e\\|el\\|eli\\|elim\\|elimi\\|elimit\\)?"))	;#delimits belong at delimit indent
 	       (setq indent ado-delimit-indent-column))
 	      ((and ado-comment-indent-flag
 		    (or (looking-at "^\\*") (looking-at "^*")))	;comments at start of line belong at comment indent
