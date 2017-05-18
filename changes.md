@@ -1,5 +1,11 @@
 # Version History
 
+## 1.15.0.0
+
+* Updated for Stata 15
+
+* Fixed a bug in creating help file filenames.
+
 ## 1.14.2.0
 
 * Thanks to [Leo](https://www.emacswiki.org/emacs/halloleo), for a fix
