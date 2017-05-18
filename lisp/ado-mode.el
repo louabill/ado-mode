@@ -1751,7 +1751,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
     (setq name (read-from-minibuffer "For what program should help be written? ")))
   (switch-to-buffer
    (generate-new-buffer
-	(generate-new-buffer-name (concat name ado-help-extension))))
+	(generate-new-buffer-name (concat name "." ado-help-extension))))
   (ado-insert-boilerplate "help.blp" t)
   (if (and ado-new-dir (y-or-n-p "Put in 'new' directory? "))
 	  (cd (directory-file-name ado-new-dir)))
