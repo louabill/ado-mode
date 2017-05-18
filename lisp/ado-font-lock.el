@@ -1524,7 +1524,8 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "exc" "exce" "excel" 
+		   "exc" "exce" "excel"
+		   "dbase"
 		   "delim" "delimi" "delimit" "delimite" "delimited" 
 		   "hav" "have" "haver" 
 		   "sasxport"
@@ -1543,8 +1544,10 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "exc" "exce" "excel" 
-		   "delim" "delimi" "delimit" "delimite" "delimited" 
+		   "exc" "exce" "excel"
+		   "dbase"
+		   "delim" "delimi" "delimit" "delimite" "delimited"
+		   "fred"
 		   "hav" "have" "haver" 
 		   "sasxport"
 		   ) 'words))
@@ -1852,7 +1855,7 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "eps" "print" "ps"
+		   "eps" "print" "ps" "svg"
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
@@ -1982,13 +1985,13 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	
-	;; icd9, icd9p, icd10 commands
+	;; icd9, icd9p, icd10, icd10cm commands
 	(list
 	 (concat
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "icd9" "icd9p" "icd10"
+		   "icd9" "icd9p" "icd10" "icd10cm" "icd10pcs"
 		   ) 'words))
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2008,7 +2011,7 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "icd9" "icd9p" "icd10"
+		   "icd9" "icd9p" "icd10" "icd10cm" "icd10pcs"
 		   ) 'words))
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2055,7 +2058,7 @@ Not implemented as much more than an experiment. ")
 		(regexp-opt 
 		 '(
 		   "icc" "iif"
-		   "tcc" "tic"
+		   "tcc" "tif"
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
@@ -3678,6 +3681,7 @@ Not implemented as much more than an experiment. ")
 		   "asroprobit"
 		   "ass" "asse" "asser" "assert" 
 		   "avplot" "avplots"
+		   "bayes"
 		   "bayesmh" "bayesgraph"
 		   "b" "be" "bee" "beep"
 		   "betareg" "binreg" "biprobit" "biplot" "bitest" "bitesti"
@@ -3716,7 +3720,8 @@ Not implemented as much more than an experiment. ")
 		   "db"
 		   "de" "des" "desc" "descr" "descri" "describ" "describe"
 		   "dfactor" "dfbeta" "dfgls" "dfuller" 
-		   "di" "dir" "dis" "discrim" "disp" "disp_res" "disp_s" 
+		   "di" "diflogistic" "difmh" "dir"
+		   "dis" "discrim" "disp" "disp_res" "disp_s" 
 		   "displ" "displa" "display"
 		   "do" 
 		   "doed" "doedi" "doedit" 
@@ -3730,10 +3735,12 @@ Not implemented as much more than an experiment. ")
 		   "findfile" "fit"
 		   "fl" "fli" "flis" "flist"
 		   "for" "fp" "fpredict" 
-		   "fracplot" "frontier" "fsl" "fvexpand"
+		   "fracplot"
+		   "freddescribe" "fredsearch"
+		   "frontier" "fsl" "fvexpand"
 		   "gladder" "gllamm" "glm" "glmpred" 
 		   "gmm" "gnbreg"
-		   "gphdot" "gphpen" "gr7" "graph7" "grmeanby" "gsem"
+		   "gphdot" "gphpen" "gr7" "graph7" "grmap" "grmeanby" "gsem"
 		   "h"
 		   "hadimvo" "hausman"
 		   "heckman" "heckoprobit" "heckpoisson" "heckprob" "heckprobit" 
@@ -3773,9 +3780,9 @@ Not implemented as much more than an experiment. ")
 		   "margins" "marginsplot" "matlist"
 		   "mca" "mcaplot" "mcaprojection" "mcc" "mcci" 
 		   "mds" "mdsconfig" "mdslong" "mdsmat" "mdsshepard"
-		   "mean" "mecloglog" "median" "meglm" "memory" 
-		   "melogit" "menbreg" "meologit" "meoprobit" 
-		   "mepoisson" "meprobit" "meqrlogit" "meqrpoisson" "mestreg"
+		   "mean" "mecloglog" "median" "meglm" "meintreg" "memory" 
+		   "melogit" "menbreg" "menl" "meologit" "meoprobit" 
+		   "mepoisson" "meprobit" "meqrlogit" "meqrpoisson" "mestreg" "metobit"
 		   "mfp" "mhodds"
 		   "mixed"
 		   "mlexp" "mlog" "mlogi" "mlogit"
@@ -3785,6 +3792,7 @@ Not implemented as much more than an experiment. ")
 		   "nl" "nlcom" "nlogit" "nlogittree" "nlsur" 
 		   "no" "noi" "nois" "noisi" "noisil" "noisily"
 		   "note" "notes" "novarabbrev"
+		   "npgraph"
 		   "numlabel"
 		   "nptrend" "numlist"
 		   "olog" "ologi" "ologit"
@@ -4364,7 +4372,7 @@ Not implemented as much more than an experiment. ")
 		   "ado" "all"
 		   "mata" "matrix"
 		   "programs"
-		   "results"
+		   "results" "rngstream"
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
@@ -4938,12 +4946,16 @@ Not implemented as much more than an experiment. ")
 		   "betaden" "binomial" "binomialp" "binomialtail" 
 		   "binormal" "bofd" "byteorder"
 		   "Cdhms" "Chms" "Clock" "Cmdyhms" "Cofc" "Cofd"
-		   "c" "ceil" "char" "chi2" "chi2tail" "chi2den" 
+		   "c" "cauchy" "cauchyden" "cauchytail"
+		   "ceil" "char" "chi2" "chi2tail" "chi2den" 
 		   "cholesky" "chop" "cofC" "cofd"
-		   "collatorlocale" "collatorversion"
-		   "comb" 
 		   "clip" "cloglog" "clock" 
-		   "colnumb" "colsof" "cond" "corr" "cos" 
+		   "coleqnumb"
+		   "collatorlocale" "collatorversion"
+		   "colnumb" "colnfreeparms"
+		   "colsof"
+		   "comb" 
+		   "cond" "corr" "cos" 
 		   "daily" "date" "day"
 		   "det"
 		   "dgammapda" "dgammapdada" "dgammapdadx" "dgammapdx" "dgammapdxdx"
@@ -4958,11 +4970,17 @@ Not implemented as much more than an experiment. ")
 		   "float" "floor" "fmtwidth" 
 		   "gammaden" "gammap" "gammaptail" "get"
 		   "hadamard" "halfyear" "halfyearly" "has_eprop" "hh" "hhC" "hofd" "hms" "hours" "hypergeometric" "hypergeometricp"
-		   "I" "ibeta" "ibetatail" "indexnot" "inlist" "inrange" "int"
+		   "I" "ibeta" "ibetatail" "igaussian" "igaussianden" "igaussiantail"
+		   "indexnot" "inlist" "inrange" "int"
 		   "invF" "invFtail" 
-		   "inv" "invbinomial" "invbinomialtail" "invchi2" "invchi2tail" "invcloglog"
+		   "inv" "invbinomial" "invbinomialtail"
+		   "invcauchy" "invcauchytail"
+		   "invchi2" "invchi2tail" "invcloglog"
 		   "invdunnettprob"
-		   "invgammap" "invgammaptail" "invibeta" "invibetatail" "invlogit"
+		   "invgammap" "invgammaptail"
+		   "invibeta" "invibetatail" "invlogit"
+		   "invigaussian" "invigaussiantail"
+		   "invlaplace" "invlaplacetail"
 		   "invnF" "invnFtail" 
 		   "invnbinomial" "invnbinomialtail"
 		   "invnchi2" "invnchi2tail"
@@ -4975,8 +4993,9 @@ Not implemented as much more than an experiment. ")
 		   "invweibull" "invweibullph" "invweibullphtail" "invweibulltail"
 		   "irecode" "issymetric" 
 		   "J"
-		   "ln" "lnfactorial" "lngamma"
-		   "lnigammaden" "lniwishartden"
+		   "laplace" "laplaceden" "laplacetail"
+		   "ln" "lncauchyden" "lnfactorial" "lngamma"
+		   "lnigammaden" "lnigaussianden" "lniwishartden" "lnlaplaceden"
 		   "lnmvnormalden" "lnwishartden"
 		   "log" "log10"
 		   "logistic" "logisticden" "logistictail"
@@ -4999,12 +5018,13 @@ Not implemented as much more than an experiment. ")
 		   "poisson" "poissonp" "poissontail"
 		   "plural" 
 		   "qofd" "quarter" "quarterly"
-		   "r" "rbeta" "rbinomial" "rchi2" "real" "recode"
+		   "r" "rbeta" "rbinomial" "rcauchy" "rchi2" "real" "recode"
 		   "regexm" "regexr" "regexs"
 		   "reldif" "replay" "return"  
-		   "rgamma" "rexponential" "rhypergeometric" "rlogistic"
+		   "rgamma" "rexponential" "rhypergeometric" "rigaussian"
+		   "rlaplace" "rlogistic"
 		   "rnbinomial" "rnormal"
-		   "round" "rownumb" "rowsof" "rpoisson" "rt"
+		   "round" "roweqnumb" "rownfreeparms" "rownumb" "rowsof" "rpoisson" "rt"
 		   "runiform" "runiformint" "rweibull" "rweibullph"
 		   "s" "scalar" "seconds" "sign" "sin" "soundex" "soundex_nara"
 		   "sqrt" "ss" "ssC"
@@ -5019,7 +5039,7 @@ Not implemented as much more than an experiment. ")
 		   "tan" "tanh" "tc" "td" "tden" "th" "tin" "tm"
 		   "tobytes"
 		   "tq" "trace" "trigamma" "trunc" "ttail" "tukeyprob" "tw" "twithin"
-		   "uchar" "udstrlen" "uisdigit"
+		   "uchar" "udstrlen" "uisdigit" "uisletter"
 		   "ustrcompare" "ustrcompareex"
 		   "ustrfix" "ustrfrom"
 		   "ustrinvalidcnt"
@@ -7241,7 +7261,7 @@ Not implemented as much more than an experiment. ")
 		   "fra" "fram" "frame" "framew" "framewo" "framewor" "framework" 
 		   "ggof" 
 		   "gin" "ginv" "ginva" "ginvar" "ginvari" "ginvaria" "ginvarian" "ginvariant" 
-		   "gof" "grdistances" "group" "grmeans" "grsummarize"
+		   "gof" "gr" "grdistances" "gro" "grou" "group" "grmeans" "grsummarize"
 		   "hett" "hette" "hettes" "hettest" 
 		   "ic" "icc"
 		   "imt" "imte" "imtes" "imtest"
@@ -7258,7 +7278,7 @@ Not implemented as much more than an experiment. ")
 		   "pairwise" "period" "phtest" "predict" "profiles"
 		   "quantiles"
 		   "recov" "recova" "recovar" "recovari" "recovaria" "recovarian" "recovarianc" "recovariance"
-		   "report"
+		   "rep" "repo" "repor" "report" 
 		   "res" "resi" "resid" "residu" "residua" "residual" "residuals" 
 		   "rotate" "rotatecompare"
 		   "sargan" "sbknown" "sbsingle"
@@ -7275,7 +7295,7 @@ Not implemented as much more than an experiment. ")
 		   "tef" "teff" "teffe" "teffec" "teffect" "teffects"
 		   "transition"
 		   "vce" "vif"
-		   "wcorrelation"
+		   "wcor" "wcorr" "wcorre" "wcorrel" "wcorrela" "wcorrelat" "wcorrelati" "wcorrelatio" "wcorrelation" 
 		   ) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -7494,7 +7514,7 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
-		   "conv" "conve" "conver" "convert"
+		   "conv" "conve" "conver" "convert" "convertf" "convertfi" "convertfil" "convertfile" 
 		   "erasebackups"
 		   "restore"
 		   "retr" "retra" "retran" "retrans" "retransl" "retransla" "retranslat" "retranslate"

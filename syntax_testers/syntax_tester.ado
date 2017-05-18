@@ -1,4 +1,4 @@
-*! version 1.14.0.0 May 1, 2017 @ 09:34:30
+*! version 1.14.0.0 May 9, 2017 @ 09:44:10
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -1280,6 +1280,10 @@ set trace off
 
    /* @@ start here */
 
+   /* bayes prefix, introduced in Stata 15 */
+   /* no good mechanism for prefix commands....*/
+   bayes: regress
+   
    /* from Bayes manual [BAYES]; all initially introduced in Stata 14 */
    bayesmh
    bayesgraph
@@ -1349,6 +1353,7 @@ set trace off
    clear programs
    clear ado
    clear all
+   clear rngstream  // new in Stata 15 
    clear * /* cannot fix easily, because of special meaning of * in regexps */
    clonevar
    codebook
@@ -1403,7 +1408,7 @@ set trace off
    /* endless egen & options */
    egen
    egen = any() // really was renamed in Stata 9 to anyvalue()
-   //  highlights because of mata any() function
+                //  highlights because of mata any() function
    egen breeble = anycount()
    egen = anymatch()
    egen = anyvalue()
@@ -1469,10 +1474,12 @@ set trace off
    rm
    expand
    expandcl
+   // @@ start here
    // export commands (all documented under -import-)
    export delimited
    export excel
    export sasxport
+   export dbase // new in Stata 15 
    // fda... commmands obsolete as of Stata 12
    fdasav fdasave
    fdause
@@ -1484,7 +1491,7 @@ set trace off
    g ge gen gene gener genera generat generate
    replace
    set ty
-   set type float
+   set ty float
    set type double
    set type foo
    gsort
@@ -1517,9 +1524,38 @@ set trace off
    icd10 search
    icd10 q
    icd10 query
+   /* icd10cm commands, introduced in Stata 15 */
+   /*   these match icd10 commands */
+   icd10cm check
+   icd10cm clean
+   icd10cm gen
+   icd10cm generate
+ 
+   icd10cm look
+   icd10cm lookup
+   icd10cm sea
+   icd10cm search
+   icd10cm q
+   icd10cm query
+   /* icd10pcs commands, introduced in Stata 15 */
+   /*   these match icd10 commands */
+   icd10pcs check
+   icd10pcs clean
+   icd10pcs gen
+   icd10pcs generate
+ 
+   icd10pcs look
+   icd10pcs lookup
+   icd10pcs sea
+   icd10pcs search
+   icd10pcs q
+   icd10pcs query
    /* end icd9, icd9p, icd10 commands */
 
    // import/export commands
+   import dbase // new in Stata 15 
+   export dbase // new in Stata 15 
+   
    import delim
    import delimited
    export delim
@@ -1529,6 +1565,11 @@ set trace off
    import excel
    export exc
    export excel
+
+   set fredkey
+   import fred
+   freddescribe
+   fredsearch
 
    import hav
    import haver
@@ -1542,8 +1583,8 @@ set trace off
    inf using
    infile
    infix
-   insobs // new in Stata 14 (currently out of order in manuals)
    inp inpu input
+   insobs // new in Stata 14
    insheet // obsolete in Stata 13
    ins insp inspe inspec inspect
    ipolate
@@ -1596,6 +1637,8 @@ set trace off
    merg m:1
    merge 1:m
    merge m:m
+   merge 1:1 _n
+
    mkdir
    mvencode
    mvdecode
@@ -1631,7 +1674,8 @@ set trace off
    set odbcdriver // new in Stata 14
    set odbcdriver ansi
    set odbcdriver unicode
-   set odbcm iodbc
+   set odbcm iodbc // abbreviation disappeared between 14 and 15
+   set odbcmgr iodbc
    set odbcmgr unixodbc
    /* end odbc */
    order
@@ -1661,6 +1705,7 @@ set trace off
    reshape clear
    // end reshape
    rmdir
+   
    sample
    sa sav save
    saveold
@@ -1689,6 +1734,7 @@ set trace off
 
    unicode conv
    unicode convert
+   unicode convertfile // changed in Stata 14.1?
 
    unicode encoding // not complete
    unicode encoding list
@@ -1722,6 +1768,18 @@ set trace off
    zipfile
    unzipfile
    /* end [D] data management */
+
+   /* begin [ERM] extended regression models */
+   // New manual in Stata 15
+   // !!come back when manual is done
+
+   /* end [ERM] extended regression models */
+
+   /* begin [FMM] finite mixture models */
+   // New manual in Stata 15
+   // !!come back when manual is done
+
+   /* end [FMM] finite mixture models */
 
    /* begin [FN] functions (split out in Stata 14) */
    /* functions (moved to their own manual in Stata 14 */
@@ -1832,6 +1890,8 @@ set trace off
    trunc()
    /* matrix functions (whether matrix or scalar result) */
    cholesky()
+   coleqnumb() // new in Stata 15 
+   colnfreeparms() // new in Stata 15 
    colnumb()
    colsof()
    corr()
@@ -1851,6 +1911,8 @@ set trace off
    matuniform()
    mreldif()
    nullmat()
+   roweqnumb() // new in Stata 15
+   rownfreeparms() // new in Stata 15 
    rownumb()
    rowsof()
    sweep()
@@ -1904,10 +1966,13 @@ set trace off
    /* random number functions */
    rbeta()
 	rbinomial()
+   rcauchy() // new in Stata 15
 	rchi2()
    rexponential() // new in Stata 14 
 	rgamma()
 	rhypergeometric()
+   rigaussian()  // new in Stata 14.2
+   rlaplace() // new in Stata 15 
    rlogistic()   // new in Stata 14 
 	rnbinomial()
 	rnormal()
@@ -1935,6 +2000,11 @@ set trace off
 
    binorm()
    binormal()
+
+   // cauchy new in Stata 15
+   cauchy()
+   cauchyden()
+   cauchytail()
    
    // chi2
    chi2()
@@ -1970,12 +2040,22 @@ set trace off
    hypergeometric()
    hypergeometricp()
 
+   // ibeta
    ibeta()
    ibetatail()
+
+   // igaussian; new in Stata 14.1 or 14.2
+   igaussian()
+   igaussianden()
+   igaussiantail()
 
    // now all -inv- functions are lumped together. shame shame
    invbinomial()
    invbinomialtail()
+
+   // invcauchy new in Stata 15
+   invcauchy()
+   invcauchytail()
 
    invchi2()
    invchi2tail()
@@ -1993,6 +2073,12 @@ set trace off
 
    invibeta()
    invibetatail()
+
+   invigaussian()        // new in Stata 15 
+   invigaussiantail()    // new in Stata 15
+
+   invlaplace()          // new in Stata 15 
+   invlaplacetail()      // new in Stata 15
 
    invlogistic()         // new in Stata 14 
    invlogistictail()     // new in Stata 14 
@@ -2027,8 +2113,16 @@ set trace off
    invweibullphtail()  // new in Stata 14 
    invweibulltail()    // new in Stata 14
 
+   // laplace new in Stata 15
+   laplace()
+   laplaceden()
+   laplacetail()
+
+   lncauchyden()       // new in Stata 15 
    lnigammaden()       // new in Stata 14
+   lnigaussianden()    // new in Stata 15 
    lniwishartden()     // new in Stata 14
+   lnlaplaceden()      // new in Stata 15
    lnmvnormalden()     // new in Stata 14
    lnnormal()
    lnnormalden()
@@ -2100,7 +2194,7 @@ set trace off
    index()
    indexnot()
    itrim()  // obsolete in Stata 14
-   length() // obsolete in Stata 14 
+   length() // obsolete in Stata 14 but not mata 
    lower()  // obsolete in Stata 14 
    ltrim()  // obsolete in Stata 14 
    match()
@@ -2126,7 +2220,8 @@ set trace off
    strofreal() 
    strpos() 
    strproper() 
-   strreverse() 
+   strreverse()
+   strrpos()
    strrtrim() 
    strtoname()
    strtrim()
@@ -2143,10 +2238,9 @@ set trace off
    uchar()
    udstrlen()
    uisdigit()
+   uisletter() // new in Stata 15
    ustrcompare()
    ustrcompareex()
-   ustrpos()
-   ustrrpos()
    ustrfix()
    ustrfrom()
    ustrinvalidcnt()
@@ -2155,12 +2249,14 @@ set trace off
    ustrlower()
    ustrltrim()
    ustrnormalize()
+   ustrpos()
    ustrregexm()
    ustrregexra()
    ustrregexrf()
    ustrregexs()
    ustrreverse()
    ustrright()
+   ustrrpos()
    ustrrtrim()
    ustrsortkey()
    ustrsortkeyex()
@@ -2176,7 +2272,7 @@ set trace off
    usubinstr()
    usubstr()
    // end Stata 14 -u- prefix functions
-   upper() // obsolete in Stata 14 
+   upper() // obsolete in Stata 14; valid in mata 
    word()
    wordbreaklocale()
    wordcount()
@@ -2312,7 +2408,7 @@ set trace off
    irtgraph icc
    irtgraph tcc
    irtgraph iif
-   irtgraph tif
+   irtgraph tif // !!
 
    biplot
    cluster dendrogram
@@ -2336,11 +2432,13 @@ set trace off
    serrbar
 
    marginsplot
+   bayesgraph
    power, graph 
    tabodds
    teffects overlap
+   npgraph
+   grmap
    pkexamine
-   bayesgraph
 
    /* end of so-called graph other */
    gr pie
@@ -2363,7 +2461,8 @@ set trace off
    // graph set
    gr set print 
    graph set ps   
-   graph set eps 
+   graph set eps
+   graph set svg  // new in Stata 15 
    graph set window fontface 
    graph set window fontfacemono
    graph set window fontfacesans 
@@ -2439,6 +2538,7 @@ set trace off
    graph twoway rcapsym
    graph twoway rconnected
    tw rcon
+   two rconnected
    twow rl
    graph twoway rline
    twowa rsc
@@ -2502,35 +2602,53 @@ set trace off
    irt hybrid
 
    // irt-specific postestimation commands
+   estat rep
+   estat repo
    estat report
    irtgraph // incomplete
    irtgraph icc
    irtgraph iif
    irtgraph tcc
-   irtgraph tic
+   irtgraph tif
+
+   diflogistic
+   difmh
 
    /* end [IRT] manual */
 
    /* [ME] manual (new in Stata 13) */
-   mecloglog
+   // now in order of manual
+   estat df
+
+   estat gr
+   estat grou
    estat group
-   
-   meglm
-   melogit
-   estat group
+
    estat icc
    
+   estat recov
+   estat recovariance
+
+   estat sd
+
+   estat wcor
+   estat wcorr
+   estat wcorrelation
+   
+   mecloglog
+   meglm
+   meintreg // new in Stata 15 
+   melogit
    menbreg
+   menl     // new in Stata 15 
    meologit
    meoprobit
    mepoisson
    meprobit
    meqrlogit
-   estat group
-   estat recovariance
-   estat icc
    meqrpoisson
    mestreg // new in Stata 14
+   metobit // new in Stata 15 
    stcurve
    estat group
    mixed
@@ -2541,6 +2659,7 @@ set trace off
    estat wcorrelation
    /* end of [ME] manual */
 
+   @@ start here
    // the [MI] multiple imputation manual...all new in Stata 11
    // ... and vastly expanded in Stata 12
    mi // incomplete
