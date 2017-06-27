@@ -1,4 +1,4 @@
-*! version 1.14.0.0 May 18, 2017 @ 10:41:30
+*! version 1.14.0.0 June 27, 2017 @ 09:53:40
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -1278,8 +1278,6 @@ set trace off
    /* end subcommand using postestimation */
    /* end [R] */
 
-   /* @@ start here */
-
    /* bayes prefix, introduced in Stata 15 */
    /* no good mechanism for prefix commands....*/
    bayes: regress
@@ -1474,7 +1472,7 @@ set trace off
    rm
    expand
    expandcl
-   // @@ start here
+   
    // export commands (all documented under -import-)
    export delimited
    export excel
@@ -2659,7 +2657,6 @@ set trace off
    estat wcorrelation
    /* end of [ME] manual */
 
-   @@ start here
    // the [MI] multiple imputation manual...all new in Stata 11
    // ... and vastly expanded in Stata 12
    mi // incomplete
@@ -2722,14 +2719,21 @@ set trace off
    
    mi imp mon
    mi impute monotone
+
    mi imp mvn
+
    mi imp nbreg // new in Stata 12 
+
    mi impute olog
    mi impute ologit
+
    mi impu pmm
+
    mi imput poisson // new in Stata 12
+
    mi imput reg
    mi impute regress
+
    mi imp truncreg // new in Stata 12
    mi impute foobar // technically ok if foobar is a user method
 
@@ -2761,8 +2765,11 @@ set trace off
 
    mi ren
    mi rename
+
    mi replace0
+
    mi reset
+
    mi reshape long
    mi reshape wide
 
@@ -2820,6 +2827,7 @@ set trace off
    /* from [MV] multivariate statistics */
    alpha
    biplot
+
    ca
    camat
    
@@ -3029,8 +3037,8 @@ set trace off
    mdsconfig
    mdsshepard
    screeplot
-   
    /* end mds postestimation */
+
    mdslong
 
    mdsmat
@@ -3051,6 +3059,7 @@ set trace off
    
    /* score is now obsolete */
    sco scor score
+
    pca
    pcamat
    /* pca postestimation */
@@ -3076,8 +3085,10 @@ set trace off
 
    rot rota rotat rotate
    rotatemat
+
    scoreplot
    loadingplot
+
    greigen /* obsolete in Stata 9 */
    scree // listed as synonym for -screeplot- in Stata 13 manual
    screeplot
@@ -3092,6 +3103,7 @@ set trace off
    end
    program foobar, sclass byable(onecall)
    end
+
    cap
    capture
    
@@ -3172,6 +3184,7 @@ set trace off
 
    /* confirm ts was replaced by confirm date in Stata 10,  */
    conf ts format
+
    conf name
    confi names
    confirm int number // should fail---no abbrev allowed for -integer-
@@ -3198,8 +3211,8 @@ set trace off
    conf long variabl
    conf float variable
    conf double v
-   confirm str11 v
-   confirm str9 var
+   confirm str9 v
+   confirm str11 var
    confirm str244 var
    confirm str455 var
    confirm str2045 var
@@ -3211,7 +3224,7 @@ set trace off
    /* oh no! the cclass stuff */
    cret l
    creturn list
-
+   /* system values */
    c( current_date )
    c(current_date)
    c(current_time)
@@ -3238,6 +3251,7 @@ set trace off
    c(byteorder)
    c(username)
 
+   /* directories and paths */
    c(sysdir_stata)
    c(sysdir_updates) // (technically obsolete in Stata 13)
    c(sysdir_base)
@@ -3250,6 +3264,7 @@ set trace off
    c(pwd)
    c(dirsep)
 
+   /* system limits */
    c(max_N_theory)
    c(max_N_current)  // obsolete in Stata 12
    c(max_k_theory)
@@ -3267,7 +3282,8 @@ set trace off
    c(namelenbyte)
    c(namelenchar)
    c(eqlen)
-   // numeric and string limits
+
+   /* numeric and string limits */
    c(mindouble)
    c(maxdouble)
    c(epsdouble)
@@ -3284,14 +3300,16 @@ set trace off
    c(maxstrvarlen)
    c(maxstrlvarlen) // new in Stata 13 
    c(maxvlabellen) // new in Stata 13 
-   // current dataset
+
+   /* current dataset */
    c(N)
    c(k)
    c(width)
    c(changed)
    c(filename)
    c(filedate)
-   // memory
+
+   /* memory */
    c(memory)
    c(maxvar)
    c(matsize)
@@ -3299,7 +3317,8 @@ set trace off
    c(min_memory) // new in Stata 12
    c(max_memory)   // new in Stata 14 
    c(segmentsize) // new in Stata 12
-   // output
+
+   /* output */
    c(more)
    c(rmsg)
    c(dp)
@@ -3327,7 +3346,8 @@ set trace off
    c(sformat) // new in Stata 11.1
    c(pformat) // new in Stata 11.1
    c(coeftabresults)  // new in Stata 13 
-   // interface
+
+   /* interface */
    c(dockable)
    c(dockingguides)
    c(floatresults) // obsolete in Stata 10 or so
@@ -3354,7 +3374,8 @@ set trace off
    c(maxdb)
    c(smalldlg)  // obsolete in Stata 10 
    c(xptheme)   // obsolete in Stata 10 
-   // graphics
+
+   /* graphics settings */
    c(graphics)
    c(autotabgraphs)
    c(scheme)
@@ -3362,10 +3383,12 @@ set trace off
    c(copycolor)
    c(macgphengine)
    c(piccomments)
-   // efficiency
+
+   /* efficiency */
    c(adosize)
    c(virtual)  // obsolete in Stata 12
-   // network
+
+   /* network */
    c(checksum)
    c(timeout1)
    c(timeout2)
@@ -3375,11 +3398,13 @@ set trace off
    c(httpproxyauth)
    c(httpproxyuser)
    c(httpproxypw)
-   // update settings (not in Unix yet)
+
+   /* update settings (not in Unix yet) */
    c(update_query)
    c(update_interval)
    c(update_prompt)
-   // trace settings
+
+   /* trace settings */
    c(trace)
    c(tracedepth)
    c(tracesep)
@@ -3387,7 +3412,8 @@ set trace off
    c(traceexpand)
    c(tracenumber)
    c(tracehilite)
-   // mata
+
+   /* mata */
    c(matastrict)
    c(matalnum)
    c(mataoptimize)
@@ -3395,11 +3421,13 @@ set trace off
    c(matacache)
    c(matalibs)
    c(matamofirst)
-   // unicode settings (new in Stata 14)
+
+   /* unicode settings (new in Stata 14) */
    c(locale_ui)
    c(locale_functions)
    c(locale_icudflt)
-   // other settings
+   
+   /* other settings */
    c(type)
    c(maxiter)
    c(searchdefault)
@@ -3417,7 +3445,8 @@ set trace off
    c(odbcdriver) // new sometime in Stata 14
    c(fredkey) // new in Stata 15
    c(`foo')
-   // other (uh notsettings?)
+
+   /* other (uh notsettings?) */
    c(pi)
    c(alpha)
    c(ALPHA)
@@ -3431,7 +3460,7 @@ set trace off
    /* end of that mess */
    _datasig
    _datasignature
-   #d cr
+#d cr
 #delimit ;
 
    this is another command;
@@ -3477,7 +3506,7 @@ set trace off
      continuation;
    
    
-#delimit cr
+#delim cr
    
    this "#delim ;" is inside quotations, and hence is invalid
 
@@ -3521,8 +3550,37 @@ set trace off
    display in blue
    display in red
    display in yellow
+
+
+   /* dyndoc tags; new in Stata 15 */
+   <<dd_version:1>>
+
+   <<dd_do>>
+   <</dd_do>>
+   <<dd_do: qui quietly nocom nocommand noout nooutput noprom noprompt >>
+   <</dd_do>>
    
 
+   <<dd_display:>>
+   <<dd_display: %4.3f 1.23>>
+   
+   <<dd_graph>> // should fail
+   <<dd_graph:fooey>>
+   
+   <<dd_ignore>>
+   <</dd_ignore>>
+   <<dd_include>> // should fail
+   <<dd_include: fooey>>
+   <<dd_remove>>
+   <</dd_remove>>
+   <<dd_skip_if>> // should fail
+   <<dd_skip_if: fooey>>
+   <<dd_skip_else>>
+   <<dd_skip_end>>
+
+<<dd_do: quietly >>
+
+   @@ start here
    /* ereturn... */
    eret loc bleen
    eret local

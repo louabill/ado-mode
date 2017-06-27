@@ -346,7 +346,68 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; dyndoc tags
+	;; <<dd_version>> (sloppy for now, because it can only be 1)
+	(list "^[ \t]*\\(<<dd_version\\)[ \t]*:[ \t]*\\(1\\)[ \t]*\\(>>\\)"
+		  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-builtin-harmless-face))
+	  
+
+	;; <<dd_do>> with attributes
+	;; this nested list construction allows multiple matches on a line
+	(list "^[ \t]*\\(<<dd_do\\)[ \t]*:[ \t]*" '(1 ado-builtin-harmless-face)
+		  (list
+		   (eval-when-compile
+			 (regexp-opt
+			  '(
+				"nocom" "nocomm" "nocomma" "nocomman" "nocommand" "nocommands"
+				"noout" "nooutp" "nooutpu" "nooutput"
+				"noprom" "nopromp" "noprompt" 
+				"qui" "quie" "quiet" "quietl" "quietly" 
+				) 'words))
+		   "+[ \t]*"
+		   "\\(>>\\)"
+		   '(0 ado-subcommand-face t) '(1 ado-builtin-harmless-face)
+		   ))
+
+	;; <<dd_remove>> and <</dd_remove>> can be anywhere in a line without attributes
+	;; This block screws up highlighting
+	(list
+	  "[ \t]*\\(<<\\(?:/\\)?dd_remove>>\\)"
+	  '(1 ado-builtin-harmless-face t))
 	
+	;; <<dd_display>>, <<dd_graph>> can be anywhere in a line, needs : anything afterwards
+	(list
+	 (concat
+	  "[ \t]*"
+	  "\\(<<dd_\\(?:display\\|graph\\)\\)"
+	  "[ \t]*:.*?"
+	  "\\(>>\\)"
+	  )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face))
+
+	;; dd_ignore /dd_ignore dd_end all start line but have no attributes
+	(list
+	 (concat
+	  "^[ \t]*"
+	  "\\(<<dd_\\(?:do\\|end\\|ignore\\|skip_else\\|skip_end\\)\\)"
+	  "[ \t]*"
+	  "\\(>>\\)"
+	  )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face))
+
+	;; <</dd_do>> and <</dd_do>> must start a line
+	(list
+	  "^[ \t]*\\(<</dd_\\(?:do\\|ignore\\)\\)\\(>>\\)"
+	  '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face))
+
+	;; <<dd_include>> must have a colon and must start a line. fug.
+	(list
+	  "^[ \t]*\\(<<dd_\\(?:include\\|skip_if\\)\\)[ \t]*:.*?\\(>>\\)"
+	  '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face))
+
+
+	;; this is for highlighting <<dd_xx>> constructs with colon but no atttributes
+	(list "<<dd_do.*\\(>>\\)[ \t]*$" '(1 ado-builtin-harmless-face t))
+
 	;; discrim commands
 	(list
 	 (concat
