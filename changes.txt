@@ -1,8 +1,16 @@
 Version History:
 ---------------
+1.15.0.0
+
+* Updated for Stata 15
+
+* Fixed highlighting of -manlink-, -manlinki-, -manpage-, and
+  -mansection- to only accept proper abbreviations for manual names
+  (like R or P or SVY).
+
 1.14.2.0
 
-* Thanks to Fixed ado-send-to-stata to allow spaces in file names 
+* Thanks to leo, fixed ado-send-to-stata to allow spaces in file names 
 
 * Added -icd10 search- (in reality, this had been added earlier,
   incorrectly, in ado-mode 1.14.0.0)

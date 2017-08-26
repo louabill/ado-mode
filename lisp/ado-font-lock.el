@@ -48,10 +48,12 @@ Not implemented as much more than an experiment. ")
   "end-of-command regexp to keep things like -regress(- from highlighting")
 (defconst ado-stata-name-regexp "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
   "for uniform highlighting of Stata names")
+(defconst ado-man-abbrevs '("BAYES" "D" "DSGE" "ERM" "FMM" "FN" "G" "GSM" "GSU" "GSW" "IG" "IRT" "M" "ME" "MI" "MV" "P" "PSS" "R" "SEM" "SP" "ST" "SVY" "TE" "TS" "U" "XT"))
+
 
 
 (defun ado-set-font-lock-keywords ()
-										;  (make-local-variable 'ado-font-lock-keywords)
+						  ;  (make-local-variable 'ado-font-lock-keywords)
   (interactive)
   (setq
    ado-font-lock-keywords
@@ -369,7 +371,6 @@ Not implemented as much more than an experiment. ")
 		   ))
 
 	;; <<dd_remove>> and <</dd_remove>> can be anywhere in a line without attributes
-	;; This block screws up highlighting
 	(list
 	  "[ \t]*\\(<<\\(?:/\\)?dd_remove>>\\)"
 	  '(1 ado-builtin-harmless-face t))
@@ -515,6 +516,66 @@ Not implemented as much more than an experiment. ")
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+
+	;; putdocx/putpdf commands
+	;; first the harmless one
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "putdocx" "putpdf"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "describe"
+		   ) 'words))
+	  end-cmd-regexp ) 
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; now, all the rest
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "putdocx" "putpdf"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "begin"
+		   "clear"
+		   "image"
+		   "pagebreak"
+		   "paragraph"
+		   "save"
+		   "table"
+		   "text"
+		   ) 'words))
+	  end-cmd-regexp ) 
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
+	;; putdocx only
+	(list
+	 (concat
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "putdocx"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "append"
+		   ) 'words))
+	  end-cmd-regexp ) 
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; st_is
 	(list
@@ -3789,7 +3850,8 @@ Not implemented as much more than an experiment. ")
 		   "do" 
 		   "doed" "doedi" "doedit" 
 		   "dotplot"
-		   "ds" "dstdize" 
+		   "ds" "dstdize"
+		   "dyndoc" "dyntext"
 		   "eivreg" "eq" "esizei"
 		   "est" "esti" "estim" "estima" "estimat" "estimate" "estimates" 
 		   "eteffects" "etpoisson" "etregress"
@@ -3840,7 +3902,7 @@ Not implemented as much more than an experiment. ")
 		   "loneway" "lookfor" "lowess" "lpredict" "lpoly"
 		   "lroc" "lrtest" "ls" "lsens" "ltable" "lv" "lvr2plot"
 		   "man" "mano" "manov" "manova" "manovatest" 
-		   "margins" "marginsplot" "matlist"
+		   "margins" "marginsplot" "markdown" "matlist"
 		   "mca" "mcaplot" "mcaprojection" "mcc" "mcci" 
 		   "mds" "mdsconfig" "mdslong" "mdsmat" "mdsshepard"
 		   "mean" "mecloglog" "median" "meglm" "meintreg" "memory" 
@@ -3869,7 +3931,9 @@ Not implemented as much more than an experiment. ")
 		   "pnorm" "poisson" "postest" "pperron"
 		   "prais" "print"
 		   "prob" "probi" "probit"
-		   "procoverlay" "procrustes" "proportion"
+		   "procoverlay" "procrustes"
+		   "projman" "projmana" "projmanag" "projmanage" "projmanager" 
+		   "proportion"
 		   "prtest" "prtesti"
 		   "psdensity"
 		   "putexcel"
@@ -4561,9 +4625,11 @@ Not implemented as much more than an experiment. ")
 		(regexp-opt 
 		 '(
 		   "adosubdir"
-		   "char" "cole" "coleq" 
-		   "colf" "colfu" "colful" "colfull" "colfulln" "colfullna" "colfullnam" "colfullname" "colfullnames" 
-		   "coln" "colna" "colnam" "colname" "colnames" 
+		   "char" "cole" "coleq" "coleqnumb" 
+		   "colf" "colfu" "colful" "colfull" "colfulln" "colfullna" "colfullnam" "colfullname" "colfullnames"
+		   "colnfreeparms" "collfnames"
+		   "coln" "colna" "colnam" "colname" "colnames"
+		   "colnlfs" "colnumb" "colsof" "colvarlist"
 		   "constraint"
 		   "dirsep" 
 		   "di" "dir" "dis" "disp" "displ" "displa" "display" 
@@ -4572,9 +4638,11 @@ Not implemented as much more than an experiment. ")
 		   "lab" "labe" "label"
 		   "list"
 		   "permname" "piece" "properties" "pwd"
-		   "rowe" "roweq" 
-		   "rowf" "rowfu" "rowful" "rowfull" "rowfulln" "rowfullna" "rowfullnam" "rowfullname" "rowfullnames" 
-		   "rown" "rowna" "rownam" "rowname" "rownames" 
+		   "rowe" "roweq" "roweqnumb" 
+		   "rowf" "rowfu" "rowful" "rowfull" "rowfulln" "rowfullna" "rowfullnam" "rowfullname" "rowfullnames"
+		   "rowlfnames"
+		   "rown" "rowna" "rownam" "rowname" "rownames"
+		   "rownfreeparms" "rownlfs" "rownumb" "rowsof" "rowvarlist"
 		   "sort" "sorte" "sorted" "sortedb" "sortedby" "sysdir"
 		   "tempf" "tempfi" "tempfil" "tempfile" "tempv" "tempva" "tempvar" 
 		   "tsnorm" 
@@ -5664,7 +5732,7 @@ Not implemented as much more than an experiment. ")
 		  "char"
 		  "dialog"
 		  "help" "helpb"
-		  "manlink" "manlinki" "manpage" "mansection" "marker" "matacmd"
+		  "marker" "matacmd"
 		  "net"
 		  "opt"
 		  "search" "stata"
@@ -5693,6 +5761,96 @@ Not implemented as much more than an experiment. ")
 	   )
 	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
 	  '(3 ado-subcommand-face t) '(4 ado-constant-face))
+
+	;; Syntax 3 manlink, manlinki, mansection
+	(list
+	  (concat
+	   "\\({\\)"
+	   "[ \t]*"
+	   (eval-when-compile 
+		 (regexp-opt 
+		'(
+		  "manlink" "manlinki" "mansection"
+		  )
+		'words))
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt ado-man-abbrevs 'words))
+	   "\\([^:]*?\\)"
+	   "\\(}\\)"
+	   )
+	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
+	  '(3 ado-subcommand-face t) 
+	  '(4 ado-subcommand-face t) '(5 ado-constant-face))
+	   
+	;; Syntax 4 mansection
+	(list
+	  (concat
+	   "\\({\\)"
+	   "[ \t]*"
+	   (eval-when-compile 
+		 (regexp-opt 
+		'(
+		  "mansection"
+		  )
+		'words))
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt ado-man-abbrevs 'words))
+	   "[ \t]*"
+	   "\\(:\\)"
+	   "\\(.+?\\)"
+	   "\\(}\\)"
+	   )
+	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
+	  '(3 ado-subcommand-face t) '(4 ado-constant-face) 
+	  '(5 ado-subcommand-face t) '(6 ado-constant-face))
+	   
+	;; Syntax 3 manpage
+	(list
+	  (concat
+	   "\\({\\)"
+	   "[ \t]*"
+	   (eval-when-compile 
+		 (regexp-opt 
+		'(
+		  "manpage"
+		  ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt ado-man-abbrevs 'words))
+	   "[ \t]+"
+	   "\\([1-9][0-9]*\\)"
+	   "[ \t]*"
+	   "\\(}\\)"
+	   )
+	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
+	  '(3 ado-subcommand-face t) 
+	  '(4 ado-subcommand-face t) '(5 ado-constant-face))
+	   
+	;; Syntax 4 manpage
+	(list
+	  (concat
+	   "\\({\\)"
+	   "[ \t]*"
+	   (eval-when-compile 
+		 (regexp-opt 
+		'(
+		  "manpage"
+		  ) 'words))
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt ado-man-abbrevs 'words))
+	   "[ \t]+"
+	   "\\(:\\)"
+	   "[ \t]*"
+	   "\\([1-9][0-9]*\\)"
+	   "[ \t]*"
+	   "\\(}\\)"
+	   )
+	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
+	  '(3 ado-subcommand-face t) '(4 ado-constant-face)
+	  '(5 ado-subcommand-face t) '(6 ado-constant-face))
 	   
 	  ;; Syntax 3 comments
 	(list
@@ -5808,7 +5966,7 @@ Not implemented as much more than an experiment. ")
 		  "browse"
 		  "dialog"
 		  "help" "helpb"
-		  "manpage" "mansection" "matacmd"
+		  "manpage" "matacmd"
 		  "net"
 		  "opt"
 		  "search" "stata"

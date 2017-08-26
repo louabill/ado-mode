@@ -1,4 +1,4 @@
-*! version 1.14.0.0 June 27, 2017 @ 09:53:40
+*! version 1.14.0.0 August 26, 2017 @ 14:31:45
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -3563,24 +3563,29 @@ set trace off
 
    <<dd_display:>>
    <<dd_display: %4.3f 1.23>>
-   
+
+   // for dd_grah, there are too many options to bother highlighting
    <<dd_graph>> // should fail
-   <<dd_graph:fooey>>
+   <<dd_graph:fooey>> // fooey should not highlight
+   <<dd_graph:  saving() alt() height() replace>>
    
    <<dd_ignore>>
    <</dd_ignore>>
+   
    <<dd_include>> // should fail
    <<dd_include: fooey>>
+
    <<dd_remove>>
    <</dd_remove>>
+
    <<dd_skip_if>> // should fail
    <<dd_skip_if: fooey>>
    <<dd_skip_else>>
    <<dd_skip_end>>
 
-<<dd_do: quietly >>
-
-   @@ start here
+   dyndoc
+   dyntext
+   
    /* ereturn... */
    eret loc bleen
    eret local
@@ -3759,6 +3764,7 @@ set trace off
    local foo: sysdir SITE
    global blah: sysdir PLUS
    local foo: sysdir PERSONAL
+   local bad: sysdir OHNO  // should not highlight
    gl h : env
    global h : environment
    loc h : e(scalars)
@@ -3770,6 +3776,7 @@ set trace off
    gl h: r(matrices)
    global h: r(functions)
    loc h: s(macros)
+   loc h: s(functions)  // should not highlight
    global h: all globals
    global h: all scalars
    loc h: all matrices
@@ -3791,6 +3798,22 @@ set trace off
    local h : roweq
    local h : cole
    local h : coleq
+   // a bunch of new Stata 15 stuff
+   local h : rownumb
+   local h : colnumb
+   local h : roweqnumb
+   local h : coleqnumb
+   local h : rownfreeparms
+   local h : colnfreeparms
+   local h : rownlfs
+   local h : colnlfs
+   local h : rowsof 
+   local h : colsof 
+   local h : rowvarlist 
+   local h : colvarlist
+   local h : rowlfnames
+   local h : collfnames
+   // end of new Stata 15 stuff
    glo foo: tsnorm
    local g : copy loc
    local h : copy local
@@ -3806,8 +3829,10 @@ set trace off
    local h : piece
    local h : length loc // obsolete in Stata 14 
    local h : strlen loc       // new in Stata 14 
+   local h : strlen glo       // new in Stata 14 
    local h : ustrlen local    // new in Stata 14 
    local h : udstrlen gl      // new in Stata 14 
+   local h : udstrlen loc      // new in Stata 14 
    local h : subinstr gl
    local h : subinstr global hi
    local h : subinstr loc ho
@@ -3846,6 +3871,8 @@ set trace off
    markout
    markin
    svymarkout fiem // fiem is a variable name
+
+   markdown // new in Stata 15; conflicts with user-written markdown
 
    matlist
    
@@ -3916,7 +3943,7 @@ set trace off
    
    /* phew, matrix is finally done */
 
-   mor
+   mor  // what an idiotic abbreviation
    more
 
    numlist
@@ -3957,14 +3984,40 @@ pause "fuggy"
 
    program drop fooie
    pr l fooie
-   program list fooie 
+   program list fooie
 
-   // putexcel new in Stata 13
+   projman projmana projmanag projmanage projmanager // New in Stata 14 or so
+
+   // putdocx new in Stata 15
+   putdocx begin
+   putdocx paragraph
+   putdocx text (...)
+   putdocx image
+   putdocx table
+   putdocx pagebreak
+   putdocx describe
+   putdocx save
+   putdocx clear
+   putdocx append
+
+   // putexcel new in Stata 13; syntax changes don't change ado-mode
    putexcel
    putexcel set
    putexcel describe
    putexcel clear   
    
+   // putpdf new in Stata 15
+   putpdf begin
+   putpdf paragraph
+   putpdf text (...)
+   putpdf image
+   putpdf table
+   putpdf pagebreak
+   putpdf describe
+   putpdf save
+   putpdf clear
+   putpdf append // should not highlight
+
    qui blah
    quietly {
       n bling
@@ -4184,6 +4237,7 @@ pause "fuggy"
    {help stata##anchor:subtext}
    {help stata##anchor|viewer:subtext}
    {marker jumphere}{...}
+   {marker ul}
    {marker ...}
    {help_d:fooie}
 
@@ -4220,10 +4274,15 @@ pause "fuggy"
    {view fooey:click}
    {view_d fail}
    {view_d:hahah}
-   {manpage docs}
+   {manpage fail}
+   {manpage SVY 99}
+   {manpage R notquite}
+   {manpage P:666}
+   
    {manpage docs:awfully unixy}
-   {mansection dopey}
-   {mansection dopey:droopy}
+   {mansection SEM bleen}
+   {mansection dopey:fail}
+   {mansection P:haha}
    {manlink hahahah} // should not work
    {manlinki R summarize}
    
