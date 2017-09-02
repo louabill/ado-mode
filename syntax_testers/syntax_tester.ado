@@ -1,4 +1,4 @@
-*! version 1.14.0.0 August 26, 2017 @ 14:31:45
+*! version 1.14.0.0 September 2, 2017 @ 00:02:10
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -4370,10 +4370,17 @@ pause "fuggy"
    {synoptset `foo'}
    {synoptset 5 tabbed}
    {synoptset 12 notes}
+   {synoptset tabbed}
+   {synoptset notes}
+   {synoptset tabbed notes} // should fail
    {synoptset 5 6} // should fail 
+
    {synopthdr}
-   {synopthdr: damn}
+   {synopthdr:} // should be OK
+   {synopthdr:damn}
    {syntab: this}
+   {synopt} // should fail
+   {synopt:} // should be OK
    {synopt: is}
    {p2coldent: no fun}
    {synoptline}
@@ -4382,7 +4389,7 @@ pause "fuggy"
    {break}
    // other odd modes
    {asis}
-   {s6hlp}
+   {s6hlp} // went undocumented some time in the foggy past
    {ccl pi}
    {ccl current_date}
    // looks nice below, but not really full of testing
@@ -4452,6 +4459,7 @@ pause "fuggy"
    sysdir set UPDATES  // technically out-of-date
    sysdir set PLUS
    sysdir set PERSONAL
+   sysdir set OLDPLACE
    sysdir set NOGOOD
    
    personal
@@ -4468,7 +4476,7 @@ pause "fuggy"
 
    timer clear
    timer clear 3
-   timer off // should fail
+   timer on // should fail
    timer on 4
    timer off 14
    timer list
@@ -4477,6 +4485,7 @@ pause "fuggy"
 
    token tokeni tokeniz tokenize
 
+set trace // should be incomplete
 set tr on
 set trace off
    /* perhaps should add numbers as trailing argument. Some other day. */
@@ -4504,6 +4513,8 @@ set trace off
    /* more complicated version commands :<( */
 vers 8
 version 12: fooie
+versi 15: aloha
+versio 18: howdy // should fail for a few years
    viewsource
 
    while foo {
@@ -4513,7 +4524,7 @@ version 12: fooie
    /* put back in the manual in Stata 13 */
    /* platform dependencies not highlighted */
    window
-   win fop
+   win fo
    window fopen
    win
    win fs
@@ -4557,7 +4568,7 @@ version 12: fooie
    win menu append // incomplete
    win menu append submenu
    win m append item
-   window menu append separator
+   window me append separator
    window menu refresh
    window menu add_recentfiles
 

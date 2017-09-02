@@ -5684,7 +5684,7 @@ Not implemented as much more than an experiment. ")
 		 ) 'words))
 	   "[ \t]*"
 	   "\\(:\\)"
-	   "\\([^}]+\\)"
+	   "\\([^}]*?\\)"
 	   "\\(}\\)"
 	   )
 	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
