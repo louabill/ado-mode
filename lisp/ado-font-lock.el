@@ -4217,26 +4217,29 @@ Not implemented as much more than an experiment. ")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
+		   "asmixlog"
 		   "betareg" "biprobit"
-		   "clogit" "cloglog" "cnsreg" "cpoisson"
-		   "etpoisson" "etregress"
+		   "churdle" "clogit" "cloglog" "cnsreg" "cpoisson"
+		   "eintreg" "eoprobit" "eregress" "etpoisson" "etregress"
 		   "fracreg" 
 		   "glm" "gnbreg" "gsem"
-		   "heckman" "heckoprobit" "heckprob" "heckprobit" "hetprob" 
+		   "heckman" "heckoprobit" "heckpoisson"
+		   "heckprob" "heckprobit" "hetprob" "hetregress" 
 		   "intreg" "ivprobit" "ivregress" "ivtobit"
 		   "logistic" "logit"
-		   "mecloglog" "mean" "meglm" "melogit" "menbreg" "meologit" "meoprobit"
-		   "mepoisson" "meprobit" "mestreg"
+		   "mecloglog" "mean" "meglm" "melogit" "menbreg"
+		   "meintreg" "meologit" "meoprobit"
+		   "mepoisson" "meprobit" "mestreg" "metobit"
 		   "mprobit" "mlogit"
 		   "nl"
 		   "nbreg" "ologit" "oprobit"
 		   "poisson" "probit" "proportion" 
 		   "ratio" 
 		   "reg" "regr" "regre" "regres" "regress"
-		   "scobit" "sem" "slogit" "stcox" "streg"
+		   "scobit" "sem" "slogit" "stcox" "stintreg" "streg"
 		   "tab" "tabu" "tabul" "tabula" "tabulat" "tabulate"
 		   "tnbreg" "tobit" "total" "tpoisson" "truncreg"
-		   "zinb" "zip"
+		   "zinb" "zioprobit" "zip"
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face))
@@ -4287,7 +4290,43 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-builtin-harmless-face))
-
+	;; incomplete svy fmm
+	(list
+	 (concat
+	  "\\<\\(svy\\)\\>"
+	  "[ \t]*,?.*?:[ \t]*"
+	  "\\<\\(fmm\\)\\>"
+	  "[ \t]*,?.*?:[ \t]*"
+	  )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	;; svy fmm
+	(list
+	 (concat
+	  "\\<\\(svy\\)\\>"
+	  "[ \t]*,?.*?:[ \t]*"
+	  "\\<\\(fmm\\)\\>"
+	  "[ \t]*,?.*?:[ \t]*"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "betareg"
+		   "cloglog"
+		   "glm"
+		   "intreg" "ivregress"
+		   "logit"
+		   "mlogit"
+		   "nbreg"
+		   "ologit" "oprobit"
+		   "pointmass" "poisson" "probit"
+		   "regress"
+		   "streg"
+		   "tobit"
+		   "tpoisson"
+		   "truncreg"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face t)
+	 '(3 ado-builtin-harmless-face))
 	;; haver subcommands ... all obsolete in Stata 13
 	
 	;; (list

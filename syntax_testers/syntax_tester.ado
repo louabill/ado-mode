@@ -1,4 +1,4 @@
-*! version 1.14.0.0 September 10, 2017 @ 14:26:35
+*! version 1.14.0.0 September 10, 2017 @ 19:26:34
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -4893,13 +4893,16 @@ versio 18: howdy // should fail for a few years
    svy: mean
    svy: proportion
    svy: ratio
-   svy:total
+   svy: total
    svy: churdle 
    svy: churdle linear // new in Stata 14 
    svy: cnreg // obsolete in Stata 11
    svy: cnsreg
+   svy: eintreg // new in Stata 15
+   svy: eregress // new in Stata 15 
    svy: etregress
    svy: glm
+   svy: hetregress // new in Stata 15 
    svy: intreg
    svy: nl
    svy: reg
@@ -4912,6 +4915,7 @@ versio 18: howdy // should fail for a few years
    svy: gsem   // new in Stata 14 
 
    svy: stcox
+   svy: stintreg // new in Stata 15 
    svy: streg
 
    svy: biprobit
@@ -4922,12 +4926,15 @@ versio 18: howdy // should fail for a few years
    svy: probit
    svy: scobit
 
+   svy: asmixlog // new in Stata 15 
    svy: clogit
+   svy: eoprobit // new in Stata 15 
    svy: mlogit
    svy: mprobit
    svy: ologit
    svy: oprobit
    svy: slogit
+   svy: zioprobit // new in Stata 15
 
    svy: betareg // new in Stata 14 
    svy: fracreg // new in Stata 14
@@ -4947,9 +4954,10 @@ versio 18: howdy // should fail for a few years
    svy: ivprobit
    svy: ivregress
    svy: ivtobit
-   
+  
    svy: heckman
    svy: heckoprobit
+   svy: heckpoisson // new in Stata 15
    svy: heckprob
    svy: heckprobit
    /* ivreg outdated as of Stata 10 */
@@ -4958,6 +4966,7 @@ versio 18: howdy // should fail for a few years
    /* mlmm new in Stata 14 */
    svy: mecloglog
    svy: meglm
+   svy: meintreg // new in Stata 15
    svy: melogit
    svy: menbreg
    svy: meologit
@@ -4965,6 +4974,29 @@ versio 18: howdy // should fail for a few years
    svy: mepoisson
    svy: meprobit
    svy: mestreg
+   svy: metobit // new in Stata 15
+
+   // Finite mixture models new in Stata 15
+   svy: fmm: betareg 
+   svy: fmm: cloglog
+	svy: fmm: glm
+	svy: fmm: intreg
+	svy: fmm: ivregress
+	svy: fmm: logit
+	svy: fmm: mlogit
+	svy: fmm: nbreg
+	svy: fmm: ologit
+	svy: fmm: oprobit
+	svy: fmm: pointmass
+	svy: fmm: poisson
+	svy: fmm: probit
+	svy: fmm: regress
+	svy: fmm: streg
+	svy: fmm: tobit
+	svy: fmm: tpoisson
+	svy: fmm: truncreg
+	svy: fmm: // sadly incomplete
+	
 
    /* irt new in Stata 14 */
    svy: irt
@@ -4984,6 +5016,8 @@ versio 18: howdy // should fail for a few years
    brr: irt 1pl 
    svy sdr: regress // added in Stata 11.1
    sdr: regress // added in Stata 11.1
+
+   svy jack: fmm: ologit // works in an odd way
    
    svy: tab
    svy: tabul
