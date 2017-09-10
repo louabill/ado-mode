@@ -1,4 +1,4 @@
-*! version 1.14.0.0 September 10, 2017 @ 19:26:34
+*! version 1.14.0.0 September 10, 2017 @ 19:33:14
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -5029,22 +5029,31 @@ versio 18: howdy // should fail for a few years
    /* end of the [SVY] survey stats book */
 
    /* [TE] (new in Stata 13 */
-   eteffects  // new in Stata 14 
+   eteffects  // new in Stata 14
+   estat endogenous
+   
    etpoisson
+
    etregress
+
    /* stteffects in order of sections, not intro, leave out postest */
    /* stteffects new in Stata 14 */
    stteffects
    stteffects ipw
+
    stteffects ipwra
+
    stteffects ra
+
    stteffects wra
+
    /* tebalance new in Stata 14 */
    tebalance
    tebalance box
    tebalance density
    tebalance overid
    tebalance summarize
+   // here the omnibus and the sections are both in alphabetical order
    teffects
    teffects aipw
    teffects ipw
@@ -5054,6 +5063,7 @@ versio 18: howdy // should fail for a few years
    teffects psmatch
    teffects ra
 
+   
    /* [TS] time series */
    arch
    arfima
