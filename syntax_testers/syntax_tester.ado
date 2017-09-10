@@ -1,4 +1,4 @@
-*! version 1.14.0.0 September 2, 2017 @ 00:02:10
+*! version 1.14.0.0 September 10, 2017 @ 14:26:35
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -4586,32 +4586,66 @@ versio 18: howdy // should fail for a few years
    window stop rusure
    /* end programming manual */
 
-
-
    /* from the [PSS] manual */
    /* skipping omnibus -power- section */
    power
    power onemean
+
    power twomeans
+
    power pairedm
    power pairedmeans
+
    power oneprop
    power oneproportion
+
    power twoprop
    power twoproportions
+
    power pairedpr
    power pairedproportions
+
    power onevar
    power onevariance
+
    power twovar
    power twovariances
+
    power onecorr
    power onecorrelation
+
    power twocorr
    power twocorrelations
+
    power oneway
+
    power twoway
+
    power repeated
+
+   /* new in Stata 15; strangely out of alphabetical order */
+   power oneslope
+
+   power rsq
+   power rsquared
+
+   power pcorr
+
+   power cmh
+
+   power mcc
+
+   power trend
+
+   power cox
+
+   power exp
+   power exponen
+   power exponential
+
+   power log
+   power logrank
+   /* end of Stata 15 additions */   
    /* end of the [PSS] manual */
    
    /* from the [SEM] manual */
@@ -4620,35 +4654,55 @@ versio 18: howdy // should fail for a few years
    estat eform
    estat ic // not listed obsolete in Stata 11
 
-      estat ic
    estat eqg
    estat eqgof
+
    estat eqt
    estat eqtest
+
    estat fra
    estat framework
+
    estat ggof
+
    estat gin
    estat ginvariant
+
    estat gof
+
+   estat lcgof // new in Stata 15
+
+   estat lcmean // new in Stata 15
+
+   estat lcprob // new in Stata 15
+
    estat mi
    estat mindices
+
    estat res
    estat residuals
+
    estat score
    estat scoretests
+
+   estat sd 
+
    estat sta
    estat stable
+
    estat std :
    estat stdize :
+
    estat su
    estat summarize
+
    estat tef
    estat teffects
 
    gsem
    sem
 
+   // this is not as ornate as it could be
    ssd
    ssd init
    ssd set
@@ -4666,20 +4720,85 @@ versio 18: howdy // should fail for a few years
    ssd repair
    /* end of the [SEM] manual */
 
+   /* start of [SP] manual, new in Stata 15 */
+
+   estat moran
+
+   spbalance  // only dangerous with option
+
+   spcompress // only dangerous with option
+
+   spdistance
+
+   spgenerate varname
+
+   spivregress
+
+   estat impact
+
+   // spmatrix omnibus entry skipped
+
+   spmatrix copy from to // !! matrix matrix?
+   spmatrix copy oops // incomplete
+
+   // !! need subcommand matrix
+   spmatrix create cont  // incomplete
+   spmatrix create cont foo
+   spmatrix create contiguity bar
+   spmatrix create idist bling
+   spmatrix create idistance blang
+
+   spmatrix dir
+   spmatrix drop mattie
+   spmatrix clear
+
+   spmatrix export foo using bling.txt
+
+   spmatrix fromdata matname = ...
+
+   spmatrix import foobar using ...
+
+   spmatrix matafromsp  amatrix avector =
+   spmatrix matafromsp notenough 
+
+   spmatrix normalize  amat
+   
+   spmatrix note  amat: this is a note
+   spmatrix note amat // displays note
+   spmatrix note amat: // deletes note
+
+   spmatrix save amat using ...
+
+   spmatrix spfrommata amat = ....
+
+   spmatrix summarize amat
+
+   spmatrix use amat using  ...
+
+   spmatrix userdefined amat  =
+
+   spregress
+
+   /* end of [SP] manual */
+
    /* from the [ST] survival analysis manual */
    ct
    ctset
    cttost
    
-  ltable
+   ltable
    snapspan
+   // skipping ominbus -st- section
+ 
    st_is 2 full // hmmm....
    st_is 2 analysis
    st_show
    st_ct
    
    stbase
+
    stci
+
    stcox
    /* stcox diagnostics */
    stphplot
@@ -4692,13 +4811,21 @@ versio 18: howdy // should fail for a few years
    stcurve
    /* end stcox postestimation */
    stcrr stcrre stcrreg
+
    stphtest
    stcurve
+
    stdescribe
+
    stfill
+
    stgen
+
+   stintreg // new in Stata 15
+   estat gofplot // new in Stata 15
+
    stir
-   /* stpower commands */
+   /* stpower commands (obsolete as of Stata 14) */
    stpow cox
    stpower cox
    stpowe exp
@@ -4716,12 +4843,15 @@ versio 18: howdy // should fail for a few years
    /* skip over sts entry */
    sts gen
    sts generate
+
    sts
    sts g
    sts graph
+
    sts l
    sts list
    sts `foo'
+
    sts t
    sts test
    
@@ -4733,7 +4863,9 @@ versio 18: howdy // should fail for a few years
    stjoin
 
    stsum
+
    sttocc
+
    sttoct
    stvary
    /* end [ST] manual */

@@ -2901,6 +2901,179 @@ Not implemented as much more than an experiment. ")
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; the spmatrix commands - harmful incomplete
+	(list
+	 (concat
+	  "\\<\\(spmatrix\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "clear"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
+		;; the spmatrix commands - harmless
+	(list
+	 (concat
+	  "\\<\\(spmatrix\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "dir"
+		   "summarize"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	;; spmatrix incomplete with subcommand
+	(list
+	 (concat
+	  "\\<\\(spmatrix\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "copy" "create"
+		   "drop"
+		   "export"
+		   "fromdata"
+		   "import"
+		   "matafromsp"
+		   "note"
+		   "normalize"
+		   "save"
+		   "spfrommata"
+		   "use"
+		   "userdefined"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face t))
+
+	;; spmatrix incomplete with two subcommands
+	(list
+	 (concat
+	  "\\<\\(spmatrix\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "create"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "cont" "conti" "contig" "contigu" "contigui" "contiguit" "contiguity"
+		   "idist" "idista" "idistan" "idistanc" "idistance"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face t) '(2 ado-needs-subcommand-face t)
+	 '(3 ado-needs-subcommand-face t))
+	;; spmatrix incomplete with subcommand
+	(list
+	 (concat
+	  "\\<\\(spmatrix\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "copy"
+		   "drop"
+		   "export"
+		   "fromdata"
+		   "import"
+		   "matafromsp"
+		   "note"
+		   "normalize"
+		   "save"
+		   "spfrommata"
+		   "use"
+		   "userdefined"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face t) '(2 ado-needs-subcommand-face t))
+	;; dangerous spmatrix with one matrix
+	(list
+	 (concat
+	  "\\<\\(spmatrix\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "drop"
+		   "export"
+		   "fromdata"
+		   "import"
+		   "note"
+		   "normalize"
+		   "save"
+		   "spfrommata"
+		   "use"
+		   "userdefined"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t)
+	 '(3 ado-matrix-name-face t)) 
+	;; harmless spmatrix with one matrix
+	(list
+	 (concat
+	  "\\<\\(spmatrix\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "summarize"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
+	 '(3 ado-matrix-name-face t)) 
+	;; harmful spmatrix with two matrices
+	(list
+	 (concat
+	  "\\<\\(spmatrix\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "copy"
+		   "matafromsp"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  "[ \t]+"
+	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
+	 '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t)) 
+
+	;; harmful spmatrix create with two subcommands and one matrix
+	(list
+	 (concat
+	  "\\<\\(spmatrix\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(create\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "cont" "conti" "contig" "contigu" "contigui" "contiguit" "contiguity"
+		   "idist" "idista" "idistan" "idistanc" "idistance" 
+		   ) 'words))
+	  "[ \t]+"
+	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-matrix-name-face t)) 
+	
+
+	
 	;; sts commands, NO partial, because -sts- is good by itself
 	(list
 	 (concat
@@ -2915,6 +3088,7 @@ Not implemented as much more than an experiment. ")
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	
 	(list
 	 (concat
 	  "\\<\\(sts\\)\\>"
@@ -3975,14 +4149,16 @@ Not implemented as much more than an experiment. ")
 		   "sfrancia" 
 		   "sh" "she" "shewhart" "shel" "shell" 
 		   "signestimationsample" "signrank" "signtest"
-		   "sktest" "sleep" "slog" "slogit" "spearman" "spikeplot" "sqreg"
+		   "sktest" "sleep" "slog" "slogit"
+		   "spdistance" "spearman" "spikeplot" "spivregress" "spregress"
+		   "sqreg"
 		   "sspace"
 		   "st" "st_is" "st_show" "st_ct" "stci"
 		   "stcox" "stcoxkm" 
 		   "stcrr" "stcrre" "stcrreg"
 		   "stcurv" "stcurve" "stdescribe"
 		   "stem" "stepwise"
-		   "stereg" "stir" "stmc" "stmh" "stphplot" "stptime" 
+		   "stereg" "stintreg" "stir" "stmc" "stmh" "stphplot" "stptime" 
 		   "strate" "streg" "streset"
 		   "sts" "stse" "stset" "stsum" "stvary" "stweib"
 		   "su" "suest" "sum" "summ" "summa" "summar" "summari" "summariz" "summarize"
@@ -4480,7 +4656,7 @@ Not implemented as much more than an experiment. ")
 		   "simul" "simulate" "sinfile" "smerge" 
 		   "smooth" "snapspan" 
 		   "so" "sor" "sort" "sortpreserve"
-		   "split"
+		   "spbalance" "spcompress" "spgenerate" "split"
 		   "ssave" "ssort" "stack" "statsby"
 		   "stbase" "stfill" "stgen" "stjoin" "stsplit" "sttocc" "sttoct"
 		   "suse" "svmat" "svymarkout" "sysuse"
@@ -7491,9 +7667,11 @@ Not implemented as much more than an experiment. ")
 		   "fra" "fram" "frame" "framew" "framewo" "framewor" "framework" 
 		   "ggof" 
 		   "gin" "ginv" "ginva" "ginvar" "ginvari" "ginvaria" "ginvarian" "ginvariant" 
-		   "gof" "gr" "grdistances" "gro" "grou" "group" "grmeans" "grsummarize"
+		   "gof" "gofplot"
+		   "gr" "grdistances" "gro" "grou" "group" "grmeans" "grsummarize"
 		   "hett" "hette" "hettes" "hettest" 
 		   "ic" "icc"
+		   "impact"
 		   "imt" "imte" "imtes" "imtest"
 		   "inertia"
 		   "kmo"
@@ -7502,7 +7680,7 @@ Not implemented as much more than an experiment. ")
 		   "list" "loadings"
 		   "manova" "mfx" 
 		   "mi" "min" "mind" "mindi" "mindic" "mindice" "mindices" 
-		   "mvreg"
+		   "moran" "mvreg"
 		   "nproc"
 		   "over" "overi" "overid" 
 		   "ovt" "ovte" "ovtes" "ovtest" 
