@@ -4,6 +4,8 @@ Version History:
 
 * Updated for Stata 15
 
+* Fixed -tssmooth- to display as harmful face
+
 * Fixed highlighting of -manlink-, -manlinki-, -manpage-, and
   -mansection- to only accept proper abbreviations for manual names
   (like R or P or SVY).

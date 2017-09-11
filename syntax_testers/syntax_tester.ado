@@ -1,4 +1,4 @@
-*! version 1.14.0.0 September 10, 2017 @ 19:33:14
+*! version 1.14.0.0 September 11, 2017 @ 03:14:16
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -5070,7 +5070,7 @@ versio 18: howdy // should fail for a few years
    estat acplot
    irf
    psdensity
-
+   
    arima
    estat aroots
    
@@ -5079,12 +5079,16 @@ versio 18: howdy // should fail for a few years
    pac
 
    cumsp
+
    dfactor
+
    dfgls
+
    dfuller
 
    estat acplot
    estat aroots
+   estat sbcusum // new in Stata 15
    estat sbknown // new in Stata 14
    estat sbsingle // new in Stata 14 
 
@@ -5092,34 +5096,49 @@ versio 18: howdy // should fail for a few years
    fcast c
    fcast com
    fcast compute
+
    fcast g
    fcast graph
+
    // forecast new in Stata 13
+   // skipping omnibus forecast section
    fore
    forecast
+   
    fore ad
    forecast adjust
+
    forec clear
+
    foreca co
    forecas coefvector
+
    forecast cr
    fore cre
    forecast create
+
    fore d
    forecast describe
+
    forecast dr
    forecast drop
+
    fore est
    forecast estimates
+
    forec ex
    foreca exo
    forecast exogenous
+
    fore id
    forec identity
+
    forecas l
    forecast list
+
    forecast q
    forecast query
+
    forecast s
    forecast solve
    
@@ -5128,28 +5147,38 @@ versio 18: howdy // should fail for a few years
    haver des
    haver describe
    haver use
+
    /* irf commands ... starting Stata 8.2 */
+   // skipping irf section
    irf
    irf graph 
+   irf `foo' 
+
    irf a
    irf add
-   irf `foo' 
+
    irf cg
    irf cgraph
+
    irf cr
    irf create
+
    irf ct
    irf ctable
+
    irf d
    irf describe
+
    /* irf dir is dead, even under version control? */
    irf di
    irf dir
+
    irf drop
    irf erase
+
    irf g
-   irf gr irf
-   irf graph oirf
+   irf g irf
+   irf gr oirf
    irf gr foo // foo should fail
    irf g dm
    irf gr cirf
@@ -5166,9 +5195,10 @@ versio 18: howdy // should fail for a few years
    irf rename
 
    irf set
+   
    irf t
    irf table
-   irf table irf
+   irf t irf
    irf table oirf
    irf table dm
    irf tabl cirf
@@ -5179,6 +5209,7 @@ versio 18: howdy // should fail for a few years
    irf tab sfevd
    irf tab foo // foo should fail
 
+   // mgarch section skipped
    mgarch
    mgarch ccc // new in Stata 12 from here...
    mgarch dcc
@@ -5188,21 +5219,32 @@ versio 18: howdy // should fail for a few years
    mswitch  // new in Stata 14 
    mswitch dr
    mswitch ar
+   mswitch fails
    
    estat transition   // new in Stata 14 
    estat duration     // new in Stata 14 
 
    newey
+
    pergram
+
    pperron
+
    prais
+
    psdensity
+
    rolling
+
    dwstat
    durbina
    bgodfrey
    archlm
+
    sspace
+
+   threshold  // new in Stata 15
+   
    /* should these options be required--no not never */
    tsappend, add(4) last(foo) tsfmt(string)
    tsfill
@@ -5229,18 +5271,23 @@ versio 18: howdy // should fail for a few years
    tsrevar
    tsset
 
-   tssmooth
-   
+   tssmooth   
    tssmooth `foo'
    tssmooth breeble // should tssmooth unhighlight?
+   
    tssmooth d
    tssmooth dexponential
+
    tssmooth e
    tssmooth exponential
+
    tssmooth h
    tssmooth hwinters
+
    tssmooth ma
+
    tssmooth nl
+
    tssmooth s
    tssmooth shwinters
 
@@ -5262,16 +5309,26 @@ versio 18: howdy // should fail for a few years
    varstable
    varwle
    /* end var post estimation commands */
+
    svar
+
    varbasic
+
    varfcast  // obsolete as of July 23, 2004
    varirf    // obsolete as of July 23, 2004
+
    vargranger
+
    varlmar
+
    varnorm
+
    varsoc
+
    varstable
+
    varwle
+
    vec
    /* vec post estimation commands */
    veclmar

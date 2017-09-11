@@ -3239,7 +3239,7 @@ Not implemented as much more than an experiment. ")
 		   "s" "sh" "shw" "shwi" "shwin" "shwint" "shwinte" "shwinter" "shwinters" 
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	;;
 	;; the translator commands
 	(list
@@ -4173,6 +4173,7 @@ Not implemented as much more than an experiment. ")
 		   "tabu" "tabul" "tabula" "tabulat" "tabulate"
 		   "te" "tes" "test"
 		   "testnl" "testparm" "tetrachoric"
+		   "threshold"
 		   "tnbreg"
 		   "tob" "tobi" "tobit"
 		   "token" "tokeni" "tokeniz" "tokenize" 
@@ -7729,7 +7730,7 @@ Not implemented as much more than an experiment. ")
 		   "rep" "repo" "repor" "report" 
 		   "res" "resi" "resid" "residu" "residua" "residual" "residuals" 
 		   "rotate" "rotatecompare"
-		   "sargan" "sbknown" "sbsingle"
+		   "sargan" "sbcusum" "sbknown" "sbsingle"
 		   "score" "scoret" "scorete" "scoretes" "scoretest" "scoretests" 
 		   "sd" "se" "single" "size" "smc" 
 		   "sta" "stab" "stabl" "stable" 
