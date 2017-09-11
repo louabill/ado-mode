@@ -3310,6 +3310,21 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
 
+	;; the xtcointest commands
+	(list
+	 (concat
+	  "\\<\\(xtcointest\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "kao"
+		   "pedroni"
+		   "westerlund"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
 	;; the xtunitroot commands
 	(list
 	 (concat
@@ -8147,10 +8162,8 @@ Not implemented as much more than an experiment. ")
 	   end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-obsolete-face t) '(4 ado-obsolete-face t))
-	;; !!! partial/incomplete main subcommands (single)
-	;; all commands which have subcommands as listed above (for partial higlighting)
-	;; could be a nightmare to maintain
-	;; here are those commands with a SINGLE subcommand
+
+	;; incomplete subcommands needing a single subcommand
 	;;  anything with MULTIPLE subcommands is listed after its regular highlighting
 	;; exceptions, because they allow 0 args (partial list)
 	;;;; estimates, fp
@@ -8228,7 +8241,7 @@ Not implemented as much more than an experiment. ")
 		 "vers" "versi" "versio" "version" 
 		 "view"
 		 "win" "wind" "windo" "window" 
-		 "xtunitroot"
+		 "xtcointest" "xtunitroot"
 		 ) 'words))
 	   end-cmd-regexp )
 	  '(1 ado-needs-subcommand-face))

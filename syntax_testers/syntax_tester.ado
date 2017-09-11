@@ -1,4 +1,4 @@
-*! version 1.14.0.0 September 11, 2017 @ 03:14:16
+*! version 1.14.0.0 September 11, 2017 @ 03:27:34
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -5351,51 +5351,89 @@ versio 18: howdy // should fail for a few years
    /* iis, tis obsolete as of Stata 10 */
    iis
    tis
+
    quadchk
+
    xtabond
    
    estat abond
    estat sargan
+
    xtclog // obsolete as of Stata 7
+
    xtcloglog
+
+   xtcointest // new in Stata 15
+   xtcointest kao
+   xtcointest pedroni
+   xtcointest westerlund
+   xtcointest oops
+
    xtdata
+
    xtdes
    xtdescribe
+
    xtdpd
+
    xtdpdsys
+
    xtfrontier
+
    xtgee
    estat wcorrelation
+
    xtcorr  // estat wcorrelation replaced xtcorr 
    xtgls
+
    xthaus
    xthtaylor
+
    xtintreg
+
    xtivreg
+
    xtline
+
    xtlogit
+
    xtmelogit
    xtmepoisson
    xtmixed
+
    xtnbreg
+
    xtologit
+
    xtoprobit
+
    xtpcse
+
    xtpois // obsolete as of Stata 7
+
    xtpoisson
+
    xtprobit
+
    xtrc
+
    xtreg
    xttest0
+
    xtregar
+
    xtset
+
    xtstreg // new in Stata 14
    stcurve
    
    xtsum
+
    xttab
    xttrans
+
    xttobit
+
    xtunitroot
    xtunitroot llc   
    xtunitroot ht
