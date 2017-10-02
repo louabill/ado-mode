@@ -2492,6 +2492,19 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+	;; the ml commands
+	(list
+	 (concat
+	  "\\<\\(ml\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "trace"
+		   ) 'words))
+	  end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face t))
+
 	(list
 	 (concat
 	  "\\<\\(ml\\)\\>"
@@ -2504,7 +2517,7 @@ Not implemented as much more than an experiment. ")
 		   "off" "on"
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t))
    
 	(list
@@ -2515,7 +2528,7 @@ Not implemented as much more than an experiment. ")
 	  "[ \t]+"
 	  "\\(clear\\)"
 	  end-cmd-regexp )
-	'(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	'(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
 	'(3 ado-subcommand-face t))
 
 
@@ -4217,7 +4230,7 @@ Not implemented as much more than an experiment. ")
 		   "xtline" "xtlogit"  
 		   "xtnbreg" "xtologit" "xtoprobit" "xtpcse" "xtpoisson" "xtprobit"
 		   "xtrc" "xtreg" "xtregar" "xtset" "xtstreg" "xtsum" "xttab" "xttest0" "xttobit" "xttrans"
-		   "zinb" "zip" "zoprobit" "ztest" "ztesti"
+		   "zinb" "zioprobit" "zip" "ztest" "ztesti"
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))

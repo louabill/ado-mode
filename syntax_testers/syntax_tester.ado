@@ -1,4 +1,4 @@
-*! version 1.14.0.0 October 2, 2017 @ 11:19:57
+*! version 1.15.0.0 October 2, 2017 @ 15:41:10
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -109,6 +109,7 @@ version 44
    asmixlogit            // new in Stata 15
    asmprobit
    asroprobit
+
    betareg               // new in Stata 14
    binreg
    biprobit
@@ -118,12 +119,15 @@ version 44
    brier
    bsample
    bstat
+
    centile
+
    churdle               // new in Stata 14; incomplete 
    churdle lin           // new in Stata 14 
    churdle linear        // new in Stata 14 
    churdle exp           // new in Stata 14 
    churdle exponential   // new in Stata 14 
+
    ci cii                // changed in Stata 14.1
    ci mean
    ci means
@@ -159,7 +163,10 @@ version 44
    const ge
    const fre
    /* end constraint */
+
    contrast
+   // the copyright commands all go to the same help file
+   //   so -copyright foo- works...
    copyright             // subcommands new in Stata 14
    copyright apache
    copyright autolink    // new in Stata 15
@@ -178,9 +185,11 @@ version 44
    copyright slf4j       // new in Stata 15
    copyright ttf2pt1
    copyright zlib
-   copyright foobar // error (which could be marked well but why?)
+   copyright foobar // error (which could be marked as well but why?)
+   
    cor corr corre correl correla correlat correlate
    pwcorr
+   
    cpoisson              // new in Stata 14 
    cumul
    cusum
@@ -195,14 +204,18 @@ version 44
    pnorm
    pchi
    qchi
-   /* end... diag plots */
+
    di dis disp displ displa display
+
    do
    ru
    run
+
    doed doedi doedit
+
    dotplot
    dstdize  istdize
+
    dydx
    integ
    
@@ -296,6 +309,7 @@ version 44
    ex
    exi
    exit
+
    exlogistic
    expoisson
    
@@ -341,7 +355,7 @@ version 44
    heckman
    heckoprobit
    heckpoisson           // new in Stata 15
-   heckprob // synonym for heckprobit (urg) in Stata 14
+   heckprob // synonym for heckprobit (ugh) in Stata 14
    heckprobit
    h he hel help
    ch che chel chelp // obsolete in Stata 14
@@ -380,12 +394,16 @@ version 44
    
    set l
    set level
+
    lfit                  // obsolete in Stata 9 
    score                 // obsolete in Stata 9
+
    lincom
    linktest
+
    lnskew0
    bcskew0
+
    /* lookup is obsolete; test for conflict from log */
    lo
    loo
@@ -414,8 +432,10 @@ version 44
    set linesize
    
    logistic
+
    logi
    logit
+
    loneway
    lowess
    lpoly
@@ -426,8 +446,10 @@ version 44
 
    margins
    marginsplot
+
    set mat
    set matsize
+
    // inside 'maximize' help
    set maxiter
    mean
@@ -446,7 +468,7 @@ version 44
    mfx compute
    mfx r
    mfx replay
-   /* misstable */
+
    misstable sum
    misstable summarize
    misstable pat
@@ -454,8 +476,9 @@ version 44
    misstable tree
    misstable nest
    misstable nested
+
    mkspline
-   /* ml commands */
+
    ml mod
    ml model
    ml clear
@@ -470,7 +493,7 @@ version 44
    ml init
    ml rep
    ml report
-   ml trace // should not highlight
+   ml trace // incomplete
    ml trace on
    ml trace off
    ml trace foo // no highlight
@@ -497,21 +520,25 @@ version 44
    ml ml
    ml mlout
    * etc
-   /* end ml */
+
    mlexp
    
    mlog mlogi mlogit
+
    set mo // should be off
    set mo on
    set more off
    set p // should be off
    set pa
    set pagesize
+
    mprobit
    
    nbreg
    gnbreg
+
    nestreg
+
    /* net commands */
    net from
    net cd
@@ -534,8 +561,9 @@ version 44
    ado d
    ado describe
    ado uninstall
-   /* end net */
+
    net search
+
    /* netio, which is also in set */
    se httpproxy on
    set httpproxy off
@@ -549,18 +577,26 @@ version 44
    set httpproxypw
    set timeout1
    set timeout2
+
    news
+
    nl
+
    nlinit  // obsolete in Stata 9
+
    nlcom
+
    nlogit
    nlogitgen
    nlogittree
+
    estat alt
    estat alternatives
    nlsur
+
    npregress kernel      // new in Stata 15
    npregress  // incomplete
+
    nptrend
 
    olog ologi ologit 
@@ -586,6 +622,7 @@ version 44
    poisson
    poisgof  // obsolete in Stata 9
    estat gof
+
    postest  // new in Stata 14; strange to have in a do-file
    predict
    predictnl
@@ -609,14 +646,14 @@ version 44
    rchart
    xchart
    shewhart
-   /* end qc */
+
    // qreg commands
    qreg
    iqreg
    sqreg
    bsqreg
    _qreg // obsolete in Stata 13 
-   // end qreg
+
    q
    query
    q mem
@@ -644,6 +681,7 @@ version 44
    median
    
    ratio
+
    reg3
    // highlights all -regress-es again?
    regress : regress : regress
@@ -658,17 +696,22 @@ version 44
    /* following manual rather than short entry */
    roccomp
    rocgold
+
    rocfit
    // rocfit post-est
    rocplot
 
    rocreg
    estat nproc
+
    rocregplot
+
    roctab
    
    rologit
+
    rreg
+
    runtest
    
    sampsi // obsolete in Stata 13 
@@ -683,7 +726,8 @@ version 44
    set searchdefault local /* rest under set */
    set searchdefault net
    set searchdefault all
-
+   set searchdefault foo
+   
    findit // obsolete in Stata 13 
    
    serrbar
@@ -702,9 +746,11 @@ version 44
    set checksum off
    
    set clevel // new in Stata 14
+
    set coeftabresults // incomplete
    set coeftabresults on
    set coeftabresults off
+
    set conren // unix console only
    set conren clear
    set conren sf
@@ -746,12 +792,14 @@ version 44
    set doublebuffer
    set doublebuffer on
    set doublebuffer off
+
    set `foo'
    set dp 
    set dp com
    set dp comma
    set dp per
    set dp period
+
    set emptycells
    set emptycells keep
    set emptycells drop
@@ -765,6 +813,7 @@ version 44
    set fastscroll
    set fastscroll on
    set fastscroll off
+
    // out of pdf docs in Stata 14, but still has help file
    set floatresults
    set floatresults on
@@ -785,70 +834,100 @@ version 44
    set fvtrack foobar
    
    set fvwrap
+
    set fvwrapon
    set fvwrapon word
    set fvwrapon width
+
    set g
    set grap
    set g on
    set graphics off
+
    set haverdir
+
    set httpproxy
    set httpproxy on
    set httpproxy off
+
    set httpproxya
    set httpproxya on
    set httpproxyauth 
    set httpproxyauth off
+
    set httpproxyhost
    set httpproxyport
+
    set httpproxypw
    set httpproxyuser
+
    set icmap on // obsolete in Stata 10
    set icmap off // obsolete in Stata 10
+
    set include_bitmap
    set include_bitmap on
    set include_bitmap off
+
    set l
    set level
+
    set lineg
    set linegap
+
    set li
    set linesize
+
    set locale_functions // new in Stata 14 
+
    set locale_ui        // new in Stata 14 
+
    set locksplit
    set locksplit on
    set locksplitters off
+
    set logt
    set logt t
    set logtype text
    set logty s
    set logtype smcl
+
    set lstretch // technically legal
    set lstretch on
    set lstretch off
+
    // set mata-etc comes later
+
    set macgph quartz // obsolete in Stata 11
    set macgphengine quickdraw // obsolete in Stata 11
+
    set mat
    set matsize
+
    set max_memory
+
    set maxdb
+
    set maxiter
+
    set maxvar
+
    set mem
    set memory
+
    set min_memory
    set more
    set mo on
    set more off
+
    set niceness
+
    set notifyuser
    set notifyuser off
    set notifyuser on
+
    set ob
    set obs
+
    set odbcdriver
    set odbcdriver unicode
    set odbcdriver ansi
@@ -859,6 +938,7 @@ version 44
    set odbcmgr
    set odbcmgr iodbc
    set odbcmgr unixodbc
+
    set ou
    set ou proc
    set output p
@@ -866,19 +946,26 @@ version 44
    set output inform
    set outp e
    set output error
+
    set pa
    set pagesize
+
    set persistfv on 
    set persistvtopic off 
+
    set pformat // added in Stata 11.1
+
    set piccom on // obsolete in Stata 11
    set piccomments off // obsolete in Stata 11
+
    set pinnable
    set pinnable on
    set pinnable off
+
    set playsnd
    set playsnd on
    set playsnd off
+
    set printcolor
    set printcolor auto
    set printcolor automatic
@@ -887,87 +974,121 @@ version 44
    set printcolor gs1
    set printcolor gs2
    set printcolor gs3
+
    set processors
+
    set reventr
    set reventries
+
    set revkeyboard
    set revkeyboard on
    set revkeyboard off
+
    set revwin nofloat // appears obsolete in Stata 11
    set revwindow float // appears obsolete in Stata 11
+
    set rmsg
    set r on
    set rmsg off
+
    set rng // new in Stata 14 ; must have type set
    set rng default // new in Stata 14 
    set rng mt64    // new in Stata 14
    set rng mt64s   // new in Stata 15
    set rng kiss32  // new in Stata 14 
+
    set rngstate    // new in Stata 14
+
    set rngstream   // new in Stata 15
+
    set scheme
+
    set scrollbufsize
+
    set searchdefault
    set searchd local
    set searchdefault net
    set searchdefault all
+
    set se
    set seed
+
    set segmentsize
+
    set sformat // added in Stata 11.1 
+
    set showbaselevels
+
    set showbaselevels on
    set showbaselevels off
    set showbaselevels all
+
    set smalldlg on                      /* obsolete in Stata 10 */
+
    set showemptycells
    set showemptycells on
    set showemptycells off
+
    set showomitted
    set showomitted on
    set showomitted off
+
    set smoothf
    set smoothf on
    set smoothfonts off
+
    set smoothsize 12 // looks to be obsolete in Stata 12
+
    set timeout1
    set timeout2
+
    set trace
 set tr on
 set trace off
+
    set traced
    set tracedepth
+
    set tracee
    set tracee on
    set traceexpand off
+
    set traceh
    set tracehilite
+
    set traceindent
    set tracei off
    set traceindent on
+
    set tracen
    set tracen on
    set tracenumber off
+
    set traces
    set traces off
    set tracesep on
-   /* inconsistancy fixed in 0.99: needs float or double */
+
    set type
    set ty float
    set typ double
-   set type // cannot prevent total lack of highlight 
+
    set update_interval
+
    set update_prompt
    set update_prompt on
    set update_prompt off
+
    set update_query
    set update_query on
    set update_query off
+
    set use_atsui_graph off // obsolete in Stata 11
    set use_qd_text on // obsolete in Stata 11
+
    set varabbrev
    set varabbrev on
    set varabbrev off
+
    set varkeyboard
    set varkeyboard on
    set varkeyboard off
@@ -979,6 +1100,7 @@ set trace off
    /* undocumented starting in Stata 10, but still legal */
    /*  can still find info via -help xptheme- */
    set xptheme on
+   // end of omnibus -set- section
 
    // documented in -set- also, hence the duplication
    set cformat
@@ -1015,14 +1137,18 @@ set trace off
    signtest
 
    simulate
+
    sktest
+
    slogit
+
    smooth
 
    spearman
    ktau
 
    spikeplot
+
    ssc
    ssc new
    ssc what // obsolete in Stata 11
@@ -1069,7 +1195,8 @@ set trace off
    sw weibull
    sw gompertz                          /* out of date */
    /* end sw commands */
-   // a bit out of place
+
+   // out of order, but under 'stored results' in [R]
    ret
    ret li
    ret list
@@ -1080,9 +1207,13 @@ set trace off
    sretu
    sret li
    sret list
+   
    suest 
+
    su sum summ summa summar summari summariz summarize
+
    sunflower
+
    sureg
    
    swilk
@@ -1092,7 +1223,9 @@ set trace off
    symmi
 
    table
+
    tabstat
+
    ta tab tabu tabul tabula tabulat tabulate
    tab1
    tab2
@@ -1102,11 +1235,18 @@ set trace off
    testparm
 
    testnl
+
    tetrachoric
+
    tnbreg // new in Stata 11.1
+
    tob tobi tobit
+
    total
+
    tpoisson // new in Stata 11.1
+
+   // this is all under the translate entry
    print
    translate
    translator
@@ -1123,6 +1263,7 @@ set trace off
    transmap `foo'
    
    treatreg // obsolete in Stata 13
+
    truncreg
 
    ttest
@@ -1161,6 +1302,7 @@ set trace off
    view net_d
    view ado_d
    view update_d
+
    vwls
    
    which
@@ -1168,10 +1310,13 @@ set trace off
    xi
 
    zinb
-   zoprobit // new in Stata 15
+
+   zioprobit // new in Stata 15
+
    zip
    ztnb // obsolete in Stata 12
    ztb  // obsolete in at least Stata 9---was this ever a Stata command?
+
    ztest  // new in Stata 14
    ztesti // new in Stata 14
 
