@@ -7113,12 +7113,13 @@ Not implemented as much more than an experiment. ")
 		 (regexp-opt 
 		  '(
 			"add_data" "add_mata" "add_matrix"
+			"append"
 			"cell_set_colspan" "cell_set_rowspan"
 			"close" "closeall"
 			"image_add"
 			"new" "new_table"
 			"paragraph_add_text" "paragraph_new" "paragraph_new_styledtext"
-			"query" "query_document" "query_table"
+			"query" "query_table"
 			"save"
 			"table_add_cell" "table_add_row" "table_del_cell" "table_del_row"
 			"table_mod_cell" "table_mod_cell_image" "table_mod_cell_table"
@@ -7155,6 +7156,7 @@ Not implemented as much more than an experiment. ")
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
+		  "AssociativeArray"
 		  "C" "Corr" "Dmatrix" "Hilbert" "Im" "Kmatrix" 
 		  "LA_DGBMV" "LA_DGEBAK" "LA_DGEBAL" "LA_DGEES" "LA_DGEEV" "LA_DGEHRD" 
 		  "LA_DGGBAK" "LA_DGGBAL" "LA_DGGHRD" 
@@ -7177,7 +7179,8 @@ Not implemented as much more than an experiment. ")
 		  "ascii" "asinh" "assert" "asserteq" "atanh"
 		  "blockdiag" "breakkey" "breakkeyreset" 
 		  "bufbfmtisnum" "bufbfmtlen" "bufbyteorder" "bufget" "bufio" "bufmissingvalue" "bufput"
-		  "callersversion" "cat" "chdir" "cholsolve" "cholinv" 
+		  "callersversion" "cat" "chdir" "cholsolve" "cholinv"
+		  "classname"
 		  "colmax" "colmaxabs" "colmin" "colminmax" "colmissing" "colnonmissing" "cols" "colscalefactors" "colshape" "colsum" 
 		  "conj" "convolve" "correlation" "cosh" "crexternal" "cross" "crossdev" "cvpermute" "cvpermutesetup"
 		  "deconvolve"
@@ -7227,7 +7230,8 @@ Not implemented as much more than an experiment. ")
 		  "ghkfast_query_pointset_i"
 		  "ghkfast_query_rseed"
 		  "gschurd" "gschurdgroupby"
-		  "halton" "hash1" "hasmissing" "hessenbergd" "hqrd" "hqrdp" "hqrdmultq" "hqrdmultqlt" "hqrdq" "hqrdq1" "hqrdr" "hqrdr1"
+		  "halton" "hash1" "hasmissing" "hessenbergd"
+		  "hqrd" "hqrdmultq" "hqrdmultq1t" "hqrdp" "hqrdq" "hqrdq1" "hqrdr" "hqrdr1"
 		  "inbase" "invHilbert" "invfft" "invorder" "invtokens" "invvech"
 		  "iscomplex" "isdiagonal" "isfleeting" "ispointer" "isreal" 
 		  "isrealvalues" "isstring" "issymmetric" "issymmetriconly" "isview" 
@@ -7250,6 +7254,7 @@ Not implemented as much more than an experiment. ")
 		  "moptimize" "moptimize_ado_cleanup" "moptimize_evaluate" "moptimize_init" "moptimize_query"
 		  "more"
 		  "mreldifre" "mreldifsym"
+		  "mvnormal" "mvnormalcv" "mvnormalcvderiv" "mvnormalcvderivqp" "mvnormalcvqp" "mvnormalderiv" "mvnormalderivqp" "mvnormalqp"
 		  "nameexternal" "nonmissing" "norm"
 		  "optimize" "optimize_evaluate" "optimize_init" "optimize_query"
 		  "order" "orgtype"
@@ -7273,7 +7278,12 @@ Not implemented as much more than an experiment. ")
 		  "solveupper"
 		  "sort" "spline3" "spline3eval" "sprintf"
 		  "st_select" "stata" "statasetversion" "stataversion" 
-		  "stritrim" "strltrim" "strreverse" "strrpos" "strrtrim" "strtoreal" "strtrim" "strlower" "strproper" "strupper"
+		  "stritrim"
+		  "strlower" "strltrim"
+		  "strproper"
+		  "strreverse" "strrpos" "strrtrim"
+		  "strtoreal" "strtrim"
+		  "structname" "strupper"
 		  "sublowertriangle"
 		  "svd" "svdsv" "svsolve" "swap"
 		  "symeigensystem" "symeigensystemselecti" "symeigensystemselectr" "symeigenvalues"
@@ -7281,6 +7291,7 @@ Not implemented as much more than an experiment. ")
 		  "tokenallowhex" "tokenallownum" "tokenget" "tokengetall" "tokeninit" "tokeninitstata" "tokenoffset" 
 		  "tokenpeek" "tokenrest" "tokens" "tokenset" "tokenpchars" "tokenqchars" "tokenwchars" "transposeonly"
 		  "udsubstr" "uniqrows" "unitcircle" "unlink" "unorder" "uppertriangle"
+		  "urldecode" "urlencode"
 		  "valofexternal" "variance" "vec" "vech"
 		 ) 'words))
 	   "("
@@ -7299,7 +7310,8 @@ Not implemented as much more than an experiment. ")
 			 "cluster" "constraints" 
 			 "conv_ignorenrtol" "conv_maxiter" "conv_nrtol" "conv_ptol" "conv_vtol" "conv_warning" 
 			 "depvar" 
-			 "eq_coefs" "eq_colnames" "eq_cons" "eq_exposure" "eq_indepvars" "eq_n" "eq_name" "eq_offset" 
+			 "eq_coefs" "eq_colnames" "eq_cons" "eq_exposure"
+			 "eq_freeparm" "eq_indepvars" "eq_n" "eq_name" "eq_offset" 
 			 "evaluations" "evaluator" "evaluatortype" 
 			 "gnweightmatrix" 
 			 "iterid" 
@@ -7381,9 +7393,8 @@ Not implemented as much more than an experiment. ")
 		(regexp-opt 
 		 '(
 		   "Jacobian"
-		   "converged" "conv_iter" "conv_iterchng"
+		   "converged" "conv_iter" "conv_iterchng" "conv_nearzero"
 		   "error_code" "error_text"
-		   "nearzero"
 		   "return_code"
 		   "values"
 		   ) t ))
@@ -7402,7 +7413,7 @@ Not implemented as much more than an experiment. ")
 		  "addobs" "addvar" 
 		  "data" "dir" "dropobsif" "dropobsin" "dropvar"
 		  "eclear"
-		  "global"
+		  "global" "global_hcat"
 		  "isfmt" "islmname" "isname" "isnumfmt" "isnumvar" "isstrfmt" "isstrvar"
 		  "keepobsif" "keepobsin" "keepvar"
 		  "local"
@@ -7474,10 +7485,12 @@ Not implemented as much more than an experiment. ")
 	   (eval-when-compile 
 		 (regexp-opt 
 		  '(
-		   "addImage" "addLineBreak" "addNewPage" "addParagraph" "addString" "addTable" "addText"
+			"addColumn" "addImage" "addLineBreak" "addNewPage" "addParagraph"
+			"addRow" "addString" "addTable" "addText"
 			"add_sheet"
 			"clearContent" "clear_book" "clear_sheet" "close" "close_book" "create_book"
 			"delete_sheet" "delete_sheet_merge"
+			"delColumn" "delRow"
 			"fillData" "fillMataMatrix" "fillStataMatrix"
 			"get_cell_type" "get_colnum" "get_last_error" "get_last_error_message" "get_number" "get_sheets" "get_string"
 			"init"
@@ -7486,10 +7499,34 @@ Not implemented as much more than an experiment. ")
 			"query"
 			"save"
 			"setBgColor" "setBorderColor" "setBorderWidth" "setBottomSpacing"
-			"setCellBgColor" "setCellBorderWidths" "setCellBottomBorderWidth" "setCellBottomMargin" "setCellColSpan" "setCellColor" "setCellFont" "setCellFontSize" "setCellLeftBorderWidth" "setCellLeftMargin" "setCellMargins" "setCellRightBorderWidth" "setCellRightMargin" "setCellRowSpan" "setCellSpan" "setCellTopBorderWidth" "setCellTopMargin"
-			"setCellContentImage" "setCellContentHAlignment" "setCellContentTable" "setCellContentVAlignment"
-			"setContentHAlignment" "setContentImage" "setCellContentParagraph" "setCellContentString" "setContentTable" "setContentVAlignment"
-			"setColor" "setColumnWidths" "setFirstIndent" "setFont" "setFontSize" "setHAlignment" "setIndentation" "setLeftIndent" "setLineSpace" "setMargins" "setPageSize" "setRightIndent" "setStrikethru" "setSubscript" "setSuperscript" "setTopSpacing" "setTotalWidth" "setUnderline" "setWidthPercent"
+			"setCellBgColor" "setCellBorderColor" "setCellBorderWidth"
+			"setCellColSpan" "setCellColor"
+			"setCellContentImage"
+			"setCellContentHAlignment"
+			"setCellContentTable"
+			"setCellContentVAlignment"
+			"setCellFont" "setCellFontSize"
+			"setCellMargin"
+			"setCellRowSpan" "setCellSpan"
+			"setContentHAlignment"
+			"setContentImage"
+			"setCellContentParagraph"
+			"setCellContentString"
+			"setColor"
+			"setColumnWidths"
+			"setContentTable" "setContentVAlignment"
+			"setFirstIndent" "setFont" "setFontSize"
+			"setHAlignment"
+			"setIndentation"
+			"setLeftIndent" "setLineSpace"
+			"setMargins"
+			"setPageSize"
+			"setRightIndent" "setRowSplit"
+			"setStrikethru" "setSubscript" "setSuperscript"
+			"setTopSpacing" "setTotalWidth"
+			"setUnderline" 
+			"setVAlignment"
+			"setWidthPercent"
 			"set_border" "set_bottom_border"
 			"set_column_width"
 			"set_diagonal_border"
@@ -7517,7 +7554,8 @@ Not implemented as much more than an experiment. ")
 	  "\\<"
 	   (eval-when-compile 
 		 (regexp-opt 
-       '(
+		  '(
+			"_docx_query_document"
 		 "acosr" "asinr" "atanr"
 		 "ghkfastsetup"
 		 "moptimize_init_view"
@@ -7528,7 +7566,24 @@ Not implemented as much more than an experiment. ")
 	   )
 	  '(1 ado-obsolete-face))
 	  
-	  ;; all variable/macro stuff (put late so it will override)
+	  ;; obsolete mata class functions
+	(list
+	 (concat
+	   "[.]"
+	   (eval-when-compile 
+		 (regexp-opt 
+		  '(
+			"setCellBorderWidths" "setCellBottomBorderWidth" "setCellBottomMargin"
+			"setCellLeftBorderWidth" "setCellLeftMargin"
+			"setCellMargins" 
+			"setCellRightBorderWidth" "setCellRightMargin" 
+			"setCellTopBorderWidth" "setCellTopMargin"
+		 ) t ))
+	   "("
+	   )
+	  '(1 ado-obsolete-face t))
+
+	;; all variable/macro stuff (put late so it will override)
 	  ;; keep just before the obsolete commands!
 	  ;; internal constants
 	(list

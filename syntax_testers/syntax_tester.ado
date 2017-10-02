@@ -1,4 +1,4 @@
-*! version 1.14.0.0 September 11, 2017 @ 03:27:34
+*! version 1.14.0.0 October 2, 2017 @ 11:19:57
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -5590,6 +5590,7 @@ version /* used elsewhere */
    mata mlib query
 
    mata mosave momoney()
+
    mata rename
    
    mata query
@@ -5635,6 +5636,26 @@ version /* used elsewhere */
    asarray_contents()
    asarray_notfound()
 
+   AssociativeArray()
+   // seems strange to highlight class methods
+   A.reinit()
+   A.put()
+   A.get()
+   A.notfound()
+   A.remove()
+   A.exists()
+   A.firstval()
+   A.nextval()
+   A.key()
+   A.val()
+   A.firstloc()
+   A.next()
+   A.key()
+   A.val()
+   A.keys()
+   A.N()
+   A.clear()
+   
    ascii()
    char()
 
@@ -5657,6 +5678,7 @@ version /* used elsewhere */
    bufbfmtisnum()
 
    byteorder()
+
    C()
    c()
    callersversion()
@@ -5680,6 +5702,7 @@ version /* used elsewhere */
    _cholsolve()
 
    comb()
+
    cond()
 
    conj()
@@ -5689,6 +5712,7 @@ version /* used elsewhere */
    _corr()
 
    cross()
+
    crossdev()
 
    cvpermutesetup()
@@ -5801,8 +5825,10 @@ version /* used elsewhere */
    deriv_query()
    // end of numerical derivatives
    designmatrix()
+
    det()
    dettriangular()
+
    _diag()
    diag()
    diag0cnt()
@@ -5819,6 +5845,7 @@ version /* used elsewhere */
    // create and save
    _docx_new()
    _docx_save()
+   _docx_append() // new in Stata 15
    _docx_close()
    _docx_closeall()
    // add paragraph/text
@@ -5845,7 +5872,7 @@ version /* used elsewhere */
    _docx_table_mod_cell_image()
    // query
    _docx_query()
-   _docx_query_document()
+   _docx_query_document() // obsolete in Stata 14
    _docx_query_table()
    _docx_table_query_row()
    /* end of the _docx*() functions */
@@ -5894,6 +5921,8 @@ version /* used elsewhere */
 
    eltype()
    orgtype()
+   classname() // appeared in Stata 14
+   structname()  // appeared in Stata 14
 
    epsilon()
 
@@ -5910,6 +5939,7 @@ version /* used elsewhere */
    _error()
 
    errprintf()
+
    exit()
 
    exp()
@@ -5925,6 +5955,7 @@ version /* used elsewhere */
    trigamma() /* already regular function */
 
    favorspeed()
+
    ferrortext()
    freturncode()
 
@@ -6088,9 +6119,11 @@ version /* used elsewhere */
    LA_DHGEQZ()
    LA_DHSEIN()
    LA_DHSEQR()
+
    LA_DLAMCH()
    LA_DORGHR()
    LA_DSYEVX()
+
    LA_DTGSEN()
    LA_DTGEVC()
    LA_DTREVC()
@@ -6107,6 +6140,7 @@ version /* used elsewhere */
    LA_ZHGEQZ()
    LA_ZHSEIN()
    LA_ZHSEQR()
+
    LA_ZTGSEN()
    LA_ZTGEVC()
    LA_ZTREVC()
@@ -6209,6 +6243,7 @@ version /* used elsewhere */
    moptimize_init_eq_exposure()
    moptimize_init_eq_name()
    moptimize_init_eq_colnames()
+   moptimize_init_eq_freeparm() // new in Stata 15
    moptimize_init_eq_coefs()
    moptimize_init_constraints()
    moptimize_init_search()
@@ -6292,6 +6327,16 @@ version /* used elsewhere */
    setmore()
    setmoreonexit()
 
+   // mvnormal() functions new in Stata 15
+   mvnormal()
+   mvnormalcv()
+   mvnormalqp()
+   mvnormalcvqp()
+   mvnormalderiv()
+   mvnormalcvderiv()
+   mvnormalderivqp()
+   mvnormalcvderivqp()
+
    _negate()
    /* mostly regular stata functions */
    norm()
@@ -6317,6 +6362,13 @@ version /* used elsewhere */
    binomialtail()
    invbinomial()
    invbinomialtail()
+   // cauchy // new in Stata 15
+   cauchyden()
+   cauchy()
+   cauchytail()
+   invcauchy()
+   invcauchytail()
+   lncauchyden()
    // chi-squared
    chi2den()
    chi2()
@@ -6353,6 +6405,20 @@ version /* used elsewhere */
    // Hypergeometric
    hypergeometricp()
    hypergeometric()
+   // inverse gaussian // new in Stata 15
+   igaussianden()
+   igaussian()
+   igaussiantail()
+   invigaussian()
+   invigaussiantail()
+   lnigaussianden()
+   // laplace // new in Stata 15
+   laplaceden()
+   laplace()
+   laplacetail()
+   invlaplace()
+   invlaplacetail()
+   lnlaplaceden()
    // Logistic (new in Stata 14)
    logisticden()
    logistic()
@@ -6511,6 +6577,7 @@ version /* used elsewhere */
    p.setBgColor()
    p.setColor()
    p.setFont()
+   p.setFontSize()
    p.addImage()
    p.addParagraph()
    p.addTable()
@@ -6520,6 +6587,7 @@ version /* used elsewhere */
    PdfParagraph()
    p.addString()
    p.addText()
+   p.addLineBreak()
    p.clearContent()
    p.setFirstIndent()
    p.setLeftIndent()
@@ -6533,6 +6601,7 @@ version /* used elsewhere */
    p.setUnderline()
    p.setStrikethru()
    p.setHAlignment()
+   p.setVAlignment() // new in Stata 15 ?
    p.setLineSpace()
 
    PdfText()
@@ -6565,27 +6634,34 @@ version /* used elsewhere */
    t.setCellContentHAlignment()
    t.setCellContentVAlignment()
    t.setCellBgColor()
-   t.setCellBorderWidths()
-   t.setCellLeftBorderWidth()
-   t.setCellRightBorderWidth()
-   t.setCellTopBorderWidth()
-   t.setCellBottomBorderWidth()
-   t.setCellMargins()
-   t.setCellLeftMargin()
-   t.setCellRightMargin()
-   t.setCellTopMargin()
-   t.setCellBottomMargin()
+   t.setCellBorderWidths() // obsolete in Stata 15 
+   t.setCellBorderWidth() 
+   t.setCellBorderColor() // new in Stata 15  
+   t.setCellLeftBorderWidth()  // obsolete in Stata 15 
+   t.setCellRightBorderWidth()  // obsolete in Stata 15 
+   t.setCellTopBorderWidth()  // obsolete in Stata 15 
+   t.setCellBottomBorderWidth()  // obsolete in Stata 15 
+   t.setCellMargin() // new in Stata 15
+   t.setCellMargins()  // obsolete in Stata 15 
+   t.setCellLeftMargin()  // obsolete in Stata 15 
+   t.setCellRightMargin()  // obsolete in Stata 15 
+   t.setCellTopMargin()  // obsolete in Stata 15 
+   t.setCellBottomMargin()  // obsolete in Stata 15 
    t.setCellFont()
    t.setCellFontSize()
    t.setCellColor()
    t.setCellSpan()
    t.setCellRowSpan()
    t.setCellColSpan()
+   t.setRowSplit() // new in Stata 15
+   t.addRow() // new in Stata 15 
+   t.delRow() // new in Stata 15 
+   t.addColumn() // new in Stata 15 
+   t.delColumn() // new in Stata 15 
    t.fillStataMatrix()
    t.fillMataMatrix()
    t.fillData()
    /* end Pdf* */
-
 
    pinv()
    _pinv()
@@ -6607,7 +6683,7 @@ version /* used elsewhere */
    hqrd()
    _hqrd()
    hqrdmultq()
-   hqrdmultqlt()
+   hqrdmultq1t()
    hqrdq()
    hqrdq1()
    hqrdr()
@@ -6653,11 +6729,14 @@ version /* used elsewhere */
    rngstate() // new in Stata 14 
    rbeta()
    rbinomial()
+   rcauchy()
    rchi2()
    rdiscrete()
    rexponential() // new in Stata 14 
    rgamma()
    rhypergeometric()
+   rigaussian() // new in Stata 15 (or 14.2)
+   rlaplace() // new in Stata 15
    rlogistic() // new in Stata 14
    rnbinomial()
    rnormal()
@@ -6737,7 +6816,7 @@ version /* used elsewhere */
    solvenl_result_converged()
    solvenl_result_conv_iter()
    solvenl_result_conv_iterchng()
-   solvenl_result_nearzero()
+   solvenl_result_conv_nearzero()
    solvenl_result_values()
    solvenl_result_Jacobian()
    solvenl_result_error_code()
@@ -6784,6 +6863,7 @@ version /* used elsewhere */
    st_keepobsif()
 
    st_global()
+   st_global_hcat() // new in Stata 15
 
    st_isfmt()
    st_isnumfmt()
@@ -6865,18 +6945,28 @@ version /* used elsewhere */
 
    /* strdup() is not really a function --- use * */
    strlen()
+
    ustrlen()   // new in Stata 14
    ustrinvalidcnt()  // new in Stata 14
+
    udstrlen() // new in Stata 14
+
    strmatch()
+
    strofreal()
+
    strpos()
    strrpos() // new in Stata 14, mata only
+
    ustrpos() // new in Stata 14
    ustrrpos() // new in Stata 14
+
    strreverse()
+
    ustrreverse() // new in Stata 14
+
    strtoname()
+
    ustrtoname()  // new in Stata 14
    
    strtoreal()
@@ -6914,6 +7004,8 @@ version /* used elsewhere */
    substr()
 
    usubstr()  // new in Stata 14
+   ustrleft()
+   ustrright()
 
    udsubstr() // new in Stata 14 mata only
 
@@ -6974,6 +7066,9 @@ version /* used elsewhere */
 
    unlink()
    _unlink()
+
+   urlencode() // new in Stata 15
+   urldecode() // new in Stata 15
 
    ustrcompare() // new in Stata 14
    ustrsortkey() // new in Stata 14
