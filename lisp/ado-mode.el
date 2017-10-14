@@ -1,10 +1,10 @@
 ;;; ado-mode.el --- ado mode, and its idiosyncratic commands.
 
-;; Copyright (C) 1996,..., 2016 Bill Rising
+;; Copyright (C) 1996,..., 2017 Bill Rising
 
 ;; Maintainer: Bill Rising, brising at stata dot com
 ;; Keywords: ado-mode, highlighting
-;; Version: 1.14.1.0 of March 23, 2016
+;; Version: 1.15.0.0 of October 14, 2017
 ;;
 ;; This file is NOT part of GNU Emacs.
 
@@ -122,7 +122,7 @@
 (define-key ado-mode-map "\C-c\C-a"   'ado-mode)
 (define-key ado-mode-map "\C-c\C-b"   'ado-grab-block)
 (define-key ado-mode-map "\C-c\M-b"   'ado-send-block-to-stata)
-(define-key ado-mode-map "\C-c\C-c"   'ado-help-command)
+(define-key ado-mode-map "\C-c\M-h"   'ado-help-command)
 (define-key ado-mode-map "\C-c\C-d"   'ado-new-help)
 (define-key ado-mode-map "\C-c\C-e"   'ado-foreach-loop)
 (define-key ado-mode-map "\C-c\C-f"   'ado-open-any-file)
