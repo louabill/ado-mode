@@ -14,6 +14,10 @@ Version History:
   -mansection- to only accept proper abbreviations for manual names
   (like R or P or SVY).
 
+* Fixed a bug in indentation of abbreviations of #delimit
+
+* Fixed a bug in creating help file filenames.
+
 1.14.2.0
 
 * Thanks to leo, fixed ado-send-to-stata to allow spaces in file names 

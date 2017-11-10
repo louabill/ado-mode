@@ -2,7 +2,17 @@
 
 ## 1.15.0.0
 
-* Updated for Stata 15
+* Updated for Stata 15, finally
+
+* Changed the keybinding for ado-help-command from C-c C-c to C-c M-h.
+  This was necessitated because emacs 25.2.1 now binds C-c C-c to
+  comment-region-or-line (a new function in emacs 25).
+
+* Fixed -tssmooth- to display as harmful face
+
+* Fixed highlighting of -manlink-, -manlinki-, -manpage-, and
+  -mansection- to only accept proper abbreviations for manual names
+  (like R or P or SVY).
 
 * Fixed a bug in indentation of abbreviations of #delimit
 

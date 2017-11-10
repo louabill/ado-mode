@@ -6,7 +6,7 @@ Emacs versions 25, 24, and 23 are supported.
 
 Here is the [change log](changes.md) which says what is new.
 
-The current version is **1.14.2.0**, which is made for Stata 14.2. It works just fine with earlier versions of Stata, but it will highlight commands as though you were using Stata 14.2.
+The current version is **1.15.0.0**, which is made for Stata 15.0. It works just fine with earlier versions of Stata, but it will highlight commands as though you were using Stata 15.0.
 
 Here are the things which make life easier when using the `ado-mode`:
 
