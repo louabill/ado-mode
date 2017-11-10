@@ -2,7 +2,7 @@ Version History:
 ---------------
 1.15.0.0
 
-* Updated for Stata 15
+* Updated for Stata 15, finally
 
 * Changed the keybinding for ado-help-command from C-c C-c to C-c M-h.
   This was necessitated because emacs 25.2.1 now binds C-c C-c to
