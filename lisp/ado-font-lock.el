@@ -4050,6 +4050,7 @@ Not implemented as much more than an experiment. ")
 		(regexp-opt 
 		 '(
 		   "d"
+		   "dataex"
 		   "datasig" "datasign" "datasigna" "datasignat" "datasignatu" "datasignatur" "datasignature"
 		   "db"
 		   "de" "des" "desc" "descr" "descri" "describ" "describe"

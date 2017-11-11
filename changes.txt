@@ -1,5 +1,9 @@
 Version History:
 ---------------
+1.15.1.0
+
+* Added the one new command, -dataex-.
+
 1.15.0.0
 
 * Updated for Stata 15, finally
