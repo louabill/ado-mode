@@ -95,6 +95,12 @@ send2stata.scpt is stored. "
 		)
 ;		" & ")
 	   nil 0))
+	 ((string= system-type "gnu/linux")
+	  (shell-command (concat
+					  "\""
+					  (ado-send2stata-name "send2stata.sh")
+					  "\""
+					  )))
 	 (t (message (concat "working via " dothis "s not supported yet in " 
 						 (symbol-name system-type)
 						 (if (string= dothis "command")
