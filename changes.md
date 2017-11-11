@@ -5,8 +5,10 @@
 * Updated for Stata 15, finally
 
 * Changed the keybinding for ado-help-command from C-c C-c to C-c M-h.
-  This was necessitated because emacs 25.2.1 now binds C-c C-c to
-  comment-region-or-line (a new function in emacs 25).
+  This was done out of confusion that newer Emacs (>= 25.2) bound
+  another function to C-c C-c. This was false, but I left the change in
+  because it is more consistent with other bindings. After all, C-c C-h
+  is for ado-help-at-point, C-c M-h is a generalization.
 
 * Fixed -tssmooth- to display as harmful face
 
