@@ -67,13 +67,13 @@ send2stata.scpt is stored. "
   (unless comeback (setq comeback ado-comeback-flag))
   (cond
    ((or (string= dothis "menu") (string= dothis "dofile") (string= dothis "command") (string= dothis "include"))
-	(cond 
-	 ((string= system-type "darwin")
+	(case system-type 
+	 ((darwin)
 	  ;; the comeback for Mac OS X is handled via a shell command below
 	  (shell-command (concat "osascript '"
 							 (ado-send2stata-name "send2stata.scpt") 
 							 "' \"" dothis "\"")))
-	 ((string= system-type "windows-nt")
+	 ((windows-nt)
 	  ;; autoit can send to non-active windows, so comeback is handled there
 	  ;; need to be sure that comeback is a string for concatenation
 	  (if comeback (setq comeback "t"))
@@ -97,11 +97,13 @@ send2stata.scpt is stored. "
 		)
 ;		" & ")
 	   nil 0))
-	 ((string= system-type "gnu/linux")
+	 ((gnu/linux)
 	  (shell-command (concat
 					  "\""
-					  (ado-send2stata-name "send2stata.sh")
+					  (ado-send2stata-name "send2ztata.sh")
 					  "\""
+					  " -d " dothis
+					  " &"
 					  )))
 	 (t (message (concat "working via " dothis "s not supported yet in " 
 						 (symbol-name system-type)

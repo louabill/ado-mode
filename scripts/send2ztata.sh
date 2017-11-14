@@ -1,6 +1,7 @@
 #!/bin/bash
 # original idea by Helge Liebert
 # heavily modified for ado-mode by Bill Rising
+# strange name because 'send2stata' would be a process with 'stata' in its name
 
 # script needs wmctrl, xte, xsel and xdotool 
 # to get them run
@@ -28,7 +29,7 @@ EOF
 
 while getopts ":ad:f:h" opt; do
    case $opt in
-	  a ) ="send2all";;
+	  a ) send2all="send2all";;
 	  d ) dothis="$OPTARG";;
 	  f ) flavor="$OPTARG";;
       h ) Usage
@@ -44,25 +45,25 @@ shift $(($OPTIND -1))
 
 case $dothis in
    command | dofile | include | menu )
-	  # all good
+   # all good
+	  echo "found dothis ->$dothis<-"
 	  ;;
    else )
 		   Usage
 		   exit 666;;
 esac
 
-theStatas=$(pgrep stata)
-## check how many Stata's are running
-numstatas=$(echo $theStatas | wc -l)
-if [ $numstatas .eq 0 ]; then
+numstatas=$(pgrep -c stata)
+if [ $numstatas -eq 0 ]; then
    echo "No Stata open!"
    exit 2
 fi
 
 ## multiple Statas could loop through the pid's
 ###  starting small for now
-if [ $numstatas .ge 1 ]; then
-	echo "Nothing for multiple Stata's yet"
+if [ $numstatas -ge 2 ]; then
+	echo "Found $numstatas Stata processes...."
+	echo "...nothing for multiple Statas yet"
 	exit 3
 fi
 
@@ -74,13 +75,15 @@ theStata=$allStatas
 #  winid=$(xdotool getactivewindow getwindowname)
 
 # Check to see if it is a windowed Stata or an old-school Stata
-if [ $(pstree theStata) .eq 1 ]; then
+if [ $(pstree $theStata | wc -l) -eq 1 ]; then
 	## cannot paste to old-school Stata because the window name
 	## is not distinctive without some hacks
 	echo "Cannot paste to non-GUI Stata's yet"
 	exit 4
 else
-   wmctrl -a Stata
+   ## this could get fooled if you have /usr/local/stata/ado open :<(
+   wmctrl -a "Stata/"
+   sleep 1
 fi
 
 ## make do-file if dothis is anything but command
@@ -88,12 +91,20 @@ fi
 
 case $dothis in
    command )
-	  xte 'keydown Control_L' 'key 1' 'key A' 'usleep 100' \
-		  'key V' 'keyup Control_L'
+	  xte 'keydown Control_L' 'usleep 10000' 'key 1' 'usleep 10000' \
+		  'key A' 'usleep 10000' 'keyup Control_L' 'usleep 10000'
+	  echo "after select"
+	  xte 'keydown Control_L' 'usleep 10000' 'key V' 'usleep 10000' 'keyup Control_L'
+	  echo "after paste"
+	  xte 'usleep 1000000'
+	  xte 'key A' 'usleep 1000000' 'key BackSpace' 'key Return'
+	  echo "after return"
 	  ;;
    dofile | include | menu )
 	  # paste clipboard to a tmp dofile
 	  xsel -o > ${tmpDir}${tmpDoFile}
+	  # end eol
+	  sed -i -e '$a\' ${tmpDir}${tmpDoFile}
 	  case $dothis in
 		 dofile )
 			xte "str do ${tmpDir}$tmpDoFile"
@@ -111,8 +122,6 @@ case $dothis in
 		   ;;
 esac
 
-sleep .1
-xte 'key Return'
 
 ## 
 ## sleep .3
