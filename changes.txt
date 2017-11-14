@@ -4,6 +4,9 @@ Version History:
 
 * Added the one new command, -dataex-.
 
+* [Programmers only]: Changed the default behavior of the
+  ado-command-to-clip function to strip leading and trailing whitespace.
+
 1.15.0.0
 
 * Updated for Stata 15, finally

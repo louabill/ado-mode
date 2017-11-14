@@ -104,9 +104,11 @@ by \\[ado-string-trim]."
 			   (ado-grab-something -2)
 			 (ado-grab-something -1)))
 		  )
+	  (message (concat "+>" theString "<+"))
 	  (unless keep-whitespace
-		(ado-string-trim theString))
-	  (unless theString
+		(setq theString (ado-string-trim theString)))
+	  (message (concat "->" theString "<-"))
+	  (unless (> (length theString) 0)
 		(if whole-buffer
 			(error "Buffer is empty")
 		  (error "No command found")))
