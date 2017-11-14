@@ -2026,6 +2026,25 @@ programs, even those defined in a funky way."
   (ado-set-window-width 80)
   (message "ado-mode options set to StataCorp defaults"))
 
+;; these trim functions come from Magnar Sveen via Xah Lee at
+;; http://ergoemacs.org/emacs/modernization_elisp_lib_problem.html
+(defun ado-string-trim-left (s)
+  "Remove whitespace at the beginning of S."
+  (if (string-match "\\`[ \t\n\r]+" s)
+      (replace-match "" t t s)
+    s))
+
+(defun ado-string-trim-right (s)
+  "Remove whitespace at the end of S."
+  (if (string-match "[ \t\n\r]+\\'" s)
+      (replace-match "" t t s)
+    s))
+
+(defun ado-string-trim (s)
+  "Remove whitespace at the beginning and end of S."
+  (ado-string-trim-left (ado-string-trim-right s)))
+
+
 			 
 ;;; Aquamacs emacs specifics (perhaps should be broken out?)
 (if (boundp 'aquamacsxb-version)

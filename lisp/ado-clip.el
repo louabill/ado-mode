@@ -85,15 +85,17 @@ As of yet, only -2, -1, and 0 actually are implemented."
 		)
 	  )))
 
-(defun ado-command-to-clip (&optional use-dofile whole-buffer)
+(defun ado-command-to-clip (&optional use-dofile whole-buffer keep-whitespace)
   "Grabs either the region, or if there is no region, the
 entire Stata command (or buffer if whole-buffer it non-nil), 
 then gets it ready to send to Stata. If use-dofile is 
 \"command\", it strips out comments and continuations, and spruces
-up semicolons if the outdated #delimit ; is in play.
-The grabbing is done by \\[ado-grab-something], the stripping
-is done by \\[ado-strip-comments], and the semicolon-fixing by
-\\[ado-convert-semicolons]."
+up semicolons if the outdated #delimit ; is in play. It also strips
+leading and trailing whitespace (including blank lines) unless 
+keep-whitespace is non-nil. The grabbing is done by \\[ado-grab-something], 
+the stripping is done by \\[ado-strip-comments], the semicolon-fixing 
+by \\[ado-convert-semicolons], and the whitespace trimming 
+by \\[ado-string-trim]."
 	(unless use-dofile
 	  (setq use-dofile "command"))
 	(let ((x-select-enable-clipboard t)
@@ -102,7 +104,11 @@ is done by \\[ado-strip-comments], and the semicolon-fixing by
 			   (ado-grab-something -2)
 			 (ado-grab-something -1)))
 		  )
-	  (unless theString
+	  (message (concat "+>" theString "<+"))
+	  (unless keep-whitespace
+		(setq theString (ado-string-trim theString)))
+	  (message (concat "->" theString "<-"))
+	  (unless (> (length theString) 0)
 		(if whole-buffer
 			(error "Buffer is empty")
 		  (error "No command found")))

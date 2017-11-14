@@ -49,6 +49,8 @@ There are three optional arguments:
   dothis: \"command\" for using the commmand window
           \"menu\"   for using a menu item
           \"dofile\" for using a tmp do-file
+          \"include\" for using a tmp do-file as an include
+                          (allowing current local macros to work)
 
   comeback: if nil, stay in Stata after submitting command; t to come
             back to emacs.
