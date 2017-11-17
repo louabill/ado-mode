@@ -2,7 +2,23 @@
 
 ##1.15.1.0
 
+* Thanks to a good tip from Helge Liebert to point things in the right
+  direction, it is now possible in linux to communicate with Stata
+  directly from Emacs! This requires xsel and xdotool, which can be
+  downloaded via
+     `sudo apt-get install xsel xdotool`
+  in Ubuntu/Debian and
+     `sudo pacman -S xsel xdotool`
+  in Arch
+
+* Highlighting user-written commands found on the ado-path now works in
+  linux, also.
+
 * Added the one new command, -dataex-.
+
+* [Programmers only]: Changed the default behavior of the
+  ado-command-to-clip function to strip leading and trailing whitespace.
+
 
 ## 1.15.0.0
 
