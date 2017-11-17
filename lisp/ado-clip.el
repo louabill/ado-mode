@@ -104,10 +104,10 @@ by \\[ado-string-trim]."
 			   (ado-grab-something -2)
 			 (ado-grab-something -1)))
 		  )
-	  (message (concat "+>" theString "<+"))
+	  ;; (message (concat "+>" theString "<+"))
 	  (unless keep-whitespace
 		(setq theString (ado-string-trim theString)))
-	  (message (concat "->" theString "<-"))
+	  ;; (message (concat "->" theString "<-"))
 	  (unless (> (length theString) 0)
 		(if whole-buffer
 			(error "Buffer is empty")

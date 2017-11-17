@@ -27,9 +27,11 @@ Help Options
 EOF
 }
 
-while getopts ":ad:f:h" opt; do
+while getopts ":acd:f:h" opt; do
    case $opt in
 	  a ) send2all="send2all";;
+	  c ) comeback="comeback"
+		  echo "found comeback flag";;
 	  d ) dothis="$OPTARG";;
 	  f ) flavor="$OPTARG";;
       h ) Usage
@@ -122,6 +124,7 @@ esac
 xdotool key Return
 
 ## back to Emacs
-xdotool search --name --onlyvisible "$winid" windowactivate
-
+if [ -n "$comeback" ]; then
+	xdotool search --name --onlyvisible "$winid" windowactivate
+fi
 

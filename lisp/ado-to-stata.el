@@ -102,6 +102,8 @@ send2stata.scpt is stored. "
 					  "\""
 					  (ado-send2stata-name "send2ztata.sh")
 					  "\""
+					  (if ado-comeback-flag
+						  " -c ")
 					  " -d " dothis
 					  " &"
 					  )))
