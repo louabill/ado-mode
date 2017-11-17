@@ -98,13 +98,21 @@ from a new Stata sesson."
 	  )
 	 ((string= system-type "windows-nt")
 	  (cond
-	   ((file-exists-p (concat stataDir "Stata-64.exe")) (concat stataDir "Stata-64"))
+	   ((file-exists-p (concat stataDir "Stata-64.exe")) (concat stataDir "Stata-64.exe"))
 	   ((file-exists-p (concat stataDir "StataSE-64.exe")) (concat stataDir "StataSE-64.exe"))
 	   ((file-exists-p (concat stataDir "StataMP-64.exe")) (concat stataDir "StataMP-64.exe"))
 	   (t (error (concat "Could not find any Stata in " lookhere))))
 	  )
-	 (t (error "Nothing for unix yet")))
-	))
+	 ((string= system-type "gnu/linux")
+	  (cond
+	   ((file-exists-p (concat stataDir "stata")) (concat stataDir "stata"))
+	   ((file-exists-p (concat stataDir "stata-se")) (concat stataDir "stata-se"))
+	   ((file-exists-p (concat stataDir "stata-mp")) (concat stataDir "stata-mp"))
+	   (t (error (concat "Could not find Console Stata (needed for background tasks) in " lookhere))))
+	  )
+	 (t (error (concat "Nothing for " system-type " yet")))
+	 ))
+  )
 
 ;; if Stata cannot be found, this defaults to "version !!??"
 ;; not a great idea to use this for the version because the point of
@@ -175,7 +183,14 @@ so it can be `concat'ted directly with a file name."
 			   (ado-find-stata) "\" /q /e  " theCommand
 			   (if theArgs (concat " \"" theArgs "\""))
 	  )))
-	 (t (error "Nothing for unix yet")))
+	 ((string= system-type "gnu/linux")
+	  (shell-command 
+	   (concat "cd " (ado-system-tmp-dir) " ; " 
+			   (ado-find-stata) " -q -e '" theCommand "'"
+			   (if theArgs (concat " '" theArgs "'"))
+	   )))
+	 (t (error (concat "Nothing for " system-type " yet")))
+	 )
 	(setq tmpLog (concat (ado-system-tmp-dir) "stata.log"))
 	;; visit tmp directory and manipulate the log
 	(with-current-buffer (get-buffer-create tmpBuffer)
