@@ -2,6 +2,15 @@ Version History:
 ---------------
 1.15.1.0
 
+* Thanks to a good tip from Helge Liebert to point things in the right
+  direction, it is now possible to send command/region/buffer to Stata
+  directly from Emacs! This requires xsel and xdotool, which can be
+  downloaded via
+     sudo apt-get install xsel xdotool
+  in Ubuntu/Debian and
+     sudo pacman -S xsel xdotool
+  in Arch
+
 * Added the one new command, -dataex-.
 
 * [Programmers only]: Changed the default behavior of the

@@ -83,7 +83,7 @@ send2stata.scpt is stored. "
 	  ;; for whatever reason, running synchronously causes the autoit
 	  ;;  application to do nothing
       ;; the bad news is the damn asynch buffer is shown w/o any choice
-	  (call-process-shell-command 
+	  (shell-command 
 	   (concat 
 		"\""
 		(ado-send2stata-name "send2stata.exe")

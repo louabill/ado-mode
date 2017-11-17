@@ -3,12 +3,12 @@
 # heavily modified for ado-mode by Bill Rising
 # strange name because 'send2stata' would be a process with 'stata' in its name
 
-# script needs wmctrl, xte, xsel and xdotool 
+# script needs xsel and xdotool 
 # to get them run
 # in debian/ubuntu linux
-# sudo apt-get install wmctrl xautomation xsel xdotool
+# sudo apt-get install xsel xdotool
 # in arch
-# sudo pacman -S wmctrl xautomation xsel xdotool
+# sudo pacman -S xsel xdotool
 # the default delays should work on most systems
 self=$(basename $0)
 # set defaults (none)
@@ -45,12 +45,11 @@ shift $(($OPTIND -1))
 
 case $dothis in
    command | dofile | include | menu )
-   # all good
-	  echo "found dothis ->$dothis<-"
-	  ;;
-   else )
-		   Usage
-		   exit 666;;
+   # all good; just checking syntax
+   ;;
+   * )
+	  Usage
+	  exit 666;;
 esac
 
 numstatas=$(pgrep -c stata)
@@ -72,7 +71,7 @@ theStata=$allStatas
 
 # get name of Emacs window
 #   comment out for command-line debugging
-#  winid=$(xdotool getactivewindow getwindowname)
+winid=$(xdotool getactivewindow getwindowname)
 
 # Check to see if it is a windowed Stata or an old-school Stata
 if [ $(pstree $theStata | wc -l) -eq 1 ]; then
@@ -81,9 +80,8 @@ if [ $(pstree $theStata | wc -l) -eq 1 ]; then
 	echo "Cannot paste to non-GUI Stata's yet"
 	exit 4
 else
-   ## this could get fooled if you have /usr/local/stata/ado open :<(
-   wmctrl -a "Stata/"
-   sleep 1
+   ## not finding consoles because there is no consistent name
+   xdotool search --name --onlyvisible "Stata(/SE|/MP)* 1[1-5]" windowactivate
 fi
 
 ## make do-file if dothis is anything but command
@@ -91,29 +89,27 @@ fi
 
 case $dothis in
    command )
-	  xte 'keydown Control_L' 'usleep 10000' 'key 1' 'usleep 10000' \
-		  'key A' 'usleep 10000' 'keyup Control_L' 'usleep 10000'
-	  echo "after select"
-	  xte 'keydown Control_L' 'usleep 10000' 'key V' 'usleep 10000' 'keyup Control_L'
-	  echo "after paste"
-	  xte 'usleep 1000000'
-	  xte 'key A' 'usleep 1000000' 'key BackSpace' 'key Return'
-	  echo "after return"
+	  # get to command window and select all
+	  xdotool key ctrl+1
+	  xdotool key ctrl+a
+	  # paste in the clipboard
+	  xdotool key ctrl+v
 	  ;;
    dofile | include | menu )
 	  # paste clipboard to a tmp dofile
-	  xsel -o > ${tmpDir}${tmpDoFile}
+	  xsel -b -o > ${tmpDir}${tmpDoFile}
+	  sleep 0.2
 	  # end eol
 	  sed -i -e '$a\' ${tmpDir}${tmpDoFile}
 	  case $dothis in
 		 dofile )
-			xte "str do ${tmpDir}$tmpDoFile"
+			xdotool type do " ${tmpDir}$tmpDoFile"
 			;;
 		 include )
-			xte "str include ${tmpDir}$tmpDoFile"
+			xdotool type include " ${tmpDir}$tmpDoFile"
 			;;
 		 else )
-			echo "$dothis not implemented for do-files"
+			echo "$dothis not implemented for do-files in unix"
 			;;
 	  esac
 	  ;;
@@ -122,12 +118,10 @@ case $dothis in
 		   ;;
 esac
 
+# hit Return
+xdotool key Return
 
-## 
-## sleep .3
-
-# go back to editor window
-#   comment out for command-line debugging
-# wmctrl -a $winid 
+## back to Emacs
+xdotool search --name --onlyvisible "$winid" windowactivate
 
 
