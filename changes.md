@@ -1,6 +1,6 @@
 # Version History
 
-##1.15.1.0
+## 1.15.1.0
 
 * Thanks to a good tip from Helge Liebert to point things in the right
   direction, it is now possible in linux to communicate with Stata
