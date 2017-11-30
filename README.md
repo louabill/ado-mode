@@ -1,6 +1,8 @@
-# The ado-mode for Emacs
+# The `ado-mode` for Emacs
 
-The `ado-mode` is a major [editing] mode for Emacs which allows truly good editing of Stata, namely `do`, `ado`, `sthlp`, `smcl`, and `mata` files. Here is a [screenshot](ado_highlighting.png) to see what the highlighting does. The mode also handles indentation, date stamps, and includes templates for writing help files, project do-files and the like.
+Just a test, please ignore [[eraseme|ado_highlighting.png]]
+
+The `ado-mode` is a major [editing] mode for Emacs which allows truly good editing of Stata, namely `do`, `ado`, `sthlp`, `smcl`, and `mata` files. Here is a [screenshot](docs4github/ado_highlighting.png) to see what the highlighting does. The mode also handles indentation, date stamps, and includes templates for writing help files, project do-files and the like.
 
 Emacs versions 25, 24, and 23 are supported.
 
