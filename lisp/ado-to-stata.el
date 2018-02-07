@@ -1,12 +1,12 @@
 ;;; ado-to-stata.el --- Passing code to a running Stata from emacs
-;; Copyright (c) 2009--2016
+;; Copyright (c) 2009--2018
 ;; Bill Rising
 ;;
 ;; Author:   Bill Rising
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://louabill.org/stata
 ;; Keywords: ado-mode
-;; Version:  0.2 of May 9, 2011
+;; Version:  0.2.1 of February 7, 2018
 
 ;;; a collection of things for interacting with Stata 
 ;;; Currently this works in Mac OS X and MS Windows. It will not cause errors in 
@@ -41,9 +41,9 @@
   (ado-send-clip-to-stata "include" ado-comeback-flag))
 
 (defun ado-send-clip-to-stata (&optional dothis comeback tmpfile)
-  "Sends the clipboard to Stata to be evaluated. Currently this works
-on Mac OS X and MS Windows only. This command is meant to be called by 
-one of the wrappers determining the behavior of the flags...
+  "Sends the clipboard to Stata to be evaluated. This command 
+is meant to be called by one of the wrappers determining 
+the behavior of the flags...
 
 There are three optional arguments:
   dothis: \"command\" for using the commmand window
@@ -80,10 +80,8 @@ send2stata.scpt is stored. "
 	  ;;  working via the menu does NOT work with comeback, yet
 	  (if (and comeback (string= dothis "menu"))
 		  (error "cannot comeback to Stata after using a menu in MS Windows"))
-	  ;; for whatever reason, running synchronously causes the autoit
-	  ;;  application to do nothing
-      ;; the bad news is the damn asynch buffer is shown w/o any choice
-	  (shell-command 
+	  ;; changing to shell-command breaks autoit
+	  (call-process-shell-command 
 	   (concat 
 		"\""
 		(ado-send2stata-name "send2stata.exe")

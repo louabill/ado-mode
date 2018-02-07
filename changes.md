@@ -1,5 +1,11 @@
 # Version History
 
+## 1.15.1.1
+
+* Fixed a bug for sending to Stata in Windows.
+
+* Made sure -version 15.1- highlighed properly (duh)
+
 ## 1.15.1.0
 
 * Thanks to a good tip from Helge Liebert to point things in the right
