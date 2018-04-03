@@ -1,8 +1,14 @@
 # Version History
 
+## 1.15.1.2
+
+* Took out some debugging code which caused extra messages in Windows
+
+* Updated copyright dates in files which had been changed some time recently
+
 ## 1.15.1.1
 
-* Fixed a bug for sending to Stata in Windows.
+* Fixed a bug for sending to Stata in Windows
 
 * Made sure -version 15.1- highlighed properly (duh)
 
@@ -18,12 +24,12 @@
   in Arch
 
 * Highlighting user-written commands found on the ado-path now works in
-  linux, also.
+  linux, also
 
-* Added the one new command, -dataex-.
+* Added the one new command, -dataex-
 
 * [Programmers only]: Changed the default behavior of the
-  ado-command-to-clip function to strip leading and trailing whitespace.
+  ado-command-to-clip function to strip leading and trailing whitespace
 
 
 ## 1.15.0.0

@@ -1,12 +1,12 @@
 ;;; ado-stata-info --- Passing code to a running Stata from emacs
-;; Copyright (c) 2011-2016
+;; Copyright (c) 2011-2017
 ;; Bill Rising
 ;;
 ;; Author:   Bill Rising
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://louabill.org/stata
 ;; Keywords: ado-mode
-;; Version:  0.1.4 of March 23, 2016
+;; Version:  0.1.5 of Nov 17, 2017
 
 ;;; a collection of command for gathering info from Stata
 ;;;  (of course, this does not (yet) mean gathering info from a running Stata)

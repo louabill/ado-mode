@@ -1,9 +1,10 @@
 ;; this is ado-clip.el
-;; Copyright (c) 2009--2016
+;; Copyright (c) 2009--2018
 ;; Author:   Bill Rising
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://louabill.org/stata
 ;; Keywords: ado-mode
+;; Version:  0.5.2   3apr2018-fixed up stripping whitespace
 ;; Version:  0.5.1   8oct2012-updated for emacs 24 
 ;; Version:  0.5    11jan2012 (the 0.5 is an arbitrary number)
 

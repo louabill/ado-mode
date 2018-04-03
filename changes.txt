@@ -1,8 +1,14 @@
 Version History:
 ---------------
+1.15.1.2
+
+* Took out some debugging code which caused extra messages in Windows
+
+* Updated copyright dates in files which had been changed some time recently
+
 1.15.1.1
 
-* Fixed a bug for sending to Stata in Windows.
+* Fixed a bug for sending to Stata in Windows
 
 * Made sure -version 15.1- highlighed properly (duh)
 
@@ -18,12 +24,12 @@ Version History:
   in Arch
 
 * Highlighting user-written commands found on the ado-path now works in
-  linux, also.
+  linux, also
 
-* Added the one new command, -dataex-.
+* Added the one new command, -dataex-
 
 * [Programmers only]: Changed the default behavior of the
-  ado-command-to-clip function to strip leading and trailing whitespace.
+  ado-command-to-clip function to strip leading and trailing whitespace
 
 1.15.0.0
 
@@ -33,7 +39,7 @@ Version History:
   This was done out of confusion that newer Emacs (>= 25.2) bound
   another function to C-c C-c. This was false, but I left the change in
   because it is more consistent with other bindings. After all, C-c C-h
-  is for ado-help-at-point, C-c M-h is a generalization.
+  is for ado-help-at-point, C-c M-h is a generalization
 
 * Fixed -tssmooth- to display as harmful face
 
