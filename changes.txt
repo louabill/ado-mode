@@ -1,5 +1,10 @@
 Version History:
 ---------------
+1.15.1.3
+
+* Added a submenu to the Ado-mode > Options menu for changing values for
+  interacting with Stata (version, flavor, instance, etc.)
+
 1.15.1.2
 
 * Took out some debugging code which caused extra messages in Windows
