@@ -3,7 +3,8 @@ Version History:
 1.15.1.3
 
 * Added a submenu to the Ado-mode > Options menu for changing values for
-  interacting with Stata (version, flavor, instance, etc.)
+  interacting with Stata (version, flavor, instance, etc.) The instance
+  is useful only in MS-Windows.
 
 1.15.1.2
 
