@@ -4,7 +4,7 @@
 
 ;; Maintainer: Bill Rising, brising at stata dot com
 ;; Keywords: ado-mode, highlighting
-;; Version: 1.15.0.0 of October 14, 2017
+;; Version: 1.15.1.3 of May 12, 2018
 ;;
 ;; This file is NOT part of GNU Emacs.
 
@@ -215,6 +215,9 @@
 
 ;; submenu Options
 ;;; this submenu follows
+(define-key ado-mode-map [menu-bar ado options ado-stata-interaction-menu]
+  (cons "Ado-Stata Interaction" (make-sparse-keymap "ado-data-interaction-menu")))
+
 (define-key ado-mode-map [menu-bar ado options special-indentation]
   (cons "Special Indentation" (make-sparse-keymap "special-indentation")))
 
@@ -222,16 +225,6 @@
   '(menu-item "Include Author section in help files"
 			  (lambda () (interactive) (ado-toggle-flag 'ado-help-author-flag))
 			  :button (:toggle . ado-help-author-flag)))
-
-(define-key ado-mode-map [menu-bar ado options ado-send-to-all-toggle]
-  '(menu-item "Send code to all matching Statas"
-			  (lambda () (interactive) (ado-toggle-flag 'ado-send-to-all-flag))
-			  :button (:toggle . ado-send-to-all-flag)))
-
-(define-key ado-mode-map [menu-bar ado options ado-strict-match-toggle]
-  '(menu-item "Use strict matching for finding Stata instance"
-			  (lambda () (interactive) (ado-toggle-flag 'ado-strict-match-flag))
-			  :button (:toggle . ado-strict-match-flag)))
 
 (define-key ado-mode-map [menu-bar ado options ado-comeback-toggle]
   '(menu-item "Return to Emacs after submission"
@@ -250,7 +243,7 @@
 
 (define-key ado-mode-map [menu-bar ado options ado-comment-column-change]
   '(menu-item "Set Comment Column..." 
-	      (lambda () (interactive) ado-change-number 'ado-comment-column 'ask)))
+	      (lambda () (interactive) (ado-change-number 'ado-comment-column 'ask))))
 
 (define-key ado-mode-map [menu-bar ado options ado-continued-statement-indent-spaces-change]
   '(menu-item "Set Continuation Indentation..." ado-continued-statement-indent-spaces-change))
@@ -341,6 +334,31 @@
   '(menu-item "debugging indented differently" 
 	      (lambda () (interactive) (ado-toggle-flag 'ado-debugging-indent-flag))
  	      :button (:toggle . ado-debugging-indent-flag)))
+
+;; subsubmenu Options/Special Indent
+(define-key ado-mode-map [menu-bar ado options ado-stata-interaction-menu ado-send-instance-set]
+  '(menu-item "Set Stata instance..."
+			  (lambda () (interactive) (ado-change-number 'ado-stata-instance 'ask))))
+
+(define-key ado-mode-map [menu-bar ado options ado-stata-interaction-menu ado-send-flavor-set]
+  '(menu-item "Set Stata flavor..."
+			  (lambda () (interactive) (setq ado-stata-flavor (read-from-minibuffer "Change ado-stata-version to (blank for any) ")))))
+
+(define-key ado-mode-map [menu-bar ado options ado-stata-interaction-menu ado-send-version-set]
+  '(menu-item "Set Stata version..."
+			  (lambda () (interactive) (setq ado-stata-version (read-from-minibuffer "Change ado-stata-version to (blank for any) ")))))
+
+(define-key ado-mode-map [menu-bar ado options ado-stata-interaction-menu ado-send-to-all-toggle]
+  '(menu-item "Send code to all matching Statas"
+			  (lambda () (interactive) (ado-toggle-flag 'ado-send-to-all-flag))
+			  :button (:toggle . ado-send-to-all-flag)))
+
+(define-key ado-mode-map [menu-bar ado options ado-stata-interaction-menu ado-strict-match-toggle]
+  '(menu-item "Use strict matching for finding Stata instance"
+			  (lambda () (interactive) (ado-toggle-flag 'ado-strict-match-flag))
+			  :button (:toggle . ado-strict-match-flag)))
+
+
 
 ;; initial mode defintion function
 (defun ado-mode ()
