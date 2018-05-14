@@ -93,7 +93,6 @@ send2stata.scpt is stored. "
 		" \"" (if ado-send-to-all-flag "t" "") "\""
 		" \"" (if ado-strict-match-flag "t" "") "\""
 		)
-;		" & ")
 	   nil 0))
 	 ((gnu/linux)
 	  (shell-command (concat
