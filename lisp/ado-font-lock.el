@@ -1588,6 +1588,7 @@ Not implemented as much more than an experiment. ")
 	;; mvtest
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1607,6 +1608,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1625,6 +1627,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1642,6 +1645,7 @@ Not implemented as much more than an experiment. ")
     ;; the duplicates commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1660,6 +1664,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1677,6 +1682,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1695,6 +1701,7 @@ Not implemented as much more than an experiment. ")
     ;; the _estimates commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
