@@ -40,9 +40,29 @@
 ;;   being smart about the highlighting
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; this regexp is a little sloppy
-(defconst start-cmd-regexp "^\\(.*:\\)*[ \t]*"
+;;; these regexps will still be fooled by line continuations
+;;;   or colons in the middle of a line of text
+;; (defconst start-cmd-regexp "^\\(\\(.*:\\)*\\|\\(qui\\|quie\\|quiet\\|quietl\\|quietly\\)\\|\\(n\\|no\\|noi\\|nois\\|noisi\\|noisil\\|noisily\\)\\|\\(cap\\|capt\\|captu\\|captur\\|capture\\)\\)[ \t]*"
+;;(defconst start-cmd-regexp "^\\(?:\\(?:.*:\\)*\\|\\(:?qui\\|quie\\|quiet\\|quietl\\|quietly\\)?\\)?[ \t]*"
+(defconst start-cmd-regexp
+  (concat
+   "^\\(?:\\(?:.*:\\)*"
+   "\\|\\(?:[ \t]*"
+   (eval-when-compile
+	 (regexp-opt
+	  '(
+		"cap" "capt" "captu" "captur" "capture" 
+		"n" "no" "noi" "nois" "noisi" "noisil" "noisily" 
+		"qui" "quie" "quiet" "quietl" "quietly"
+		)))
+   "\\)?\\)[ \t]*"
+   )
   "start-of-command regexp to try to keep mid-line commands from highlighting.
+Meant for typical commands which could allow a prefix command.
+Not implemented as much more than an experiment. ")
+(defconst start-no-prefix-cmd-regexp "^[ \t]*"
+  "start-of-command regexp to try to keep mid-line commands from highlighting.
+Meant for commands which do _not_ allow a prefix command.
 Not implemented as much more than an experiment. ")
 (defconst end-cmd-regexp "\\([ \t]+\\|,\\|;\\|:\\|$\\)"
   "end-of-command regexp to keep things like -regress(- from highlighting")
@@ -90,6 +110,7 @@ Not implemented as much more than an experiment. ")
 	;; program w/o define
 	(list
 	 (concat
+	  start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt '(
 					  "pr" "pro" "prog" "progr" "progra" "program")
@@ -100,6 +121,7 @@ Not implemented as much more than an experiment. ")
 	
 	(list
 	 (concat
+	  start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt '(
 					  "pr" "pro" "prog" "progr" "progra" "program")
@@ -3987,6 +4009,8 @@ Not implemented as much more than an experiment. ")
 		   "char" 
 		   "e" "err" "erro" "error" "ex" "exi" "exit" 
 		   "for"
+		   "n" "no" "noi" "nois" "noisi" "noisil" "noisily"
+		   "qui" "quie" "quiet" "quietl" "quietly" 
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
@@ -4095,10 +4119,11 @@ Not implemented as much more than an experiment. ")
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
+
 	;; an experiment 
 	(list
 	 (concat
-	  ;;	   start-cmd-regexp  ;; seems to have some bad side effects
+	  start-cmd-regexp  ;; seems to have some bad side effects
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4126,7 +4151,6 @@ Not implemented as much more than an experiment. ")
 		   "mprobit" "mvreg" "mx_param"
 		   "n" "nbreg" "nestreg" "net" "newey" "news"
 		   "nl" "nlcom" "nlogit" "nlogittree" "nlsur" 
-		   "no" "noi" "nois" "noisi" "noisil" "noisily"
 		   "note" "notes" "novarabbrev"
 		   "npgraph"
 		   "numlabel"
@@ -4151,7 +4175,6 @@ Not implemented as much more than an experiment. ")
 		   "pwcompare" "pwcorr" "pwd" "pwmean"
 		   "q" "qchi" "qnorm" "qqplot" "qreg" "qladder" "quadchk" "quantile" 
 		   "qu" "que" "quer" "query"
-		   "qui" "quie" "quiet" "quietl" "quietly"
 		   "ranksum" "ratio" "rchart" "regdw" "regph" 
 		   "reg" "reg3" "regr" "regre" "regres" "regress"
 		   "reshape"
@@ -4164,7 +4187,7 @@ Not implemented as much more than an experiment. ")
 		   "ru" "run" "runtest" "rvfplot" "rvpplot"
 		   ) 'words))
 	  end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face))
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face))
 
 	(list
 	 (concat
@@ -6866,7 +6889,8 @@ Not implemented as much more than an experiment. ")
 	   )
 	  '(1 ado-function-name-face) '(2 ado-function-name-face t))
 
-	  ;; mata keywords --- won't override, because they are only active in a mata block...	  ;;  and mata block checking has not been implemented
+	;; mata keywords --- won't override, because they are only active in a mata block...
+	;;  and mata block checking has not been implemented
 	(list
 	 (concat
 	  "[ \t]+"
