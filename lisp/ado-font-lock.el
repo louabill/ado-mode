@@ -44,7 +44,7 @@
 ;;;   or colons in the middle of a line of text
 ;; (defconst start-cmd-regexp "^\\(\\(.*:\\)*\\|\\(qui\\|quie\\|quiet\\|quietl\\|quietly\\)\\|\\(n\\|no\\|noi\\|nois\\|noisi\\|noisil\\|noisily\\)\\|\\(cap\\|capt\\|captu\\|captur\\|capture\\)\\)[ \t]*"
 ;;(defconst start-cmd-regexp "^\\(?:\\(?:.*:\\)*\\|\\(:?qui\\|quie\\|quiet\\|quietl\\|quietly\\)?\\)?[ \t]*"
-(defconst start-cmd-regexp
+(defconst ado-start-cmd-regexp
   (concat
    "^\\(?:\\(?:.*:\\)*"
    "\\|\\(?:[ \t]*"
@@ -60,14 +60,18 @@
   "start-of-command regexp to try to keep mid-line commands from highlighting.
 Meant for typical commands which could allow a prefix command.
 Not implemented as much more than an experiment. ")
-(defconst start-no-prefix-cmd-regexp "^[ \t]*"
+
+(defconst ado-start-no-prefix-cmd-regexp "^[ \t]*"
   "start-of-command regexp to try to keep mid-line commands from highlighting.
 Meant for commands which do _not_ allow a prefix command.
 Not implemented as much more than an experiment. ")
-(defconst end-cmd-regexp "\\([ \t]+\\|,\\|;\\|:\\|$\\)"
+
+(defconst ado-end-cmd-regexp "\\([ \t]+\\|,\\|;\\|:\\|$\\)"
   "end-of-command regexp to keep things like -regress(- from highlighting")
+
 (defconst ado-stata-name-regexp "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
   "for uniform highlighting of Stata names")
+
 (defconst ado-man-abbrevs '("BAYES" "D" "DSGE" "ERM" "FMM" "FN" "G" "GSM" "GSU" "GSW" "IG" "IRT" "M" "ME" "MI" "MV" "P" "PSS" "R" "SEM" "SP" "ST" "SVY" "TE" "TS" "U" "XT"))
 
 
@@ -110,22 +114,25 @@ Not implemented as much more than an experiment. ")
 	;; program w/o define
 	(list
 	 (concat
-	  start-no-prefix-cmd-regexp
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
-		(regexp-opt '(
-					  "pr" "pro" "prog" "progr" "progra" "program")
-					'words))
+		(regexp-opt
+		 '(
+		   "pr" "pro" "prog" "progr" "progra" "program")
+		 'words))
 	  "[ \t]+\\([^ \t]+\\)"
 	  )
 	 '(1 ado-builtin-harmful-face) '(2 ado-builtin-harmful-face))
 	
 	(list
 	 (concat
-	  start-no-prefix-cmd-regexp
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
-		(regexp-opt '(
-					  "pr" "pro" "prog" "progr" "progra" "program")
-					'words))
+		(regexp-opt
+		 '(
+		   "pr" "pro" "prog" "progr" "progra" "program"
+		   )
+		 'words))
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt '("di" "dir")
@@ -250,6 +257,7 @@ Not implemented as much more than an experiment. ")
 	;; churdle commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -268,6 +276,7 @@ Not implemented as much more than an experiment. ")
     ;; the cluster commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt '("cluster") 'words))
 	  "[ \t]+"
@@ -290,6 +299,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -315,7 +325,8 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
-	  "[ /t]*\\<\\(cluster\\(?:mat\\)?\\)\\>[ \t]+"
+	  ado-start-cmd-regexp
+	  "\\<\\(cluster\\(?:mat\\)?\\)\\>[ \t]+"
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -342,6 +353,7 @@ Not implemented as much more than an experiment. ")
 	(list
 	 (concat
 	  (eval-when-compile 
+		ado-start-cmd-regexp
 		(regexp-opt 
 		 '(
 		   "copyright"
@@ -434,6 +446,7 @@ Not implemented as much more than an experiment. ")
 	;; discrim commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -454,6 +467,7 @@ Not implemented as much more than an experiment. ")
 	;; fracreg commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\(\\<fracreg\\>\\)"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -468,6 +482,7 @@ Not implemented as much more than an experiment. ")
 	 ;; mgarch commands
 	 (list
 	  (concat
+	   ado-start-cmd-regexp
 	   "\\(\\<mgarch\\>\\)"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -484,6 +499,7 @@ Not implemented as much more than an experiment. ")
 	 ;; mswitch commands
 	 (list
 	  (concat
+	  ado-start-cmd-regexp
 	   "\\(\\<mswitch\\>\\)"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -498,6 +514,7 @@ Not implemented as much more than an experiment. ")
 	 ;; the one an only npregress command
 	 (list
 	  (concat
+	  ado-start-cmd-regexp
 	   "\\(\\<npregress\\>\\)"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -513,6 +530,7 @@ Not implemented as much more than an experiment. ")
 	;; power commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -552,6 +570,7 @@ Not implemented as much more than an experiment. ")
 	;; first the harmless one
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -566,9 +585,10 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp ) 
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	;; now, all the rest
+	;; now, all the rest (pause and resume are not official, but should be)
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -583,6 +603,8 @@ Not implemented as much more than an experiment. ")
 		   "image"
 		   "pagebreak"
 		   "paragraph"
+		   "pause"
+		   "resume"
 		   "save"
 		   "table"
 		   "text"
@@ -593,6 +615,7 @@ Not implemented as much more than an experiment. ")
 	;; putdocx only
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -610,6 +633,7 @@ Not implemented as much more than an experiment. ")
 	;; st_is
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -628,6 +652,7 @@ Not implemented as much more than an experiment. ")
 	;; stpower commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -650,7 +675,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -697,7 +722,7 @@ Not implemented as much more than an experiment. ")
 	;; set incomplete commands; must come first for highlighting
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -750,6 +775,7 @@ Not implemented as much more than an experiment. ")
     ;;;;;; ugh
 	(list
 	 (concat
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -785,7 +811,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -836,7 +862,7 @@ Not implemented as much more than an experiment. ")
 	;; set charset command, with its odd subsubcommands (obsolete in Stata 14)
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -860,7 +886,7 @@ Not implemented as much more than an experiment. ")
 	;; set rng command, with its odd subsubcommands
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -884,7 +910,7 @@ Not implemented as much more than an experiment. ")
 	;; set emptycells command, with its odd subsubcommands
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -908,7 +934,7 @@ Not implemented as much more than an experiment. ")
 	;; set fvwrapon command, with its odd subsubcommands
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -932,7 +958,7 @@ Not implemented as much more than an experiment. ")
 	;; set output command, with its odd subsubcommands
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -979,7 +1005,7 @@ Not implemented as much more than an experiment. ")
 	;;   some work, however.
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1018,7 +1044,7 @@ Not implemented as much more than an experiment. ")
 	;; set eolchar command (obsolete)
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1041,7 +1067,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1066,7 +1092,7 @@ Not implemented as much more than an experiment. ")
 	;; set_defaults _all
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1084,6 +1110,7 @@ Not implemented as much more than an experiment. ")
     ;; the stteffects
 	(list
 	 (concat
+	 ado-start-cmd-regexp
 	  "\\(\\<stteffects\\>\\)"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -1100,6 +1127,7 @@ Not implemented as much more than an experiment. ")
     ;; the tebalance
 	(list
 	 (concat
+	 ado-start-cmd-regexp
 	  "\\(\\<tebalance\\>\\)"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -1116,6 +1144,7 @@ Not implemented as much more than an experiment. ")
     ;; the teffects
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\(\\<teffects\\>\\)"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -1135,6 +1164,7 @@ Not implemented as much more than an experiment. ")
 	;; the timer command
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1151,6 +1181,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1170,6 +1201,7 @@ Not implemented as much more than an experiment. ")
 	;; tsfilter commands (all data-changing)
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1191,6 +1223,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\(\\<args\\>\\)"
 	  "[ \t]+"
  	  "\\(\\(?:[a-zA-Z_][a-zA-Z_0-9]*" end-cmd-regexp "\\)+\\)"
@@ -1200,6 +1233,7 @@ Not implemented as much more than an experiment. ")
 	;; char with sub commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1216,6 +1250,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1234,6 +1269,7 @@ Not implemented as much more than an experiment. ")
     ;; the bcal commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1253,6 +1289,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1270,6 +1307,7 @@ Not implemented as much more than an experiment. ")
 	;; the ci commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile
 		(regexp-opt
 		 '(
@@ -1290,6 +1328,7 @@ Not implemented as much more than an experiment. ")
     ;; the constraint commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1312,6 +1351,7 @@ Not implemented as much more than an experiment. ")
     ;; the confirm commands - could be a mess!
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1334,6 +1374,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1356,6 +1397,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1379,6 +1421,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1403,6 +1446,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1427,6 +1471,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1450,6 +1495,7 @@ Not implemented as much more than an experiment. ")
     ;;; confirm str#
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1479,6 +1525,7 @@ Not implemented as much more than an experiment. ")
 	;; confirm incomplete
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1500,6 +1547,7 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1522,6 +1570,7 @@ Not implemented as much more than an experiment. ")
 	;; merge
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(

@@ -16,6 +16,13 @@ qui qui
 fug: regress
 foo regress
 fug regress
+capture noisily {
+   oops need
+   }
+capture noisily regress --- igit
+
+fooey regress // this is regress
+
 ** old-style regexp
 quietly areg
 fooey areg // this is areg
