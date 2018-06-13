@@ -1,4 +1,4 @@
-*! version 1.15.0.0 October 2, 2017 @ 15:41:10
+*! version 1.15.0.0 June 13, 2018 @ 18:53:41
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"

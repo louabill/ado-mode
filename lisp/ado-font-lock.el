@@ -2301,6 +2301,7 @@ Not implemented as much more than an experiment. ")
 	;; fvset commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(fvset\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2317,6 +2318,7 @@ Not implemented as much more than an experiment. ")
 	;; log commands, cmdlog also (though cmdlog query is undocumented)
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile
 		(regexp-opt
 		 '(
@@ -2336,6 +2338,7 @@ Not implemented as much more than an experiment. ")
 	;; misstable commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(misstable\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2354,6 +2357,7 @@ Not implemented as much more than an experiment. ")
 	;; with one following argument but no subcommand
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2366,6 +2370,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2383,6 +2388,7 @@ Not implemented as much more than an experiment. ")
 	;; with no matrix arguments - harmful
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2399,6 +2405,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2415,6 +2422,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2430,6 +2438,7 @@ Not implemented as much more than an experiment. ")
 	;; doesn't quite work, because it underlines the spaces
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2445,6 +2454,7 @@ Not implemented as much more than an experiment. ")
 	;; with one following argument
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2475,6 +2485,7 @@ Not implemented as much more than an experiment. ")
 	;; with one following arguments -- but harmless (good grief!)
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2494,6 +2505,7 @@ Not implemented as much more than an experiment. ")
 	;; with two following arguments
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2517,6 +2529,7 @@ Not implemented as much more than an experiment. ")
 	;; with three(!) following arguments
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2537,6 +2550,7 @@ Not implemented as much more than an experiment. ")
 	;; with three(!) following arguments but no friggin matrix command! 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(matcproc\\)\\>"
 	  "[ \t]+"
 	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
@@ -2550,6 +2564,7 @@ Not implemented as much more than an experiment. ")
 	;; now for the svmat command
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(svmat\\)\\>"
 	  "[ \t]+"
 	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
@@ -2558,6 +2573,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(svmat\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2574,6 +2590,7 @@ Not implemented as much more than an experiment. ")
 	;; the ml commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(ml\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2598,6 +2615,7 @@ Not implemented as much more than an experiment. ")
 	;; the ml commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(ml\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2610,6 +2628,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(ml\\)\\>"
 	  "[ \t]+"
 	  "\\(count\\|trace\\)"
@@ -2625,6 +2644,7 @@ Not implemented as much more than an experiment. ")
    
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(ml\\)\\>"
 	  "[ \t]+"
 	  "\\(count\\)"
@@ -2637,6 +2657,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(ml\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(score\\)\\>"
@@ -2645,6 +2666,7 @@ Not implemented as much more than an experiment. ")
 	;; obsolete ml commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(ml\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2660,7 +2682,7 @@ Not implemented as much more than an experiment. ")
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
-	;; the net commands
+	;; the net commands @@
 	(list
 	 (concat
 	  "\\<\\(net\\)\\>"
