@@ -1725,6 +1725,7 @@ Not implemented as much more than an experiment. ")
 	;; the export/import commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1745,6 +1746,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1767,6 +1769,7 @@ Not implemented as much more than an experiment. ")
     ;; the file commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1787,6 +1790,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1807,6 +1811,7 @@ Not implemented as much more than an experiment. ")
     ;;   (in multiple pieces)
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(gprefs\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(set\\)\\>"
@@ -1831,6 +1836,7 @@ Not implemented as much more than an experiment. ")
 	;; the other gprefs set window 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(gprefs\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(set\\)\\>"
@@ -1850,6 +1856,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(gprefs\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(set\\)\\>"
@@ -1874,6 +1881,7 @@ Not implemented as much more than an experiment. ")
 	;; the gprefs set scheme commands 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(gprefs\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(set\\)\\>"
@@ -1916,6 +1924,7 @@ Not implemented as much more than an experiment. ")
 	;; gprefs incomplete
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1932,6 +1941,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(gprefs\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(set\\)\\>"
@@ -1947,6 +1957,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(gprefs\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(set\\)\\>"
@@ -1958,6 +1969,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(gprefs\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(set\\)\\>"
@@ -1983,6 +1995,7 @@ Not implemented as much more than an experiment. ")
 	;; regular graph ... commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2012,6 +2025,7 @@ Not implemented as much more than an experiment. ")
 	;; the initial graph commands which are destructive
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2034,6 +2048,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2050,6 +2065,7 @@ Not implemented as much more than an experiment. ")
 	;; graph set commands ! seem to introduce all sorts of trouble
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2072,6 +2088,7 @@ Not implemented as much more than an experiment. ")
 	
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2103,6 +2120,7 @@ Not implemented as much more than an experiment. ")
 	;; the graph twoway stuff 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(\\(?:\\(?:gr\\|gra\\|grap\\|graph\\)[ \t]+\\)?\\)"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -2146,6 +2164,7 @@ Not implemented as much more than an experiment. ")
 	;; graph incomplete w/ multiple arguments
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2162,6 +2181,7 @@ Not implemented as much more than an experiment. ")
 	
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2185,6 +2205,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(\\(?:\\(?:gr\\|gra\\|grap\\|graph\\)[ \t]+\\)?\\)"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -2198,6 +2219,7 @@ Not implemented as much more than an experiment. ")
 	;; icd9, icd9p, icd10, icd10cm commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2218,6 +2240,7 @@ Not implemented as much more than an experiment. ")
 	;; icd9s with generate
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2236,6 +2259,7 @@ Not implemented as much more than an experiment. ")
 	;; irt commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2258,6 +2282,7 @@ Not implemented as much more than an experiment. ")
 	;; irtgraph commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
