@@ -20,7 +20,12 @@ capture noisily {
    oops need
    }
 capture noisily regress --- igit
+foo: labe def
 
+capture set more off
+capture : set more off
+set more off
+capture query memory
 fff ml max
 
 fooey regress // this is regress

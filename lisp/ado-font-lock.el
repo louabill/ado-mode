@@ -52,7 +52,7 @@
 		"n" "no" "noi" "nois" "noisi" "noisil" "noisily" 
 		"qui" "quie" "quiet" "quietl" "quietly"
 		)))
-   "\\)?"
+   "\\(?:[ \t]*:\\)?\\)?"
    )
   "Miserable regexp for those commands which could be thrown in front of any other
 command without any colon. Defined so that other command starters can include these
@@ -61,19 +61,29 @@ more easily. What a pita.")
 (defconst ado-start-cmd-regexp
   (concat
    "^\\(?:\\(?:.*:\\)*"
+   "\\|"
    ado-prefix-any-regexp
-   "\\|\\)[ \t]*"
+   "\\)[ \t]*"
    )
   "start-of-command regexp to try to keep mid-line commands from highlighting.
 Meant for typical commands which could allow a prefix command.
 Not implemented as much more than an experiment. ")
 
-(defconst ado-start-no-prefix-cmd-regexp "^[ \t]*"
-  "start-of-command regexp to try to keep mid-line commands from highlighting.
+(defconst ado-start-cmd-no-prefix-regexp
+  (concat
+   "^"
+   ado-prefix-any-regexp
+   "[ \t]*"
+   )
+  "start-of-command regexp for commands which do _not_ allow a prefix command.
+Not implemented as much more than an experiment. ")
+
+(defconst ado-start-cmd-must-start-line-regexp "^[ \t]*"
+  "start-of-command regexp for commands which don't allow capture, noisily, etc.
 Meant for commands which do _not_ allow a prefix command.
 Not implemented as much more than an experiment. ")
 
-(defconst ado-start-null-cmd-regexp ""
+(defconst ado-start-cmd-null-regexp ""
   "empty start-of-command regexp to make clear that there is no leading regexp.
 Meant for spurious-higlighting problems which have not been solved yet.")
 
@@ -125,7 +135,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; program w/o define
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-must-start-line-regexp
 	  (eval-when-compile 
 		(regexp-opt
 		 '(
@@ -137,7 +147,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-must-start-line-regexp
 	  (eval-when-compile 
 		(regexp-opt
 		 '(
@@ -686,7 +696,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -733,7 +743,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; set incomplete commands; must come first for highlighting
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -786,7 +796,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
     ;;;;;; ugh
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -822,7 +832,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -873,7 +883,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; set charset command, with its odd subsubcommands (obsolete in Stata 14)
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -897,7 +907,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; set rng command, with its odd subsubcommands
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -921,7 +931,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; set emptycells command, with its odd subsubcommands
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -945,7 +955,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; set fvwrapon command, with its odd subsubcommands
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -969,7 +979,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; set output command, with its odd subsubcommands
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1016,7 +1026,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;;   some work, however.
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1055,7 +1065,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; set eolchar command (obsolete)
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1078,7 +1088,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -1103,7 +1113,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; set_defaults _all
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4611,7 +4621,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;;   because of mata. Hmm...
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-must-start-line-regexp
 	  (eval-when-compile
 		(regexp-opt
 		 '(
@@ -4624,7 +4634,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; at least try to have else if's highlight properly
 	(list
 	 (concat
-	  ado-start-no-prefix-cmd-regexp
+	  ado-start-cmd-must-start-line-regexp
 	  "\\<\\(else\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(if\\)\\>"
@@ -4636,7 +4646,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; this leads to some spurious highlighting; will need a fix
 	(list
 	 (concat
-	  ado-start-null-cmd-regexp
+	  ado-start-cmd-null-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4648,7 +4658,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; string variable types 
 	(list
 	 (concat
-	  ado-start-null-cmd-regexp
+	  ado-start-cmd-null-regexp
 	  "\\<\\(str"
 	  "\\(L"
 	  "\\|"
