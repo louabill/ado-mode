@@ -42,8 +42,6 @@
 
 ;;; these regexps will still be fooled by line continuations
 ;;;   or colons in the middle of a line of text
-;; (defconst start-cmd-regexp "^\\(\\(.*:\\)*\\|\\(qui\\|quie\\|quiet\\|quietl\\|quietly\\)\\|\\(n\\|no\\|noi\\|nois\\|noisi\\|noisil\\|noisily\\)\\|\\(cap\\|capt\\|captu\\|captur\\|capture\\)\\)[ \t]*"
-;;(defconst start-cmd-regexp "^\\(?:\\(?:.*:\\)*\\|\\(:?qui\\|quie\\|quiet\\|quietl\\|quietly\\)?\\)?[ \t]*"
 (defconst ado-start-cmd-regexp
   (concat
    "^\\(?:\\(?:.*:\\)*"
@@ -65,6 +63,10 @@ Not implemented as much more than an experiment. ")
   "start-of-command regexp to try to keep mid-line commands from highlighting.
 Meant for commands which do _not_ allow a prefix command.
 Not implemented as much more than an experiment. ")
+
+(defconst ado-start-null-cmd-regexp ""
+  "empty start-of-command regexp to make clear that there is no leading regexp.
+Meant for spurious-higlighting problems which have not been solved yet.")
 
 (defconst ado-end-cmd-regexp "\\([ \t]+\\|,\\|;\\|:\\|$\\)"
   "end-of-command regexp to keep things like -regress(- from highlighting")
@@ -4307,7 +4309,6 @@ Not implemented as much more than an experiment. ")
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
 
-	;; an experiment 
 	(list
 	 (concat
 	  ado-start-cmd-regexp
@@ -4575,7 +4576,7 @@ Not implemented as much more than an experiment. ")
 	 '(3 ado-builtin-harmless-face))
 	;; haver subcommands ... all obsolete in Stata 13
 	
-	;; (list @@
+	;; (list
 	;;  (concat
 	;;   "\\<\\(haver\\)\\>"
 	;;   "[ \t]+"
@@ -4601,6 +4602,7 @@ Not implemented as much more than an experiment. ")
 	;;   because of mata. Hmm...
 	(list
 	 (concat
+	  ado-start-no-prefix-cmd-regexp
 	  (eval-when-compile
 		(regexp-opt
 		 '(
@@ -4613,6 +4615,7 @@ Not implemented as much more than an experiment. ")
 	;; at least try to have else if's highlight properly
 	(list
 	 (concat
+	  ado-start-no-prefix-cmd-regexp
 	  "\\<\\(else\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(if\\)\\>"
@@ -4624,6 +4627,7 @@ Not implemented as much more than an experiment. ")
 	;; this leads to some spurious highlighting; will need a fix
 	(list
 	 (concat
+	  ado-start-null-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4635,6 +4639,7 @@ Not implemented as much more than an experiment. ")
 	;; string variable types 
 	(list
 	 (concat
+	  ado-start-null-cmd-regexp
 	  "\\<\\(str"
 	  "\\(L"
 	  "\\|"
@@ -4658,6 +4663,7 @@ Not implemented as much more than an experiment. ")
 	;;
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4677,6 +4683,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4698,6 +4705,7 @@ Not implemented as much more than an experiment. ")
 	;; some left as is, because they are used in dictionaries...
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4723,6 +4731,7 @@ Not implemented as much more than an experiment. ")
 	;; other display subcommands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4746,6 +4755,7 @@ Not implemented as much more than an experiment. ")
 	;; trust Stata corp to use different prepositions...
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4763,6 +4773,7 @@ Not implemented as much more than an experiment. ")
 	;; obsolete coloring
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4787,6 +4798,7 @@ Not implemented as much more than an experiment. ")
 	;; foreach ... in
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(foreach\\)\\>"
 	  "[ \t]+"
 	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
@@ -4800,6 +4812,7 @@ Not implemented as much more than an experiment. ")
 	;; foreach ... of
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(foreach\\)\\>"
 	  "[ \t]+"
 	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
@@ -4822,6 +4835,7 @@ Not implemented as much more than an experiment. ")
 	;; forvalues ... = ??
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4836,6 +4850,7 @@ Not implemented as much more than an experiment. ")
 	;; gettoken
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(gettoken\\)\\>"
 	  "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
 	  "\\([ \t]+[a-zA-Z]+[a-zA-Z0-9_]*\\)"
@@ -4850,6 +4865,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(gettoken\\)\\>"
 	  "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
 	  "\\(\\(?:[ \t]+\\(?:[0-9]+\\|[a-zA-Z]+[a-zA-Z0-9_]*\\)\\)\\{1,2\\}\\)"
@@ -4859,7 +4875,7 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t) '(4 ado-variable-name-face t))
 
-	;; labels no longer experimental
+	;; labels no longer experimental @@
 	(list
 	 (concat
 	  (eval-when-compile 
