@@ -4284,6 +4284,13 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	(list
 	 (concat
 	  "^[ \t]*"
+	  "\\(" ado-capture-noisily-regexp "\\)"
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t))
+
+	(list
+	 (concat
+	  "^[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4427,7 +4434,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "mlexp" "mlog" "mlogi" "mlogit"
 		   "mor" "more"
 		   "mprobit" "mvreg" "mx_param"
-		   "n" "nbreg" "nestreg" "net" "newey" "news"
+		   "nbreg" "nestreg" "net" "newey" "news"
 		   "nl" "nlcom" "nlogit" "nlogittree" "nlsur" 
 		   "note" "notes" "novarabbrev"
 		   "npgraph"
@@ -4465,7 +4472,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "ru" "run" "runtest" "rvfplot" "rvpplot"
 		   ) 'words))
 	  ado-end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face))
+	 '(1 ado-builtin-harmless-face))
 
 	(list
 	 (concat
