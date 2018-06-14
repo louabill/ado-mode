@@ -42,10 +42,9 @@
 
 ;;; these regexps will still be fooled by line continuations
 ;;;   or colons in the middle of a line of text
-(defconst ado-start-cmd-regexp
+(defconst ado-prefix-any-regexp
   (concat
-   "^\\(?:\\(?:.*:\\)*"
-   "\\|\\(?:[ \t]*"
+   "\\(?:[ \t]*"
    (eval-when-compile
 	 (regexp-opt
 	  '(
@@ -53,7 +52,17 @@
 		"n" "no" "noi" "nois" "noisi" "noisil" "noisily" 
 		"qui" "quie" "quiet" "quietl" "quietly"
 		)))
-   "\\)?\\)[ \t]*"
+   "\\)?"
+   )
+  "Miserable regexp for those commands which could be thrown in front of any other
+command without any colon. Defined so that other command starters can include these
+more easily. What a pita.")
+
+(defconst ado-start-cmd-regexp
+  (concat
+   "^\\(?:\\(?:.*:\\)*"
+   ado-prefix-any-regexp
+   "\\|\\)[ \t]*"
    )
   "start-of-command regexp to try to keep mid-line commands from highlighting.
 Meant for typical commands which could allow a prefix command.

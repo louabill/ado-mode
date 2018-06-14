@@ -21,6 +21,8 @@ capture noisily {
    }
 capture noisily regress --- igit
 
+fff ml max
+
 fooey regress // this is regress
 
 ** old-style regexp
