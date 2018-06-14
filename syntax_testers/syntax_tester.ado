@@ -1,4 +1,4 @@
-*! version 1.15.0.0 June 14, 2018 @ 11:40:25
+*! version 1.15.0.0 June 14, 2018 @ 12:12:26
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -7576,6 +7576,10 @@ version /* used elsewhere */
 
    // unicode experiments
 
-   local føøbar 
+   local føøbar
 
+   The command smcl2do is user-written, so it will not highlight if you do not have
+      it installed, but is will highlight otherwise (no easy way to fix efficiently)
+
+   
 end

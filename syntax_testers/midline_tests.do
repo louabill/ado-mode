@@ -25,6 +25,9 @@ foo: labe def
 capture set more off
 capture : set more off
 set more off
+qui set more  // should be partial
+noisily set more  // should be partial
+noisily set more off // OK
 capture query memory
 fff ml max
 
