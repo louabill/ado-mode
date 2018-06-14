@@ -20,6 +20,24 @@ capture noisily {
    oops need
    }
 capture noisily regress --- igit
+cap n {
+   that worked
+   }
+
+cap n logistic
+capture n logit
+capture no logit
+cap noisily logit
+cap noisil logit
+cap noisi logit
+cap nois logit
+cap noi logit
+cap no logit
+cap n logit
+    capt n logit
+    capt no logit
+
+
 foo: labe def
 
 capture set more off

@@ -1,4 +1,4 @@
-*! version 1.15.0.0 June 14, 2018 @ 16:55:31
+*! version 1.15.0.0 June 14, 2018 @ 17:55:05
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -192,8 +192,14 @@ version 44
    copyright ttf2pt1
    copyright zlib
    copyright foobar // error (which could be marked as well but why?)
-   
-   cor corr corre correl correla correlat correlate
+
+   cor
+   corr
+   corre
+   correl
+   correla
+   correlat
+   correlate
    pwcorr
    
    cpoisson              // new in Stata 14 
@@ -623,11 +629,19 @@ version 44
 
    nptrend
 
-   olog ologi ologit 
+   olog
+   ologi
+   ologit 
 
-   on one onew onewa oneway
+   on
+   one
+   onew
+   onewa
+   oneway
 
-   oprob oprobi oprobit
+   oprob
+   oprobi
+   oprobit
 
    orthog
    orthpoly   
@@ -651,7 +665,9 @@ version 44
    predict
    predictnl
    
-   prob probi probit
+   prob
+   probi
+   probit
 
    dprobit // obsolete in Stata 11
 
@@ -707,7 +723,7 @@ version 44
    ratio
 
    reg3
-   // highlights all -regress-es again?
+   // highlights all regress's? nope just the last one
    regress : regress : regress
    regress a b, vce(robust) 
 
@@ -1946,7 +1962,12 @@ set trace off
    /* end odbc */
    order
    mov move aorder // obsolete in Stata 11
-   ou out outf outfi outfil outfile
+   ou
+   out
+   outf
+   outfi
+   outfil
+   outfile
    outs outsh outshe outshee outsheet // obsolete in Stata 13
    pctile
    xtile
@@ -5960,7 +5981,7 @@ version /* used elsewhere */
    asarray_notfound()
 
    AssociativeArray()
-   // seems strange to highlight class methods
+   // seems strange to highlight class methods @@
    A.reinit()
    A.put()
    A.get()
@@ -5973,8 +5994,6 @@ version /* used elsewhere */
    A.val()
    A.firstloc()
    A.next()
-   A.key()
-   A.val()
    A.keys()
    A.N()
    A.clear()
@@ -7746,7 +7765,12 @@ version /* used elsewhere */
    http://stata.com // this worked fine
 
    quietly label variable
-
+   capture noisily foreach bleen of loc hooie {
+      }
+   capture n foreach bleen of loc hooie {
+      }
+   capture n regress
+   
    import excel
 
    // unicode experiments
