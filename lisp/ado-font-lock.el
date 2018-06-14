@@ -5136,7 +5136,7 @@ these are such a mess")
 		   ) 'words))
 	  "[ \t]+"
 	  "\\<\\(drop\\)\\>"
-	  "[ \t]+"
+	  "[ \t]+\\("
 	  ado-stata-local-name-regexp
 	  "\\b\\)"
 	  )
