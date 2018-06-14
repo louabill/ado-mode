@@ -158,7 +158,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  (eval-when-compile
 		(regexp-opt '("di" "dir")
 					'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	;; it appears Stata accepts any version number
@@ -185,7 +185,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  (eval-when-compile 
 		(regexp-opt 
 		 '("off" "on") 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	;; end and pause must start lines
 	(list
@@ -196,7 +196,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "end" "pause"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face))
 
 	(list
@@ -219,7 +219,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "sco" "scor" "score"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-obsolete-face))
 
 	;; various bayes commands
@@ -237,7 +237,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "matrix"
 		   "name"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	
 	(list
@@ -255,7 +255,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "ic"
 		   "summ" "summa" "summar" "summary"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -272,7 +272,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "int" "inte" "inter" "interv" "interva" "interval"
 		   "model"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; churdle commands
@@ -291,7 +291,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "exp" "expo" "expon" "expone" "exponen" "exponent" "exponenti" "exponentia" "exponential"
 		   "lin" "line" "linea" "linear"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; the cluster commands
@@ -313,7 +313,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 					  "query"
 					  "tr" "tre" "tree"
 					  ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; 
@@ -338,7 +338,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "set"
 		   "use"
 		   ) 'words))
-	  end-cmd-regexp ) 
+	  ado-end-cmd-regexp ) 
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 
@@ -367,7 +367,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "wav" "wave" "waver" "wavera" "waverag" "waverage" "waveragel" 
 		   "waverageli" "waveragelin" "waveragelink" "waveragelinka" "waveragelinkag" "waveragelinkage" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; the copyright commands
@@ -399,7 +399,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "ttf2pt1"
 		   "zlib"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; dyndoc tags
@@ -482,7 +482,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "logistic"
 		   "qda"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; fracreg commands
@@ -497,7 +497,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "log" "logi" "logit" 
 		   "pr" "pro" "prob" "probi" "probit" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	 ;; mgarch commands
@@ -514,7 +514,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"dvech"
 			"vcc"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	 ;; mswitch commands
@@ -529,7 +529,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"ar"
 			"dr"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	 ;; the one an only npregress command
@@ -543,7 +543,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  '(
 			"kernel"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	 
@@ -583,7 +583,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "twovar" "twovari" "twovaria" "twovarian" "twovarianc" "twovariance" "twovariances" 
 		   "twoway"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 
@@ -603,7 +603,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "describe"
 		   ) 'words))
-	  end-cmd-regexp ) 
+	  ado-end-cmd-regexp ) 
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; now, all the rest (pause and resume are not official, but should be)
@@ -630,7 +630,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "table"
 		   "text"
 		   ) 'words))
-	  end-cmd-regexp ) 
+	  ado-end-cmd-regexp ) 
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; putdocx only
@@ -648,7 +648,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "append"
 		   ) 'words))
-	  end-cmd-regexp ) 
+	  ado-end-cmd-regexp ) 
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; st_is
@@ -667,7 +667,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "analysis"
 		   "full"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; stpower commands
@@ -687,7 +687,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "exp" "expo" "expon" "expone" "exponen" "exponent" "exponenti" "exponentia" "exponential" 
 		   "log" "logr" "logra" "logran" "logrank" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-obsolete-face) '(2 ado-subcommand-face t))
 
 
@@ -737,7 +737,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "update_interval"
 		   "varlab" "varlabe" "varlabel" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; set incomplete commands; must come first for highlighting
@@ -789,7 +789,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "varabbrev" "varkeyboard"
 		   "xptheme"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face t))
 
 	;; set with odd options---need to be split because of partial highlighting
@@ -825,7 +825,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\(?:showbaselevels[ \t]+\\(?:o\\(?:ff\\|n\\)\\|all\\)\\)"
 	  "\\|"
 	  "\\(?:t\\(?:y\\|yp\\|ype\\)[ \t]+\\(?:double\\|float\\)\\)"
-	  "\\)\\>" end-cmd-regexp )
+	  "\\)\\>" ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 	
 	;; set <foo> on/off commands
@@ -877,7 +877,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "off" "on"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 										;
 	;; set charset command, with its odd subsubcommands (obsolete in Stata 14)
@@ -901,7 +901,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "latin1" "mac"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-obsolete-face t) '(3 ado-obsolete-face))
 
 	;; set rng command, with its odd subsubcommands
@@ -925,7 +925,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "default" "kiss32" "mt64" "mt64s"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
 
 	;; set emptycells command, with its odd subsubcommands
@@ -949,7 +949,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "drop" "keep"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
 
 	;; set fvwrapon command, with its odd subsubcommands
@@ -973,7 +973,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "width" "word"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
 
 	;; set output command, with its odd subsubcommands
@@ -999,7 +999,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "i" "in" "inf" "info" "infor" "inform" 
 		   "p" "pr" "pro" "proc" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
 
 	;; ;; set showbaselevels command with it's odd all subcommand
@@ -1059,7 +1059,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "varwin" "varwind" "varwindo" "varwindow" "video"
 		   "vir" "virt" "virtu" "virtua" "virtual" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
 
 	;; set eolchar command (obsolete)
@@ -1083,7 +1083,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "mac" "unix"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-obsolete-face t) '(3 ado-obsolete-face))
 
 	(list
@@ -1106,7 +1106,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "grayscale" "greyscale"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) 
 	 '(3 ado-obsolete-face t))
 
@@ -1125,7 +1125,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "_all"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; the stteffects
@@ -1142,7 +1142,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "ra"
 		   "wra"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; the tebalance
@@ -1159,7 +1159,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "overid"
 		   "summarize"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; the teffects
@@ -1179,7 +1179,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "psmatch"
 		   "ra"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; the timer command
@@ -1197,7 +1197,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "clear" "list"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -1216,7 +1216,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  "[ \t]+"
 	  "\\([0-9]+\\|`[a-zA-Z0-9_`']'\\)"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
 	
 	;; tsfilter commands (all data-changing)
@@ -1236,7 +1236,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "cf"
 		   "hp"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 
@@ -1247,7 +1247,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-start-cmd-regexp
 	  "\\(\\<args\\>\\)"
 	  "[ \t]+"
- 	  "\\(\\(?:[a-zA-Z_][a-zA-Z_0-9]*" end-cmd-regexp "\\)+\\)"
+ 	  "\\(\\(?:[a-zA-Z_][a-zA-Z_0-9]*" ado-end-cmd-regexp "\\)+\\)"
 	  )
 	 '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face t))
 
@@ -1266,7 +1266,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "l" "li" "lis" "list" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -1284,7 +1284,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "define"
 		   "ren" "rena" "renam" "rename"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
     ;; the bcal commands
@@ -1305,7 +1305,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "d" "de" "des" "desc" "descr" "descri" "describ" "describe" 
 		   "dir"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -1322,7 +1322,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "load"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; the ci commands
@@ -1342,7 +1342,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "prop" "propo" "propor" "proport" "proporti" "proportio" "proportion" "proportions"
 		   "var" "vari" "varia" "varian" "varianc" "variance" "variances"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 
@@ -1366,7 +1366,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "free" "get"
 		   "l" "li" "lis" "list"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; the confirm commands - could be a mess!
@@ -1390,7 +1390,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "sca" "scal" "scala" "scalar" 
 		   "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -1413,7 +1413,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "n" "nu" "num" "numb" "numbe" "number"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
@@ -1437,7 +1437,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "f" "fi" "fil" "file"
 		   "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
@@ -1462,7 +1462,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
@@ -1487,7 +1487,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "fo" "for" "form" "forma" "format" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
@@ -1510,7 +1510,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "fo" "for" "form" "forma" "format" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t) '(3 ado-subcommand-face t))
 
     ;;; confirm str#
@@ -1540,7 +1540,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "v" "va" "var" "vari" "varia" "variab" "variabl" "variable" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	;; confirm incomplete
@@ -1564,7 +1564,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "str" "stri" "strin" "string"
 		   "ts"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 	(list
 	 (concat
@@ -1585,7 +1585,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\|"
 	  "\\(?:str24[0-4]\\)"
 	  "\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	;; merge
@@ -1603,7 +1603,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "1:1" "1:m" "m:1" "m:m"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
 
 	;; mvtest
@@ -1624,7 +1624,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "m" "me" "mea" "mean" "means" 
 		   "norm" "norma" "normal" "normali" "normalit" "normality"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	(list
@@ -1643,7 +1643,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "renumber" "replace"
 		   "search"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -1660,7 +1660,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "l" "li" "lis" "list" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; the duplicates commands
@@ -1680,7 +1680,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "l" "li" "lis" "list" 
 		   "r" "re" "rep" "repo" "repor" "report" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -1698,7 +1698,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "drop"
 		   "t" "ta" "tag" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -1715,7 +1715,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "b" "br" "bro" "brow" "brows" "browse" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
 
 	;; estimates commands moved to just after estat commands
@@ -1738,7 +1738,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "h" "ho" "hol" "hold"
 		   "u" "un" "unh" "unho" "unhol" "unhold"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
     ;; the estat commands --- moved to after the obsolete commands
@@ -1762,7 +1762,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "hav" "have" "haver" 
 		   "sasxport"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -1784,7 +1784,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "hav" "have" "haver" 
 		   "sasxport"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
     ;; the file commands
@@ -1806,7 +1806,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "seek" 
 		   "set"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -1824,7 +1824,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "sersetread" "sersetwrite"
 		   "w" "wr" "wri" "writ" "write" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
     ;;
@@ -1849,7 +1849,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "mono" "monoc" "monoch" "monochr" "monochro" "monochrom" "monochrome" 
 		   "white" "whiteb" "whitebg" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t) '(5 ado-subcommand-face t))
 
@@ -1871,7 +1871,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "xsize"
 		   "ysize"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
@@ -1895,7 +1895,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "off" "on"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t) '(5 ado-subcommand-face t))
 	;;
@@ -1921,7 +1921,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "pen1_thick" "pen2_thick" "pen3_thick" "pen4_thick" "pen5_thick" "pen6_thick" "pen7_thick" "pen8_thick" "pen9_thick"
 		   "symmag_all"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	;;
@@ -1938,7 +1938,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "custom1" "custom2" "custom3"
 		   "window"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t))
 
@@ -1957,7 +1957,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "q" "qu" "que" "quer" "query" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	(list
@@ -1972,7 +1972,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "custom1" "custom2" "custom3"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
 	 '(3 ado-needs-subcommand-face))
 
@@ -1984,7 +1984,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(set\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(window\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
 	 '(3 ado-needs-subcommand-face))
 
@@ -2006,7 +2006,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "xsize"
 		   "ysize"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
 	 '(3 ado-needs-subcommand-face) '(4 ado-needs-subcommand-face))
 
@@ -2040,7 +2040,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "save" "set"
 		   "tw" "two" "twow" "twowa" "twoway"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	;; the initial graph commands which are destructive
@@ -2064,7 +2064,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "_all"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	(list
@@ -2081,7 +2081,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "drop" "rename" "use"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
 	;; graph set commands ! seem to introduce all sorts of trouble
 	(list
@@ -2104,7 +2104,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "eps" "print" "ps" "svg"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 	
 	(list
@@ -2134,7 +2134,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "fontface" "fontfacemono" "fontfacesans"
 		   "fontfaceserif" "fontfacesymbol"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) 
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
@@ -2175,7 +2175,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "scatteri" "spike"
 		   "tsline" "tsrline"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face t) 
 	 '(3 ado-subcommand-face t))
 
@@ -2197,7 +2197,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "set"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 	
 	(list
@@ -2220,7 +2220,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "window"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
 	 '(3 ado-needs-subcommand-face))
 
@@ -2233,7 +2233,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "tw" "two" "twow" "twowa" "twoway"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	
@@ -2255,7 +2255,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "q" "qu" "que" "quer" "query" 
 		   "sea" "sear" "searc" "search" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; icd9s with generate
@@ -2274,7 +2274,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "clean"
 		   "gen" "gene" "gener" "genera" "generat" "generate" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; irt commands
@@ -2297,7 +2297,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "pcm"
 		   "rsm"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	;; irtgraph commands
@@ -2316,7 +2316,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "icc" "iif"
 		   "tcc" "tif"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 	
 	;; fvset commands
@@ -2333,7 +2333,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "d" "de" "des" "desi" "desig" "design" 
 		   "report"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; log commands, cmdlog also (though cmdlog query is undocumented)
@@ -2353,7 +2353,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "of" "off" "on"
 		   "query"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; misstable commands
@@ -2370,7 +2370,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "pat" "patt" "patte" "patter" "pattern" "patterns" 
 		   "tree"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; some of the matrix commands
@@ -2386,7 +2386,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  "[ \t]+"
 	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-matrix-name-face))
 
 	(list
@@ -2404,7 +2404,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "d" "di" "dir"
 		   "post"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 	;; with no matrix arguments - harmful
 	(list
@@ -2421,7 +2421,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "sco" "scor" "score"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -2438,7 +2438,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "dispCns" "makeCns"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face)  '(2 ado-obsolete-face t))
 
 	(list
@@ -2453,7 +2453,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(drop\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(_all\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t))
 	;; doesn't quite work, because it underlines the spaces
@@ -2469,7 +2469,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(drop\\)\\>"
 	  "[ \t]+"
 	  "\\(\\(?:[a-zA-Z][a-zA-Z0-9_]*[ \t]*\\)+\\)"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t) '(3 ado-matrix-name-face))
 
 	;; with one following argument
@@ -2500,7 +2500,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  "[ \t]+"
 	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t))
 	;; with one following arguments -- but harmless (good grief!)
@@ -2520,7 +2520,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  "[ \t]+"
 	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t))
 	;; with two following arguments
@@ -2544,7 +2544,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
 	  "[ \t]+"
 	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t))
 	;; with three(!) following arguments
@@ -2564,7 +2564,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
 	  "[ \t]+"
 	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t)
 	 '(5 ado-matrix-name-face t))
@@ -2579,7 +2579,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
 	  "[ \t]+"
 	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-matrix-name-face t)
 	 '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t))
 	;; now for the svmat command
@@ -2589,7 +2589,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(svmat\\)\\>"
 	  "[ \t]+"
 	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-matrix-name-face t))
 
 	(list
@@ -2604,7 +2604,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  "[ \t]+"
 	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t))
 
@@ -2630,7 +2630,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "rep" "repo" "repor" "report"
 		   "sea" "sear" "searc" "search"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; the ml commands
@@ -2644,7 +2644,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "trace"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face t))
 
 	(list
@@ -2659,7 +2659,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "off" "on"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t))
    
@@ -2671,7 +2671,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\(count\\)"
 	  "[ \t]+"
 	  "\\(clear\\)"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	'(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
 	'(3 ado-subcommand-face t))
 
@@ -2701,7 +2701,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "po" "pos" "post" 
 		   "sa" "sam" "samp" "sampl" "sample"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
 	;; the net commands 
 	(list
@@ -2720,7 +2720,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "q" "qu" "que" "quer" "query"
 		   "search" "sj" "stb"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -2735,7 +2735,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "ado" "other"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-subcommand-face t))
 
@@ -2746,7 +2746,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(net\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(set\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	;; ado commands (-ado- by itself is OK)
@@ -2762,7 +2762,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "dir"
 		   "uninstall"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	
 	;; odbc commands 
@@ -2778,7 +2778,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "li" "lis" "list"
 		   "q" "qu" "que" "quer" "query"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	(list
 	 (concat
@@ -2791,7 +2791,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "in" "ins" "inse" "inser" "insert" 
 		   "lo" "loa" "load" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	;; odbc functional subcommands
 	(list
@@ -2821,7 +2821,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "line" "linep" "linepa" "linepal" "linepale" "linepalet" "linepalett" "linepalette" 
 		   "symbol" "symbolp" "symbolpa" "symbolpal" "symbolpale" "symbolpalet" "symbolpalett" "symbolpalette" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; postutil commands - both of them
@@ -2831,7 +2831,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(postutil\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(dir\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -2840,7 +2840,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(postutil\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(clear\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; query/set_defaults commands 
@@ -2869,7 +2869,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "unicode"
 		   "up" "upd" "upda" "updat" "update" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
     
 	;; the reshape commands
@@ -2888,7 +2888,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "wide"
 		   "xi" "xij"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -2901,7 +2901,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "q" "qu" "que" "quer" "query" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; the snapshot commands
@@ -2911,7 +2911,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(snapshot\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(restore\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -2926,7 +2926,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "label" "list"
 		   "save"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; one lonely sysuse subcommand
 	(list
@@ -2935,7 +2935,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(sysuse\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(dir\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; the _return commands (not the return commands)
@@ -2955,7 +2955,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "hold"
 		   "res" "rest" "resto" "restor" "restore" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; the return commands
@@ -2977,7 +2977,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "mat" "matr" "matri" "matrix" 
 		   "sca" "scal" "scala" "scalar" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; ereturn
 	(list
@@ -3000,7 +3000,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "post" "repost"
 		   "sca" "scal" "scala" "scalar" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; sreturn
 	(list
@@ -3019,7 +3019,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "li" "lis" "list" 
 		   "loc" "loca" "local"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; scc commands
@@ -3037,7 +3037,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "inst" "insta" "instal" "install"
 		   "new" "type" "uninstall"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; scc commands---obsolete
 
@@ -3051,7 +3051,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "what" "whats" "whatsn" "whatsne" "whatsnew" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
 
 	;; the serset commands
@@ -3071,7 +3071,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "set" "sort"
 		   "use"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	(list
 	 (concat
@@ -3084,7 +3084,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "dir"
 		   "su" "sum" "summ" "summa" "summar" "summari" "summariz" "summarize" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; the spmatrix commands - harmful incomplete
@@ -3098,7 +3098,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "clear"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 		;; the spmatrix commands - harmless
@@ -3113,7 +3113,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "dir"
 		   "summarize"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; spmatrix incomplete with subcommand
 	(list
@@ -3137,7 +3137,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "use"
 		   "userdefined"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face t))
 
 	;; spmatrix incomplete with two subcommands
@@ -3158,7 +3158,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "cont" "conti" "contig" "contigu" "contigui" "contiguit" "contiguity"
 		   "idist" "idista" "idistan" "idistanc" "idistance"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face t) '(2 ado-needs-subcommand-face t)
 	 '(3 ado-needs-subcommand-face t))
 	;; spmatrix incomplete with subcommand
@@ -3183,7 +3183,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "use"
 		   "userdefined"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face t) '(2 ado-needs-subcommand-face t))
 	;; dangerous spmatrix with one matrix
 	(list
@@ -3207,7 +3207,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  "[ \t]+"
 	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t)) 
 	;; harmless spmatrix with one matrix
@@ -3223,7 +3223,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  "[ \t]+"
 	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t)) 
 	;; harmful spmatrix with two matrices
@@ -3242,7 +3242,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
 	  "[ \t]+"
 	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t)) 
 
@@ -3262,7 +3262,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  "[ \t]+"
 	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-matrix-name-face t)) 
 	
@@ -3281,7 +3281,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "l" "li" "lis" "list"
 		   "t" "te" "tes" "test"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	
 	(list
@@ -3294,7 +3294,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "gen" "gene" "gener" "genera" "generat" "generate"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; the sw commands
@@ -3315,7 +3315,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "poisson" "probit" "qreg" "reg" "regr" "regre" "regres" "regress"
 		   "scobit" "stcox" "streg" "tobit" "weibull"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-obsolete-face) '(2 ado-obsolete-face))
 
     ;; the gph commands (really obsolete)
@@ -3341,7 +3341,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "text"
 		   "vline" "vpoint" "vpoly" "vtext"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-obsolete-face t) '(2 ado-obsolete-face t))
 
 	;; mfp arguments --- obsolete in Stata 11
@@ -3357,7 +3357,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "nbreg" "ologit" "oprobit" "poisson"
 		   "probit" "qreg" "regress" "stcox" "streg" "xtgee"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
 
 	;; the sysdir commands
@@ -3372,7 +3372,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "l" "li" "lis" "list"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -3381,7 +3381,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(sysdir\\)\\>"
 	  "[ \t]+"
 	  "\\(set\\)"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -3400,7 +3400,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "SITE" "STATA"
 		   "UPDATES"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t))
 
@@ -3410,7 +3410,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(personal\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(dir\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; tsunab and unab commands
@@ -3425,7 +3425,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "[ \t]+"
 	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
 	  "[ \t]*:[ \t]*"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face))
 
 	;; the tssmooth commands
@@ -3443,7 +3443,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "ma" "nl"
 		   "s" "sh" "shw" "shwi" "shwin" "shwint" "shwinte" "shwinter" "shwinters" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	;;
 	;; the translator commands
@@ -3459,7 +3459,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "reset"
 		   "set"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;;
 	;; the transmap commands
@@ -3474,7 +3474,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "def" "defi" "defin" "define" 
 		   "q" "qu" "que" "quer" "query" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; 
 	;; the update commands
@@ -3489,7 +3489,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "all"
 		   "from"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	(list
 	 (concat
@@ -3501,7 +3501,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "q" "qu" "que" "quer" "query" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; obsolete update commands
 	(list
@@ -3517,7 +3517,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "swap"
 		   "utilities"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
 
 	;; the xtcointest commands
@@ -3533,7 +3533,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "pedroni"
 		   "westerlund"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; the xtunitroot commands
@@ -3552,7 +3552,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "ips"
 		   "llc"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; the fcast commands which leave data alone
@@ -3566,7 +3566,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "g" "gr" "gra" "grap" "graph" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; fcast commands which alter data
 	(list
@@ -3579,7 +3579,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "c" "co" "com" "comp" "compu" "comput" "compute" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; the obsolete varfcast commands with sub commands
@@ -3596,7 +3596,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "g" "gr" "gra" "grap" "graph" 
 		   "c" "co" "com" "comp" "compu" "comput" "compute" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-obsolete-face) '(2 ado-obsolete-face))
 
 	(list
@@ -3615,7 +3615,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "og" "ogr" "ogra" "ograp" "ograph" 
 		   "t" "ta" "tab" "tabl" "table" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; irf partial commands
 	(list
@@ -3629,7 +3629,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "g" "gr" "gra" "grap" "graph"
 		   "t" "ta" "tab" "tabl" "table"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face t) '(2 ado-needs-subcommand-face t))
 	;; irf graph/table and their subcommands
 	(list
@@ -3654,7 +3654,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "oirf"
 		   "sfevd" "sirf"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t))
 	;; the irf commands which alter data
@@ -3672,7 +3672,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "ren" "rena" "renam" "rename" 
 		   "set"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	;; the irf commands which are obsolete
 	(list
@@ -3686,7 +3686,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "di" "dir"
 		   "erase"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-obsolete-face t))
 
 	;; obsolete varirf commands
@@ -3712,7 +3712,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "set"
 		   "t" "ta" "tab" "tabl" "table" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-obsolete-face) '(2 ado-obsolete-face t))
 	;;
 	;; the view commands
@@ -3733,7 +3733,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "view_d"
 		   "update" "update_d"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; the webuse commands
@@ -3747,7 +3747,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "query" "set"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; the window commands
@@ -3771,7 +3771,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "l" "list"
 		   "push"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	(list
 	 (concat
@@ -3800,7 +3800,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "ssimple"
 		   "static"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-subcommand-face t))
 	;; 
@@ -3828,7 +3828,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "minimize" 
 		   "restore"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-subcommand-face t))
 
@@ -3855,7 +3855,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "graph" "viewer"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
@@ -3881,7 +3881,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "default" "load" "save"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
@@ -3906,7 +3906,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "graph" "viewer"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
@@ -3927,7 +3927,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(rename\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(graph\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
@@ -3948,7 +3948,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(update\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(variable\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-obsolete-face t) '(4 ado-obsolete-face t))
 	;; platform-specific windows manage
@@ -3975,7 +3975,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "docklabel"
 		   "maintitle"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-platform-specific-face t))
 	(list
@@ -3996,7 +3996,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(maintitle\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(reset\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-platform-specific-face t) '(4 ado-platform-specific-face t))
 	;; the window manage forward commands [sheesh]
@@ -4023,7 +4023,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "command" "doeditor" "graph" "help" "results" "review" "variables" "viewer"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	;; the window manage close/print commands [all taken care of above]
@@ -4051,7 +4051,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "clear"
 		   "refresh"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-subcommand-face t))
 
@@ -4079,7 +4079,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "separator"
 		   "submenu"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
@@ -4105,7 +4105,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "rusure"
 		   "stop"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-subcommand-face t))
 
@@ -4127,7 +4127,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "m" "me" "men" "menu"
 		   "stop" "stopb" "stopbo" "stopbox"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	(list
@@ -4150,7 +4150,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "close" "forward" "prefs" "print" "rename" "update"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
 	 '(3 ado-needs-subcommand-face))
 
@@ -4174,7 +4174,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "append"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
 	 '(3 ado-needs-subcommand-face))
 
@@ -4197,7 +4197,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "drop"
 		   "l" "li" "lis" "list"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-obsolete-face) '(2 ado-obsolete-face))
 
 	;; all the endless Stata keywords (not in a good order)
@@ -4218,7 +4218,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "n" "no" "noi" "nois" "noisi" "noisil" "noisily"
 		   "qui" "quie" "quiet" "quietl" "quietly" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
 
 	;; commands
@@ -4273,7 +4273,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "cumsp" "cumul" "cusum"
 		   "command"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
 	(list
 	 (concat
@@ -4325,7 +4325,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "kap" "kappa" "kapwgt" "kdensity" "ksm" "ksmirnov" "ktau"
 		   "kwallis"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
 
 	(list
@@ -4393,7 +4393,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "rreg"
 		   "ru" "run" "runtest" "rvfplot" "rvpplot"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face))
 
 	(list
@@ -4464,7 +4464,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "xtrc" "xtreg" "xtregar" "xtset" "xtstreg" "xtsum" "xttab" "xttest0" "xttobit" "xttrans"
 		   "zinb" "zioprobit" "zip" "ztest" "ztesti"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
 
 	;; things to use with the svy ... : prefix
@@ -4503,7 +4503,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "tnbreg" "tobit" "total" "tpoisson" "truncreg"
 		   "zinb" "zioprobit" "zip"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face))
 	;; svy stuff with sub commands (so let the command do its highlighting)
 	(list
@@ -4518,7 +4518,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "fracreg"
 		   "irt"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
 	;; more svy stuff
 	(list
@@ -4551,7 +4551,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "tab" "tabu" "tabul" "tabula" "tabulat" "tabulate" 
 		   "total"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-builtin-harmless-face))
 	;; incomplete svy fmm
@@ -4590,7 +4590,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "tpoisson"
 		   "truncreg"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face t)
 	 '(3 ado-builtin-harmless-face))
 	;; haver subcommands ... all obsolete in Stata 13
@@ -4604,7 +4604,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; 	 '(
 	;; 	   "des" "desc" "descr" "descri" "describ" "describe"
 	;; 	   ) 'words))
-	;;   end-cmd-regexp )
+	;;   ado-end-cmd-regexp )
 	;;  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face))
 
 	;; (list
@@ -4612,7 +4612,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;;   "\\<\\(haver\\)\\>"
 	;;   "[ \t]+"
 	;;   "\\<\\(use\\)\\>"
-	;;   end-cmd-regexp )
+	;;   ado-end-cmd-regexp )
 	;;  '(1 ado-builtin-harmful-face) '(2 ado-builtin-harmful-face))
 
 	;; Conditional statements 
@@ -4628,7 +4628,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "if" "else" "while"
 		   ) 'words ))
 	  "[ \t]+.*?{"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t))
 	
 	;; at least try to have else if's highlight properly
@@ -4639,7 +4639,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "[ \t]+"
 	  "\\<\\(if\\)\\>"
 	  "[ \t]+.*?{?"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face t))
 
 	;; variable types which appear as subcommands often
@@ -4652,7 +4652,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "byte" "int" "long" "str" "float" "double"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-subcommand-face t))
 
 	;; string variable types 
@@ -4670,7 +4670,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\|"
 	  "\\(?:204[0-5]\\)" 
 	  "\\)\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-subcommand-face t))
 
 	;; things used with display
@@ -4697,7 +4697,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "_n" "_ne" "_new" "_newl" "_newli" "_newlin" "_newline" 
 		   "_quote"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -4767,7 +4767,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "res" "resu" "resul" "result" 
 		   "text" "txt"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t))
 
@@ -4784,7 +4784,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(in\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(smcl\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t))
 
@@ -4810,7 +4810,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "w" "wh" "whi" "whit" "white"
 		   "y" "ye" "yel" "yell" "yello" "yellow"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face)
 	 '(3 ado-obsolete-face))
 	;;
@@ -4847,7 +4847,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "num" "numl" "numli" "numlis" "numlist" 
 		   "var" "varl" "varli" "varlis" "varlist" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
@@ -4877,7 +4877,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\([ \t]+\\(?:[0-9]+\\|[a-zA-Z]+[a-zA-Z0-9_]*\\)\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\(\\(?:[0-9]+\\|[a-zA-Z]+[a-zA-Z0-9_]*\\)\\)"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t) '(4 ado-subcommand-face t)
 	 '(5 ado-variable-name-face t) '(6 ado-variable-name-face t))
@@ -4890,13 +4890,14 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\(\\(?:[ \t]+\\(?:[0-9]+\\|[a-zA-Z]+[a-zA-Z0-9_]*\\)\\)\\{1,2\\}\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\(\\(?:[0-9]+\\|[a-zA-Z]+[a-zA-Z0-9_]*\\)\\)"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t) '(4 ado-variable-name-face t))
 
-	;; labels no longer experimental @@
+	;; labels no longer experimental
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4917,12 +4918,13 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "val" "valu" "value" "values"
 		   "var" "vari" "varia" "variab" "variabl" "variable"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	;; all Stata data-altering stuff
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4990,11 +4992,12 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "xtdata" "xtpred"
 		   "zipfile"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face))
 	;; clear commmands
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  "\\<\\(clear\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -5005,7 +5008,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "programs"
 		   "results" "rngstream"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; assignment of macros
@@ -5013,7 +5016,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;;  marksample added, because need harmful/scalar name
 	(list
 	 (concat
-	  "[ \t]*"
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5028,7 +5031,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; local macro definition
 	(list
 	 (concat
-	  "[ \t]*"
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5042,7 +5045,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; warning for local wrong--
 	(list
 	 (concat
-	  "[ \t]*"
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5054,9 +5057,11 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
 	 '(3 ado-obsolete-face t))
+
 	;; scalars
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5068,9 +5073,11 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t))
+
 	;; scalar/macro drop etc.
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5096,8 +5103,10 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(drop\\)\\>"
 	  )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5116,6 +5125,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; single word extended macro names
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5152,13 +5162,14 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "tsnorm" 
 		   "ty" "typ" "type"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t))
 
 		;; single word extended macro names
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5180,13 +5191,14 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "STATA"
 		   "UPDATE"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
 
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5199,12 +5211,13 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(word\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(count\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5217,7 +5230,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(word\\)\\>"
 	  "[ \t]+\\(?:[0-9]+\\|`[^ \t]*'\\)[ \t]+"
 	  "\\<\\(of\\)\\>"
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
@@ -5226,6 +5239,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;;   has a background color
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5250,6 +5264,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; damn s(macros)
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5266,9 +5281,11 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+
 	;; twin word macros length and subinstr
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5292,13 +5309,14 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "gl" "glo" "glob" "globa" "global" 
 		   "loc" "loca" "local" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	
 	;; serset macros
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5316,7 +5334,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "N"
 		   "format" "k" "id" "max" "min" "type" "varnames" "varnum"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	;; sheesh, now there are combined abbreviations!
@@ -5345,7 +5363,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "l" "la" "lab" "labe" "label"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	
@@ -5353,6 +5371,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; single word commands
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5383,6 +5402,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; operator-like list commands
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp 
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5406,6 +5426,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; special highlighting for 'in'---which is pretty whack
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp 
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5453,6 +5474,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; all subcommand
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp 
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5469,7 +5491,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "globals" "matrices" "scalars"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	;; all numeric/string
@@ -5493,7 +5515,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  "[ \t]+"
 	   "\\<\\(scalars\\)\\>"
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
 	  '(5 ado-subcommand-face t))
@@ -5501,6 +5523,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; obsolete macro extended commands
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5516,13 +5539,14 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "length"
 		   "tempf" "tempfi" "tempfil" "tempfile" "tempv" "tempva" "tempvar" 
 		   ) 'words))
-	  end-cmd-regexp)
+	  ado-end-cmd-regexp)
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-obsolete-face t))
 	
 	  ;; choosing temp names
 	(list
-	  (concat
+	 (concat
+	   ado-start-cmd-no-prefix-regexp
 	   "^[ \t]*"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -5536,7 +5560,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; other macro commands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp 
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -5550,11 +5575,12 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "di" "dir"
 		  "l" "li" "lis" "list"			
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp 
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -5566,13 +5592,14 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  '(
 		  "s" "sh" "shi" "shif" "shift"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; stata functions i.e. things which require () after them 
 	;; obsolete functions are after this list
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -5704,7 +5731,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; obsolete functions requiring () after them
 	;; -length()- is obsolete in Stata but not in Mata(!)
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
 		  '(
@@ -5737,7 +5765,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; things which require [] after them
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -5765,8 +5794,9 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; egen 'function' options
 	(list
-	  (concat
-	   "[ \t]*egen[ \t]+.*=[ \t]*"
+	 (concat
+	  ado-start-cmd-regexp
+	   "egen[ \t]+.*=[ \t]*"
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -5826,7 +5856,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"vary" "varyi" "varyin" "varying"
 			"xtset"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; mi harmful commands
@@ -5845,7 +5875,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"reset"
 			"select" "stsplit"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	  ;; mi convert commands
@@ -5863,7 +5893,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"ml" "mlo" "mlon" "mlong"
 			"w" "wi" "wid" "wide"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 
@@ -5880,7 +5910,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "ice"
 		 "nhanes1"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi import commands
@@ -5898,7 +5928,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "nhanes1"
 		 "wide"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi impute commands
@@ -5928,7 +5958,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"reg" "regr" "regre" "regres" "regress"
 			"truncreg"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi merge commands
@@ -5943,7 +5973,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
        '(
 		 "1:1" "1:m" "m:1" "m:m"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi misstable commands
@@ -5965,7 +5995,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"sum" "summ" "summa" "summar" "summari" "summariz" "summarize"
 			"tree"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi passive subcommands
@@ -5995,7 +6025,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"d" "de" "des" "desc" "descr" "descri" "describ" "describe"
 			"use"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi reshape subcommands
@@ -6010,7 +6040,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
        '(
 		 "long" "wide"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi select subcommands
@@ -6021,7 +6051,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   "\\<\\(select\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(init\\)\\>"
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi set subcommands
@@ -6040,7 +6070,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"m" "ml" "mlo" "mlon" "mlong" 
 			"w" "wi" "wid" "wide" 
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi register subcommands
@@ -6061,7 +6091,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"pas" "pass" "passi" "passiv" "passive"
 			"reg" "regu" "regul" "regula" "regular"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 	  ;; mi xeq subcommands
@@ -6092,7 +6122,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"reshape" "select" "set"
 			"xeq"
 			) 'words))
-		 end-cmd-regexp )
+		 ado-end-cmd-regexp )
 	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	;; commented out for version 1.11.1.0
@@ -6791,7 +6821,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   "\\<\\(classutil\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(drop\\)\\>"
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -6806,7 +6836,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "dir"
 		  "which"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	  ;; oh my - the creturn info!
@@ -6823,7 +6853,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  '(
 			"l" "li" "lis" "list" 
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 ;;; the system 'constants' (which are not really constant) - the c() thingies
@@ -6984,7 +7014,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "TREEVIEW"
 		  "VARLIST" "VARNAME"
 		 ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face))
 
 	(list
@@ -6998,7 +7028,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"rusure"
 			"stop"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -7029,7 +7059,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "varlist"
 		  "weight"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face))
 
 	(list
@@ -7043,7 +7073,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "view"
 		  "program"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-function-name-face))
 
 	(list
@@ -7059,7 +7089,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "view"
 		  "program"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; annoying -stata- command
@@ -7072,7 +7102,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  '(
 		  "hidden"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -7094,7 +7124,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  '(
 		  "immediate" "queue"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	;; stata dialog functions i.e. things which require () after them 
@@ -7141,7 +7171,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "vector" "version" "void"
 		   "while"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-mata-keyword-face))
 
 	(list
@@ -7168,7 +7198,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "union" "unsigned" "using" 
 		  "virtual" "volatile"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-mata-future-keyword-face))
 
 	(list
@@ -7180,7 +7210,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  '(
 			"unset" "unused"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-mata-keyword-face) '(2 ado-subcommand-face t))
     
 	(list
@@ -7216,7 +7246,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "stata"
 		  "which"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t))
 
 	  ;; mata subcommands
@@ -7235,7 +7265,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "index"
 		  "q" "qu" "que" "quer" "query"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t) 
 	  '(3 ado-subcommand-face t))
 
@@ -7251,7 +7281,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  '(
 			"matacache" "matalibs"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t) 
 	  '(3 ado-subcommand-face t))
 
@@ -7273,7 +7303,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		'(
 		  "on" "off"
 		  ) 'words))	   
-	 end-cmd-regexp )
+	 ado-end-cmd-regexp )
 	'(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t) 
 	'(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
    ;; mata set matafavor
@@ -7290,7 +7320,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  '(
 			"space" "speed"
 			) 'words))	   
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t) 
 	  '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
@@ -7306,7 +7336,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  '(
 			"mlib" "set"
 			) 'words))
-		 end-cmd-regexp )
+		 ado-end-cmd-regexp )
 	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	(list
@@ -7320,7 +7350,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "matafavor" "matalnum" "mataoptimize" "matastrict" "matamofirst"
 		   ) 'words))
-		 end-cmd-regexp )
+		 ado-end-cmd-regexp )
 	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
 	  '(3 ado-needs-subcommand-face))
 
@@ -7952,7 +7982,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "xtpois"
 		   "ztnb" "ztb"
 		  ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-obsolete-face))
 
 	  ;; the datasignature commands   
@@ -7970,7 +8000,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"clear"
 			"set"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
 			  
 	(list
@@ -7987,7 +8017,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			  "conf" "confi" "confir" "confirm" 
 			  "rep" "repo" "repor" "report" 
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	;; the esize commaneds
@@ -8001,7 +8031,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "two" "twos" "twosa" "twosam" "twosamp" "twosampl" "twosample" 
 		   "unp" "unpa" "unpai" "unpair" "unpaire" "unpaired" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 	 
 	;; the estat commands
@@ -8082,7 +8112,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "vce" "vif"
 		   "wcor" "wcorr" "wcorre" "wcorrel" "wcorrela" "wcorrelat" "wcorrelati" "wcorrelatio" "wcorrelation" 
 		   ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; the estimates commands
@@ -8115,7 +8145,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			 "title"
 			 "use"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
     ;; the extra estimates notes commands
@@ -8139,7 +8169,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"drop"
 			"l" "li" "lis" "list" 
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 
@@ -8165,7 +8195,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "q" "qu" "que" "quer" "query" 
 		   "s" "so" "sol" "solv" "solve" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
@@ -8184,7 +8214,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "dr" "dro" "drop" 
 		   "fore" "forec" "foreca" "forecas" "forecast" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; the fp plot
@@ -8197,7 +8227,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "plot"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	;; the fp generate and predict commands
@@ -8211,7 +8241,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "gen" "gene" "gener" "genera" "generat" "generate"
 		   "predict"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
 
 
@@ -8226,7 +8256,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "gmm"
 		   "cfunc" "cfunct" "cfuncti" "cfunctio" "cfunction" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 
@@ -8242,7 +8272,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "describe" 
 		   "set"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 
@@ -8266,7 +8296,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "stat" "statu" "status" 
 		   "unaddgr" "unaddgro" "unaddgrou" "unaddgroup" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; unicode commands, harmless
@@ -8284,7 +8314,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "analyze"
 		   "coll" "colla" "collat" "collato" "collator"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; unicode commands, harmful
@@ -8305,7 +8335,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "retr" "retra" "retran" "retrans" "retransl" "retransla" "retranslat" "retranslate"
 		   "tr" "tra" "tran" "trans" "transl" "transla" "translat" "translate" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; incomplete unicode commands
@@ -8325,7 +8355,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" "locale"
 		   "ui" "uip" "uipa" "uipac" "uipack" "uipacka" "uipackag" "uipackage" 
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face t) '(2 ado-needs-subcommand-face t))
 
 
@@ -8351,7 +8381,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "list"
 		   "set"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	;; unicode locale/uipackage commands
@@ -8375,7 +8405,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "list"
 		   ) 'words))
-	  end-cmd-regexp )
+	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
 
 	;; things which are partially obsolete
@@ -8390,7 +8420,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "parse"
 		  "whelp"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-obsolete-face))
     
 	  ;; apparently obsolete window commands
@@ -8414,7 +8444,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "popout"
 		  "set"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	  '(3 ado-obsolete-face))
 
@@ -8440,7 +8470,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "popout"
 		  "string"
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
 	  '(3 ado-obsolete-face t) '(4 ado-obsolete-face t))
 
@@ -8457,7 +8487,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  '(
 			"de" "def" "define" 
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-obsolete-face t))
 
 	  ;; multiword extended macro names using 'set', which are obsolete
@@ -8480,7 +8510,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "adosize" "graphics" "level" "linesize" "logtype" "matsize" "more" "pagesize"
 		  "rmsg" "trace" "type" "virtual" 
 			) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-obsolete-face t) '(4 ado-obsolete-face t))
 
@@ -8564,7 +8594,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "win" "wind" "windo" "window" 
 		 "xtcointest" "xtunitroot"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-needs-subcommand-face))
 
 	;; those subcmds which must start a line
@@ -8577,7 +8607,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
        '(
 		 "se" "set"
 		 ) 'words))
-	   end-cmd-regexp )
+	   ado-end-cmd-regexp )
 	  '(1 ado-needs-subcommand-face))
 
 	;; simple *-style comments; w/o the [^/\n] term, old continuations fail
@@ -8729,7 +8759,8 @@ which has an internal name of bar.
 								 (mapcar (function (lambda (dirname) (directory-files dirname nil ".*[.]ado$")))
 										 (ado-find-ado-dirs dir subdir)
 										 ))) 
-				  'words) end-cmd-regexp) 1 ,face)))
+				  'words)
+								ado-end-cmd-regexp) 1 ,face)))
 	  (font-lock-add-keywords 'ado-mode newList)
 	  (setq ado-added-names (append ado-added-names `(,(cons name newList))))
 	  )
