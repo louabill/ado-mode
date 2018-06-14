@@ -91,8 +91,17 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 (defconst ado-end-cmd-regexp "\\([ \t]+\\|,\\|;\\|:\\|$\\)"
   "end-of-command regexp to keep things like -regress(- from highlighting")
 
-(defconst ado-stata-name-regexp "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
-  "for uniform highlighting of Stata names")
+(defconst ado-stata-name-regexp "[[:alpha:]_][[:alnum:]_]*"
+  "regexp for uniform highlighting of Stata names, so that future changes will be easier")
+
+(defconst ado-stata-name-bound-regexp
+  (concat "\\(" ado-stata-name-regexp "\\)")
+  "same as \\[ado-stata-name-regexp] but bound within \\( and \\) for highlighting")
+
+(defconst ado-stata-local-name-regexp "[[:alnum:]_]+"
+  "regexp for highlighting local macros; not really worth using in most cases, because 
+these are such a mess")
+  
 
 (defconst ado-man-abbrevs '("BAYES" "D" "DSGE" "ERM" "FMM" "FN" "G" "GSM" "GSU" "GSW" "IG" "IRT" "M" "ME" "MI" "MV" "P" "PSS" "R" "SEM" "SP" "ST" "SVY" "TE" "TS" "U" "XT"))
 
@@ -129,7 +138,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "d" "de" "def" "defi" "defin" "define" "drop"
 		   "l" "li" "lis" "list"
 		   ) 'words))
-	  "[ \t]+\\([_a-zA-Z.]+[_a-zA-Z0-9]*\\)"
+	  "[ \t]+"
+	  ado-stata-name-bound-regexp
 	  )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t) '(3 ado-builtin-harmful-face t))
 	;;
@@ -1216,7 +1226,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "clear" "list" "off" "on"
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([0-9]+\\|`[a-zA-Z0-9_`']'\\)"
+	  "\\([0-9]+\\|`[[:alnum:]_`']'\\)" 
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
 	
@@ -1248,7 +1258,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-start-cmd-regexp
 	  "\\(\\<args\\>\\)"
 	  "[ \t]+"
- 	  "\\(\\(?:[a-zA-Z_][a-zA-Z_0-9]*" ado-end-cmd-regexp "\\)+\\)"
+ 	  "\\(\\(?:" ado-stata-name-regexp ado-end-cmd-regexp "\\)+\\)"
 	  )
 	 '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face t))
 
@@ -2386,7 +2396,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "mat" "matname" "mat_put_rr" "matr" "matri" "matrix"
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  ado-stata-name-bound-regexp
+	  "\\b"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-matrix-name-face))
 
@@ -2469,7 +2480,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "[ \t]+"
 	  "\\<\\(drop\\)\\>"
 	  "[ \t]+"
-	  "\\(\\(?:[a-zA-Z][a-zA-Z0-9_]*[ \t]*\\)+\\)"
+	  "\\(\\(?:" ado-stata-name-regexp "[ \t]*\\)+\\)"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t) '(3 ado-matrix-name-face))
 
@@ -2500,7 +2511,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "veca" "vecac" "vecacc" "vecaccu" "vecaccum"
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  ado-stata-name-bound-regexp
+	  "\\b"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t))
@@ -2520,7 +2532,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "l" "li" "lis" "list" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  ado-stata-name-bound-regexp
+	  "\\b"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t))
@@ -2542,9 +2555,13 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "syme" "symei" "symeig" "symeige" "symeigen"
 		   ) 'words))
 	  "[ \t]+"
-	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "\\<"
+	  ado-stata-name-bound-regexp
+	  "\\>"
 	  "[ \t]+"
-	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "\\<"
+	  ado-stata-name-bound-regexp
+	  "\\>"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t))
@@ -2560,11 +2577,17 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "[ \t]+"
 	  "\\<\\(svd\\)\\>"
 	  "[ \t]+"
-	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "\\<"
+	  ado-stata-name-bound-regexp
+	  "\\>"
 	  "[ \t]+"
-	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "\\<"
+	  ado-stata-name-bound-regexp
+	  "\\>"
 	  "[ \t]+"
-	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "\\<"
+	  ado-stata-name-bound-regexp
+	  "\\>"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t)
@@ -2575,11 +2598,17 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-start-cmd-regexp
 	  "\\<\\(matcproc\\)\\>"
 	  "[ \t]+"
-	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "\\<"
+	  ado-stata-name-bound-regexp
+	  "\\>"
 	  "[ \t]+"
-	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "\\<"
+	  ado-stata-name-bound-regexp
+	  "\\>"
 	  "[ \t]+"
-	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "\\<"
+	  ado-stata-name-bound-regexp
+	  "\\>"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-matrix-name-face t)
 	 '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t))
@@ -2589,7 +2618,9 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-start-cmd-regexp
 	  "\\<\\(svmat\\)\\>"
 	  "[ \t]+"
-	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "\\<"
+	  ado-stata-name-bound-regexp
+	  "\\>"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-matrix-name-face t))
 
@@ -2604,7 +2635,9 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "byte" "double" "float" "int" "long"
 		   ) 'words))
 	  "[ \t]+"
-	  "\\<\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\>"
+	  "\\<"
+	  ado-stata-name-bound-regexp
+	  "\\>"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t))
@@ -3207,7 +3240,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "userdefined"
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  ado-stata-name-bound-regexp
+	  "\\b"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t)) 
@@ -3223,7 +3257,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "summarize"
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  ado-stata-name-bound-regexp
+	  "\\b"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t)) 
@@ -3240,9 +3275,11 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "matafromsp"
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  ado-stata-name-bound-regexp
+	  "\\b"
 	  "[ \t]+"
-	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  ado-stata-name-bound-regexp
+	  "\\b"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t) '(4 ado-matrix-name-face t)) 
@@ -3262,7 +3299,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "idist" "idista" "idistan" "idistanc" "idistance" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)\\b"
+	  ado-stata-name-bound-regexp
+	  "\\b"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-matrix-name-face t)) 
@@ -3424,7 +3462,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "fvunab" "tsunab" "unab"
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
+	  ado-stata-name-bound-regexp 
 	  "[ \t]*:[ \t]*"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face))
@@ -4727,7 +4765,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "_r" "_re" "_req" "_requ" "_reque" "_reques" "_request"
 		   ) 'words))
 	  "([ \t]*"
-	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
+	  ado-stata-name-bound-regexp
 	  "[ \t]*)"
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
@@ -4832,7 +4870,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-start-cmd-regexp
 	  "\\<\\(foreach\\)\\>"
 	  "[ \t]+"
-	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
+	  "\\([[:alnum:]_]+\\)"
 	  "[ \t]+"
 	  "\\<\\(in\\)\\>"
 	  "[ \t]+"
@@ -4846,7 +4884,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-start-cmd-regexp
 	  "\\<\\(foreach\\)\\>"
 	  "[ \t]+"
-	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
+	  "\\([[:alnum:]_]+\\)"
 	  "[ \t]+"
 	  "\\<\\(of\\)\\>"
 	  "[ \t]+"
@@ -4873,7 +4911,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "forv" "forva" "forval" "forvalu" "forvalue" "forvalues"
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z]+[a-zA-Z0-9_]*\\)"
+	  "\\([[:alnum:]_]+\\)"
 	  "[ \t]*=[ \t]*"
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t))
@@ -4884,11 +4922,11 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-start-cmd-regexp
 	  "\\<\\(gettoken\\)\\>"
 	  "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
-	  "\\([ \t]+[a-zA-Z]+[a-zA-Z0-9_]*\\)"
+	  "\\([ \t]+" ado-stata-local-name-regexp "\\)"
 	  "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
-	  "\\([ \t]+\\(?:[0-9]+\\|[a-zA-Z]+[a-zA-Z0-9_]*\\)\\)"
+	  "\\([ \t]+" ado-stata-local-name-regexp "\\)"
 	  "[ \t]*:[ \t]*"
-	  "\\(\\(?:[0-9]+\\|[a-zA-Z]+[a-zA-Z0-9_]*\\)\\)"
+	  "\\(\\(?:" ado-stata-local-name-regexp "\\)\\)"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t) '(4 ado-subcommand-face t)
@@ -4899,9 +4937,9 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-start-cmd-regexp
 	  "\\<\\(gettoken\\)\\>"
 	  "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
-	  "\\(\\(?:[ \t]+\\(?:[0-9]+\\|[a-zA-Z]+[a-zA-Z0-9_]*\\)\\)\\{1,2\\}\\)"
+	  "\\(\\(?:[ \t]+\\(?:" ado-stata-local-name-regexp "\\)\\)\\{1,2\\}\\)"
 	  "[ \t]*:[ \t]*"
-	  "\\(\\(?:[0-9]+\\|[a-zA-Z]+[a-zA-Z0-9_]*\\)\\)"
+	  "\\(\\(?:" ado-stata-local-name-regexp "\\)\\)"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t) '(4 ado-variable-name-face t))
@@ -5037,7 +5075,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "sca" "scal" "scala" "scalar" 
 		   ) 'words))
 	  "[ \t]+`*"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  ado-stata-name-bound-regexp
 	  )
 	 '(1 ado-builtin-harmful-face) '(2 ado-variable-name-face t))
 	;; local macro definition
@@ -5050,7 +5088,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+\\(?:\\(?:++\\|--\\|[`]+\\)?\\)"
-	  "\\([a-zA-Z_0-9]+\\)"
+	  "\\(" ado-stata-local-name-regexp "\\\)"
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t))
 
@@ -5064,7 +5102,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\(\\(?:`\\|[a-zA-Z_0-9]\\|'\\)+\\)"
+	  "\\(\\(?:`\\|[[:alnum:]_]\\|'\\)+\\)"
 	  "\\(\\(?:++\\|--\\)\\)"
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
@@ -5081,7 +5119,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  "\\(\\(?:[ \t]+\\(?:def\\|defi\\|defin\\|define\\)\\)?\\)"
 	  "[ \t]+"
-	  "\\([a-zA-Z_][a-zA-Z0-9_]*\\)"
+	  ado-stata-name-bound-regexp
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t))
@@ -5099,7 +5137,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "[ \t]+"
 	  "\\<\\(drop\\)\\>"
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\b\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\b\\)"
 	  )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t))
@@ -5127,7 +5165,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "[ \t]+"
 	  "\\<\\(drop\\)\\>"
 	  "[ \t]+"
-	  "\\(\\(?:[a-zA-Z_0-9]+\\b\\)?\\)"
+	  "\\(\\(?:[[:alnum:]_]+\\b\\)?\\)"
 	  )
 	 '(1 ado-builtin-harmful-face) '(2 ado-obsolete-face)
 	 '(3 ado-variable-name-face t))
@@ -5145,7 +5183,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -5189,7 +5227,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\(sysdir\\)"
 	  "[ \t]+"
@@ -5218,7 +5256,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(word\\)\\>"
 	  "[ \t]+"
@@ -5237,7 +5275,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(word\\)\\>"
 	  "[ \t]+\\(?:[0-9]+\\|`[^ \t]*'\\)[ \t]+"
@@ -5259,7 +5297,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(e\\|r\\)\\>"
 	  "([ \t]*"
@@ -5284,7 +5322,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(s\\)\\>"
 	  "([ \t]*"
@@ -5305,7 +5343,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -5336,7 +5374,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(serset\\)\\>"
 	  "[ \t]+"
@@ -5360,7 +5398,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -5391,7 +5429,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(list\\)\\>"
 	  "[ \t]+"
@@ -5406,7 +5444,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "uniq"
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
@@ -5422,15 +5460,15 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(list\\)\\>"
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*"
 	  "\\(?:[|&-]\\|==\\|===\\)"
 	  "[ \t]*"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-variable-name-face t)
@@ -5446,15 +5484,15 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(list\\)\\>"
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*"
 	  "\\<\\(in\\)\\>"
 	  "[ \t]*"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-variable-name-face t)
@@ -5469,7 +5507,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(list\\)\\>"
 	  "[ \t]+"
@@ -5477,7 +5515,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "[ \t]+\".*?\"[ \t]+"
 	  "\\<\\(in\\)\\>"
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
@@ -5494,7 +5532,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(all\\)\\>"
 	  "[ \t]+"
@@ -5516,7 +5554,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(all\\)\\>"
 	  "[ \t]+"
@@ -5543,7 +5581,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	  "[ \t]*:[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -5566,7 +5604,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "tempfile" "tempname" "tempvar"
 		 ) 'words))
 	   "[ \t]+`*"
-	   "\\(\\(?:[a-zA-Z_]+[a-zA-Z_0-9]*[ \t]*\\)+\\)"
+	   "\\(\\(?:[a-zA-Z_]+[[:alnum:]_]*[ \t]*\\)+\\)"
 	   )
 	  '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t))
 
@@ -6428,7 +6466,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "ccl"
 		 ) 'words))
 	   "[ \t]+"
-	   "\\(\\(?:[a-zA-Z_]+[a-zA-Z0-9_]*\\|`[a-zA-Z0-9_`']*'\\)\\)"
+	   "\\(\\(?:[a-zA-Z_]+[[:alnum:]_]*\\|`[[:alnum:]_`']*'\\)\\)"
 	   "[ \t]*"
 	   "\\(}\\)"
 	   )
@@ -6446,7 +6484,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "col" "hline" "space" "synoptset"
 		 ) 'words))
 	   "[ \t]+"
-	   "\\(\\(?:[0-9]+\\|`[a-zA-Z0-9_`']*'\\)\\)"
+	   "\\(\\(?:[0-9]+\\|`[[:alnum:]_`']*'\\)\\)"
 	   "[ \t]*"
 	   "\\(}\\)"
 	   )
@@ -6459,7 +6497,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(synoptset\\)\\>"
-	   "\\(\\(?:[ \t]+\\(?:[0-9]+\\|`[a-zA-Z0-9_`']*'\\)\\)?\\)"
+	   "\\(\\(?:[ \t]+\\(?:[0-9]+\\|`[[:alnum:]_`']*'\\)\\)?\\)"
 	   "\\(\\(?:[ \t]+\\(?:notes\\|tabbed\\)\\)?\\)"
 	   "[ \t]*"
 	   "\\(}\\)"
@@ -6474,7 +6512,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(p\\)\\>"
-	   "\\(\\(?:[ \t]+\\(?:[0-9]+\\|`[a-zA-Z0-9_`']*'\\)\\)\\{0,4\\}\\)"
+	   "\\(\\(?:[ \t]+\\(?:[0-9]+\\|`[[:alnum:]_`']*'\\)\\)\\{0,4\\}\\)"
 	   "[ \t]*"
 	   "\\(}\\)"
 	   )
@@ -6487,7 +6525,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(p2colset\\)\\>"
-	   "\\(\\(?:[ \t]+\\(?:[0-9]+\\|`[a-zA-Z0-9_`']*'\\)\\)\\{4\\}\\)"
+	   "\\(\\(?:[ \t]+\\(?:[0-9]+\\|`[[:alnum:]_`']*'\\)\\)\\{4\\}\\)"
 	   "[ \t]*"
 	   "\\(}\\)"
 	   )
@@ -6501,7 +6539,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(p2line\\)\\>"
-	   "\\(\\(?:[ \t]+\\(?:[0-9]+\\|`[a-zA-Z0-9_`']*'\\)\\)\\{2\\}\\)"
+	   "\\(\\(?:[ \t]+\\(?:[0-9]+\\|`[[:alnum:]_`']*'\\)\\)\\{2\\}\\)"
 	   "[ \t]*"
 	   "\\(}\\)"
 	   )
@@ -6582,7 +6620,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"rcenter" "rcentre"
 		 ) 'words))
 	   "[ \t]+"
-	   "\\(`[a-zA-Z0-9_`']*'\\)"
+	   "\\(`[[:alnum:]_`']*'\\)"
 	   "[ \t]*"
 	   "\\(:\\)"
 	   "\\([^}]+?\\)"
@@ -6598,7 +6636,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(dlgtab\\)\\>"
-	   "\\(\\(?:[ \t]+\\(?:[0-9]+\\|`[a-zA-Z0-9_`']*'\\)\\)\\{2\\}\\)"
+	   "\\(\\(?:[ \t]+\\(?:[0-9]+\\|`[[:alnum:]_`']*'\\)\\)\\{2\\}\\)"
 	   "[ \t]*"
 	   "\\(:\\)"
 	   "\\([^}]+?\\)"
@@ -6614,7 +6652,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(p2col\\)\\>"
-	   "\\(\\(?:[ \t]+\\(?:[0-9]+\\|`[a-zA-Z0-9_`']*'\\)\\)\\{4\\}\\)"
+	   "\\(\\(?:[ \t]+\\(?:[0-9]+\\|`[[:alnum:]_`']*'\\)\\)\\{4\\}\\)"
 	   "[ \t]*"
 	   "\\(:\\)"
 	   "\\([^}]+?\\)"
@@ -6793,7 +6831,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
        '(
 		 "Global" "Local" "Super"
 		 ) 'words))
-	   "\\(?:[.a-zA-Z][a-zA-Z0-9_]*\\)+"
+	   "\\(?:[.a-zA-Z][[:alnum:]_]*\\)+"
 	   )
 	  '(1 ado-function-name-face) '(2 ado-function-name-face t))
 
@@ -6801,7 +6839,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
-;;	  "\\(?:[.a-zA-Z][a-zA-Z0-9_]*\\)+" ! will cause a hang
+;;	  "\\(?:[.a-zA-Z][[:alnum:]_]*\\)+" ! will cause a hang
 	  "\\([.]\\)"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -6834,7 +6872,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  (concat
 	  "\\<\\(class\\)\\>"
 	  "[ \t]+"
-	  "\\([_a-zA-Z][_a-zA-Z0-9]*\\)"
+	  "\\([_a-zA-Z][_:alnum:]*\\)"
 	  )
 	  '(1 ado-builtin-harmful-face) '(2 ado-builtin-harmful-face t))
 
@@ -7284,9 +7322,10 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-mata-keyword-face))
 
 	  ;; mata subcommands
-	  ;;  does this run into the need for extra harmful and harmless faces?!?! @@
+	  ;;  does this run into the need for extra harmful and harmless faces?!?!
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	   "\\<\\(mata\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -7310,7 +7349,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; mata mlib subcommands
 	  ;;  does this run into the need for extra harmful and harmless faces?!?!
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	   "\\<\\(mata\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(mlib\\)\\>"
@@ -7329,7 +7369,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; general mata set commands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	   "\\<\\(mata\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(set\\)\\>"
@@ -7346,6 +7387,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; general mata set on/off commands
 	(list
 	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	  "\\<\\(mata\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(set\\)\\>"
@@ -7367,6 +7409,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
    ;; mata set matafavor
 	(list
 	  (concat
+	   ado-start-cmd-must-start-line-regexp
 	   "\\<\\(mata\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(set\\)\\>"
@@ -7386,7 +7429,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; weird, because -mata- is a command by itself
 
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	   "\\<\\(mata\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -7399,6 +7443,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	(list
 	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	  "\\<\\(mata\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(set\\)\\>"
@@ -7418,7 +7463,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; _ functions... perhaps the _ should be split off?
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   (eval-when-compile 
 		 "\\b"
 		 (regexp-opt 
@@ -7461,7 +7507,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; docx mata functions
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\b\\(_docx_\\)"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -7485,7 +7532,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
 	;; mata commands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\<\\(mata\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -7505,8 +7553,10 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			) 'words))
 	   )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t))
+
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -7596,6 +7646,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	 '(1 ado-mata-function-name-face t))
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -7655,7 +7706,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; the moptimize_init functions
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\<\\(moptimize_init_\\)"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -7685,7 +7737,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; the moptimize results prefix functions
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\<\\(moptimize_result_\\)"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -7708,7 +7761,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; the moptimize_util prefix functions
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\<\\(moptimize_util_\\)"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -7721,6 +7775,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; the solvenl_init functions
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 	  "\\<\\(solvenl_init_\\)"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -7742,6 +7797,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; the solvenl_result functions
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 	  "\\<\\(solvenl_result_\\)"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -7759,7 +7815,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; arrrgh the mata st_ functions
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\<\\(st_\\)"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -7787,7 +7844,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; mata optimize_init functions
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\<\\(optimize_init_\\)"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -7811,7 +7869,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
 
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\<\\(optimize_result_\\)"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -7834,7 +7893,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; mata xl class functions and pdf class functions
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\([.]\\)"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -7905,6 +7965,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; was listed as obsolete, for some reason; ok in Stata 13 "_conj"
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 	  "\\<"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -7923,6 +7984,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; obsolete mata class functions
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 	   "[.]"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -7941,7 +8003,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; keep just before the obsolete commands!
 	  ;; internal constants
 	(list
-	 (eval-when-compile 
+	 (eval-when-compile
 	   (regexp-opt 
 		'(
 		 "_N" "_merge" "_n" "_pi" "_rc"
@@ -7956,7 +8018,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; global macros
 	(list
-	   "\\([$][a-zA-Z_*]+[a-zA-Z_0-9]*\\)"
+	   "\\([$][a-zA-Z_*]+[[:alnum:]_]*\\)"
 		'(1 ado-variable-name-face t))
 
 	;; local macros
@@ -7966,7 +8028,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	(list
 	 (concat
 	  "`+\\(?:\\+\\+\\|--\\)?"
-	  "\\([a-zA-Z_0-9]+\\)"
+	  "\\([[:alnum:]_]+\\)"
 	  ) 
 	 '(1 ado-variable-name-face t))
 	
@@ -7975,7 +8037,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   "`+"
 	   "\\(\\(?:e\\|r\\|s\\)\\)"
 	   "\\((\\)"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	   "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
 	   "\\()\\)"
 	   "'+"
 	   )
@@ -7991,7 +8053,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; 
 	(list
 	 (concat
-	  (eval-when-compile 
+	  (eval-when-compile
+		ado-start-cmd-regexp
 		(regexp-opt 
 		 '(
 		   "_huber" "_qreg" 
@@ -8045,7 +8108,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; the datasignature commands   
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -8062,7 +8126,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t))
 			  
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -8081,6 +8146,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; the esize commaneds
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(esize\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -8095,6 +8161,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; the estat commands
 	(list
 	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	  "\\<\\(estat\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -8175,7 +8242,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; the estimates commands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -8208,7 +8276,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
     ;; the extra estimates notes commands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -8234,6 +8303,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; forecast commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -8258,6 +8328,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -8278,6 +8349,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; the fp plot
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(fp\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -8291,6 +8363,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; the fp generate and predict commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(fp\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -8306,6 +8379,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; the ivpoisson commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(ivpoisson\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -8321,6 +8395,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; putexcel's subcommands
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  "\\<\\(putexcel\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -8339,6 +8414,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; am NOT including incomplete ssd set commands for now (because of optional number)
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  "\\<\\(ssd\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -8360,6 +8436,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; unicode commands, harmless
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -8378,6 +8455,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; unicode commands, harmful
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -8400,6 +8478,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; unicode locale/uipackage commands
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -8420,6 +8499,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; unicode encoding command
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -8445,6 +8525,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; unicode locale/uipackage commands
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -8470,7 +8551,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-start-cmd-no-prefix-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -8484,6 +8565,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; apparently obsolete window commands
 	 (list
 	  (concat
+	   ado-start-cmd-no-prefix-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -8508,7 +8590,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	 (list
 	  (concat
-	   (eval-when-compile 
+	   ado-start-cmd-no-prefix-regexp
+	   (eval-when-compile
 		 (regexp-opt 
        '(
 		 "win" "wind" "windo" "window"
@@ -8533,7 +8616,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-obsolete-face t) '(4 ado-obsolete-face t))
 
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
 		  '(
@@ -8550,7 +8634,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; multiword extended macro names using 'set', which are obsolete
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -8558,7 +8643,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "loc" "loca" "local" 
 		 ) 'words))
 	   "[ \t]+"
-	   "\\([a-zA-Z_]+[a-zA-Z_0-9]*\\)"
+	   "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
         "[ \t]*:[ \t]*"
 		"\\<\\(set\\)\\>"
 		"[ \t]+"
@@ -8574,10 +8659,12 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; incomplete subcommands needing a single subcommand
 	;;  anything with MULTIPLE subcommands is listed after its regular highlighting
+	;; !! did not split by whether they should or should not have a prefix. ugh.
 	;; exceptions, because they allow 0 args (partial list)
 	;;;; estimates, fp
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -8659,7 +8746,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	
 	(list
 	  (concat
-	   "^[ \t]*"
+	   ado-start-cmd-no-prefix-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
