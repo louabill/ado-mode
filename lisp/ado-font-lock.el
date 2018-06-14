@@ -2399,7 +2399,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  "[ \t]+"
 	  ado-stata-name-bound-regexp
-	  "\\b"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-matrix-name-face))
 
@@ -2514,7 +2513,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  "[ \t]+"
 	  ado-stata-name-bound-regexp
-	  "\\b"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	 '(3 ado-matrix-name-face t))
