@@ -5382,7 +5382,7 @@ these are such a mess")
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	
-	;; serset macros @@
+	;; serset macros
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -5393,7 +5393,9 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  "\\("
+	  ado-stata-local-name-regexp
+	  "\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(serset\\)\\>"
 	  "[ \t]+"
@@ -5417,7 +5419,9 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  "\\("
+	  ado-stata-local-name-regexp
+	  "\\)"
 	  "[ \t]*:[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -5448,7 +5452,9 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  "\\("
+	  ado-stata-local-name-regexp
+	  "\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(list\\)\\>"
 	  "[ \t]+"
@@ -5468,7 +5474,7 @@ these are such a mess")
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
 	 '(5 ado-variable-name-face t))
-	;; operator-like list commands
+	;; operator-like list commands @@
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp 
