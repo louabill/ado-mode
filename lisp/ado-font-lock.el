@@ -48,7 +48,8 @@
    (eval-when-compile
 	 (regexp-opt
 	  '(
-		"cap" "capt" "captu" "captur" "capture" 
+		"cap" "capt" "captu" "captur" "capture"
+		"mata"
 		"n" "no" "noi" "nois" "noisi" "noisil" "noisily" 
 		"qui" "quie" "quiet" "quietl" "quietly"
 		)))
@@ -7295,7 +7296,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   ado-end-cmd-regexp )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t))
 
-	  ;; mata subcommands
+	  ;; mata mlib subcommands
 	  ;;  does this run into the need for extra harmful and harmless faces?!?!
 	(list
 	  (concat

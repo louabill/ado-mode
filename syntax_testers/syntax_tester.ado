@@ -1,4 +1,4 @@
-*! version 1.15.0.0 June 13, 2018 @ 18:53:41
+*! version 1.15.0.0 June 14, 2018 @ 11:36:22
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -5712,7 +5712,9 @@ version /* used elsewhere */
       this is mata code (which needs no end statement, as it really needs to be a block, I think.) Sheesh!
       what about this
    end
-   
+
+   mata: mata clear
+   mata mata clear
    mata clear
    mata d
    mata describe
@@ -7570,5 +7572,9 @@ version /* used elsewhere */
    quietly label variable
 
    import excel
+
+   // unicode experiments
+
+   local føøbar 
 
 end
