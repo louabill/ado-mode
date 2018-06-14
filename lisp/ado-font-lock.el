@@ -5820,6 +5820,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; egen 'function' options -- obsolete
 	(list
 	  (concat
+	   ado-start-cmd-regexp
 	   "[ \t]*egen[ \t]+.*=[ \t]*"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -5837,7 +5838,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; all the endless -mi- commands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -5861,7 +5863,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; mi harmful commands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -5880,8 +5883,9 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; mi convert commands
 	(list
-	  (concat
-	   "\\<\\(mi\\)\\>"
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	  "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(convert\\)\\>"
 	   "[ \t]+"
@@ -5899,7 +5903,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; mi export commands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(export\\)\\>"
@@ -5915,7 +5920,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t))
 	  ;; mi import commands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(import\\)\\>"
@@ -5934,6 +5940,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; mi impute commands
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  "\\<\\(mi\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -5963,7 +5970,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t))
 	  ;; mi merge commands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(merge\\)\\>"
@@ -5978,7 +5986,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t))
 	  ;; mi misstable commands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -6001,7 +6010,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; mi passive subcommands
 	;; will break with options
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -6014,7 +6024,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	  ;; mi ptrace subcommands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(ptrace\\)\\>"
@@ -6030,7 +6041,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t))
 	  ;; mi reshape subcommands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(reshape\\)\\>"
@@ -6045,7 +6057,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t))
 	  ;; mi select subcommands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(select\\)\\>"
@@ -6056,7 +6069,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t))
 	  ;; mi set subcommands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(set\\)\\>"
@@ -6075,7 +6089,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t))
 	  ;; mi register subcommands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -6096,7 +6111,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t))
 	  ;; mi xeq subcommands
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(xeq\\)\\>"
@@ -6107,7 +6123,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; mi multiword incomplete subcommands
 	;;  includes mi ...: prefixes (which is probably bad)
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(mi\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -6125,36 +6142,12 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 ado-end-cmd-regexp )
 	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
-	;; commented out for version 1.11.1.0
-	  ;; All Bill R's Custom ado files which are 'reliable' and which 
-	;; are not file killers
-	;; (list
-	;;    (eval-when-compile 
-	;; 	 (regexp-opt 
-    ;;    '(
-	;; 	 "anypath" "autolab" "checkvar" "ck1icd9" "ckicd9"
-	;; 	 "dtapath" "dupclean" "echo"
-	;; 	 "getdate" "getlbl" "getnames" "getobs"
-	;; 	 "icd9x" "issorted" "isfile" "jultoe" "jultof" "jultomdy" "knowndup"
-	;; 	 "labeldir" "linker" 
-	;; 	 "markit" "makewide" "missize" "mpcounts" 
-	;; 	 "nodups" "notefile" "prov2zip"
-	;; 	 "qcolsum" "qorder" 
-	;; 	 "random" "readraw" "readzip" "repart"
-	;; 	 "setup" "stdrate"
-	;; 	 "timeslot"
-	;; 	 "_addext" "_brclean" "_brckado" "_brdlog"
-	;; 	 "_ckbad" "_ckdunno" "_ckdupl" "_ckmiss" "_ckok" "_ckwarn"
-	;; 	 "_delimit" "_filenm" "_lookup" "_mk_ck"
-	;; 	 ) 'words))
-	;;   '(1 ado-builtin-harmless-face))
-
-	;;
 	;; now, presenting smcl
 	;;
 	;; Syntax 1
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6183,7 +6176,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-constant-face t) '(2 ado-builtin-harmless-face t) '(3 ado-constant-face t))
 	;; Syntax 1 with funny chars (need to build regexp by hand)
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\([.]\\(?:[.][.]\\|-\\)\\)"
@@ -6194,7 +6188,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; Syntax 2
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6226,6 +6221,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; making smcl comments look like comments
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 	  "\\({\\)"
 	  "[ \t]*"
 	  "\\([*]\\)"
@@ -6239,7 +6235,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; Syntax 2plus for cmdab
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(cmdab\\)\\>"
@@ -6255,7 +6252,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; Syntax 3 with free form args
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp 
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6281,7 +6279,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t) '(4 ado-constant-face))
 	  ;; Syntax 3 with on/off choices
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(ul\\)\\>"
@@ -6298,7 +6297,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; Syntax 3 manlink, manlinki, mansection
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp 
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6319,7 +6319,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   
 	;; Syntax 4 mansection
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6342,7 +6343,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   
 	;; Syntax 3 manpage
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6364,7 +6366,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   
 	;; Syntax 4 manpage
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6388,7 +6391,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   
 	  ;; Syntax 3 comments
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\([*]\\)"
@@ -6402,7 +6406,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(5 ado-constant-face))
 	  ;; Syntax 3 with a single text args --- allow simple macros, too
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6419,7 +6424,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t) '(4 ado-constant-face))
 	  ;; Syntax 3 with single numerical args --- allow simple macros, too
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6436,7 +6442,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t) '(4 ado-constant-face))
 	  ;; Syntax 3 with a single numerical arg and a choice (nice syntax)
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(synoptset\\)\\>"
@@ -6450,7 +6457,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(5 ado-constant-face))
 	  ;; Syntax 3 with 0 through 4 numerical args --- allow simple macros, too
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(p\\)\\>"
@@ -6462,7 +6470,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t) '(4 ado-constant-face))
 	  ;; Syntax 3 with exactly 4 numerical args --- allow simple macros, too
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp 
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(p2colset\\)\\>"
@@ -6475,7 +6484,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; Syntax 3 with exactly 2 numerical arguments. 
 	;; Why doesn't SMCL come close to having a clean syntax?
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(p2line\\)\\>"
@@ -6490,7 +6500,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; those whose subcommands are not easy
 	  ;;  on second thought: for all!
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6519,7 +6530,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; syntax 4 with a numeric first argument (for dup)
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6543,7 +6555,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t) '(4 ado-constant-face t)  
 	  '(5 ado-subcommand-face t) '(6 ado-constant-face))
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6568,7 +6581,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(5 ado-subcommand-face t) '(6 ado-constant-face))
 	  ;; Syntax 4 with exactly 2 numerical args to start with
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(dlgtab\\)\\>"
@@ -6583,7 +6597,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(5 ado-subcommand-face t) '(6 ado-constant-face))
 	  ;; Syntax 4 with exactly 4 numerical args to start with
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   "\\<\\(p2col\\)\\>"
@@ -6600,7 +6615,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; Syntax 3
 	  ;; for the manhelp and manhelpi exceptions
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6622,7 +6638,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; Syntax 3
 	  ;; for the undocumented viewer... quick access bar directives 
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp 
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6644,7 +6661,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; Syntax 4 exceptions
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp 
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6668,7 +6686,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; special help syntax with double-hash
 	  ;;  sheesh --- should be able to reuse with optional stuff
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6688,7 +6707,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(5 ado-subcommand-face t) '(6 ado-subcommand-face t) 
 	  '(7 ado-constant-face t))
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp 
 	   "\\({\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6715,6 +6735,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; special smcl characters... ugh
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 	  "\\({\\)"
 	  "[ \t]*"
 	  "\\(c\\)"
@@ -6729,6 +6750,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; special chars which have wordlike names
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 	  "\\({\\)"
 	  "[ \t]*"
 	  "\\(c\\)"
@@ -6751,7 +6773,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; class stuff
 ;;; builtin prefix operators
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\([.]\\)"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -6765,6 +6788,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 ;;; builtin class functions and modifiers
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 ;;	  "\\(?:[.a-zA-Z][a-zA-Z0-9_]*\\)+" ! will cause a hang
 	  "\\([.]\\)"
 	  (eval-when-compile 
@@ -6788,6 +6812,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 ;;; class command
 	(list
 	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	  "\\<\\(class\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(exit\\)\\>"
@@ -6803,7 +6828,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
      ;; all the different declarations
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -6817,7 +6843,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; classutil stuff
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(classutil\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(drop\\)\\>"
@@ -6825,7 +6852,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   "\\<\\(classutil\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -6841,7 +6869,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	  ;; oh my - the creturn info!
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -6858,7 +6887,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 ;;; the system 'constants' (which are not really constant) - the c() thingies
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\(c(\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6921,7 +6951,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 ;;; platform specific c() thingies
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\(c(\\)"
 	   "[ \t]*"
 	   (eval-when-compile 
@@ -6949,6 +6980,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 ;;; obsolete c() thingies
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 	  "\\(c(\\)"
 	  "[ \t]*"
 	  (eval-when-compile 
@@ -6982,7 +7014,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -6997,6 +7030,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;;        whereas the harmful face defines dynamic text
 	(list
 	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -7018,7 +7052,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-builtin-harmful-face))
 
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	   "\\<\\(stopbox\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -7033,7 +7068,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	(list
 	 (concat
-	   (eval-when-compile 
+	  (eval-when-compile
+		ado-start-cmd-must-start-line-regexp
 		 (regexp-opt 
        '(
 		  "BEGIN"
@@ -7064,6 +7100,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	(list
 	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
@@ -7077,7 +7114,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-function-name-face))
 
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	   "\\<\\(call\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -7094,7 +7132,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; annoying -stata- command
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	   "\\<\\(stata\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -7106,7 +7145,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	   "\\<\\(stata\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(hidden\\)\\>"
@@ -7114,7 +7154,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	   "\\<\\(stata\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(hidden\\)\\>"
@@ -7129,7 +7170,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; stata dialog functions i.e. things which require () after them 
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\>"
 	   "\\([.]\\)"
 	   (eval-when-compile 
@@ -7151,6 +7193,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;;  and mata block checking has not been implemented
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 	  "[ \t]+"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -7176,6 +7219,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	(list
 	 (concat
+	  ado-start-cmd-null-regexp
 	  "[ \t]+"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -7202,7 +7246,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	 '(1 ado-mata-future-keyword-face))
 
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	   "\\<\\(pragma\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile 
@@ -7214,7 +7259,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-mata-keyword-face) '(2 ado-subcommand-face t))
     
 	(list
-	  (concat
+	 (concat
+	  ado-start-cmd-null-regexp
 	   "\\<"
 	   (eval-when-compile 
 		 (regexp-opt 
@@ -7226,7 +7272,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-mata-keyword-face))
 
 	  ;; mata subcommands
-	  ;;  does this run into the need for extra harmful and harmless faces?!?!
+	  ;;  does this run into the need for extra harmful and harmless faces?!?! @@
 	(list
 	  (concat
 	   "\\<\\(mata\\)\\>"
