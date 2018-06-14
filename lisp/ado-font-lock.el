@@ -91,17 +91,18 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 (defconst ado-end-cmd-regexp "\\([ \t]+\\|,\\|;\\|:\\|$\\)"
   "end-of-command regexp to keep things like -regress(- from highlighting")
 
-(defconst ado-stata-name-regexp "[[:alpha:]_][[:alnum:]_]*"
+(defconst ado-stata-name-regexp "[[:alpha:]_][[:graph:]_]*"
   "regexp for uniform highlighting of Stata names, so that future changes will be easier")
 
 (defconst ado-stata-name-bound-regexp
   (concat "\\(" ado-stata-name-regexp "\\)")
   "same as \\[ado-stata-name-regexp] but bound within \\( and \\) for highlighting")
 
-(defconst ado-stata-local-name-regexp "[[:alnum:]_]+"
+(defconst ado-stata-local-name-regexp "[[:graph:]_]+"
   "regexp for highlighting local macros")
   
-(defconst ado-stata-local-name-bound-regexp "\\([[:alnum:]_]+\\)"
+(defconst ado-stata-local-name-bound-regexp
+  (concat "\\(" ado-stata-local-name-regexp "\\)")
   "regexp for highlighting local macros, bound within \\( and \\)")
 
 (defconst ado-man-abbrevs '("BAYES" "D" "DSGE" "ERM" "FMM" "FN" "G" "GSM" "GSU" "GSW" "IG" "IRT" "M" "ME" "MI" "MV" "P" "PSS" "R" "SEM" "SP" "ST" "SVY" "TE" "TS" "U" "XT"))
@@ -8033,10 +8034,12 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;;   definitions.
 	(list
 	 (concat
-	  "`+\\(?:\\+\\+\\|--\\)?"
+	  "\\(`+\\)\\(?:\\+\\+\\|--\\)?"
 	  ado-stata-local-name-bound-regexp
+	  "\\('\\)"
 	  ) 
-	 '(1 ado-variable-name-face t))
+	 '(1 ado-variable-name-face t) '(2 ado-variable-name-face t)
+	 '(3 ado-variable-name-face t))
 	
 	(list
 	  (concat
