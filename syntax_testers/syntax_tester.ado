@@ -1,4 +1,4 @@
-*! version 1.15.0.0 June 14, 2018 @ 12:12:26
+*! version 1.15.0.0 June 14, 2018 @ 16:55:31
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -102,7 +102,10 @@ version 44
    adjust // obsolete in Stata 11
    adoupdate
    ameans
-   an ano anov anova
+   an
+   ano
+   anov
+   anova
    // anova postestimation skipped because it matches regress
    areg
    asclogit
@@ -128,7 +131,8 @@ version 44
    churdle exp           // new in Stata 14 
    churdle exponential   // new in Stata 14 
 
-   ci cii                // changed in Stata 14.1
+   ci
+   cii                // changed in Stata 14.1
    ci mean
    ci means
    ci prop
@@ -139,7 +143,9 @@ version 44
    cii prop
    cii variances
    
-   clog clogi clogit
+   clog
+   clogi
+   clogit
    cloglog
    cls
    cnr cnre cnreg        // obsolete as of Stata 11
@@ -205,16 +211,25 @@ version 44
    pchi
    qchi
 
-   di dis disp displ displa display
+   di
+   dis
+   disp
+   displ
+   displa
+   display
+
 
    do
    ru
    run
 
-   doed doedi doedit
+   doed
+   doedi
+   doedit
 
    dotplot
-   dstdize  istdize
+   dstdize
+   istdize
 
    dydx
    integ
@@ -350,20 +365,26 @@ version 44
 
    gmm
    grmeanby
-
+   
    hausman
    heckman
    heckoprobit
    heckpoisson           // new in Stata 15
    heckprob // synonym for heckprobit (ugh) in Stata 14
    heckprobit
-   h he hel help
+
+   h
+   he
+   hel
+   help
+
    ch che chel chelp // obsolete in Stata 14
    whelp
    hetprobit
    hetprob // synonym for hetprobit in Stata 14
    hetregress            // new in Stata 15
-   hist histo histog histogr histogra histogram
+   hist
+   histogram
    hsearch // obsolete in Stata 12
 
    icc
@@ -395,7 +416,7 @@ version 44
    set l
    set level
 
-   lfit                  // obsolete in Stata 9 
+   lfit                  // obsolete in Stata 9; not marked because of twoway (lfit ...)
    score                 // obsolete in Stata 9
 
    lincom
@@ -456,7 +477,8 @@ version 44
    // mfp is simple now; in Stata 11 it became a prefix command
    mfp
    // mfp postestimation
-   fracplot fracpred
+   fracplot
+   fracpred
    // the old mfp non-prefix commands are not needed
    mfp logit
    mfp clogit
@@ -523,7 +545,9 @@ version 44
 
    mlexp
    
-   mlog mlogi mlogit
+   mlog 
+   mlogi
+   mlogit
 
    set mo // should be off
    set mo on
@@ -687,9 +711,19 @@ version 44
    regress : regress : regress
    regress a b, vce(robust) 
 
-   reg regr regre regres regress   
+   reg
+   regr
+   regre
+   regres
+   regress
 
-   #r #re #rev #revi #revie #review
+   #r
+   #re
+   #rev
+   #revi
+   #revie
+   #review
+
    /* _rmcoll in [P] _huber obsolete */
    _rmcoll _huber
 
@@ -793,7 +827,7 @@ version 44
    set doublebuffer on
    set doublebuffer off
 
-   set `foo'
+   set `foo'  // should? shouldn't? highlight?
    set dp 
    set dp com
    set dp comma
@@ -1199,7 +1233,7 @@ set trace off
    // out of order, but under 'stored results' in [R]
    ret
    ret li
-   ret list
+   retu list
    return list
    ereturn
    eret li
@@ -1210,7 +1244,14 @@ set trace off
    
    suest 
 
-   su sum summ summa summar summari summariz summarize
+   su
+   sum
+   summ
+   summa
+   summar
+   summari
+   summariz
+   summarize
 
    sunflower
 
@@ -1226,12 +1267,21 @@ set trace off
 
    tabstat
 
-   ta tab tabu tabul tabula tabulat tabulate
+   ta
+   tab
+   tabu
+   tabul
+   tabula
+   tabulat
+   tabulate
+
    tab1
    tab2
    tabi
 
-   te tes test
+   te
+   tes
+   test
    testparm
 
    testnl
@@ -1350,7 +1400,7 @@ set trace off
    rocplot
    rocregplot
    
-   // estat (from [R])
+   // estat (from [R]) !!
    // (some) obsolete versions included for testing
    // not sure how to test for new stuff....
    estat alt
@@ -1467,9 +1517,17 @@ set trace off
    
    
    /* from [D] data management manual */
-   ap app appe appen append
+   ap
+   app
+   appe
+   appen
+   append
    append using
-   as ass asse asser assert
+   as
+   ass
+   asse
+   asser
+   assert
    // all new in Stata 12
    bcal c
    bcal ch
@@ -1506,7 +1564,11 @@ set trace off
    contract
    copy
    corr2data
-   cou coun count
+   
+   cou
+   coun
+   count
+
    cross using
    byte int long float double
    str str1 str80 str99 str100 str158 str244 str245 str1000 str2045 str2046 strL
@@ -1524,7 +1586,15 @@ set trace off
    /* should there be date format highlighting? */
    /* date-time functions are in the functions */
 
-   d de des desc descr descri describ describe
+   d
+   de
+   des
+   desc
+   descr
+   descri
+   describ
+   describe
+   
    destring
    tostring
    dir
@@ -1546,8 +1616,15 @@ set trace off
    duplicates tag
    duplicates drop
    /* end dup */
-   ed edi edit
-   b br bro brow brows browse
+   ed
+   edi
+   edit
+   b
+   br
+   bro
+   brow
+   brows
+   browse
    /* endless egen & options */
    egen
    egen = any() // really was renamed in Stata 9 to anyvalue()
@@ -1611,8 +1688,18 @@ set trace off
    egen = tag()
    egen = total()
    /* end egen */
-   en enc enco encod encode
-   dec deco decod decode
+
+   en
+   enc
+   enco
+   encod
+   encode
+
+   dec
+   deco
+   decod
+   decode
+
    erase
    rm
    expand
@@ -1627,11 +1714,29 @@ set trace off
    fdasav fdasave
    fdause
    fdades fdadesc fdadescr fdadescri fdadescrib fdadescribe
-   filef filefi filefil filefilt filefilte filefilter 
-   fillin
-   form forma format
+
+   filef
+   filefi
+   filefil
+   filefilt
+   filefilte
+   filefilter
    
-   g ge gen gene gener genera generat generate
+   fillin
+
+   form
+   forma
+   format
+   
+   g
+   ge
+   gen
+   gene
+   gener
+   genera
+   generat
+   generate
+   
    replace
    set ty
    set ty float
@@ -1726,10 +1831,20 @@ set trace off
    inf using
    infile
    infix
-   inp inpu input
+   
+   inp
+   inpu
+   input
+
    insobs // new in Stata 14
    insheet // obsolete in Stata 13
-   ins insp inspe inspec inspect
+
+   ins
+   insp
+   inspe
+   inspec
+   inspect
+
    ipolate
    isid
    joinby
@@ -1760,8 +1875,16 @@ set trace off
    labelbook
    numlabel
    uselabel
-   l li lis list
-   fl fli flis flist
+   l
+   li
+   lis
+   list
+
+   fl
+   fli
+   flis
+   flist
+
    lookfor
    memory
    set mem 5b // obsolete in Stata 12
@@ -1833,7 +1956,13 @@ set trace off
    range
    recast
    recode
-   ren rena renam rename renpfix
+
+   ren
+   rena
+   renam
+   rename
+
+   renpfix
    /* reshape ... */
    reshape long
    reshape wide
@@ -1850,11 +1979,20 @@ set trace off
    rmdir
    
    sample
-   sa sav save
+   sa
+   sav
+   save
    saveold
+
    separate
-   sh she shel shell
-   xsh xshe xshel xshell
+   sh
+   she
+   shel
+   shell
+   xsh
+   xshe
+   xshel
+   xshell
    // snapshot
    snapshot save
    snapshot label
@@ -1862,13 +2000,19 @@ set trace off
    snapshot list
    snapshot erase
    // end snapshot
-   so sor sort
+   so
+   sor
+   sort
+
    split
    stack
    statsby
    sysuse auto
    sysuse dir
-   ty typ type
+
+   ty
+   typ
+   type
 
    /* unicode commands; introduced in Stata 14 */
    unicode // incomplete
@@ -1899,9 +2043,17 @@ set trace off
    unicode restore
    unicode erasebackups
 
-   u us use
+   u
+   us
+   use
 
-   varm varma varman varmana varmanag varmanage
+   varm
+   varma
+   varman
+   varmana
+   varmanag
+   varmanage
+
    webuse
    webuse query
    webuse set
@@ -2551,7 +2703,7 @@ set trace off
    irtgraph icc
    irtgraph tcc
    irtgraph iif
-   irtgraph tif // !!
+   irtgraph tif
 
    biplot
    cluster dendrogram
@@ -3135,7 +3287,11 @@ set trace off
    estat summarize
    
 
-   fac fact facto factor
+   fac
+   fact
+   facto
+   factor
+
    factormat
    /* uh oh, factor estat stuff */
    estat anti
@@ -3155,7 +3311,9 @@ set trace off
 
    hotelling
 
-   mano manov manova
+   mano
+   manov
+   manova
    manovatest
    screeplot
    
@@ -3228,7 +3386,10 @@ set trace off
    estat summarize
    procoverlay
 
-   rot rota rotat rotate
+   rot
+   rota
+   rotat
+   rotate
    rotatemat
 
    scoreplot
@@ -3253,6 +3414,8 @@ set trace off
    capture
    
    char `foo'
+   char `foo`bar''
+   char ``foo'bar'
    char
    char define
    char l
@@ -3600,7 +3763,7 @@ set trace off
    c(Wdays)
    c(Weekdays)
    c(rc)
-   "`c(pi)'"
+   "`c(pi)'" !!!
 
    /* end of that mess */
    _datasig
@@ -3666,7 +3829,12 @@ set trace off
 
    discard
 
-   di dis disp displ displa display
+   di
+   dis
+   disp
+   displ
+   displa
+   display
    display as text
    display as txt
    display as res
@@ -3819,6 +3987,9 @@ set trace off
    gettoken (global) hey ho   : ho
    gettoken (local) bleen (global) hooie : gomp
    gettoken (local) bleen (local) bling : how
+   qui gettoken (local) bleen (local) bling : how
+   by foo: gettoken (local) bleen (local) bling : how
+   nothing good gettoken (local) bleen (local) bling : how
 
    if foo fuggy // because of the missing brace 
    if `this' that
@@ -3884,7 +4055,7 @@ set trace off
    global dingle : type
    loc dingle : f
    local dingle : format
-   gl s : val l ugh
+   gl s : val l fail
    gl h : val lab
    global h : value label
    loc h : var l
@@ -4060,15 +4231,18 @@ set trace off
 
    mat rown njk = kjj
    matrix rownames rrr = ccc
+   matrix rowname e∑∑ = should work
+   matrix rowname ∑∑∑ = should not work
    mat coln ccc = rrr
    matrix colnames ccc = rrr
    mat rowe hi = ho
    mat roweq ho = hi
    mat cole ho = hi
    mat coleq ho = hi
+   mat coleq hå = foo
 
-   mat sco fooey
-   matrix score fooey
+   mat sco fooey = ...
+   matrix score fooey = ...
 
    mat svd g h j
 
@@ -4577,6 +4751,7 @@ pause "fuggy"
    args mac mactheknife
    args foo
    args foo1 foo2 foo3 foo4
+   args øøf
 
    /* syntax */
    /* no attempt to get this to fontify properly, sadly enough, because there really is no grammar to the syntax statement */
@@ -7577,6 +7752,14 @@ version /* used elsewhere */
    // unicode experiments
 
    local føøbar
+
+   local ∑∑∑ "should work"
+   local 8∑∑ "should also work"
+   global 8fjel "does not work"
+   global w∑∑ "should work"
+   matrix ∑∑∑ = should not work
+   matrix e∑∑ = should work
+
 
    The command smcl2do is user-written, so it will not highlight if you do not have
       it installed, but is will highlight otherwise (no easy way to fix efficiently)
