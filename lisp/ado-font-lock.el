@@ -4871,7 +4871,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-start-cmd-regexp
 	  "\\<\\(foreach\\)\\>"
 	  "[ \t]+"
-	  "\\([[:alnum:]_]+\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]+"
 	  "\\<\\(in\\)\\>"
 	  "[ \t]+"
@@ -4885,7 +4885,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-start-cmd-regexp
 	  "\\<\\(foreach\\)\\>"
 	  "[ \t]+"
-	  "\\([[:alnum:]_]+\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]+"
 	  "\\<\\(of\\)\\>"
 	  "[ \t]+"
@@ -4912,7 +4912,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "forv" "forva" "forval" "forvalu" "forvalue" "forvalues"
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([[:alnum:]_]+\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*=[ \t]*"
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t))
@@ -6837,7 +6837,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
        '(
 		 "Global" "Local" "Super"
 		 ) 'words))
-	   "\\(?:[.a-zA-Z][[:alnum:]_]*\\)+"
+	   "\\(?:[.]" ado-stata-name-regexp "\\)+"
 	   )
 	  '(1 ado-function-name-face) '(2 ado-function-name-face t))
 
@@ -8024,7 +8024,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; global macros
 	(list
-	   "\\([$][a-zA-Z_*]+[[:alnum:]_]*\\)"
+	   "\\([$]" ado-stata-name-regexp "\\)"
 		'(1 ado-variable-name-face t))
 
 	;; local macros
@@ -8034,7 +8034,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	(list
 	 (concat
 	  "`+\\(?:\\+\\+\\|--\\)?"
-	  "\\([[:alnum:]_]+\\)"
+	  ado-stata-local-name-bound-regexp
 	  ) 
 	 '(1 ado-variable-name-face t))
 	
@@ -8043,7 +8043,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   "`+"
 	   "\\(\\(?:e\\|r\\|s\\)\\)"
 	   "\\((\\)"
-	   "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	   ado-stata-local-name-bound-regexp 
 	   "\\()\\)"
 	   "'+"
 	   )
@@ -8649,7 +8649,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "loc" "loca" "local" 
 		 ) 'words))
 	   "[ \t]+"
-	   "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	   ado-stata-local-name-bound-regexp 
         "[ \t]*:[ \t]*"
 		"\\<\\(set\\)\\>"
 		"[ \t]+"
