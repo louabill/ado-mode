@@ -2484,7 +2484,7 @@ these are such a mess")
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t) '(3 ado-matrix-name-face))
 
-	;; with one following argument
+	;; with one following argument 
 	(list
 	 (concat
 	  ado-start-cmd-regexp
@@ -5137,38 +5137,43 @@ these are such a mess")
 	  "[ \t]+"
 	  "\\<\\(drop\\)\\>"
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\b\\)"
+	  ado-stata-local-name-regexp
+	  "\\b\\)"
 	  )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t))
-	(list
-	 (concat
-	  (eval-when-compile 
-		(regexp-opt 
-		 '(
-		   "ma" "mac" "macr" "macro"
-		   "sca" "scal" "scala" "scalar" 
-		   ) 'words))
-	  "[ \t]+"
-	  "\\<\\(drop\\)\\>"
-	  )
-	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
-	(list
-	 (concat
-	  ado-start-cmd-no-prefix-regexp
-	  (eval-when-compile 
-		(regexp-opt 
-		 '(
-		   "loc" "loca" "local" 
-		   ) 'words))
-	  "[ \t]+"
-	  "\\<\\(drop\\)\\>"
-	  "[ \t]+"
-	  "\\(\\(?:[[:alnum:]_]+\\b\\)?\\)"
-	  )
-	 '(1 ado-builtin-harmful-face) '(2 ado-obsolete-face)
-	 '(3 ado-variable-name-face t))
+	;; (list
+	;;  (concat
+	;;   (eval-when-compile 
+	;; 	(regexp-opt 
+	;; 	 '(
+	;; 	   "ma" "mac" "macr" "macro"
+	;; 	   "sca" "scal" "scala" "scalar" 
+	;; 	   ) 'words))
+	;;   "[ \t]+"
+	;;   "\\<\\(drop\\)\\>"
+	;;   )
+	;;  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
+	;; wtf is this? local drop ...?
+	;; (list
+	;;  (concat
+	;;   ado-start-cmd-no-prefix-regexp
+	;;   (eval-when-compile 
+	;; 	(regexp-opt 
+	;; 	 '(
+	;; 	   "loc" "loca" "local" 
+	;; 	   ) 'words))
+	;;   "[ \t]+"
+	;;   "\\<\\(drop\\)\\>"
+	;;   "[ \t]+"
+	;;   "\\(\\(?:"
+	;;   ado-stata-local-name-regexp
+	;;   "\\b\\)?\\)"
+	;;   )
+	;;  '(1 ado-builtin-harmful-face) '(2 ado-obsolete-face)
+	;;  '(3 ado-variable-name-face t))
 
 	;;
 	;; an attempt to include the extended macro names
@@ -5183,7 +5188,9 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  "\\("
+	  ado-stata-local-name-regexp
+	  "\\)"
 	  "[ \t]*:[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -5227,7 +5234,9 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  "\\("
+	  ado-stata-local-name-regexp
+	  "\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\(sysdir\\)"
 	  "[ \t]+"
@@ -5256,7 +5265,9 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  "\\("
+	  ado-stata-local-name-regexp
+	  "\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(word\\)\\>"
 	  "[ \t]+"
@@ -5275,7 +5286,9 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  "\\("
+	  ado-stata-local-name-regexp
+	  "\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(word\\)\\>"
 	  "[ \t]+\\(?:[0-9]+\\|`[^ \t]*'\\)[ \t]+"
@@ -5297,7 +5310,9 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  "\\("
+	  ado-stata-local-name-regexp
+	  "\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(e\\|r\\)\\>"
 	  "([ \t]*"
@@ -5322,7 +5337,9 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  "\\("
+	  ado-stata-local-name-regexp
+	  "\\)"
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(s\\)\\>"
 	  "([ \t]*"
@@ -5343,7 +5360,9 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  "\\("
+	  ado-stata-local-name-regexp
+	  "\\)"
 	  "[ \t]*:[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -5363,7 +5382,7 @@ these are such a mess")
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	
-	;; serset macros
+	;; serset macros @@
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
