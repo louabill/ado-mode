@@ -42,9 +42,27 @@
 
 ;;; these regexps will still be fooled by line continuations
 ;;;   or colons in the middle of a line of text
+(defconst ado-capture-noisily-regexp
+  (concat
+   (eval-when-compile
+	 (regexp-opt
+	  '(
+	  "cap" "capt" "captu" "captur" "capture"
+	  )))
+   "[ /t]+"
+   (eval-when-compile
+	 (regexp-opt
+	  '(
+		"n" "no" "noi" "nois" "noisi" "noisil" "noisily"
+		)))
+   )
+  "The regexp for testing for a -capture noisily- prefix. Ugh.")
+
+
 (defconst ado-prefix-any-regexp
   (concat
    "\\(?:[ \t]*"
+   "\\(?:"
    (eval-when-compile
 	 (regexp-opt
 	  '(
@@ -53,6 +71,9 @@
 		"n" "no" "noi" "nois" "noisi" "noisil" "noisily" 
 		"qui" "quie" "quiet" "quietl" "quietly"
 		)))
+   "\\|"
+   ado-capture-noisily-regexp
+   "\\)"
    "\\(?:[ \t]*:\\)?\\)?"
    )
   "Miserable regexp for those commands which could be thrown in front of any other
@@ -4897,9 +4918,12 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "num" "numl" "numli" "numlis" "numlist" 
 		   "var" "varl" "varli" "varlis" "varlist" 
 		   ) 'words))
+	  "[ \t]+"
+	  ado-stata-local-name-bound-regexp
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
-	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
+	 '(5 ado-variable-name-face))
 
 	;; forvalues ... = ??
 	(list
@@ -6921,6 +6945,30 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			) 'words))
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+;; AssociativeArray methods
+	(list
+	 (concat
+	  ado-start-cmd-null-regexp
+;;	  "\\(?:[.a-zA-Z][[:alnum:]_]*\\)+" ! will cause a hang
+	  "\\([.]\\)"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "N"
+		   "clear"
+		   "exists"
+		   "firstloc" "firstval"
+		   "get"
+		   "key" "keys"
+		   "next" "nextval" "notfound"
+		   "put"
+		   "reinit" "remove"
+		   "val"
+		   ) 'words))
+	  "("
+	  )
+	 '(1 ado-function-name-face) '(2 ado-function-name-face t))
 
 	  ;; oh my - the creturn info!
 	(list
