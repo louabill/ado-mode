@@ -4222,6 +4222,17 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
 
+	(list
+	 (concat
+	  "^[ \t]*"
+	  (eval-when-compile 
+		(regexp-opt 
+		 '(
+		   "mata"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face))
+
 	;; commands
 	;; note that the really short abbreviations could make a mess of things
 	;;
@@ -4957,7 +4968,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "lnskew0"
 		   "makecns"
 		   "mark" "markin" "markout" "mat"
-		   "mata" "matr" "matri" "matrix"
+		   "matr" "matri" "matrix"
 		   "mkdir" "mkmat" "mkspline"
 		   "mleval" "mlmatsum" "mlsum""mlvecsum"
 		   "modify" 

@@ -1,4 +1,4 @@
-*! version 1.15.0.0 June 14, 2018 @ 11:36:22
+*! version 1.15.0.0 June 14, 2018 @ 11:40:25
 *! doesnt do anything but work for syntax testing
 program def syntax_tester, eclass
    "does it understand strings?"
@@ -5718,6 +5718,7 @@ version /* used elsewhere */
    mata clear
    mata d
    mata describe
+   mata: mata drop
    mata drop
    mata help
 
