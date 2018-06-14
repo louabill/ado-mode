@@ -3037,6 +3037,7 @@ Not implemented as much more than an experiment. ")
 	;; NO subcommands, b/c -serset- is legal by itself
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(serset\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3053,6 +3054,7 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(serset\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3067,6 +3069,7 @@ Not implemented as much more than an experiment. ")
 	;; the spmatrix commands - harmful incomplete
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(spmatrix\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3080,6 +3083,7 @@ Not implemented as much more than an experiment. ")
 		;; the spmatrix commands - harmless
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(spmatrix\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3093,6 +3097,7 @@ Not implemented as much more than an experiment. ")
 	;; spmatrix incomplete with subcommand
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(spmatrix\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3117,6 +3122,7 @@ Not implemented as much more than an experiment. ")
 	;; spmatrix incomplete with two subcommands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(spmatrix\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3137,6 +3143,7 @@ Not implemented as much more than an experiment. ")
 	;; spmatrix incomplete with subcommand
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(spmatrix\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3160,6 +3167,7 @@ Not implemented as much more than an experiment. ")
 	;; dangerous spmatrix with one matrix
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(spmatrix\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3184,6 +3192,7 @@ Not implemented as much more than an experiment. ")
 	;; harmless spmatrix with one matrix
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(spmatrix\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3199,6 +3208,7 @@ Not implemented as much more than an experiment. ")
 	;; harmful spmatrix with two matrices
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(spmatrix\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3218,6 +3228,7 @@ Not implemented as much more than an experiment. ")
 	;; harmful spmatrix create with two subcommands and one matrix
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(spmatrix\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(create\\)\\>"
@@ -3239,6 +3250,7 @@ Not implemented as much more than an experiment. ")
 	;; sts commands, NO partial, because -sts- is good by itself
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(sts\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3253,6 +3265,7 @@ Not implemented as much more than an experiment. ")
 	
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(sts\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3267,6 +3280,7 @@ Not implemented as much more than an experiment. ")
 	;; the sw commands are all now obsolete, because of syntax change
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(sw\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3286,6 +3300,7 @@ Not implemented as much more than an experiment. ")
     ;; the gph commands (really obsolete)
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3311,6 +3326,7 @@ Not implemented as much more than an experiment. ")
 	;; mfp arguments --- obsolete in Stata 11
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(mfp\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3327,6 +3343,7 @@ Not implemented as much more than an experiment. ")
 	;; no partial, b/c -sysdir- is legal
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(sysdir\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3339,6 +3356,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(sysdir\\)\\>"
 	  "[ \t]+"
 	  "\\(set\\)"
@@ -3347,6 +3365,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(sysdir\\)\\>"
 	  "[ \t]+"
 	  "\\(set\\)"
@@ -3366,6 +3385,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(personal\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(dir\\)\\>"
@@ -3375,6 +3395,7 @@ Not implemented as much more than an experiment. ")
 	;; tsunab and unab commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3389,6 +3410,7 @@ Not implemented as much more than an experiment. ")
 	;; the tssmooth commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(tssmooth\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3406,6 +3428,7 @@ Not implemented as much more than an experiment. ")
 	;; the translator commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(translator\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3421,6 +3444,7 @@ Not implemented as much more than an experiment. ")
 	;; the transmap commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(transmap\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3435,6 +3459,7 @@ Not implemented as much more than an experiment. ")
 	;; the update commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(update\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3447,6 +3472,7 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(update\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3459,6 +3485,7 @@ Not implemented as much more than an experiment. ")
 	;; obsolete update commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(update\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3475,6 +3502,7 @@ Not implemented as much more than an experiment. ")
 	;; the xtcointest commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(xtcointest\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3490,6 +3518,7 @@ Not implemented as much more than an experiment. ")
 	;; the xtunitroot commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(xtunitroot\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3508,6 +3537,7 @@ Not implemented as much more than an experiment. ")
 	;; the fcast commands which leave data alone
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(fcast\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3520,6 +3550,7 @@ Not implemented as much more than an experiment. ")
 	;; fcast commands which alter data
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(fcast\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3533,6 +3564,7 @@ Not implemented as much more than an experiment. ")
 	;; the obsolete varfcast commands with sub commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(varfcast\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3548,6 +3580,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(irf\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3566,6 +3599,7 @@ Not implemented as much more than an experiment. ")
 	;; irf partial commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(irf\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3579,6 +3613,7 @@ Not implemented as much more than an experiment. ")
 	;; irf graph/table and their subcommands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(irf\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3604,6 +3639,7 @@ Not implemented as much more than an experiment. ")
 	;; the irf commands which alter data
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(irf\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3620,6 +3656,7 @@ Not implemented as much more than an experiment. ")
 	;; the irf commands which are obsolete
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(irf\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3635,6 +3672,7 @@ Not implemented as much more than an experiment. ")
 	;; the varirf commands which leave data alone
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(varirf\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3659,6 +3697,7 @@ Not implemented as much more than an experiment. ")
 	;; the view commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(view\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3679,6 +3718,7 @@ Not implemented as much more than an experiment. ")
 	;; the webuse commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(webuse\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3692,6 +3732,7 @@ Not implemented as much more than an experiment. ")
 	;; the window commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3713,6 +3754,7 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3744,6 +3786,7 @@ Not implemented as much more than an experiment. ")
 	;; the window manage commands	
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3771,6 +3814,7 @@ Not implemented as much more than an experiment. ")
 	;; fix up all the 4-word crap
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3796,6 +3840,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3820,6 +3865,7 @@ Not implemented as much more than an experiment. ")
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3844,6 +3890,7 @@ Not implemented as much more than an experiment. ")
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3864,6 +3911,7 @@ Not implemented as much more than an experiment. ")
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3886,6 +3934,7 @@ Not implemented as much more than an experiment. ")
 	;; need better way to work with platform-specific commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3910,6 +3959,7 @@ Not implemented as much more than an experiment. ")
 	 '(3 ado-platform-specific-face t))
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3932,6 +3982,7 @@ Not implemented as much more than an experiment. ")
 	;; not platform specific
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3959,6 +4010,7 @@ Not implemented as much more than an experiment. ")
 	;; the window menu commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -3984,6 +4036,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4011,6 +4064,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4037,6 +4091,7 @@ Not implemented as much more than an experiment. ")
 	;; incomplete window multiword subcommands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4056,6 +4111,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4079,6 +4135,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4104,6 +4161,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4148,6 +4206,7 @@ Not implemented as much more than an experiment. ")
 	;; These are split to allow compiling!
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4197,6 +4256,7 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmless-face))
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4250,7 +4310,7 @@ Not implemented as much more than an experiment. ")
 	;; an experiment 
 	(list
 	 (concat
-	  start-cmd-regexp  ;; seems to have some bad side effects
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4318,6 +4378,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -4392,6 +4453,7 @@ Not implemented as much more than an experiment. ")
 	;;  optional
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(svy\\)\\>"
 	  "[ \t]*,?.*?:[ \t]*"
 	  (eval-when-compile 
@@ -4426,6 +4488,7 @@ Not implemented as much more than an experiment. ")
 	;; svy stuff with sub commands (so let the command do its highlighting)
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(svy\\)\\>"
 	  "[ \t]*,?.*?:[ \t]*"
 	  (eval-when-compile 
@@ -4440,6 +4503,7 @@ Not implemented as much more than an experiment. ")
 	;; more svy stuff
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(svy\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -4473,6 +4537,7 @@ Not implemented as much more than an experiment. ")
 	;; incomplete svy fmm
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(svy\\)\\>"
 	  "[ \t]*,?.*?:[ \t]*"
 	  "\\<\\(fmm\\)\\>"
@@ -4482,6 +4547,7 @@ Not implemented as much more than an experiment. ")
 	;; svy fmm
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(svy\\)\\>"
 	  "[ \t]*,?.*?:[ \t]*"
 	  "\\<\\(fmm\\)\\>"
@@ -4509,7 +4575,7 @@ Not implemented as much more than an experiment. ")
 	 '(3 ado-builtin-harmless-face))
 	;; haver subcommands ... all obsolete in Stata 13
 	
-	;; (list
+	;; (list @@
 	;;  (concat
 	;;   "\\<\\(haver\\)\\>"
 	;;   "[ \t]+"
