@@ -8024,8 +8024,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; global macros
 	(list
-	   "\\([$]" ado-stata-name-regexp "\\)"
-		'(1 ado-variable-name-face t))
+	 (concat "\\([$]" ado-stata-name-regexp "\\)")
+	 '(1 ado-variable-name-face t))
 
 	;; local macros
 	;;   highlights *before* the macro is ended, which 
@@ -8149,7 +8149,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
-	;; the esize commaneds
+	;; the esize commands
 	(list
 	 (concat
 	  ado-start-cmd-regexp
@@ -8167,7 +8167,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; the estat commands
 	(list
 	 (concat
-	  ado-start-cmd-must-start-line-regexp
+	  ado-start-cmd-no-prefix-regexp
 	  "\\<\\(estat\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
