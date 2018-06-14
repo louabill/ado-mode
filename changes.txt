@@ -1,5 +1,20 @@
 Version History:
 ---------------
+1.15.1.4
+
+* Updated syntax highlighting to try and be smarter about highlighting Stata keywords appearing in the middle of text. This needed to be fixed because of nice new Stata commands which allow mixing narrative and Stata. The fix cannot be perfect because Stata is not a regular language, so it is hard to detect what any piece of a code line means. There are some known shortcomings
+
+** Continued lines, as syntax highlighting assumes a new line is a new line.
+
+** Items which occur mid-line (such as returned values or smcl) MUST highlight because of their very nature.
+
+** The first word after a colon (:) will be considered a possible command in many cases, simply because checking for legal prefix commands is neigh-on impossible. This being said, commands for which a prefix command _could_ be legal, but is likely silly will not highlight after a colon.
+
+** -capture noisily- is not working; it will have to be fixed in a future update.
+
+* Unicode names will finally work. There could be some legal Stata names using Unicode symbols (such as -local e∑∑-) which might not highlight properly.
+
+
 1.15.1.3
 
 * Added a submenu to the Ado-mode > Options menu for changing values for
