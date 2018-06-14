@@ -99,9 +99,10 @@ Meant for spurious-higlighting problems which have not been solved yet.")
   "same as \\[ado-stata-name-regexp] but bound within \\( and \\) for highlighting")
 
 (defconst ado-stata-local-name-regexp "[[:alnum:]_]+"
-  "regexp for highlighting local macros; not really worth using in most cases, because 
-these are such a mess")
+  "regexp for highlighting local macros")
   
+(defconst ado-stata-local-name-bound-regexp "\\([[:alnum:]_]+\\)"
+  "regexp for highlighting local macros, bound within \\( and \\)")
 
 (defconst ado-man-abbrevs '("BAYES" "D" "DSGE" "ERM" "FMM" "FN" "G" "GSM" "GSU" "GSW" "IG" "IRT" "M" "ME" "MI" "MV" "P" "PSS" "R" "SEM" "SP" "ST" "SVY" "TE" "TS" "U" "XT"))
 
@@ -4922,11 +4923,11 @@ these are such a mess")
 	  ado-start-cmd-regexp
 	  "\\<\\(gettoken\\)\\>"
 	  "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
-	  "\\([ \t]+" ado-stata-local-name-regexp "\\)"
+	  "[ \t]+" ado-stata-local-name-bound-regexp
 	  "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
-	  "\\([ \t]+" ado-stata-local-name-regexp "\\)"
+	  "[ \t]+" ado-stata-local-name-bound-regexp 
 	  "[ \t]*:[ \t]*"
-	  "\\(\\(?:" ado-stata-local-name-regexp "\\)\\)"
+	  ado-stata-local-name-bound-regexp 
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t) '(4 ado-subcommand-face t)
@@ -4939,7 +4940,7 @@ these are such a mess")
 	  "\\(\\(?:[ \t]+(\\(?:loc\\|glob\\)al)\\)?\\)"
 	  "\\(\\(?:[ \t]+\\(?:" ado-stata-local-name-regexp "\\)\\)\\{1,2\\}\\)"
 	  "[ \t]*:[ \t]*"
-	  "\\(\\(?:" ado-stata-local-name-regexp "\\)\\)"
+	  ado-stata-local-name-bound-regexp
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t) '(4 ado-variable-name-face t))
@@ -5088,7 +5089,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+\\(?:\\(?:++\\|--\\|[`]+\\)?\\)"
-	  "\\(" ado-stata-local-name-regexp "\\\)"
+	  ado-stata-local-name-bound-regexp
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t))
 
@@ -5136,9 +5137,8 @@ these are such a mess")
 		   ) 'words))
 	  "[ \t]+"
 	  "\\<\\(drop\\)\\>"
-	  "[ \t]+\\("
-	  ado-stata-local-name-regexp
-	  "\\b\\)"
+	  "[ \t]+"
+	  ado-stata-local-name-bound-regexp
 	  )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t))
@@ -5188,9 +5188,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\("
-	  ado-stata-local-name-regexp
-	  "\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -5234,9 +5232,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\("
-	  ado-stata-local-name-regexp
-	  "\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  "\\(sysdir\\)"
 	  "[ \t]+"
@@ -5265,9 +5261,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\("
-	  ado-stata-local-name-regexp
-	  "\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(word\\)\\>"
 	  "[ \t]+"
@@ -5286,9 +5280,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\("
-	  ado-stata-local-name-regexp
-	  "\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(word\\)\\>"
 	  "[ \t]+\\(?:[0-9]+\\|`[^ \t]*'\\)[ \t]+"
@@ -5310,9 +5302,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\("
-	  ado-stata-local-name-regexp
-	  "\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(e\\|r\\)\\>"
 	  "([ \t]*"
@@ -5337,9 +5327,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\("
-	  ado-stata-local-name-regexp
-	  "\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(s\\)\\>"
 	  "([ \t]*"
@@ -5360,9 +5348,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\("
-	  ado-stata-local-name-regexp
-	  "\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -5393,9 +5379,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\("
-	  ado-stata-local-name-regexp
-	  "\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(serset\\)\\>"
 	  "[ \t]+"
@@ -5419,9 +5403,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\("
-	  ado-stata-local-name-regexp
-	  "\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -5452,9 +5434,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\("
-	  ado-stata-local-name-regexp
-	  "\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(list\\)\\>"
 	  "[ \t]+"
@@ -5469,12 +5449,12 @@ these are such a mess")
 		   "uniq"
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  ado-stata-local-name-bound-regexp
 	  )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
 	 '(5 ado-variable-name-face t))
-	;; operator-like list commands @@
+	;; operator-like list commands
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp 
@@ -5485,15 +5465,15 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(list\\)\\>"
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*"
 	  "\\(?:[|&-]\\|==\\|===\\)"
 	  "[ \t]*"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  ado-stata-local-name-bound-regexp
 	  )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-variable-name-face t)
@@ -5509,15 +5489,15 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(list\\)\\>"
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*"
 	  "\\<\\(in\\)\\>"
 	  "[ \t]*"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  ado-stata-local-name-bound-regexp
 	  )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-variable-name-face t)
@@ -5532,7 +5512,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  ado-stata-local-name-bound-regexp 
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(list\\)\\>"
 	  "[ \t]+"
@@ -5540,7 +5520,7 @@ these are such a mess")
 	  "[ \t]+\".*?\"[ \t]+"
 	  "\\<\\(in\\)\\>"
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  ado-stata-local-name-bound-regexp 
 	  )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
@@ -5557,7 +5537,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(all\\)\\>"
 	  "[ \t]+"
@@ -5579,7 +5559,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  "\\<\\(all\\)\\>"
 	  "[ \t]+"
@@ -5606,7 +5586,7 @@ these are such a mess")
 		   "loc" "loca" "local" 
 		   ) 'words))
 	  "[ \t]+"
-	  "\\([a-zA-Z_]+[[:alnum:]_]*\\)"
+	  ado-stata-local-name-bound-regexp
 	  "[ \t]*:[ \t]*"
 	  (eval-when-compile 
 		(regexp-opt 
@@ -5622,14 +5602,15 @@ these are such a mess")
 	(list
 	 (concat
 	   ado-start-cmd-no-prefix-regexp
-	   "^[ \t]*"
 	   (eval-when-compile 
 		 (regexp-opt 
        '(
 		 "tempfile" "tempname" "tempvar"
 		 ) 'words))
 	   "[ \t]+`*"
-	   "\\(\\(?:[a-zA-Z_]+[[:alnum:]_]*[ \t]*\\)+\\)"
+	   "\\(\\(?:"
+	   ado-stata-local-name-regexp 
+	   "[ \t]*\\)+\\)"
 	   )
 	  '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t))
 
@@ -6491,7 +6472,7 @@ these are such a mess")
 		 "ccl"
 		 ) 'words))
 	   "[ \t]+"
-	   "\\(\\(?:[a-zA-Z_]+[[:alnum:]_]*\\|`[[:alnum:]_`']*'\\)\\)"
+	   "\\(\\(?:[[:alnum:]_]*\\|`[[:alnum:]_`']*'\\)\\)"
 	   "[ \t]*"
 	   "\\(}\\)"
 	   )
