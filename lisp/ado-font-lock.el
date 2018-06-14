@@ -2682,9 +2682,10 @@ Not implemented as much more than an experiment. ")
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
-	;; the net commands @@
+	;; the net commands 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(net\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2703,6 +2704,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(net\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(set\\)\\>"
@@ -2719,6 +2721,7 @@ Not implemented as much more than an experiment. ")
 	;; net incomplete
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(net\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(set\\)\\>"
@@ -2728,6 +2731,7 @@ Not implemented as much more than an experiment. ")
 	;; ado commands (-ado- by itself is OK)
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(ado\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2743,6 +2747,7 @@ Not implemented as much more than an experiment. ")
 	;; odbc commands 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(odbc\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2756,6 +2761,7 @@ Not implemented as much more than an experiment. ")
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(odbc\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2769,6 +2775,7 @@ Not implemented as much more than an experiment. ")
 	;; odbc functional subcommands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(odbc\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2783,6 +2790,7 @@ Not implemented as much more than an experiment. ")
 	;; palette commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(palette\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2798,6 +2806,7 @@ Not implemented as much more than an experiment. ")
 	;; postutil commands - both of them
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(postutil\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(dir\\)\\>"
@@ -2806,6 +2815,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(postutil\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(clear\\)\\>"
@@ -2815,6 +2825,7 @@ Not implemented as much more than an experiment. ")
 	;; query/set_defaults commands 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2843,6 +2854,7 @@ Not implemented as much more than an experiment. ")
 	;; the reshape commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(reshape\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2860,6 +2872,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(reshape\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2873,13 +2886,16 @@ Not implemented as much more than an experiment. ")
 	;; the snapshot commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(snapshot\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(restore\\)\\>"
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(snapshot\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -2894,6 +2910,7 @@ Not implemented as much more than an experiment. ")
 	;; one lonely sysuse subcommand
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(sysuse\\)\\>"
 	  "[ \t]+"
 	  "\\<\\(dir\\)\\>"
@@ -2903,6 +2920,7 @@ Not implemented as much more than an experiment. ")
 	;; the _return commands (not the return commands)
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2922,6 +2940,7 @@ Not implemented as much more than an experiment. ")
 	;; the return commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2942,6 +2961,7 @@ Not implemented as much more than an experiment. ")
 	;; ereturn
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2964,6 +2984,7 @@ Not implemented as much more than an experiment. ")
 	;; sreturn
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(
@@ -2983,6 +3004,7 @@ Not implemented as much more than an experiment. ")
 	;; scc commands
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(ssc\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3000,6 +3022,7 @@ Not implemented as much more than an experiment. ")
 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  "\\<\\(ssc\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile 
@@ -3009,6 +3032,7 @@ Not implemented as much more than an experiment. ")
 		   ) 'words))
 	  end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face))
+
 	;; the serset commands
 	;; NO subcommands, b/c -serset- is legal by itself
 	(list
