@@ -5,7 +5,7 @@
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://louabill.org/stata
 ;; Keywords: ado-mode
-;; Version:  1.15.1.4 of June 14, 2018
+;; Version:  1.15.1.4 of June 26, 2018
 
 ;; This file is not part of GNU Emacs.
 
@@ -2192,7 +2192,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "contour" "contourline"
 		   "dot" "dropline"
 		   "fpfit" "fpfitci" "function"
-		   "hist" "histo" "histog" "histogr" "histogra" "histogram" 
+		   "hist" "histogram" 
 		   "kdensity"
 		   "line"
 		   "lfit" "lfitci"
@@ -7179,8 +7179,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	(list
 	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	  (eval-when-compile
-		ado-start-cmd-must-start-line-regexp
 		 (regexp-opt 
        '(
 		  "BEGIN"
