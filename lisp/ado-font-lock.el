@@ -5,7 +5,7 @@
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://louabill.org/stata
 ;; Keywords: ado-mode
-;; Version:  1.15.0.0 of October 2, 2017
+;; Version:  1.15.1.4 of June 14, 2018
 
 ;; This file is not part of GNU Emacs.
 
@@ -8115,8 +8115,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; 
 	(list
 	 (concat
+	  ado-start-cmd-regexp
 	  (eval-when-compile
-		ado-start-cmd-regexp
 		(regexp-opt 
 		 '(
 		   "_huber" "_qreg" 
@@ -8960,7 +8960,7 @@ which has an internal name of bar.
 		  (font-lock-remove-keywords 'ado-mode (cdr oldList))
 		  (setq ado-added-names (assq-delete-all name ado-added-names))))
 	(unless remove
-	  (setq newList `((,(concat (regexp-opt 
+	  (setq newList `((,(concat ado-start-cmd-regexp (regexp-opt 
 				  (mapcar (function (lambda (name) (substring-no-properties name nil -4))) 
 						  (apply 'append
 								 (mapcar (function (lambda (dirname) (directory-files dirname nil ".*[.]ado$")))
