@@ -5270,6 +5270,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		(regexp-opt 
 		 '(
 		   "BASE"
+		   "OLDPLACE"
 		   "PERSONAL"
 		   "PLUS"
 		   "SITE"
@@ -7132,7 +7133,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "VERSION"
 		 ) 'words))
 	   "[ \t]+"
-	  "\\(\\(?:\\(?:[89]\\|1[01234]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[89]\\|1[0123]\\)[.]1\\)\\|\\(?:[89]\\|11\\)[.]2\\)\\($\\|[ \t]+\\)"
+	  "\\(\\(?:\\(?:[89]\\|1[012345]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[89]\\|1[012345]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\)"
 	   )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	  ;; general builtins for dialogs
