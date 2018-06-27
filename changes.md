@@ -1,5 +1,35 @@
 # Version History
 
+## 1.15.1.4
+
+* Unicode names finally work.
+
+* Updated syntax highlighting to try and be smarter about highlighting
+  Stata keywords appearing in the middle of text. This needed to be
+  fixed because of the nice new Stata commands which allow mixing
+  narrative and Stata. The fix cannot be perfect because Stata is not a
+  regular language, so it is hard to detect what any piece of a code
+  line means. There are some known shortcomings. 
+
+**Continued lines highlight as a series of independent lines.
+
+** Items which occur mid-line (such as returned values or smcl) still highlight, but that is their nature.
+
+** Mata reserved words and keywords highlight, because they don't follow Stata syntax.
+
+** The first word after a colon (:) will be considered a possible command in most cases, simply because checking for legal prefix commands is nigh-on impossible. This being said, commands for which a prefix command _could_ be legal, but is likely silly will not highlight after a colon.
+
+** All added unofficial commands are assumed to allow prefix commands (cannot be changed).
+
+* Fixed highlighting of local macros which start with numbers.
+
+** Commands like -foreach whatever of global/local- now highlight legal names for locals, but allow globals to have names just like locals (with leading 0's or unicode symbols). This won't likely get fixed, as it'll take a bit of work to make something halfways maintainable. Also: globals are supposed to be exceedingly rare.
+
+* Changed highlighting of local macros to include the opening ` and closing '. It doesn't look that great, but it makes nested local macros, such as `foo`bar'' and ``foo'bar' highlight similarly.
+
+* Fixed some other bugs in highlighting and added highlighting for AssociativeArray methods.
+
+
 ## 1.15.1.3
 
 * Added a submenu to the Ado-mode > Options menu for changing values for
