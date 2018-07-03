@@ -148,7 +148,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; program define or list
 	(list
 	 (concat
-	  "^[ \t]*"
+	  ado-prefix-any-regexp
 	  (eval-when-compile 
 		(regexp-opt 
 		 '(

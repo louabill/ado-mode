@@ -1,5 +1,10 @@
 Version History:
 ---------------
+1.15.1.5
+
+* Small syntax highlighting fixes
+
+
 1.15.1.4
 
 * Unicode names finally work.
