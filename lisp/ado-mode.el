@@ -1185,7 +1185,7 @@ The command works differently depending on the type of file:
 the ado-extension has been set properly. Throws an error if the name cannot be
 determined. This was split from \\[ado-make-file-name] because of big changes
 to help files in Stata 12 (and the initial buggy fix)."
-  (let ((debug-on-error t) name-start name-end full-name) ; titlepos syntaxpos (name-start nil))
+  (let (name-start name-end full-name) ; titlepos syntaxpos (name-start nil))
 	(save-excursion
 	  (goto-char (point-min))
 	  (cond 
