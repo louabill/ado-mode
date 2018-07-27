@@ -1,5 +1,11 @@
 # Version History
 
+## 1.15.1.5
+
+* Added menu items for opening help and source files.
+
+* Small syntax highlighting fixes
+
 ## 1.15.1.4
 
 * Unicode names finally work.
