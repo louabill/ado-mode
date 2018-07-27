@@ -154,6 +154,16 @@
   (cons "Ado-mode" (make-sparse-keymap "Ado-mode")))
 (define-key ado-mode-map [menu-bar ado options]
   (cons "Options" (make-sparse-keymap "options")))
+(define-key ado-mode-map [menu-bar ado l4]
+  '(menu-item "--single-line"))
+(define-key ado-mode-map [menu-bar ado ado-open-command]
+  '("Open command" . ado-open-command))
+(define-key ado-mode-map [menu-bar ado ado-open-any-file]
+  '("Open Stata file" . ado-open-any-file))
+(define-key ado-mode-map [menu-bar ado ado-help-command]
+  '("Help for command" . ado-help-command))
+(define-key ado-mode-map [menu-bar ado ado-help-at-point]
+  '("Help at point" . ado-help-at-point))
 (define-key ado-mode-map [menu-bar ado l3]
   '(menu-item "--single-line"))
 (define-key ado-mode-map [menu-bar ado indent-buffer]
