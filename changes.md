@@ -6,6 +6,11 @@
 
 * Small syntax highlighting fixes
 
+* Put in embarrassing omission of 4 erm commands
+
+* Cleaned up syntax_tester.ado to make it easier to pull all possible
+  Stata commands from it.
+
 ## 1.15.1.4
 
 * Unicode names finally work.

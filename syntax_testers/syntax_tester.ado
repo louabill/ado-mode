@@ -1,5 +1,6 @@
-*! version 1.15.0.0 June 14, 2018 @ 17:55:05
-*! doesnt do anything but work for syntax testing
+*! version 1.15.0.0 September 6, 2018 @ 08:58:19
+*! doesn't do anything; made for syntax testing
+*! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
    "does it understand strings?"
    `"does it understand "nested" strings?"'
@@ -13,7 +14,7 @@ program def syntax_tester, eclass
    program list foo
    program define bleen
    end
-   pr droop foo
+   pr droop foo // bad, but highlights anyways because define is optional
    end
    program bleen
    end
@@ -27,62 +28,62 @@ program def syntax_tester, eclass
 version 1.0
 version 2            
 version 2.0
-version 2b0
+version 2b0  // bad
 version 2.1
-version 2b1 
+version 2b1  // bad
 version 3.0
 version 3.1
-version 3.2
+version 3.2  // bad
 version 4
 version 4.0
-version 4.1
+version 4.1  // bad
 version 5
 version 5.0
-version 5.1
+version 5.1  // bad
 version 6
 version 6.0
 version 6.1
 version 7
 version 7.0
-version 7.1
+version 7.1  // bad
 version 8
 version 8.0
 version 8.1
 version 8.2
-version 8.3
+version 8.3  // bad
 version 9
 version 9.0
 version 9.1
 version 9.2
-version 9.3 
+version 9.3  // bad
 version 10
 version 10.0
 version 10.1
-version 10.2
+version 10.2 // bad
 version 11
 version 11.0
 version 11.1
 version 11.2
-version 11.3
+version 11.3 // bad
 version 12
 version 12.0
 version 12.1
-version 12.2
+version 12.2 // bad
 version 13
 version 13.0
 version 13.1
-version 13.2
+version 13.2 // bad
 version 14
 version 14.0
 version 14.1
 version 14.2
-version 14.3
+version 14.3 // bad
 version 15
 version 15.0
 version 15.1
-version 16
-version 20
-version 44
+version 16   // bad, for now
+version 20   // bad for awhile
+version 44   // bad for multiple generations
    
    /* this program does nothing - it merely has some things for testing syntax coloring */
    /* working with the syntax table */
@@ -295,7 +296,7 @@ version 44
    estimates q
    estimates query
    // the following cannot be fixed because -estimates- is OK by itself
-   estimates d /* no longer an acceptable abbrev in Stata 10 */
+   estimates d // obsolete abbrev in Stata 10
    estimates dir
    estimates drop
    estimates clear
@@ -313,12 +314,12 @@ version 44
    estimates r
    estimates replay
 
-   estimates t /* no longer good in Stata 10 */
+   estimates t  // obsolete abbrev starting Stata 10
    estimates tab
    estimates table
-   estimates f // no longer good in Stata 11
+   estimates f // obsolete abbrev starting Stata 11
    estimates for
-   estimates st /* no longer good in Stata 10 */
+   estimates st // obsolete abbrev starting Stata 10
    estima stat
    estimates stats
    // once again: highlight because -estimates- allows 0 subcommands
@@ -401,7 +402,7 @@ version 44
    ivpoisson cfunction
 
    ivprobit
-   ivreg                 /* obsolete in Stata 10 */
+   ivreg                 // obsolete in Stata 10
    ivregress
    ivtobit
 
@@ -431,10 +432,10 @@ version 44
    lnskew0
    bcskew0
 
-   /* lookup is obsolete; test for conflict from log */
-   lo
-   loo
-   lookup
+
+   lo     // obsolete in Stata 6
+   loo    // obsolete in Stata 6
+   lookup // obsolete in Stata 6
    log
    log query
    log c
@@ -491,11 +492,13 @@ version 44
    mfp clogit() // absurd but should unhighlight clogit()
    
    // mfx is obsolete as of Stata 11
+   // start obsolete block
    mfx
    mfx c
    mfx compute
    mfx r
    mfx replay
+   // end obsolete block
 
    misstable sum
    misstable summarize
@@ -510,7 +513,7 @@ version 44
    ml mod
    ml model
    ml clear
-   ml cle // should not highlight
+   ml cle // bad
    ml q
    ml query
    ml check
@@ -538,7 +541,7 @@ version 44
    ml foot
    ml footnote
    ml score
-   /* obsolete ml */
+   // start obsolete block (Stata 8 or earlier)
    ml b
    ml begin
    ml dep
@@ -547,6 +550,7 @@ version 44
    ml function
    ml ml
    ml mlout
+   // end obsolete block
    * etc
 
    mlexp
@@ -555,10 +559,10 @@ version 44
    mlogi
    mlogit
 
-   set mo // should be off
+   set mo // should not highlight
    set mo on
    set more off
-   set p // should be off
+   set p // bad
    set pa
    set pagesize
 
@@ -597,7 +601,7 @@ version 44
    /* netio, which is also in set */
    se httpproxy on
    set httpproxy off
-   set httpproxy foo // no good
+   set httpproxy foo // bad
    set httpproxyhost
    se httpproxyport
    set httpproxyauth bleen // bad
@@ -776,7 +780,7 @@ version 44
    set searchdefault local /* rest under set */
    set searchdefault net
    set searchdefault all
-   set searchdefault foo
+   set searchdefault foo // bad
    
    findit // obsolete in Stata 13 
    
@@ -784,7 +788,7 @@ version 44
    /* set commands */
    set a
    set adosize
-   set autotabgraphs // not done
+   set autotabgraphs // incomplete
    set autotabgraphs on // win only
    set autotabgraphs off // win only
    set cformat // added in Stata 11.1
@@ -843,7 +847,7 @@ version 44
    set doublebuffer on
    set doublebuffer off
 
-   set `foo'  // should? shouldn't? highlight?
+   set `foo'  // should not highlight? should?
    set dp 
    set dp com
    set dp comma
@@ -855,17 +859,19 @@ version 44
    set emptycells drop
 
    // set eolchar undocumented as of Stata 15
+   // start obsolete block
    set eolch 
-   set eolcha
+   set eolcha 
    set eolch mac
    set eolchar unix
+   // end obsolete block 
 
-   set fastscroll
+   set fastscroll // incomplete
    set fastscroll on
    set fastscroll off
 
    // out of pdf docs in Stata 14, but still has help file
-   set floatresults
+   set floatresults // incomplete
    set floatresults on
    set floatresults off
    
@@ -878,31 +884,31 @@ version 44
    set fvlabel on
    set fvlabel off
 
-   set fvtrack
+   set fvtrack // incomplete
    set fvtrack term
    set fvtrack factor
-   set fvtrack foobar
+   set fvtrack foobar // bad
    
    set fvwrap
 
-   set fvwrapon
+   set fvwrapon // incomplete
    set fvwrapon word
    set fvwrapon width
 
-   set g
-   set grap
+   set g    // incomplete
+   set grap // incomplete
    set g on
    set graphics off
 
    set haverdir
 
-   set httpproxy
+   set httpproxy // incomplete
    set httpproxy on
    set httpproxy off
 
-   set httpproxya
+   set httpproxya // incomplete
    set httpproxya on
-   set httpproxyauth 
+   set httpproxyauth // incomplete
    set httpproxyauth off
 
    set httpproxyhost
@@ -914,7 +920,7 @@ version 44
    set icmap on // obsolete in Stata 10
    set icmap off // obsolete in Stata 10
 
-   set include_bitmap
+   set include_bitmap // incomplete
    set include_bitmap on
    set include_bitmap off
 
@@ -931,11 +937,11 @@ version 44
 
    set locale_ui        // new in Stata 14 
 
-   set locksplit
+   set locksplit        // incomplete
    set locksplit on
    set locksplitters off
 
-   set logt
+   set logt             // incomplete
    set logt t
    set logtype text
    set logty s
@@ -961,35 +967,39 @@ version 44
 
    set maxvar
 
+   // begin obsolete block (as of Stata 14)
    set mem
    set memory
+   // end obsolete block
 
    set min_memory
-   set more
+   set more  // incomplete 
    set mo on
    set more off
 
    set niceness
 
-   set notifyuser
+   set notifyuser  // incomplete 
    set notifyuser off
    set notifyuser on
 
    set ob
    set obs
 
-   set odbcdriver
+   set odbcdriver // incomplete 
    set odbcdriver unicode
    set odbcdriver ansi
 
    // set odbcmg abbreviation obsolete as of Stata 15
+   // begin obsolete block
    set odbcmg
    set odbcmg iodbc
-   set odbcmgr
+   // end obsolete block 
+   set odbcmgr // incomplete 
    set odbcmgr iodbc
    set odbcmgr unixodbc
 
-   set ou
+   set ou // incomplete 
    set ou proc
    set output p
    set outpu i
@@ -1000,27 +1010,29 @@ version 44
    set pa
    set pagesize
 
+   // begin obsolete block as of Stata 12, maybe?
    set persistfv on 
-   set persistvtopic off 
+   set persistvtopic off
+   // end obsolete block
 
    set pformat // added in Stata 11.1
 
    set piccom on // obsolete in Stata 11
    set piccomments off // obsolete in Stata 11
 
-   set pinnable
+   set pinnable  // incomplete 
    set pinnable on
    set pinnable off
 
-   set playsnd
+   set playsnd   // incomplete 
    set playsnd on
    set playsnd off
 
-   set printcolor
+   set printcolor  // incomplete 
    set printcolor auto
    set printcolor automatic
    set printcolor asis
-   set printcolor grayscale /* obsolete in Stata 9 */
+   set printcolor grayscale // obsolete in Stata 9
    set printcolor gs1
    set printcolor gs2
    set printcolor gs3
@@ -1030,18 +1042,18 @@ version 44
    set reventr
    set reventries
 
-   set revkeyboard
+   set revkeyboard // incomplete
    set revkeyboard on
    set revkeyboard off
 
-   set revwin nofloat // appears obsolete in Stata 11
-   set revwindow float // appears obsolete in Stata 11
+   set revwin nofloat // obsolete in Stata 11 (apparently)
+   set revwindow float // obsolete in Stata 11 (seemingly)
 
-   set rmsg
+   set rmsg  // incomplete 
    set r on
    set rmsg off
 
-   set rng // new in Stata 14 ; must have type set
+   set rng // incomplte; new in Stata 14 ; must have type set
    set rng default // new in Stata 14 
    set rng mt64    // new in Stata 14
    set rng mt64s   // new in Stata 15
@@ -1055,7 +1067,7 @@ version 44
 
    set scrollbufsize
 
-   set searchdefault
+   set searchdefault // incomplete 
    set searchd local
    set searchdefault net
    set searchdefault all
@@ -1067,23 +1079,23 @@ version 44
 
    set sformat // added in Stata 11.1 
 
-   set showbaselevels
+   set showbaselevels // incomplete 
 
    set showbaselevels on
    set showbaselevels off
    set showbaselevels all
 
-   set smalldlg on                      /* obsolete in Stata 10 */
+   set smalldlg on                      // obsolete in Stata 10
 
-   set showemptycells
+   set showemptycells // incomplete 
    set showemptycells on
    set showemptycells off
 
-   set showomitted
+   set showomitted // incomplete 
    set showomitted on
    set showomitted off
 
-   set smoothf
+   set smoothf // incomplete 
    set smoothf on
    set smoothfonts off
 
@@ -1092,59 +1104,59 @@ version 44
    set timeout1
    set timeout2
 
-   set trace
+   set trace // incomplete 
 set tr on
 set trace off
 
    set traced
    set tracedepth
 
-   set tracee
+   set tracee // incomplete 
    set tracee on
    set traceexpand off
 
    set traceh
    set tracehilite
 
-   set traceindent
+   set traceindent // incomplete 
    set tracei off
    set traceindent on
 
-   set tracen
+   set tracen // incomplete 
    set tracen on
    set tracenumber off
 
-   set traces
+   set traces // incomplete 
    set traces off
    set tracesep on
 
-   set type
+   set type // incomplete 
    set ty float
    set typ double
 
    set update_interval
 
-   set update_prompt
+   set update_prompt // incomplete 
    set update_prompt on
    set update_prompt off
 
-   set update_query
+   set update_query // incomplete 
    set update_query on
    set update_query off
 
    set use_atsui_graph off // obsolete in Stata 11
    set use_qd_text on // obsolete in Stata 11
 
-   set varabbrev
+   set varabbrev // incomplete 
    set varabbrev on
    set varabbrev off
 
-   set varkeyboard
+   set varkeyboard // incomplete 
    set varkeyboard on
    set varkeyboard off
    set varlabelpos // obsolete at some point
-   set varwin float // appears obsolete in Stata 11
-   set varwindow nofloat // appears obsolete in Stata 11
+   set varwin float // obsolete in Stata 11, it seems
+   set varwindow nofloat // obsolete in Stata 11, I guess
    set virt on // obsolete in Stata 12
    set virtual off // obsolete in Stata 12
    /* undocumented starting in Stata 10, but still legal */
@@ -1157,7 +1169,7 @@ set trace off
    set pformat
    set sformat
 
-   set_defaults
+   set_defaults // incomplete 
    set_defaults mem
    set_defaults memory
    set_defaults out
@@ -1178,7 +1190,7 @@ set trace off
    set_defaults oth
    set_defaults other
    set_defaults _all
-   set defaults
+   set defaults         // incomplete (way incomplete)
 
    // other set commands are already in the above list
    /* end set commands */
@@ -1199,13 +1211,13 @@ set trace off
 
    spikeplot
 
-   ssc
+   ssc  // incomplete 
    ssc new
    ssc what // obsolete in Stata 11
    ssc whatsnew // obsolete in Stata 11
    ssc hot
    ssc d
-   ssc `foo'
+   ssc `foo'  // bad? good? dunno?
    ssc describe
    ssc inst
    ssc install
@@ -1217,8 +1229,9 @@ set trace off
    /* stepwise or sw now has a syntax bad for highlighting */
    stepwise
    // stepwise replaced the following (which do not follow the alphabetical order of the manuals)
-   sw // should be neutral
    /* sw commands no longer exist, due to syntax changes */
+   // start obsolete block
+   sw // bad but should be neutral (not obsolete)
    sw clogit
    sw cloglog
    sw `foo'
@@ -1244,17 +1257,18 @@ set trace off
    sw tobit
    sw weibull
    sw gompertz                          /* out of date */
+   // end obsolete block
    /* end sw commands */
 
    // out of order, but under 'stored results' in [R]
-   ret
+   ret           // incomplete 
    ret li
    retu list
    return list
-   ereturn
+   ereturn       // incomplete 
    eret li
    ereturn list
-   sretu
+   sretu         // incomplete 
    sret li
    sret list
    
@@ -1306,7 +1320,9 @@ set trace off
 
    tnbreg // new in Stata 11.1
 
-   tob tobi tobit
+   tob
+   tobi
+   tobit
 
    total
 
@@ -1315,18 +1331,18 @@ set trace off
    // this is all under the translate entry
    print
    translate
-   translator
+   translator         // incomplete 
    translator q
    translator query
    translator set
    translator reset
-   translator `foo'
-   transmap 
+   translator `foo'   // bad? good?
+   transmap           // incomplete 
    transmap q
    transmap query
    transmap def
    transmap define
-   transmap `foo'
+   transmap `foo'     // bad? good?
    
    treatreg // obsolete in Stata 13
 
@@ -1391,7 +1407,7 @@ set trace off
    // common across most estimation commands (most also elsewhere)
    contrast
    estimates
-   forecast
+   forecast   // incomplete 
    fracplot
    fracpred
    hausman
@@ -1421,10 +1437,10 @@ set trace off
    // not sure how to test for new stuff....
    estat alt
    estat alternatives  // asclogit ascprobit asroprobit nlogit
-   archlm
+   archlm // obsolete in Stata 9 
    estat archlm // regress/ts
    estat bgo
-   bgodfrey
+   bgodfrey // obsolete in Stata 9 
    estat bgodfrey // regress/ts
    estat boot
    estat bootstrap // bootstrap
@@ -1435,10 +1451,10 @@ set trace off
    estat cov
    estat covariance // ascprobit asroprobit
    estat cv // added in Stata 11.1
-   durbina
+   durbina // obsolete in Stata 9 
    estat dur
    estat durbinalt // regress/ts
-   dwstat
+   dwstat // obsolete in Stata 9 
    estat dwa
    estat dwatson // regress/ts
    estat endog
@@ -1449,10 +1465,10 @@ set trace off
    estat first
    estat firststage // ivregress
    estat gof // logistic logit poisson probit
-   hettest
+   hettest // obsolete in Stata 9 
    estat hett
    estat hettest // anova regress
-   imtest
+   imtest // obsolete in Stata 9 
    estat ic // areg
    estat imt
    estat imtest // anova regress
@@ -1460,23 +1476,23 @@ set trace off
    estat nproc // rocreg
    estat over
    estat overid // gmm ivregress
-   ovtest
+   ovtest // obsolete in Stata 9 
    estat ovt
    estat ovtest // anova regress
    estat predict // exlogistic
    estat sbknown // ivregress
    estat single //  ivregress
    estat se  // exlogistic expoisson
-   szroeter
+   szroeter // obsolete in Stata 9 
    estat szr
    estat szroeter // anova regress
    estat sum // areg
    estat summarize
    estat vce // areg
-   vif
+   vif // obsolete in Stata 9 
    estat vif // anova regress
    // regress postestimation
-   adjust
+   adjust // obsolete in Stata 11
    dfbeta
    acprplot
    avplot
@@ -1510,8 +1526,8 @@ set trace off
 
    bayesstats summ
    bayesstats summary
-   bayesstats sum _all // sum not complete
-   bayesstats summary _loglikelihood
+   bayesstats sum _all // bad (sum too short)
+   bayesstats summary _loglikelihood // ok
 
    bayestest // incomplete
 
@@ -1555,7 +1571,11 @@ set trace off
    bcal create
    
    by
-   bys byso bysor bysort
+   bys
+   byso
+   bysor
+   bysort
+
    cd
    pwd
    cf
@@ -1563,6 +1583,7 @@ set trace off
    checksum
    se checksum on
    set checksum off
+
    clear
    clear mata
    clear results
@@ -1571,7 +1592,8 @@ set trace off
    clear ado
    clear all
    clear rngstream  // new in Stata 15 
-   clear * /* cannot fix easily, because of special meaning of * in regexps */
+   clear * // bad but works; cannot fix easily, because of special meaning of * in regexps
+
    clonevar
    codebook
    collapse
@@ -1586,8 +1608,15 @@ set trace off
    count
 
    cross using
-   byte int long float double
-   str str1 str80 str99 str100 str158 str244 str245 str1000 str2045 str2046 strL
+   // data types which could be used for highlighting?!
+   byte
+   int
+   long
+   float
+   double
+   // only str should highlight, I think
+   str str1 str80 str99 str100 str158 str244 str245 str1000 str2045 str2046
+   strL
 
    datasig
    datasignature
@@ -1626,8 +1655,8 @@ set trace off
    duplicates examples
    duplicates l
    duplicates list
-   duplicates b
-   duplicates browse
+   duplicates b       // obsolete in Stata 8 ?
+   duplicates browse  // obsolete in Stata 8 ?
    duplicates t
    duplicates tag
    duplicates drop
@@ -1645,7 +1674,7 @@ set trace off
    egen
    egen = any() // really was renamed in Stata 9 to anyvalue()
                 //  highlights because of mata any() function
-   egen breeble = anycount()
+   egen breeble = anycount()  // bad, but want to highlight egen
    egen = anymatch()
    egen = anyvalue()
    egen = concat() 
@@ -1675,6 +1704,7 @@ set trace off
    egen = pctile()
    egen = rank()
    /* all the rxxx have been renamed */
+   // begin obsolete block 
    egen = rfirst()
    egen = rlast()
    egen = rmax()
@@ -1684,7 +1714,7 @@ set trace off
    egen = robs()
    egen = rsd()
    egen = rsum()
-   /* end of obsolete names */
+   // end obsolete block 
    egen = rowfirst()
    egen = rowlast()
    egen = rowmax()
@@ -1700,7 +1730,7 @@ set trace off
    egen = seq()
    egen = skew()
    egen = std()
-   egen = sum() // replaced with total
+   egen = sum() // obsolete; replaced with total
    egen = tag()
    egen = total()
    /* end egen */
@@ -1727,10 +1757,12 @@ set trace off
    export sasxport
    export dbase // new in Stata 15 
    // fda... commmands obsolete as of Stata 12
+   // begin obsolete block 
    fdasav fdasave
    fdause
    fdades fdadesc fdadescr fdadescri fdadescrib fdadescribe
-
+   // end obsolete block
+   
    filef
    filefi
    filefil
@@ -1754,10 +1786,10 @@ set trace off
    generate
    
    replace
-   set ty
+   set ty  // incomplete 
    set ty float
    set type double
-   set type foo
+   set type foo // bad
    gsort
    hexdump
    /* icd9 commands */
@@ -1843,7 +1875,7 @@ set trace off
 
    import sasxport
    export sasxport
-   impute
+   impute  // obsolete in Stata 11 
    inf using
    infile
    infix
@@ -1913,12 +1945,12 @@ set trace off
    set max_memory
    set segmentsize
 
-   mer
-   merge
+   mer   // incomplete 
+   merge // incomplete 
    mer 1:1
    merg m:1
    merge 1:m
-   merge m:m
+   merge m:m  // should be obsolete
    merge 1:1 _n
 
    mkdir
@@ -1937,7 +1969,7 @@ set trace off
    set ob 93
    set obs 12
    /* odbc */
-   odbc 
+   odbc  // incomplete 
    odbc li
    odbc list
    odbc q
@@ -1952,23 +1984,33 @@ set trace off
    odbc exec(needed)
    odbc sql(needed)
    odbc sqlfile(needed)
-   odbc sql // forgot paren
-   set odbcdriver // new in Stata 14
+   odbc sql // bad forgot paren
+   set odbcdriver // incomplete; new in Stata 14
    set odbcdriver ansi
    set odbcdriver unicode
-   set odbcm iodbc // abbreviation disappeared between 14 and 15
+   set odbcm iodbc // bad - abbreviation disappeared between 14 and 15
    set odbcmgr iodbc
    set odbcmgr unixodbc
    /* end odbc */
    order
-   mov move aorder // obsolete in Stata 11
+   // begin obsolete block, Stata 11
+   mov
+   move
+   aorder
+   // end obsolete block 
    ou
    out
    outf
    outfi
    outfil
    outfile
-   outs outsh outshe outshee outsheet // obsolete in Stata 13
+   // begin obsolete block (Stata 13)
+   outs
+   outsh
+   outshe
+   outshee
+   outsheet
+   // end obsolete block 
    pctile
    xtile
    _pctile
@@ -2028,7 +2070,7 @@ set trace off
    split
    stack
    statsby
-   sysuse auto
+   sysuse auto // bad for command, ok for highlighting
    sysuse dir
 
    ty
@@ -2044,7 +2086,7 @@ set trace off
    unicode convert
    unicode convertfile // changed in Stata 14.1?
 
-   unicode encoding // not complete
+   unicode encoding // incomplete
    unicode encoding list
    unicode encod alias
    unicode en set
@@ -2078,7 +2120,8 @@ set trace off
    webuse
    webuse query
    webuse set
-   xmlsav xmlsave
+   xmlsav
+   xmlsave
    xmluse
    xpose
    zipfile
@@ -2088,6 +2131,12 @@ set trace off
    /* begin [ERM] extended regression models */
    // New manual in Stata 15
    // !!come back when manual is done
+
+   eintreg
+   eoprobit
+   eprobit
+   eregress
+   estat teffects
 
    /* end [ERM] extended regression models */
 
@@ -3667,7 +3716,7 @@ set trace off
    c(showemptycells) // new in Stata 11.1
    c(showomitted) // new in Stata 11.1
    c(fvlabel) // new in Stata 13
-   c(fvwrap) // new in Stata 13
+1   c(fvwrap) // new in Stata 13
    c(fvwrapon) // new in Stata 13
    c(fvtrack) // new in Stata 15 
    c(lstretch) // new in Stata 12
