@@ -1184,7 +1184,7 @@ The command works differently depending on the type of file:
 		(if (not name-start)
 			(file-name-nondirectory (buffer-file-name))
 		  ;;; !! need to split out things which can have spaces,
-		  (re-search-forward "[a-zA-Z_]+[a-zA-Z0-9_]*\\b")
+		  (re-search-forward (concat ado-stata-name-regexp "\\b"))
 		  (setq name-end (point))
 		  (concat (buffer-substring-no-properties name-start name-end) "." ado-extension))
 		))))
