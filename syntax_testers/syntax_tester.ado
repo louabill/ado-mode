@@ -1,4 +1,4 @@
-*! version 1.15.0.0 September 6, 2018 @ 08:58:19
+*! version 1.15.0.0 September 8, 2018 @ 11:10:53
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -2130,7 +2130,6 @@ set trace off
 
    /* begin [ERM] extended regression models */
    // New manual in Stata 15
-   // !!come back when manual is done
 
    eintreg
    eoprobit
@@ -2142,7 +2141,34 @@ set trace off
 
    /* begin [FMM] finite mixture models */
    // New manual in Stata 15
-   // !!come back when manual is done
+
+
+   fmm 3:  // incomplete
+   
+   fmm 1: betareg
+   fmm 2: cloglog
+   fmm 3: glm
+   fmm 15: intreg
+   fmm 3: ivregress
+   fmm 213: logit
+   fmm 5  : mlogit
+   fmm 9: nbreg
+   fmm 3: ologit
+   fmm 3: oprobit
+   fmm 3: poisson
+   fmm 3: probit
+   fmm 3: regress
+   fmm 3: streg
+   fmm 3: tobit
+   fmm 3: tpoisson
+   fmm 3: truncreg
+
+   // postestimation
+
+   estat eform
+   estat lcmean
+   estat lcprob
+
 
    /* end [FMM] finite mixture models */
 
@@ -2217,13 +2243,15 @@ set trace off
    yw()
 
    /* single-letter date fns---obsolete in Stata 10 */
+   // begin obsolete block
    d()
    h()
    m()
    q()
    w()
    y()
-
+   // end obsolete block
+   
    /* math functions */
    /* trig split from math in Stata 14, because trig must not be math */
    abs()
@@ -2237,7 +2265,7 @@ set trace off
    invcloglog()
    invlogit()
    ln()
-   lnfact()  // obsolete
+   lnfact()  // obsolete in Stata 10 
    lnfactorial()
    lngamma()
    log()
@@ -2269,7 +2297,7 @@ set trace off
    I()
    inv()
    invsym()
-   issym()
+   issym() // obsolete in Stata 10 
    issymmetric()
    J()
    matmissing()
@@ -2281,7 +2309,7 @@ set trace off
    rownumb()
    rowsof()
    sweep()
-   syminv()
+   syminv() // obsolete in Stata 10 
    trace()
    vec()
    vecdiag()
@@ -2302,7 +2330,7 @@ set trace off
    filewrite()
    float()
    fmtwidth()
-   group()
+   group() // obsolete in Stata 10 
    has_eprop()
    inlist()
    inrange()
@@ -2320,7 +2348,7 @@ set trace off
    minint()
    minlong()
    missing()
-   r(this should not really highlight)
+   r(this should not really highlight) // bad
    recode()
    replay()
    return()
@@ -2343,7 +2371,7 @@ set trace off
 	rnormal()
 	rpoisson()
 	rt()
-   uniform()
+   uniform() // obsolete in Stata 10 
 	runiform()
    runiformint() // new in Stata 14
    rweibull()    // new in Stata 14
@@ -2363,7 +2391,7 @@ set trace off
    binomialp()
    binomialtail()
 
-   binorm()
+   binorm() // obsolete in Stata 10 
    binormal()
 
    // cauchy new in Stata 15
@@ -2459,7 +2487,7 @@ set trace off
 
    invnibeta()
 
-   invnorm()
+   invnorm()           // obsolete in Stata 10 
    invnormal()
 
    invnt()             // new in Stata 14 
@@ -2517,9 +2545,9 @@ set trace off
    nibeta()
  
    // normal, log-normal, bynormal
-   norm()  /* obsolete in Stata BUT mata function*/
+   norm()  // as mata function, OK, but obsolete in Stata --- still highlights
    normal()
-   normden()
+   normden()  // obsolete in Stata 10 
    normalden()
 
    npnchi2()
@@ -2573,8 +2601,8 @@ set trace off
    rtrim()   // obsolete in Stata 14 
    soundex()
    soundex_nara()
-   strcat() // no highlight; fake entry in manual
-   strdup() // no highlight; fake entry in manual
+   strcat() // bad; fake entry in manual
+   strdup() // bad; fake entry in manual
    string()
    // new in Stata 14: -str- prefix for many string functions 
    stritrim() 
@@ -2700,7 +2728,7 @@ set trace off
    // graph manipulation skipped as section; pieces already in sections
    
    graph matrix
-   graph matrix foo // oops, this is bad
+   graph matrix foo 
 
    /* these /should/ be previous testing lines, since they are documented in other */
    /*  manuals. Still... they are repeated here */
@@ -2738,11 +2766,13 @@ set trace off
    estat acplot
    estat aroots
 
+   // begin obsolete block 
    varfcast graph
    varirf graph
    varirf ograph
    varirf cgraph
-
+   // end obsolete block
+   
    fcast graph
    varstable
    vecstable
@@ -2756,7 +2786,7 @@ set trace off
    strate
    ltable
    stci
-   stphtest
+   stphtest  // obsolete in Stata 9
    stphplot
    stcoxkm
    estat phtest
@@ -2769,7 +2799,6 @@ set trace off
    lroc
    lsens
 
-   // !! come back to check when all done
    irtgraph icc
    irtgraph tcc
    irtgraph iif
@@ -2798,7 +2827,7 @@ set trace off
 
    marginsplot
    bayesgraph
-   power, graph 
+   power, graph // incomplete
    tabodds
    teffects overlap
    npgraph
@@ -2888,7 +2917,7 @@ set trace off
    twoway pcbarrow
 
    two pcarrowi
-   tw pcbarrowi // turns out this never existed
+   tw pcbarrowi // bad; turns out this never existed
 
    two pccapsym
    twoway pci
@@ -3102,7 +3131,7 @@ set trace off
    mi impute regress
 
    mi imp truncreg // new in Stata 12
-   mi impute foobar // technically ok if foobar is a user method
+   mi impute foobar // incomplete but technically ok if foobar is a user method
 
    mi merge // incomplete
    mi merge 1:1
@@ -3223,7 +3252,7 @@ set trace off
    /* now ordered by the manual */
    /* omnibus -cluster- entry ignored */
 
-   clustermat
+   clustermat // incomplete
    clustermat s
    clustermat singlelinkage
    clustermat a
@@ -3233,7 +3262,7 @@ set trace off
    clustermat wav
    clustermat waveragelinkage
    clustermat med
-   clustermat `foo'
+   clustermat `foo' // incomplete --- good? bad?
    clustermat medianlinkage
    clustermat cent
    clustermat centroidlinkage
@@ -3241,7 +3270,7 @@ set trace off
    clustermat wardslinkage
    /* end clustermat commands */
 
-   cluster 
+   cluster // incomplete
    cluster dend
    cluster dendrogram
    /* cluster tree is a synonym for cluster dendogram */
@@ -3266,7 +3295,7 @@ set trace off
    cluster wav
    cluster waveragelinkage
    cluster med
-   cluster `foo'
+   cluster `foo' // incomplete
    cluster medianlinkage
    cluster cen
    cluster centroidlinkage
@@ -3430,9 +3459,13 @@ set trace off
    mvtest norm
    mvtest normality
    
-   /* score is now obsolete */
-   sco scor score
-
+   /* score is obsolete as of Stata 9 */
+   // begin obsolete block 
+   sco
+   scor
+   score
+   // end obsolete block
+   
    pca
    pcamat
    /* pca postestimation */
@@ -3465,7 +3498,7 @@ set trace off
    scoreplot
    loadingplot
 
-   greigen /* obsolete in Stata 9 */
+   greigen // obsolete in Stata 9
    scree // listed as synonym for -screeplot- in Stata 13 manual
    screeplot
 
@@ -3547,7 +3580,7 @@ set trace off
    classutil dir
    classutil cdir
    classutil which
-   classutil `foo' // fails on purpose
+   classutil `foo' // bad ? good?
 
    /* confirm commands */
    conf e
@@ -3561,11 +3594,11 @@ set trace off
    conf date forma
 
    /* confirm ts was replaced by confirm date in Stata 10,  */
-   conf ts format
+   conf ts format // obsolete in Stata 10 
 
    conf name
    confi names
-   confirm int number // should fail---no abbrev allowed for -integer-
+   confirm int number // bad ---no abbrev allowed for -integer-
    confir integer n
    conf n
    conf num
@@ -3575,10 +3608,10 @@ set trace off
    conf sca
    conf scalar
 
-   confirm `foo' // won't confirm because of need for subcommand
+   confirm `foo' // incomplete, bad? good?
    confirm numeric var // ok
-   confirm numeric var() // fails
-   confirm numeric `var' // fails --- good? bad?
+   confirm numeric var() // should fail
+   confirm numeric `var' // should fail --- good? bad?
 
    conf new v
    conf numeric va
@@ -3594,7 +3627,7 @@ set trace off
    confirm str244 var
    confirm str455 var
    confirm str2045 var
-   confirm str2046 var // fails
+   confirm str2046 var // should fail
    confirm strL var
 
    continue
@@ -3728,8 +3761,8 @@ set trace off
    /* interface */
    c(dockable)
    c(dockingguides)
-   c(floatresults) // obsolete in Stata 10 or so
-   c(floatwindows) // obsolete in Stata 10 or so
+   c(floatresults) // obsolete in Stata 8 or so
+   c(floatwindows) // obsolete in Stata 8 or so
    c(locksplitters)
    c(persistfv)  // obsolete in Stata 12
    c(persistvtopic) // obsolete in Stata 12
@@ -3748,7 +3781,7 @@ set trace off
    c(use_atsui_graph) // obsolete in Stata 11 
    c(linegap)
    c(scrollbufsize)
-   c(varlabelpos) // looks to be obsolete in Stata 11
+   c(varlabelpos) // obsolete in Stata 11, it seems
    c(maxdb)
    c(smalldlg)  // obsolete in Stata 10 
    c(xptheme)   // obsolete in Stata 10 
@@ -3759,8 +3792,8 @@ set trace off
    c(scheme)
    c(printcolor)
    c(copycolor)
-   c(macgphengine)
-   c(piccomments)
+   c(macgphengine) // obsolete in Stata 9 [?]
+   c(piccomments)  // obsolete in Stata 9 [?]
 
    /* efficiency */
    c(adosize)
@@ -3841,52 +3874,50 @@ set trace off
 #d cr
 #delimit ;
 
-   this is another command;
-   this is fine
-     this is fine, too;
-   this is ok;
+   regress foo bar;
+   regress
+     foo bar;
+   logistic bar foo;
+   
 #delimit cr
-   this is ok /// this should look like a comment
-     this is indented as a continuation
-   here is something // this is a comment
-   this is fine
+   regress foo bar /// this should look like a comment
+     , someopt(eek)
+   logistic bar foo // this is a comment
+   ereturn list
    
 #delimit ;
    
-   this is funny?;
-   this
+   ologit ohmy;
+   mlogit
      
-     /* this */
-     command
-     continuation;
+     /* comment mid-command */
+     somevar
+     continuationvar;
    
-   this is a test /// this is a comment
-     this is not a comment /// some more comments
-     this is fine!;
+   areg /// this is a comment
+     not_a_comment /// some more comments
+     more_continuation;
    
-   this is OK;
+   describe;
    
-   commands 
-     this should behave as a continuation?;
-   this is a new line;
+   summarize 
+     , detail should behave as a continuation?;
+   summarize;
    if this==that {;
-      this is an if clause
+      summarize
         another continuation;
-      };  
-   foo;       glue; silly;
-   this is a continuation, it should indent properly
-     this is ok;
+      }; 
+   summ;       des; tabulate bleen; // impossible-to-fix non-highlighting
    
    if this | that {;
-      indent;
+      regress should indent;
       }; 
-   whooie!
-     continuation;
-   
+   logit should_be_new!
+     continuation;   
    
 #delim cr
    
-   this "#delim ;" is inside quotations, and hence is invalid
+   display this "#delim ;" is inside quotations, and hence is invalid
 
    if {
       test
@@ -3930,9 +3961,9 @@ set trace off
    display _r(fuggy)
    display _request(jiminy)
    display _char(4)
-   display in blue
-   display in red
-   display in yellow
+   display in blue    // obsolete in Stata 7[?]
+   display in red     // obsolete in Stata 7[?]
+   display in yellow  // obsolete in Stata 7[?]
 
 
    /* dyndoc tags; new in Stata 15 */
@@ -3947,9 +3978,9 @@ set trace off
    <<dd_display:>>
    <<dd_display: %4.3f 1.23>>
 
-   // for dd_grah, there are too many options to bother highlighting
+   // for dd_graph, there are too many complicated options to bother highlighting
    <<dd_graph>> // should fail
-   <<dd_graph:fooey>> // fooey should not highlight
+   <<dd_graph:fooey>> // bad: fooey should not highlight
    <<dd_graph:  saving() alt() height() replace>>
    
    <<dd_ignore>>
@@ -3977,7 +4008,7 @@ set trace off
    ereturn mat freen
    eret matrix
    eretu clear
-   ereturn `foo' // should fail
+   ereturn `foo' // should fail good? bad?
    eretur li
    ereturn list
    eret post
@@ -3998,12 +4029,12 @@ set trace off
    _estimat dir
    _estimate clear
    _estimates drop
-   _estimates `foo' // fails...should it?
+   _estimates `foo' // should fail...should it?
    
    e // why is this a valid abbrev?
    exit
 
-   file // not complete
+   file // incomplete
    file open
    file r
    file read
@@ -4059,23 +4090,23 @@ set trace off
    gettoken (local) bleen (local) bling : how
    qui gettoken (local) bleen (local) bling : how
    by foo: gettoken (local) bleen (local) bling : how
-   nothing good gettoken (local) bleen (local) bling : how
+   nothing good gettoken (local) bleen (local) bling : how // should fail
 
-   if foo fuggy // because of the missing brace 
-   if `this' that
+   if foo fuggy // should fail because of the missing brace 
+   if `this' that // should fail again because of missing brace
    if `those' {
-      something
+      display "something"
       }
    if foo {
-      fuggy
+      display "urf"
       }
-   else `fortuna' // missing right brace
-   else frantabulous
+   else `fortuna' // should fail: missing right brace
+   else frantabulous // should fail, but perhaps should not
    else {
-      frantabulous
+      display "frantabulous"
       }
    // should not highlight as command
-   bleen else bling
+   bleen else bling // bad
 
    include somefile.doh
 
@@ -4089,7 +4120,7 @@ set trace off
    global `l`fooie''
    display $fooie
    display $`bleen' // skip the highlight? 
-   lo hmm // should be bad, because minabbrev is loc
+   lo hmm // should fail, because minabbrev is loc
    loc ``ooie''
    local fooie
    tempvar ding
@@ -4101,12 +4132,12 @@ set trace off
    /* right */
    loc ++witch
    local --is
-   /* wrong --- will highlight with obsolete */
-   loc which--
-   local wrong++
+   /* wrong---since forever due to parsing bug for local macros */
+   loc which--   // assigns -- to which
+   local wrong++ // assigns ++ to wrong
    /* right, though this points to the need for highlighting operators */
-   display `foo++'
-   display `++foo'
+   display `foo++'  // shows value of foo, then increments foo
+   display `++foo'  // increments foo, then shows it
    display `--foo'
    display `--`foo''
    display `+++foo' // wrong
@@ -4150,7 +4181,7 @@ set trace off
    local foo: sysdir SITE
    global blah: sysdir PLUS
    local foo: sysdir PERSONAL
-   local bad: sysdir OHNO  // should not highlight
+   local bad: sysdir OHNO  // should fail on OHNO
    gl h : env
    global h : environment
    loc h : e(scalars)
@@ -4162,7 +4193,7 @@ set trace off
    gl h: r(matrices)
    global h: r(functions)
    loc h: s(macros)
-   loc h: s(functions)  // should not highlight
+   loc h: s(functions)  // should fail because s(functions) no good
    global h: all globals
    global h: all scalars
    loc h: all matrices
@@ -4224,10 +4255,12 @@ set trace off
    local h : subinstr loc ho
    local h : subinstr local
    /* these have become undocumented  */
+   // begin obsolete block
    local h : tempv
    local h : tempvar
    local h : tempf
    local h : tempfile
+   // end obsolete block
    
    /* macro lists */
 
@@ -4249,7 +4282,7 @@ set trace off
    /* ahh the macros are over */
 
    makecns a
-   matcproc a b // should not highlight because 3 matrices are needed
+   matcproc a b // bad: 3 matrices are needed
    matcproc a b c
 
    marksample hooie // hooie is a macro name
@@ -4272,8 +4305,8 @@ set trace off
    matrix vecaccum matt
 
    /* not listed but still accepted */
-   matr makeCns foo // should be obsolete 
-   matri dispCns // should be obsolete
+   matr makeCns foo // obsolete, or rather should be 
+   matri dispCns // obsolete, or rather should be
 
    /* dangerous keyword highlighting which is unavoidable */
    mat def foo
@@ -4375,7 +4408,12 @@ pause "fuggy"
    pr l fooie
    program list fooie
 
-   projman projmana projmanag projmanage projmanager // New in Stata 14 or so
+   // new in Stata 14 (or maybe 14.1)
+   projman
+   projmana
+   projmanag
+   projmanage
+   projmanager 
 
    // putdocx new in Stata 15
    putdocx begin
@@ -4405,14 +4443,14 @@ pause "fuggy"
    putpdf describe
    putpdf save
    putpdf clear
-   putpdf append // should not highlight
+   putpdf append // should fail; not legal
 
-   qui blah
+   qui regress
    quietly {
-      n bling
-      noisily blang
+      n describe
+      noisily des
       }
-   nois : foo
+   nois : ologit
    set ou p
    set output proc
    set output i
@@ -4425,7 +4463,7 @@ pause "fuggy"
    _retur restore
    _return drop
    _return dir
-   _return `foo'
+   _return `foo' // should fail, good? bad?
 
    // return and its relatives
    return `foo' // highlights like mata
@@ -4579,7 +4617,7 @@ pause "fuggy"
    {hilite:of the day}
    {hi}
    {hi:how are you}
-   {hil:should not work}
+   {hil:should not work} // should fail
 
    /* syntax 2 & 3 */
    {ul on}
@@ -4601,7 +4639,7 @@ pause "fuggy"
    {dup `foo':some}
    {dup bogus:some} // should fail 
 
-   {c 666}
+   {c 666} // should fail
    {char 333}
    {char bogus}
 
@@ -4661,18 +4699,18 @@ pause "fuggy"
    {browse fooey:click}
    {view fooey}
    {view fooey:click}
-   {view_d fail}
+   {view_d fail}  // should fail
    {view_d:hahah}
-   {manpage fail}
+   {manpage fail} // should fail
    {manpage SVY 99}
-   {manpage R notquite}
+   {manpage R notquite} // should fail
    {manpage P:666}
    
    {manpage docs:awfully unixy}
    {mansection SEM bleen}
-   {mansection dopey:fail}
+   {mansection dopey:fail} // should fail
    {mansection P:haha}
-   {manlink hahahah} // should not work
+   {manlink hahahah} // should fail
    {manlinki R summarize}
    
    {news:is bad}
@@ -4709,7 +4747,7 @@ pause "fuggy"
    // dlgtab is a pain b/c of 1 or 2 possible numbers
    {dlgtab 34:fooey}
    {dlgtab 4 2: hello} // should change numbers to variable-face
-   {dlgtab 1 2 3: fails}
+   {dlgtab 1 2 3: fails} // should fail
    {dlgtab : fooey}
    {...}
    {col bogus} // should fail 
@@ -4748,10 +4786,10 @@ pause "fuggy"
    {p2col 1 2 3} // should fail
    {p2col 1 2 3 4:something goes here}
    {p2col: something goes here}
-   {p2col 1 2:this is bad}
+   {p2col 1 2:this is bad} // should fail
    {p2line 1 2}
    {p2line}
-   {p2line 1 2 `bad'}
+   {p2line 1 2 `bad'} // should fail good? bad?
    {p2colreset}
 
    {synoptset}
@@ -4827,6 +4865,7 @@ pause "fuggy"
    /* no attempt to get this to fontify properly, sadly enough, because there really is no grammar to the syntax statement */
    syntax
 
+   /*
    varlist
    varname
    newvarlist
@@ -4837,12 +4876,13 @@ pause "fuggy"
    in
    using
    options
+   */
 
    /* back to things I can handle */
    sysdir
    sysdir l
    sysdir list
-   sysdir set
+   sysdir set  // incomplete
    sysdir set BASE
    sysdir set STATA
    sysdir set SITE
@@ -4850,7 +4890,7 @@ pause "fuggy"
    sysdir set PLUS
    sysdir set PERSONAL
    sysdir set OLDPLACE
-   sysdir set NOGOOD
+   sysdir set NOGOOD // should fail
    
    personal
    personal dir
@@ -4873,9 +4913,12 @@ pause "fuggy"
    timer list 55
    timer off // should fail 
 
-   token tokeni tokeniz tokenize
+   token
+   tokeni
+   tokeniz
+   tokenize
 
-set trace // should be incomplete
+set trace // incomplete
 set tr on
 set trace off
    /* perhaps should add numbers as trailing argument. Some other day. */
@@ -4904,19 +4947,19 @@ set trace off
 vers 8
 version 12: fooie
 versi 15: aloha
-versio 18: howdy // should fail for a few years
+versio 23: howdy // should fail for a few years
    viewsource
 
    while foo {
       this is some stuff
       }
-   /* window commands... were moved out of the manual before Stata 9*/
+   /* window commands... were moved out of the manual before Stata 9 */
    /* put back in the manual in Stata 13 */
    /* platform dependencies not highlighted */
-   window
+   window // incomplete
    win fo
    window fopen
-   win
+   win   // incomplete
    win fs
    window fsave
 
@@ -4929,7 +4972,7 @@ versio 18: howdy // should fail for a few years
    win man prefs default
    win man update variable // obsolete in Stata 13 
    win man associate // windows only
-   win man maintitle // not complete, but last word is indefinite 
+   win man maintitle // incomplete, but last word is indefinite 
    window man maintitle "fooey" // unix and windows
    windo manag maintitle reset // unix and windows
    windo mana docklabel // mac only 
@@ -4963,11 +5006,13 @@ versio 18: howdy // should fail for a few years
    window menu add_recentfiles
 
    /* obsolete?? */
+   // begin obsolete block 
    window menu popout
    window menu set
    window menu append popout
    window menu append   string
-
+   // end obsolete block 
+   
    window push
    
    windo stop // incomplete
@@ -4978,7 +5023,7 @@ versio 18: howdy // should fail for a few years
 
    /* from the [PSS] manual */
    /* skipping omnibus -power- section */
-   power
+   power // incomplete
    power onemean
 
    power twomeans
@@ -5093,7 +5138,7 @@ versio 18: howdy // should fail for a few years
    sem
 
    // this is not as ornate as it could be
-   ssd
+   ssd  // incomplete
    ssd init
    ssd set
    ssd addgr
@@ -5149,7 +5194,7 @@ versio 18: howdy // should fail for a few years
    spmatrix import foobar using ...
 
    spmatrix matafromsp  amatrix avector =
-   spmatrix matafromsp notenough 
+   spmatrix matafromsp notenough // incomplete  
 
    spmatrix normalize  amat
    
@@ -5202,7 +5247,7 @@ versio 18: howdy // should fail for a few years
    /* end stcox postestimation */
    stcrr stcrre stcrreg
 
-   stphtest
+   stphtest // obsolete in Stata 9 
    stcurve
 
    stdescribe
@@ -5216,12 +5261,14 @@ versio 18: howdy // should fail for a few years
 
    stir
    /* stpower commands (obsolete as of Stata 14) */
+   // begin obsolete block
    stpow cox
    stpower cox
    stpowe exp
    stpowe exponential
    stpower log
    stpower logrank
+   // end obsolete block 
    
    stptime
 
@@ -5338,8 +5385,8 @@ versio 18: howdy // should fail for a few years
    svy: tpoisson   // new in Stata 14 
    svy: zinb
    svy: zip
-   svy: ztnb
-   svy: ztb
+   svy: ztnb // obsolete in Stata 11 ?
+   svy: ztb  // obsolete in Stata 11 ?
 
    svy: ivprobit
    svy: ivregress
@@ -5350,8 +5397,7 @@ versio 18: howdy // should fail for a few years
    svy: heckpoisson // new in Stata 15
    svy: heckprob
    svy: heckprobit
-   /* ivreg outdated as of Stata 10 */
-   svy: ivreg
+   svy: ivreg  // obsolete in Stata 10 
 
    /* mlmm new in Stata 14 */
    svy: mecloglog
@@ -5412,7 +5458,8 @@ versio 18: howdy // should fail for a few years
    svy: tab
    svy: tabul
    svy: tabulate
-   svydes svydescribe
+   svydes
+   svydescribe
    svymarkout
    svyset
 
@@ -5428,7 +5475,7 @@ versio 18: howdy // should fail for a few years
 
    /* stteffects in order of sections, not intro, leave out postest */
    /* stteffects new in Stata 14 */
-   stteffects
+   stteffects // incomplete 
    stteffects ipw
 
    stteffects ipwra
@@ -5438,13 +5485,13 @@ versio 18: howdy // should fail for a few years
    stteffects wra
 
    /* tebalance new in Stata 14 */
-   tebalance
+   tebalance // incomplete
    tebalance box
    tebalance density
    tebalance overid
    tebalance summarize
    // here the omnibus and the sections are both in alphabetical order
-   teffects
+   teffects // incomplete
    teffects aipw
    teffects ipw
    teffects ipwra
@@ -5458,7 +5505,7 @@ versio 18: howdy // should fail for a few years
    arch
    arfima
    estat acplot
-   irf
+   irf // incomplete 
    psdensity
    
    arima
@@ -5492,8 +5539,8 @@ versio 18: howdy // should fail for a few years
 
    // forecast new in Stata 13
    // skipping omnibus forecast section
-   fore
-   forecast
+   fore // incomplete 
+   forecast // incomplete 
    
    fore ad
    forecast adjust
@@ -5533,16 +5580,18 @@ versio 18: howdy // should fail for a few years
    forecast solve
    
    // -haver- replaced by -import haver- in Stata 13
+   // begin obsolete block 
    haver // incomplete
    haver des
    haver describe
    haver use
-
+   // end obsolete block
+   
    /* irf commands ... starting Stata 8.2 */
    // skipping irf section
-   irf
-   irf graph 
-   irf `foo' 
+   irf        // incomplete 
+   irf graph  // incomplete 
+   irf `foo'  // incomplete 
 
    irf a
    irf add
@@ -5560,16 +5609,18 @@ versio 18: howdy // should fail for a few years
    irf describe
 
    /* irf dir is dead, even under version control? */
+   // begin obsolete block 
    irf di
    irf dir
-
+   // end obsolete block
+   
    irf drop
-   irf erase
+   irf erase // obsolete in Stata 9 ?
 
-   irf g
+   irf g // incomplete
    irf g irf
    irf gr oirf
-   irf gr foo // foo should fail
+   irf gr foo // should fail; foo not legal
    irf g dm
    irf gr cirf
    irf gr coirf
@@ -5586,8 +5637,8 @@ versio 18: howdy // should fail for a few years
 
    irf set
    
-   irf t
-   irf table
+   irf t       // incomplete 
+   irf table   // incomplete 
    irf t irf
    irf table oirf
    irf table dm
@@ -5597,19 +5648,20 @@ versio 18: howdy // should fail for a few years
    irf tab fevd
    irf tab sirf
    irf tab sfevd
-   irf tab foo // foo should fail
+   irf tab foo // should fail: foo not legal
 
    // mgarch section skipped
-   mgarch
+   mgarch  // incomplete 
    mgarch ccc // new in Stata 12 from here...
    mgarch dcc
    mgarch dvech 
    mgarch vcc // to here....
 
-   mswitch  // new in Stata 14 
+   // mswitch new in Stata 14
+   mswitch     // incomplete 
    mswitch dr
    mswitch ar
-   mswitch fails
+   mswitch should fail // should fail: not legal
    
    estat transition   // new in Stata 14 
    estat duration     // new in Stata 14 
@@ -5626,11 +5678,13 @@ versio 18: howdy // should fail for a few years
 
    rolling
 
+   // begin obsolete block (Stata 9)
    dwstat
    durbina
    bgodfrey
    archlm
-
+   // end obsolete block
+   
    sspace
 
    threshold  // new in Stata 15
@@ -5639,9 +5693,9 @@ versio 18: howdy // should fail for a few years
    tsappend, add(4) last(foo) tsfmt(string)
    tsfill
 
-   tsfilter 
+   tsfilter // incomplete 
 
-   tsfilter `foo' // should really decide what to do with commands
+   tsfilter `foo' // should fail, good? bad?
    //  allowing subcommands
    tsfilter bk // new in Stata 12 to ...
    tsfilter bw
@@ -5661,9 +5715,9 @@ versio 18: howdy // should fail for a few years
    tsrevar
    tsset
 
-   tssmooth   
-   tssmooth `foo'
-   tssmooth breeble // should tssmooth unhighlight?
+   tssmooth   // incomplete 
+   tssmooth `foo'  // should fail good? bad?
+   tssmooth breeble // should fail; breeble no good
    
    tssmooth d
    tssmooth dexponential
@@ -5690,7 +5744,7 @@ versio 18: howdy // should fail for a few years
    /* these seem to be common to var and svar */
    fcast compute
    fcast graph
-   irf
+   irf  // incomplete 
    // could also be below varbasic below
    vargranger
    varlmar
@@ -5737,11 +5791,12 @@ versio 18: howdy // should fail for a few years
    
    /* stuff from the crossectional timeseries book */
    /* now called the [XT] longitudinal/panel data book */
-
-   /* iis, tis obsolete as of Stata 10 */
+   
+   // begin obsolete block (Stata 10)
    iis
    tis
-
+   // end obsolete block
+   
    quadchk
 
    xtabond
@@ -5753,11 +5808,12 @@ versio 18: howdy // should fail for a few years
 
    xtcloglog
 
-   xtcointest // new in Stata 15
+   // new in Stata 15
+   xtcointest // incomplete 
    xtcointest kao
    xtcointest pedroni
    xtcointest westerlund
-   xtcointest oops
+   xtcointest oops // should fail: illegal
 
    xtdata
 
@@ -5773,10 +5829,10 @@ versio 18: howdy // should fail for a few years
    xtgee
    estat wcorrelation
 
-   xtcorr  // estat wcorrelation replaced xtcorr 
+   xtcorr  // obsolete in Stata 9 
    xtgls
 
-   xthaus
+   xthaus // obsolete in Stata 9 
    xthtaylor
 
    xtintreg
@@ -5787,10 +5843,12 @@ versio 18: howdy // should fail for a few years
 
    xtlogit
 
+   // begin obsolete block as of Stata 13
    xtmelogit
    xtmepoisson
    xtmixed
-
+   // end obsolete block
+   
    xtnbreg
 
    xtologit
@@ -5824,7 +5882,7 @@ versio 18: howdy // should fail for a few years
 
    xttobit
 
-   xtunitroot
+   xtunitroot  // incomplete 
    xtunitroot llc   
    xtunitroot ht
    xtunitroot breitung
@@ -5836,7 +5894,7 @@ versio 18: howdy // should fail for a few years
 
 
    /* now for [M] Mata content, out of order */
-
+@@
    /* first - all the reserved words */
    // these *should* have proper highlighting, but the mata
    //   highlighting is not very sophisticated, yet
