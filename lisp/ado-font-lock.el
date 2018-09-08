@@ -88,8 +88,7 @@ more easily. What a pita.")
    "\\)[ \t]*"
    )
   "start-of-command regexp to try to keep mid-line commands from highlighting.
-Meant for typical commands which could allow a prefix command.
-Not implemented as much more than an experiment. ")
+Meant for typical commands which could allow a prefix command. " )
 
 (defconst ado-start-cmd-no-prefix-regexp
   (concat
@@ -97,9 +96,8 @@ Not implemented as much more than an experiment. ")
    ado-prefix-any-regexp
    "[ \t]*"
    )
-  "start-of-command regexp for commands which do _not_ allow a prefix command.
-Not implemented as much more than an experiment. ")
-
+  "start-of-command regexp for commands which do _not_ allow a prefix command." )
+ 
 (defconst ado-start-cmd-must-start-line-regexp "^[ \t]*"
   "start-of-command regexp for commands which don't allow capture, noisily, etc.
 Meant for commands which do _not_ allow a prefix command.
@@ -8366,6 +8364,46 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
+
+	;; fmm # prefix
+	;; first, incomplete fmm
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(fmm\\)\\>"
+	  "[ \t]+"
+	  "\\([1-9][0-9]*\\)"
+	  "[ \t]*:"
+	  )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(fmm\\)\\>"
+	  "[ \t]+"
+	  "\\([1-9][0-9]*\\)"
+	  "[ \t]*:[ \t]*"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "betareg"
+		   "cloglog"
+		   "glm"
+		   "intreg" "ivregress"
+		   "logit"
+		   "mlogit"
+		   "nbreg"
+		   "ologit" "oprobit"
+		   "poisson" "probit"
+		   "regress"
+		   "streg"
+		   "tobit" "tpoisson" "truncreg"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face t)
+	 '(3 ado-builtin-harmless-face t))
+		 
 
 	;; forecast commands
 	(list
