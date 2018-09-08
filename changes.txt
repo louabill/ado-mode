@@ -8,6 +8,8 @@ Version History:
 
 * Put in embarrassing omission of 4 erm commands
 
+* Put in embarrassing omission of fmm prefix (had svy: fmm: but not fmm:)
+
 * Cleaned up syntax_tester.ado to make it easier to pull all possible
   Stata commands from it.
 
