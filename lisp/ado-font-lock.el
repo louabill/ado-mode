@@ -5,7 +5,7 @@
 ;; Maintainer: Same <brising@alum.mit.edu>
 ;;             URL: http://louabill.org/stata
 ;; Keywords: ado-mode
-;; Version:  1.15.1.5 of July 27, 2018
+;; Version:  1.15.1.5 of September 8, 2018
 
 ;; This file is not part of GNU Emacs.
 
