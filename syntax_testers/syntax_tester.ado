@@ -1,4 +1,4 @@
-*! version 1.15.0.0 September 8, 2018 @ 11:10:53
+*! version 1.15.0.0 September 8, 2018 @ 13:14:14
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -5894,7 +5894,7 @@ versio 23: howdy // should fail for a few years
 
 
    /* now for [M] Mata content, out of order */
-@@
+
    /* first - all the reserved words */
    // these *should* have proper highlighting, but the mata
    //   highlighting is not very sophisticated, yet
@@ -6088,7 +6088,7 @@ version /* used elsewhere */
    asarray_notfound()
 
    AssociativeArray()
-   // seems strange to highlight class methods @@
+   // seems strange to highlight class methods
    A.reinit()
    A.put()
    A.get()
@@ -6939,7 +6939,7 @@ version /* used elsewhere */
    optimize_init_evaluator()
    optimize_init_evaluatortype()
    optimize_init_negH()
-   optimize_init_type() // looks to be obsolete in Stata 11
+   optimize_init_type() // obsolete in Stata 11 [?]
    optimize_init_params()
    optimize_init_nmsimplexdeltas()
    optimize_init_argument()
@@ -7506,9 +7506,11 @@ version /* used elsewhere */
    ceil()
    round()
 
+   // begin obsolete block (Stata 10.1)
    uniform()
    uniformseed()
-
+   // end obsolete block 
+   
    uniqrows()
    
    unitcircle()
@@ -7612,6 +7614,7 @@ version /* used elsewhere */
 
   
    /* macros showing up inside other constructions */
+   // begin ignore block
    local ding `r(foo)'
    local dong "this is `bramble' and this is `r(foo)'"
    display as text "this is `r(foo)'"
@@ -7893,7 +7896,8 @@ version /* used elsewhere */
 
 
    The command smcl2do is user-written, so it will not highlight if you do not have
-      it installed, but is will highlight otherwise (no easy way to fix efficiently)
+   it installed, but is will highlight otherwise (no easy way to fix efficiently)
+   // end ignore block
 
    
 end
