@@ -117,7 +117,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
   (concat "\\(" ado-stata-name-regexp "\\)")
   "same as \\[ado-stata-name-regexp] but bound within \\( and \\) for highlighting")
 
-(defconst ado-stata-local-name-regexp "[[:graph:]_]+"
+(defconst ado-stata-local-name-regexp "[[:alnum:]_`]+"
   "regexp for highlighting local macros")
   
 (defconst ado-stata-local-name-bound-regexp
