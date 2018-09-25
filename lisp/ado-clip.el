@@ -45,7 +45,7 @@ If what-code is
 As of yet, only -2, -1, and 0 actually are implemented."
   (interactive)
   (let ((mark-even-if-inactive nil)
-		(x-select-enable-clipboard t)
+		(select-enable-clipboard t)
 		)
 	(if (and mark-active t
 			 (not (= (region-beginning) (region-end))))
@@ -64,7 +64,7 @@ As of yet, only -2, -1, and 0 actually are implemented."
 			   (save-excursion
 				 (ado-end-of-command)
 				 (point)))
-			  (x-select-enable-clipboard t))
+			  (select-enable-clipboard t))
 		  (buffer-substring-no-properties start-here end-here)))
 	   ((= what-code 0) ;; grab entire command
 		(let ((end-here
@@ -94,7 +94,7 @@ by \\[ado-convert-semicolons], and the whitespace trimming
 by \\[ado-string-trim]."
 	(unless use-dofile
 	  (setq use-dofile "command"))
-	(let ((x-select-enable-clipboard t)
+	(let ((select-enable-clipboard t)
 		  (theString
 		   (if whole-buffer
 			   (ado-grab-something -2)
@@ -122,7 +122,7 @@ by \\[ado-string-trim]."
 (defun ado-other-to-clip (&optional where prefix suffix)
   "For putting things like 'search' and 'help' onto the clipboard.
 Made to be called from other programs only."
-  (let ((x-select-enable-clipboard t))
+  (let ((select-enable-clipboard t))
 	(if prefix (setq prefix (concat prefix " ")))
 	(if suffix (setq suffix (concat " " suffix)))
 	(message (concat prefix (ado-grab-something where) suffix))
