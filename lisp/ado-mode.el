@@ -1562,25 +1562,23 @@ working on regions."
   "Insert character and correct line's indentation."
   (interactive "P")
   (let (insertpos)
-    (if (and (not arg)
-	     (eolp)
-	     ado-auto-newline-flag)
-	(progn
+    (when (and (not arg)
+			   (eolp)
+			   ado-auto-newline-flag)
 	  (insert last-command-event)
 	  (ado-indent-line)
-	  (if ado-auto-newline-flag
-	      (progn
+	  (when ado-auto-newline-flag
 		(newline)
 		;; (newline) may have done auto-fill
 		(setq insertpos (- (point) 2))
-		(ado-indent-line)))
+		(ado-indent-line))
 	  (save-excursion
-	    (if insertpos (goto-char (1+ insertpos)))
-	    (delete-char -1))))
+		(if insertpos (goto-char (1+ insertpos)))
+		(delete-char -1)))
     (if insertpos
-	(save-excursion
-	  (goto-char insertpos)
-	  (self-insert-command (prefix-numeric-value arg)))
+		(save-excursion
+		  (goto-char insertpos)
+		  (self-insert-command (prefix-numeric-value arg)))
       (self-insert-command (prefix-numeric-value arg)))))
 
 (defun ado-newline ()
@@ -1604,13 +1602,13 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 		  (ado-indent-line)
 		  (unless ado-use-modern-split-flag
 			 (insert "*/")))
-	 (if ado-use-modern-split-flag
-		  (progn
-			 (insert " ///")
-			 (newline-and-indent))
-		(insert "/*")
-		(newline-and-indent)
-		(insert "*/"))  
+	(if ado-use-modern-split-flag
+		(progn
+		  (insert " ///")
+		  (newline-and-indent))
+	  (insert "/*")
+	  (newline-and-indent)
+	  (insert "*/"))  
 	 ))
 
 (defun ado-macify-selection-or-word (&optional stringify)
@@ -1618,22 +1616,21 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
   (interactive)
   (let (noregion popmark)
 	(unless (and transient-mark-mode mark-active)
-;;	(unless mark-active
 	  (if (condition-case nil
-				 (beginning-of-thing 'word)
-			  (error nil))
-			(progn
-			  (setq popmark 't)
-			  (mark-word))
-		 (setq noregion 't)))
+			  (beginning-of-thing 'word)
+			(error nil))
+		  (progn
+			(setq popmark 't)
+			(mark-word))
+		(setq noregion 't)))
 	(if noregion
-		 (progn
-			(insert "`'")
-			(forward-char -1))
-	  
-	  (save-excursion (goto-char (region-beginning)) 
-							(if stringify (insert "`\""))
-							(insert "`"))
+		(progn
+		  (insert "`'")
+		  (forward-char -1))
+	  (save-excursion
+		(goto-char (region-beginning)) 
+		(if stringify (insert "`\""))
+		(insert "`"))
 	  (goto-char (region-end)) 
 	  (insert "'")
 	  (if stringify (insert "\"'"))
@@ -1648,11 +1645,11 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
   "Puts full string delimiters around the selection. If nothing is selected, inserts full string delimiters at point."
   (interactive)
   (if (and transient-mark-mode mark-active)
-		(progn 
-		  (save-excursion (goto-char (region-beginning)) (insert "`\""))
-		  (goto-char (region-end)) (insert "\"'"))
-	 (insert "`\"\"'")
-	 (forward-char -2)))
+	  (progn 
+		(save-excursion (goto-char (region-beginning)) (insert "`\""))
+		(goto-char (region-end)) (insert "\"'"))
+	(insert "`\"\"'")
+	(forward-char -2)))
 
 (defun electric-ado-semi (arg)
   "Puts in extra newline if the semi-colon is the end-of-line delimiter"
@@ -1660,9 +1657,6 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
   (if (ado-delimit-is-semi)
       (electric-ado-brace arg)
     (self-insert-command (prefix-numeric-value arg))))
-
-;; here comes all the stuff for auto-highlighting!
-;;
 
 
 ;;; 1. need some way to highlight ^[ /t]*- lines with one background?
@@ -1685,13 +1679,12 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
   (interactive)
   (setq ado-signature-file
 		(read-file-name "Set ado signature file to: "
-		   (file-name-directory 
-			(expand-file-name
-			 (if (not ado-signature-file)
-				 (if (file-exists-p "~/.ado-signature")
-					 "~/.ado-signature")
-			   ado-signature-file)))))
-  )
+						(file-name-directory 
+						 (expand-file-name
+						  (if (not ado-signature-file)
+							  (if (file-exists-p "~/.ado-signature")
+								  "~/.ado-signature")
+							ado-signature-file))))))
 
 (defun ado-new-help-6 ()
   "Gets a boilerplate for writing help files for Stata 6 and earlier, then inserts the users name and allows editing. This is not complete, since it has trouble putting the proper signature at the bottom of the file. To make this work properly, have a variable which contains the name of the signature file or a .signature file."
@@ -1959,8 +1952,7 @@ being sure to include loop-inducing commands."
 		  (setq there (ado-balance-brace t))
 		(ado-beginning-of-command)
 		(unless (looking-at "[\t ]*\\(\\(for\\(each\\|\\(v\\|va\\|val\\|valu\\|value\\|values\\)\\)\\)\\|while\\)[\t ]+")
-		  (goto-char here))
-	  ))
+		  (goto-char here))))
   ))
 
 (defun ado-grab-block ()
