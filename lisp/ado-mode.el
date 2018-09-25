@@ -1056,8 +1056,7 @@ instead, which returns a value instead of setting a variable."
   "Shows what ado-mode thinks the file extension for the current
 buffer should be by running \\[ado-find-extension]."
   (interactive)
-	(message (concat "I think the extension is " (ado-find-extension))
-	))
+	(message (concat "I think the extension is " (ado-find-extension))))
 
 
 (defun ado-find-extension (&optional message)
@@ -1109,8 +1108,7 @@ To test this, try \\[ado-show-extension]."
   "Shows what ado-mode thinks the name of the edited file should be by
 running \\[ado-make-ado-name]."
   (interactive)
-  (message (ado-make-ado-name))
-  )
+  (message (ado-make-ado-name)))
 						  
 (defun ado-make-ado-name ()
   (interactive)
@@ -1185,10 +1183,9 @@ to help files in Stata 12 (and the initial buggy fix)."
 		(re-search-forward "{\\(bf\\|cmd\\|hi\\):[ \t]*\\([a-zA-Z_]+[a-zA-Z0-9_]*\\)\\b" nil t)
 		(setq full-name (mapconcat 'identity (split-string (match-string-no-properties 1 nil)) "_")))
 	   (t (error "Could not figure out help file name!"))
-	   )
-	  )
-	(concat full-name "." ado-extension))
-  )
+	   ))
+	(concat full-name "." ado-extension)
+	))
   
 (defun ado-find-help-name-start ()
   "Returns the point at which the command documented in a help file starts.
@@ -1220,20 +1217,19 @@ Stata versions 11 and 12."
 	(save-excursion
 	  (goto-char (point-min))
 	  (setq titlepos (search-forward "Title" nil t))
-	  (if titlepos
-		  (progn
-			;; search as far as "Title" to find {...:help !!!} for <= Stata 12 help
-			(goto-char (point-min))
-			(setq name-start 
-				  (re-search-forward "{\\(bf\\|cmd\\|hi\\):help[ \t]+" titlepos t))
-			(unless name-start
-			  ;; have stata 12-style help
-			  (goto-char titlepos)
-			  (setq syntaxpos (search-forward "Syntax" nil)) ;; want error if no Syntax
-			  (goto-char titlepos)
-			  (setq name-start
-					(re-search-forward "{cmd:[ \t]*" syntaxpos t)))
-			)))
+	  (when titlepos
+		;; search as far as "Title" to find {...:help !!!} for <= Stata 12 help
+		(goto-char (point-min))
+		(setq name-start 
+			  (re-search-forward "{\\(bf\\|cmd\\|hi\\):help[ \t]+" titlepos t))
+		(unless name-start
+		  ;; have stata 12-style help
+		  (goto-char titlepos)
+		  (setq syntaxpos (search-forward "Syntax" nil)) ;; want error if no Syntax
+		  (goto-char titlepos)
+		  (setq name-start
+				(re-search-forward "{cmd:[ \t]*" syntaxpos t)))
+		))
 	name-start
 	))
 
@@ -1244,13 +1240,13 @@ program define statement cannot be found, returns nil. Returns a mess if the
 program name is missing (need to fix this). Currently broken --- need to assess need."
   (let (name-start name-end)
     (save-excursion
-      (if (re-search-backward "^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+" 0 t) ;goes to most recent definition
-	  (progn
-	    (setq name-start (re-search-forward 
-			"^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+\\(de\\(f\\|fi\\|fin\\|fine\\)[ \t]+\\)*" nil t)
-		  name-end (re-search-forward "[a-zA-Z_]+[a-zA-Z0-9_]*\\b"))
+      (when (re-search-backward "^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+" 0 t) ;goes to most recent definition
+	    (setq name-start
+			  (re-search-forward 
+			   "^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+\\(de\\(f\\|fi\\|fin\\|fine\\)[ \t]+\\)*" nil t)
+			  name-end (re-search-forward "[a-zA-Z_]+[a-zA-Z0-9_]*\\b"))
 	    (buffer-substring-no-properties name-start name-end))
-	))))
+	)))
 
 (defun ado-show-local-name ()
   (interactive)
@@ -1264,7 +1260,7 @@ and indenting"
   (let ((beg (point)))
     (insert-file-contents file)
     (ado-indent-region beg (point))
-    ))
+	))
 
 (defun ado-insert-boilerplate (file-name &optional raw full-path)
   (if full-path
@@ -1286,12 +1282,11 @@ and indenting"
     (if the-name
 	(insert the-name)
       (error "Could not determine the name of the defining program"))
-    (if replace-flag
-	(progn
+    (when replace-flag
 	  (re-search-forward "append")
 	  (forward-word -1)
 	  (kill-word 1)
-	  (insert "replace")))
+	  (insert "replace"))
     (re-search-forward "{")
     (newline-and-indent)
     ))
@@ -1307,19 +1302,19 @@ and indenting"
 
 (defun ado-out-of-nested-comment (&optional top from-level)
   (interactive)
-  (let ((ppsexp (parse-partial-sexp 1 (point))) this-level )
+  (let ((ppsexp (parse-partial-sexp 1 (point)))
+		this-level)
     (if (numberp (setq this-level (nth 4 ppsexp)))
-	(if (or (not from-level) (and (<= from-level this-level)))
-	    (if (search-backward "/*" 1 t)
-		(if top (ado-out-of-nested-comment t)
-;		  (forward-char -1)
-		  (ado-out-of-nested-comment nil this-level)
-		  ))
+		(if (or (not from-level) (and (<= from-level this-level)))
+			(if (search-backward "/*" 1 t)
+				(if top (ado-out-of-nested-comment t)
+				  (ado-out-of-nested-comment nil this-level)
+				  ))
 ;	  (if (not top) (forward-char 1))
-	  )
+		  )
       (if top
-	  (if (search-backward "*/" (point-at-bol) t)
-	      (ado-out-of-nested-comment top)
+		  (if (search-backward "*/" (point-at-bol) t)
+			  (ado-out-of-nested-comment top)
 	    )))))
 
 (defun ado-show-depth ()
@@ -1334,11 +1329,9 @@ and indenting"
   (let (depth start ppsexp in-continuation (oddend (ado-line-starts-with-end-comment)))
     (save-excursion
       ;; look for line starting with a comment
-;;bug;; (save-excursion
-		(setq in-continuation (ado-beginning-of-command))
-;;bug;;		)
-      (setq ppsexp (parse-partial-sexp 1 (point)))
-      (setq depth (car ppsexp))
+	  (setq in-continuation (ado-beginning-of-command))
+	  (setq ppsexp (parse-partial-sexp 1 (point)))
+	  (setq depth (car ppsexp))
       (setq start (point))
       ;; oddities which might need unindenting
       (when (or oddend
@@ -1347,7 +1340,6 @@ and indenting"
 		(setq depth (1- depth)))
 	  (end-of-line)
 	  (setq depth (- depth (how-many "^[ \t]*\\(end$\\|end[ \t]+\\)" 1 (point))))
-	  ;;      (setq depth (- depth (how-many "^[ \t]*end$" 1 (point))))
 	  (beginning-of-line)
       ;; words which start blocks
 	  ;; need to be careful, because of program dir, drop, and list
@@ -1356,28 +1348,26 @@ and indenting"
       ;; words which end blocks
       (setq ppsexp (parse-partial-sexp start (point)))
       (if (numberp (nth 4 ppsexp))
-	  (list (+ depth (nth 4 ppsexp)) in-continuation)
-	(list depth in-continuation)))
+		  (list (+ depth (nth 4 ppsexp)) in-continuation)
+		(list depth in-continuation)))
       ))
 
 (defun ado-indent-region (&optional start end)
   (interactive)
   (let (endmark)
-    (if (and (null start) (null end))
-	(progn
+    (when (and (null start) (null end))
 	  (setq start (min (point) (mark)))
 	  (setq end (max (point) (mark))))
-      )
     (save-excursion
       (goto-char start)
       ;; Advance to first nonblank line.
       (beginning-of-line)
       (setq endmark (copy-marker end))
       (while (and (bolp) (not (eobp)) (< (point) endmark))
-	(skip-chars-forward " \t\n")
-	(ado-indent-line)
-	(forward-line 1)
-      ))))
+		(skip-chars-forward " \t\n")
+		(ado-indent-line)
+		(forward-line 1))
+	  )))
 
 (defun ado-indent-buffer ()
   (interactive)
@@ -1389,36 +1379,40 @@ and indenting"
 be customized using '\\[customize-group] ado-mode'."
   (interactive)
   (if ado-smart-indent-flag
-      (let (indent depth beg shift-amt endmark
-	    (pos (- (point-max) (point)))
-	    (watch-for-semi (ado-delimit-is-semi)))
-	(beginning-of-line)
-	(setq beg (point))
-	(cond ((and ado-delimit-indent-flag (looking-at "[ \t]*#d\\(e\\|el\\|eli\\|elim\\|elimi\\|elimit\\)?"))	;#delimits belong at delimit indent
-	       (setq indent ado-delimit-indent-column))
-	      ((and ado-comment-indent-flag
-		    (or (looking-at "^\\*") (looking-at "^*")))	;comments at start of line belong at comment indent
-	       (setq indent ado-comment-indent-column))
-	      ((and ado-debugging-indent-flag
-		    (or (looking-at "^[ \t]*pause")	
-			(looking-at "^[ \t]*set t\\(r\\|ra\\|rac\\|race\\)[ \t]+")))
-	       (setq indent ado-debugging-indent-column)) ; debugging at proper column (usually 0)
-	      (t (setq indent (* tab-width (car (setq depth (ado-find-depth)))))   ; regular indentation
-			 (if (nth 1 depth)
-				 (setq indent (+ indent ado-continued-statement-indent-spaces)))
-			 ))						  ; end of conditional statement
-	(skip-chars-forward " \t")
-	(setq shift-amt (- indent (current-column)))
-	(if (zerop shift-amt)
-	    (if (> (- (point-max) pos) (point))
-		(goto-char (- (point-max) pos)))
-	  (delete-region beg (point))
-	  (indent-to indent)
-	  ;; If initial point was within line's indentation,
-	  ;; position after the indentation.  Else stay at same point in text.
-	  (if (> (- (point-max) pos) (point))
-	      (goto-char (- (point-max) pos))))
-	shift-amt)))
+      (let (indent
+			depth
+			beg
+			shift-amt
+			endmark
+			(pos (- (point-max) (point)))
+			(watch-for-semi (ado-delimit-is-semi)))
+		(beginning-of-line)
+		(setq beg (point))
+		(cond ((and ado-delimit-indent-flag (looking-at "[ \t]*#d\\(e\\|el\\|eli\\|elim\\|elimi\\|elimit\\)?"))	;#delimits belong at delimit indent
+			   (setq indent ado-delimit-indent-column))
+			  ((and ado-comment-indent-flag
+					(or (looking-at "^\\*") (looking-at "^*")))
+			   (setq indent ado-comment-indent-column))
+			  ((and ado-debugging-indent-flag
+					(or (looking-at "^[ \t]*pause")	
+						(looking-at "^[ \t]*set t\\(r\\|ra\\|rac\\|race\\)[ \t]+")))
+			   (setq indent ado-debugging-indent-column)) ; debugging at proper column (usually 0)
+			  (t (setq indent (* tab-width (car (setq depth (ado-find-depth)))))   ; regular indentation
+				 (if (nth 1 depth)
+					 (setq indent (+ indent ado-continued-statement-indent-spaces)))
+				 ))						  ; end of conditional statement
+		(skip-chars-forward " \t")
+		(setq shift-amt (- indent (current-column)))
+		(if (zerop shift-amt)
+			(if (> (- (point-max) pos) (point))
+				(goto-char (- (point-max) pos)))
+		  (delete-region beg (point))
+		  (indent-to indent)
+		  ;; If initial point was within line's indentation,
+		  ;; position after the indentation.  Else stay at same point in text.
+		  (if (> (- (point-max) pos) (point))
+			  (goto-char (- (point-max) pos))))
+		shift-amt)))
 
 (defun ado-delimit-is-semi ()
   "Returns t if semicolons delimit commands, otherwise returns nil."
@@ -1467,7 +1461,9 @@ Fixing this might or might not happen in the future.
 
 Returns t if inside of a continued function, nil otherwise."
   (interactive)
-  (let ((in-continuation nil) (start-line (line-number-at-pos)) (skip-chars " \t"))
+  (let ((in-continuation nil)
+		(start-line (line-number-at-pos))
+		(skip-chars " \t"))
     (ado-out-of-nested-comment t)
     ;; first look backwards for either delimiter or delimit command
 	(if (= start-line 1)
