@@ -123,16 +123,14 @@ send2stata.scpt is stored. "
 						 (symbol-name system-type)
 						 (if (string= dothis "command")
 							 ", but the command is on the clipboard and you can paste it in the command window by hand"))))))
-   (t (error "Bad value for 'do-this' in ado-send-region-to-stata"))
-   )
+   (t (error "Bad value for 'do-this' in ado-send-region-to-stata")))
   ;; comeback cannot be done in applescript very well
   (cond
    ((string= system-type "darwin")
 	(if comeback
 		(if (> (shell-command (concat "open \"" (substring invocation-directory 0 (string-match "/Contents" invocation-directory)) "\"")) 0)
 			(message "had trouble with shell command")))
-	(message (concat "selection sent to Stata"))))
-  )
+	(message (concat "selection sent to Stata")))))
 
 (defun ado-send2stata-name (send2stata-name)
   "For finding the send2stata script/executable name. Needed because 
@@ -194,7 +192,7 @@ If as-default is t, just send everything via the default method."
 		(if (buffer-modified-p)
 			(ado-send-command-to-dofile t)
 		  ;; bad behavior, because it overwrites the pasteboard
-		  (let ((x-select-enable-clipboard t))
+		  (let ((select-enable-clipboard t))
 			;; (message (concat "Want to call ->" (concat "do " (buffer-file-name))))
 			(funcall interprogram-cut-function (concat "do \"" (buffer-file-name) "\""))
 			(ado-send-clip-to-stata "command" ado-comeback-flag)))
@@ -205,7 +203,7 @@ If as-default is t, just send everything via the default method."
   "Sends a command from the input line!! to Stata. Has the unfortunate side-
 effect of placing the command on the clipboard, at least for now."
   (interactive)
-  (let ((x-select-enable-clipboard t))
+  (let ((select-enable-clipboard t))
 	(funcall interprogram-cut-function (read-from-minibuffer "Command to run? "))
 	(ado-send-clip-to-stata ado-submit-default ado-comeback-flag)
 	))
