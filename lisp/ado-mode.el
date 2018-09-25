@@ -626,54 +626,56 @@ i")
       0				;Existing comment at bol stays there.
     (let ((opoint (point)))
       (save-excursion
-	(beginning-of-line)
-	(cond ((looking-at "[ \t]*}[ \t]*\\($\\|/\\*\\)")
-	       ;; A comment following a solitary close-brace
-	       ;; should have only two spaces.
-	       (search-forward "}")
-	       (+ 2 (current-column)))
-	      ((or (looking-at "^#[ \t]*endif[ \t]*")
-		   (looking-at "^#[ \t]*else[ \t]*"))
-	       7)			;2 spaces after #endif
-	      ((progn
-		 (goto-char opoint)
-		 (skip-chars-backward " \t")
-		 (and (= comment-column 0) (bolp)))
-	       ;; If comment-column is 0, and nothing but space
-	       ;; before the comment, align it at 0 rather than 1.
-	       0)
-	      (t
-	       (max (1+ (current-column))	;Else indent at comment column
-		    comment-column)))))))	; except leave at least one spaces.
+		(beginning-of-line)
+		(cond ((looking-at "[ \t]*}[ \t]*\\($\\|/\\*\\)")
+			   ;; A comment following a solitary close-brace
+			   ;; should have only two spaces.
+			   (search-forward "}")
+			   (+ 2 (current-column)))
+			  ((or (looking-at "^#[ \t]*endif[ \t]*")
+				   (looking-at "^#[ \t]*else[ \t]*"))
+			   7)			;2 spaces after #endif
+			  ((progn
+				 (goto-char opoint)
+				 (skip-chars-backward " \t")
+				 (and (= comment-column 0) (bolp)))
+			   ;; If comment-column is 0, and nothing but space
+			   ;; before the comment, align it at 0 rather than 1.
+			   0)
+			  (t
+			   (max (1+ (current-column))	;Else indent at comment column
+					comment-column)))))))	; except leave at least one spaces.
 
 (defun ado-continuation-indent ()
   "Indents continuation characters to a the \\[ado-continuation-column]. 
 If there is no continuation on the current line, inserts the proper
 continuation characters."
   (interactive)
-  (let (cont-string cont-length (found-it t))
-	 (if ado-use-modern-split-flag
-		  (setq cont-string "///")
-		(setq cont-string "/*"))
-	 (setq cont-length (length cont-string))
-	 (end-of-line)
-	 (skip-chars-backward " \t")
-	 (if ado-use-modern-split-flag
-		  (if (re-search-backward "[ \t]+///" (point-at-bol) t)
-				(skip-chars-forward " \t")
-			 (setq found-it nil))
-		(if (and (re-search-backward "[ \t]+/\\*" (point-at-bol) t)
-					(not (re-search-forward "\\*/" (point-at-eol) t)))
-			 (skip-chars-forward " \t")
-		  (setq found-it nil)
-		  (end-of-line)))
-	 (unless found-it
-		(unless (looking-back "[ \t]+" (point-at-bol))
-		  (insert " "))
-		(insert cont-string)
-		(forward-char (- cont-length)))
-	 (indent-to-column (max (1+ (current-column)) comment-column))
-	 (forward-char cont-length)))
+  (let (cont-string
+		cont-length
+		(found-it t))
+	(if ado-use-modern-split-flag
+		(setq cont-string "///")
+	  (setq cont-string "/*"))
+	(setq cont-length (length cont-string))
+	(end-of-line)
+	(skip-chars-backward " \t")
+	(if ado-use-modern-split-flag
+		(if (re-search-backward "[ \t]+///" (point-at-bol) t)
+			(skip-chars-forward " \t")
+		  (setq found-it nil))
+	  (if (and (re-search-backward "[ \t]+/\\*" (point-at-bol) t)
+			   (not (re-search-forward "\\*/" (point-at-eol) t)))
+		  (skip-chars-forward " \t")
+		(setq found-it nil)
+		(end-of-line)))
+	(unless found-it
+	  (unless (looking-back "[ \t]+" (point-at-bol))
+		(insert " "))
+	  (insert cont-string)
+	  (forward-char (- cont-length)))
+	(indent-to-column (max (1+ (current-column)) comment-column))
+	(forward-char cont-length)))
 	 
 
 ;; useful things which are better than keyboard macros
@@ -684,10 +686,10 @@ continuation characters."
 (defun ado-foreach-loop (&optional macname listtype)
 "Inserts a foreach loop, after asking for the type of loop to insert."
   (interactive)
-  (if (not macname)
-      (setq macname (read-from-minibuffer "What local macro should hold the tokens? ")))
-  (if (not listtype)
-      (setq listtype (read-from-minibuffer "What type of list? (leave blank if not special) ")))
+  (unless macname
+	(setq macname (read-from-minibuffer "What local macro should hold the tokens? ")))
+  (unless listtype
+	(setq listtype (read-from-minibuffer "What type of list? (leave blank if not special) ")))
   (insert (concat "foreach " macname))
   (if (equal listtype "")
       (insert " in \"\"")
@@ -701,18 +703,17 @@ continuation characters."
 (defun ado-forvalues-loop (&optional macname range)
 "Inserts a forvalues loop, after asking for the range to insert."
   (interactive)
-  (if (not macname)
-      (setq macname (read-from-minibuffer "What local macro should hold the tokens? ")))
+  (unless macname
+	(setq macname (read-from-minibuffer "What local macro should hold the tokens? ")))
   (while (not range)
-      (setq range (read-from-minibuffer "What numlist? ")))
+	(setq range (read-from-minibuffer "What numlist? ")))
   (ado-indent-line)
   (insert (concat "forvalues " macname " = " range ))
   (ado-insert-with-lfd " {")
   (ado-indent-line)
   (save-excursion 
 	(newline-and-indent)
-	(insert "}"))
-  )
+	(insert "}")))
 
 (defun ado-new-generic (type exten &optional stayput name purpose cusblp)
   "Allows overloading the new program to work for ado, class, do, mata and other files."
@@ -721,7 +722,6 @@ continuation characters."
 	  (setq name (read-from-minibuffer (concat "What is the name of the " type "? "))))
 	(setq fullname (concat name "." exten))
 	(setq buffullname
-;		  (switch-to-buffer (generate-new-buffer fullname)))
 		  (set-buffer (generate-new-buffer fullname)))
 	(ado-mode)
 	(if cusblp
@@ -733,8 +733,7 @@ continuation characters."
 	(unless purpose
 	  (goto-char (point-min))
 	  (if (search-forward "*!")
-		  (setq purpose (read-from-minibuffer "What does it do? ")))
-	  )
+		  (setq purpose (read-from-minibuffer "What does it do? "))))
 	(if (and (or ado-new-dir ado-personal-dir) (not stayput) (not (string= type "do-file")))
 		(if ado-new-dir
 			(if (y-or-n-p "Put in 'new' directory? ")
@@ -746,6 +745,7 @@ continuation characters."
 	(if (file-exists-p fullname)
 		(setq keepbuf (y-or-n-p (concat "File " fullname " already exists! Overwrite?"))))
 	(if keepbuf
+		; need progn because of else way far down
 		(progn
 		  (if (string= ado-version-command "")
 			(ado-reset-version-command))
@@ -779,9 +779,8 @@ continuation characters."
 			  (ado-save-program)
 			(set-visited-file-name (concat name "." exten))
 			(ado-save-program))
-		  )
-	  (kill-buffer buffullname)
-	  )
+		  ) ;; end for keepbuf true
+	  (kill-buffer buffullname))
 	))
 
 (defun ado-new-do (&optional stayput name purpose)
@@ -807,8 +806,7 @@ itself. Asks if the file should be saved in the `new' directory. If the
 answer is no, the file will be saved in the current working directory.
 Bound to \\[ado-new-class]" 
   (interactive)
-  (ado-new-generic "class" "class" stayput name purpose)
-  )
+  (ado-new-generic "class" "class" stayput name purpose))
 
 (defun ado-new-program (&optional stayput name purpose)
 "Makes a new buffer by inserting the file ado.blp from the template
@@ -839,8 +837,9 @@ Bound to \\[ado-new-testado]"
        program-name)
     (setq program-name
 	  (concat "_mk" (substring short-name 0 (min 5 (length short-name)))))
-    (ado-new-program nil program-name
-		       (concat "Generates default marker " short-name " for the condition " long-name))
+    (ado-new-program
+	 nil program-name
+	 (concat "Generates default marker " short-name " for the condition " long-name))
     (ado-insert-boilerplate "markit.blp")
     (re-search-forward "\"\"")
     (forward-char -1)
@@ -957,37 +956,18 @@ something broken in that the insertion point is left in the wrong spot..."
 changed, but will write itself under it's regular filename. Not used anywhere?"
   (interactive)
   (let (this-buffer)
-    (setq this-buffer (buffer-name))
+    (setq this-buffer
+		  (buffer-name))
     (if (string-match "*" this-buffer)
 	(save-buffer)
-      (write-file (substring this-buffer 0 (string-match "<" this-buffer)) ado-confirm-overwrite-flag)
-      ))
-  )
+	(write-file (substring this-buffer 0 (string-match "<" this-buffer)) ado-confirm-overwrite-flag))
+	))
 
 (defalias 'ado-save-program 'save-buffer
   "ado-save-program is obsolete as a special function.
 Use the proper combination of a before-save-hook and
 \\[save-buffer] to save things nicely."
 )
-
-;;   (setq ado-extension (ado-find-extension))
-;;   (if ado-update-timestamp-flag
-;; 	  (ado-update-timestamp))
-;;   ;; if file name specified, this is just a write-file
-;;   (unless filename
-;; ;;	  (write-file filename ado-confirm-overwrite-flag)
-;; 	;; try to get new name
-;; 	(setq filename (ado-make-ado-name)))
-;;   (if filename
-;; 	  (unless (string= (concat default-directory filename) (buffer-file-name))
-;; 		(set-visited-file-name filename)
-;; 		(if (and ado-confirm-overwrite-flag
-;; 				 (file-exists-p (buffer-file-name)))
-;; 			(unless (y-or-n-p (concat "Overwrite file " filename "? "))
-;; 			  (error "Canceled"))
-;; ;;		(write-file filename ado-confirm-overwrite-flag)
-;; 		  )))
-;;   (save-buffer))
 
 (defun ado-before-save-file ()
   "The default before-save-hook. This updates the timestamp using
@@ -1011,10 +991,10 @@ in sthlp (or hlp) files."
 		  (set-visited-file-name filename)
 		  (if (and ado-confirm-overwrite-flag
 				   (file-exists-p (buffer-file-name)))
-			(unless (y-or-n-p (concat "Overwrite file " filename "? "))
-			  (error "Canceled"))
-;;		(write-file filename ado-confirm-overwrite-flag)
-			)))))
+			  (unless (y-or-n-p (concat "Overwrite file " filename "? "))
+				(error "Canceled"))
+			)))
+	))
   
 
 (defun ado-update-timestamp ()
@@ -1030,11 +1010,9 @@ files, or a version x.y.z <date> in other files."
     (if (or (string= ado-extension "ado") 
 			(string= ado-extension "class") 
 			(string= ado-extension "do")) 
-		(if (re-search-forward "^[*]![ \t]+version[ \t]+[0-9\.]*[ \t]*" (point-max) t)
-			(progn
+		(when (re-search-forward "^[*]![ \t]+version[ \t]+[0-9\.]*[ \t]*" (point-max) t)
 			  (delete-region (point) (point-at-eol))
-			  (insert (ado-nice-current-date))
-			  ))
+			  (insert (ado-nice-current-date)))
       (if (or
 		   (string= ado-extension "hlp")
 		   (string= ado-extension "sthlp"))
@@ -1565,7 +1543,7 @@ working on regions."
 		 (save-excursion
 		   (ado-end-of-command)
 		   (point)))
-		 (x-select-enable-clipboard t))
+		 (select-enable-clipboard t))
 	(if asString
 		(buffer-substring-no-properties start-here end-here)
 	  (kill-ring-save start-here end-here))
@@ -1705,15 +1683,6 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 ;;   (setq
 ;;    ado-font-lock-keywords
 ;;    ()))
-
-;;; now for fancy stuff: syntactic keywords
-(defun ado-set-font-lock-syntactic-keywords ()
-  (interactive)
-  (setq font-lock-syntactic-keywords
-		  (list
-			'("\\(#\\)[dr]" 1 "w")
-			)))
-
 
 
 ;;; Working with help files
