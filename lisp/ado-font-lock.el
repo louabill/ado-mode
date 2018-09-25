@@ -121,10 +121,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 (defconst ado-man-abbrevs '("BAYES" "D" "DSGE" "ERM" "FMM" "FN" "G" "GSM" "GSU" "GSW" "IG" "IRT" "M" "ME" "MI" "MV" "P" "PSS" "R" "SEM" "SP" "ST" "SVY" "TE" "TS" "U" "XT"))
 
-
-
 (defun ado-set-font-lock-keywords ()
-						  ;  (make-local-variable 'ado-font-lock-keywords)
   (interactive)
   (setq
    ado-font-lock-keywords
