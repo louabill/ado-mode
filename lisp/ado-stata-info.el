@@ -51,36 +51,31 @@ session, i.e. how they would be set when you begin using Stata."
   (ado-reset-personal-dir)
   (ado-reset-plus-dir)
   (ado-reset-site-dir)
-  (ado-reset-oldplace-dir)
-)
+  (ado-reset-oldplace-dir))
 
 (defun ado-reset-personal-dir ()
   "Resets the variable `ado-personal-dir' to the initial value of PERSONAL
 from a new Stata sesson."
   (interactive)
-  (set-variable 'ado-personal-dir (ado-get-filename-from-stata "display" "c(sysdir_personal)"))
-  )
+  (set-variable 'ado-personal-dir (ado-get-filename-from-stata "display" "c(sysdir_personal)")))
 
 (defun ado-reset-plus-dir ()
   "Resets the variable `ado-plus-dir' to the initial value of PLUS
 from a new Stata sesson."
   (interactive)
-  (set-variable 'ado-plus-dir (ado-get-filename-from-stata "display" "c(sysdir_plus)"))
-  )
+  (set-variable 'ado-plus-dir (ado-get-filename-from-stata "display" "c(sysdir_plus)")))
 
 (defun ado-reset-site-dir ()
   "Resets the variable `ado-site-dir' to the initial value of SITE
 from a new Stata sesson."
   (interactive)
-  (set-variable 'ado-site-dir (ado-get-filename-from-stata "display" "c(sysdir_site)"))
-  )
+  (set-variable 'ado-site-dir (ado-get-filename-from-stata "display" "c(sysdir_site)")))
 
 (defun ado-reset-oldplace-dir ()
   "Resets the variable `ado-oldplace-dir' to the initial value of OLDPLACE
 from a new Stata sesson."
   (interactive)
-  (set-variable 'ado-oldplace-dir (ado-get-filename-from-stata "display" "c(sysdir_oldplace)"))
-  )
+  (set-variable 'ado-oldplace-dir (ado-get-filename-from-stata "display" "c(sysdir_oldplace)")))
 
 (defun ado-find-stata (&optional lookhere)
   (interactive)
@@ -110,26 +105,21 @@ from a new Stata sesson."
 			(concat stataDir theStata ".app")) 
 		   "Contents"))
 		 "MacOS"))
-	   theStata
-	   )
-	  )
+	   theStata))
 	 ((string= system-type "windows-nt")
 	  (cond
 	   ((file-exists-p (concat stataDir "Stata-64.exe")) (concat stataDir "Stata-64.exe"))
 	   ((file-exists-p (concat stataDir "StataSE-64.exe")) (concat stataDir "StataSE-64.exe"))
 	   ((file-exists-p (concat stataDir "StataMP-64.exe")) (concat stataDir "StataMP-64.exe"))
-	   (t (error (concat "Could not find any Stata in " lookhere))))
-	  )
+	   (t (error (concat "Could not find any Stata in " lookhere)))))
 	 ((string= system-type "gnu/linux")
 	  (cond
 	   ((file-exists-p (concat stataDir "stata")) (concat stataDir "stata"))
 	   ((file-exists-p (concat stataDir "stata-se")) (concat stataDir "stata-se"))
 	   ((file-exists-p (concat stataDir "stata-mp")) (concat stataDir "stata-mp"))
-	   (t (error (concat "Could not find Console Stata (needed for background tasks) in " lookhere))))
-	  )
+	   (t (error (concat "Could not find Console Stata (needed for background tasks) in " lookhere)))))
 	 (t (error (concat "Nothing for " system-type " yet")))
-	 ))
-  )
+	 )))
 
 ;; if Stata cannot be found, this defaults to "version !!??"
 ;; not a great idea to use this for the version because the point of
@@ -147,23 +137,19 @@ from a new Stata sesson."
 	))
 
 (defun ado-reset-version-command ()
-  (set-variable 'ado-version-command (ado-get-stata-version))
-  )
+  (set-variable 'ado-version-command (ado-get-stata-version)))
 
 (defun ado-show-stata ()
   (interactive)
-  (message (concat "Found: " (ado-find-stata)))
-  )
+  (message (concat "Found: " (ado-find-stata))))
 
 (defun ado-show-tmp-dir ()
   (interactive)
-  (message (concat "Found: " (ado-system-tmp-dir)))
-  )
+  (message (concat "Found: " (ado-system-tmp-dir))))
 
 (defun ado-show-stata-version ()
   (interactive)
-  (message (concat "Found: " (ado-get-stata-version)))
-  )
+  (message (concat "Found: " (ado-get-stata-version))))
 
 (defun ado-system-tmp-dir ()
   "Returns the temporary directory used by the OS for the user.
@@ -178,8 +164,7 @@ so it can be `concat'ted directly with a file name."
 	  (file-name-as-directory (getenv "TEMP")))
 	 ((string= system-type "gnu/linux")
 	  (file-name-as-directory "/tmp"))
-	 (t (error "System temp dir not found, somehow"))
-	 )
+	 (t (error "System temp dir not found, somehow")))
 	)
 
 (defun ado-get-one-result (theCommand &optional theArgs)
@@ -206,8 +191,7 @@ so it can be `concat'ted directly with a file name."
 			   (ado-find-stata) " -q -e '" theCommand "'"
 			   (if theArgs (concat " '" theArgs "'"))
 	   )))
-	 (t (error (concat "Nothing for " system-type " yet")))
-	 )
+	 (t (error (concat "Nothing for " system-type " yet"))))
 	(setq tmpLog (concat (ado-system-tmp-dir) "stata.log"))
 	;; visit tmp directory and manipulate the log
 	(with-current-buffer (get-buffer-create tmpBuffer)
@@ -225,8 +209,7 @@ so it can be `concat'ted directly with a file name."
   ;; need to get rid of nasty \'s from windows paths
   (let ((theFile (ado-get-one-result theCommand theArgs)))
 	(if (string= system-type "windows-nt")
-		(replace-regexp-in-string "\\\\" "/" theFile)
-	  )
+		(replace-regexp-in-string "\\\\" "/" theFile))
 	theFile
 	))
 
@@ -242,8 +225,7 @@ so it can be `concat'ted directly with a file name."
 	; (delete-file tmpLog) ;; left hanging around for checking
 	(setq theFile (ado-get-filename-from-stata "findfile" filename))
 	(unless theFile
-	  (error (concat "File " filename " not found on adopath"))
-	  )
+	  (error (concat "File " filename " not found on adopath")))
 	(if ado-open-read-only-flag
 		(find-file-read-only theFile)
 	  (find-file theFile))
