@@ -1,15 +1,32 @@
-;;; ado-stata-info --- Passing code to a running Stata from emacs
-;; Copyright (c) 2011-2017
-;; Bill Rising
-;;
-;; Author:   Bill Rising
-;; Maintainer: Same <brising@alum.mit.edu>
-;;             URL: http://louabill.org/stata
-;; Keywords: ado-mode
-;; Version:  0.1.5 of Nov 17, 2017
+;;; ado-stata-info --- For passing code to a running Stata from emacs
 
-;;; a collection of command for gathering info from Stata
-;;;  (of course, this does not (yet) mean gathering info from a running Stata)
+;; Copyright (C) 2003--2018 Bill Rising
+
+;; Author:   Bill Rising <brising@alum.mit.edu>
+;; Keywords: languages, tools
+;; Homepage: https://github.com/louabill/ado-mode
+
+;; This file is not part of GNU Emacs.
+
+;; This package is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, version 3.
+
+;; This package is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.
+;; If not, see <https://www.gnu.org/licenses/>
+
+;;; Commentary:
+
+;; A collection of commands for gathering info from Stata via a
+;;   background batch file
+
+;;; Code:
 
 ;;; things for jumping to other commands, help files and the like
 
@@ -233,3 +250,5 @@ so it can be `concat'ted directly with a file name."
 	))
 
 (provide 'ado-stata-info)
+
+;; ado-stata-info.el ends here

@@ -1,19 +1,34 @@
 ;;; ado-to-stata.el --- Passing code to a running Stata from emacs
-;; Copyright (c) 2009--2018
-;; Bill Rising
 ;;
-;; Author:   Bill Rising
-;; Maintainer: Same <brising@alum.mit.edu>
-;;             URL: http://louabill.org/stata
-;; Keywords: ado-mode
-;; Version:  0.2.1 of February 7, 2018
+;; Copyright (C) 2003--2018 Bill Rising
 
-;;; a collection of things for interacting with Stata 
-;;; Currently this works in Mac OS X and MS Windows. It will not cause errors in 
-;;;   other OSes. All that is needed for each other OS are some methods
-;;;   for talking to Stata from emacs. 
-;;;   In Mac OS X, this is done via the applescript send2stata.scpt
-;;;   In MS Windows, this is done via the autoit executable send2stata.exe 
+;; Author:   Bill Rising <brising@alum.mit.edu>
+;; Keywords: languages, tools
+;; Homepage: https://github.com/louabill/ado-mode
+
+;; This file is not part of GNU Emacs.
+
+;; This package is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, version 3.
+
+;; This package is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.
+;; If not, see <https://www.gnu.org/licenses/>
+
+;;; Commentary:
+
+;; A collection of functions for interacting with Stata 
+;; This works in macOS and MS Windows for sure. It could be spotty in
+;;   some *nixes, because of their window managers.
+;;   In macOS, this is done via the applescript send2stata.scpt
+;;   In MS Windows, this is done via the autoit executable send2stata.exe 
+;;   In *nix, via the send2ztata bash script
 
 (defun ado-send-command-to-stata (&optional whole-buffer)
   (interactive)

@@ -1,22 +1,16 @@
 ;;; ado-font.el --- simple definition of font faces
-;; Copyright (c) 2003--2016
-;; Bill Rising
-;;   much of this sponged from the ultex-cus.el which customizes
-;;   the UltraTex mode (highly recommended) by
-;; Mark Haiman, Nick Reingold, John Palmieri
 
-;; Author:   Bill Rising
-;; Maintainer: Same <brising@alum.mit.edu>
-;;             URL: http://louabill.org/stata
-;; Keywords: ado-mode
-;; Version:  0.11 of July 20, 2010
+;; Copyright (C) 2003--2018 Bill Rising
+
+;; Author:   Bill Rising <brising@alum.mit.edu>
+;; Keywords: languages, tools
+;; Homepage: https://github.com/louabill/ado-mode
 
 ;; This file is not part of GNU Emacs.
 
 ;; This package is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either version 2, or (at your option)
-;; any later version.
+;; the Free Software Foundation, version 3.
 
 ;; This package is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -24,19 +18,16 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to the
-;; Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
+;; along with GNU Emacs; see the file COPYING.
+;; If not, see <https://www.gnu.org/licenses/>
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Description:
+;;; Commentary:
+
 ;;
-;; This file contains the base definitions of font-faces for the ado
-;; mode.  If you are using at least Emacs 20, or an earlier version of 
-;; Emacs which has the customization package installed, you can change all
-;; of the relevant variables here via customization.  This is
-;; preferable to doing it "by hand" in your .emacs file.
-;; .... unless you really really like tinkering with .emacs files.
+;; This file contains the base definitions of font-faces for the ado mode.
+
+;;; Code:
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Customization groups
 ;;

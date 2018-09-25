@@ -1,18 +1,16 @@
 ;;; ado-font-lock.el --- all the endless font locking
-;; Copyright (c) 2003--2017
-;; Bill Rising
-;; Author:   Bill Rising
-;; Maintainer: Same <brising@alum.mit.edu>
-;;             URL: http://louabill.org/stata
-;; Keywords: ado-mode
-;; Version:  1.15.1.5 of September 19, 2018
+
+;; Copyright (C) 2003--2018 Bill Rising
+
+;; Author:   Bill Rising <brising@alum.mit.edu>
+;; Keywords: languages, tools
+;; Homepage: https://github.com/louabill/ado-mode
 
 ;; This file is not part of GNU Emacs.
 
 ;; This package is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either version 2, or (at your option)
-;; any later version.
+;; the Free Software Foundation, version 3.
 
 ;; This package is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,13 +18,11 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to the
-;; Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
+;; along with GNU Emacs; see the file COPYING.
+;; If not, see <https://www.gnu.org/licenses/>
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Description:
-;;
+;;; Commentary:
+
 ;; This file contains functions for good keyword highlighting, aka
 ;;   font-locking.
 ;; The main, huge function is: 
@@ -35,10 +31,9 @@
 ;;   in ado-mode, nothing more, nothing less
 ;; Other functions have been added to allow users to include their
 ;;   own commands in the font locking
-;; Known shortcomings: this highlights command names withing
-;;   longer commands. One day I'll come up with a good rule for
-;;   being smart about the highlighting
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;; Code:
 
 ;;; these regexps will still be fooled by line continuations
 ;;;   or colons in the middle of a line of text
@@ -9018,3 +9013,5 @@ which has an internal name of bar.
 
 
 (provide 'ado-font-lock)
+
+;;; ado-font-lock.el ends here

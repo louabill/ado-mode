@@ -1,19 +1,16 @@
-;; this is ado-clip.el
-;; Copyright (c) 2009--2018
-;; Author:   Bill Rising
-;; Maintainer: Same <brising@alum.mit.edu>
-;;             URL: http://louabill.org/stata
-;; Keywords: ado-mode
-;; Version:  0.5.2   3apr2018-fixed up stripping whitespace
-;; Version:  0.5.1   8oct2012-updated for emacs 24 
-;; Version:  0.5    11jan2012 (the 0.5 is an arbitrary number)
+;; ado-clip.el --- for clipboard (pasteboard) manipulation of ado-mode
+;;
+;; Copyright (C) 2003--2018 Bill Rising
+
+;; Author:   Bill Rising <brising@alum.mit.edu>
+;; Keywords: languages, tools
+;; Homepage: https://github.com/louabill/ado-mode
 
 ;; This file is not part of GNU Emacs.
 
 ;; This package is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either version 2, or (at your option)
-;; any later version.
+;; the Free Software Foundation, version 3.
 
 ;; This package is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,18 +18,16 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to the
-;; Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
+;; along with GNU Emacs; see the file COPYING.
+;; If not, see <https://www.gnu.org/licenses/>
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Description:
-;;
+;;; Commentary:
+
 ;; This file has a bunch of utilities needed for putting
 ;; things onto the clipboard.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;; It is a series of helper functions for working with the clipboard
+
+;;; Code:
 
 ;; it appears that some distros don't load thingatpt automatically
 (require 'thingatpt)
@@ -211,3 +206,5 @@ one is appended. Nothing too complicated."
   )
 
 (provide 'ado-clip)
+
+;;; ado-clip.el ends here

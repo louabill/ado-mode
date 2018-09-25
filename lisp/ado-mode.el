@@ -1,35 +1,36 @@
 ;;; ado-mode.el --- ado mode, and its idiosyncratic commands.
 
-;; Copyright (C) 1996,..., 2017 Bill Rising
+;; Copyright (C) 1996,..., 2018 Bill Rising
 
-;; Maintainer: Bill Rising, brising at stata dot com
-;; Keywords: ado-mode, highlighting
-;; Version: 1.15.1.3 of May 12, 2018
+;; Author: Bill Rising <brising@alum.mit.edu>
+;; Version: 1.15.1.4
+;; Keywords: languages, tools
+;; Homepage: https://github.com/louabill/ado-mode
 ;;
-;; This file is NOT part of GNU Emacs.
+;; This file is not part of GNU Emacs.
 
-;; This ado-mode is free software; you can redistribute it and/or modify
+;; This package is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either version 2, or (at your option)
-;; any later version.
+;; the Free Software Foundation, version 3.
 
-;; This ado-mode is distributed in the hope that it will be useful,
+;; This package is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with this ado-mode; see the file COPYING.  If not, write to
-;; the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
-
+;; along with GNU Emacs; see the file COPYING.
+;; If not, see <https://www.gnu.org/licenses/>
 
 ;;; Commentary:
 
-;; This package provides the ado mode *NOT* documented in the
-;; Emacs user's manual.
-;; Long ago, this was based on the c-mode, but the similarities are
-;;   likely now quite small
-;;
+;; This package provides the ado mode for smart highlighting and editing of
+;; Stata code as well as sending code to Stata or opening help
+
+;;; Change Log:
+
+;; See the changes.txt file distributed with this package
+
 ;;; Code:
 
 ;;; required files
@@ -382,15 +383,14 @@ ado-mode comes with a menu (the Ado-mode menu) which shows most all of the
 variables which are worth changing locally in a buffer. Global customization
 can be done via '\\[customize-group] ado' using emacs customization
 routines. More suggestions can be found at 
-http://homepage.mac.com/brising/Stata/ado-mode_install.html
+http://louabill.org/Stata/ado-mode_install.html
 
 Here is a short list of the common commands which come with the mode:
 Things for dealing with files:
 - \\[ado-new-ado] will make a new buffer ready for a new ado file.
 - \\[ado-new-do] will make a buffer ready for a well-logged do file.
 - \\[ado-new-help] will start a new help file, ready for editing.
-- ado-mode can interact directly with Stata (Mac OS X and MS Windows only,
-  for now) 
+- ado-mode can interact directly with Stata  for now) 
     \\[ado-send-command-to-stata] will send the current selection 
     to Stata for evaluation. If nothing is selected, the command containing
     the insertion bar will be sent.
@@ -2081,4 +2081,5 @@ programs, even those defined in a funky way."
 
 
 (provide 'ado-mode)
+
 ;; ado-mode.el ends here
