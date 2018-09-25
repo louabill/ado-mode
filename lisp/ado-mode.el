@@ -1007,41 +1007,39 @@ files, or a version x.y.z <date> in other files."
   (interactive)
   (save-excursion
     (goto-char (point-min))
-    (if (or (string= ado-extension "ado") 
-			(string= ado-extension "class") 
-			(string= ado-extension "do")) 
-		(when (re-search-forward "^[*]![ \t]+version[ \t]+[0-9\.]*[ \t]*" (point-max) t)
-			  (delete-region (point) (point-at-eol))
-			  (insert (ado-nice-current-date)))
-      (if (or
-		   (string= ado-extension "hlp")
-		   (string= ado-extension "sthlp"))
-		  (if (search-forward "[*] Last Updated: " (point-max) t)
-			  (progn
-				(delete-region (point) (point-at-eol))
-				(insert (ado-nice-current-date))
-				(insert "}{...}"))
-			(if (re-search-forward "^[ \t]*{[*]+[ \t]+[*]![ \t]+version[ \t]+[0-9\.]*[ \t]*" (point-max) t)
-				(progn
-				(delete-region (point) (point-at-eol))
-				  (insert (ado-nice-current-date))
-				  (insert "}{...}"))
-			  (if (looking-at "{smcl}[ \t]*")
-				(progn
-				  (goto-char (match-end 0))
-				  (forward-char)
-				  (if (looking-at "{[*] *")
-					  (progn 
-						(goto-char (match-end 0))
-						(delete-region (point) (point-at-eol))
-						(insert (ado-nice-current-date))
-						(insert "}{...}")))))))
-	;;; not in ado or help file
-		(if (re-search-forward "^\\([*]!\\)*[ \t]+[Vv][Ee][Rr][Ss][Ii][Oo][Nn][ \t]+[0-9\.]*[ \t]*" (point-max) t)
-			(progn
-			  (delete-region (point) (point-at-eol))
-			  (insert (ado-nice-current-date))
-			  ))))))
+    (cond
+	 ((or (string= ado-extension "ado") 
+		  (string= ado-extension "class") 
+		  (string= ado-extension "do")) 
+	  (when (re-search-forward "^[*]![ \t]+version[ \t]+[0-9\.]*[ \t]*" (point-max) t)
+		(delete-region (point) (point-at-eol))
+		(insert (ado-nice-current-date))))
+	 ((or (string= ado-extension "hlp")
+		  (string= ado-extension "sthlp"))
+	  (cond
+	   ((search-forward "[*] Last Updated: " (point-max) t)
+		(delete-region (point) (point-at-eol))
+		(insert (ado-nice-current-date))
+		(insert "}{...}"))
+	   ((re-search-forward "^[ \t]*{[*]+[ \t]+[*]![ \t]+version[ \t]+[0-9\.]*[ \t]*" (point-max) t)
+		(delete-region (point) (point-at-eol))
+		(insert (ado-nice-current-date))
+		(insert "}{...}"))
+	   ((looking-at "{smcl}[ \t]*")
+		(goto-char (match-end 0))
+		(forward-char)
+		(when (looking-at "{[*] *")
+		  (goto-char (match-end 0))
+		  (delete-region (point) (point-at-eol))
+		  (insert (ado-nice-current-date))
+		  (insert "}{...}")))
+	   (t nil)))
+	 (t 
+	  ;;; not in ado or help file
+	  (when (re-search-forward "^\\([*]!\\)*[ \t]+[Vv][Ee][Rr][Ss][Ii][Oo][Nn][ \t]+[0-9\.]*[ \t]*" (point-max) t)
+		(delete-region (point) (point-at-eol))
+		(insert (ado-nice-current-date))))
+	 )))
 	
     ;; looking for a version number, so that the date stamp can be updated
 ;; leaves the new date and time, even if the file is not saved... dunno what
