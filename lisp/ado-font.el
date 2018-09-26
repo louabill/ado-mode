@@ -58,9 +58,9 @@
 data or the environment."
   :group 'ado-font-lock)
 
-(defface ado-builtin-harmless-face
+(defface ado-builtin-harmless
   '((t :inherit font-lock-builtin-face))
-  "Ado mode face used to highlight harmless builtin commands"
+  "Ado mode face used to highlight harmless builtin ado commands"
   :group 'ado-font-lock)
 
 (defface ado-oldplace-harmful
@@ -76,13 +76,13 @@ This is the default font for OLDPLACE..."
 
 (defface ado-plus-harmful
   '((t :inherit ado-builtin-harmful-face :weight bold))
-  "Ado mode face used to highlight harmful commands in PLUS, i.e.
+  "Ado mode face used to highlight harmful commands in PLUS, i.e. 
 stuff downloaded off the net."
   :group 'ado-font-lock)
 
 (defface ado-plus-harmless
   '((t :inherit ado-builtin-harmless-face :weight bold))
-  "Ado mode face used to highlight harmless commands in PLUS, i.e.
+  "Ado mode face used to highlight harmless commands in PLUS, i.e. 
 stuff downloaded off the net. This is the default look."
   :group 'ado-font-lock)
 
@@ -141,7 +141,7 @@ only on particular platforms"
 
 (defface ado-function-name
   '((t :inherit font-lock-function-name-face))
-  "Ado mode face used to highlight functions in ado programs and
+  "Ado mode face used to highlight functions in ado programs and 
 iactions in dialogs"
   :group 'ado-font-lock)
 
