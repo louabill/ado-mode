@@ -374,7 +374,7 @@
 ;; initial mode defintion function
 (defun ado-mode ()
   "Major mode for editing ado, do, mata, sthlp, hlp, dlg, and smcl 
-files for use in the Stata statistical package. It indents blocks 
+files for use in the Stata statistical package. Indents blocks 
 of code properly, highlights command names, (most) keywords, some
 more complicated command structures, strings, Stata macro names 
 and the like.
@@ -554,6 +554,9 @@ This will make ado-mode load when you open an ado or do file."
 
 ; ado-set-return == t -> swap ret and C-j
 (defun ado-set-return (state)
+  "Sets state of \\C-m and \\C-j.
+STATE nil: standard emacs behavior where \\C-j is like `newline-and-indent'.
+STATE t: better behavior to have \\C-m like `newline-and-indent'."
   (if state
       (progn
 		(define-key ado-mode-map "\C-m" 'ado-newline) 
@@ -566,19 +569,23 @@ This will make ado-mode load when you open an ado or do file."
 ;;;; all the style-toggles for local resets rather than global
 
 (defun ado-return-toggle ()
+  "Toggles state of return key (\\C-m)"
   (interactive)
   (setq ado-return-also-indents-flag (not ado-return-also-indents-flag))
   (ado-set-return ado-return-also-indents-flag))
 
 (defun ado-toggle-flag (flag-name)
+  "Generic function for toggling a flag"
   (interactive "vWhat flag would you like to toggle? ")
   (set flag-name (not (eval flag-name))))
 
 ;;;; all the style value changers for local changes
 ;; a function which makes all the prompts and messages look the same.
 (defun ado-change-number (variable newvalue)
-  "For changing options which have numerical values somewhat nicely. Does
-not work if fed an expression."
+  "Interface for changing options which have numerical values somewhat nicely. 
+Does not work if fed an expression.
+VARIABLE is for the variable name.
+NEWVALUS is for the newvalue."
   (interactive "vWhat variable would you like to change? 
 i")
   (if (or (null newvalue)
@@ -599,7 +606,7 @@ i")
     ))
 
 (defun ado-tab-width-change (&optional new-tab-width)
-"Changes the tab-width for the current buffer, and then optionally re-indents the file."
+  "Changes the tab-width for the current buffer, and then optionally re-indents the file."
   (interactive)
   (if (not (ado-change-number 'tab-width new-tab-width))
       ()
@@ -610,7 +617,7 @@ i")
       )))
 
 (defun ado-continued-statement-indent-spaces-change (&optional spaces)
-"Changes the tab-width for the current buffer, and then optionally re-indents the file."
+  "Changes the tab-width for the current buffer, and then optionally re-indents the file."
   (interactive)
   (if (not (ado-change-number 'ado-continued-statement-indent-spaces spaces))
       ()
@@ -622,6 +629,8 @@ i")
 
 ;;; scunged from the c-mode indentation
 (defun ado-comment-indent ()
+  "Indents line-starting comments.
+Stolen from c-mode indention."
   (if (looking-at "^/\\*")
       0				;Existing comment at bol stays there.
     (let ((opoint (point)))
@@ -680,11 +689,12 @@ continuation characters."
 
 ;; useful things which are better than keyboard macros
 (defun ado-parse-loop ()
+  "Out-of-date helper function. Use \\[ado-foreach-loop] instead."
   (interactive)
   (error "This is out of date! Use a foreach loop (\\[ado-foreach-loop]), instead"))
 
 (defun ado-foreach-loop (&optional macname listtype)
-"Inserts a foreach loop, after asking for the type of loop to insert."
+  "Inserts a foreach loop, after asking for the type of loop to insert."
   (interactive)
   (unless macname
 	(setq macname (read-from-minibuffer "What local macro should hold the tokens? ")))
@@ -701,7 +711,7 @@ continuation characters."
   (backward-char 2))
 
 (defun ado-forvalues-loop (&optional macname range)
-"Inserts a forvalues loop, after asking for the range to insert."
+  "Inserts a forvalues loop, after asking for the range to insert."
   (interactive)
   (unless macname
 	(setq macname (read-from-minibuffer "What local macro should hold the tokens? ")))
@@ -784,14 +794,14 @@ continuation characters."
 	))
 
 (defun ado-new-do (&optional stayput name purpose)
-  "Makes a new do-file by inserting the file do.blp from the template
+  "Makes a new do-file by inserting the file do.blp from the template 
 directory. The do-file is made to keep its own named log so that it
 can be called by other do-files."
   (interactive)
   (ado-new-generic "do-file" "do" stayput name purpose))
 
 (defun ado-new-mata (&optional stayput name purpose)
-  "Makes a new buffer by inserting the file mata.blp from the template
+  "Makes a new buffer by inserting the file mata.blp from the template 
 directory. Inserts the proper name for the new class and the class file
 itself. Asks if the file should be saved in the `new' directory. If the
 answer is no, the file will be saved in the current working directory.
@@ -809,7 +819,7 @@ Bound to \\[ado-new-class]"
   (ado-new-generic "class" "class" stayput name purpose))
 
 (defun ado-new-program (&optional stayput name purpose)
-"Makes a new buffer by inserting the file ado.blp from the template
+  "Makes a new buffer by inserting the file ado.blp from the template
 directory. Inserts the proper name for the new command and the ado file
 itself. Asks if the file should be saved in the `new' directory. If the
 answer is no, the file will be saved in the current working directory.
@@ -820,8 +830,8 @@ Bound to \\[ado-new-program]"
 (defalias 'ado-new-ado 'ado-new-program)
 
 (defun ado-new-testado (&optional stayput name purpose)
-"Makes a new buffer by inserting the file testado.blp from the template
-directory. The templay is a do-file which -includes- an ado-file by the
+  "Makes a new buffer by inserting the file testado.blp from the template
+directory. The template is a do-file which -includes- an ado-file by the
 same name for easier debugging. Asks if the do-file should be saved in 
 the `new' directory. If the answer is no, the file will be saved in the 
 current working directory.
@@ -830,6 +840,8 @@ Bound to \\[ado-new-testado]"
   (ado-new-generic "program" "do" stayput name purpose))
 
 (defun ado-marker-program ()
+  "Creates an old-fashioned marker program for marking medical conditions.
+Probably not worth using."
   (interactive)
   (let
       ((long-name (read-from-minibuffer "What is the name of the condition? "))
@@ -849,6 +861,8 @@ Bound to \\[ado-new-testado]"
     (insert short-name)))
 
 (defun ado-project-program ()
+  "Creates an old-fashioned project program.
+Probably not worth using anymore."
   (interactive)
   (ado-new-program)
   (ado-insert-boilerplate "proj1.blp")
@@ -861,6 +875,8 @@ Bound to \\[ado-new-testado]"
   (recenter))
 
 (defun ado-stage-program ()
+  "Creates an old-fashioned stage program. 
+Probably not worth using anymore."
   (interactive)
   (ado-new-program t)
   (ado-insert-slog-block "replace")
@@ -869,6 +885,8 @@ Bound to \\[ado-new-testado]"
   )
 
 (defun ado-lookup-program ()
+  "Creates and old-fashioned lookup program. 
+Probably not worth using anymore."
   (interactive)
   (ado-new-program)
   (ado-insert-boilerplate "lookup.blp")
@@ -876,6 +894,8 @@ Bound to \\[ado-new-testado]"
   (search-forward "using \""))
 
 (defun ado-checker-setup ()
+  "Creates an old-fashioned error-checker program.
+Probably not worth using anymore."
   (interactive)
   (let ((var-name (read-from-minibuffer "What is the name of the variable? "))
 	err-name)
@@ -886,6 +906,8 @@ Bound to \\[ado-new-testado]"
   (concat "err" (substring var-name 0 (min 5 (length var-name)))))
 
 (defun ado-ckmiss-program (&optional name)
+  "Creates and old-fashioned program for checking for missing values.
+Probably not worth using anymore."
   (interactive)
   (let ((var-name (ado-checker-setup))
 	err-name)
@@ -964,13 +986,14 @@ changed, but will write itself under it's regular filename. Not used anywhere?"
 	))
 
 (defalias 'ado-save-program 'save-buffer
-  "ado-save-program is obsolete as a special function.
+  "`ado-save-program' is obsolete as a special function.
 Use the proper combination of a before-save-hook and
 \\[save-buffer] to save things nicely."
 )
 
 (defun ado-before-save-file ()
-  "The default before-save-hook. This updates the timestamp using
+  "The default before-save-hook. 
+This updates the timestamp using
 \\[ado-update-timestamp] (if the ado-update-timestamp flag is set), then
 tries to determine a good file name using \\[ado-find-extension] and
 \\[ado-make-ado-name] (primarily in the case of ado-files and help files),
@@ -998,8 +1021,8 @@ in sthlp (or hlp) files."
   
 
 (defun ado-update-timestamp ()
-  "Tries to do a nice job updating a timestamp for the file. Since
-Stata has no conventions about headers for files, ado-mode will:
+  "Tries to do a nice job updating a timestamp for the file. 
+Since Stata has no conventions about headers for files, ado-mode will:
 
 Look for a '*! version xxx' statement in ado/do/ files, a {
 * version xxx } or a {* <date>}{...} in sthlp (or hlp)
@@ -1060,9 +1083,10 @@ buffer should be by running \\[ado-find-extension]."
 
 
 (defun ado-find-extension (&optional message)
-  "Decides from the file contents what the extension should be. Since Stata
-has started getting more complicated, will fall back to the current file
-if confused. Returns its best guess at the extension.
+  "Decides from the file contents what the extension should be. 
+Since Stata has started getting more complicated, will fall back to 
+the current file extension if confused. Returns its best guess at the 
+extension.
 
 To test this, try \\[ado-show-extension]."
   ;; try to find the name, trust the buffer if lost, but issue warning if
@@ -1111,12 +1135,10 @@ running \\[ado-make-ado-name]."
   (message (ado-make-ado-name)))
 						  
 (defun ado-make-ado-name ()
-  (interactive)
-  "Creates a file name from the contents of the file. Assumes that
-ado-extension has been set properly. (See \\[ado-find-extension] for 
-determining extensions.) Returns nil if the name of the file
-cannot be determined from the file contents. You can test this using
-\\[ado-show-ado-name].
+  "Creates a file name from the contents of the file. 
+Assumes that `ado-extension' has been set properly by \\[ado-find-extension].
+Returns nil if the name of the file cannot be determined from the file contents.
+You can look to see what name will be made via \\[ado-show-ado-name].
 
 The command works differently depending on the type of file:
 
@@ -1141,6 +1163,7 @@ The command works differently depending on the type of file:
     lines starting with *!'s at the top of the program for something
     approaching a filename with the proper extension. If it is found,
     it will be used as the file name."
+  (interactive)
   (let (name-start name-end)
     (save-excursion
       (goto-char (point-min))
@@ -1235,9 +1258,10 @@ Stata versions 11 and 12."
 
 
 (defun ado-find-local-name ()
-  "Returns the name of the defining program in which the point is sitting. If the
-program define statement cannot be found, returns nil. Returns a mess if the
-program name is missing (need to fix this). Currently broken --- need to assess need."
+  "Returns the name of the defining program in which the point is sitting.
+If the program define statement cannot be found, returns nil. Returns a mess if
+the program name is missing (need to fix this). 
+Currently broken --- need to assess need."
   (let (name-start name-end)
     (save-excursion
       (when (re-search-backward "^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+" 0 t) ;goes to most recent definition
@@ -1249,6 +1273,7 @@ program name is missing (need to fix this). Currently broken --- need to assess 
 	)))
 
 (defun ado-show-local-name ()
+  "Shows the value that would be returned by \\[ado-find-local-name]"
   (interactive)
   (message (concat "The local program is " (ado-find-local-name))))
 
@@ -1263,6 +1288,7 @@ and indenting"
 	))
 
 (defun ado-insert-boilerplate (file-name &optional raw full-path)
+  "Generic command for inserting a boilerplate (template)."
   (if full-path
 	  (setq full-path file-name)
 	(if (not ado-site-template-dir)
@@ -1274,6 +1300,8 @@ and indenting"
 
 
 (defun ado-insert-slog-block (&optional replace-flag)
+  "Inserts a slog block.
+No longer necessary now that Stata handles named log files."
   (interactive)
   (let ((the-name (ado-find-local-name)))
     (ado-insert-boilerplate "slog.blp")
@@ -1293,6 +1321,8 @@ and indenting"
 
 ;;; depth and indentation commands
 (defun ado-line-starts-with-end-comment ()
+  "Checks to see if a line starts with an end-comment.
+For old-school contintuation comments."
   (interactive)
   (save-excursion
 	(beginning-of-line)
@@ -1301,6 +1331,7 @@ and indenting"
 		 (not (search-backward "/*" (point-at-bol) t)))))
 
 (defun ado-out-of-nested-comment (&optional top from-level)
+  "Checks to see if point is outside of a nested comment."
   (interactive)
   (let ((ppsexp (parse-partial-sexp 1 (point)))
 		this-level)
@@ -1318,6 +1349,7 @@ and indenting"
 	    )))))
 
 (defun ado-show-depth ()
+  "Shows the depth of the command (for indenting)."
   (interactive)
   (let ((depth (ado-find-depth)))
     (message (concat "The depth was " (number-to-string (car depth))
@@ -1326,6 +1358,8 @@ and indenting"
 ;; changed left-indenting of 'version' to left-indent iff spelled out
 ;;   to avoid the indenting, use an abbreviation
 (defun ado-find-depth ()
+  "Finds the nesting depth of a command. 
+Used for determining how far a command must be indented."
   (let (depth start ppsexp in-continuation (oddend (ado-line-starts-with-end-comment)))
     (save-excursion
       ;; look for line starting with a comment
@@ -1353,6 +1387,7 @@ and indenting"
       ))
 
 (defun ado-indent-region (&optional start end)
+  "Indent region correctly."
   (interactive)
   (let (endmark)
     (when (and (null start) (null end))
@@ -1370,13 +1405,14 @@ and indenting"
 	  )))
 
 (defun ado-indent-buffer ()
+  "Indent entire buffer."
   (interactive)
   (save-excursion
     (ado-indent-region (point-min) (point-max))))
 
 (defun ado-indent-line ()
-  "A smart indenter for ado files. Many of the parameters can
-be customized using '\\[customize-group] ado-mode'."
+  "A smart indenter for ado files. 
+Many of the parameters can be customized using '\\[customize-group] ado-mode'."
   (interactive)
   (if ado-smart-indent-flag
       (let (indent
@@ -1385,7 +1421,7 @@ be customized using '\\[customize-group] ado-mode'."
 			shift-amt
 			endmark
 			(pos (- (point-max) (point)))
-			(watch-for-semi (ado-delimit-is-semi)))
+			(watch-for-semi (ado-delimit-is-semi-p)))
 		(beginning-of-line)
 		(setq beg (point))
 		(cond ((and ado-delimit-indent-flag (looking-at "[ \t]*#d\\(e\\|el\\|eli\\|elim\\|elimi\\|elimit\\)?"))	;#delimits belong at delimit indent
@@ -1414,7 +1450,7 @@ be customized using '\\[customize-group] ado-mode'."
 			  (goto-char (- (point-max) pos))))
 		shift-amt)))
 
-(defun ado-delimit-is-semi ()
+(defun ado-delimit-is-semi-p ()
   "Returns t if semicolons delimit commands, otherwise returns nil."
   (save-excursion
     ;; if #delimit command is on same line, the delimiter is always cr
@@ -1425,7 +1461,7 @@ be customized using '\\[customize-group] ado-mode'."
 				 (nth 3 ppsexp)		; inside a string
 				 (nth 4 ppsexp)		; inside a non-nestable comment
 				 (nth 7 ppsexp))		; inside a type-b comment
-				(ado-delimit-is-semi)
+				(ado-delimit-is-semi-p)
 			  (if (>= (point) line-start)
 				  nil
 				(forward-sexp)
@@ -1435,7 +1471,7 @@ be customized using '\\[customize-group] ado-mode'."
 (defun ado-show-delimiter ()
   "Returns the value of the delimiter in ado-functions as a message."
   (interactive)
-  (message (if (ado-delimit-is-semi)
+  (message (if (ado-delimit-is-semi-p)
 	       "The delimiter is ;"
 	     "The delimiter is cr"
 	     )))
@@ -1469,7 +1505,7 @@ Returns t if inside of a continued function, nil otherwise."
 	(if (= start-line 1)
 		(beginning-of-line)
 	  (unless (search-backward "#delimit" (point-at-bol) t)
-		(if (ado-delimit-is-semi)
+		(if (ado-delimit-is-semi-p)
 			(progn
 			  (setq skip-chars " \t\n")
 			  (search-backward ";" 1 t)
@@ -1498,7 +1534,7 @@ Returns t if inside of a continued function, nil otherwise."
 by /* */-style commands extending across lines."
   (interactive)
   (let (ppsexp)
-    (if (ado-delimit-is-semi)
+    (if (ado-delimit-is-semi-p)
 		(if (not (search-forward ";" nil t))
 			(error "No end of command") 
 		  (setq ppsexp (parse-partial-sexp 1 (point)))
@@ -1654,7 +1690,7 @@ characters, depending on the value of \\[ado-use-modern-split-flag]"
 (defun electric-ado-semi (arg)
   "Puts in extra newline if the semi-colon is the end-of-line delimiter"
   (interactive "P")
-  (if (ado-delimit-is-semi)
+  (if (ado-delimit-is-semi-p)
       (electric-ado-brace arg)
     (self-insert-command (prefix-numeric-value arg))))
 
@@ -1972,8 +2008,8 @@ being sure to include loop-inducing commands."
   )
 
 (defun ado-skip-special-comments ()
-  "Skips *! comments and empty lines from the current line until 
-they run out. Used to find the beginning of programs."
+  "Skips *! comments and empty lines from the current line until they run out. 
+Used to find the beginning of programs."
   (interactive)
   (goto-char (point-at-bol))
   (while (re-search-forward "^\\([*]!\\|[ \t]*$\\)" (point-at-eol) t)
@@ -2029,12 +2065,10 @@ programs, even those defined in a funky way."
 
 
 			 
-;;; Aquamacs emacs specifics (perhaps should be broken out?)
+;; Aquamacs emacs specifics (perhaps should be broken out?)
 (if (boundp 'aquamacsxb-version)
     (define-key ado-mode-map [remap mac-key-save-file] 'ado-save-program))
 
-
-
 (provide 'ado-mode)
 
-;; ado-mode.el ends here
+;;; ado-mode.el ends here
