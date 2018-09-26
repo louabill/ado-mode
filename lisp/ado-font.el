@@ -58,9 +58,9 @@
 data or the environment."
   :group 'ado-font-lock)
 
-(defface ado-builtin-harmless
+(defface ado-builtin-harmless-face
   '((t :inherit font-lock-builtin-face))
-  "Ado mode face used to highlight harmless builtin ado commands"
+  "Ado mode face used to highlight harmless builtin commands"
   :group 'ado-font-lock)
 
 (defface ado-oldplace-harmful
