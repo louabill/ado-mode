@@ -1861,8 +1861,8 @@ help files meant to be used in Stata 7 through Stata 9."
 
 ;;; Some utilities which should really be in a separate file (but which
 ;;;  would then cause extra installation instructions).
-
 (defun ado-reset-value (value prompt &optional flag)
+  "Generic function which should ease writing value-changing functions in the future."
   (let (new-value value)
     (setq new-value (read-from-minibuffer (format (concat "Change " prompt " from %d to ") value)))
     (if (null new-value)
@@ -1876,9 +1876,7 @@ help files meant to be used in Stata 7 through Stata 9."
       )))
 
 (defun ado-insert-with-lfd (junk)
-  "Used to insert and indent without needed to hit the indentation key
-  (usually a tab). One day, when the ado-mode is complete, the other
-  functions will no longer depend on this function."
+  "Insert and indent without needed to hit the indentation key (usually a tab)."
   (insert junk)
   (newline-and-indent))
 
@@ -1898,6 +1896,9 @@ details"
   (insert (ado-nice-current-date)))
 
 (defun ado-set-imenu-items ()
+  "Function for setting imenu items. 
+Not really that worthwhile for Stata because there are typically not that
+many program defines in an ado file. Still."
   (interactive)
   (setq imenu-case-fold-search nil)
   (setq imenu-generic-expression
@@ -1905,10 +1906,9 @@ details"
 		   (list nil "^\\s-*pr\\(o\\|og\\|ogr\\|ogra\\|ogram\\)\\(\\s-+\\(de\\|def\\|defi\\|defin\\|define\\)?\\)\\s-+\\([a-zA-Z_][a-zA-Z_0-9]*\\)" 4))))
 
 ;; for finding lists of directories where Stata has files
-(defun ado-find-ado-dirs (&optional dir subdir)
+(defun ado-find-ado-dirs (dir &optional subdir)
+  "Runs through finding directories where Stata stores files."
   (interactive)
-  (unless dir
-	(setq dir "/Universal/Custom/Stata/ado/Downloads"))
   (unless subdir
 	(setq subdir "all"))
   (append 
@@ -1920,11 +1920,11 @@ details"
    )) 
 
 (defun ado-next-error (&optional goback)
+  "Looks for next error in a log file (smcl or txt). 
+The optional argument GOBACK is non-nil, looks backwards 
+(see also \\[ado-prev-error]). If looking through a file where 
+tracing is on, goes back to the line which caused the error."
   (interactive)
-  "Looks for next error in a log file (smcl or txt). If the optional 
-argument goback is non-nil, looks backwards (see also ado-prev-error). 
-If looking through a file where tracing is on, goes back to the 
-line which caused the error."
   (let (whereto traceoff traceon)
 	(save-excursion
 	  (if goback
@@ -1963,9 +1963,9 @@ line which caused the error."
 
 ;; matching parens
 (defun ado-balance-brace (&optional block)
-  "Select whatever is inside balanced braces -{[()]}- but outside strings
-or comments. If block is non-nil, balance only {} in a smart way, 
-being sure to include loop-inducing commands."
+  "Select whatever is inside balanced braces -{[()]}- but outside strings or comments. 
+If BLOCK is non-nil, balance only {} in a smart way, being sure to include 
+loop-inducing commands."
   (interactive)
   (let (here there (ppsexp (parse-partial-sexp 1 (point))))
 	(save-excursion
@@ -1992,19 +1992,23 @@ being sure to include loop-inducing commands."
   ))
 
 (defun ado-grab-block ()
+  "Select a code block in a smart fashion, knowing about ifs and loops."
   (interactive)
   (ado-balance-brace t))
 
 (defun ado-send-block-to-stata ()
+  "Grab code block and send to Stata."
   (interactive)
   (ado-grab-block)
   (ado-send-command-to-stata))
 
-(defun ado-strip-after-newline (theString)
+(defun ado-strip-after-newline (string-to-fix)
+  "Take a string and return everything before a newline. 
+Utility command."
   (interactive)
-  (if (string-match "\n.*" theString) 
-	  (replace-match "" nil nil theString)
-	theString)
+  (if (string-match "\n.*" string-to-fix) 
+	  (replace-match "" nil nil string-to-fix)
+	string-to-fix)
   )
 
 (defun ado-skip-special-comments ()
@@ -2035,7 +2039,7 @@ programs, even those defined in a funky way."
   )
 
 (defun ado-statacorp-defaults ()
-  "Sets editing options to StataCorp default stamps and such for editing"
+  "Sets editing options to StataCorp default stamps and such for editing."
   (interactive)
   (set-variable 'ado-close-under-line-flag nil)
   (set-variable 'ado-lowercase-date-flag t)
