@@ -523,7 +523,7 @@ This will make ado-mode load when you open an ado or do file."
   (ado-set-font-lock-keywords)
   (setq font-lock-defaults '(ado-font-lock-keywords))
   (make-local-variable 'font-lock-syntactic-keywords)
-  (ado-set-font-lock-syntactic-keywords)
+  ; (ado-set-font-lock-syntactic-keywords)
   ;; make local copy of the extension, and try to guess the extension
   (make-local-variable 'ado-extension)
   (setq ado-extension (ado-find-extension))
