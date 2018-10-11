@@ -1196,6 +1196,8 @@ to help files in Stata 12 (and the initial buggy fix)."
 	(save-excursion
 	  (goto-char (point-min))
 	  (cond 
+	   ((search-forward-regexp "{mansection[ \t]+.*?[ \t]+\\([^ :	]*\\).*}" nil t)
+		(setq full-name (mapconcat 'identity (split-string (match-string-no-properties 1 nil)) "_")))
 	   ((search-forward-regexp "{manlink[ \t]+.*?[ \t]+\\(.*?\\)[ \t]*}" nil t)
 		(setq full-name (mapconcat 'identity (split-string (match-string-no-properties 1 nil)) "_")))
 	   ((re-search-forward "{\\(bf\\|cmd\\|hi\\):[ \t]*help[ \t]+\\(.*?\\)[ \t]*}" nil t)
