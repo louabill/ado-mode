@@ -113,10 +113,10 @@ by \\[ado-string-trim]."
 	  (if (string= use-dofile "command")
 		  (progn
 			(setq string-to-fix (ado-strip-comments string-to-fix))
-			(if (ado-delimit-is-semi)
+			(if (ado-delimit-is-semi-p)
 				(setq string-to-fix (ado-convert-semicolons string-to-fix)))
 			)
-		(if (ado-delimit-is-semi)
+		(if (ado-delimit-is-semi-p)
 			(setq string-to-fix (concat "#delimit ;
 " string-to-fix)))
 		) ;; testing for command
