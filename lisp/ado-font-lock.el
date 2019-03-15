@@ -6263,7 +6263,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   "[ \t]*"
 	   "\\([.]\\(?:[.][.]\\|-\\)\\)"
 	   "[ \t]*?"
-	   "\\(}\\)"
+	   "\\(}+\\)"
 	   )
 	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t) '(3 ado-constant-face))
 
@@ -6291,14 +6291,15 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "text" "title" "txt"
 		  "ul" "update_d"
 		  "var" "varlist" "varname" "vars" "view_d"
-		 ) 'words))
+		 ) 'words ))
 	   "[ \t]*"
 	   "\\(:\\)"
 	   "\\([^}]*?\\)"
-	   "\\(}\\)"
+	   "\\(}+\\)"
 	   )
-	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
-	  '(3 ado-constant-face) '(4 ado-subcommand-face t) '(5 ado-constant-face))
+	  '(1 ado-constant-face t) '(2 ado-builtin-harmless-face t)
+	  '(3 ado-constant-face t) '(4 ado-subcommand-face) '(5 ado-constant-face t)
+	  )
 	  ;; making smcl comments look like comments
 	(list
 	 (concat
@@ -6609,7 +6610,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t) '(4 ado-constant-face t)
 	  '(5 ado-subcommand-face t) '(6 ado-constant-face))
 
-	  ;; syntax 4 with a numeric first argument (for dup)
+  ;; syntax 4 with a numeric first argument (for dup)
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -6629,12 +6630,12 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   "\\([1-9][0-9]*\\)"
 	   "[ \t]*"
 	   "\\(:\\)"
-	   "\\([^}]+?\\)"
+	   "\\([^}]*?\\)"
 	   "\\(}\\)"
 	   )
-	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face prepend)
-	  '(3 ado-subcommand-face t) '(4 ado-constant-face t)
-	  '(5 ado-subcommand-face t) '(6 ado-constant-face))
+	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face) ; '(2 ado-builtin-harmless-face prepend)
+	  '(3 ado-subcommand-face) '(4 ado-constant-face)
+	  '(5 ado-subcommand-face) '(6 ado-constant-face))
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
