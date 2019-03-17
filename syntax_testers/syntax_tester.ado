@@ -1,4 +1,4 @@
-*! version 1.15.0.0 September 8, 2018 @ 13:14:14
+*! version 1.15.0.1 March 16, 2019 @ 19:32:53
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -7898,6 +7898,15 @@ version /* used elsewhere */
    The command smcl2do is user-written, so it will not highlight if you do not have
    it installed, but is will highlight otherwise (no easy way to fix efficiently)
    // end ignore block
+
+   // Buggy behavior with nested smcl 
+   {sf:this is some text}
+   {res:{sf:fooey}}
+
+   // rejoin these lines to test sloooooowness from many regexps on one line
+   {sf:hi}{sf:hi}{sf:hi}{sf:hi}{sf:hi}{sf:hi}{sf:hi}
+   {sf:hi}{sf:hi}{sf:hi}{sf:hi}{sf:hi}{sf:hi}{sf:hi}
+
 
    
 end
