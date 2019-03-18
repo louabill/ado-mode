@@ -426,6 +426,68 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+	;; commands related to cscript, most of which are not documented except in cscript.sthlp
+
+	(list
+	 (concat
+	  (eval-when-compile
+		ado-start-cmd-regexp
+		(regexp-opt
+		 '(
+		   "cscript_log"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "begin"
+		   "end"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  (eval-when-compile
+		ado-start-cmd-regexp
+		(regexp-opt
+		 '(
+		   "mkassert"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "char"
+		   "eclass"
+		   "matrix"
+		   "obs"
+		   "rclass"
+		   "scalar" "sclass"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  (eval-when-compile
+		ado-start-cmd-regexp
+		(regexp-opt
+		 '(
+		   "storedresults"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "compare"
+		   "drop"
+		   "save"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+
 	;; dyndoc tags
 	;; <<dd_version>> (sloppy for now, because it can only be 1)
 	(list "^[ \t]*\\(<<dd_version\\)[ \t]*:[ \t]*\\(1\\)[ \t]*\\(>>\\)"
@@ -4414,7 +4476,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "lis" "list"
 		   "loadingplot" "log"
 		   "logi" "logistic" "logit"
-		   "loneway" "lookfor" "lowess" "lpredict" "lpoly"
+		   "loneway" "lookfor" "lowess" "lpredict" "lpoly" "lrecomp"
 		   "lroc" "lrtest" "ls" "lsens" "ltable" "lv" "lvr2plot"
 		   "man" "mano" "manov" "manova" "manovatest"
 		   "margins" "marginsplot" "markdown" "matlist"
@@ -4454,8 +4516,10 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "pwcompare" "pwcorr" "pwd" "pwmean"
 		   "q" "qchi" "qnorm" "qqplot" "qreg" "qladder" "quadchk" "quantile"
 		   "qu" "que" "quer" "query"
-		   "ranksum" "ratio" "rchart" "regdw" "regph"
-		   "reg" "reg3" "regr" "regre" "regres" "regress"
+		   "ranksum" "ratio"
+		   "rchart" "rcof"
+		   "reg" "reg3" "regdw"
+		   "regph" "regr" "regre" "regres" "regress"
 		   "reshape"
 		   "robvar"
 		   "roccomp" "rocfit" "rocgold" "rocplot" "rocreg" "rocregplot" "roctab"
@@ -8782,6 +8846,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "conf" "confi" "confir" "confirm"
 		 "cons" "const" "constr" "constra" "constrai" "constrain" "constraint"
 		 "creturn"
+		 "cscript_log"
 		 "discrim"
 		 "duplicates"
 		 "eret" "eretu" "eretur" "ereturn"
@@ -8803,6 +8868,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "mer" "merg" "merge"
 		 "mgarch"
 		 "mi"
+		 "mkassert"
 		 "ml"
 		 "misstable"
 		 "mswitch"
@@ -8823,7 +8889,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "ssc"
 		 "ssd"
 		 "st_is"
-		 "stopbox"
+		 "stopbox" "storedresults"
 		 "stpow" "stpowe" "stpower"
 		 "stteffects"
 		 "tebalance" "teffects"

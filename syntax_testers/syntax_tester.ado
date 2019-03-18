@@ -1,4 +1,4 @@
-*! version 1.15.0.1 March 16, 2019 @ 19:32:53
+*! version 1.15.0.1 March 18, 2019 @ 11:56:28
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -7609,10 +7609,36 @@ version /* used elsewhere */
    foo.get_last_error_message()
 
    /* end of [M] mata manual */
+
+   /* commands related to cscripts */
+   assert
+   confirm
+
+   cscript_log
+   cscript_log begin
+   cscript_log end
+
+   lrecomp
+
+   mkassert
+   mkassert bogus
+   mkassert rclass
+   mkassert eclass
+   mkassert sclass
+   mkassert matrix
+   mkassert scalar
+   mkassert char
+   mkassert obs
+
+   rcof
+
+   // -save- is a misnomer; should be -store-
+   storedresults save
+   storedresults compare
+   storedresults drop
    
    /* now for some things which give trouble... */
-
-  
+   
    /* macros showing up inside other constructions */
    // begin ignore block
    local ding `r(foo)'
@@ -7852,21 +7878,10 @@ version /* used elsewhere */
    // for testing commands needing a subcommand
 #delimit
    
-   // various bugs which needed fixing
-   // else ifs
-   if foo {
-      bar
-      }
-   else if bleen {
-      bling
-      }
-
    display "{hline}"
 
    file read handle `macname'
 
-   // messy; 
-   {synopt:{opt min:abbrev}}
 
    // annoying local foo = strpos(`gib', "`gab'")
 
@@ -7902,6 +7917,10 @@ version /* used elsewhere */
    // Buggy behavior with nested smcl 
    {sf:this is some text}
    {res:{sf:fooey}}
+
+   // messy; 
+   {synopt:{opt min:abbrev}}
+
 
    // rejoin these lines to test sloooooowness from many regexps on one line
    {sf:hi}{sf:hi}{sf:hi}{sf:hi}{sf:hi}{sf:hi}{sf:hi}
