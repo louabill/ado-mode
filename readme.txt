@@ -1,4 +1,4 @@
-Ado-mode for emacs v. 23 and higher
+Ado-mode for emacs v. 24.1 and higher
 -----------------------------------
 
 This is the readme file for the ado-mode major mode made for editing Stata

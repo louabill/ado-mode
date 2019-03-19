@@ -1,9 +1,9 @@
 ;;; ado-mode.el --- ado mode, and its idiosyncratic commands.
 
-;; Copyright (C) 1996,..., 2018 Bill Rising
+;; Copyright (C) 1996,..., 2019 Bill Rising
 
 ;; Author: Bill Rising <brising@alum.mit.edu>
-;; Version: 1.15.1.4
+;; Version: 1.15.1.5
 ;; Keywords: languages, tools
 ;; Homepage: https://github.com/louabill/ado-mode
 ;;

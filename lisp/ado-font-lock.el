@@ -1,6 +1,6 @@
 ;;; ado-font-lock.el --- all the endless font locking
 
-;; Copyright (C) 2003--2018 Bill Rising
+;; Copyright (C) 2003--2019 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
 ;; Keywords: languages, tools

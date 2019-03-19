@@ -2,6 +2,10 @@
 
 ## 1.15.1.5
 
+* Made ado-mode better at guessing names of help files.
+
+* Added undocumented commands associated with -cscript- (see -help cscript-).
+
 * Added menu items for opening help and source files.
 
 * Small syntax highlighting fixes
@@ -9,7 +13,19 @@
 * Put in embarrassing omission of 4 erm commands
 
 * Cleaned up syntax_tester.ado to make it easier to pull all possible
-  Stata commands from it.
+   Stata commands from it.
+
+* Replaced some emacs-obsolete variables with their newer versions,
+  meaning that ado-mode now requires Emacs 24.1 or later.
+
+* Updated header info to be more modern in all files.
+
+* Had to change some function names and arguments to make things more
+  compliant with emac usage:
+  (ado-delimit-is-semi) was changed to (ado-delimit-is-semi-p)
+  (ado-find-ado-dirs) changed to require the subdir instead of defaulting
+    to an obscure directory on my computer (oops)
+
 
 ## 1.15.1.4
 
