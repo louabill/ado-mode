@@ -132,7 +132,7 @@ the *Messages* buffer when the command runs."
   (let ((select-enable-clipboard t))
 	(if prefix (setq prefix (concat prefix " ")))
 	(if suffix (setq suffix (concat " " suffix)))
-	(message (concat prefix (ado-grab-something where) suffix))
+	(message "%s" (concat prefix (ado-grab-something where) suffix))
 	(funcall interprogram-cut-function
 			 (concat prefix (ado-grab-something where) suffix))
 	))

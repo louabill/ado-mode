@@ -585,7 +585,7 @@ STATE t: better behavior to have \\C-m like `newline-and-indent'."
   "Interface for changing options which have numerical values somewhat nicely. 
 Does not work if fed an expression.
 VARIABLE is for the variable name.
-NEWVALUS is for the newvalue."
+NEWVALUE is for the newvalue."
   (interactive "vWhat variable would you like to change? 
 i")
   (if (or (null newvalue)
@@ -596,7 +596,7 @@ i")
 	     (string= newvalue "")
 	     (= (setq newvalue (string-to-number newvalue)) (eval variable)))
 	    (progn
-	      (message (concat "value of " (symbol-name variable) " left unchanged."))
+	      (message "%s" (concat "value of " (symbol-name variable) " left unchanged."))
 	      nil)
 	  (set variable (eval newvalue))
 	  (message (format (concat "value of " (symbol-name variable) " set to %d.") (eval variable)))
@@ -1079,7 +1079,7 @@ instead, which returns a value instead of setting a variable."
   "Shows what ado-mode thinks the file extension for the current
 buffer should be by running \\[ado-find-extension]."
   (interactive)
-	(message (concat "I think the extension is " (ado-find-extension))))
+	(message "%s" (concat "I think the extension is " (ado-find-extension))))
 
 
 (defun ado-find-extension (&optional message)
@@ -1123,7 +1123,7 @@ To test this, try \\[ado-show-extension]."
 	(if sez-file
 		(progn
 		  (unless (string= sez-file sez-contents)
-			(message (concat "ado-mode thinks that the extension should be " sez-contents " even though the current extension is " sez-file "!")))
+			(message "%s" (concat "ado-mode thinks that the extension should be " sez-contents " even though the current extension is " sez-file "!")))
 		  sez-file)
 	  sez-contents)
 	))
@@ -1132,7 +1132,7 @@ To test this, try \\[ado-show-extension]."
   "Shows what ado-mode thinks the name of the edited file should be by
 running \\[ado-make-ado-name]."
   (interactive)
-  (message (ado-make-ado-name)))
+  (message "%s" (ado-make-ado-name)))
 						  
 (defun ado-make-ado-name ()
   "Creates a file name from the contents of the file. 
@@ -1277,7 +1277,7 @@ Currently broken --- need to assess need."
 (defun ado-show-local-name ()
   "Shows the value that would be returned by \\[ado-find-local-name]"
   (interactive)
-  (message (concat "The local program is " (ado-find-local-name))))
+  (message "%s" (concat "The local program is " (ado-find-local-name))))
 
 (defun ado-insert-file-and-indent (file)
   "Interactively insert (and properly indent) an ado file.
@@ -1354,7 +1354,7 @@ For old-school contintuation comments."
   "Shows the depth of the command (for indenting)."
   (interactive)
   (let ((depth (ado-find-depth)))
-    (message (concat "The depth was " (number-to-string (car depth))
+    (message "%s" (concat "The depth was " (number-to-string (car depth))
 		     (if (nth 1 depth) " with continuation" " without continuation")))))
 
 ;; changed left-indenting of 'version' to left-indent iff spelled out
@@ -1473,7 +1473,7 @@ Many of the parameters can be customized using '\\[customize-group] ado-mode'."
 (defun ado-show-delimiter ()
   "Returns the value of the delimiter in ado-functions as a message."
   (interactive)
-  (message (if (ado-delimit-is-semi-p)
+  (message "%s" (if (ado-delimit-is-semi-p)
 	       "The delimiter is ;"
 	     "The delimiter is cr"
 	     )))
@@ -1828,7 +1828,7 @@ help files meant to be used in Stata 7 through Stata 9."
   (if (string= ado-help-extension "sthlp")
 	  (setq ado-help-extension "hlp")
 	(setq ado-help-extension "sthlp"))
-  (message (concat "ado-help-extension is now " ado-help-extension)))
+  (message "%s" (concat "ado-help-extension is now " ado-help-extension)))
 
 ;;; useful insertions in smcl
 (defun ado-help-insert-option-in-body (&optional option-name)
@@ -1871,7 +1871,7 @@ help files meant to be used in Stata 7 through Stata 9."
 		  value
       (if (= (setq new-value (string-to-number new-value )) value)
 			 (progn 
-				(message (concat prompt " left unchanged."))
+				(message "%s" (concat prompt " left unchanged."))
 				value)
 		  new-value
 		  )
@@ -1952,7 +1952,7 @@ tracing is on, goes back to the line which caused the error."
 							  (goto-char whereto))))
 				  (goto-char whereto)))
 			))
-	  (message (concat "no "
+	  (message "%s" (concat "no "
 					   (if goback
 						   "previous"
 						 "next")
@@ -2049,7 +2049,7 @@ programs, even those defined in a funky way."
   (set-variable 'ado-initials-flag nil)
   (set-variable 'tab-width 8)
   (ado-set-window-width 80)
-  (message "ado-mode options set to StataCorp defaults"))
+  (message "%s" "ado-mode options set to StataCorp defaults"))
 
 ;; these trim functions come from Magnar Sveen via Xah Lee at
 ;; http://ergoemacs.org/emacs/modernization_elisp_lib_problem.html

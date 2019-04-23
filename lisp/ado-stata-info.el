@@ -141,15 +141,15 @@ from a new Stata sesson."
 
 (defun ado-show-stata ()
   (interactive)
-  (message (concat "Found: " (ado-find-stata))))
+  (message "%s" (concat "Found: " (ado-find-stata))))
 
 (defun ado-show-tmp-dir ()
   (interactive)
-  (message (concat "Found: " (ado-system-tmp-dir))))
+  (message "%s" (concat "Found: " (ado-system-tmp-dir))))
 
 (defun ado-show-stata-version ()
   (interactive)
-  (message (concat "Found: " (ado-get-stata-version))))
+  (message "%s" (concat "Found: " (ado-get-stata-version))))
 
 (defun ado-system-tmp-dir ()
   "Returns the temporary directory used by the OS for the user.

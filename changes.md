@@ -1,5 +1,11 @@
 # Version History
 
+## 1.15.1.6
+
+* Tried fixing mysterious 'Not enough arguments for format string' error
+  message which could pop up when there were %-symbols in commands being
+  sent to Stata.
+
 ## 1.15.1.5
 
 * Made ado-mode better at guessing names of help files.

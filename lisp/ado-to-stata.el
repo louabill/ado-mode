@@ -119,7 +119,7 @@ send2stata.scpt is stored. "
 					  " -d " dothis
 					  " &"
 					  )))
-	 (t (message (concat "working via " dothis "s not supported yet in " 
+	 (t (message "%s" (concat "working via " dothis "s not supported yet in " 
 						 (symbol-name system-type)
 						 (if (string= dothis "command")
 							 ", but the command is on the clipboard and you can paste it in the command window by hand"))))))
@@ -130,7 +130,7 @@ send2stata.scpt is stored. "
 	(if comeback
 		(if (> (shell-command (concat "open \"" (substring invocation-directory 0 (string-match "/Contents" invocation-directory)) "\"")) 0)
 			(message "had trouble with shell command")))
-	(message (concat "selection sent to Stata")))))
+	(message "selection sent to Stata"))))
 
 (defun ado-send2stata-name (send2stata-name)
   "For finding the send2stata script/executable name. Needed because 
