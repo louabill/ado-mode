@@ -2,7 +2,7 @@
 
 The `ado-mode` is a major [editing] mode for Emacs which allows truly good editing of Stata, namely `do`, `ado`, `sthlp`, `smcl`, and `mata` files. Here is a [screenshot](docs4github/ado_highlighting.png) to see what the highlighting does. The mode also handles indentation, date stamps, and includes templates for writing help files, project do-files and the like.
 
-Emacs versions 25, 24, and 23 are supported.
+Emacs versions 25 and 24.1 are supported.
 
 Here is the [change log](changes.md) which says what is new.
 
@@ -30,9 +30,13 @@ Here are the things which make life easier when using the `ado-mode`. Features i
 
 * Automatic refreshing of a header time stamp which can be formatted in a variety of ways.
 
-* Typical Emacs things: Parentheses, braces and double-quotes are balanced.
+* Typical Emacs things:
+  * Parentheses, braces and double-quotes are balanced.
+  * Auto-completion can be enabled via `M-x auto-complete-mode` or `M-x company-mode`, among other minor modes. Both highlight common words and words already used in the buffer being edited. `auto-complete-mode` comes with Emacs while `company-mode` can be downloaded from Melpa via `M-x list-packages`. 
 
 Installation is not as simple as it could be, so there (will be) installation instructions on the wiki. For now, the [installation instructions](http://louabill.org/Stata/ado-mode_install.html) are back on the old webpage.)
+
+One day I will get this Melpa-compliant. One day.
 
 **Please** let me know if there are any troubles with the installations, since there are little quirks with cross-platform Emacs stuff.
 
