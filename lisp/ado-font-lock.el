@@ -6968,7 +6968,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  (concat
 	  "\\<\\(class\\)\\>"
 	  "[ \t]+"
-	  "\\([_a-zA-Z][_:alnum:]*\\)"
+	  "\\([_a-zA-Z][_[:alnum:]]*\\)"
 	  )
 	  '(1 ado-builtin-harmful-face) '(2 ado-builtin-harmful-face t))
 

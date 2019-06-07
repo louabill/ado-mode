@@ -6,6 +6,8 @@ Version History:
   message which could pop up when there were %-symbols in commands being
   sent to Stata.
 
+* Fixed highlighting bug in class declarations.
+
 1.15.1.5
 
 * Made ado-mode better at guessing names of help files.
