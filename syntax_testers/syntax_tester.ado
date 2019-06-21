@@ -1,4 +1,4 @@
-*! version 1.15.0.1 March 18, 2019 @ 11:56:28
+*! version 1.15.0.1 21jun2019
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -81,6 +81,7 @@ version 14.3 // bad
 version 15
 version 15.0
 version 15.1
+version 15.2 // bad
 version 16   // bad, for now
 version 20   // bad for awhile
 version 44   // bad for multiple generations
@@ -101,7 +102,8 @@ version 44   // bad for multiple generations
    /* first... [R] the general reference manuals */
    about
    adjust // obsolete in Stata 11
-   adoupdate
+   adoupdate // obsolete in Stata 16
+   ado update
    ameans
    an
    ano
@@ -109,10 +111,10 @@ version 44   // bad for multiple generations
    anova
    // anova postestimation skipped because it matches regress
    areg
-   asclogit
-   asmixlogit            // new in Stata 15
-   asmprobit
-   asroprobit
+   asclogit              // obsolete in Stata 16                           
+   asmixlogit            // new in Stata 15 // obsolete in Stata 16
+   asmprobit             // obsolete in Stata 16 
+   asroprobit            // obsolete in Stata 16 
 
    betareg               // new in Stata 14
    binreg
@@ -144,8 +146,8 @@ version 44   // bad for multiple generations
    cii prop
    cii variances
    
-   clog
-   clogi
+   clog         // abbrev obsolete in Stata 16 
+   clogi        // abbrev obsolete in Stata 16
    clogit
    cloglog
    cls
@@ -173,7 +175,10 @@ version 44   // bad for multiple generations
 
    contrast
    // the copyright commands all go to the same help file
+   //    because -copyright- runs -help copyright- and nothing else
    //   so -copyright foo- works...
+   //  No new subcommands added as of Stata 16
+   //   leaving what is here for past compatability only
    copyright             // subcommands new in Stata 14
    copyright apache
    copyright autolink    // new in Stata 15
@@ -275,12 +280,13 @@ version 44   // bad for multiple generations
    estat clas // ivprobit
    estat classification // ivprobit logistic logit probit
    estat gof
+   estat ic  // again
    estat su
    estat summar
    estat summarize
    estat vce
    
-   /* estimates */
+   // estimates from omnibus estimates entry
    estimates `foo'
    est save
    est use
@@ -311,12 +317,15 @@ version 44   // bad for multiple generations
    estimates notes list
    estimat notes drop
 
+   estimates descr  // again
    estimates r
    estimates replay
 
    estimates t  // obsolete abbrev starting Stata 10
    estimates tab
    estimates table
+   estimates sel        // new in Stata 16
+   estimates selected   // new in Stata 16 
    estimates f // obsolete abbrev starting Stata 11
    estimates for
    estimates st // obsolete abbrev starting Stata 10
@@ -387,6 +396,8 @@ version 44   // bad for multiple generations
 
    ch che chel chelp // obsolete in Stata 14
    whelp
+
+   hetoprobit  // new in Stata 16
    hetprobit
    hetprob // synonym for hetprobit in Stata 14
    hetregress            // new in Stata 15
@@ -442,7 +453,7 @@ version 44   // bad for multiple generations
    log close
    log of
    log off
-   log using  // highlights as standard blue 'using'
+   log using
    cmdlog
    cmdlog c
    cmdlog close
@@ -461,7 +472,7 @@ version 44   // bad for multiple generations
    
    logistic
 
-   logi
+   logi    // abbrev obsolete in Stata 16
    logit
 
    loneway
@@ -475,11 +486,12 @@ version 44   // bad for multiple generations
    margins
    marginsplot
 
-   set mat
-   set matsize
+   set mat       // obsolete in Stata 16 
+   set matsize   // obsolete in Stata 16 
 
    // inside 'maximize' help
    set maxiter
+
    mean
    // mfp is simple now; in Stata 11 it became a prefix command
    mfp
@@ -552,11 +564,17 @@ version 44   // bad for multiple generations
    ml mlout
    // end obsolete block
    * etc
-
+   // these are 
+   mleval
+   mlsum
+   mlvecsum
+   mlmatsum
+   mlmatbysum  // has been since at least Stata 9
+   
    mlexp
    
-   mlog 
-   mlogi
+   mlog    // abbrev obsolete in Stata 16 
+   mlogi   // abbrev obsolete in Stata 16
    mlogit
 
    set mo // should not highlight
@@ -567,6 +585,8 @@ version 44   // bad for multiple generations
    set pagesize
 
    mprobit
+
+   // @@ Start Here!
    
    nbreg
    gnbreg

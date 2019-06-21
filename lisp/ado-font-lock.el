@@ -187,16 +187,16 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; it appears Stata accepts any version number
 	;; this just allows major[.0/max for particular version]
-	;; only 0's: 1, 4, 5, 7, 14 (so far)
-    ;; .1's: 2, 3, 6, 10, 12, 13
-	;; .2's: 8, 9, 11
+	;; only 0's: 1, 4, 5, 7, (so far)
+    ;; .1's: 2, 3, 6, 10, 12, 13, 15
+	;; .2's: 8, 9, 11, 14
 	(list
 	 (concat
 	  (eval-when-compile
 		(regexp-opt
 		 '("vers" "versi" "versio" "version")
 		 'words))
-	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[012345]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[012345]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\|:\\)"
+	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[0123456]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[012345]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\|:\\)"
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; pause on/off
@@ -245,6 +245,25 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-obsolete-face))
+
+	;; ado with subcommands
+    	(list
+	 (concat
+	  (eval-when-compile
+		ado-start-cmd-regexp
+		(regexp-opt
+		 '(
+		   "ado"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "update"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
 
 	;; various bayes commands
 	(list
@@ -803,7 +822,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "lineg" "linega" "linegap"
 		   "lines" "linesi" "linesiz" "linesize"
 		   "locale_functions" "locale_ui"
-		   "mat" "mats" "matsi" "matsiz" "matsize"
 		   "maxdb" "maxiter" "max_memory" "maxvar" "min_memory"
 		   "niceness" "notifyuser"
 		   "ob" "obs"
@@ -1108,7 +1126,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;;    )
 	;;   '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-subcommand-face t))
 
-	;; these appear to be obsolete and do not show in the manuals
+	;; obsolete set subcommands which not show in the manuals
 	;;   some work, however.
 	(list
 	 (concat
@@ -1132,6 +1150,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "log"
 		   "macgp" "macgph" "macgphe" "macgphen" "macgpheng"
 		   "macgphengi" "macgphengin" "macgphengine"
+		   "mat" "mats" "matsi" "matsiz" "matsize"
 		   "maxobs"
 		   "mem" "memo" "memor" "memory"
 		   "persistfv" "persistvtopic"
@@ -4370,10 +4389,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "an" "ano" "anov" "anova"
 		   "arch" "areg" "arfima" "arima"
 		   "as"
-		   "asclogit"
-		   "asmixlogit"
-		   "asmprobit"
-		   "asroprobit"
 		   "ass" "asse" "asser" "assert"
 		   "avplot" "avplots"
 		   "bayes"
@@ -4447,7 +4462,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "hadimvo" "hausman"
 		   "heckman" "heckoprobit" "heckpoisson" "heckprob" "heckprobit"
 		   "he" "hel" "help"
-		   "hetprob" "hetprobit" "hetregress"
+		   "hetprob" "hetoprobit" "hetprobit" "hetregress"
 		   "hexdump" "hilite"
 		   "hist" "histo" "histog" "histogr" "histogra" "histogram"
 		   "hlu" "hotel" "hotelling"
@@ -5097,7 +5112,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "mark" "markin" "markout" "mat"
 		   "matr" "matri" "matrix"
 		   "mkdir" "mkmat" "mkspline"
-		   "mleval" "mlmatsum" "mlsum""mlvecsum"
+		   "mleval" "mlmatbysum" "mlmatsum" "mlsum" "mlvecsum"
 		   "modify"
 		   "mvdecode" "mvencode"
 		   "nlogitgen" "nlpred" "nobreak"
@@ -8180,9 +8195,11 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		(regexp-opt
 		 '(
 		   "_huber" "_qreg"
-		   "adjust"
+		   "adjust" "adoupdate"
 		   "aorder"
 		   "archlm"
+		   "asclogit"
+		   "asmixlogit" "asmprobit" "asroprobit"
 		   "bgodfrey" "blogit" "bprobit" "bstrap"
 		   "chdir"
 		   "ch" "che" "chel" "chelp"
@@ -8387,6 +8404,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			 "rep" "repl" "repla" "replay"
 			 "res" "rest" "resto" "restor" "restore"
 			 "save"
+			 "sel" "sele" "selec" "select" "selecte" "selected" 
 			 "stat" "stats"
 			 "sto" "stor" "store"
 			 "tab" "tabl" "table"
