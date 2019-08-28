@@ -1,4 +1,4 @@
-*! version 1.15.0.1 August 28, 2019 @ 13:31:36
+*! version 1.15.0.1 August 28, 2019 @ 13:41:11
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -1607,8 +1607,28 @@ set trace off
    // using bayes: as a prefix; not putting it in with each possible command
 
    /* [CM] Choice models */
-   // new in Stata 16
+   // manual new in Stata 16
    // contains some commands which were in other manuals
+
+   cmclogit
+
+   cmmixlogit
+
+   cmmprobit
+
+   cmrologit
+
+   cmroprobit
+
+   cmsample
+
+   cmset
+
+   cmsummarize
+
+   cmtab
+
+   cmxtmixlogit
 
    nlogit
    nlogitgen
