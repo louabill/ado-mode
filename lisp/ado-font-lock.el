@@ -4753,6 +4753,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "xtabond" "xtcloglog"
 		   "xtdes" "xtdesc" "xtdescr" "xtdescri" "xtdescrib" "xtdescribe"
 		   "xtdpd" "xtdpdsys"
+		   "xteregress"
 		   "xtfrontier"
 		   "xtgee" "xtgls" "xthtaylor" "xtintreg" "xtivreg"
 		   "xtline" "xtlogit"

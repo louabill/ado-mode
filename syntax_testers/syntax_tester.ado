@@ -1,4 +1,4 @@
-*! version 1.15.0.1 August 28, 2019 @ 16:13:26
+*! version 1.15.0.1 August 28, 2019 @ 16:17:12
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -2377,9 +2377,14 @@ set trace off
    // New manual in Stata 15
 
    eintreg
+
    eoprobit
+
    eprobit
+
    eregress
+   xteregress
+   
    estat teffects
 
    /* end [ERM] extended regression models */
