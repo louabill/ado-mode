@@ -8594,6 +8594,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(3 ado-subcommand-face t))
 
 	;; fmm # prefix
+	;; changed in 1.16.0.0 because of prefix subcommands
+	;; now thi is complete even without a particular model
 	;; first, incomplete fmm
 	(list
 	 (concat
@@ -8601,36 +8603,36 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\<\\(fmm\\)\\>"
 	  "[ \t]+"
 	  "\\([1-9][0-9]*\\)"
-	  "[ \t]*:"
+	  ".*?\\(:\\)"
 	  )
-	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face) '(3 ado-builtin-harmless-face))
 	
-	(list
-	 (concat
-	  ado-start-cmd-regexp
-	  "\\<\\(fmm\\)\\>"
-	  "[ \t]+"
-	  "\\([1-9][0-9]*\\)"
-	  "[ \t]*:[ \t]*"
-	  (eval-when-compile
-		(regexp-opt
-		 '(
-		   "betareg"
-		   "cloglog"
-		   "glm"
-		   "intreg" "ivregress"
-		   "logit"
-		   "mlogit"
-		   "nbreg"
-		   "ologit" "oprobit"
-		   "poisson" "probit"
-		   "regress"
-		   "streg"
-		   "tobit" "tpoisson" "truncreg"
-		   ) 'words))
-	  ado-end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face t)
-	 '(3 ado-builtin-harmless-face t))
+	;; (list
+	;;  (concat
+	;;   ado-start-cmd-regexp
+	;;   "\\<\\(fmm\\)\\>"
+	;;   "[ \t]+"
+	;;   "\\([1-9][0-9]*\\)"
+	;;   "[ \t]*:[ \t]*"
+	;;   (eval-when-compile
+	;; 	(regexp-opt
+	;; 	 '(
+	;; 	   "betareg"
+	;; 	   "cloglog"
+	;; 	   "glm"
+	;; 	   "intreg" "ivregress"
+	;; 	   "logit"
+	;; 	   "mlogit"
+	;; 	   "nbreg"
+	;; 	   "ologit" "oprobit"
+	;; 	   "poisson" "probit"
+	;; 	   "regress"
+	;; 	   "streg"
+	;; 	   "tobit" "tpoisson" "truncreg"
+	;; 	   ) 'words))
+	;;   ado-end-cmd-regexp )
+	;;  '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face t)
+	;;  '(3 ado-builtin-harmless-face t))
 		 
 
 	;; forecast commands

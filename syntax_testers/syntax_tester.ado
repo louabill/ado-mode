@@ -1,4 +1,4 @@
-*! version 1.15.0.1 August 28, 2019 @ 16:17:12
+*! version 1.15.0.1 August 28, 2019 @ 16:38:57
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -2393,9 +2393,12 @@ set trace off
    // New manual in Stata 15
 
 
-   fmm 3:  // incomplete
+   fmm 3:  // incomplete, but good enough
 
+   // highlighting changed to be less informative in 1.16.0.0
+   // done because there are too many prefix options to get the hilighting to be good
    fmm 1: betareg
+   fmm 2, vce(robust): betareg // !! should do better; instead will dump speacial
    fmm 2: cloglog
    fmm 3: glm
    fmm 15: intreg
