@@ -1,4 +1,4 @@
-*! version 1.15.0.1 21jun2019
+*! version 1.15.0.1 August 28, 2019 @ 13:31:36
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -586,8 +586,6 @@ version 44   // bad for multiple generations
 
    mprobit
 
-   // @@ Start Here!
-   
    nbreg
    gnbreg
 
@@ -614,6 +612,7 @@ version 44   // bad for multiple generations
    ado dir
    ado d
    ado describe
+   ado update    // new in Stata 16 
    ado uninstall
 
    net search
@@ -639,22 +638,17 @@ version 44   // bad for multiple generations
    nlinit  // obsolete in Stata 9
 
    nlcom
-
-   nlogit
-   nlogitgen
-   nlogittree
-
-   estat alt
-   estat alternatives
+   
    nlsur
 
    npregress kernel      // new in Stata 15
    npregress  // incomplete
+   npregress series     // new in Stata 16 
 
    nptrend
 
-   olog
-   ologi
+   olog   // abbrev obsolete in Stata 16 
+   ologi  // abbrev obsolete in Stata 16 
    ologit 
 
    on
@@ -664,8 +658,8 @@ version 44   // bad for multiple generations
    oneway
 
    oprob
-   oprobi
-   oprobit
+   oprobi  // abbrev obsolete in Stata 16 
+   oprobit // abbrev obsolete in Stata 16 
 
    orthog
    orthpoly   
@@ -689,8 +683,8 @@ version 44   // bad for multiple generations
    predict
    predictnl
    
-   prob
-   probi
+   prob    // abbrev obsolete in Stata 16 
+   probi   // abbrev obsolete in Stata 16 
    probit
 
    dprobit // obsolete in Stata 11
@@ -736,6 +730,9 @@ version 44   // bad for multiple generations
    query update
    qu trace
    q mata
+   que java       // new in Stata 16 
+   quer python    // new in Stata 16
+   query random   // new in Stata 16 
    que unicode  // new in Stata 14 
    q oth
    q other
@@ -751,12 +748,15 @@ version 44   // bad for multiple generations
    regress : regress : regress
    regress a b, vce(robust) 
 
-   reg
-   regr
-   regre
-   regres
+   reg       // abbrev obsolete in Stata 16 
+   regr      // abbrev obsolete in Stata 16 
+   regre     // abbrev obsolete in Stata 16 
+   regres    // abbrev obsolete in Stata 16 
    regress
 
+   // regress postestimation left out on purpose here
+
+   // !! fix me? 
    #r
    #re
    #rev
@@ -765,7 +765,8 @@ version 44   // bad for multiple generations
    #review
 
    /* _rmcoll in [P] _huber obsolete */
-   _rmcoll _huber
+   _rmcoll
+   _huber
 
    /* following manual rather than short entry */
    roccomp
@@ -782,7 +783,7 @@ version 44   // bad for multiple generations
 
    roctab
    
-   rologit
+   rologit  // obsolete in Stata 16 
 
    rreg
 
@@ -859,6 +860,7 @@ version 44   // bad for multiple generations
    set dockable on
    set dockable off
 
+   // not in Stata 16 manuals
    set dockingg
    set dockingg on
    set dockingguides off
@@ -899,6 +901,11 @@ version 44   // bad for multiple generations
    set floatwindows off
 
    set fredkey // new in Stata 15
+
+   // new in Stata 16
+   set fvbase
+   set fvbase on
+   set fvbase off
    
    set fvlabel // incomplete
    set fvlabel on
@@ -944,6 +951,15 @@ version 44   // bad for multiple generations
    set include_bitmap on
    set include_bitmap off
 
+   // new in Stata 16
+   set iterlog
+   set iterlog on
+   set iterlog off
+
+   // new in Stata 16 
+   set java_heapmax
+   set java_home
+
    set l
    set level
 
@@ -976,14 +992,16 @@ version 44   // bad for multiple generations
    set macgph quartz // obsolete in Stata 11
    set macgphengine quickdraw // obsolete in Stata 11
 
+   // set matsize obsolete in Stata 16
    set mat
    set matsize
-
-   set max_memory
 
    set maxdb
 
    set maxiter
+
+   set max_memory
+   set max_preservemem
 
    set maxvar
 
@@ -993,13 +1011,14 @@ version 44   // bad for multiple generations
    // end obsolete block
 
    set min_memory
+   
    set more  // incomplete 
    set mo on
    set more off
 
    set niceness
 
-   set notifyuser  // incomplete 
+   set notifyuser  // incomplete, mac only
    set notifyuser off
    set notifyuser on
 
@@ -1059,6 +1078,10 @@ version 44   // bad for multiple generations
 
    set processors
 
+   // new in Stata 16 
+   set python_exec
+   set python_userpath
+
    set reventr
    set reventries
 
@@ -1073,7 +1096,7 @@ version 44   // bad for multiple generations
    set r on
    set rmsg off
 
-   set rng // incomplte; new in Stata 14 ; must have type set
+   set rng // incomplete; new in Stata 14 ; must have type set
    set rng default // new in Stata 14 
    set rng mt64    // new in Stata 14
    set rng mt64s   // new in Stata 15
@@ -1174,6 +1197,7 @@ set trace off
    set varkeyboard // incomplete 
    set varkeyboard on
    set varkeyboard off
+   
    set varlabelpos // obsolete at some point
    set varwin float // obsolete in Stata 11, it seems
    set varwindow nofloat // obsolete in Stata 11, I guess
@@ -1239,6 +1263,7 @@ set trace off
    ssc d
    ssc `foo'  // bad? good? dunno?
    ssc describe
+   ssc ins // bad
    ssc inst
    ssc install
    ssc uninstall
@@ -1381,6 +1406,7 @@ set trace off
    update swap // obsolete as of Stata 12
    update all
    update `foo'
+   set update_query // incomplete
    set update_query on
    set update_query off
    set update_interval
@@ -1393,7 +1419,7 @@ set trace off
    view help
    view search
    view `foo'
-   view news
+   view news // obsolete in Stata 16 
    view net
    view ado
    view update
@@ -1423,26 +1449,39 @@ set trace off
    ztesti // new in Stata 14
 
    /* endless postestimation */
-   // not checked too much for Stata 15 !!
-   // common across most estimation commands (most also elsewhere)
-   contrast
-   estimates
-   forecast   // incomplete 
+   // not checked too much since Stata 14
+   // common across most estimation commands
+   // should have their own docs anyways
+
+   // anova (regress) postestimation
+   adjust // obsolete in Stata 11
+   dfbeta
+   acprplot
+   avplot
+   avplots
+   cprplot
+   lvr2plot
+   rvfplot
+   rvpplot
+
+   contrast   // areg
+   estimates  // areg
+   forecast   // areg, incomplete 
    fracplot
    fracpred
-   hausman
-   lincom
-   linktest
-   lrtest
-   margins
-   marginsplot
-   nlcom
-   predict
-   predictnl
-   pwcompare
-   suest
-   test
-   testnl
+   hausman    // areg
+   lincom     // areg
+   linktest   // areg
+   lrtest     // areg
+   margins    // areg
+   marginsplot  // areg
+   nlcom      // areg
+   predict    // predict
+   predictnl  // areg
+   pwcompare  // areg
+   suest      // betareg
+   test       // areg
+   testnl     // areg
    fp plot
    fp predict
    lroc
@@ -1455,6 +1494,7 @@ set trace off
    // estat (from [R]) !!
    // (some) obsolete versions included for testing
    // not sure how to test for new stuff....
+   //  not checked for Stata 16 !!
    estat alt
    estat alternatives  // asclogit ascprobit asroprobit nlogit
    archlm // obsolete in Stata 9 
@@ -1507,20 +1547,11 @@ set trace off
    estat szr
    estat szroeter // anova regress
    estat sum // areg
-   estat summarize
+   estat summarize // areg
    estat vce // areg
    vif // obsolete in Stata 9 
    estat vif // anova regress
-   // regress postestimation
-   adjust // obsolete in Stata 11
-   dfbeta
-   acprplot
-   avplot
-   avplots
-   cprplot
-   lvr2plot
-   rvfplot
-   rvpplot
+
 
    /* end subcommand using postestimation */
    /* end [R] */
@@ -1531,6 +1562,10 @@ set trace off
    
    /* from Bayes manual [BAYES]; all initially introduced in Stata 14 */
    bayesmh
+
+   // Bayesian postestimation not separated out here, because all commands
+   //   have their own documentation
+   
    bayesgraph
    bayesgraph matrix
    /* no special highlighting yet */
@@ -1542,8 +1577,15 @@ set trace off
    bayesstats ess
    bayesstats ess _all
 
+   bayesstats grubin     // new in Stata 16
+   bayesstats gr
+   bayesstats grubin _all
+
    bayesstats ic
 
+   bayesstats ppvalues   // new in Stata 16 
+   bayesstats ppval
+   
    bayesstats summ
    bayesstats summary
    bayesstats sum _all // bad (sum too short)
@@ -1557,17 +1599,24 @@ set trace off
 
    bayestest model
 
+   // not putting in funspec or ysimspec, because the funspec would be impossible to get right
+   bayespredict    // new in Stata 16 
+
    set clevel
 
-   /* Bayes postestimation; all initially introduced in Stata 14 */
-   bayesgraph
-   bayesstats ess
-   bayesstats summary
-   bayesstats ic
-   bayestest model
-   bayestest interval
-   
-   
+   // using bayes: as a prefix; not putting it in with each possible command
+
+   /* [CM] Choice models */
+   // new in Stata 16
+   // contains some commands which were in other manuals
+
+   nlogit
+   nlogitgen
+   nlogittree
+   estat alt
+   estat alternatives
+
+
    /* from [D] data management manual */
    ap
    app

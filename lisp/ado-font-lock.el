@@ -295,7 +295,9 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		(regexp-opt
 		 '(
 		   "ess"
+		   "gr" "gru" "grub" "grubi" "grubin"
 		   "ic"
+		   "ppval" "ppvalu" "ppvalue" "ppvalues" 
 		   "summ" "summa" "summar" "summary"
 		   ) 'words))
 	  ado-end-cmd-regexp )
@@ -647,6 +649,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 (regexp-opt
 		  '(
 			"kernel"
+			"series"
 			) 'words))
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -814,20 +817,21 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "a" "ad" "ado" "ados" "adosi" "adosiz" "adosize"
 		   "cformat" "clevel"
 		   "fredkey"
-		   "fvwrap"
+		   "fvbase" "fvwrap"
 		   "haverdir"
 		   "httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
+		   "java_heapmax" "java_home"
 		   "l" "le" "lev" "leve" "level"
 		   "li" "lin" "line"
 		   "lineg" "linega" "linegap"
 		   "lines" "linesi" "linesiz" "linesize"
 		   "locale_functions" "locale_ui"
-		   "maxdb" "maxiter" "max_memory" "maxvar" "min_memory"
+		   "maxdb" "maxiter" "max_memory" "max_preservemem" "maxvar" "min_memory" 
 		   "niceness" "notifyuser"
 		   "ob" "obs"
 		   "pa" "pag" "page" "pages" "pagesi" "pagesiz" "pagesize"
 		   "pformat"
-		   "processors"
+		   "processors" "python_exec" "python_userpath"
 		   "reventr" "reventri" "reventrie" "reventries"
 		   "rngstate" "rngstream"
 		   "scheme" "scrollbufsize"
@@ -864,11 +868,11 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "doublebuffer" "dp"
 		   "emptycells"
 		   "fastscroll" "floatresults" "floatwindows"
-		   "fvlabel" "fvtrack" "fvwrapon"
+		   "fvbase" "fvlabel" "fvtrack" "fvwrapon"
 		   "g" "gr" "gra" "grap" "graph" "graphi" "graphic" "graphics"
 		   "httpproxy"
 		   "httpproxya" "httpproxyau" "httpproxyaut" "httpproxyauth"
-		   "include_bitmap"
+		   "include_bitmap" "iterlog"
 		   "locksplit" "locksplitt" "locksplitte" "locksplitter" "locksplitters"
 		   "logt" "logty" "logtyp" "logtype"
 		   "lstretch"
@@ -951,11 +955,11 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "dockable"
 		   "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
 		   "doublebuffer"
-		   "fastscroll" "floatresults" "floatwindows" "fvlabel"
+		   "fastscroll" "floatresults" "floatwindows" "fvbase" "fvlabel"
 		   "g" "gr" "gra" "grap" "graph" "graphi" "graphic" "graphics"
 		   "httpproxy"
 		   "httpproxya" "httpproxyau" "httpproxyaut" "httpproxyauth"
-		   "include_bitmap"
+		   "include_bitmap" "iterlog"
 		   "locksplit" "locksplitt" "locksplitte" "locksplitter" "locksplitters"
 		   "lstretch"
 		   "matastrict"
@@ -2986,11 +2990,14 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "eff" "effi" "effic" "effici" "efficie" "efficien" "efficienc" "efficiency"
 		   "graph" "graphi" "graphic" "graphics"
 		   "inter" "interf" "interfa" "interfac" "interface"
+		   "java"
 		   "mata"
 		   "mem" "memo" "memor" "memory"
 		   "net" "netw" "netwo" "networ" "network"
 		   "out" "outp" "outpu" "output"
 		   "oth" "othe" "other"
+		   "python"
+		   "random"
 		   "trace"
 		   "unicode"
 		   "up" "upd" "upda" "updat" "update"
@@ -4335,6 +4342,19 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	;; first those keywords which must start a line
 	;; note that these will look like text if preceded by a comment
 	;; (but comments shouldn't be before the command, anyway, 'cuz it makes things hard to read)
+	;; #review thrown in here to avoid ado-start-cmd-regexp and words, which mess up on the #
+	;; in reality, noone would have #review i a do-file
+	(list
+	 (concat
+	  "^[ \t]*"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "#r" "#re" "#rev" "#revi" "#revie" "#review"
+		   )  t ))
+	  )
+	 '(1 ado-builtin-harmless-face))
+	
 	(list
 	 (concat
 	  "^[ \t]*"
@@ -4383,7 +4403,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "_coef_table" "_crcswxx"
 		   "_datasig" "_datasign" "_datasigna" "_datasignat" "_datasignatu" "_datasignatur" "_datasignature"
 		   "_rmcoll" "_rmdcoll" "_robust"
-		   "#r" "#re" "#rev" "#revi" "#revie" "#review"
 		   "about" "ac" "acprplot"
 		   "ado" "adopath" "adoupdate" "alpha" "ameans"
 		   "an" "ano" "anov" "anova"
@@ -4538,7 +4557,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "reshape"
 		   "robvar"
 		   "roccomp" "rocfit" "rocgold" "rocplot" "rocreg" "rocregplot" "roctab"
-		   "rologit" "rolling"
+		   "rolling"
 		   "rot" "rota" "rotat" "rotate"
 		   "rotatemat"
 		   "rreg"
@@ -5084,6 +5103,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "_pctile" "_predict"
 		   "ap" "app" "appe" "appen" "append"
+		   "bayespredict"
 		   "bcskew0" "bs" "bsample" "bstrap"
 		   "bys" "byso" "bysor" "bysort"
 		   "cd" "clear" "clonevar" "collapse" "compress"
@@ -7090,11 +7110,12 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "dirsep" "dp" "dyndoc_version"
 		  "emptycells" "eolchar" "epsdouble" "epsfloat" "eqlen"
 		  "filedate" "filename" "flavor" "fredkey"
-		  "fvlabel" "fvtrack" "fvwrap" "fvwrapon"
+		  "fvbase" "fvlabel" "fvtrack" "fvwrap" "fvwrapon"
 		  "graphics"
 		  "haverdir" "hostname"
 		  "httpproxy" "httpproxyauth" "httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
 		  "k"
+		  "java_heapmax" "java_home"
 		  "level" "linegap" "linesize"
 		  "locale_functions" "locale_icudflt" "locale_ui"
 		  "logtype" "lstretch"
@@ -7103,7 +7124,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "matsize"
 		  "max_N_theory" "max_cmdlen"
 		  "max_k_theory"
-		  "max_macrolen" "max_matsize" "max_memory" "max_width_theory"
+		  "max_macrolen" "max_matsize" "max_memory" "max_preservemem" "max_width_theory"
 		  "maxbyte" "maxdb" "maxdouble" "maxfloat" "maxint" "maxiter"
 		  "maxlong" "maxstrvarlen" "maxstrlvarlen" "maxvar" "maxvlabellen"
 		  "memory"
@@ -7115,6 +7136,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "odbcdriver" "odbcmgr" "os" "osdtl"
 		  "pagesize" "pformat" "pi" "printcolor"
 		  "processors" "processors_lic" "processors_mach" "processors_max" "pwd"
+		  "python_exec" "python_userpath"
 		  "rc" "reventries" "rmsg" "rmsg_time"
 		  "rng" "rng_current" "rngseed_mt64s" "rngstate" "rngstream"
 		  "scheme" "scrollbufsize" "searchdefault" "segmentsize" "sformat"
@@ -8184,9 +8206,9 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;; obsolete mfp arguments
 	  ;;  none --- looks to have been a documentation error
 
-	  ;; what few obsolete commands I've gathered
-	  ;; lfit and score moved before the matrix command so that it won't affect
-	  ;; the matrix score command
+	;; obsolete commands
+	;; lfit and score moved before the matrix command so that it won't affect
+	;; the matrix score command
 	;; 
 	(list
 	 (concat
@@ -8229,6 +8251,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "outs" "outsh" "outshe" "outshee" "outsheet"
 		   "lstat"
 		   "poisgof"
+		   "rologit"
 		   "sampsi"
 		   "shelltool"
 		   "simul" "spikeplt" "stcurv" "stphtest"
@@ -8740,7 +8763,25 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "whelp"
 		 ) 'words))
 	   ado-end-cmd-regexp )
-	  '(1 ado-obsolete-face))
+	 '(1 ado-obsolete-face))
+
+	;; obsolete view subcommands
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "view"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "news"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
     
 	  ;; apparently obsolete window commands
 	 (list
