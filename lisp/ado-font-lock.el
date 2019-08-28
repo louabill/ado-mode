@@ -1869,10 +1869,28 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "dbase"
 		   "delim" "delimi" "delimit" "delimite" "delimited"
 		   "hav" "have" "haver"
-		   "sasxport"
+		   "sasxport5" "sasxport8"
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; obsolete export commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "export"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "sasxport"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-obsolete-face t))
 
 	(list
 	 (concat
@@ -1935,6 +1953,88 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
+	;; the frames and cwf-like commands
+	;; first the ones which just move around without changing anything (harmless)
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "frame" "frames"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "change" "create"
+		   "dir"
+		   "pwf"
+		   "rename"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "frame" "frames"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "copy"
+		   "drop"
+		   "put"
+		   "reset"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
+	;; the frlink commands
+	;; first the ones which just move around without changing anything (harmless)
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "frlink"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "d" "de" "des" "desc" "descr" "descri" "describ" "describe" 
+		   "dir"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "frlink"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "1:1"
+		   "m:1"
+		   "rebuild"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	
 
     ;;
     ;; the gprefs commands
@@ -4407,12 +4507,12 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "ado" "adopath" "adoupdate" "alpha" "ameans"
 		   "an" "ano" "anov" "anova"
 		   "arch" "areg" "arfima" "arima"
-		   "as"
-		   "ass" "asse" "asser" "assert"
+		   "as" "ass" "asse" "asser" "assert"
+		   "assertnested"
 		   "avplot" "avplots"
 		   "bayes"
 		   "bayesmh" "bayesgraph"
-		   "b" "be" "bee" "beep"
+		   "be" "bee" "beep"
 		   "betareg" "binreg" "biprobit" "biplot" "bitest" "bitesti"
 		   "bootstrap" "boxcox" "br" "break" "brier"
 		   "bro" "brow" "brows" "browse"
@@ -4440,6 +4540,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "ct" "ctset"
 		   "cumsp" "cumul" "cusum"
 		   "command"
+		   "cwf"
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
@@ -4476,6 +4577,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "fl" "fli" "flis" "flist"
 		   "for" "fp" "fpredict"
 		   "fracplot"
+		   "frame" "frames"
 		   "freddescribe" "fredsearch"
 		   "frontier" "fsl" "fvexpand"
 		   "gladder" "gllamm" "glm" "glmpred"
@@ -4525,6 +4627,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "mepoisson" "meprobit" "meqrlogit" "meqrpoisson" "mestreg" "metobit"
 		   "mfp" "mhodds"
 		   "mixed"
+		   "mkf"
 		   "mlexp" "mlog" "mlogi" "mlogit"
 		   "mor" "more"
 		   "mprobit" "mvreg" "mx_param"
@@ -4551,7 +4654,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "prtest" "prtesti"
 		   "psdensity"
 		   "putexcel"
-		   "pwcompare" "pwcorr" "pwd" "pwmean"
+		   "pwcompare" "pwcorr" "pwd" "pwf" "pwmean"
 		   "q" "qchi" "qnorm" "qqplot" "qreg" "qladder" "quadchk" "quantile"
 		   "qu" "que" "quer" "query"
 		   "ranksum" "ratio"
@@ -5113,7 +5216,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "cd" "clear" "clonevar" "collapse" "compress"
 		   "contract" "corr2data" "cross" "cttost"
 		   "dec" "deco" "decod" "decode" "destring"
-		   "discard" "drawnorm" "drop" "dydx"
+		   "discard" "drawnorm" "drop" "dydx" "dyngen"
 		   "ed" "edi" "edit" "egen"
 		   "en" "enc" "enco" "encod" "encode"
 		   "erase"
@@ -5122,6 +5225,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "fillin"
 		   "form" "forma" "format"
 		   "fracpred"
+		   "frget"
 		   "fvrevar"
 		   "g" "ge" "gen" "gene" "gener" "genera" "generat" "generate"
 		   "getmata" "gsort"
@@ -5182,6 +5286,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		(regexp-opt
 		 '(
 		   "ado" "all"
+		   "frames"
 		   "mata" "matrix"
 		   "programs"
 		   "results" "rngstream"
@@ -8919,7 +9024,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "fore" "forec" "foreca" "forecas" "forecast"
 		 "foreach"
 		 "forv" "forva" "forval" "forvalu" "forvalue" "forvalues"
-		 "fracreg"
+		 "fracreg" "frlink"
 		 "fvset" "fvunab"
 		 "graph"
 		 "icd9" "icdp"
