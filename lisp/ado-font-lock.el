@@ -4510,7 +4510,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face))
 
-	;; commands
+	;; harmless commands
 	;; note that the really short abbreviations could make a mess of things
 	;;
 	;; These are split to allow compiling!
@@ -4582,9 +4582,10 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "do"
 		   "doed" "doedi" "doedit"
 		   "dotplot"
-		   "ds" "dsge" "dsgenl" "dstdize"
+		   "ds" "dsge" "dsgenl" "dslogit" "dspoisson" "dsregress" "dstdize"
 		   "dyndoc" "dyntext"
 		   "eintreg" "eivreg"
+		   "elasticnet"
 		   "eoprobit" "eprobit"
 		   "eq"
 		   "eregress"
@@ -4630,6 +4631,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "l"
 		   "labelbook" "ladder"
+		   "lasso" "lassocoef" "lassogof" "lassoinfo" "lassoknots"
 		   "levelsof"
 		   "li" "line"
 		   "lincom" "linktest"
@@ -4665,7 +4667,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "pac" "pca" "pcamat" "pchart" "pchi" "pcorr" "pergram" "permute" "personal"
 		   "pkcross" "pkequiv" "pkexamine" "pksumm"
 		   "pl" "plo" "plot"
-		   "pnorm" "poisson" "postest" "pperron"
+		   "pnorm" "poisson" "pologit" "polyregess" "popoisson" "poregress" "postest" "pperron"
 		   "prais" "print"
 		   "prob" "probi" "probit"
 		   "procoverlay" "procrustes"
@@ -4708,7 +4710,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "signestimationsample" "signrank" "signtest"
 		   "sktest" "sleep" "slog" "slogit"
 		   "spdistance" "spearman" "spikeplot" "spivregress" "spregress"
-		   "sqreg"
+		   "sqreg" "sqrtlasso"
 		   "sspace"
 		   "st" "st_is" "st_show" "st_ct" "stci"
 		   "stcox" "stcoxkm"
@@ -4750,6 +4752,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "verinst" "view" "viewsource" "vwls"
 		   "which" "who" "wntestb" "wntestq"
 		   "xchart" "xcorr"
+		   "xpoivregress" "xpologit" "xpopoisson" "xporegress"
 		   "xsh" "xshe" "xshel" "xshell"
 		   "xtabond" "xtcloglog"
 		   "xtdes" "xtdesc" "xtdescr" "xtdescri" "xtdescrib" "xtdescribe"
@@ -8752,6 +8755,26 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+	;; lassoselect commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "lassoselect"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "alpha"
+		   "id"
+		   "lambda"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
 
 
 	;; putexcel's subcommands
@@ -9127,6 +9150,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "import"
 		 "irf" "irt" "irtgraph"
 		 "la" "lab" "labe" "label"
+		 "lassoselect"
 		 "log"
 		 "mat" "matname" "mat_put_rr" "matr" "matri" "matrix"
 		 "mer" "merg" "merge"

@@ -1,4 +1,4 @@
-*! version 1.15.0.1 August 28, 2019 @ 21:51:22
+*! version 1.15.0.1 August 28, 2019 @ 22:08:57
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -3301,6 +3301,56 @@ set trace off
 
    /* end [IRT] manual */
 
+   /* start [LASSO] manual */
+   // commands and manual new in Stata 16
+
+   coefpath
+
+   cvplot
+
+   dslogit
+
+   dspoisson
+
+   dsregress
+
+   elasticnet
+
+   lasso
+
+   lassocoef
+
+   lassogof
+
+   lassoinfo
+
+   lassoknots
+
+   lassoselect // not complete
+   lassoselect id
+   lassoselect lambda
+   lassoselect alpha
+
+   polyregress
+
+   pologit
+
+   popoisson
+
+   poregress
+
+   sqrtlasso
+
+   xpoivregress
+
+   xpologit
+
+   xpopoisson
+
+   xporegress
+   
+   /* end [LASSO] manual */
+   
    /* [ME] manual (new in Stata 13) */
    // now in order of manual
    estat df
