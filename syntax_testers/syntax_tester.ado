@@ -1,4 +1,4 @@
-*! version 1.15.0.1 August 28, 2019 @ 16:38:57
+*! version 1.15.0.1 August 28, 2019 @ 18:22:14
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -2513,16 +2513,21 @@ set trace off
    comb()
    digamma()
    exp()
+   expm1()  // new in Stata 16
    floor()
    int()
    invcloglog()
    invlogit()
    ln()
+   ln1m()    // new in Stata 16
+   ln1p()    // new in Stata 16
    lnfact()  // obsolete in Stata 10 
    lnfactorial()
    lngamma()
    log()
    log10()
+   log1m()   // new in Stata 16
+   log1p()   // new in Stata 16
    logit()
    max()
    min()
@@ -2535,37 +2540,40 @@ set trace off
    trigamma()
    trunc()
    /* matrix functions (whether matrix or scalar result) */
+   // those returning matrices (to match new ordering)
    cholesky()
-   coleqnumb() // new in Stata 15 
-   colnfreeparms() // new in Stata 15 
-   colnumb()
-   colsof()
    corr()
-   det()
    diag()
-   diag0cnt()
-   el()
    get()
    hadamard()
    I()
    inv()
    invsym()
    issym() // obsolete in Stata 10 
-   issymmetric()
    J()
-   matmissing()
    matuniform()
-   mreldif()
    nullmat()
+   sweep()
+   syminv() // obsolete in Stata 10 
+   vec()
+   vecdiag()
+   // those returning scalars
+   coleqnumb() // new in Stata 15 
+   colnfreeparms() // new in Stata 15 
+   colnumb()
+   colsof()
+   det()
+   diag0cnt()
+   el()
+   issymmetric()
+   matmissing()
+   mreldif()
    roweqnumb() // new in Stata 15
    rownfreeparms() // new in Stata 15 
    rownumb()
    rowsof()
-   sweep()
-   syminv() // obsolete in Stata 10 
    trace()
-   vec()
-   vecdiag()
+
    /* programming functions */
    autocode()
    byteorder()
@@ -2575,6 +2583,7 @@ set trace off
    clip()
    cond()
    e()
+   e(sample)  // ? should highlight?
    epsdouble()
    epsfloat()
    fileexists() // became Stata function in Stata 13
@@ -2583,6 +2592,8 @@ set trace off
    filewrite()
    float()
    fmtwidth()
+   frval()    // new in Stata 16
+   _frval()   // new in Stata 16
    group() // obsolete in Stata 10 
    has_eprop()
    inlist()
@@ -2610,6 +2621,9 @@ set trace off
    smallestdouble()
 
    /* random number functions */
+   uniform() // obsolete in Stata 10 
+	runiform()
+   runiformint() // new in Stata 14
    rbeta()
 	rbinomial()
    rcauchy() // new in Stata 15
@@ -2624,9 +2638,6 @@ set trace off
 	rnormal()
 	rpoisson()
 	rt()
-   uniform() // obsolete in Stata 10 
-	runiform()
-   runiformint() // new in Stata 14
    rweibull()    // new in Stata 14
    rweibullph()  // new in Stata 14
 
@@ -2638,199 +2649,169 @@ set trace off
    /* so-called statistical functions, most of which are probability functions */
    /* beta density */
    betaden()
+   ibeta()
+   ibetatail()
+   invibeta()
+   nibeta()
+   invnibeta()
+   
    Binomial() /* finally changed to binomialtail in Stata 10 */
    // binomial
-   binomial()
    binomialp()
+   binomial()
    binomialtail()
+   invbinomial()
+   invbinomialtail()
 
-   binorm() // obsolete in Stata 10 
-   binormal()
 
    // cauchy new in Stata 15
-   cauchy()
    cauchyden()
+   cauchy()
    cauchytail()
+   invcauchy()
+   invcauchytail()
+   lncauchyden()
 
    // chi2
-   chi2()
    chi2den()
+   chi2()
    chi2tail()
-
-   // dgamma
-   dgammapda()
-   dgammapdada()
-   dgammapdadx()
-   dgammapdx()
-   dgammapdxdx()
-
+   invchi2()
+   invchi2tail()
+   nchi2den()
+   nchi2()
+   nchi2tail()
+   invnchi2()
+   invnchi2tail()
+   npnchi2()
+   
    // dunnet's multiple range
    dunnettprob()
+   invdunnettprob()
 
    // exponential; new in Stata 14 
-   exponential()
    exponentialden()
+   exponential()
    exponentialtail()
+   invexponential()       // new in Stata 14 
+   invexponentialtail()   // new in Stata 14 
 
-   // F (non-central F is later)
-   F()
+   // F & non-central F
    Fden()
+   F()
    Ftail()
+   invF()
+   invFtail()
+   nFden()
+   nF()
+   nFtail()
+   invnF()
+   invnFtail()
+   npnF()
 
    // gamma
    gammaden()
    gammap()
    gammaptail()
-
-   // hypergeometric
-   hypergeometric()
-   hypergeometricp()
-
-   // ibeta
-   ibeta()
-   ibetatail()
-
-   // igaussian; new in Stata 14.1 or 14.2
-   igaussian()
-   igaussianden()
-   igaussiantail()
-
-   // now all -inv- functions are lumped together. shame shame
-   invbinomial()
-   invbinomialtail()
-
-   // invcauchy new in Stata 15
-   invcauchy()
-   invcauchytail()
-
-   invchi2()
-   invchi2tail()
-
-   invdunnettprob()
-
-   invexponential()       // new in Stata 14 
-   invexponentialtail()   // new in Stata 14 
-
-   invF()
-   invFtail()
-
    invgammap()
    invgammaptail()
 
-   invibeta()
-   invibetatail()
+   // dgamma & lnigamma
+   dgammapda()
+   dgammapdada()
+   dgammapdadx()
+   dgammapdx()
+   dgammapdxdx()
+   lnigammaden()
 
+   // hypergeometric
+   hypergeometricp()
+   hypergeometric()
+
+   // igaussian; new in Stata 14.1 or 14.2
+   igaussianden()
+   igaussian()
+   igaussiantail()
    invigaussian()        // new in Stata 15 
    invigaussiantail()    // new in Stata 15
+   lnigaussianden()
 
+   // laplace new in Stata 15
+   laplaceden()
+   laplace()
+   laplacetail()
    invlaplace()          // new in Stata 15 
    invlaplacetail()      // new in Stata 15
+   lnlaplaceden()
 
+   // logistic
+   logisticden()       // new in Stata 14
+   logistic()          // new in Stata 14
+   logistictail()      // new in Stata 14
    invlogistic()         // new in Stata 14 
    invlogistictail()     // new in Stata 14 
 
+   // negative binomial
+   nbinomialp()
+   nbinomial()
+   nbinomialtail()
    invnbinomial()
    invnbinomialtail()
 
-   invnchi2()
-   invnchi2tail()
-
-   invnF()              // new in Stata 14
-   invnFtail()
-
-   invnibeta()
-
+   // Normal, binormal, mvnormal
+   normden()  // obsolete in Stata 10 
+   normalden()
+   norm()  // as mata function, OK, but obsolete in Stata --- still highlights
+   normal()
    invnorm()           // obsolete in Stata 10 
    invnormal()
-
-   invnt()             // new in Stata 14 
-   invnttail()
-
+   lnnormalden()
+   lnnormal()   
+   binorm() // obsolete in Stata 10 
+   binormal()
+   lnmvnormalden()
+   
+   // Poisson
+   poissonp()
+   poisson()
+   poissontail()
    invpoisson()
    invpoissontail()
 
+   // Student's t
+   tden()
+   t()
+   ttail()
    invt() // went obsolete in Stata 7, resurrected in Stata 13
    invttail()
-
-   invtukeyprob()
-
-   invweibull()        // new in Stata 14
-   invweibullph()      // new in Stata 14 
-   invweibullphtail()  // new in Stata 14 
-   invweibulltail()    // new in Stata 14
-
-   // laplace new in Stata 15
-   laplace()
-   laplaceden()
-   laplacetail()
-
-   lncauchyden()       // new in Stata 15 
-   lnigammaden()       // new in Stata 14
-   lnigaussianden()    // new in Stata 15 
-   lniwishartden()     // new in Stata 14
-   lnlaplaceden()      // new in Stata 15
-   lnmvnormalden()     // new in Stata 14
-   lnnormal()
-   lnnormalden()
-   lnwishartden()      // new in Stata 14
-
-   logistic()          // new in Stata 14
-   logisticden()       // new in Stata 14
-   logistictail()      // new in Stata 14
-
-   nbetaden()
-
-   // negative binomial
-   nbinomial()
-   nbinomialp()
-   nbinomialtail()
-
-   // non-central chi2
-   nchi2()
-   nchi2den()
-   nchi2tail()
-
-   // non-central F
-   nF()
-   nFden()
-   nFtail()
-
-   nibeta()
-
-   // normal, log-normal, bynormal
-   norm()  // as mata function, OK, but obsolete in Stata --- still highlights
-   normal()
-   normden()  // obsolete in Stata 10 
-   normalden()
-
-   npnchi2()
-   npnF()
-   npnt()
-
-   nt()
+   invnt()
+   invnttail()
    ntden()
+   nt()
    nttail()
-
-   // Poisson
-   poisson()
-   poissonp()
-   poissontail()
-
-   // Student's t
-   t()
-   tden()
-   ttail()
+   npnt()
 
    // tukey studentized range
    tukeyprob()
+   invtukeyprob()
 
    // all weibull new in Stata 14
-   weibull()
    weibullden()
-   weibullph()
-   weibullphden()
-   weibullphtail()
+   weibull()
    weibulltail()
+   invweibull()        // new in Stata 14
+   invweibulltail()    // new in Stata 14
+
+   // weibull proportional hazards, also new in Stata 14
+   weibullphden()
+   weibullph()
+   weibullphtail()
+   invweibullph()      // new in Stata 14 
+   invweibullphtail()  // new in Stata 14
+
+   // Wishart distribution, new in Stata 14
+   lnwishartden()
+   lniwishartden()
 
    /* string functions */ 
    abbrev()
