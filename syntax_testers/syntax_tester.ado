@@ -1,4 +1,4 @@
-*! version 1.15.0.1 August 28, 2019 @ 16:06:34
+*! version 1.15.0.1 August 28, 2019 @ 16:13:26
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -2357,6 +2357,21 @@ set trace off
    zipfile
    unzipfile
    /* end [D] data management */
+
+   /* begin [DSGE] DSGE manual */
+   // New in Stata 15, but just added to ado-mode in Stata 16
+
+   dsge
+
+   // dsge postest
+   estat policy
+   estat stable
+   estat transition
+   irf
+
+   dsgenl
+   
+   /* end [DSGE] DSGE manual (that was quick) */
 
    /* begin [ERM] extended regression models */
    // New manual in Stata 15
