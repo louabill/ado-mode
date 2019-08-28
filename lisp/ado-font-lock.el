@@ -3068,6 +3068,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "color"
 		   "line" "linep" "linepa" "linepal" "linepale" "linepalet" "linepalett" "linepalette"
+		   "smcl" "smcls" "smclsy" "smclsym" "smclsymb" "smclsymbo" "smclsymbol" "smclsymbolp" "smclsymbolpa" "smclsymbolpal" "smclsymbolpale" "smclsymbolpalet" "smclsymbolpalett" "smclsymbolpalette" 
 		   "symbol" "symbolp" "symbolpa" "symbolpal" "symbolpale" "symbolpalet" "symbolpalett" "symbolpalette"
 		   ) 'words))
 	  ado-end-cmd-regexp )
@@ -4547,7 +4548,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "cmdlog" "cmdtool"
 		   "cmmixlogit" "cmmprobit" "cmrologit" "cmroprobit"
 		   "cmsample" "cmset" "cmsummarize" "cmtab" "cmxtmixlogit" 
-		   "cnsreg" "codebook" "compare"
+		   "cnsreg" "codebook" "coefpath" "compare"
 		   "cons" "const" "constr" "constra" "constrai" "constrain" "constraint"
 		   "continue"
 		   "contrast"
@@ -4558,7 +4559,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "cox" "cpoisson" "cprplot"  "cs" "csi"
 		   "ct" "ctset"
 		   "cumsp" "cumul" "cusum"
-		   "command"
+		   "cvplot"
 		   "cwf"
 		   ) 'words))
 	  ado-end-cmd-regexp )
@@ -8727,6 +8728,28 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
+	;; the meta commands
+		(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "meta"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "bubbleplot"
+		   "forestplot"
+		   "funnelplot"
+		   "labbeplot"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+
 
 	;; putexcel's subcommands
 	(list
@@ -9057,7 +9080,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	  '(3 ado-obsolete-face t) '(4 ado-obsolete-face t))
 
-	;; incomplete subcommands needing a single subcommand
+	;; incomplete commands needing a single subcommand
 	;;  anything with MULTIPLE subcommands is listed after its regular highlighting
 	;; !! did not split by whether they should or should not have a prefix. ugh.
 	;; exceptions, because they allow 0 args (partial list)
@@ -9077,7 +9100,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "call"
 		 "char"
 		 "churdle"
-		 "ci" "cii"
+		 "ci" "cii" "ciwidth"
 		 "classutil"
 		 "cluster" "clustermat"
 		 "cmdlog"

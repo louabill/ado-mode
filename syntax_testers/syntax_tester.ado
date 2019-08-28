@@ -1,4 +1,4 @@
-*! version 1.15.0.1 August 28, 2019 @ 18:22:14
+*! version 1.15.0.1 August 28, 2019 @ 21:45:19
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -2999,6 +2999,7 @@ set trace off
    wntestb
    estat acplot
    estat aroots
+   estat sbcusum
 
    // begin obsolete block 
    varfcast graph
@@ -3025,6 +3026,13 @@ set trace off
    stcoxkm
    estat phtest
    stcurve
+   estat gofplot
+
+   // new in Stata 16
+   meta forestplot
+   meta funnelplot
+   meta labbeplot
+   meta bubbleplot
 
    roctab
    rocplot
@@ -3032,6 +3040,10 @@ set trace off
    rocregplot
    lroc
    lsens
+
+   // new in Stata 16
+   coefpath
+   cvplot
 
    irtgraph icc
    irtgraph tcc
@@ -3062,8 +3074,10 @@ set trace off
    marginsplot
    bayesgraph
    power, graph // incomplete
+   ciwidth, graph // !! incomplete, new in Stata 16 
    tabodds
    teffects overlap
+   tebalance box
    npgraph
    grmap
    pkexamine
@@ -3109,42 +3123,55 @@ set trace off
 
    graph twoway area y
    twoway area
+   
    twoway bar
    gr twoway bar
    graph twoway bar y
+   
    tw con
    two connected
    gr two con
    gr two connected
+   
    two contour  // new in Stata 12 
    twoway contour  // new in Stata 12 
    gr two contour  // new in Stata 12
+
    gr twoway contourline // new in Stata 12
 
    tw dot
    graph twoway dot y
+
    graph twoway dropline y
 
    gr twoway fp // should not be light blue (and is not)
    graph twoway fpfit y
+
    graph twoway fpfitci y
+
    graph twoway function y
+
    graph twoway hist
    tw histogram
 
    graph twoway kdensity
 
    graph twoway lfit
+
    graph twoway lfitci
+
    gr two line
    twow line
    line foo bar // twoway optional for line
 
    graph twoway lowess
+
    tw lpoly
+
    two lpolyci
 
    graph twoway mband
+
    graph twoway mspline
 
    twoway pcarrow
@@ -3154,34 +3181,50 @@ set trace off
    tw pcbarrowi // bad; turns out this never existed
 
    two pccapsym
+
    twoway pci
+
    two pcscatter
+
    two pcspike
 
    graph twoway qfit
+
    graph twoway qfitci
+
    graph twoway rarea
+
    graph twoway rbar
+
    graph twoway rcap
-   graph twoway rcapsym
+
+   twoway rcapsym
+
    graph twoway rconnected
    tw rcon
    two rconnected
+
    twow rl
    graph twoway rline
+
    twowa rsc
    graph twoway rscatter
+
    graph twoway rspike
+
    graph tw scatter
    two sc
    scat
+
    graph twowa scatteri
+
    graph twoway spike
 
    tsline
    twoway tsline
-   two tsrline
    tsrline
+   two tsrline
+   gr tw tsrline
 
    graph use
    gr use
@@ -3191,6 +3234,8 @@ set trace off
    palette linepalette
    palette symbol
    palette symbolpalette
+   palette smclsymbolpalette   // new in Stata 14
+   palette smcl
 
    q graph
    query graphics
