@@ -1852,7 +1852,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
     ;; the estat commands --- moved to after the obsolete commands
 
-	;; the export/import commands
+	;; the export commands
 	(list
 	 (concat
 	  ado-start-cmd-regexp
@@ -1868,7 +1868,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "exc" "exce" "excel"
 		   "dbase"
 		   "delim" "delimi" "delimit" "delimite" "delimited"
-		   "hav" "have" "haver"
 		   "sasxport5" "sasxport8"
 		   ) 'words))
 	  ado-end-cmd-regexp )
@@ -1892,6 +1891,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-obsolete-face t))
 
+	;; the import commands
 	(list
 	 (concat
 	  ado-start-cmd-regexp
@@ -1909,10 +1909,29 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "delim" "delimi" "delimit" "delimite" "delimited"
 		   "fred"
 		   "hav" "have" "haver"
-		   "sasxport"
+		   "sas" "sasxport5" "sasxport8"
+		   "spss"
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
+	;; obsolete import commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "import"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "sasxport"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-obsolete-face t))
 
     ;; the file commands
 	(list
@@ -5252,7 +5271,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "predict" "predictnl" "preserve" "putmata"
 		   "range" "recast" "recode"
 		   "ren" "rena" "renam" "rename"
-		   "renpfix" "replace" "restore" "rm" "rmdir"
+		   "replace" "restore" "rm" "rmdir"
 		   "sappend"
 		   "sa" "sav" "save" "saveold"
 		   "sample" "sdrop"
@@ -5260,7 +5279,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "simul" "simulate" "sinfile" "smerge"
 		   "smooth" "snapspan"
 		   "so" "sor" "sort" "sortpreserve"
-		   "spbalance" "spcompress" "spgenerate" "split"
+		   "spbalance" "spcompress" "spgenerate"
+		   "split" "splitsample"
 		   "ssave" "ssort" "stack" "statsby"
 		   "stbase" "stfill" "stgen" "stjoin" "stsplit" "sttocc" "sttoct"
 		   "suse" "svmat" "svymarkout" "sysuse"
@@ -5269,7 +5289,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "u" "unzipfile" "us" "use" "uselabel"
 		   "webuse"
 		   "xi" "xi:"
-		   "xmlsav" "xmlsave" "xmluse"
 		   "xtile" "xpose"
 		   "xtdata" "xtpred"
 		   "zipfile"
@@ -8360,7 +8379,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "outs" "outsh" "outshe" "outshee" "outsheet"
 		   "lstat"
 		   "poisgof"
-		   "rologit"
+		   "renpfix" "rologit"
 		   "sampsi"
 		   "shelltool"
 		   "simul" "spikeplt" "stcurv" "stphtest"
@@ -8369,6 +8388,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "tis" "treatreg"
 		   "varfcast" "varirf" "vce" "vif"
 		   "weibull" "weibullhet"
+		   "xmlsav" "xmlsave" "xmluse"
 		   "xtclog" "xtcorr" "xthaus" "xtrchh"
 		   "xtmelogit" "xtmepoisson" "xtmixed"
 		   "xtpois"
@@ -8759,7 +8779,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		(regexp-opt
 		 '(
 		   "analyze"
-		   "coll" "colla" "collat" "collato" "collator"
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -8787,7 +8806,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; incomplete unicode commands
-	;; unicode locale/uipackage commands
+	;; unicode locale/uipackage/collator commands
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -8800,6 +8819,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  (eval-when-compile
 		(regexp-opt
 		 '(
+		   "coll" "colla" "collat" "collato" "collator"
 		   "en" "enc" "enco" "encod" "encodi" "encodin" "encoding"
 		   "loc" "loca" "local" "locale"
 		   "ui" "uip" "uipa" "uipac" "uipack" "uipacka" "uipackag" "uipackage"
@@ -8821,7 +8841,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  (eval-when-compile
 		(regexp-opt
 		 '(
-		   "en" "enc" "enco" "encod" "encodi" "encodin" "encoding"
+		   "enc" "enco" "encod" "encodi" "encodin" "encoding"
 		   ) 'words))
 	  "[ \t]+"
 	  (eval-when-compile
@@ -8847,6 +8867,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  (eval-when-compile
 		(regexp-opt
 		 '(
+		   "coll" "colla" "collat" "collato" "collator"
 		   "loc" "loca" "local" "locale"
 		   "ui" "uip" "uipa" "uipac" "uipack" "uipacka" "uipackag" "uipackage"
 		   ) 'words))
@@ -8858,6 +8879,51 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+
+	;; the -vl- commands
+	;; first the ones which show what exists
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "vl"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "dir"
+		   "list"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; all other -vl- commands, as they change the dataset
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "vl"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "clear" "create"
+		   "drop"
+		   "lab" "labe" "label" 
+		   "mod" "modi" "modif" "modify"
+		   "move"
+		   "rebuild"
+		   "set"
+		   "sub" "subs" "subst" "substi" "substit" "substitu" "substitut" "substitute" 
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; things which are partially obsolete
 

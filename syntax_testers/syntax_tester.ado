@@ -1,4 +1,4 @@
-*! version 1.15.0.1 August 28, 2019 @ 14:59:08
+*! version 1.15.0.1 August 28, 2019 @ 16:06:34
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -1935,7 +1935,6 @@ set trace off
    frlink d
    frlink describe
    frlink rebuild
-   
 
    g
    ge
@@ -1945,14 +1944,16 @@ set trace off
    genera
    generat
    generate
-
    replace
    set ty  // incomplete 
    set ty float
    set type double
    set type foo // bad
+
    gsort
+   
    hexdump
+
    /* icd9 commands */
    icd9 check
    icd9p check
@@ -1974,7 +1975,6 @@ set trace off
    icd10 clean
    icd10 gen
    icd10 generate
-
    icd10 look
    icd10 lookup
    icd10 sea     // added in Stata 14.2
@@ -1987,7 +1987,6 @@ set trace off
    icd10cm clean
    icd10cm gen
    icd10cm generate
-
    icd10cm look
    icd10cm lookup
    icd10cm sea
@@ -2000,7 +1999,6 @@ set trace off
    icd10pcs clean
    icd10pcs gen
    icd10pcs generate
-
    icd10pcs look
    icd10pcs lookup
    icd10pcs sea
@@ -2030,15 +2028,28 @@ set trace off
 
    import hav
    import haver
+   // igit... there is no exporting of haver analytics files!
    export hav
    export haver
    set haverdir "/whatever"
 
-   import sasxport
+   import sas  // new in Stata 16 
+
+   import sasxport // new in Stata 12, obsolete in Stata 16
    export sasxport
-   impute  // obsolete in Stata 11 
+
+   import sasxport5  // new in Stata 16
+   import sasxport8  // new in Stata 16 
+   export sasxport5
+   export sasxport8
+
+   import spss  // new in Stata 16 
+   
+   impute  // obsolete in Stata 11
+   
    inf using
    infile
+
    infix
 
    inp
@@ -2046,6 +2057,7 @@ set trace off
    input
 
    insobs // new in Stata 14
+
    insheet // obsolete in Stata 13
 
    ins
@@ -2055,8 +2067,11 @@ set trace off
    inspect
 
    ipolate
+
    isid
+
    joinby
+
    /* label */
    la // incomplete
    la da
@@ -2079,25 +2094,30 @@ set trace off
    lab drop
    labe save
    /* end label */
+
    la lang
    label language
+
    labelbook
    numlabel
    uselabel
+
    l
    li
    lis
    list
-
+   // flist in help but not in manuals
    fl
    fli
    flis
    flist
 
    lookfor
+   
    memory
    set mem 5b // obsolete in Stata 12
-   q mem
+   q mem  // still works but stopped being documented at Stata 16 or earlier
+   q memory
    set vir on // obsolete in Stata 12
    set virtual off // obsolete in Stata 12
    set maxvar
@@ -2115,20 +2135,24 @@ set trace off
    merge 1:1 _n
 
    mkdir
+   
    mvencode
    mvdecode
+
    /* notes */
    note
    notes
    note: hee hee
    note list
    notes l
-   note drop
    note search
    notes replace
+   note drop
    notes renumber
+
    set ob 93
    set obs 12
+
    /* odbc */
    odbc  // incomplete 
    odbc li
@@ -2142,6 +2166,7 @@ set trace off
    odbc in
    odbc insert
    odbc exe(needed)
+   odbc exe (oops a space)
    odbc exec(needed)
    odbc sql(needed)
    odbc sqlfile(needed)
@@ -2153,41 +2178,47 @@ set trace off
    set odbcmgr iodbc
    set odbcmgr unixodbc
    /* end odbc */
+   
    order
-   // begin obsolete block, Stata 11
+   // begin obsolete block from -move-, Stata 11
    mov
    move
    aorder
-   // end obsolete block 
+   // end obsolete block
+   
    ou
    out
    outf
    outfi
    outfil
    outfile
-   // begin obsolete block (Stata 13)
+   // begin obsolete outsheet block (Stata 13)
    outs
    outsh
    outshe
    outshee
    outsheet
-   // end obsolete block 
+   // end obsolete block
+   
    pctile
    xtile
    _pctile
+
    putmata
    getmata
+
    range
+
    recast
+
    recode
 
    ren
    rena
    renam
    rename
-
-   renpfix
-   /* reshape ... */
+   renpfix  // obsolete in Stata 12
+   
    reshape long
    reshape wide
    reshape error
@@ -2199,16 +2230,18 @@ set trace off
    reshape q
    reshape query
    reshape clear
-   // end reshape
+
    rmdir
 
    sample
+
    sa
    sav
    save
    saveold
 
    separate
+
    sh
    she
    shel
@@ -2217,20 +2250,25 @@ set trace off
    xshe
    xshel
    xshell
-   // snapshot
+
    snapshot save
    snapshot label
    snapshot restore
    snapshot list
    snapshot erase
-   // end snapshot
+
    so
    sor
    sort
 
    split
+
+   splitsample  // new in Stata 16
+
    stack
+   
    statsby
+
    sysuse auto // bad for command, ok for highlighting
    sysuse dir
 
@@ -2239,9 +2277,14 @@ set trace off
    type
 
    /* unicode commands; introduced in Stata 14 */
+   // going by order in manual, skipping the -unicode- section
    unicode // incomplete
+
+   // unicode collator must have a -list- subcommand
    unicode coll
    unicode collator
+   unicode coll list
+   unicode collator list
 
    unicode conv
    unicode convert
@@ -2250,7 +2293,7 @@ set trace off
    unicode encoding // incomplete
    unicode encoding list
    unicode encod alias
-   unicode en set
+   unicode enc set
 
    unicode locale // incomplete
    unicode loc list
@@ -2260,6 +2303,7 @@ set trace off
    unicode uipackage list
 
    unicode analyze
+   unicode encoding set // also above
    unicode tr
    unicode translate
    unicode retr
@@ -2278,13 +2322,38 @@ set trace off
    varmanag
    varmanage
 
+   // all the vl commands are new in Stata 16
+   // going by manual entries
+   vl create
+   vl mod
+   vl modify
+   vl sub
+   vl substitute
+   vl lab
+   vl label
+
+   vl drop
+   vl clear
+
+   vl list
+   vl dir
+
+   vl rebuild
+
+   vl set
+   vl move
+
    webuse
    webuse query
    webuse set
+
+   // xmlsave obsolete in Stata 15
    xmlsav
    xmlsave
    xmluse
+   
    xpose
+
    zipfile
    unzipfile
    /* end [D] data management */
