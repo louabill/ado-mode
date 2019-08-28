@@ -1,4 +1,4 @@
-*! version 1.15.0.1 August 28, 2019 @ 22:08:57
+*! version 1.15.0.1 August 29, 2019 @ 00:58:14
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -3350,7 +3350,1831 @@ set trace off
    xporegress
    
    /* end [LASSO] manual */
+
+   /* [M] Mata Manual */
+
+   /* [M-2] - all the reserved words */
+   // these *should* have proper highlighting, but the mata
+   //   highlighting is not very sophisticated, yet
+   aggregate
+   array
+
+   boolean
+   break /* used elsewhere */
+   byte /* used elsewhere */
+
+   case
+   catch
+   class
+   colvector
+   complex
+   const // used elsewhere
+   continue /* used elsewhere */
+
+   default
+   delegate
+   delete
+   do /* used elsewhere */ 
+   double /* used elsewhere */
+
+   else /* used elsewhere */
+   eltypedef
+   mata
+   end /* used elsewhere, commented out here because of indentation */
+   enum
+   explicit
+   export
+   external
+
+   float /* used elsewhere */
+   for /* used elsewhere */
+   friend
+   function
+
+   global /* used elsewhere */ 
+   goto
+
+   if /* used elsewhere */
+   inline
+   int /* used elsewhere */
+
+   local /* used elsewhere */
+   long /* used elsewhere */
+
+   mata
+   end  // needed for indentation here
+   matrix /* used elsewhere */
+
+   namespace
+   new
+   NULL
+   numeric
+
+   operator
+   orgtypedef
+
+   pointer
+   polymorphic
+   pragma
+   private
+   protected
+   public
+
+   quad
+
+   real
+   return
+   rowvector
+
+   scalar /* used elsewhere */
+   short
+   signed
+   static
+   string
+   strL // used elsewhere
+   struct
+   super
+   switch
+
+   template
+   this
+   throw
+   transmorphic
+   try
+   typedef
+   typename
+
+   union
+   unsigned
+   using /* used elsewhere */
+
+   vector
+version /* used elsewhere */
+   virtual
+   void
+   volatile
+
+   while /* used elsewhere */ 
+
+   /* mata building blocks */
+   for(hey; ho; wego) {
+      hmmmm
+      }
+
+   /* trying to have some mata stuff */
+   pragma unset
+   pragma unused
+
+   /* from [M-3 Intro] "commands for controlling mata" */
+   lmbuild 
+      
+   mata:
+      this is mata code
+   end
+
+   mata
+      this is mata code (which needs no end statement, as it really needs to be a block, I think.) Sheesh!
+      what about this
+   end
+
+   mata: mata clear
+   mata mata clear
+   mata clear
+
+   mata d
+   mata describe
+
+   mata: mata drop
+   mata drop
+
+   mata help
+
+   mata matsave aFile some names
+   mata matuse bar
+   mata matd breeble
+   mata matd box
+   mata matdescribe box
+
+   mata memory
+
+   mata mlib // incomplete
+   mata mlib create foo
+   mata mlib add bar
+   mata mlib index
+   mata mlib q
+   mata mlib query
+
+   mata mosave momoney()
+
+   mata rename
+
+   mata query
+   mata set // incomplete
+   mata set matacache
+   mata set matalnum on
+   mata set matalnum off
+   mata set mataoptimize on
+   mata set mataoptimize off
+   mata set matafavor space
+   mata set matafavor speed
+   mata set matastrict on
+   mata set matastrict off
+   mata set matalibs
+   mata set matamofirst on
+   mata set matamofirst off
+
+   mata stata
+   mata which
+
+   /* mata functions */
+   /* now in M-5 order because M-4 has some functions missing */
+
+   abbrev()
+
+   abs()
+
+   adosubdir()
+
+   all()
+   any()
+   allof()
+   anyof()
+
+   args()
+
+   // heaps (associative arrays)
+   asarray_create()
+   asarray()
+   asarray_remove()
+   asarray_contains()
+   asarray_elements()
+   asarray_keys()
+   asarray_first()
+   asarray_next()
+   asarray_key()
+   asarray_contents()
+   asarray_notfound()
+
+   AssociativeArray()
+   // seems strange to highlight class methods
+   A.reinit()
+   A.put()
+   A.get()
+   A.notfound()
+   A.remove()
+   A.exists()
+   A.firstval()
+   A.nextval()
+   A.key()
+   A.val()
+   A.firstloc()
+   A.next()
+   A.nextloc()
+   A.keys()
+   A.N()
+   A.clear()
+
+   ascii()
+   char()
+
+   // uchar out of order in Stata 14 manual
+   uchar()
+
+   assert()
+   asserteq()
+
+   blockdiag()
+
+   bufio()
+   bufbyteorder()
+   bufmissingvalue()
+   bufput()
+   bufget()
+   fbufput()
+   fbufget()
+   bufbfmtlen()
+   bufbfmtisnum()
+
+   byteorder()
+
+   C()
+
+   c()
+
+   callersversion()
+
+   cat()
+
+   pwd()
+   chdir()
+   _chdir()
+   mkdir()
+   _mkdir()
+   rmdir()
+   _rmdir()
+
+   cholesky()
+   _cholesky()
+
+   cholinv()
+   _cholinv()
+
+   cholsolve()
+   _cholsolve()
+
+   comb()
+
+   cond()
+
+   conj()
+   _conj()
+
+   corr()
+   _corr()
+
+   cross()
+
+   crossdev()
+
+   cvpermutesetup()
+   cvpermute()
+
+   /* date functions... */
+   /* all the date functions... (which are normal functions, too */
+   clock()
+   mdyhms()
+   dhms()
+   hms()
+   hh()
+   mm()
+   ss()
+   dofc()
+
+   Cofc()
+   Clock()
+   Cmdyhms()
+   Cdhms()
+   Chms()
+   hhC()
+   mmC()
+   ssC()
+   dofC()
+   cofC()
+
+   date()
+   mdy()
+   yw()
+   ym()
+   yq()
+   yh()
+   cofd()
+   Cofd()
+   dofb()
+   bofd()
+
+   month()
+   day()
+   year()
+   dow()
+   week()
+   quarter()
+   halfyear()
+   doy()
+
+   yearly()
+   yofd()
+   dofy()
+
+   halfyearly()
+   hofd()
+   dofh()
+
+   quarterly()
+   qofd()
+   dofq()
+
+   monthly()
+   mofd()
+   dofm()
+
+   weekly()
+   wofd()
+   dofw()
+
+   hours()
+   minutes()
+   seconds()
+   msofhours()
+   msofminutes()
+   msofseconds()
+
+   /* end of mata date functions */
+   // start of numerical derivatives
+   deriv_init()
+   deriv_init_evaluator()
+   deriv_init_evaluatortype()
+   deriv_init_params()
+   deriv_init_argument()
+   deriv_init_narguments()
+   deriv_init_weights()
+   deriv_init_h()
+   deriv_init_scale()
+   deriv_init_bounds()
+   deriv_init_search()
+   deriv_init_verbose()
+
+   deriv()
+   _deriv()
+
+   deriv_result_value()
+   deriv_result_values()
+   _deriv_result_values()
+   deriv_result_gradient()
+   _deriv_result_gradient()
+   deriv_result_scores()
+   _deriv_result_scores()
+   deriv_result_Jacobian()
+   _deriv_result_Jacobian()
+   deriv_result_Hessian()
+   _deriv_result_Hessian()
+   deriv_result_h()
+   deriv_result_scale()
+   deriv_result_delta()
+   deriv_result_errorcode()
+   deriv_result_errortext()
+   deriv_result_returncode()
+   deriv_query()
+   // end of numerical derivatives
+
+   designmatrix()
+
+   det()
+   dettriangular()
+
+   _diag()
+
+   diag()
+
+   diag0cnt()
+
+   diagonal()
+
+   dir()
+
+   direxists()
+
+   direxternal()
+
+   display()
+
+   displayas()
+
+   displayflush()
+
+   Dmatrix()
+
+   /* the _docx*() functions */
+   // create and save
+   _docx_new()
+   _docx_save()
+   _docx_append() // new in Stata 15
+   _docx_close()
+   _docx_closeall()
+   // add paragraph/text
+   _docx_paragraph_new()
+   _docx_paragraph_new_styledtext()
+   _docx_paragraph_add_text()
+   _docx_text_add_text()
+   // add image
+   _docx_image_add()
+   // add table
+   _docx_new_table()
+   _docx_add_matrix()
+   _docx_add_mata()
+   _docx_add_data()
+   // edit table
+   _docx_table_add_row()
+   _docx_table_del_row()
+   _docx_table_add_cell()
+   _docx_table_del_cell()
+   _docx_cell_set_colspan()
+   _docx_cell_set_rowspan()
+   _docx_table_mod_cell()
+   _docx_table_mod_cell_table()
+   _docx_table_mod_cell_image()
+   // query
+   _docx_query()
+   _docx_query_document() // obsolete in Stata 14
+   _docx_query_table()
+   _docx_table_query_row()
+   /* end of the _docx*() functions */
+
+   dsign()
+
+   e()
+
+   editmissing()
+   _editmissing()
+
+   edittoint()
+   _edittoint()
+   edittointtol()
+   _edittointtol()
+
+   edittozero()
+   _edittozero()
+   edittozerotol()
+   _edittozerotol()
+
+   editvalue()
+   _editvalue()
+
+   eigensystem()
+   lefteigensystem()
+   eigenvalues()
+   symeigensystem()
+   symeigenvalues()
+   _eigensystem()
+   _lefteigensystem()
+   _eigenvalues()
+   _symeigensystem()
+   _symeigenvalues()
+
+   eigensystemselectr()
+   lefteigensystemselectr()
+   eigensystemselecti()
+   lefteigensystemselecti()
+   eigensystemselectf()
+   lefteigensystemselectf()
+   symeigensystemselectr()
+   symeigensystemselecti()
+   // underscore versions, like _eigenselecti_1a are ignored
+   //  because direct use is discouraged and documentation is minimal
+
+   eltype()
+   orgtype()
+   classname() // appeared in Stata 14
+   structname()  // appeared in Stata 14
+
+   epsilon()
+
+   _equilrc()
+   _equilr()
+   _equilc()
+   _perhapsequilrc()
+   _perhapsequilr()
+   _perhapsequilc()
+   rowscalefactors()
+   colscalefactors()
+
+   error()
+   _error()
+
+   errprintf()
+
+   exit()
+
+   exp()
+   ln()
+   log()
+   log10()
+   expm1()   // new in Stata 16
+   ln1p()    // new in Stata 16
+   log1p()   // new in Stata 16
+   ln1m()    // new in Stata 16
+   log1m()   // new in Stata 16
    
+
+   factorial()
+   lnfactorial() /* already regular function */
+   gamma()
+   lngamma() /* already regular function */
+   digamma() /* already regular function */
+   trigamma() /* already regular function */
+
+   favorspeed()
+
+   ferrortext()
+   freturncode()
+
+   fft()
+   invfft()
+   _fft()
+   _invfft()
+   convolve()
+   deconvolve()
+   Corr()
+   ftperiodogram()
+   ftpad()
+   ftwrap()
+   ftunwrap()
+   ftretime()
+   ftfreqs()
+
+   fileexists()
+
+   _fillmissing()
+
+   findexternal()
+   crexternal()
+   rmexternal()
+   nameexternal()
+
+   findfile()
+
+   floatround()
+
+   fmtwidth()
+
+   fopen()
+   _fopen()
+   fclose()
+   _fclose()
+   fget()
+   _fget()
+   fgetnl()
+   _fgetnl()
+   fread()
+   _fread()
+   fput()
+   _fput()
+   fwrite()
+   _fwrite()
+   fgetmatrix()
+   _fgetmatrix()
+   fputmatrix()
+   _fputmatrix()
+   fstatus()
+   ftell()
+   _ftell()
+   fseek()
+   _fseek()
+   ftruncate()
+   _ftruncate()
+
+   fullsvd()
+   fullsdiag()
+   _fullsvd()
+   _svd_la()
+
+   geigensystem()
+   leftgeigensystem()
+   geigensystemelectr()
+   leftgeigensystemelectr()
+   geigensystemelecti()
+   leftgeigensystemelecti()
+   geigensystemelectf()
+   leftgeigensystemelectf()
+   _geigensystem_la()
+   _geigenselectr_la()
+   _geigenselecti_la()
+   _geigenselectf_la()
+   _geigen_la()
+
+   ghessenbergd()
+   _ghessenbergd()
+
+   ghk_init()
+   ghk_init_method()
+   ghk_init_start()
+   ghk_init_pivot()
+   ghk_init_antithetics()
+   ghk_query_npts()
+   ghk()
+
+   ghkfastsetup() // this /looks/ obsolete in Stata 11?!
+   ghkfast_init()
+   ghkfast_init_pivot()
+   ghkfast_init_antithetics()
+   ghkfast_query_n()
+   ghkfast_query_npts()
+   ghkfast_query_dim()
+   ghkfast_query_method()
+   ghkfast_query_rseed()
+   ghkfast_query_pointset_i()
+   ghkfast()
+   ghkfast_i()
+
+   gschurd()
+   _gschurd()
+   gschurdgroupby()
+   _gschurdgroupby()
+
+   halton()
+   _halton()
+
+   hash1()
+
+   hessenbergd()
+   _hessenbergd()
+
+   Hilbert()
+   invHilbert()
+
+   I()
+
+   inbase()
+   frombase()
+
+   indexnot()
+
+   invorder()
+   revorder()
+
+   invsym()
+   _invsym()
+
+   invtokens()
+
+   isascii()   // new in Stata 16 
+
+   isdiagonal()
+
+   isfleeting()
+
+   isreal()
+   iscomplex()
+   isstring()
+   ispointer()
+
+   isrealvalues()
+
+   issamefile()  // new in Stata 16 
+
+   issymmetric()
+   issymmetriconly()
+
+   isview()
+
+   J()
+
+   Kmatrix()
+
+   // crud, LAPACK direct calls
+   _flopin()
+   _flopout()
+   LA_DGBMV()
+   LA_DGEBAK()
+   LA_DGEBAL()
+   LA_DGEES()
+   LA_DGEEV()
+   LA_DGEHRD()
+   LA_DGGBAK()
+   LA_DGGBAL()
+   LA_DGGHRD()
+   LA_DHGEQZ()
+   LA_DHSEIN()
+   LA_DHSEQR()
+
+   LA_DLAMCH()
+   LA_DORGHR()
+   LA_DSYEVX()
+
+   LA_DTGSEN()
+   LA_DTGEVC()
+   LA_DTREVC()
+   LA_DTRSEN()
+
+   LA_ZGEBAK()
+   LA_ZGEBAL()
+   LA_ZGEES()
+   LA_ZGEEV()
+   LA_ZGEHRD()
+   LA_ZGGBAK()
+   LA_ZGGBAL()
+   LA_ZGGHRD()
+   LA_ZHGEQZ()
+   LA_ZHSEIN()
+   LA_ZHSEQR()
+
+   LA_ZTGSEN()
+   LA_ZTGEVC()
+   LA_ZTREVC()
+   LA_ZTRSEN()
+   LA_ZUNGHR()
+   // end LAPACK
+
+   // LinearProgram()
+   // new in Stata 16
+
+   LinearProgram()
+   C.setCoefficients()
+   C.setMaxOrMin()
+   C.setEquality()
+   C.setInequality()
+   C.setBounds()
+   C.setMaxiter()
+   C.setTol()
+   C.setTrace()
+   C.getCoefficients()
+   C.getMaxOrMin()
+   C.getEquality()
+   C.getInequality()
+   C.getBounds()
+   C.getMaxiter()
+   C.getTol()
+   C.getTrace()
+
+   C.optimize()
+
+   C.parameters()
+   C.value()
+   C.iterations()
+   C.converged()
+   C.errorcode()
+   C.errortext()
+   C.returncode()
+   C.query()
+   // end LinearProgramming 
+
+   liststruct()
+
+   Lmatrix()
+
+   logit()
+   invlogit()
+   cloglog()
+   invcloglog()
+
+   lowertriangle()
+   uppertriangle()
+   _lowertriangle()
+   _uppertriangle()
+
+   lud()
+   _lud()
+   _lud_la()
+
+   luinv()
+   _luinv()
+   _luinv_la()
+
+   lusolve()
+   _lusolve()
+   _lusolve_la()
+
+   makesymmetric()
+   _makesymmetric()
+
+   matexpsym()
+   matlogsym()
+   _matexpsym()
+   _matlogsym()
+
+   matpowersym()
+   _matpowersym()
+
+   mean()
+   variance()
+   quadvariance()
+   meanvariance()
+   quadmeanvariance()
+   correlation()
+   quadcorrelation()
+
+   mindouble()
+   maxdouble()
+   smallestdouble()
+
+   minindex()
+   maxindex()
+
+   /* many of these are egen functions */
+   rowmin()
+   colmin()
+   min()
+   rowmax()
+   colmax()
+   max()
+   rowminmax()
+   colminmax()
+   minmax()
+   rowmaxabs()
+   colmaxabs()
+
+   colmissing()
+   rowmissing()
+   missing()
+   colnonmissing()
+   rownonmissing()
+   nonmissing()
+   hasmissing()
+
+   missingof()
+
+   mod()
+
+   // crap, moptimize monstrosity
+   // moptimize_init functions
+   moptimize_init()
+   moptimize_init_which()
+   moptimize_init_evaluator()
+   moptimize_init_evaluatortype()
+   moptimize_init_negH()
+   moptimize_init_touse()
+   moptimize_init_view() // obsolete in Stata 12
+   moptimize_init_ndepvars()
+   moptimize_init_depvar()
+   moptimize_init_eq_n()
+   moptimize_init_eq_indepvars()
+   moptimize_init_eq_cons()
+   moptimize_init_eq_offset()
+   moptimize_init_eq_exposure()
+   moptimize_init_eq_name()
+   moptimize_init_eq_colnames()
+   moptimize_init_eq_freeparm() // new in Stata 15
+   moptimize_init_eq_coefs()
+   moptimize_init_constraints()
+   moptimize_init_search()
+   moptimize_init_search_random()
+   moptimize_init_search_repeat()
+   moptimize_init_search_bounds()
+   moptimize_init_search_rescale()
+   moptimize_init_weight()
+   moptimize_init_weighttype()
+   moptimize_init_cluster()
+   moptimize_init_svy()
+   moptimize_init_by()
+   moptimize_init_nuserinfo()
+   moptimize_init_userinfo()
+   moptimize_init_technique()
+   moptimize_init_vcetype()
+   moptimize_init_nmsimplexdeltas()
+   moptimize_init_gnweightmatrix()
+   moptimize_init_singularHmethod()
+   moptimize_init_conv_maxiter()
+   moptimize_init_conv_warning()
+   moptimize_init_conv_ptol()
+   moptimize_init_conv_vtol()
+   moptimize_init_conv_nrtol()
+   moptimize_init_conv_ignorenrtol()
+   moptimize_init_iterid()
+   moptimize_init_valueid()
+   moptimize_init_tracelevel()
+   moptimize_init_trace_ado()
+   moptimize_init_trace_dots()
+   moptimize_init_trace_value()
+   moptimize_init_trace_tol()
+   moptimize_init_trace_step()
+   moptimize_init_trace_coefdiffs() // new in Stata 12
+   moptimize_init_trace_coefs()
+   moptimize_init_trace_gradient()
+   moptimize_init_trace_Hessian()
+   moptimize_init_evaluations()
+   moptimize_init_verbose()
+   // Step 3 functions
+   moptimize()
+   _moptimize()
+   moptimize_evaluate()
+   _moptimize_evaluate()
+   // Step 4 functions
+   moptimize_result_post()
+   moptimize_result_display()
+   moptimize_result_value()
+   moptimize_result_value0()
+   moptimize_result_eq_coefs() // new in Stata 12
+   moptimize_result_coefs()
+   moptimize_result_colstripe()
+   moptimize_result_scores()
+   moptimize_result_gradient()
+   moptimize_result_Hessian()
+   moptimize_result_V()
+   moptimize_result_Vtype()
+   moptimize_result_V_oim()
+   moptimize_result_V_opg()
+   moptimize_result_V_robust()
+   moptimize_result_iterations()
+   moptimize_result_converged()
+   moptimize_result_iterationlog()
+   moptimize_result_evaluations()
+   moptimize_result_errorcode()
+   moptimize_result_errortext()
+   moptimize_result_returncode()
+   moptimize_ado_cleanup()
+   // moptimize utility functions
+   moptimize_query()
+   moptimize_util_eq_indices()
+   moptimize_util_depvar()
+   moptimize_util_xb()
+   moptimize_util_sum()
+   moptimize_util_vecsum()
+   moptimize_util_matsum()
+   moptimize_util_matbysum()
+   moptimize_util_by() // new in Stata 12
+
+   more()
+   setmore()
+   setmoreonexit()
+
+   // mvnormal() functions new in Stata 15
+   mvnormal()
+   mvnormalcv()
+   mvnormalqp()
+   mvnormalcvqp()
+   mvnormalderiv()
+   mvnormalcvderiv()
+   mvnormalderivqp()
+   mvnormalcvderivqp()
+
+   _negate()
+
+   /* mostly regular stata functions */
+   norm()
+   // normal
+   normalden()
+   normal()
+   invnormal()
+   lnnormalden()
+   lnnormal()
+   // binormal
+   binormal()
+   // multivariate normal
+   lnmvnormalden()  // new in Stata 14
+   // beta
+   betaden()
+   ibeta()
+   ibetatail()
+   invibeta()
+   invibetatail()
+   // binomial
+   binomialp()
+   binomial()
+   binomialtail()
+   invbinomial()
+   invbinomialtail()
+   // cauchy // new in Stata 15
+   cauchyden()
+   cauchy()
+   cauchytail()
+   invcauchy()
+   invcauchytail()
+   lncauchyden()
+   // chi-squared
+   chi2den()
+   chi2()
+   chi2tail()
+   invchi2()
+   invchi2tail()
+   // Dunnett's multiple range (new in Stata 12)
+   dunnettprob()
+   invdunnettprob()
+   // Exponential (new in Stata 14)
+   exponentialden()
+   exponential()
+   exponentialtail()
+   invexponential()
+   invexponentialtail()
+   // F
+   Fden()
+   F()
+   Ftail()
+   invF()
+   invFtail()
+   // Gamma and inverse gamma
+   gammaden()
+   gammap()
+   gammaptail()
+   invgammap()
+   invgammaptail()
+   dgammapda()
+   dgammapdx()
+   dgammapdada()
+   dgammapdadx()
+   dgammapdxdx()
+   lnigammaden() // new in Stata 14
+   // Hypergeometric
+   hypergeometricp()
+   hypergeometric()
+   // inverse gaussian // new in Stata 15
+   igaussianden()
+   igaussian()
+   igaussiantail()
+   invigaussian()
+   invigaussiantail()
+   lnigaussianden()
+   // laplace // new in Stata 15
+   laplaceden()
+   laplace()
+   laplacetail()
+   invlaplace()
+   invlaplacetail()
+   lnlaplaceden()
+   // Logistic (new in Stata 14)
+   logisticden()
+   logistic()
+   logistictail()
+   invlogistic()
+   invlogistictail()
+   // Negative binomial
+   nbinomialp()
+   nbinomial()
+   nbinomialtail()
+   invnbinomial()
+   invnbinomialtail()
+   // Noncentral beta
+   nbetaden()
+   nibeta()
+   invnibeta()
+   // Noncentral chi-squared
+   nchi2den() // new in Stata 14
+   nchi2()
+   nchi2tail()  // new in Stata 14
+   invnchi2()
+   invnchi2tail()  // new in Stata 14 
+   npnchi2()
+   // Noncentral F
+   nFden()
+   nF() // new in Stata 13 
+   nFtail()
+   invnF() // new in Stata 14 
+   invnFtail()
+   npnF() // new in Stata 13
+   // noncentral t (all new in Stata 13)
+   ntden()
+   nt()
+   nttail()
+   invnt() // new in Stata 14 
+   invnttail()
+   npnt()
+   // Poisson
+   poissonp()
+   poisson()
+   poissontail()
+   invpoisson()
+   invpoissontail()
+   // Student's t
+   tden()
+   t() // new in Stata 13
+   ttail()
+   invt() // new in Stata 13 
+   invttail()
+   // Tukey Studentized Range (new in Stata 12)
+   tukeyprob()
+   invtukeyprob()
+   // Weibull (new in Stata 14)
+   weibullden()
+   weibull()
+   weibulltail()
+   invweibull()
+   invweibulltail()
+   // Weibull proportional hazards (new in Stata 14)
+   weibullphden()
+   weibullph()
+   weibullphtail()
+   invweibullph()
+   invweibullphtail()
+   // Wishart
+   lnwishartden()
+   lniwishartden()
+
+   /* phooey, optimize to the max */
+   optimize_init()
+   optimize_init_which()
+   optimize_init_evaluator()
+   optimize_init_evaluatortype()
+   optimize_init_negH()
+   optimize_init_type() // obsolete in Stata 11 [?]
+   optimize_init_params()
+   optimize_init_nmsimplexdeltas()
+   optimize_init_argument()
+   optimize_init_narguments()
+   optimize_init_cluster()
+   optimize_init_colstripe()
+   optimize_init_technique()
+   optimize_init_gnweightmatrix() // obsolete in Stata 12
+   optimize_init_singularHmethod()
+   optimize_init_conv_maxiter()
+   optimize_init_conv_warning()
+   optimize_init_conv_ptol()
+   optimize_init_conv_vtol()
+   optimize_init_conv_nrtol()
+   optimize_init_ingnorenrtol()
+   optimize_init_iterid()
+   optimize_init_valueid()
+   optimize_init_tracelevel()
+   optimize_init_trace_dots()
+   optimize_init_trace_value()
+   optimize_init_trace_tol()
+   optimize_init_trace_step()
+   optimize_init_trace_paramdiffs() // new in Stata 12
+   optimize_init_trace_params()
+   optimize_init_trace_gradient()
+   optimize_init_trace_Hessian()
+   optimize_init_evaluations()
+   optimize_init_constraints()
+   optimize_init_verbose()
+
+   optimize()
+   _optimize()
+   optimize_evaluate()
+   _optimize_evaluate()
+
+   optimize_result_params()
+   optimize_result_value()
+   optimize_result_value0()
+   optimize_result_gradient()
+   optimize_result_scores()
+   optimize_result_Hessian()
+   optimize_result_V()
+   optimize_result_Vtype()
+   optimize_result_V_oim()
+   optimize_result_V_opg()
+   optimize_result_V_robust()
+   optimize_result_iterations()
+   optimize_result_converged()
+   optimize_result_iterationlog()
+   optimize_result_evaluations() // new in Stata 12
+   optimize_result_errorcode()
+   optimize_result_errortext() // new in Stata 12
+   optimize_result_returncode()
+
+   optimize_query()
+
+   panelsetup()
+   panelstats()
+   panelsubmatrix()
+   panelsubview()
+
+   pathjoin()
+   pathsplit()
+   pathbasename()
+   pathsuffix()
+   pathrmsuffix()
+   pathisurl()
+   pathisabs()
+   pathasciisuffix()
+   pathstatasuffix()
+   pathlist()
+   pathsubsysdir()
+   pathsearchlist()
+   pathresolve()     // new in Stata 16 
+   pathgetparent()   // new in Stata 16 
+
+   // Pdf* functions (new in Stata 14)
+   PdfDocument()
+   // uh oh... class methods
+   p.save()
+   p.close()
+   p.setPageSize()
+   p.setMargins()
+   p.setHAlignment()
+   p.setLineSpace()
+   p.setBgColor()
+   p.setColor()
+   p.setFont()
+   p.setFontSize()
+   p.addImage()
+   p.addParagraph()
+   p.addTable()
+   p.addNewPage()
+   p.addLineBreak()
+
+   PdfParagraph()
+   p.addString()
+   p.addText()
+   p.addLineBreak()
+   p.clearContent()
+   p.setFirstIndent()
+   p.setLeftIndent()
+   p.setRightIndent()
+   p.setTopSpacing()
+   p.setBottomSpacing()
+   p.setBgColor()
+   p.setColor()
+   p.setFont()
+   p.setFontSize()
+   p.setUnderline()
+   p.setStrikethru()
+   p.setHAlignment()
+   p.setVAlignment() // new in Stata 15 ?
+   p.setLineSpace()
+
+   PdfText()
+   t.setBgColor()
+   t.setColor()
+   t.setFont()
+   t.setFontSize()
+   t.setUnderline()
+   t.setStrikethru()
+   t.setSuperscript()
+   t.setSubscript()
+   t.addString()
+   t.clearContent()
+
+   PdfTable()
+   t.init()
+   t.setTotalWidth()
+   t.setColumnWidths()
+   t.setWidthPercent()
+   t.setIndentation()
+   t.setHAlignment()
+   t.setBorderWidth()
+   t.setBorderColor()
+   t.setTopSpacing()
+   t.setBottomSpacing()
+   t.setCellContentString()
+   t.setCellContentParagraph()
+   t.setCellContentImage()
+   t.setCellContentTable()
+   t.setCellContentHAlignment()
+   t.setCellContentVAlignment()
+   t.setCellBgColor()
+   t.setCellBorderWidths() // obsolete in Stata 15 
+   t.setCellBorderWidth() 
+   t.setCellBorderColor() // new in Stata 15  
+   t.setCellLeftBorderWidth()  // obsolete in Stata 15 
+   t.setCellRightBorderWidth()  // obsolete in Stata 15 
+   t.setCellTopBorderWidth()  // obsolete in Stata 15 
+   t.setCellBottomBorderWidth()  // obsolete in Stata 15 
+   t.setCellMargin() // new in Stata 15
+   t.setCellMargins()  // obsolete in Stata 15 
+   t.setCellLeftMargin()  // obsolete in Stata 15 
+   t.setCellRightMargin()  // obsolete in Stata 15 
+   t.setCellTopMargin()  // obsolete in Stata 15 
+   t.setCellBottomMargin()  // obsolete in Stata 15 
+   t.setCellFont()
+   t.setCellFontSize()
+   t.setCellColor()
+   t.setCellSpan()
+   t.setCellRowSpan()
+   t.setCellColSpan()
+   t.setRowSplit() // new in Stata 15
+   t.addRow() // new in Stata 15 
+   t.delRow() // new in Stata 15 
+   t.addColumn() // new in Stata 15 
+   t.delColumn() // new in Stata 15 
+   t.fillStataMatrix()
+   t.fillMataMatrix()
+   t.fillData()
+   /* end Pdf* */
+
+   pinv()
+   _pinv()
+
+   polyeval()
+   polysolve()
+   polytrim()
+   polyderiv()
+   polyinteg()
+   polyadd()
+   polymult()
+   polydiv()
+   polyroots()
+
+   printf()
+   sprintf()
+
+   qrd()
+   hqrd()
+   _hqrd()
+   hqrdmultq()
+   hqrdmultq1t()
+   hqrdq()
+   hqrdq1()
+   hqrdr()
+   hqrdr1()
+   qrdp()
+   hqrdp()
+   _hqrdp()
+   _hqrdp_la()
+
+   qrinv()
+   _qrinv()
+
+   qrsolve()
+   _qrsolve()
+
+   quadcross()
+   quadcrossdev()
+
+   // Quadrature fun, new in Stata 16
+   Quadrature()
+   q.setEvaluator()
+   q.setLimits()
+   q.setTechnique()
+   q.setMaxiter()
+   q.setAbstol()
+   q.setReltol()
+   q.setArgument()
+   q.setTrace()
+   q.getEvaluator()
+   q.getLimits()
+   q.getTechnique()
+   q.getMaxiter()
+   q.getAbstol()
+   q.getReltol()
+   q.getArgument()
+   q.getTrace()
+   q.integrate()
+   q.value()
+   q.iterations()
+   q.converged()
+   q.errorcode()
+   q.errortext()
+   q.returncode()
+
+   range()
+   rangen()
+
+   rank()
+
+   Re()
+   Im()
+
+   reldif()
+   mreldif()
+   mreldifsym()
+   mreldifre()
+
+   rows()
+   cols()
+   length() // not obsolete in mata!
+
+   rowshape()
+   colshape()
+
+   // mata random number stuff (much of it similar to Stata)
+   runiform()
+   runiformint() // new in Stata 14
+   rseed()
+   rngstate() // new in Stata 14 
+   rbeta()
+   rbinomial()
+   rcauchy()
+   rchi2()
+   rdiscrete()
+   rexponential() // new in Stata 14 
+   rgamma()
+   rhypergeometric()
+   rigaussian() // new in Stata 15 (or 14.2)
+   rlaplace() // new in Stata 15
+   rlogistic() // new in Stata 14
+   rnbinomial()
+   rnormal()
+   rpoisson()
+   rt()
+   rweibull() // new in Stata 14
+   rweibullph() // new in Stata 14 
+
+   runningsum()
+   quadrunningsum()
+   _runningsum()
+   _quadrunningsum()
+
+   schurd()
+   _schurd()
+
+   select()
+   st_select()
+   selectindex() // new in Stata 13
+
+   setbreakintr()
+   querybreakintr()
+   breakkey()
+   breakkeyreset()
+
+   sign()
+   quadrant()
+
+   sin()
+   cos()
+   tan()
+   asin()
+   acos()
+   atan()
+   atan2()
+   asinr() // obsolete in Stata 11?
+   acosr() // obsolete in Stata 11? 
+   atanr() // obsolete in Stata 11?
+   arg() /* mata only */
+   sinh() 
+   cosh()
+   tanh()
+   asinh()
+   acosh()
+   atanh()
+   pi() /* mata only */
+
+   sizeof()
+
+   solve_tol()
+
+   solvelower()
+   solveupper()
+   _solvelower()
+   _solveupper()
+
+   // solvenl_... new in Stata 13
+   solvenl_init()
+   solvenl_init_type()
+   solvenl_init_startingvals()
+   solvenl_init_numeq()
+   solvenl_init_technique()
+   solvenl_init_conv_iterchng()
+   solvenl_init_conv_nearzero()
+   solvenl_init_conv_maxiter()
+   solvenl_init_evaluator()
+   solvenl_init_argument()
+   solvenl_init_narguments()
+   solvenl_init_damping()
+   solvenl_init_iter_log()
+   solvenl_init_iter_dot()
+   solvenl_init_iter_dot_indent()
+
+   solvenl_solve()
+   _solvenl_solve()
+
+   solvenl_result_converged()
+   solvenl_result_conv_iter()
+   solvenl_result_conv_iterchng()
+   solvenl_result_conv_nearzero()
+   solvenl_result_values()
+   solvenl_result_Jacobian()
+   solvenl_result_error_code()
+   solvenl_result_return_code()
+   solvenl_result_error_text()
+
+   solvenl_dump()
+   // end solvenl
+
+   sort()
+   _sort()
+   jumble()
+   _jumble()
+   order()
+   unorder()
+   _collate()
+
+   soundex()
+   soundex_nara()
+
+   spline3()
+   spline3eval()
+
+   sqrt()
+
+   st_addobs()
+   _st_addobs()
+
+   st_addvar()
+   _st_addvar()
+
+   _st_data()
+   st_data()
+   _st_sdata()
+   st_sdata()
+
+   st_dir()
+
+   st_dropvar()
+   st_dropobsin()
+   st_dropobsif()
+   st_keepvar()
+   st_keepobsin()
+   st_keepobsif()
+
+   // st_frames new in Stata 16
+   @@ start here!
+   
+   st_global()
+   st_global_hcat() // new in Stata 15
+
+   st_isfmt()
+   st_isnumfmt()
+   st_isstrfmt()
+
+   st_isname()
+   st_islmname()
+
+   st_local()
+
+   st_macroexpand()
+   _st_macroexpand()
+
+   st_matrix()
+   st_matrixrowstripe()
+   st_matrixcolstripe()
+   st_replacematrix()
+   st_matrix_hcat()
+
+   st_numscalar()
+   st_numscalar_hcat() // new in Stata 12
+   st_strscalar()
+
+   st_nvar()
+   st_nobs()
+
+   st_rclear()
+   st_eclear()
+   st_sclear()
+
+   st_store()
+   st_sstore()
+   _st_store()
+   _st_sstore()
+
+   st_subview()
+
+   st_tempname()
+   st_tempfilename()
+
+   st_tsrevar()
+   _st_tsrevar()
+
+   st_updata()
+
+   st_varformat()
+   st_varlabel()
+   st_varvaluelabel()
+
+   st_varindex()
+   _st_varindex()
+
+   st_varname()
+
+   st_varrename()
+
+   st_vartype()
+   st_isnumvar()
+   st_isstrvar()
+
+   st_view()
+   st_sview()
+
+   st_viewvars()
+   st_viewobs()
+
+   st_vlexists()
+   st_vldrop()
+   st_vlmap()
+   st_vlsearch()
+   st_vlload()
+   st_vlmodify()
+
+   stata()
+   _stata()
+
+   stataversion()
+   statasetversion()
+
+   /* strdup() is not really a function --- use * */
+   strlen()
+
+   ustrlen()   // new in Stata 14
+   ustrinvalidcnt()  // new in Stata 14
+
+   udstrlen() // new in Stata 14
+
+   strmatch()
+
+   strofreal()
+
+   strpos()
+   strrpos() // new in Stata 14, mata only
+
+   ustrpos() // new in Stata 14
+   ustrrpos() // new in Stata 14
+
+   strreverse()
+
+   ustrreverse() // new in Stata 14
+
+   strtoname()
+
+   ustrtoname()  // new in Stata 14
+
+   strtoreal()
+   _strtoreal()
+
+   stritrim()
+   strltrim()
+   strrtrim()
+   strtrim()
+
+   ustrltrim()  // new in Stata 14 
+   ustrrtrim()  // new in Stata 14 
+   ustrtrim()   // new in Stata 14 
+
+   strupper()
+   strlower()
+   strproper()
+
+   ustrupper()  // new in Stata 14 
+   ustrlower()  // new in Stata 14 
+   ustrtitle()  // new in Stata 14 
+
+   subinstr()
+   subinword()
+
+   usubinstr()  // new in Stata 14 
+
+   sublowertriangle()
+   _sublowertriangle()
+
+   _substr()
+
+   _usubstr() // new in Stata 14 mata only
+
+   substr()
+
+   usubstr()  // new in Stata 14
+   ustrleft()
+   ustrright()
+
+   udsubstr() // new in Stata 14 mata only
+
+   rowsum()
+   colsum()
+   sum()
+   quadrowsum()
+   quadcolsum()
+   quadsum()
+
+   svd()
+   svdsv()
+   _svd()
+   _svdsv()
+   _svd_la()
+
+   svsolve()
+   _svsolve()
+
+   swap()
+
+   Toeplitz()
+
+   tokeninit()
+   tokeninitstata()
+   tokenset()
+   tokengetall()
+   tokenget()
+   tokenpeek()
+   tokenrest()
+   tokenoffset()
+   tokenwchars()
+   tokenpchars()
+   tokenqchars()
+   tokenallownum()
+   tokenallowhex()
+
+   tokens()
+
+   trace()
+
+   _transpose()
+
+   transposeonly()
+   _transposeonly()
+
+   trunc()
+   floor()
+   ceil()
+   round()
+
+   // begin obsolete block (Stata 10.1)
+   uniform()
+   uniformseed()
+   // end obsolete block 
+
+   uniqrows()
+
+   unitcircle()
+
+   unlink()
+   _unlink()
+
+   urlencode() // new in Stata 15
+   urldecode() // new in Stata 15
+
+   ustrcompare() // new in Stata 14
+   ustrsortkey() // new in Stata 14
+   ustrcompareex() // new in Stata 14
+   ustrsortkeyex() // new in Stata 14
+
+   ustrfix() // new in Stata 14
+
+   ustrnormalize() // new in Stata 14
+
+   ustrto()    // new in Stata 14 
+   ustrfrom()  // new in Stata 14
+
+   ustrunescape() // new in Stata 14
+   ustrtohex()    // new in Stata 14
+
+   ustrword()      // new in Stata 14 
+   ustrwordcount() // new in Stata 14
+
+   valofexternal()
+
+   Vandermonde()
+
+   vec()
+   vech()
+   invvech()
+
+   // xl class system (highlighting could be hard)
+   // Step 1: init
+   xl()
+   // Step 2: create and open workbook
+   B.create_book()
+   B.load_book()
+   B.clear_book()
+   B.set_mode()
+   B.close_book()
+   // Step 3: setting sheet
+   B.add_sheet()
+   B.set_sheet()
+   B.set_sheet_gridlines() // new in Stata 14
+   B.set_sheet_merge() // new in Stata 14
+   B.clear_sheet()
+   B.delete_sheet() // new in Stata 14 
+   B.delete_sheet_merge() // new in Stata 14 
+   B.get_sheets()
+   // Step 4: reading/writing info
+   B.get_string()
+   B.get_number()
+   B.get_cell_type()
+   B.put_string()
+   B.put_number()
+   B.put_formula() // new in Stata 14
+   B.put_picture() // new in Stata 14 
+   B.set_missing()
+   // Cell Formatting (new in Stata 14)
+   B.set_number_format()
+   B.set_vertical_align()
+   B.set_horizontal_align()
+   B.set_border()
+   B.set_left_border()
+   B.set_right_border()
+   B.set_top_border()
+   B.set_bottom_border()
+   B.set_diagonal_border()
+   B.set_fill_pattern()
+   B.set_column_width()
+   B.set_row_height()
+   // Text formatting (new in Stata 14)
+   B.set_font()
+   B.set_font_bold()
+   B.set_font_italic()
+   B.set_font_strikeout()
+   B.set_font_underline()
+   B.set_font_script()
+   B.set_text_wrap()
+   B.set_shrink_to_fit()
+   B.set_text_rotate()
+   B.set_text_indent()
+   B.set_format_lock()
+   B.set_format_hidden()
+   // Utility functions
+   B.query()
+   B.get_colnum()
+   B.set_keep_cell_format() // new in Stata 14
+   B.set_error_mode()
+   B.get_last_error()
+   foo.get_last_error_message()
+
+   /* end of [M] mata manual */
+
    /* [ME] manual (new in Stata 13) */
    // now in order of manual
    estat df
@@ -6234,1722 +8058,6 @@ versio 23: howdy // should fail for a few years
    /* end stuff from [XT] */
 
 
-   /* now for [M] Mata content, out of order */
-
-   /* first - all the reserved words */
-   // these *should* have proper highlighting, but the mata
-   //   highlighting is not very sophisticated, yet
-   aggregate
-   array
-
-   boolean
-   break /* used elsewhere */
-   byte /* used elsewhere */
-
-   case
-   catch
-   class
-   colvector
-   complex
-   const // used elsewhere
-   continue /* used elsewhere */
-
-   default
-   delegate
-   delete
-   do /* used elsewhere */ 
-   double /* used elsewhere */
-
-   else /* used elsewhere */
-   eltypedef
-   mata
-   end /* used elsewhere, commented out here because of indentation */
-   enum
-   explicit
-   export
-   external
-
-   float /* used elsewhere */
-   for /* used elsewhere */
-   friend
-   function
-
-   global /* used elsewhere */ 
-   goto
-
-   if /* used elsewhere */
-   inline
-   int /* used elsewhere */
-
-   local /* used elsewhere */
-   long /* used elsewhere */
-
-   mata /* always has subcommands? */
-   matrix /* used elsewhere */
-
-   namespace
-   new
-   NULL
-   numeric
-
-   operator
-   orgtypedef
-
-   pointer
-   polymorphic
-   pragma
-   private
-   protected
-   public
-
-   quad
-
-   real
-   return
-   rowvector
-
-   scalar /* used elsewhere */
-   short
-   signed
-   static
-   string
-   strL // used elsewhere
-   struct
-   super
-   switch
-
-   template
-   this
-   throw
-   transmorphic
-   try
-   typedef
-   typename
-
-   union
-   unsigned
-   using /* used elsewhere */
-
-   vector
-version /* used elsewhere */
-   virtual
-   void
-   volatile
-
-   while /* used elsewhere */ 
-
-   /* mata building blocks */
-   for(hey; ho; wego) {
-      hmmmm
-      }
-
-   /* trying to have some mata stuff */
-   pragma unset
-   pragma unused
-
-   /* from "commands for controlling mata" */
-   mata:
-      this is mata code
-   end
-
-   mata
-      this is mata code (which needs no end statement, as it really needs to be a block, I think.) Sheesh!
-      what about this
-   end
-
-   mata: mata clear
-   mata mata clear
-   mata clear
-   mata d
-   mata describe
-   mata: mata drop
-   mata drop
-   mata help
-
-   mata matsave aFile some names
-   mata matuse bar
-   mata matd breeble
-   mata matd box
-   mata matdescribe box
-
-   mata memory
-
-   mata mlib // incomplete
-   mata mlib create foo
-   mata mlib add bar
-   mata mlib index
-   mata mlib q
-   mata mlib query
-
-   mata mosave momoney()
-
-   mata rename
-
-   mata query
-   mata set // incomplete
-   mata set matacache
-   mata set matalnum on
-   mata set matalnum off
-   mata set mataoptimize on
-   mata set mataoptimize off
-   mata set matafavor space
-   mata set matafavor speed
-   mata set matastrict on
-   mata set matastrict off
-   mata set matalibs
-   mata set matamofirst on
-   mata set matamofirst off
-
-   mata stata
-   mata which
-
-   /* mata functions */
-   /* now in M-5 order because M-4 has some functions missing */
-   abbrev()
-   abs()
-   adosubdir()
-
-   all()
-   any()
-   allof()
-   anyof()
-
-   args()
-   // heaps (associative arrays)
-   asarray_create()
-   asarray()
-   asarray_remove()
-   asarray_contains()
-   asarray_elements()
-   asarray_keys()
-   asarray_first()
-   asarray_next()
-   asarray_key()
-   asarray_contents()
-   asarray_notfound()
-
-   AssociativeArray()
-   // seems strange to highlight class methods
-   A.reinit()
-   A.put()
-   A.get()
-   A.notfound()
-   A.remove()
-   A.exists()
-   A.firstval()
-   A.nextval()
-   A.key()
-   A.val()
-   A.firstloc()
-   A.next()
-   A.keys()
-   A.N()
-   A.clear()
-
-   ascii()
-   char()
-
-   // uchar out of order in Stata 14 manual
-   uchar()
-
-   assert()
-   asserteq()
-
-   blockdiag()
-
-   bufio()
-   bufbyteorder()
-   bufmissingvalue()
-   bufput()
-   bufget()
-   fbufput()
-   fbufget()
-   bufbfmtlen()
-   bufbfmtisnum()
-
-   byteorder()
-
-   C()
-   c()
-   callersversion()
-   cat()
-
-   chdir()
-   _chdir()
-   mkdir()
-   _mkdir()
-   rmdir()
-   _rmdir()
-   pwd()
-
-   cholesky()
-   _cholesky()
-
-   cholinv()
-   _cholinv()
-
-   cholsolve()
-   _cholsolve()
-
-   comb()
-
-   cond()
-
-   conj()
-   _conj()
-
-   corr()
-   _corr()
-
-   cross()
-
-   crossdev()
-
-   cvpermutesetup()
-   cvpermute()
-
-   /* date functions... */
-   /* all the date functions... (which are normal functions, too */
-   clock()
-   mdyhms()
-   dhms()
-   hms()
-   hh()
-   mm()
-   ss()
-   dofc()
-
-   Cofc()
-   Clock()
-   Cmdyhms()
-   Cdhms()
-   Chms()
-   hhC()
-   mmC()
-   ssC()
-   dofC()
-   cofC()
-
-   date()
-   mdy()
-   yw()
-   ym()
-   yq()
-   yh()
-   cofd()
-   Cofd()
-   dofb()
-   bofd()
-
-   month()
-   day()
-   year()
-   dow()
-   week()
-   quarter()
-   halfyear()
-   doy()
-
-   yearly()
-   yofd()
-   dofy()
-
-   halfyearly()
-   hofd()
-   dofh()
-
-   quarterly()
-   qofd()
-   dofq()
-
-   monthly()
-   mofd()
-   dofm()
-
-   weekly()
-   wofd()
-   dofw()
-
-   hours()
-   minutes()
-   seconds()
-   msofhours()
-   msofminutes()
-   msofseconds()
-
-   /* end of mata date functions */
-   // start of numerical derivatives
-   deriv_init()
-   deriv_init_evaluator()
-   deriv_init_evaluatortype()
-   deriv_init_params()
-   deriv_init_argument()
-   deriv_init_narguments()
-   deriv_init_weights()
-   deriv_init_h()
-   deriv_init_scale()
-   deriv_init_bounds()
-   deriv_init_search()
-   deriv_init_verbose()
-
-   deriv()
-   _deriv()
-
-   deriv_result_value()
-   deriv_result_values()
-   _deriv_result_values()
-   deriv_result_gradient()
-   _deriv_result_gradient()
-   deriv_result_scores()
-   _deriv_result_scores()
-   deriv_result_Jacobian()
-   _deriv_result_Jacobian()
-   deriv_result_Hessian()
-   _deriv_result_Hessian()
-   deriv_result_h()
-   deriv_result_scale()
-   deriv_result_delta()
-   deriv_result_errorcode()
-   deriv_result_errortext()
-   deriv_result_returncode()
-   deriv_query()
-   // end of numerical derivatives
-   designmatrix()
-
-   det()
-   dettriangular()
-
-   _diag()
-   diag()
-   diag0cnt()
-   diagonal()
-   dir()
-   direxists()
-   direxternal()
-   display()
-   displayas()
-   displayflush()
-   Dmatrix()
-
-   /* the _docx*() functions */
-   // create and save
-   _docx_new()
-   _docx_save()
-   _docx_append() // new in Stata 15
-   _docx_close()
-   _docx_closeall()
-   // add paragraph/text
-   _docx_paragraph_new()
-   _docx_paragraph_new_styledtext()
-   _docx_paragraph_add_text()
-   _docx_text_add_text()
-   // add image
-   _docx_image_add()
-   // add table
-   _docx_new_table()
-   _docx_add_matrix()
-   _docx_add_mata()
-   _docx_add_data()
-   // edit table
-   _docx_table_add_row()
-   _docx_table_del_row()
-   _docx_table_add_cell()
-   _docx_table_del_cell()
-   _docx_cell_set_colspan()
-   _docx_cell_set_rowspan()
-   _docx_table_mod_cell()
-   _docx_table_mod_cell_table()
-   _docx_table_mod_cell_image()
-   // query
-   _docx_query()
-   _docx_query_document() // obsolete in Stata 14
-   _docx_query_table()
-   _docx_table_query_row()
-   /* end of the _docx*() functions */
-
-   dsign()
-
-   e()
-
-   editmissing()
-   _editmissing()
-
-   edittoint()
-   _edittoint()
-   edittointtol()
-   _edittointtol()
-
-   edittozero()
-   _edittozero()
-   edittozerotol()
-   _edittozerotol()
-
-   editvalue()
-   _editvalue()
-
-   eigensystem()
-   lefteigensystem()
-   eigenvalues()
-   symeigensystem()
-   symeigenvalues()
-   _eigensystem()
-   _lefteigensystem()
-   _eigenvalues()
-   _symeigensystem()
-   _symeigenvalues()
-
-   eigensystemselectr()
-   lefteigensystemselectr()
-   eigensystemselecti()
-   lefteigensystemselecti()
-   eigensystemselectf()
-   lefteigensystemselectf()
-   symeigensystemselectr()
-   symeigensystemselecti()
-   // underscore versions, like _eigenselecti_1a are ignored
-   //  because direct use is discouraged and documentation is minimal
-
-   eltype()
-   orgtype()
-   classname() // appeared in Stata 14
-   structname()  // appeared in Stata 14
-
-   epsilon()
-
-   _equilrc()
-   _equilr()
-   _equilc()
-   _perhapsequilrc()
-   _perhapsequilr()
-   _perhapsequilc()
-   rowscalefactors()
-   colscalefactors()
-
-   error()
-   _error()
-
-   errprintf()
-
-   exit()
-
-   exp()
-   ln()
-   log()
-   log10()
-
-   factorial()
-   lnfactorial() /* already regular function */
-   gamma()
-   lngamma() /* already regular function */
-   digamma() /* already regular function */
-   trigamma() /* already regular function */
-
-   favorspeed()
-
-   ferrortext()
-   freturncode()
-
-   fft()
-   invfft()
-   _fft()
-   _invfft()
-   convolve()
-   deconvolve()
-   Corr()
-   ftperiodogram()
-   ftpad()
-   ftwrap()
-   ftunwrap()
-   ftretime()
-   ftfreqs()
-
-   fileexists()
-
-   _fillmissing()
-
-   findexternal()
-   crexternal()
-   rmexternal()
-   nameexternal()
-
-   findfile()
-
-   floatround()
-
-   fmtwidth()
-
-   fopen()
-   _fopen()
-   fclose()
-   _fclose()
-   fget()
-   _fget()
-   fgetnl()
-   _fgetnl()
-   fread()
-   _fread()
-   fput()
-   _fput()
-   fwrite()
-   _fwrite()
-   fgetmatrix()
-   _fgetmatrix()
-   fputmatrix()
-   _fputmatrix()
-   fstatus()
-   ftell()
-   _ftell()
-   fseek()
-   _fseek()
-   ftruncate()
-   _ftruncate()
-
-   fullsvd()
-   fullsdiag()
-   _fullsvd()
-   _svd_la()
-
-   geigensystem()
-   leftgeigensystem()
-   geigensystemelectr()
-   leftgeigensystemelectr()
-   geigensystemelecti()
-   leftgeigensystemelecti()
-   geigensystemelectf()
-   leftgeigensystemelectf()
-   // once again, the underscore versions are gone
-
-   ghessenbergd()
-   _ghessenbergd()
-
-   ghk_init()
-   ghk_init_method()
-   ghk_init_start()
-   ghk_init_pivot()
-   ghk_init_antithetics()
-   ghk_query_npts()
-   ghk()
-
-   ghkfastsetup() // this /looks/ obsolete in Stata 11?!
-   ghkfast_init()
-   ghkfast_init_pivot()
-   ghkfast_init_antithetics()
-   ghkfast_query_n()
-   ghkfast_query_npts()
-   ghkfast_query_dim()
-   ghkfast_query_method()
-   ghkfast_query_rseed()
-   ghkfast_query_pointset_i()
-   ghkfast()
-   ghkfast_i()
-
-   gschurd()
-   _gschurd()
-   gschurdgroupby()
-   _gschurdgroupby()
-
-   halton()
-   _halton()
-
-   hash1()
-
-   hessenbergd()
-   _hessenbergd()
-
-   Hilbert()
-   invHilbert()
-
-   I()
-
-   inbase()
-   frombase()
-
-   indexnot()
-
-   invorder()
-   revorder()
-
-   invsym()
-   _invsym()
-
-   invtokens()
-
-   isdiagonal()
-
-   isfleeting()
-
-   isreal()
-   iscomplex()
-   isstring()
-   ispointer()
-
-   isrealvalues()
-
-   issymmetric()
-   issymmetriconly()
-
-   isview()
-
-   J()
-
-   Kmatrix()
-
-   // crud, LAPACK direct calls
-   _flopin()
-   _flopout()
-   LA_DGBMV()
-   LA_DGEBAK()
-   LA_DGEBAL()
-   LA_DGEES()
-   LA_DGEEV()
-   LA_DGEHRD()
-   LA_DGGBAK()
-   LA_DGGBAL()
-   LA_DGGHRD()
-   LA_DHGEQZ()
-   LA_DHSEIN()
-   LA_DHSEQR()
-
-   LA_DLAMCH()
-   LA_DORGHR()
-   LA_DSYEVX()
-
-   LA_DTGSEN()
-   LA_DTGEVC()
-   LA_DTREVC()
-   LA_DTRSEN()
-
-   LA_ZGEBAK()
-   LA_ZGEBAL()
-   LA_ZGEES()
-   LA_ZGEEV()
-   LA_ZGEHRD()
-   LA_ZGGBAK()
-   LA_ZGGBAL()
-   LA_ZGGHRD()
-   LA_ZHGEQZ()
-   LA_ZHSEIN()
-   LA_ZHSEQR()
-
-   LA_ZTGSEN()
-   LA_ZTGEVC()
-   LA_ZTREVC()
-   LA_ZTRSEN()
-   LA_ZUNGHR()
-   // end LAPACK
-
-   liststruct()
-
-   Lmatrix()
-
-   logit()
-   invlogit()
-   cloglog()
-   invcloglog()
-
-   lowertriangle()
-   uppertriangle()
-   _lowertriangle()
-   _uppertriangle()
-
-   lud()
-   _lud()
-   _lud_la()
-
-   luinv()
-   _luinv()
-   _luinv_la()
-
-   lusolve()
-   _lusolve()
-   _lusolve_la()
-
-   makesymmetric()
-   _makesymmetric()
-
-   matexpsym()
-   matlogsym()
-   _matexpsym()
-   _matlogsym()
-
-   matpowersym()
-   _matpowersym()
-
-   mean()
-   variance()
-   quadvariance()
-   meanvariance()
-   quadmeanvariance()
-   correlation()
-   quadcorrelation()
-
-   mindouble()
-   maxdouble()
-   smallestdouble()
-
-   minindex()
-   maxindex()
-
-   /* many of these are egen functions */
-   rowmin()
-   colmin()
-   min()
-   rowmax()
-   colmax()
-   max()
-   rowminmax()
-   colminmax()
-   minmax()
-   rowmaxabs()
-   colmaxabs()
-
-   colmissing()
-   rowmissing()
-   missing()
-   colnonmissing()
-   rownonmissing()
-   nonmissing()
-   hasmissing()
-
-   missingof()
-
-   mod()
-
-   // crap, moptimize monstrosity
-   // moptimize_init functions
-   moptimize_init()
-   moptimize_init_which()
-   moptimize_init_evaluator()
-   moptimize_init_evaluatortype()
-   moptimize_init_negH()
-   moptimize_init_touse()
-   moptimize_init_view() // obsolete in Stata 12
-   moptimize_init_ndepvars()
-   moptimize_init_depvar()
-   moptimize_init_eq_n()
-   moptimize_init_eq_indepvars()
-   moptimize_init_eq_cons()
-   moptimize_init_eq_offset()
-   moptimize_init_eq_exposure()
-   moptimize_init_eq_name()
-   moptimize_init_eq_colnames()
-   moptimize_init_eq_freeparm() // new in Stata 15
-   moptimize_init_eq_coefs()
-   moptimize_init_constraints()
-   moptimize_init_search()
-   moptimize_init_search_random()
-   moptimize_init_search_repeat()
-   moptimize_init_search_bounds()
-   moptimize_init_search_rescale()
-   moptimize_init_weight()
-   moptimize_init_weighttype()
-   moptimize_init_cluster()
-   moptimize_init_svy()
-   moptimize_init_by()
-   moptimize_init_nuserinfo()
-   moptimize_init_userinfo()
-   moptimize_init_technique()
-   moptimize_init_vcetype()
-   moptimize_init_nmsimplexdeltas()
-   moptimize_init_gnweightmatrix()
-   moptimize_init_singularHmethod()
-   moptimize_init_conv_maxiter()
-   moptimize_init_conv_warning()
-   moptimize_init_conv_ptol()
-   moptimize_init_conv_vtol()
-   moptimize_init_conv_nrtol()
-   moptimize_init_conv_ignorenrtol()
-   moptimize_init_iterid()
-   moptimize_init_valueid()
-   moptimize_init_tracelevel()
-   moptimize_init_trace_ado()
-   moptimize_init_trace_dots()
-   moptimize_init_trace_value()
-   moptimize_init_trace_tol()
-   moptimize_init_trace_step()
-   moptimize_init_trace_coefdiffs() // new in Stata 12
-   moptimize_init_trace_coefs()
-   moptimize_init_trace_gradient()
-   moptimize_init_trace_Hessian()
-   moptimize_init_evaluations()
-   moptimize_init_verbose()
-   // Step 3 functions
-   moptimize()
-   _moptimize()
-   moptimize_evaluate()
-   _moptimize_evaluate()
-   // Step 4 functions
-   moptimize_result_post()
-   moptimize_result_display()
-   moptimize_result_value()
-   moptimize_result_value0()
-   moptimize_result_eq_coefs() // new in Stata 12
-   moptimize_result_coefs()
-   moptimize_result_colstripe()
-   moptimize_result_scores()
-   moptimize_result_gradient()
-   moptimize_result_Hessian()
-   moptimize_result_V()
-   moptimize_result_Vtype()
-   moptimize_result_V_oim()
-   moptimize_result_V_opg()
-   moptimize_result_V_robust()
-   moptimize_result_iterations()
-   moptimize_result_converged()
-   moptimize_result_iterationlog()
-   moptimize_result_evaluations()
-   moptimize_result_errorcode()
-   moptimize_result_errortext()
-   moptimize_result_returncode()
-   moptimize_ado_cleanup()
-   // moptimize utility functions
-   moptimize_query()
-   moptimize_util_eq_indices()
-   moptimize_util_depvar()
-   moptimize_util_xb()
-   moptimize_util_sum()
-   moptimize_util_vecsum()
-   moptimize_util_matsum()
-   moptimize_util_matbysum()
-   moptimize_util_by() // new in Stata 12
-
-   more()
-   setmore()
-   setmoreonexit()
-
-   // mvnormal() functions new in Stata 15
-   mvnormal()
-   mvnormalcv()
-   mvnormalqp()
-   mvnormalcvqp()
-   mvnormalderiv()
-   mvnormalcvderiv()
-   mvnormalderivqp()
-   mvnormalcvderivqp()
-
-   _negate()
-   /* mostly regular stata functions */
-   norm()
-   // normal
-   normalden()
-   normal()
-   invnormal()
-   lnnormalden()
-   lnnormal()
-   // binormal
-   binormal()
-   // multivariate normal
-   lnmvnormalden()  // new in Stata 14
-   // beta
-   betaden()
-   ibeta()
-   ibetatail()
-   invibeta()
-   invibetatail()
-   // binomial
-   binomialp()
-   binomial()
-   binomialtail()
-   invbinomial()
-   invbinomialtail()
-   // cauchy // new in Stata 15
-   cauchyden()
-   cauchy()
-   cauchytail()
-   invcauchy()
-   invcauchytail()
-   lncauchyden()
-   // chi-squared
-   chi2den()
-   chi2()
-   chi2tail()
-   invchi2()
-   invchi2tail()
-   // Dunnett's multiple range (new in Stata 12)
-   dunnettprob()
-   invdunnettprob()
-   // Exponential (new in Stata 14)
-   exponentialden()
-   exponential()
-   exponentialtail()
-   invexponential()
-   invexponentialtail()
-   // F
-   Fden()
-   F()
-   Ftail()
-   invF()
-   invFtail()
-   // Gamma and inverse gamma
-   gammaden()
-   gammap()
-   gammaptail()
-   invgammap()
-   invgammaptail()
-   dgammapda()
-   dgammapdx()
-   dgammapdada()
-   dgammapdadx()
-   dgammapdxdx()
-   lnigammaden() // new in Stata 14
-   // Hypergeometric
-   hypergeometricp()
-   hypergeometric()
-   // inverse gaussian // new in Stata 15
-   igaussianden()
-   igaussian()
-   igaussiantail()
-   invigaussian()
-   invigaussiantail()
-   lnigaussianden()
-   // laplace // new in Stata 15
-   laplaceden()
-   laplace()
-   laplacetail()
-   invlaplace()
-   invlaplacetail()
-   lnlaplaceden()
-   // Logistic (new in Stata 14)
-   logisticden()
-   logistic()
-   logistictail()
-   invlogistic()
-   invlogistictail()
-   // Negative binomial
-   nbinomialp()
-   nbinomial()
-   nbinomialtail()
-   invnbinomial()
-   invnbinomialtail()
-   // Noncentral beta
-   nbetaden()
-   nibeta()
-   invnibeta()
-   // Noncentral chi-squared
-   nchi2den() // new in Stata 14
-   nchi2()
-   nchi2tail()  // new in Stata 14
-   invnchi2()
-   invnchi2tail()  // new in Stata 14 
-   npnchi2()
-   // Noncentral F
-   nFden()
-   nF() // new in Stata 13 
-   nFtail()
-   invnF() // new in Stata 14 
-   invnFtail()
-   npnF() // new in Stata 13
-   // noncentral t (all new in Stata 13)
-   ntden()
-   nt()
-   nttail()
-   invnt() // new in Stata 14 
-   invnttail()
-   npnt()
-   // Poisson
-   poissonp()
-   poisson()
-   poissontail()
-   invpoisson()
-   invpoissontail()
-   // Student's t
-   tden()
-   t() // new in Stata 13
-   ttail()
-   invt() // new in Stata 13 
-   invttail()
-   // Tukey Studentized Range (new in Stata 12)
-   tukeyprob()
-   invtukeyprob()
-   // Weibull (new in Stata 14)
-   weibullden()
-   weibull()
-   weibulltail()
-   invweibull()
-   invweibulltail()
-   // Weibull proportional hazards (new in Stata 14)
-   weibullphden()
-   weibullph()
-   weibullphtail()
-   invweibullph()
-   invweibullphtail()
-
-   /* phooey, optimize to the max */
-   optimize_init()
-   optimize_init_which()
-   optimize_init_evaluator()
-   optimize_init_evaluatortype()
-   optimize_init_negH()
-   optimize_init_type() // obsolete in Stata 11 [?]
-   optimize_init_params()
-   optimize_init_nmsimplexdeltas()
-   optimize_init_argument()
-   optimize_init_narguments()
-   optimize_init_cluster()
-   optimize_init_colstripe()
-   optimize_init_technique()
-   optimize_init_gnweightmatrix() // obsolete in Stata 12
-   optimize_init_singularHmethod()
-   optimize_init_conv_maxiter()
-   optimize_init_conv_warning()
-   optimize_init_conv_ptol()
-   optimize_init_conv_vtol()
-   optimize_init_conv_nrtol()
-   optimize_init_ingnorenrtol()
-   optimize_init_iterid()
-   optimize_init_valueid()
-   optimize_init_tracelevel()
-   optimize_init_trace_dots()
-   optimize_init_trace_value()
-   optimize_init_trace_tol()
-   optimize_init_trace_step()
-   optimize_init_trace_paramdiffs() // new in Stata 12
-   optimize_init_trace_params()
-   optimize_init_trace_gradient()
-   optimize_init_trace_Hessian()
-   optimize_init_evaluations()
-   optimize_init_constraints()
-   optimize_init_verbose()
-
-   optimize()
-   _optimize()
-   optimize_evaluate()
-   _optimize_evaluate()
-
-   optimize_result_params()
-   optimize_result_value()
-   optimize_result_value0()
-   optimize_result_gradient()
-   optimize_result_scores()
-   optimize_result_Hessian()
-   optimize_result_V()
-   optimize_result_Vtype()
-   optimize_result_V_oim()
-   optimize_result_V_opg()
-   optimize_result_V_robust()
-   optimize_result_iterations()
-   optimize_result_converged()
-   optimize_result_iterationlog()
-   optimize_result_evaluations() // new in Stata 12
-   optimize_result_errorcode()
-   optimize_result_errortext() // new in Stata 12
-   optimize_result_returncode()
-
-   optimize_query()
-
-   panelsetup()
-   panelstats()
-   panelsubmatrix()
-   panelsubview()
-
-   pathjoin()
-   pathsplit()
-   pathbasename()
-   pathsuffix()
-   pathrmsuffix()
-   pathisurl()
-   pathisabs()
-   pathasciisuffix()
-   pathstatasuffix()
-   pathlist()
-   pathsubsysdir()
-   pathsearchlist()
-
-   // Pdf* functions (new in Stata 14)
-   PdfDocument()
-   // uh oh... class methods
-   p.save()
-   p.close()
-   p.setPageSize()
-   p.setMargins()
-   p.setHAlignment()
-   p.setLineSpace()
-   p.setBgColor()
-   p.setColor()
-   p.setFont()
-   p.setFontSize()
-   p.addImage()
-   p.addParagraph()
-   p.addTable()
-   p.addNewPage()
-   p.addLineBreak()
-
-   PdfParagraph()
-   p.addString()
-   p.addText()
-   p.addLineBreak()
-   p.clearContent()
-   p.setFirstIndent()
-   p.setLeftIndent()
-   p.setRightIndent()
-   p.setTopSpacing()
-   p.setBottomSpacing()
-   p.setBgColor()
-   p.setColor()
-   p.setFont()
-   p.setFontSize()
-   p.setUnderline()
-   p.setStrikethru()
-   p.setHAlignment()
-   p.setVAlignment() // new in Stata 15 ?
-   p.setLineSpace()
-
-   PdfText()
-   t.setBgColor()
-   t.setColor()
-   t.setFont()
-   t.setFontSize()
-   t.setUnderline()
-   t.setStrikethru()
-   t.setSuperscript()
-   t.setSubscript()
-   t.addString()
-   t.clearContent()
-
-   PdfTable()
-   t.init()
-   t.setTotalWidth()
-   t.setColumnWidths()
-   t.setWidthPercent()
-   t.setIndentation()
-   t.setHAlignment()
-   t.setBorderWidth()
-   t.setBorderColor()
-   t.setTopSpacing()
-   t.setBottomSpacing()
-   t.setCellContentString()
-   t.setCellContentParagraph()
-   t.setCellContentImage()
-   t.setCellContentTable()
-   t.setCellContentHAlignment()
-   t.setCellContentVAlignment()
-   t.setCellBgColor()
-   t.setCellBorderWidths() // obsolete in Stata 15 
-   t.setCellBorderWidth() 
-   t.setCellBorderColor() // new in Stata 15  
-   t.setCellLeftBorderWidth()  // obsolete in Stata 15 
-   t.setCellRightBorderWidth()  // obsolete in Stata 15 
-   t.setCellTopBorderWidth()  // obsolete in Stata 15 
-   t.setCellBottomBorderWidth()  // obsolete in Stata 15 
-   t.setCellMargin() // new in Stata 15
-   t.setCellMargins()  // obsolete in Stata 15 
-   t.setCellLeftMargin()  // obsolete in Stata 15 
-   t.setCellRightMargin()  // obsolete in Stata 15 
-   t.setCellTopMargin()  // obsolete in Stata 15 
-   t.setCellBottomMargin()  // obsolete in Stata 15 
-   t.setCellFont()
-   t.setCellFontSize()
-   t.setCellColor()
-   t.setCellSpan()
-   t.setCellRowSpan()
-   t.setCellColSpan()
-   t.setRowSplit() // new in Stata 15
-   t.addRow() // new in Stata 15 
-   t.delRow() // new in Stata 15 
-   t.addColumn() // new in Stata 15 
-   t.delColumn() // new in Stata 15 
-   t.fillStataMatrix()
-   t.fillMataMatrix()
-   t.fillData()
-   /* end Pdf* */
-
-   pinv()
-   _pinv()
-
-   polyeval()
-   polysolve()
-   polytrim()
-   polyderiv()
-   polyinteg()
-   polyadd()
-   polymult()
-   polydiv()
-   polyroots()
-
-   printf()
-   sprintf()
-
-   qrd()
-   hqrd()
-   _hqrd()
-   hqrdmultq()
-   hqrdmultq1t()
-   hqrdq()
-   hqrdq1()
-   hqrdr()
-   hqrdr1()
-   qrdp()
-   hqrdp()
-   _hqrdp()
-   _hqrdp_la()
-
-   qrinv()
-   _qrinv()
-
-   qrsolve()
-   _qrsolve()
-
-   quadcross()
-   quadcrossdev()
-
-   range()
-   rangen()
-
-   rank()
-
-   Re()
-   Im()
-
-   reldif()
-   mreldif()
-   mreldifsym()
-   mreldifre()
-
-   rows()
-   cols()
-   length() // not obsolete in mata!
-
-   rowshape()
-   colshape()
-
-   // mata random number stuff (much of it similar to Stata)
-   runiform()
-   runiformint() // new in Stata 14
-   rseed()
-   rngstate() // new in Stata 14 
-   rbeta()
-   rbinomial()
-   rcauchy()
-   rchi2()
-   rdiscrete()
-   rexponential() // new in Stata 14 
-   rgamma()
-   rhypergeometric()
-   rigaussian() // new in Stata 15 (or 14.2)
-   rlaplace() // new in Stata 15
-   rlogistic() // new in Stata 14
-   rnbinomial()
-   rnormal()
-   rpoisson()
-   rt()
-   rweibull() // new in Stata 14
-   rweibullph() // new in Stata 14 
-
-   runningsum()
-   quadrunningsum()
-   _runningsum()
-   _quadrunningsum()
-
-   schurd()
-   _schurd()
-
-   select()
-   st_select()
-   selectindex() // new in Stata 13
-
-   setbreakintr()
-   querybreakintr()
-   breakkey()
-   breakkeyreset()
-
-   sign()
-   quadrant()
-
-   sin()
-   cos()
-   tan()
-   asin()
-   acos()
-   atan()
-   atan2()
-   asinr() // obsolete in Stata 11?
-   acosr() // obsolete in Stata 11? 
-   atanr() // obsolete in Stata 11?
-   arg() /* mata only */
-   sinh() 
-   cosh()
-   tanh()
-   asinh()
-   acosh()
-   atanh()
-   pi() /* mata only */
-
-   sizeof()
-
-   solve_tol()
-
-   solvelower()
-   solveupper()
-   _solvelower()
-   _solveupper()
-
-   // solvenl_... new in Stata 13
-   solvenl_init()
-   solvenl_init_type()
-   solvenl_init_startingvals()
-   solvenl_init_numeq()
-   solvenl_init_technique()
-   solvenl_init_conv_iterchng()
-   solvenl_init_conv_nearzero()
-   solvenl_init_conv_maxiter()
-   solvenl_init_evaluator()
-   solvenl_init_argument()
-   solvenl_init_narguments()
-   solvenl_init_damping()
-   solvenl_init_iter_log()
-   solvenl_init_iter_dot()
-   solvenl_init_iter_dot_indent()
-
-   solvenl_solve()
-   _solvenl_solve()
-
-   solvenl_result_converged()
-   solvenl_result_conv_iter()
-   solvenl_result_conv_iterchng()
-   solvenl_result_conv_nearzero()
-   solvenl_result_values()
-   solvenl_result_Jacobian()
-   solvenl_result_error_code()
-   solvenl_result_return_code()
-   solvenl_result_error_text()
-
-   solvenl_dump()
-   // end solvenl
-
-   sort()
-   _sort()
-   jumble()
-   _jumble()
-   order()
-   unorder()
-   _collate()
-
-   soundex()
-   soundex_nara()
-
-   spline3()
-   spline3eval()
-
-   sqrt()
-
-   st_addobs()
-   _st_addobs()
-
-   st_addvar()
-   _st_addvar()
-
-   _st_data()
-   st_data()
-   _st_sdata()
-   st_sdata()
-
-   st_dir()
-
-   st_dropvar()
-   st_dropobsin()
-   st_dropobsif()
-   st_keepvar()
-   st_keepobsin()
-   st_keepobsif()
-
-   st_global()
-   st_global_hcat() // new in Stata 15
-
-   st_isfmt()
-   st_isnumfmt()
-   st_isstrfmt()
-
-   st_isname()
-   st_islmname()
-
-   st_local()
-
-   st_macroexpand()
-   _st_macroexpand()
-
-   st_matrix()
-   st_matrixrowstripe()
-   st_matrixcolstripe()
-   st_replacematrix()
-   st_matrix_hcat()
-
-   st_numscalar()
-   st_numscalar_hcat() // new in Stata 12
-   st_strscalar()
-
-   st_nvar()
-   st_nobs()
-
-   st_rclear()
-   st_eclear()
-   st_sclear()
-
-   st_store()
-   st_sstore()
-   _st_store()
-   _st_sstore()
-
-   st_subview()
-
-   st_tempname()
-   st_tempfilename()
-
-   st_tsrevar()
-   _st_tsrevar()
-
-   st_updata()
-
-   st_varformat()
-   st_varlabel()
-   st_varvaluelabel()
-
-   st_varindex()
-   _st_varindex()
-
-   st_varname()
-
-   st_varrename()
-
-   st_vartype()
-   st_isnumvar()
-   st_isstrvar()
-
-   st_view()
-   st_sview()
-
-   st_viewvars()
-   st_viewobs()
-
-   st_vlexists()
-   st_vldrop()
-   st_vlmap()
-   st_vlsearch()
-   st_vlload()
-   st_vlmodify()
-
-   stata()
-   _stata()
-
-   stataversion()
-   statasetversion()
-
-   /* strdup() is not really a function --- use * */
-   strlen()
-
-   ustrlen()   // new in Stata 14
-   ustrinvalidcnt()  // new in Stata 14
-
-   udstrlen() // new in Stata 14
-
-   strmatch()
-
-   strofreal()
-
-   strpos()
-   strrpos() // new in Stata 14, mata only
-
-   ustrpos() // new in Stata 14
-   ustrrpos() // new in Stata 14
-
-   strreverse()
-
-   ustrreverse() // new in Stata 14
-
-   strtoname()
-
-   ustrtoname()  // new in Stata 14
-
-   strtoreal()
-   _strtoreal()
-
-   stritrim()
-   strltrim()
-   strrtrim()
-   strtrim()
-
-   ustrltrim()  // new in Stata 14 
-   ustrrtrim()  // new in Stata 14 
-   ustrtrim()   // new in Stata 14 
-
-   strupper()
-   strlower()
-   strproper()
-
-   ustrupper()  // new in Stata 14 
-   ustrlower()  // new in Stata 14 
-   ustrtitle()  // new in Stata 14 
-
-   subinstr()
-   subinword()
-
-   usubinstr()  // new in Stata 14 
-
-   sublowertriangle()
-   _sublowertriangle()
-
-   _substr()
-
-   _usubstr() // new in Stata 14 mata only
-
-   substr()
-
-   usubstr()  // new in Stata 14
-   ustrleft()
-   ustrright()
-
-   udsubstr() // new in Stata 14 mata only
-
-   rowsum()
-   colsum()
-   sum()
-   quadrowsum()
-   quadcolsum()
-   quadsum()
-
-   svd()
-   svdsv()
-   _svd()
-   _svdsv()
-   _svd_la()
-
-   svsolve()
-   _svsolve()
-
-   swap()
-
-   Toeplitz()
-
-   tokeninit()
-   tokeninitstata()
-   tokenset()
-   tokengetall()
-   tokenget()
-   tokenpeek()
-   tokenrest()
-   tokenoffset()
-   tokenwchars()
-   tokenpchars()
-   tokenqchars()
-   tokenallownum()
-   tokenallowhex()
-
-   tokens()
-
-   trace()
-
-   _transpose()
-
-   transposeonly()
-   _transposeonly()
-
-   trunc()
-   floor()
-   ceil()
-   round()
-
-   // begin obsolete block (Stata 10.1)
-   uniform()
-   uniformseed()
-   // end obsolete block 
-
-   uniqrows()
-
-   unitcircle()
-
-   unlink()
-   _unlink()
-
-   urlencode() // new in Stata 15
-   urldecode() // new in Stata 15
-
-   ustrcompare() // new in Stata 14
-   ustrsortkey() // new in Stata 14
-   ustrcompareex() // new in Stata 14
-   ustrsortkeyex() // new in Stata 14
-
-   ustrfix() // new in Stata 14
-
-   ustrnormalize() // new in Stata 14
-
-   ustrto()    // new in Stata 14 
-   ustrfrom()  // new in Stata 14
-
-   ustrunescape() // new in Stata 14
-   ustrtohex()    // new in Stata 14
-
-   ustrword()      // new in Stata 14 
-   ustrwordcount() // new in Stata 14
-
-   valofexternal()
-
-   Vandermonde()
-
-   vec()
-   vech()
-   invvech()
-
-   // xl class system (highlighting could be hard)
-   // Step 1: init
-   xl()
-   // Step 2: create and open workbook
-   B.create_book()
-   B.load_book()
-   B.clear_book()
-   B.set_mode()
-   B.close_book()
-   // Step 3: setting sheet
-   B.add_sheet()
-   B.set_sheet()
-   B.set_sheet_gridlines() // new in Stata 14
-   B.set_sheet_merge() // new in Stata 14
-   B.clear_sheet()
-   B.delete_sheet() // new in Stata 14 
-   B.delete_sheet_merge() // new in Stata 14 
-   B.get_sheets()
-   // Step 4: reading/writing info
-   B.get_string()
-   B.get_number()
-   B.get_cell_type()
-   B.put_string()
-   B.put_number()
-   B.put_formula() // new in Stata 14
-   B.put_picture() // new in Stata 14 
-   B.set_missing()
-   // Cell Formatting (new in Stata 14)
-   B.set_number_format()
-   B.set_vertical_align()
-   B.set_horizontal_align()
-   B.set_border()
-   B.set_left_border()
-   B.set_right_border()
-   B.set_top_border()
-   B.set_bottom_border()
-   B.set_diagonal_border()
-   B.set_fill_pattern()
-   B.set_column_width()
-   B.set_row_height()
-   // Text formatting (new in Stata 14)
-   B.set_font()
-   B.set_font_bold()
-   B.set_font_italic()
-   B.set_font_strikeout()
-   B.set_font_underline()
-   B.set_font_script()
-   B.set_text_wrap()
-   B.set_shrink_to_fit()
-   B.set_text_rotate()
-   B.set_text_indent()
-   B.set_format_lock()
-   B.set_format_hidden()
-   // Utility functions
-   B.query()
-   B.get_colnum()
-   B.set_keep_cell_format() // new in Stata 14
-   B.set_error_mode()
-   B.get_last_error()
-   foo.get_last_error_message()
-
-   /* end of [M] mata manual */
 
    /* commands related to cscripts */
    assert

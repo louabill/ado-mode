@@ -5259,6 +5259,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "integ" "ipolate"
 		   "joinby"
 		   "keep"
+		   "lmbuild"
 		   "lnskew0"
 		   "makecns"
 		   "mark" "markin" "markout" "mat"
@@ -7182,7 +7183,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-;; AssociativeArray methods
+;; Methods from AssociativeArray, LinearProgram, and Quadrature
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -7193,19 +7194,59 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "N"
 		   "clear"
+		   "converged"
+		   "errorcode" "errortext"
 		   "exists"
 		   "firstloc" "firstval"
 		   "get"
+		   "getAbstol" "getArgument"
+		   "getBounds"
+		   "getCoefficients"
+		   "getEquality" "getEvaluator"
+		   "getInequality"
+		   "getLimits"
+		   "getMaxOrMin"
+		   "getMaxiter"
+		   "getReltol"
+		   "getTechnique" "getTol" "getTrace"		   
+		   "integrate" "iterations"
 		   "key" "keys"
-		   "next" "nextval" "notfound"
-		   "put"
-		   "reinit" "remove"
-		   "val"
+		   "nextloc" "nextval" "notfound"
+		   "optimize"
+		   "parameters" "put"
+		   "query"
+		   "reinit" "remove" "returncode"
+		   "setAbstol" "setArgument"
+		   "setBounds"
+		   "setCoefficients"
+		   "setEquality" "setEvaluator"
+		   "setInequality"
+		   "setLimits"
+		   "setMaxOrMin"
+		   "setMaxiter"
+		   "setReltol"
+		   "setTechnique" "setTol" "setTrace"		   
+		   "val" "value"
 		   ) 'words))
 	  "("
 	  )
 	 '(1 ado-function-name-face) '(2 ado-function-name-face t))
 
+;; obsolete[?] AssociativeArray methods
+	(list
+	 (concat
+	  ado-start-cmd-null-regexp
+;;	  "\\(?:[.a-zA-Z][[:alnum:]_]*\\)+" ! will cause a hang
+	  "\\([.]\\)"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "next"
+		   ) 'words))
+	  "("
+	  )
+	 '(1 ado-function-name-face) '(2 ado-obsolete-face t))
+	
 	  ;; oh my - the creturn info!
 	(list
 	 (concat
@@ -7769,6 +7810,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "_fclose" "_fget" "_fgetmatrix" "_fgetnl" "_flopin" "_flopout" "_fopen" "_fput" "_fputmatrix" "_fread"
 		  "_fseek" "_ftell" "_ftruncate" "_fullsvd" "_fwrite"
 		  "_ghessenbergd"
+		  "_geigen_la" "_geigensystem_la" "_geigenselectf_la" "_geigenselecti_la" "_geigenselectr_la"
 		  "_gschurd" "_gschurdgroupby"
 		  "_halton" "_hessenbergd" "_hqrd" "_hqrdp" "_hqrdp_la"
 		  "_invfft" "_invsym"
@@ -7845,6 +7887,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t))
 
+	;; mata functions wihtout _
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -7865,6 +7908,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "LA_ZTGSEN" "LA_ZTGEVC" "LA_ZTREVC" "LA_ZTRSEN" "LA_ZUNGHR"
 		  "Lmatrix"
 		  "PdfDocument" "PdfParagraph" "PdfTable" "PdfText"
+		  "Quadrature"
 		  "Re" "Toeplitz" "Vandermonde"
 		  "acosh" "adosubdir" "all" "allof" "any" "anyof"
 		  "arg" "args"
@@ -7928,8 +7972,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "halton" "hash1" "hasmissing" "hessenbergd"
 		  "hqrd" "hqrdmultq" "hqrdmultq1t" "hqrdp" "hqrdq" "hqrdq1" "hqrdr" "hqrdr1"
 		  "inbase" "invHilbert" "invfft" "invorder" "invtokens" "invvech"
-		  "iscomplex" "isdiagonal" "isfleeting" "ispointer" "isreal"
-		  "isrealvalues" "isstring" "issymmetric" "issymmetriconly" "isview"
+		  "isascii" "iscomplex" "isdiagonal" "isfleeting" "ispointer" "isreal"
+		  "isrealvalues" "issamefile" "isstring" "issymmetric" "issymmetriconly" "isview"
 		  "jumble"
 		 ) 'words))
 	   "("
@@ -7955,8 +7999,9 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "optimize" "optimize_evaluate" "optimize_init" "optimize_query"
 		  "order" "orgtype"
 		  "panelsetup" "panelstats" "panelsubmatrix" "panelsubview"
-		  "pathasciisuffix" "pathbasename" "pathisabs" "pathisurl" "pathjoin" "pathlist"
-		  "pathrmsuffix" "pathsearchlist" "pathsplit" "pathstatasuffix" "pathsubsysdir" "pathsuffix"
+		  "pathasciisuffix" "pathbasename" "pathgetparent" "pathisabs" "pathisurl"
+		  "pathjoin" "pathlist" "pathresolve" "pathrmsuffix" "pathsearchlist"
+		  "pathsplit" "pathstatasuffix" "pathsubsysdir" "pathsuffix"
 		  "pi" "pinv"
 		  "polyadd" "polyderiv" "polydiv" "polyeval" "polyinteg" "polymult" "polyroots" "polysolve" "polytrim"
 		  "printf" "pwd"
