@@ -1,4 +1,4 @@
-*! version 1.15.0.1 August 28, 2019 @ 21:45:19
+*! version 1.15.0.1 August 28, 2019 @ 21:51:22
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -3268,23 +3268,35 @@ set trace off
    irt 3pl
 
    irt grm
+
    irt nrm
+   
    irt pcm
    irt gpcm
+
    irt rsm
+
    irt hybrid
 
    // irt-specific postestimation commands
+   estat greport  // new in Stata 16
+   estat grep
    estat rep
    estat repo
    estat report
+   
    irtgraph // incomplete
+
    irtgraph icc
+
    irtgraph iif
+
    irtgraph tcc
+
    irtgraph tif
 
    diflogistic
+
    difmh
 
    /* end [IRT] manual */
