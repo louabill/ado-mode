@@ -1,4 +1,4 @@
-*! version 1.15.0.1 August 29, 2019 @ 00:58:14
+*! version 1.15.0.1 September 7, 2019 @ 17:33:15
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -4874,7 +4874,21 @@ version /* used elsewhere */
    st_keepobsif()
 
    // st_frames new in Stata 16
-   @@ start here!
+   st_framecurrent()
+   st_framedir()
+   st_framecreate()
+   _st_framecreate()
+   st_framecurrent()
+   _st_framecurrent()
+   st_framerename()
+   _st_framerename()
+   st_framedrop()
+   _st_framedrop()
+   st_framedropabc()
+   st_framereset()
+   st_framecopy()
+   _st_framecopy()
+   st_frameexists()
    
    st_global()
    st_global_hcat() // new in Stata 15
@@ -5095,6 +5109,8 @@ version /* used elsewhere */
 
    ustrnormalize() // new in Stata 14
 
+   ustrsplit()    // new in Stata 16 
+
    ustrto()    // new in Stata 14 
    ustrfrom()  // new in Stata 14
 
@@ -5165,9 +5181,39 @@ version /* used elsewhere */
    B.set_text_indent()
    B.set_format_lock()
    B.set_format_hidden()
+   // Formatting Cell Ranges (new in Stata 15)
+   B.add_fmtid()
+   B.set_fmtid()
+   B.fmtid_set_number_format()
+   B.fmtid_set_vertical_align()
+   B.fmtid_set_horizontal_align()
+   B.fmtid_set_border()
+   B.fmtid_set_left_border()
+   B.fmtid_set_right_border()
+   B.fmtid_set_top_border()
+   B.fmtid_set_bottom_border()
+   B.fmtid_set_diagonal_border()
+   B.fmtid_set_fill_pattern()
+   B.fmtid_set_column_width()
+   B.fmtid_set_row_height()
+   B.fmtid_set_text_wrap()
+   B.fmtid_set_shrink_to_fit()
+   B.fmtid_set_text_rotate()
+   B.fmtid_set_text_indent()
+   B.fmtid_set_format_lock()
+   B.fmtid_set_format_hidden()
+   B.add_fontid()
+   B.add_fmtid_set_fontid()
+   B.fontid_set_font()
+   B.fontid_set_font_bold()
+   B.fontid_set_font_italic()
+   B.fontid_set_font_strikeout()
+   B.fontid_set_font_underline()
+   B.fontid_set_font_script()
    // Utility functions
    B.query()
    B.get_colnum()
+   B.get_colletter()        // new in Stata 15 
    B.set_keep_cell_format() // new in Stata 14
    B.set_error_mode()
    B.get_last_error()
@@ -5195,27 +5241,43 @@ version /* used elsewhere */
    estat wcorrelation
 
    mecloglog
+
    meglm
+
    meintreg // new in Stata 15 
+
    melogit
+
    menbreg
+
    menl     // new in Stata 15 
+
    meologit
+
    meoprobit
+
    mepoisson
+
    meprobit
-   meqrlogit
-   meqrpoisson
+
+   meqrlogit     // obsolete in Stata 16 
+   meqrpoisson   // obsolete in Stata 16 
+
    mestreg // new in Stata 14
+   
    metobit // new in Stata 15 
+
    stcurve
    estat group
+
    mixed
    estat df // new in Stata 14 
    estat group
    estat icc
    estat recovariance
+   estat sd
    estat wcorrelation
+
    /* end of [ME] manual */
 
    // the [MI] multiple imputation manual...all new in Stata 11
