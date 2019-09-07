@@ -1,4 +1,4 @@
-*! version 1.15.0.1 September 7, 2019 @ 17:46:42
+*! version 1.15.0.1 September 7, 2019 @ 18:21:19
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -5363,20 +5363,27 @@ version /* used elsewhere */
    mi extract
 
    mi import // incomplete
+
    mi import flong
+
    mi import flongsep
+
    mi import ice
+
    mi import nhanes1
+
    mi import wide
 
    mi imp // incomplete
    mi impute // incomplete
+
    mi imp chain // new in Stata 12 
    mi impute chained // new in Stata 12
 
    mi imp intreg // new in Stata 12 
    mi impute intreg // new in Stata 12 
 
+   mi imp log   // log not long enough
    mi imp logi
    mi impu logit
 
@@ -5408,12 +5415,15 @@ version /* used elsewhere */
    mi merge 1:m
    mi merge m:1
    mi merge m:m
+   mi merge m:2  // no good, of course
+   @@ start here
 
    mi misstab // incomplete
    mi misstab sum
    mi misstable summarize
    mi misstable pat
    mi misstable patterns
+   mi misstable tre // incomplete
    mi misstab tree
    mi misstabl nest
    mi misstable nested
@@ -5465,6 +5475,7 @@ version /* used elsewhere */
    mi unregister
    mi set M
    mi set m
+   mi set q  // nothing good
    mi unset
 
    mi stsplit
