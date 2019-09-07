@@ -1,4 +1,4 @@
-*! version 1.15.0.1 September 7, 2019 @ 18:21:19
+*! version 1.15.0.1 September 7, 2019 @ 19:06:32
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -5503,6 +5503,7 @@ version /* used elsewhere */
 
    /* from [MV] multivariate statistics */
    alpha
+
    biplot
 
    ca
@@ -5583,9 +5584,11 @@ version /* used elsewhere */
    cluster ward
    cluster wardslinkage
 
+   cluster not // incomplete
    cluster note
    cluster notes
    cluster notes drop
+
    /* cluster programming utilities */
    cluster query
    cluster set
@@ -5691,6 +5694,8 @@ version /* used elsewhere */
 
    hotelling
 
+   // only manova listed in manual starting at latest at Stata 16
+   //  abbreviations still behave OK
    mano
    manov
    manova
@@ -5774,12 +5779,14 @@ version /* used elsewhere */
    rota
    rotat
    rotate
+
    rotatemat
 
    scoreplot
    loadingplot
 
    greigen // obsolete in Stata 9
+
    scree // listed as synonym for -screeplot- in Stata 13 manual
    screeplot
 
