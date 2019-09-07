@@ -1,4 +1,4 @@
-*! version 1.15.0.1 September 7, 2019 @ 17:33:15
+*! version 1.15.0.1 September 7, 2019 @ 17:46:42
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -3032,7 +3032,7 @@ set trace off
    meta forestplot
    meta funnelplot
    meta labbeplot
-   meta bubbleplot
+   estat bubbleplot
 
    roctab
    rocplot
@@ -5279,6 +5279,49 @@ version /* used elsewhere */
    estat wcorrelation
 
    /* end of [ME] manual */
+
+   // the [META] manual, new in Stata 16 @@
+
+   meta // incomplete
+
+   // meta data is a concept, not a command
+
+   meta es
+   meta esize
+
+   meta set
+
+   meta up
+   meta update
+   meta q
+   meta query
+   meta clea    // incomplete
+   meta clear
+
+   meta forest
+   meta forestplot
+
+   meta sum
+   meta summarize
+
+   meta labbe
+   meta labbeplot
+
+   meta reg
+   meta regress
+
+   estat bubble
+   estat bubbleplot
+
+   meta funnel
+   meta funnelplot
+
+   meta bias
+
+   meta trim
+   meta trimfill
+
+   // end of the [META] manual
 
    // the [MI] multiple imputation manual...all new in Stata 11
    // ... and vastly expanded in Stata 12

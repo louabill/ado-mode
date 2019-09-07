@@ -6152,7 +6152,32 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   )
 	  '(1 ado-obsolete-face t))
 
-	  ;; all the endless -mi- commands
+	;; the -meta- commands
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(meta\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '(
+			"bias"
+			"clear"
+			"es" "esi" "esiz" "esize"
+			"funnel" "funnelp" "funnelpl" "funnelplo" "funnelplot" 
+			"labbe" "labbep" "labbepl" "labbeplo" "labbeplot" 
+			"forest" "forestp" "forestpl" "forestplo" "forestplot" 
+			"q" "qu" "que" "quer" "query"
+			"reg" "regr" "regre" "regres" "regress" 
+			"set"
+			"sum" "summ" "summa" "summar" "summari" "summariz" "summarize"
+			"trim" "trimf" "trimfi" "trimfil" "trimfill" 
+			"up" "upd" "upda" "updat" "update" 
+		 ) 'words))
+	   ado-end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; all the endless -mi- commands
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -8533,6 +8558,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "anova" "anti" "archlm" "aroots"
 		   "bgo" "bgod" "bgodf" "bgodfr" "bgodfre" "bgodfrey"
 		   "boot" "boots" "bootst" "bootstr" "bootstra" "bootstrap"
+			"bubble" "bubblep" "bubblepl" "bubbleplo" "bubbleplot" 
 		   "canontest" "clas" "class" "classfunctions"
 		   "classi" "classif" "classifi" "classific"
 		   "classifica" "classificat" "classificati"
@@ -8798,27 +8824,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
-
-	;; the meta commands
-		(list
-	 (concat
-	  ado-start-cmd-regexp
-	  (eval-when-compile
-		(regexp-opt
-		 '(
-		   "meta"
-		   ) 'words))
-	  "[ \t]+"
-	  (eval-when-compile
-		(regexp-opt
-		 '(
-		   "bubbleplot"
-		   "forestplot"
-		   "funnelplot"
-		   "labbeplot"
-		   ) 'words))
-	  ado-end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; lassoselect commands
 	(list
@@ -9219,6 +9224,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "log"
 		 "mat" "matname" "mat_put_rr" "matr" "matri" "matrix"
 		 "mer" "merg" "merge"
+		 "meta"
 		 "mgarch"
 		 "mi"
 		 "mkassert"
