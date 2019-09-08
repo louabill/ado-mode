@@ -2,6 +2,8 @@
 
 /* ready to go */
 
+// when updating, go straight to the Commands section of the dialog programming
+
 VERSION 7
 VERSION 8
 VERSION 8.1
@@ -30,39 +32,62 @@ VERSION 15
 VERSION 15.0
 VERSION 15.1
 VERSION 15.2
+VERSION 16.0
+VERSION 17.0
 VERSION 19
 
 INCLUDE fuggy
 
 DEFINE
+
 POSITION
+
 LIST
   BEGIN
   END
 
 DIALOG
+
 CHECKBOX
+
 RADIO
+
 SPINNER
+
 EDIT
+
 VARLIST
 VARNAME
+
 FILE
+
 LISTBOX
+
 COMBOBOX
+
 BUTTON
+
 TEXT
+
 TEXTBOX // new in Stata 10
+
 GROUPBOX
+
 FRAME
+
 COLOR
+
 EXP
+
 HLINK // new in Stata 11
+
 TREEVIEW // new in Stata 14
+
 OK
 SUBMIT
 CANCEL
 COPY
+
 HELP
 RESET
 

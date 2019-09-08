@@ -1,4 +1,4 @@
-*! version 1.15.0.1 September 7, 2019 @ 19:06:32
+*! version 1.15.0.1 September 7, 2019 @ 20:13:22
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -5795,6 +5795,7 @@ version /* used elsewhere */
    /* [P] programming manual, moved in list in Stata 14 */
    nobreak
    break
+
    /* not highlighting byable() stuff, because an option */
    program dingle, rclass byable(recall)
    end
@@ -5816,6 +5817,7 @@ version /* used elsewhere */
    // a meager attempt at highlighting class programming
    // really just highlighting the tails from the built-in functions
    //   (for updating: jumped to section 8.1 in Stata 14)
+   // Starting Stata 16, no longer paying attention to large class section
    a.bc.new
    ab.b.copy
    a.compress.ref
@@ -5882,12 +5884,17 @@ version /* used elsewhere */
    conf date forma
 
    /* confirm ts was replaced by confirm date in Stata 10,  */
-   conf ts format // obsolete in Stata 10 
+   conf ts format // obsolete in Stata 10
+
+   // frames new in Stata 16
+   confirm new frame
+   confirm frame
 
    conf name
    confi names
    confirm int number // bad ---no abbrev allowed for -integer-
    confir integer n
+   conf integer number
    conf n
    conf num
    confirm number
@@ -5905,6 +5912,7 @@ version /* used elsewhere */
    conf numeric va
    confirm str var
    confirm string vari
+   confirm str16 var  // allowed specific string sizes
    confirm byte varia
    confirm int variab
    conf long variabl
@@ -5970,8 +5978,11 @@ version /* used elsewhere */
    c(max_k_current) // obsolete in Stata 12
    c(max_width_theory)
    c(max_width_current) // obsolete in Stata 12
-   c(max_matsize)
-   c(min_matsize)
+   c(max_matdim)   // new in Stata 16
+   c(max_matsize)  // obsolete in Stata 16; still returns a value < c(max_matdim), though
+   c(min_matsize)  // obsolete in Stata 16
+   c(max_it_cvars) // new in Stata 16 
+   c(max_it_fvars) // new in Stata 16 
    c(max_macrolen)
    c(macrolen)
    c(charlen)    // new in Stata 14
@@ -6001,6 +6012,7 @@ version /* used elsewhere */
    c(maxvlabellen) // new in Stata 13 
 
    /* current dataset */
+   c(frame)        // new in Stata 16 
    c(N)
    c(k)
    c(width)
@@ -6011,11 +6023,13 @@ version /* used elsewhere */
    /* memory */
    c(memory)
    c(maxvar)
-   c(matsize)
+   c(matsize)  // obsolete in Stata 16 
    c(niceness) // new in Stata 12
    c(min_memory) // new in Stata 12
    c(max_memory)   // new in Stata 14 
    c(segmentsize) // new in Stata 12
+   c(adosize)
+   c(max_preservenum)  // new in Stata 16 
 
    /* output */
    c(more)
@@ -6031,24 +6045,25 @@ version /* used elsewhere */
    c(playsnd)
    c(icmap) // obsolete in Stata 10
    c(include_bitmap) // mac only new in Stata 12
+   c(iterlog)  // new in Stata 16 
    c(level)
    c(clevel)  // new in Stata 14 
    c(showbaselevels) // new in Stata 11.1
    c(showemptycells) // new in Stata 11.1
    c(showomitted) // new in Stata 11.1
    c(fvlabel) // new in Stata 13
-1   c(fvwrap) // new in Stata 13
+   c(fvwrap) // new in Stata 13
    c(fvwrapon) // new in Stata 13
-   c(fvtrack) // new in Stata 15 
    c(lstretch) // new in Stata 12
    c(cformat) // new in Stata 11.1
    c(sformat) // new in Stata 11.1
    c(pformat) // new in Stata 11.1
-   c(coeftabresults)  // new in Stata 13 
+   c(coeftabresults)  // new in Stata 13
+   c(dots)  // new in Stata 16
 
    /* interface */
    c(dockable)
-   c(dockingguides)
+   c(dockingguides) // obsolete in Stata 16
    c(floatresults) // obsolete in Stata 8 or so
    c(floatwindows) // obsolete in Stata 8 or so
    c(locksplitters)
@@ -6082,9 +6097,10 @@ version /* used elsewhere */
    c(copycolor)
    c(macgphengine) // obsolete in Stata 9 [?]
    c(piccomments)  // obsolete in Stata 9 [?]
+   c(maxbezierpath)  // new in Stata 16; Mac only
 
    /* efficiency */
-   c(adosize)
+   // in Stata16, efficiency is no longer a section
    c(virtual)  // obsolete in Stata 12
 
    /* network */
@@ -6121,6 +6137,22 @@ version /* used elsewhere */
    c(matalibs)
    c(matamofirst)
 
+   /* java settings, new in Stata 16 */
+   c(java_heapmax)
+   c(java_home)
+
+   /* python */
+   // new in Stata 16
+   c(python_exec)
+   c(python_userpath)
+
+   /* random number generator (RNG) settings */
+   c(rng)
+   c(rng_current)
+   c(rngstate)
+   c(rngseed_mt64s)
+   c(rngstream)
+
    /* unicode settings (new in Stata 14) */
    c(locale_ui)
    c(locale_functions)
@@ -6131,14 +6163,11 @@ version /* used elsewhere */
    c(maxiter)
    c(searchdefault)
    c(seed)   // obsolete in Stata 14 (replaced by c(rngstate))
-   c(rng)
-   c(rng_current)
-   c(rngstate)
-   c(rngseed_mt64s) // new in Stata 15 
-   c(rngstream) // new in Stata 15
    c(version_rng) // new in Stata 11.2, returns 14 in Stata 14, no docs
    c(varabbrev)
    c(emptycells) // new in Stata 12
+   c(fvtrack) // new in Stata 15
+   c(fvbase)  // new in Stata 16
    c(haverdir) // new in Stata 13 
    c(odbcmgr)
    c(odbcdriver) // new sometime in Stata 14
@@ -6254,6 +6283,7 @@ version /* used elsewhere */
    display in yellow  // obsolete in Stata 7[?]
 
 
+   // moved from [P] to [RPT], most likely
    /* dyndoc tags; new in Stata 15 */
    <<dd_version:1>>
 
@@ -6287,6 +6317,7 @@ version /* used elsewhere */
 
    dyndoc
    dyntext
+   // end of move to [RPT]
 
    /* ereturn... */
    eret loc bleen
@@ -6359,12 +6390,17 @@ version /* used elsewhere */
       }
    foreach number of numlist somenumlist {
       }
+
    forv // incomplete
    forvalues bleen // incomplete
    forv fooie=1/4 {
       }
    forvalues aNum = 2(3)14 {
       }
+
+   frame create
+   frame post
+   @@ start here
 
    fvexpand
 

@@ -229,7 +229,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		(regexp-opt
 		 '(
 		   "#d" "#de" "#del" "#deli" "#delim" "#delimi" "#delimit"
-		   ) 'words))
+		   ) t))
 	  "[ \t]+\\(cr\\|;\\)[ \t]*$"
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -1494,6 +1494,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "e" "ex" "exi" "exis" "exist" "existe" "existen" "existenc" "existence"
 		   "f" "fi" "fil" "file"
 		   "fo" "for" "form" "forma" "format"
+		   "frame"
 		   "mat" "matr" "matri" "matrix"
 		   "n" "name" "names" "nu" "num" "numb" "numbe" "number"
 		   "sca" "scal" "scala" "scalar"
@@ -1544,6 +1545,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		(regexp-opt
 		 '(
 		   "f" "fi" "fil" "file"
+		   "frame"
 		   "v" "va" "var" "vari" "varia" "variab" "variabl" "variable"
 		   ) 'words))
 	  ado-end-cmd-regexp )
@@ -1989,6 +1991,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "change" "create"
 		   "dir"
+		   "post"
 		   "pwf"
 		   "rename"
 		   ) 'words))
@@ -7308,13 +7311,14 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "clevel" "cmdlen"
 		  "coeftabresults" "console" "copycolor"
 		  "current_time" "current_date"
-		  "dirsep" "dp" "dyndoc_version"
+		  "dirsep" "dots" "dp" "dyndoc_version"
 		  "emptycells" "eolchar" "epsdouble" "epsfloat" "eqlen"
-		  "filedate" "filename" "flavor" "fredkey"
+		  "filedate" "filename" "flavor" "frame" "fredkey"
 		  "fvbase" "fvlabel" "fvtrack" "fvwrap" "fvwrapon"
 		  "graphics"
 		  "haverdir" "hostname"
 		  "httpproxy" "httpproxyauth" "httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
+		  "iterlog"
 		  "k"
 		  "java_heapmax" "java_home"
 		  "level" "linegap" "linesize"
@@ -7322,14 +7326,17 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "logtype" "lstretch"
 		  "machine_type" "macrolen"
 		  "matacache" "matafavor" "matalibs" "matalnum" "matamofirst" "mataoptimize" "matastrict"
-		  "matsize"
-		  "max_N_theory" "max_cmdlen"
+		  "max_N_theory"
+		  "max_cmdlen"
+		  "max_it_cvars" "max_it_fvars"
 		  "max_k_theory"
-		  "max_macrolen" "max_matsize" "max_memory" "max_preservemem" "max_width_theory"
+		  "max_macrolen" "max_matdim" "max_memory"
+		  "max_preservemem" "max_preservenum"
+		  "max_width_theory"
 		  "maxbyte" "maxdb" "maxdouble" "maxfloat" "maxint" "maxiter"
 		  "maxlong" "maxstrvarlen" "maxstrlvarlen" "maxvar" "maxvlabellen"
 		  "memory"
-		  "min_matsize" "min_memory"
+		  "min_memory"
 		  "minbyte" "mindouble" "minfloat" "minint" "minlong"
 		  "mode" "more"
 		  "namelenbyte" "namelenchar"
@@ -7367,11 +7374,12 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 (regexp-opt
 		  '(
 			"autotabgraphs"
-			"dockable" "dockingguides" "doublebuffer"
+			"dockable" "doublebuffer"
 			"eolchar"
 			"fastscroll"
 			"include_bitmap"
 			"locksplitters"
+			"maxbezierpath"
 			"notifyuser"
 			"playsnd"
 			"pinnable"
@@ -7395,11 +7403,12 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		(regexp-opt
 		 '(
 		   "charset"
+		   "dockingguides"
 		   "eolchar"
 		   "floatresults" "floatwindows"
 		   "icmap"
-		   "macgphengine"
-		   "max_N_current" "max_k_current" "max_width_current"
+		   "macgphengine" "matsize"
+		   "max_N_current" "max_k_current" "max_matsize" "max_width_current" "min_matsize"
 		   "namelen"
 		   "smalldlg"
 		   "persistfv" "persistvtopic" "piccomments"
@@ -7430,7 +7439,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "VERSION"
 		 ) 'words))
 	   "[ \t]+"
-	  "\\(\\(?:\\(?:[89]\\|1[012345]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[89]\\|1[012345]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\)"
+	  "\\(\\(?:\\(?:[89]\\|1[0123456]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[89]\\|1[012345]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\)"
 	   )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	  ;; general builtins for dialogs
