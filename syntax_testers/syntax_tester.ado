@@ -1,4 +1,4 @@
-*! version 1.15.0.1 September 7, 2019 @ 20:13:22
+*! version 1.15.0.1 September 14, 2019 @ 19:58:32
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -6317,6 +6317,41 @@ version /* used elsewhere */
 
    dyndoc
    dyntext
+
+   markdown // new in Stata 15; conflicts with user-written markdown
+      // putdocx new in Stata 15
+   putdocx begin
+   putdocx paragraph
+   putdocx text (...)
+   putdocx image
+   putdocx table
+   putdocx pagebreak
+   putdocx describe
+   putdocx save
+   putdocx clear
+   putdocx append
+
+   // putexcel new in Stata 13; syntax changes don't change ado-mode
+   // not sure how putexcel is a reporting command, but still....
+   putexcel
+   putexcel set
+   putexcel describe
+   putexcel clear   
+
+   // putpdf new in Stata 15
+   putpdf begin
+   putpdf paragraph
+   putpdf text (...)
+   putpdf image
+   putpdf table
+   putpdf pagebreak
+   putpdf describe
+   putpdf save
+   putpdf clear
+   putpdf append // should fail; not legal
+
+
+
    // end of move to [RPT]
 
    /* ereturn... */
@@ -6400,7 +6435,6 @@ version /* used elsewhere */
 
    frame create
    frame post
-   @@ start here
 
    fvexpand
 
@@ -6433,6 +6467,16 @@ version /* used elsewhere */
    bleen else bling // bad
 
    include somefile.doh
+
+   // from javautilities
+   // new in Stata 16
+   java  // incomplete
+   java query
+   java init
+   java initialize
+   java set // incomplete
+   java set home
+   java set heapmax
 
    javacall // new in Stata 13 
 
@@ -6476,6 +6520,7 @@ version /* used elsewhere */
    macro shift
 
    glo fooey : properties
+   globa heha : results    // new in Stata 16
    glo dingle : ty
    global dingle : type
    loc dingle : f
@@ -6506,6 +6551,8 @@ version /* used elsewhere */
    global blah: sysdir PLUS
    local foo: sysdir PERSONAL
    local bad: sysdir OHNO  // should fail on OHNO
+   local hmm: sysdir UPDATE  // technically OK, but not documented
+
    gl h : env
    global h : environment
    loc h : e(scalars)
@@ -6587,7 +6634,6 @@ version /* used elsewhere */
    // end obsolete block
 
    /* macro lists */
-
    loc foo : list uniq bar
    global foo : list dups bar
    glob foo: list sort bar
@@ -6615,8 +6661,6 @@ version /* used elsewhere */
    markin
    svymarkout fiem // fiem is a variable name
 
-   markdown // new in Stata 15; conflicts with user-written markdown
-
    matlist
 
    /* matrix commands */
@@ -6624,6 +6668,7 @@ version /* used elsewhere */
    matr accum matt
    matri glsa matt
    matrix glsaccum matt
+   matri opacc fooey // no good because no abbrev for opaccum
    mat opaccum matt
    matrix veca matt
    matrix vecaccum matt
@@ -6655,6 +6700,12 @@ version /* used elsewhere */
    svmat fooey
    svmat double noodle
    matname foo
+
+   // xxxjoinbyname new in Stata 16 
+   mat rowjoin A
+   mat rowjoinbyname B
+   matri coljoin C
+   matrix coljoinbyname D
 
    mat rown njk = kjj
    matrix rownames rrr = ccc
@@ -6713,6 +6764,7 @@ pause "fuggy"
 
    preserve
    restore
+   set max_preservemem // new in Stata 16
 
    pr def foo
       pro bar
@@ -6733,42 +6785,34 @@ pause "fuggy"
    program list fooie
 
    // new in Stata 14 (or maybe 14.1)
+   // syntax easier to find via -help projmanager-
    projman
    projmana
    projmanag
    projmanage
-   projmanager 
+   projmanager
 
-   // putdocx new in Stata 15
-   putdocx begin
-   putdocx paragraph
-   putdocx text (...)
-   putdocx image
-   putdocx table
-   putdocx pagebreak
-   putdocx describe
-   putdocx save
-   putdocx clear
-   putdocx append
-
-   // putexcel new in Stata 13; syntax changes don't change ado-mode
-   putexcel
-   putexcel set
-   putexcel describe
-   putexcel clear   
-
-   // putpdf new in Stata 15
-   putpdf begin
-   putpdf paragraph
-   putpdf text (...)
-   putpdf image
-   putpdf table
-   putpdf pagebreak
-   putpdf describe
-   putpdf save
-   putpdf clear
-   putpdf append // should fail; not legal
-
+   // python new in Stata 16 
+   python
+      this is python code
+   end
+   
+   python:
+      this is python code
+   end
+   python script
+   python set exec
+   python set userpath
+   python des
+   python describe
+   python drop
+   python clear
+   python q
+   python query
+   python sea
+   python search
+   python which
+   
    qui regress
    quietly {
       n describe
@@ -6814,7 +6858,7 @@ pause "fuggy"
    ereturn scalar
    eret loc foo
    ereturn local foo
-   eretu mat short
+   eretu mat short       // urf, a keyword
    ereturn matrix bleen
    eret repost
    ereturn repost
@@ -6843,7 +6887,8 @@ pause "fuggy"
    scalar dir
    sca l
    sca list 
-   scalar drop
+   scalar drop _all
+   scalar drop freddy mikey  // oops, mikey should highlight
 
    /* serset commands */
 
@@ -6881,6 +6926,7 @@ pause "fuggy"
    // do not want to allow all possible aliases!
    set locale_functions latin1  // new in Stata 14 
 
+   // not going to put legal locale_ui values in
    set locale_ui default   // new in Stata 14 
    set locale_ui macroman  // new in Stata 14 
 
@@ -6913,6 +6959,7 @@ pause "fuggy"
 
    {inp} // should not fail
    {inp:foo}
+   {input:bwa haha haha}
    {err}
    {err:hahah}
    {res}
@@ -6984,9 +7031,9 @@ pause "fuggy"
    {manhelpi fooey} // should fail 
    /* need yet another @#@#$@ syntax for this hack */
    {help stata##anchors}
-   {help stata##anchor|viewer}
+   {help stata##anchor|viewer}          // !! should have | as constant
    {help stata##anchor:subtext}
-   {help stata##anchor|viewer:subtext}
+   {help stata##anchor|viewer:subtext}  // !! should have | as constant
    {marker jumphere}{...}
    {marker ul}
    {marker ...}
@@ -7037,7 +7084,7 @@ pause "fuggy"
    {manlink hahahah} // should fail
    {manlinki R summarize}
 
-   {news:is bad}
+   {news:is bad} // obsolete in Stata 16 !! should mark as obsolete
    {net fishing}
    {net fishing:wide}
    {net_d fail} // should fail
@@ -7113,7 +7160,8 @@ pause "fuggy"
    {p2col 1 2:this is bad} // should fail
    {p2line 1 2}
    {p2line}
-   {p2line 1 2 `bad'} // should fail good? bad?
+   {p2line 4}  // should fail
+   {p2line 1 2 `bad'} // should fail
    {p2colreset}
 
    {synoptset}
@@ -7145,6 +7193,9 @@ pause "fuggy"
    {ccl current_date}
    // looks nice below, but not really full of testing
    {char 7}
+   {c 'g}
+   {c -(}
+      {c )-}
    {c S|}
    {c -}
    {c |}
@@ -7158,6 +7209,7 @@ pause "fuggy"
    {c BRC}
    {c BLC}
    // all the 'western european characters'
+   //  likely silly when using Unicode
    {c a'} á {c e'} é {c i'} í {c o'} ó {c u'} ú
    {c A'} Á {c E'} É {c I'} Í {c O'} Ó {c U'} Ú
    {c a'g} à {c e'g} è {c i'g} ì {c o'g} ò {c u'g} ù
@@ -7264,14 +7316,16 @@ set trace off
    fvunab bleen: doodle
 
    unabcmd
+
    novarabbrev
    varabbrev 
 
    /* more complicated version commands :<( */
+version   // is allowed by itself
 vers 8
 version 12: fooie
 versi 15: aloha
-versio 23: howdy // should fail for a few years
+versio 23: howdy // should show as blace for a few years
    viewsource
 
    while foo {
@@ -7305,6 +7359,7 @@ versio 23: howdy // should fail for a few years
    window manage forward doeditor
    window manage forward graph
    window manage forward help
+   window manage forward history   // new in Stata 16 
    window manage forward results
    window manage forward review
    window manage forward variables
@@ -7343,7 +7398,7 @@ versio 23: howdy // should fail for a few years
    window stop stop
    window stopbox note
    window stop rusure
-   /* end programming manual */
+   /* end programming manual, finally */
 
    /* from the [PSS] manual */
    /* skipping omnibus -power- section */
@@ -7404,6 +7459,9 @@ versio 23: howdy // should fail for a few years
 
    power log
    power logrank
+
+   @@ start here
+   ciwidth
    /* end of Stata 15 additions */   
    /* end of the [PSS] manual */
 

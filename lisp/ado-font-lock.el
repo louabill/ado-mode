@@ -64,6 +64,7 @@
 		"cap" "capt" "captu" "captur" "capture"
 		"mata"
 		"n" "no" "noi" "nois" "noisi" "noisil" "noisily"
+		"python"
 		"qui" "quie" "quiet" "quietl" "quietly"
 		)))
    "\\|"
@@ -607,6 +608,49 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+	;; java commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\(\\<java\\>\\)"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "init" "initi" "initia" "initial" "initiali" "initializ" "initialize" 
+		   "query"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; java set commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\(\\<java\\>\\)"
+	  "[ \t]+"
+	  "\\(set\\)"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "heapmax"
+		   "home"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+
+	;; incomplete java set commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\(\\<java\\>\\)"
+	  "[ \t]+"
+	  "\\(\\<set\\>\\)"
+	  ado-end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
+	;; mgarch commands
 	 ;; mgarch commands
 	 (list
 	  (concat
@@ -2718,6 +2762,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "ac" "acc" "accu" "accum"
 		   "cole" "coleq"
+		   "coljoin" "coljoinb" "coljoinby" "coljoinbyn" "coljoinbyna" "coljoinbynam" "coljoinbyname" 
 		   "coln" "colna" "colnam" "cloname" "colnames"
 		   "def" "defi" "defin" "define"
 		   "dis" "diss" "dissi" "dissim" "dissimi" "dissimil" "dissimila" "dissimilar"
@@ -2726,6 +2771,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "in" "inp" "inpu" "input"
 		   "opaccum"
 		   "rowe" "roweq"
+		   "rowjoin" "rowjoinb" "rowjoinby" "rowjoinbyn" "rowjoinbyna" "rowjoinbynam" "rowjoinbyname" 
 		   "rown" "rowna" "rownam" "rowname" "rownames"
 		   "veca" "vecac" "vecacc" "vecaccu" "vecaccum"
 		   ) 'words))
@@ -3989,7 +4035,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "browse"
 		   "file"
 		   "help" "help_d"
-		   "net" "net_d" "news"
+		   "net" "net_d"
 		   "search" "search_d"
 		   "view_d"
 		   "update" "update_d"
@@ -4282,7 +4328,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  (eval-when-compile
 		(regexp-opt
 		 '(
-		   "command" "doeditor" "graph" "help" "results" "review" "variables" "viewer"
+		   "command" "doeditor" "graph" "help" "history" "results" "review" "variables" "viewer"
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
@@ -4509,6 +4555,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		(regexp-opt
 		 '(
 		   "mata"
+		   "python"
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face))
@@ -4656,7 +4703,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "mlexp" "mlog" "mlogi" "mlogit"
 		   "mor" "more"
 		   "mprobit" "mvreg" "mx_param"
-		   "nbreg" "nestreg" "net" "newey" "news"
+		   "nbreg" "nestreg" "net" "newey"
 		   "nl" "nlcom" "nlogit" "nlogittree" "nlsur"
 		   "note" "notes" "novarabbrev"
 		   "npgraph"
@@ -4752,7 +4799,9 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "varm" "varma" "varman" "varmana" "varmanag" "varmanage" "varmanager"
 		   "varnorm" "varsoc" "varstable" "varwle"
 		   "vec" "veclmar" "vecnorm" "vecrank" "vecstable"
-		   "verinst" "view" "viewsource" "vwls"
+		   "verinst"
+		   "vers" "versi" "versio" "version" 
+		   "view" "viewsource" "vwls"
 		   "which" "who" "wntestb" "wntestq"
 		   "xchart" "xcorr"
 		   "xpoivregress" "xpologit" "xpopoisson" "xporegress"
@@ -5467,6 +5516,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "lab" "labe" "label"
 		   "list"
 		   "permname" "piece" "properties" "pwd"
+		   "results"
 		   "rowe" "roweq" "roweqnumb"
 		   "rowf" "rowfu" "rowful" "rowfull" "rowfulln" "rowfullna" "rowfullnam" "rowfullname" "rowfullnames"
 		   "rowlfnames"
@@ -6484,7 +6534,59 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"xeq"
 			) 'words))
 		 ado-end-cmd-regexp )
-	  '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
+	;; python commands other than entering python mode
+;	@@
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(python\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '(
+			"des" "desc" "descr" "descri" "describ" "describe"
+			"q" "qu" "que" "quer" "query"
+			"script"
+			"sea" "sear" "searc" "search"
+			"which"
+		 ) 'words))
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
+	
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(python\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '(
+			"clear"
+			"drop"
+		 ) 'words))
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	
+	;; python set
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(python\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(set\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '(
+			"exec"
+			"userpath"
+		 ) 'words))
+	   ado-end-cmd-regexp )
+	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
+	  '(3 ado-subcommand-face t))
+
 
 	;; now, presenting smcl
 	;;
@@ -6530,7 +6632,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   )
 	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t) '(3 ado-constant-face))
 
-	  ;; Syntax 2
+	;; Syntax 2
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -6546,7 +6648,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "err" "error"
 		  "help_d" "hi" "hilite"
 		  "indepvars" "inp" "input" "it"
-		  "net_d" "netfrom_d" "news" "newvar"
+		  "net_d" "netfrom_d" "newvar"
 		  "p2col" "p2coldent"
 		  "rcenter" "rcentre" "res" "reset" "result" "right"
 		  "search_d"
@@ -6561,7 +6663,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	   "\\(}+\\)"
 	   )
 	  '(1 ado-constant-face t) '(2 ado-builtin-harmless-face t)
-	  '(3 ado-constant-face t) '(4 ado-subcommand-face) '(5 ado-constant-face t)
+	  '(3 ado-constant-face t) '(4 ado-subcommand-face t) '(5 ado-constant-face t)
 	  )
 	  ;; making smcl comments look like comments
 	(list
@@ -7099,8 +7201,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\({\\)"
 	  "[ \t]*"
 	  "\\(c\\)"
-	  "[ \t]*"
-	  "[ \t]*"
+	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
 		 '(
@@ -7110,6 +7211,25 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "TLC" "TRC" "TT"
 		   "ae" "ss"
 		 ) 'words))
+	  "\\(}\\)"
+	  )
+	 '(1 ado-constant-face) '(2 ado-builtin-harmless-face)
+	 '(3 ado-subcommand-face) '(4 ado-constant-face)
+    )
+	(list
+	 (concat
+	  ado-start-cmd-null-regexp
+	  "\\({\\)"
+	  "[ \t]*"
+	  "\\(c\\)"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "'g"
+		   "-("
+		   ")-"
+		 ) t))
 	  "\\(}\\)"
 	  )
 	 '(1 ado-constant-face) '(2 ado-builtin-harmless-face)
@@ -8479,7 +8599,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "meqrlogit" "meqrpoisson"
 		   "mfx"
 		   "mov" "move"
-		   "nlinit"
+		   "news" "nlinit"
 		   "ovtest"
 		   "outs" "outsh" "outshe" "outshee" "outsheet"
 		   "lstat"
@@ -9228,6 +9348,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "icd9" "icdp"
 		 "import"
 		 "irf" "irt" "irtgraph"
+		 "java"
 		 "la" "lab" "labe" "label"
 		 "lassoselect"
 		 "log"
@@ -9266,7 +9387,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "tsfilter" "tssmooth" "tsunab"
 		 "twoway"
 		 "unab" "unicode"
-		 "vers" "versi" "versio" "version"
 		 "view"
 		 "win" "wind" "windo" "window"
 		 "xtcointest" "xtunitroot"
