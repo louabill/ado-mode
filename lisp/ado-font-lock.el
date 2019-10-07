@@ -362,7 +362,29 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-    ;; 
+	;; ciwidth commands
+	
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "ciwidth"
+		   ) 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "onemean"
+		   "onevar" "onevari" "onevaria" "onevarian" "onevarianc" "onevariance" 
+		   "pairedm" "pairedme" "pairedmea" "pairedmean" "pairedmeans" 
+		   "twomeans"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+    ;; cluster commands
 
 	(list
 	 (concat
@@ -512,7 +534,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; dyndoc tags
 	;; <<dd_version>> (sloppy for now, because it can only be 1)
-	(list "^[ \t]*\\(<<dd_version\\)[ \t]*:[ \t]*\\(1\\)[ \t]*\\(>>\\)"
+	(list "^[ \t]*\\(<<dd_version\\)[ \t]*:[ \t]*\\(1\\|2\\)[ \t]*\\(>>\\)"
 		  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-builtin-harmless-face))
 	  
 
@@ -530,7 +552,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 				) 'words))
 		   "+[ \t]*"
 		   "\\(>>\\)"
-		   '(0 ado-subcommand-face t) '(1 ado-builtin-harmless-face)
+		   '(0 ado-subcommand-face t) ;; '(1 ado-builtin-harmless-face)
 		   ))
 
 	;; <<dd_remove>> and <</dd_remove>> can be anywhere in a line without attributes
@@ -538,15 +560,72 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "[ \t]*\\(<<\\(?:/\\)?dd_remove>>\\)"
 	  '(1 ado-builtin-harmless-face t))
 	
-	;; <<dd_display>>, <<dd_graph>> can be anywhere in a line, needs : anything afterwards
+	;; <<dd_display>> can be anywhere in a line, needs : anything afterwards
+	;; (list
+	;;  (concat
+	;;   "[ \t]*"
+	;;   "\\(<<dd_di\\(?:s\\(?:p\\(?:l\\(?:ay\\)?\\)?\\)?\\)?\\)"
+	;;   "[ \t]*:.*?"
+	;;   "\\(>>\\)"
+	;;   )
+	;;  '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face))
+
 	(list
 	 (concat
 	  "[ \t]*"
-	  "\\(<<dd_\\(?:display\\|graph\\)\\)"
-	  "[ \t]*:.*?"
-	  "\\(>>\\)"
+	   (eval-when-compile
+		 (regexp-opt
+		  '(
+			"<<dd_di" "<<dd_dis" "<<dd_disp" "<<dd_displ" "<<dd_displa" "<<dd_display"
+			"<<dd_doc" "<<dd_docx" "<<dd_docx_" "<<dd_docx_d" "<<dd_docx_di" "<<dd_docx_dis" "<<dd_docx_disp" "<<dd_docx_displ" "<<dd_docx_displa" "<<dd_docx_display" 
+			) t))
+	   "[ \t]*:.*?"
+	   "\\(>>\\)" )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face)
+	 )
+	 
+	;; dd_ignore /dd_ignore dd_end all start line but have no attributes
+	;; <<dd_display>>, <<dd_graph>> can be anywhere in a line, needs : anything afterwards
+	;; not di
+;;		(list "[ \t]*\\(<<dd_graph\\)[ \t]*:[ \t]*"
+	(list
+	 (concat
+	  "[ \t]*"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "<<dd_gr" "<<dd_gra" "<<dd_grap" "<<dd_graph"
+		   )
+		 t
+		 ))
+	  "[ \t]*:[ \t]*"
 	  )
-	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face))
+	   '(1 ado-builtin-harmless-face)
+		 (list
+		  (eval-when-compile
+			(regexp-opt
+			 '(
+			   "abs" "abso" "absol" "absolu" "absolut" "absolute"
+			   "alt"
+			   "basepath"
+			   "eps"
+			   "gr" "gra" "grap" "graph" "graphn" "graphna" "graphnam" "graphname" 
+			   "h" "he" "hei" "heig" "heigh" "height" 
+			   "html"
+			   "markd" "markdo" "markdow" "markdown"
+			   "nourl" "nourle" "nourlen" "nourlenc" "nourlenco" "nourlencod" "nourlencode" 
+			   "path" "patho" "pathon" "pathonl" "pathonly"
+			   "pdf" "png" "ps"
+			   "rel" "rela" "relat" "relati" "relativ" "relative" 
+			   "rep" "repl" "repla" "replac" "replace"
+			   "sav" "savi" "savin" "saving" 
+			   "svg"
+			   "w" "wi" "wid" "widt" "width" 
+			   ) 'words))
+		  "+[ \t]*"
+		  "\\(>>\\)"  ;; not sure why this is needed, but it is
+		  '(0 ado-subcommand-face t) '(1 ado-builtin-harmless-face)
+		 ))
 
 	;; dd_ignore /dd_ignore dd_end all start line but have no attributes
 	(list
@@ -569,8 +648,26 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face))
 
 
-	;; this is for highlighting <<dd_xx>> constructs with colon but no atttributes
-	(list "<<dd_do.*\\(>>\\)[ \t]*$" '(1 ado-builtin-harmless-face t))
+	;; this is for highlighting the >> at the end of <<dd_xx:>>
+	;; constructs which could have multiple arguments
+	(list
+	 (concat
+	  "<<dd_"
+	  (eval-when-compile
+	   (regexp-opt
+		'(
+		  "do"
+		  "gr" "gra" "grap" "graph"
+		  )
+		nil
+		))
+	  "[ \t]*:[ \t]*.*"
+	  "\\(>>\\)"
+	  )
+	 '(1 ado-builtin-harmless-face t) 
+	 )
+	
+;	(list "<<dd_graph.*\\(>>\\)[ \t]*$" '(1 ado-builtin-harmless-face t))
 
 	;; discrim commands
 	(list
@@ -5292,7 +5389,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "cd" "clear" "clonevar" "collapse" "compress"
 		   "contract" "corr2data" "cross" "cttost"
 		   "dec" "deco" "decod" "decode" "destring"
-		   "discard" "drawnorm" "drop" "dydx" "dyngen"
+		   "discard" "docx2pdf" "drawnorm" "drop" "dydx" "dyngen"
 		   "ed" "edi" "edit" "egen"
 		   "en" "enc" "enco" "encod" "encode"
 		   "erase"
@@ -6099,6 +6196,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ;;
 	;; obsolete functions requiring () after them
 	;; -length()- is obsolete in Stata but not in Mata(!)
+	;; h() and w() needed elsewhere, so hence removed
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -6111,7 +6209,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"d"
 			"fprob"
 			"group"
-			"h"
 			"index"
 			"invchi" "invfprob" "invnchi" "invnorm"
 			"itrim"
@@ -6126,7 +6223,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"tprob" "trim"
 			"uniform" "uniform0"
 			"y"
-			"w"
 			) 'words))
 	   "("
 	   )

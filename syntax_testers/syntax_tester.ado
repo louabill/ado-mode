@@ -1,4 +1,4 @@
-*! version 1.15.0.1 September 14, 2019 @ 19:58:32
+*! version 1.15.0.1 October 7, 2019 @ 10:34:29
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -6283,76 +6283,6 @@ version /* used elsewhere */
    display in yellow  // obsolete in Stata 7[?]
 
 
-   // moved from [P] to [RPT], most likely
-   /* dyndoc tags; new in Stata 15 */
-   <<dd_version:1>>
-
-   <<dd_do>>
-   <</dd_do>>
-   <<dd_do: qui quietly nocom nocommand noout nooutput noprom noprompt >>
-   <</dd_do>>
-
-
-   <<dd_display:>>
-   <<dd_display: %4.3f 1.23>>
-
-   // for dd_graph, there are too many complicated options to bother highlighting
-   <<dd_graph>> // should fail
-   <<dd_graph:fooey>> // bad: fooey should not highlight
-   <<dd_graph:  saving() alt() height() replace>>
-
-   <<dd_ignore>>
-   <</dd_ignore>>
-
-   <<dd_include>> // should fail
-   <<dd_include: fooey>>
-
-   <<dd_remove>>
-   <</dd_remove>>
-
-   <<dd_skip_if>> // should fail
-   <<dd_skip_if: fooey>>
-   <<dd_skip_else>>
-   <<dd_skip_end>>
-
-   dyndoc
-   dyntext
-
-   markdown // new in Stata 15; conflicts with user-written markdown
-      // putdocx new in Stata 15
-   putdocx begin
-   putdocx paragraph
-   putdocx text (...)
-   putdocx image
-   putdocx table
-   putdocx pagebreak
-   putdocx describe
-   putdocx save
-   putdocx clear
-   putdocx append
-
-   // putexcel new in Stata 13; syntax changes don't change ado-mode
-   // not sure how putexcel is a reporting command, but still....
-   putexcel
-   putexcel set
-   putexcel describe
-   putexcel clear   
-
-   // putpdf new in Stata 15
-   putpdf begin
-   putpdf paragraph
-   putpdf text (...)
-   putpdf image
-   putpdf table
-   putpdf pagebreak
-   putpdf describe
-   putpdf save
-   putpdf clear
-   putpdf append // should fail; not legal
-
-
-
-   // end of move to [RPT]
 
    /* ereturn... */
    eret loc bleen
@@ -7460,10 +7390,108 @@ versio 23: howdy // should show as blace for a few years
    power log
    power logrank
 
-   @@ start here
    ciwidth
+   ciwidth onemean
+   ciwidth twomeans
+   ciwidth pairedm
+   ciwidth pairedmeans
+   ciwidth onevar
+   ciwidth onevariance
+
+   
    /* end of Stata 15 additions */   
    /* end of the [PSS] manual */
+
+   // start of [RPT] manual (manual is new in Stata 16)
+   // in order of manual, not overviews
+
+   docx2pdf
+
+   /* dyndoc tags; new in Stata 15 */
+   <<dd_version:1>> // obsolete in Stata 16; change color?
+   <<dd_version:2>>
+
+   <<dd_do>>
+   <</dd_do>>
+   <<dd_do: qui quietly nocom nocommand noout nooutput noprom noprompt >> 
+   <</dd_do>>
+   <<dd_do: nocommand >> 
+   <</dd_do>>
+
+
+   <<dd_di:>>
+   <<dd_dis:>>
+   <<dd_disp:>>
+   <<dd_displ: %3.2f 2.3>>
+   <<dd_display:>>
+   <<dd_display: %4.3f 1.23>>
+   <<dd_doc:>>
+   <<dd_docx_display:>>
+
+   // for dd_graph, there are too many complicated options to bother highlighting
+   <<dd_graph>> // should fail
+   <<dd_graph: fooey>> // bad: fooey should not highlight
+   // cannot figure out why trailing >> does not highlight, as regexp is
+   //   just like that for dd_do 
+   <<dd_graph: rep >>
+   <<dd_gr: rep >>
+   <<dd_gr: replace >>
+   <<dd_gra: svg >>
+   <<dd_graph: png pdf eps ps html markd markdown >>
+   <<dd_graph: replace >>
+   <<dd_graph:  sav() saving() alt() pdf height() gr() graphname() alt() >>
+   <<dd_graph: h() height() w() width() >>
+@@ start here; add abbreviations for tags where needed
+   <<dd_ignore>>
+   <</dd_ignore>>
+
+   <<dd_include>> // should fail
+   <<dd_include: fooey>>
+
+   <<dd_remove>>
+   <</dd_remove>>
+
+   <<dd_skip_if>> // should fail
+   <<dd_skip_if: fooey>>
+   <<dd_skip_else>>
+   <<dd_skip_end>>
+
+   dyndoc
+   dyntext
+
+   markdown // new in Stata 15; conflicts with user-written markdown
+      // putdocx new in Stata 15
+   putdocx begin
+   putdocx paragraph
+   putdocx text (...)
+   putdocx image
+   putdocx table
+   putdocx pagebreak
+   putdocx describe
+   putdocx save
+   putdocx clear
+   putdocx append
+
+   // putexcel new in Stata 13; syntax changes don't change ado-mode
+   // not sure how putexcel is a reporting command, but still....
+   putexcel
+   putexcel set
+   putexcel describe
+   putexcel clear   
+
+   // putpdf new in Stata 15
+   putpdf begin
+   putpdf paragraph
+   putpdf text (...)
+   putpdf image
+   putpdf table
+   putpdf pagebreak
+   putpdf describe
+   putpdf save
+   putpdf clear
+   putpdf append // should fail; not legal
+
+   // end of [RPT] manual
 
    /* from the [SEM] manual */
    // this is strange, because there really are just 2 commands
