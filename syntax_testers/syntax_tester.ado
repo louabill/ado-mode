@@ -1,4 +1,4 @@
-*! version 1.15.0.1 October 7, 2019 @ 10:34:29
+*! version 1.15.0.1 October 12, 2019 @ 15:55:25
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -7437,19 +7437,24 @@ versio 23: howdy // should show as blace for a few years
    <<dd_gr: rep >>
    <<dd_gr: replace >>
    <<dd_gra: svg >>
+   <<dd_grap: png >>
    <<dd_graph: png pdf eps ps html markd markdown >>
    <<dd_graph: replace >>
    <<dd_graph:  sav() saving() alt() pdf height() gr() graphname() alt() >>
    <<dd_graph: h() height() w() width() >>
-@@ start here; add abbreviations for tags where needed
+
    <<dd_ignore>>
    <</dd_ignore>>
+   <<dd_ign  >>
+   <</dd_ign>>
 
    <<dd_include>> // should fail
    <<dd_include: fooey>>
 
    <<dd_remove>>
    <</dd_remove>>
+   <<dd_remo>>
+   <</dd_remov>>
 
    <<dd_skip_if>> // should fail
    <<dd_skip_if: fooey>>

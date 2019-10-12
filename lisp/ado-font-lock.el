@@ -557,7 +557,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; <<dd_remove>> and <</dd_remove>> can be anywhere in a line without attributes
 	(list
-	  "[ \t]*\\(<<\\(?:/\\)?dd_remove>>\\)"
+	  "[ \t]*\\(<<\\(?:/\\)?dd_rem\\(?:o\\(?:v\\(?:e\\)?\\)?\\)?\\(?:[ \t]*\\)>>\\)"
 	  '(1 ado-builtin-harmless-face t))
 	
 	;; <<dd_display>> can be anywhere in a line, needs : anything afterwards
