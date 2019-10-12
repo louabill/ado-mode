@@ -4952,14 +4952,16 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  (eval-when-compile
 		(regexp-opt
 		 '(
-		   "asmixlog"
+		   
 		   "betareg" "biprobit"
-		   "churdle" "clogit" "cloglog" "cnsreg" "cpoisson"
+		   "churdle" "clogit" "cloglog"
+		   "cmmixlogit" "cmxtmixlogit"
+		   "cnsreg" "cpoisson"
 		   "eintreg" "eoprobit" "eregress" "etpoisson" "etregress"
 		   "fracreg"
 		   "glm" "gnbreg" "gsem"
 		   "heckman" "heckoprobit" "heckpoisson"
-		   "heckprob" "heckprobit" "hetprob" "hetregress"
+		   "heckprob" "heckprobit" "hetoprobit" "hetprobit" "hetregress"
 		   "intreg" "ivprobit" "ivregress" "ivtobit"
 		   "logistic" "logit"
 		   "mecloglog" "mean" "meglm" "melogit" "menbreg"

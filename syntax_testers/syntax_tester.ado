@@ -1,4 +1,4 @@
-*! version 1.15.0.1 October 12, 2019 @ 17:21:54
+*! version 1.15.0.1 October 12, 2019 @ 17:53:14
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -7753,6 +7753,7 @@ versio 23: howdy // should show as blace for a few years
 
    /* from the [SVY] survey data manual */
    /* difficult to order, because of the manual */
+   
    /* not using the intro for ordering */
    /* estat commands as listed under -estat- */
    estat svyset
@@ -7801,15 +7802,18 @@ versio 23: howdy // should show as blace for a few years
 
    svy: biprobit
    svy: cloglog
-   svy: hetprob
+   svy: hetprob       // technically abbrevation doesn't exits in Stata 16
+   svy: hetprobit
    svy: logistic
    svy: logit
    svy: probit
    svy: scobit
 
-   svy: asmixlog // new in Stata 15 
    svy: clogit
-   svy: eoprobit // new in Stata 15 
+   svy: cmmixlogit // new in Stata 15; renamed in Stata 16
+   svy: cmxtmixlogit  // new in Stata 16 
+   svy: eoprobit // new in Stata 15
+   svy: hetoprobit
    svy: mlogit
    svy: mprobit
    svy: ologit
@@ -7839,7 +7843,7 @@ versio 23: howdy // should show as blace for a few years
    svy: heckman
    svy: heckoprobit
    svy: heckpoisson // new in Stata 15
-   svy: heckprob
+   svy: heckprob    // abbreviation is no longer documented in Stata 16
    svy: heckprobit
    svy: ivreg  // obsolete in Stata 10 
 
@@ -7890,6 +7894,7 @@ versio 23: howdy // should show as blace for a few years
    svy: irt hybrid
 
    svy jack: logistic
+   svy jackknife: regress
    svy linear: gnbreg
    svy bootstrap: logistic
    svy brr: gnbreg
@@ -7902,8 +7907,10 @@ versio 23: howdy // should show as blace for a few years
    svy: tab
    svy: tabul
    svy: tabulate
-   svydes
+   
+   svydes  // abbreviation undocumented in Stata 16
    svydescribe
+   
    svymarkout
    svyset
 
