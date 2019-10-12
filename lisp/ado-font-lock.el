@@ -627,20 +627,55 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  '(0 ado-subcommand-face t) '(1 ado-builtin-harmless-face)
 		 ))
 
-	;; dd_ignore /dd_ignore dd_end all start line but have no attributes
 	(list
 	 (concat
 	  "^[ \t]*"
-	  "\\(<<dd_\\(?:do\\|end\\|ignore\\|skip_else\\|skip_end\\)\\)"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "<<dd_do"
+		   "<<dd_end"
+		   "<<dd_ign" "<<dd_igno" "<<dd_ignor" "<<dd_ignore"
+		   "<<dd_skip_else"
+		   "<<dd_skip_end"
+		   ) t ))
 	  "[ \t]*"
 	  "\\(>>\\)"
 	  )
-	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face))
-
-	;; <</dd_do>> and <</dd_do>> must start a line
+	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face t)
+	 )
+	  
 	(list
-	  "^[ \t]*\\(<</dd_\\(?:do\\|ignore\\)\\)\\(>>\\)"
-	  '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face))
+	 (concat
+	  "^[ \t]*"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "<</dd_do"
+		   "<</dd_end"
+		   "<</dd_ign" "<</dd_igno" "<</dd_ignor" "<</dd_ignore"
+		   ) t ))
+	  "[ \t]*"
+	  "\\(>>\\)"
+	  )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face t)
+	 )
+	  
+	(list
+	 (concat
+	  "^[ \t]*"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "<<dd_inc" "<<dd_incl" "<<dd_inclu" "<<dd_includ" "<<dd_include"
+		   "<<dd_skip_if"
+		   ) 'words ))
+	  "[ \t]*:[ \t*]"
+	  "\\(>>\\)"
+	  )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face t)
+	 )
+	  
 
 	;; <<dd_include>> must have a colon and must start a line. fug.
 	(list
