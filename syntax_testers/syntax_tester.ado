@@ -1,4 +1,4 @@
-*! version 1.15.0.1 October 12, 2019 @ 17:53:14
+*! version 1.15.0.1 October 12, 2019 @ 19:20:36
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -7918,6 +7918,7 @@ versio 23: howdy // should show as blace for a few years
 
    /* [TE] (new in Stata 13 */
    eteffects  // new in Stata 14
+
    estat endogenous
 
    etpoisson
@@ -7954,7 +7955,9 @@ versio 23: howdy // should show as blace for a few years
 
    /* [TS] time series */
    arch
+
    arfima
+   
    estat acplot
    irf // incomplete 
    psdensity
@@ -8080,6 +8083,7 @@ versio 23: howdy // should show as blace for a few years
    irf graph sirf
    irf gr sfevd
 
+   // irf ograph could be more fancy...
    irf og
    irf ograph
 
@@ -8159,8 +8163,6 @@ versio 23: howdy // should show as blace for a few years
    graph twoway tsline
    tw tsrline
    twoway tsrline
-   twoway lfit
-   twoway ( scatter elfj jekl) (line ejfl ekk)
 
    tsreport
    tsrevar
@@ -8235,8 +8237,11 @@ versio 23: howdy // should show as blace for a few years
    vecnorm
    vecrank
    vecstable
+   
    wntestb
+
    wntestq
+
    xcorr
    /* end time-series [TS] */
 
@@ -8275,6 +8280,14 @@ versio 23: howdy // should show as blace for a few years
 
    xtdpdsys
 
+   xteintreg   // new in Stata 16
+
+   xteoprobit  // new in Stata 16
+
+   xteprobit   // new in Stata 16
+
+   xteregress  // new in Stata 15 
+
    xtfrontier
 
    xtgee
@@ -8283,7 +8296,10 @@ versio 23: howdy // should show as blace for a few years
    xtcorr  // obsolete in Stata 9 
    xtgls
 
-   xthaus // obsolete in Stata 9 
+   xthaus // obsolete in Stata 9
+
+   xtheckman   // new in Stata 16
+   
    xthtaylor
 
    xtintreg
@@ -8317,7 +8333,8 @@ versio 23: howdy // should show as blace for a few years
    xtrc
 
    xtreg
-   xttest0
+
+   xttest0  // postestimation command
 
    xtregar
 
@@ -8357,18 +8374,28 @@ versio 23: howdy // should show as blace for a few years
 
    mkassert
    mkassert bogus
+   mkassert r
    mkassert rclass
+   mkassert e
    mkassert eclass
+   mkassert scl
    mkassert sclass
+   mkassert m
    mkassert matrix
+   mkassert sca
    mkassert scalar
+   mkassert c
    mkassert char
+   mkassert f           // new in Stata 16 
+   mkassert format
+   mkassert o
    mkassert obs
 
    rcof
 
    // -save- is a misnomer; should be -store-
    storedresults save
+   storedresults comp
    storedresults compare
    storedresults drop
 

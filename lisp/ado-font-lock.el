@@ -502,12 +502,14 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  (eval-when-compile
 		(regexp-opt
 		 '(
-		   "char"
-		   "eclass"
-		   "matrix"
-		   "obs"
-		   "rclass"
-		   "scalar" "sclass"
+		   "c" "ch" "cha" "char" 
+		   "e" "ec" "ecl" "ecla" "eclas" "eclass"
+		   "f" "fo" "for" "form" "forma" "format" 
+		   "m" "ma" "mat" "matr" "matri" "matrix" 
+		   "o" "ob" "obs" 
+		   "r" "rc" "rcl" "rcla" "rclas" "rclass"
+		   "sca" "scal" "scala" "scalar" 
+		   "scl" "scla" "sclas" "sclass" 
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -524,7 +526,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  (eval-when-compile
 		(regexp-opt
 		 '(
-		   "compare"
+		   "comp" "compa" "compar" "compare" 
 		   "drop"
 		   "save"
 		   ) 'words))
@@ -4929,9 +4931,9 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "xtabond" "xtcloglog"
 		   "xtdes" "xtdesc" "xtdescr" "xtdescri" "xtdescrib" "xtdescribe"
 		   "xtdpd" "xtdpdsys"
-		   "xteregress"
+		   "xteregress" "xteintreg" "xteoprobit" "xteprobit"
 		   "xtfrontier"
-		   "xtgee" "xtgls" "xthtaylor" "xtintreg" "xtivreg"
+		   "xtgee" "xtgls" "xtheckman" "xthtaylor" "xtintreg" "xtivreg"
 		   "xtline" "xtlogit"
 		   "xtnbreg" "xtologit" "xtoprobit" "xtpcse" "xtpoisson" "xtprobit"
 		   "xtrc" "xtreg" "xtregar" "xtset" "xtstreg" "xtsum" "xttab" "xttest0" "xttobit" "xttrans"
