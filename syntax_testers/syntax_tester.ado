@@ -1,4 +1,4 @@
-*! version 1.15.0.1 October 12, 2019 @ 15:55:25
+*! version 1.15.0.1 October 12, 2019 @ 17:21:54
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -7462,38 +7462,57 @@ versio 23: howdy // should show as blace for a few years
    <<dd_skip_end>>
 
    dyndoc
+   
    dyntext
 
+   html2docx
+
    markdown // new in Stata 15; conflicts with user-written markdown
-      // putdocx new in Stata 15
+
+   // putdocx new in Stata 15
+   // changed to order of sections in [RPT]
    putdocx begin
-   putdocx paragraph
-   putdocx text (...)
-   putdocx image
-   putdocx table
-   putdocx pagebreak
    putdocx describe
    putdocx save
    putdocx clear
    putdocx append
 
+   putdocx pagebreak
+   putdocx sectionbreak
+
+   putdocx paragraph
+   putdocx text (...)
+   putdocx textblock begin
+   putdocx textblock append
+   putdocx textblock end
+   putdocx pagenumber
+   putdocx textfile
+   putdocx image
+
+   putdocx table
+
    // putexcel new in Stata 13; syntax changes don't change ado-mode
    // not sure how putexcel is a reporting command, but still....
    putexcel
    putexcel set
+   putexcel save
    putexcel describe
    putexcel clear   
 
    // putpdf new in Stata 15
    putpdf begin
-   putpdf paragraph
-   putpdf text (...)
-   putpdf image
-   putpdf table
-   putpdf pagebreak
    putpdf describe
    putpdf save
    putpdf clear
+
+   putpdf pagebreak
+   putpdf sectionbreak
+
+   putpdf paragraph
+   putpdf text (...)
+   putpdf image
+   
+   putpdf table
    putpdf append // should fail; not legal
 
    // end of [RPT] manual
@@ -7502,7 +7521,6 @@ versio 23: howdy // should show as blace for a few years
    // this is strange, because there really are just 2 commands
 
    estat eform
-   estat ic // not listed obsolete in Stata 11
 
    estat eqg
    estat eqgof
@@ -7629,6 +7647,12 @@ versio 23: howdy // should show as blace for a few years
 
    spregress
 
+   spset  // dangerous with options
+
+   spshape2dta 
+
+   spxtregress // new in Stata 16 
+
    /* end of [SP] manual */
 
    /* from the [ST] survival analysis manual */
@@ -7637,6 +7661,7 @@ versio 23: howdy // should show as blace for a few years
    cttost
 
    ltable
+
    snapspan
    // skipping ominbus -st- section
 
@@ -7650,17 +7675,21 @@ versio 23: howdy // should show as blace for a few years
    stci
 
    stcox
-   /* stcox diagnostics */
+   /* stcox assumption/diagnostics */
    stphplot
    stcoxkm
    estat phtest
+   
    /* stcox postestimation */
    estat con
    estat concor
    estat concordance
    stcurve
    /* end stcox postestimation */
-   stcrr stcrre stcrreg
+
+   stcrr
+   stcrre
+   stcrreg
 
    stphtest // obsolete in Stata 9 
    stcurve

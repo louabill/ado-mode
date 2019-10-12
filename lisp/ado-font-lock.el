@@ -560,16 +560,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "[ \t]*\\(<<\\(?:/\\)?dd_rem\\(?:o\\(?:v\\(?:e\\)?\\)?\\)?\\(?:[ \t]*\\)>>\\)"
 	  '(1 ado-builtin-harmless-face t))
 	
-	;; <<dd_display>> can be anywhere in a line, needs : anything afterwards
-	;; (list
-	;;  (concat
-	;;   "[ \t]*"
-	;;   "\\(<<dd_di\\(?:s\\(?:p\\(?:l\\(?:ay\\)?\\)?\\)?\\)?\\)"
-	;;   "[ \t]*:.*?"
-	;;   "\\(>>\\)"
-	;;   )
-	;;  '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face))
-
 	(list
 	 (concat
 	  "[ \t]*"
@@ -584,10 +574,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face)
 	 )
 	 
-	;; dd_ignore /dd_ignore dd_end all start line but have no attributes
-	;; <<dd_display>>, <<dd_graph>> can be anywhere in a line, needs : anything afterwards
-	;; not di
-;;		(list "[ \t]*\\(<<dd_graph\\)[ \t]*:[ \t]*"
 	(list
 	 (concat
 	  "[ \t]*"
@@ -871,25 +857,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 
-	;; putdocx/putpdf commands
-	;; first the harmless one
-	(list
-	 (concat
-	  ado-start-cmd-regexp
-	  (eval-when-compile
-		(regexp-opt
-		 '(
-		   "putdocx" "putpdf"
-		   ) 'words))
-	  "[ \t]+"
-	  (eval-when-compile
-		(regexp-opt
-		 '(
-		   "describe"
-		   ) 'words))
-	  ado-end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-
+	;; 1.16: changed all to harmless, because they aren't changing the dataset
 	;; now, all the rest (pause and resume are not official, but should be)
 	(list
 	 (concat
@@ -905,17 +873,19 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "begin"
 		   "clear"
+		   "describe"
 		   "image"
 		   "pagebreak"
 		   "paragraph"
 		   "pause"
 		   "resume"
 		   "save"
+		   "sectionbreak"
 		   "table"
 		   "text"
 		   ) 'words))
 	  ado-end-cmd-regexp )
-	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; putdocx only
 	(list
@@ -931,9 +901,27 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		(regexp-opt
 		 '(
 		   "append"
+		   "pagenumber"
+		   "textfile"
 		   ) 'words))
 	  ado-end-cmd-regexp )
-	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\(putdocx\\)[ \t]*\\(textblock\\)[ \t]*"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "append"
+		   "begin"
+		   "end"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+	
 
 	;; st_is
 	(list
@@ -4793,7 +4781,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "hetprob" "hetoprobit" "hetprobit" "hetregress"
 		   "hexdump" "hilite"
 		   "hist" "histo" "histog" "histogr" "histogra" "histogram"
-		   "hlu" "hotel" "hotelling"
+		   "hlu" "hotel" "hotelling" "html2docx"
 		   "icc" "include" "ins" "insp" "inspe" "inspec" "inspect" "intreg"
 		   "iqreg" "ir" "iri"
 		   "isid" "istdize"
@@ -4891,7 +4879,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "sh" "she" "shewhart" "shel" "shell"
 		   "signestimationsample" "signrank" "signtest"
 		   "sktest" "sleep" "slog" "slogit"
-		   "spdistance" "spearman" "spikeplot" "spivregress" "spregress"
+		   "spdistance" "spearman" "spikeplot" "spivregress" "spregress" "spxtregress"
 		   "sqreg" "sqrtlasso"
 		   "sspace"
 		   "st" "st_is" "st_show" "st_ct" "stci"
@@ -5471,6 +5459,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "so" "sor" "sort" "sortpreserve"
 		   "spbalance" "spcompress" "spgenerate"
 		   "split" "splitsample"
+		   "spset" "spshape2dta" 
 		   "ssave" "ssort" "stack" "statsby"
 		   "stbase" "stfill" "stgen" "stjoin" "stsplit" "sttocc" "sttoct"
 		   "suse" "svmat" "svymarkout" "sysuse"
@@ -9118,7 +9107,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "clear"
 		   "describe"
-		   "set"
+		   "save" "set"
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
