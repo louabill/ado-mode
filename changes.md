@@ -1,5 +1,11 @@
 # Version History
 
+## 1.16.0.0
+
+* Finally got all the changes for Stata 16 added.
+
+* Added some missing command abbreviations.
+
 ## 1.15.1.6
 
 * Tried fixing mysterious 'Not enough arguments for format string' error
