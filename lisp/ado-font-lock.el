@@ -8811,7 +8811,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "anova" "anti" "archlm" "aroots"
 		   "bgo" "bgod" "bgodf" "bgodfr" "bgodfre" "bgodfrey"
 		   "boot" "boots" "bootst" "bootstr" "bootstra" "bootstrap"
-			"bubble" "bubblep" "bubblepl" "bubbleplo" "bubbleplot" 
+		   "bubble" "bubblep" "bubblepl" "bubbleplo" "bubbleplot" 
 		   "canontest" "clas" "class" "classfunctions"
 		   "classi" "classif" "classifi" "classific"
 		   "classifica" "classificat" "classificati"
@@ -8821,7 +8821,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "con" "conc" "conco" "concor" "concord" "concorda" "concordan" "concordanc" "concordance"
 		   "config" "coordinates"
 		   "cor" "corr" "corre" "correl" "correla" "correlat" "correlati" "correlatio" "correlation"
-		   "correlation" "correlations"
+		   "correlations"
 		   "cov" "cova" "covar" "covari" "covaria" "covarian" "covarianc" "covariance"
 		   "cv"
 		   "df" "distances"
@@ -8842,8 +8842,9 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "gof" "gofplot"
 		   "gr" "grdistances"
 		   "grep" "grepo" "grepor" "greport" 
+		   "grmeans"
 		   "gro" "grou" "group"
-		   "grmeans" "grsummarize"
+		   "grsummarize"
 		   "hett" "hette" "hettes" "hettest"
 		   "ic" "icc"
 		   "impact"
@@ -8853,7 +8854,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "lceff" "lceffe" "lceffec" "lceffect" "lceffects"
 		   "lcgof" "lcmean" "lcprob"
 		   "list" "loadings"
-		   "manova" "mfx"
+		   "manova"
 		   "mi" "min" "mind" "mindi" "mindic" "mindice" "mindices"
 		   "moran" "mvreg"
 		   "nproc"
@@ -8867,12 +8868,12 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "rotate" "rotatecompare"
 		   "sargan" "sbcusum" "sbknown" "sbsingle"
 		   "score" "scoret" "scorete" "scoretes" "scoretest" "scoretests"
-		   "sd" "se" "single" "size" "smc"
+		   "sd" "se" "size" "smc"
 		   "sta" "stab" "stabl" "stable"
 		   "std" "stdi" "stdiz" "stdize"
-		   "strata" "stress" "structure"
-		   "su" "subinertia" "sum" "summ" "summa" "summar"
-		   "summari" "summariz" "summarize"
+		   "steady" "strata" "stress" "structure"
+		   "su" "subinertia"
+		   "sum" "summ" "summa" "summar" "summari" "summariz" "summarize"
 		   "svyset"
 		   "szr" "szro" "szroe" "szroet" "szroete" "szroeter"
 		   "table"
@@ -8882,7 +8883,22 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "wcor" "wcorr" "wcorre" "wcorrel" "wcorrela" "wcorrelat" "wcorrelati" "wcorrelatio" "wcorrelation"
 		   ) 'words))
 	   ado-end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; obsolete estat subcommands
+		(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	  "\\<\\(estat\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "mfx"
+		   ) 'words))
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
+		
 
 	;; the estimates commands
 	(list

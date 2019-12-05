@@ -1,4 +1,4 @@
-*! version 1.15.0.1 October 12, 2019 @ 19:20:36
+*! version 1.15.0.1 December 5, 2019 @ 10:07:54
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -1491,10 +1491,9 @@ set trace off
    rocplot
    rocregplot
    
-   // estat (from [R]) !!
+   // estat (from [R])
    // (some) obsolete versions included for testing
-   // not sure how to test for new stuff....
-   //  not checked for Stata 16 !!
+   // best way to check is look in the index
    estat alt
    estat alternatives  // asclogit ascprobit asroprobit nlogit
    archlm // obsolete in Stata 9 
@@ -1532,7 +1531,7 @@ set trace off
    estat ic // areg
    estat imt
    estat imtest // anova regress
-   estat mfx // asclogit ascprobit asroprobit 
+   estat mfx // asclogit ascprobit asroprobit, all obsolete in Stata 16  
    estat nproc // rocreg
    estat over
    estat overid // gmm ivregress
@@ -1541,9 +1540,10 @@ set trace off
    estat ovtest // anova regress
    estat predict // exlogistic
    estat sbknown // ivregress
-   estat single //  ivregress
+   estat sbsingle //  ivregress
    estat se  // exlogistic expoisson
-   szroeter // obsolete in Stata 9 
+   szroeter // obsolete in Stata 9
+   estat steady // new in Stata 16 
    estat szr
    estat szroeter // anova regress
    estat sum // areg

@@ -1,6 +1,10 @@
 Version History:
 ---------------
 
+1.16.0.1
+
+* Minor fixes to -estat- subcommands
+
 1.16.0.0
 
 * Finally got all the changes for Stata 16 added.
