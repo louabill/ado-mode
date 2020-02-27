@@ -1,4 +1,4 @@
-*! version 1.15.0.1 December 5, 2019 @ 10:07:54
+*! version 1.15.0.1 February 24, 2020 @ 08:12:46
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -82,12 +82,17 @@ version 15
 version 15.0
 version 15.1
 version 15.2 // bad
-version 16   // bad, for now
+version 16   //
+version 16.1
+version 16.2 // bad
+version 17   // bad
 version 20   // bad for awhile
 version 44   // bad for multiple generations
    
    /* this program does nothing - it merely has some things for testing syntax coloring */
    /* working with the syntax table */
+   local  // incomplete (overridden as mata keyword)
+   global // incomplete
    local dingle = this - that
 
    /* stuff from incremental updates which need to be moved when new manuals come out */
@@ -408,6 +413,8 @@ version 44   // bad for multiple generations
    icc
    
    intreg
+
+   ivpoisson // incomplete
    ivpoisson gmm
    ivpoisson cfunc
    ivpoisson cfunction
@@ -726,11 +733,13 @@ version 44   // bad for multiple generations
    query efficiency
    quer net
    que network
+   
    query up
    query update
    qu trace
    q mata
    que java       // new in Stata 16 
+   qu putdocx     // new partway into Stata 16
    quer python    // new in Stata 16
    query random   // new in Stata 16 
    que unicode  // new in Stata 14 
@@ -865,6 +874,15 @@ version 44   // bad for multiple generations
    set dockingg on
    set dockingguides off
 
+   // added partway into Stata 16
+   set docx_hardbreak
+   set docx_hardbreak on   
+   set docx_paramode
+   set docx_paramode off
+   set dots
+   set dots on
+
+
    set doublebuffer
    set doublebuffer on
    set doublebuffer off
@@ -995,6 +1013,10 @@ version 44   // bad for multiple generations
    // set matsize obsolete in Stata 16
    set mat
    set matsize
+
+   // new in Stata 16
+   set maxbezierpath // incomplete
+   set maxbezierpath 14
 
    set maxdb
 
@@ -1600,7 +1622,8 @@ set trace off
    bayestest model
 
    // not putting in funspec or ysimspec, because the funspec would be impossible to get right
-   bayespredict    // new in Stata 16 
+   bayespredict    // new in Stata 16
+   bayesreps       // new in Stata 16
 
    set clevel
 
@@ -1609,6 +1632,8 @@ set trace off
    /* [CM] Choice models */
    // manual new in Stata 16
    // contains some commands which were in other manuals
+
+   cmchoiceset
 
    cmclogit
 
@@ -1955,9 +1980,11 @@ set trace off
    hexdump
 
    /* icd9 commands */
+   icd9 // incomplete
    icd9 check
    icd9p check
    icd9 clean
+   icd9p // incomplete
    icd9p clean
    icd9 gen
    icd9p generate
@@ -1971,6 +1998,7 @@ set trace off
    icd9 query
    /* icd10 commands, introduced in Stata 14 */
    /*   these match icd9 commands, at least to start with */
+   icd10 // incomplete
    icd10 check
    icd10 clean
    icd10 gen
@@ -1983,6 +2011,7 @@ set trace off
    icd10 query
    /* icd10cm commands, introduced in Stata 15 */
    /*   these match icd10 commands */
+   icd10cm // incomplete
    icd10cm check
    icd10cm clean
    icd10cm gen
@@ -1995,6 +2024,7 @@ set trace off
    icd10cm query
    /* icd10pcs commands, introduced in Stata 15 */
    /*   these match icd10 commands */
+   icd10pcs // incomplete
    icd10pcs check
    icd10pcs clean
    icd10pcs gen
@@ -2415,6 +2445,9 @@ set trace off
    fmm 3: tobit
    fmm 3: tpoisson
    fmm 3: truncreg
+   // pointmass always highlights though it makes sense only for fmm:
+   fmm: pointmass
+                     
 
    // postestimation
 
@@ -3331,7 +3364,7 @@ set trace off
    lassoselect lambda
    lassoselect alpha
 
-   polyregress
+   poivregress
 
    pologit
 
@@ -5479,6 +5512,7 @@ version /* used elsewhere */
    mi unset
 
    mi stsplit
+   mi stjoin
 
    mi test
    mi testtr
@@ -6141,6 +6175,10 @@ version /* used elsewhere */
    c(java_heapmax)
    c(java_home)
 
+   /* putdocx settings, new partway into Stata 16 */
+   c(docx_hardbreak)
+   c(docx_paramode)
+   
    /* python */
    // new in Stata 16
    c(python_exec)
@@ -6188,6 +6226,8 @@ version /* used elsewhere */
    /* end of that mess */
    _datasig
    _datasignature
+
+   #delimit  // should be incomplete; but doesn't show....
 #d cr
 #delimit ;
 
@@ -6421,10 +6461,13 @@ version /* used elsewhere */
    lo hmm // should fail, because minabbrev is loc
    loc ``ooie''
    local fooie
+   tempvar 
    tempvar ding
-   tempvar tmp1 foo4 
+   tempvar tmp1 foo4
+   tempname
    tempname dong
    tempname ding dong
+   tempfile
    tempfile the
    tempfile this is a test of many files
    /* right */
@@ -6442,6 +6485,7 @@ version /* used elsewhere */
    macro define bleen // obsolete
    ma di
    macro dir
+   mac drop // incomplete
    ma drop bleen
    macro drop 123 // illegal name
    ma l
@@ -6585,6 +6629,7 @@ version /* used elsewhere */
    matcproc a b // bad: 3 matrices are needed
    matcproc a b c
 
+   marksample // incomplete
    marksample hooie // hooie is a macro name
    mark
    markout
@@ -6712,6 +6757,7 @@ pause "fuggy"
 
    program drop fooie
    pr l fooie
+   // prog l --- is legal (!) but confuses indentation
    program list fooie
 
    // new in Stata 14 (or maybe 14.1)
@@ -7170,6 +7216,7 @@ pause "fuggy"
    /* syntax */
    /* no attempt to get this to fontify properly, sadly enough, because there really is no grammar to the syntax statement */
    syntax
+   args
 
    /*
    varlist
@@ -7811,7 +7858,9 @@ versio 23: howdy // should show as blace for a few years
 
    svy: clogit
    svy: cmmixlogit // new in Stata 15; renamed in Stata 16
-   svy: cmxtmixlogit  // new in Stata 16 
+   svy: cmxtmixlogit  // new in Stata 16
+
+   svy: eprobit  // new in Stata 15
    svy: eoprobit // new in Stata 15
    svy: hetoprobit
    svy: mlogit
@@ -7903,6 +7952,11 @@ versio 23: howdy // should show as blace for a few years
    sdr: regress // added in Stata 11.1
 
    svy jack: fmm: ologit // works in an odd way
+
+   svy jack: // incomplete
+   svy       // incomplete
+   svy bootstrap: // incomplete
+   
 
    svy: tab
    svy: tabul
@@ -8265,11 +8319,11 @@ versio 23: howdy // should show as blace for a few years
    xtcloglog
 
    // new in Stata 15
-   xtcointest // incomplete 
-   xtcointest kao
-   xtcointest pedroni
-   xtcointest westerlund
-   xtcointest oops // should fail: illegal
+   xtcointtest // incomplete 
+   xtcointtest kao
+   xtcointtest pedroni
+   xtcointtest westerlund
+   xtcointtest oops // should fail: illegal
 
    xtdata
 

@@ -1,6 +1,6 @@
 ;;; ado-font.el --- simple definition of font faces
 
-;; Copyright (C) 2003--2019 Bill Rising
+;; Copyright (C) 2003--2020 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
 ;; Keywords: languages, tools

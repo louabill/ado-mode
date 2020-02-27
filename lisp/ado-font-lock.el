@@ -1,6 +1,6 @@
 ;;; ado-font-lock.el --- all the endless font locking
 
-;; Copyright (C) 2003--2019 Bill Rising
+;; Copyright (C) 2003--2020 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
 ;; Keywords: languages, tools
@@ -150,7 +150,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		(regexp-opt
 		 '(
 		   "d" "de" "def" "defi" "defin" "define" "drop"
-		   "l" "li" "lis" "list"
 		   ) 'words))
 	  "[ \t]+"
 	  ado-stata-name-bound-regexp
@@ -181,15 +180,19 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 'words))
 	  "[ \t]+"
 	  (eval-when-compile
-		(regexp-opt '("di" "dir")
-					'words))
+		(regexp-opt
+		 '(
+		   "di" "dir"
+		   "l" "li" "lis" "list"
+		   )
+		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	;; it appears Stata accepts any version number
 	;; this just allows major[.0/max for particular version]
 	;; only 0's: 1, 4, 5, 7, (so far)
-    ;; .1's: 2, 3, 6, 10, 12, 13, 15
+    ;; .1's: 2, 3, 6, 10, 12, 13, 15, 16
 	;; .2's: 8, 9, 11, 14
 	(list
 	 (concat
@@ -197,7 +200,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		(regexp-opt
 		 '("vers" "versi" "versio" "version")
 		 'words))
-	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[0123456]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[012345]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\|:\\)"
+	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[0123456]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[0123456]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\|:\\)"
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; pause on/off
@@ -234,6 +237,32 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "[ \t]+\\(cr\\|;\\)[ \t]*$"
 	  )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; harmless prefix commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "bayes"
+		   "bayesmh" "bayesgraph"
+		   "fmm"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face))
+	
+	;; 'harmful' prefix commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "bys" "byso" "bysor" "bysort"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face))
 
     ;; obsolete stuff which appears as OK as subcommands
 	;; "lfit" // removed entirely, because (lfit ...) is ok
@@ -1031,6 +1060,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "checksum" "coeftabresults" "copycolor"
 		   "dockable"
 		   "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
+		   "docx_hardbreak" "docx_paramode"
+		   "dots"
 		   "doublebuffer" "dp"
 		   "emptycells"
 		   "fastscroll" "floatresults" "floatwindows"
@@ -1043,6 +1074,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "logt" "logty" "logtyp" "logtype"
 		   "lstretch"
 		   "matastrict"
+		   "maxbezierpath"
 		   "mo" "mor" "more"
 		   "notifyuser"
 		   "odbcdriver"
@@ -1088,6 +1120,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "\\|"
 	  "\\(?:log\\(?:t\\|ty\\|typ\\|type\\)[ \t]+\\(?:t\\|te\\|tex\\|text\\|s\\|sm\\|smc\\|smcl\\)\\)"
 	  "\\|"
+	  "\\(?:maxbezierpath[ \t]+[1-9][0-9]*\\)"
+	  "\\|"
 	  "\\(?:odbcdriver[ \t]+\\(?:ansi\\|unicode\\)\\)"
 	  "\\|"
 	  "\\(?:odbcmgr[ \t]+\\(?:iodbc\\|unixodbc\\)\\)"
@@ -1120,6 +1154,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "checksum" "coeftabresults"
 		   "dockable"
 		   "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
+		   "docx_hardbreak" "docx_paramode"
+		   "dots"
 		   "doublebuffer"
 		   "fastscroll" "floatresults" "floatwindows" "fvbase" "fvlabel"
 		   "g" "gr" "gra" "grap" "graph" "graphi" "graphic" "graphics"
@@ -3287,7 +3323,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "net" "netw" "netwo" "networ" "network"
 		   "out" "outp" "outpu" "output"
 		   "oth" "othe" "other"
-		   "python"
+		   "putdocx" "python"
 		   "random"
 		   "trace"
 		   "unicode"
@@ -3949,11 +3985,11 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
 
-	;; the xtcointest commands
+	;; the xtcointtest commands
 	(list
 	 (concat
 	  ado-start-cmd-regexp
-	  "\\<\\(xtcointest\\)\\>"
+	  "\\<\\(xtcointtest\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
@@ -4682,6 +4718,18 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face))
 
+	;; platform specific harmless commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "winexec"
+		   ) 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-platform-specific-face))
+
 	;; harmless commands
 	;; note that the really short abbreviations could make a mess of things
 	;;
@@ -4698,7 +4746,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "about" "ac" "acprplot"
 		   "ado" "adopath" "adoupdate" "alpha" "ameans"
 		   "an" "ano" "anov" "anova"
-		   "arch" "areg" "arfima" "arima"
+		   "arch" "areg" "arfima" "args" "arima"
 		   "as" "ass" "asse" "asser" "assert"
 		   "assertnested"
 		   "avplot" "avplots"
@@ -4716,6 +4764,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "clog" "clogi" "clogit" "clogitp" "cloglog"
 		   "cls"
 		   "close"
+		   "cmchoiceset"
 		   "cmclogit"
 		   "cmdlog" "cmdtool"
 		   "cmmixlogit" "cmmprobit" "cmrologit" "cmroprobit"
@@ -4839,7 +4888,9 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "pac" "pca" "pcamat" "pchart" "pchi" "pcorr" "pergram" "permute" "personal"
 		   "pkcross" "pkequiv" "pkexamine" "pksumm"
 		   "pl" "plo" "plot"
-		   "pnorm" "poisson" "pologit" "polyregess" "popoisson" "poregress" "postest" "pperron"
+		   "pnorm"
+		   "poisson"
+		   "pointmass" "poivregress" "pologit" "popoisson" "poregress" "postest" "pperron"
 		   "prais" "print"
 		   "prob" "probi" "probit"
 		   "procoverlay" "procrustes"
@@ -4953,13 +5004,12 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "[ \t]*,?.*?:[ \t]*"
 	  (eval-when-compile
 		(regexp-opt
-		 '(
-		   
+		 '(		   
 		   "betareg" "biprobit"
 		   "churdle" "clogit" "cloglog"
 		   "cmmixlogit" "cmxtmixlogit"
 		   "cnsreg" "cpoisson"
-		   "eintreg" "eoprobit" "eregress" "etpoisson" "etregress"
+		   "eintreg" "eoprobit" "eprobit" "eregress" "etpoisson" "etregress"
 		   "fracreg"
 		   "glm" "gnbreg" "gsem"
 		   "heckman" "heckoprobit" "heckpoisson"
@@ -4997,6 +5047,23 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
+	;; incomplete svy bootstrap etc
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(svy\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "bootstrap"
+		   "brr"
+		   "jack" "jackk" "jackkn" "jackkni" "jackknif" "jackknife"
+		   "linear" "lineari" "lineariz" "linearize" "linearized"
+		   "sdr"
+		   ) 'words))
+	  )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 	;; more svy stuff
 	(list
 	 (concat
@@ -5012,21 +5079,34 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "linear" "lineari" "lineariz" "linearize" "linearized"
 		   "sdr"
 		   ) 'words))
-	  ".*?,?.*?:[ \t]*"
+	  ".*?,?.*?:[ \t]:*"
 	  (eval-when-compile
 		(regexp-opt
 		 '(
-		   "gnbreg"
-		   "heckman" "heckprob"
-		   "intreg" "ivreg"
+		   "betareg" "biprobit"
+		   "churdle" "clogit" "cloglog"
+		   "cmmixlogit" "cmxtmixlogit"
+		   "cnsreg" "cpoisson"
+		   "eintreg" "eoprobit" "eprobit" "eregress" "etpoisson" "etregress"
+		   "fracreg"
+		   "glm" "gnbreg" "gsem"
+		   "heckman" "heckoprobit" "heckpoisson"
+		   "heckprob" "heckprobit" "hetoprobit" "hetprobit" "hetregress"
+		   "intreg" "ivprobit" "ivregress" "ivtobit"
 		   "logistic" "logit"
-		   "mean" "mlogit"
+		   "mecloglog" "mean" "meglm" "melogit" "menbreg"
+		   "meintreg" "meologit" "meoprobit"
+		   "mepoisson" "meprobit" "mestreg" "metobit"
+		   "mprobit" "mlogit"
+		   "nl"
 		   "nbreg" "ologit" "oprobit"
 		   "poisson" "probit" "proportion"
 		   "ratio"
 		   "reg" "regr" "regre" "regres" "regress"
+		   "scobit" "sem" "slogit" "stcox" "stintreg" "streg"
 		   "tab" "tabu" "tabul" "tabula" "tabulat" "tabulate"
-		   "total"
+		   "tnbreg" "tobit" "total" "tpoisson" "truncreg"
+		   "zinb" "zioprobit" "zip"
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
@@ -5410,9 +5490,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 '(
 		   "_pctile" "_predict"
 		   "ap" "app" "appe" "appen" "append"
-		   "bayespredict"
+		   "bayespredict" "bayesreps"
 		   "bcskew0" "bs" "bsample" "bstrap"
-		   "bys" "byso" "bysor" "bysort"
 		   "cd" "clear" "clonevar" "collapse" "compress"
 		   "contract" "corr2data" "cross" "cttost"
 		   "dec" "deco" "decod" "decode" "destring"
@@ -5559,6 +5638,22 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t))
 
+
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "ma" "mac" "macr" "macro"
+		   "sca" "scal" "scala" "scalar"
+		   ) 'words))
+	  "[ \t]+"
+	  "\\<\\(drop\\)\\>"
+	  ado-end-cmd-regexp
+	  )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
 	;; scalar/macro drop etc.
 	(list
 	 (concat
@@ -5574,7 +5669,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	  "[ \t]+"
 	  ado-stata-local-name-bound-regexp
 	  )
-	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
+	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t))
 
 	;; (list
@@ -6394,7 +6489,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 			"ren" "rena" "renam" "rename"
 			"replace0"
 			"reset"
-			"select" "stsplit"
+			"select" "stjoin" "stsplit"
 		 ) 'words))
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
@@ -6661,7 +6756,6 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
 
 	;; python commands other than entering python mode
-;	@@
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -7555,7 +7649,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "clevel" "cmdlen"
 		  "coeftabresults" "console" "copycolor"
 		  "current_time" "current_date"
-		  "dirsep" "dots" "dp" "dyndoc_version"
+		  "dirsep"
+		  "docx_hardbreak" "docx_paramode" "dots" "dp" "dyndoc_version"
 		  "emptycells" "eolchar" "epsdouble" "epsfloat" "eqlen"
 		  "filedate" "filename" "flavor" "frame" "fredkey"
 		  "fvbase" "fvlabel" "fvtrack" "fvwrap" "fvwrapon"
@@ -7577,7 +7672,8 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		  "max_macrolen" "max_matdim" "max_memory"
 		  "max_preservemem" "max_preservenum"
 		  "max_width_theory"
-		  "maxbyte" "maxdb" "maxdouble" "maxfloat" "maxint" "maxiter"
+		  "maxbezierpath" "maxbyte"
+		  "maxdb" "maxdouble" "maxfloat" "maxint" "maxiter"
 		  "maxlong" "maxstrvarlen" "maxstrlvarlen" "maxvar" "maxvlabellen"
 		  "memory"
 		  "min_memory"
@@ -8963,7 +9059,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 
 	;; fmm # prefix
 	;; changed in 1.16.0.0 because of prefix subcommands
-	;; now thi is complete even without a particular model
+	;; now this is complete even without a particular model
 	;; first, incomplete fmm
 	(list
 	 (concat
@@ -9484,15 +9580,19 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "forv" "forva" "forval" "forvalu" "forvalue" "forvalues"
 		 "fracreg" "frlink"
 		 "fvset" "fvunab"
+		 "gettoken"
+		 "global"
 		 "graph"
-		 "icd9" "icdp"
+		 "icd10" "icd10cm" "icd10pcs" "icd9" "icd9p"
 		 "import"
-		 "irf" "irt" "irtgraph"
+		 "irf" "irt" "irtgraph" "ivpoisson"
 		 "java"
 		 "la" "lab" "labe" "label"
 		 "lassoselect"
+		 "local"
 		 "log"
-		 "mat" "matname" "mat_put_rr" "matr" "matri" "matrix"
+		 "marksample"
+		 "mat" "matcproc" "matname" "mat_put_rr" "matr" "matri" "matrix"
 		 "mer" "merg" "merge"
 		 "meta"
 		 "mgarch"
@@ -9507,7 +9607,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "note" "notes"
 		 "odbc"
 		 "power"
-		 "palette" "pause" "postutil"
+		 "palette" "pause" "postutil" "putdocx" "putpdf"
 		 "query"
 		 "reshape"
 		 "ret" "retu" "retur" "return"
@@ -9521,17 +9621,19 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		 "stopbox" "storedresults"
 		 "stpow" "stpowe" "stpower"
 		 "stteffects"
+		 "svy"
 		 "tebalance" "teffects"
+		 "tempfile" "tempname" "tempvar"
 		 "timer"
 		 "translator" "transmap"
 		 "tsfilter" "tssmooth" "tsunab"
 		 "twoway"
 		 "unab" "unicode"
-		 "view"
+		 "view" "vl"
 		 "win" "wind" "windo" "window"
-		 "xtcointest" "xtunitroot"
+		 "xtcointtest" "xtunitroot"
 		 ) 'words))
-	   ado-end-cmd-regexp )
+	   ado-end-cmd-regexp)
 	  '(1 ado-needs-subcommand-face))
 
 	;; those subcmds which must start a line

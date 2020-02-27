@@ -1,5 +1,13 @@
 # Version History
 
+## 1.16.1.0
+
+* Added new -set- subcommands
+
+* Multiple fixes to incomplete and otherwise-missed commands
+
+* Minor fixes to -estat- subcommands
+
 ## 1.16.0.0
 
 * Finally got all the changes for Stata 16 added.

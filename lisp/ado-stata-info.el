@@ -1,6 +1,6 @@
 ;;; ado-stata-info --- For passing code to a running Stata from emacs
 
-;; Copyright (C) 2003--2019 Bill Rising
+;; Copyright (C) 2003--2020 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
 ;; Keywords: languages, tools
