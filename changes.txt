@@ -1,6 +1,15 @@
 Version History:
 ---------------
 
+1.16.1.1
+
+* Fixed bug where sending code to Stata via a do-file (or include file) on
+  the Mac would mess up any multibyte unicode characters (i.e. anything other
+  than unaccented Latin letters).
+
+* Fixed highlighting of names containing emojis. Too bad variable names in
+  Stata cannot start with emojis, though.
+
 1.16.1.0
 
 * Added new -set- subcommands
