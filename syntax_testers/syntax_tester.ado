@@ -1,4 +1,4 @@
-*! version 1.15.0.1 February 24, 2020 @ 08:12:46
+*! version 1.15.0.1 August 22, 2020 @ 14:16:17
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -6394,6 +6394,21 @@ version /* used elsewhere */
    foreach number of num somenumlist {
       }
    foreach number of numlist somenumlist {
+      }
+   ** this should work, but does not because of starting *
+   **   including varlists is pretty difficult
+   foreach var of varlist *date {
+      }
+   foreach var of varlist a-b {
+      }
+   ** should not work, because emojis cannot start variable names
+   foreach var of varlist 😀 {
+      }
+   ** should not work, because variable names cannot start with a number
+   foreach var of varlist 4rrw {
+      }
+   * should work, but regexp classes don't have one for non-symbol unicode
+   foreach var of varlist happy😀 {
       }
 
    forv // incomplete

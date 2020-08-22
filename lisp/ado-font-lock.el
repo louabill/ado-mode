@@ -105,14 +105,21 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 (defconst ado-end-cmd-regexp "\\([ \t]+\\|,\\|;\\|:\\|$\\)"
   "End-of-command regexp to keep things like -regress(- from highlighting.")
 
-(defconst ado-stata-name-regexp "[[:alpha:]_][[:graph:]_]*"
+(defconst ado-stata-name-regexp "[[:alpha:]_][[:alnum:][:graph:]_]*"
   "Regexp for uniform highlighting of Stata names, so that future changes will be easier.")
 
 (defconst ado-stata-name-bound-regexp
   (concat "\\(" ado-stata-name-regexp "\\)")
   "Same as \\[ado-stata-name-regexp] but bound within \\( and \\) for highlighting.")
 
-(defconst ado-stata-local-name-regexp "[[:alnum:]_`]+"
+(defconst ado-stata-varlist-start-regexp "[[:alpha:]_*][[:alnum:][:graph:]_]*"
+  "Regexp for uniform highlighting of starts of varlists, so that future changes will be easier.")
+
+(defconst ado-stata-name-varlist-start-regexp
+  (concat "\\(" ado-stata-varlist-start-regexp "\\)")
+  "Same as \\[ado-stata-varlist-start-regexp] but bound within \\( and \\) for highlighting.")
+
+(defconst ado-stata-local-name-regexp "[[:alnum:]_`][[:alnum:][:graph:]_`]*"
   "Regexp for highlighting local macros.")
   
 (defconst ado-stata-local-name-bound-regexp
@@ -5405,7 +5412,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 		   "var" "varl" "varli" "varlis" "varlist"
 		   ) 'words))
 	  "[ \t]+"
-	  ado-stata-local-name-bound-regexp
+	  ado-stata-name-bound-regexp
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
