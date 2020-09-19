@@ -196,8 +196,7 @@ If as-default is t, just send everything via the default method."
 			;; (message (concat "Want to call ->" (concat "do " (buffer-file-name))))
 			(funcall interprogram-cut-function (concat "do \"" (buffer-file-name) "\""))
 			(ado-send-clip-to-stata "command" ado-comeback-flag)))
-	  (ado-send-command-to-stata t)
-	  )))
+	  (ado-send-command-to-stata t))))
 
 (defun ado-input-to-stata ()
   "Sends a command from the input line!! to Stata. Has the unfortunate side-
@@ -205,7 +204,6 @@ effect of placing the command on the clipboard, at least for now."
   (interactive)
   (let ((select-enable-clipboard t))
 	(funcall interprogram-cut-function (read-from-minibuffer "Command to run? "))
-	(ado-send-clip-to-stata ado-submit-default ado-comeback-flag)
-	))
+	(ado-send-clip-to-stata ado-submit-default ado-comeback-flag)))
 
 (provide 'ado-to-stata)

@@ -118,8 +118,7 @@ from a new Stata sesson."
 	   ((file-exists-p (concat stataDir "stata-se")) (concat stataDir "stata-se"))
 	   ((file-exists-p (concat stataDir "stata-mp")) (concat stataDir "stata-mp"))
 	   (t (error (concat "Could not find Console Stata (needed for background tasks) in " lookhere)))))
-	 (t (error (concat "Nothing for " system-type " yet")))
-	 )))
+	 (t (error (concat "Nothing for " system-type " yet"))))))
 
 ;; if Stata cannot be found, this defaults to "version !!??"
 ;; not a great idea to use this for the version because the point of
@@ -133,8 +132,7 @@ from a new Stata sesson."
 ;	)
 	(if theVersion
 		theVersion
-	  "version !!??")
-	))
+	  "version !!??")))
 
 (defun ado-reset-version-command ()
   (set-variable 'ado-version-command (ado-get-stata-version)))
@@ -183,14 +181,12 @@ so it can be `concat'ted directly with a file name."
 	  (shell-command 
 	   (concat "cd " (ado-system-tmp-dir) " & \"" 
 			   (ado-find-stata) "\" /q /e  " theCommand
-			   (if theArgs (concat " \"" theArgs "\""))
-	  )))
+			   (if theArgs (concat " \"" theArgs "\"")))))
 	 ((string= system-type "gnu/linux")
 	  (shell-command 
 	   (concat "cd " (ado-system-tmp-dir) " ; " 
 			   (ado-find-stata) " -q -e '" theCommand "'"
-			   (if theArgs (concat " '" theArgs "'"))
-	   )))
+			   (if theArgs (concat " '" theArgs "'")))))
 	 (t (error (concat "Nothing for " system-type " yet"))))
 	(setq tmpLog (concat (ado-system-tmp-dir) "stata.log"))
 	;; visit tmp directory and manipulate the log
@@ -199,10 +195,8 @@ so it can be `concat'ted directly with a file name."
 	  (goto-char (point-max))
 	  (forward-line -1)
 	  (unless (search-forward "r(" (point-at-eol) t)
-		  (setq theResult (ado-strip-after-newline (thing-at-point 'line))))
-	  )
-	theResult
-	))
+		  (setq theResult (ado-strip-after-newline (thing-at-point 'line)))))
+	theResult))
 
 (defun ado-get-filename-from-stata (theCommand theArgs)
   (interactive)
@@ -210,8 +204,7 @@ so it can be `concat'ted directly with a file name."
   (let ((theFile (ado-get-one-result theCommand theArgs)))
 	(if (string= system-type "windows-nt")
 		(replace-regexp-in-string "\\\\" "/" theFile))
-	theFile
-	))
+	theFile))
 
 (defun ado-open-file-on-adopath (filename)
   (interactive)
@@ -228,8 +221,7 @@ so it can be `concat'ted directly with a file name."
 	  (error (concat "File " filename " not found on adopath")))
 	(if ado-open-read-only-flag
 		(find-file-read-only theFile)
-	  (find-file theFile))
-	))
+	  (find-file theFile))))
 
 (provide 'ado-stata-info)
 
