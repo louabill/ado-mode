@@ -77,7 +77,7 @@ As of yet, only -2, -1, and 0 actually are implemented."
 			(skip-chars-forward " /t")
 			(word-at-point)
 			)))
-	   (t (error "ado-grab-something: argument must be nil, 0, -1, or -2"))))))
+	   (t (error "`ado-grab-something': argument must be nil, 0, -1, or -2"))))))
 
 (defun ado-command-to-clip (&optional use-dofile whole-buffer keep-whitespace)
   "Prepare a region or command to send to Stata.
@@ -86,14 +86,16 @@ It then prepares the code for the Command window in Stata by stripping
 out both comments and continuations, as well as fixing semicolons
 if -#delimit ;- is on. Finally, leading and trailing whitespace (including
 blank lines) gets stripped. The resulting command(s) get passed to Stata.
+
 If USE-DOFILE is neither nil nor \"command\", the comments and continuations
-are left in the code, as it will be run in a do-file.
+are left in the code, as because the code will be run in a do-file.
 If WHOLE-BUFFER it non-nil, the entire buffer gets grabbed.
 If KEEP-WHITESPACE is non-nil, all whitespace is left as-is.
-The grabbing is done by \\[ado-grab-something],
-the stripping is done by \\[ado-strip-comments], the semicolon-fixing
-by \\[ado-convert-semicolons], and the whitespace trimming
-by \\[ado-string-trim]."
+
+The grabbing is done by `ado-grab-something'.
+The stripping is done by `ado-strip-comments'.
+The semicolon-fixing is done by `ado-convert-semicolons'.
+The whitespace trimming is done by `ado-string-trim'."
 	(unless use-dofile
 	  (setq use-dofile "command"))
 	(let ((select-enable-clipboard t)
@@ -121,7 +123,8 @@ by \\[ado-string-trim]."
 (defun ado-other-to-clip (&optional where prefix suffix)
   "For putting things like 'search' and 'help' onto the clipboard.
 Made to be called from other programs only.
-WHERE specifies what to grab (see \\[ado-grab-something]).
+
+WHERE specifies what to grab (see `ado-grab-something').
 PREFIX and SUFFIX are for debugging and are for the message put into
 the *Messages* buffer when the command runs."
   (let ((select-enable-clipboard t))
@@ -132,20 +135,23 @@ the *Messages* buffer when the command runs."
 			 (concat prefix (ado-grab-something where) suffix))))
 
 (defun ado-help-at-point-to-clip ()
-  "Puts -help <word-at-point>- on the clipboard/pasteboard.
-If a region is selected this is what is sent, instead."
+  "Put -help <word-at-point>- on the clipboard/pasteboard.
+If a region is selected -help <contents of region> is put on the
+clipboard/pasteboard."
   (interactive)
   (ado-other-to-clip nil "help"))
 
 (defun ado-help-command-to-clip ()
-  "Puts help for the current command on the clipboard/pasteboard.
-Ignores any prefix command. If a region is selected, this is sent, instead."
+  "Put -help <current command>- on the clipboard/pasteboard.
+Ignores any prefix command. If a region is selected -help <contents of region>
+is put on the clipboard/pasteboard."
+
   (interactive)
   (ado-other-to-clip 0 "help"))
 
 (defun ado-strip-comments (string-to-fix)
-  "Strips out all comments from STRING-TO-FIX line by line.
-These cannot be modularized, because of ordering problems"
+  "Strip out all comments from STRING-TO-FIX line by line.
+The types of comments cannot be modularized, because of ordering problems."
   (let ((nesting 0)
 		(returnString "")
 		pareThru
@@ -195,7 +201,7 @@ Converts semicolons to newlines, and combines lines without semicolons."
 
 (defun ado-one-eol (string-to-fix)
   "Ensures STRING-TO-FIX ends in an eol.
-If it does not, one is appended. The gets returned. Nothing too complicated."
+If it does not, one is appended. The resulting string gets returned."
 ;  (message (concat "ado-one-eol received ->" string-to-fix "<-"))
   (unless (string-match "\n" (substring-no-properties string-to-fix -1))
 	(setq string-to-fix (concat string-to-fix "
