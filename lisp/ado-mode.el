@@ -372,15 +372,15 @@
 
 ;; initial mode defintion function
 (defun ado-mode ()
-  "Major mode for editing ado, do, mata, sthlp, hlp, dlg, and smcl 
-files for use in the Stata statistical package. Indents blocks 
-of code properly, highlights command names, (most) keywords, some
-more complicated command structures, strings, Stata macro names 
-and the like.
+  "Ado-mode is a major mode for editing files associated with the Stata statistical package.
 
-ado-mode comes with a menu (the Ado-mode menu) which shows most all of the
+It can be used to edit ado, do, mata, sthlp, hlp, dlg, and smcl files while
+indenting blocks of code properly, highlighting command names, (most) keywords, some
+more complicated command structures, strings, Stata macro names and the like.
+
+Ado-mode comes with a menu (the Ado-mode menu) which shows most all of the
 variables which are worth changing locally in a buffer. Global customization
-can be done via '\\[customize-group] ado' using emacs customization
+can be done via '\\[customize-group] ado' using Emacs customization
 routines. More suggestions can be found at 
 http://louabill.org/Stata/ado-mode_install.html
 
@@ -400,10 +400,10 @@ Things for dealing with files:
     
 
 Things for changing style:
-Most of these would be most easily done using emacs' ability to customize
+Most of these would be most easily done using Emacs' ability to customize
 its enviroment using \\[customize-group ado-mode]. Other little things
  are
-- \\[ado-tab-width-change] will change the tab-width for the current buffer.
+- \\[ado-tab-width-change] will change the `tab-width' for the current buffer.
 - \\[ado-toggle-flag] which asks for the name of a flag to toggle. Even
     easier: use the Options... submenu of the Ado-mode menu..
 Fixing up indentation
@@ -551,8 +551,8 @@ This will make ado-mode load when you open an ado or do file."
 
 ; ado-set-return == t -> swap ret and C-j
 (defun ado-set-return (state)
-  "Sets state of \\C-m and \\C-j.
-STATE nil: standard emacs behavior where \\C-j is like `newline-and-indent'.
+  "Sets the states of \\C-m and \\C-j.
+STATE nil: standard Emacs behavior where \\C-j is like `newline-and-indent'.
 STATE t: better behavior to have \\C-m like `newline-and-indent'."
   (if state
       (progn
@@ -566,13 +566,13 @@ STATE t: better behavior to have \\C-m like `newline-and-indent'."
 ;;;; all the style-toggles for local resets rather than global
 
 (defun ado-return-toggle ()
-  "Toggles state of return key (\\C-m)"
+  "Toggle the state of the return key (\\C-m)."
   (interactive)
   (setq ado-return-also-indents-flag (not ado-return-also-indents-flag))
   (ado-set-return ado-return-also-indents-flag))
 
 (defun ado-toggle-flag (flag-name)
-  "Generic function for toggling a flag"
+  "Generic function for toggling FLAG-NAME."
   (interactive "vWhat flag would you like to toggle? ")
   (set flag-name (not (eval flag-name))))
 
@@ -603,7 +603,7 @@ i")
     t ))
 
 (defun ado-tab-width-change (&optional new-tab-width)
-  "Changes the tab-width for the current buffer, and then optionally re-indents the file."
+  "Change the `tab-width' for the current buffer, and then optionally re-indents the file."
   (interactive)
   (when (ado-change-number 'tab-width new-tab-width)
     (when (y-or-n-p "Reindent buffer now? ")
@@ -611,7 +611,7 @@ i")
 	  (ado-indent-buffer))))
 
 (defun ado-continued-statement-indent-spaces-change (&optional spaces)
-  "Changes the tab-width for the current buffer, and then optionally re-indents the file."
+  "Change the `tab-width' for the current buffer, and then optionally re-indent the file."
   (interactive)
   (when (ado-change-number 'ado-continued-statement-indent-spaces spaces)
     (when (y-or-n-p "Reindent buffer now? ")
@@ -620,8 +620,8 @@ i")
 
 ;;; scunged from the c-mode indentation
 (defun ado-comment-indent ()
-  "Indents line-starting comments.
-Stolen from c-mode indention."
+  "Indent line-starting comments.
+Stolen from `c-mode' indention."
   (if (looking-at "^/\\*")
       0				;Existing comment at bol stays there.
     (let ((opoint (point)))
@@ -685,7 +685,7 @@ continuation characters."
   (error "This is out of date! Use a foreach loop (\\[ado-foreach-loop]), instead"))
 
 (defun ado-foreach-loop (&optional macname listtype)
-  "Inserts a foreach loop, after asking for the type of loop to insert."
+  "Insert a foreach loop, after asking for the type of loop to insert."
   (interactive)
   (unless macname
 	(setq macname (read-from-minibuffer "What local macro should hold the tokens? ")))
@@ -702,7 +702,7 @@ continuation characters."
   (backward-char 2))
 
 (defun ado-forvalues-loop (&optional macname range)
-  "Inserts a forvalues loop, after asking for the range to insert."
+  "Insert a forvalues loop, after asking for the range to insert."
   (interactive)
   (unless macname
 	(setq macname (read-from-minibuffer "What local macro should hold the tokens? ")))
@@ -717,7 +717,7 @@ continuation characters."
 	(insert "}")))
 
 (defun ado-new-generic (type exten &optional stayput name purpose cusblp)
-  "Allows overloading the new program to work for ado, class, do, mata and other files."
+  "Allow overloading the new program to work for ado, class, do, mata and other files."
   (let (fullname buffullname (keepbuf t) (searchstr "startHere"))
 	(unless name
 	  (setq name (read-from-minibuffer (concat "What is the name of the " type "? "))))
@@ -784,21 +784,26 @@ continuation characters."
 	  (kill-buffer buffullname))))
 
 (defun ado-new-do (&optional stayput name purpose)
-  "Makes a new do-file by inserting the file do.blp from the template 
-directory. The do-file is made to keep its own named log so that it
+  "Make a new do-file. 
+
+This is done by inserting the file do.blp from the template directory.
+
+The do-file is made to keep its own named log so that it
 can be called by other do-files."
   (interactive)
   (ado-new-generic "do-file" "do" stayput name purpose))
 
 (defun ado-new-mata (&optional stayput name purpose)
-  "Makes a new buffer by inserting the file mata.blp from the template 
-directory. Inserts the proper name for the new class and the class file
-itself. Asks if the file should be saved in the `new' directory. If the
+  "Make a new buffer by inserting the file mata.blp from the template directory. 
+
+By default, `ado-new-mata' asks for name for the new class, as well as if 
+the file should be saved in the `new' directory. If the
 answer is no, the file will be saved in the current working directory.
 Bound to \\[ado-new-mata]"
   (interactive)
   (ado-new-generic "mata file" "mata" stayput name purpose))
 
+;;!! start here
 (defun ado-new-class (&optional stayput name purpose)
   "Makes a new buffer by inserting the file class.blp from the template
 directory. Inserts the proper name for the new class and the class file
@@ -961,7 +966,7 @@ something broken in that the insertion point is left in the wrong spot..."
   (forward-char 1))
 
 (defun ado-write-file-as-buffer-name ()
-  "Takes care of the problem in emacs where a buffer can have its name 
+  "Takes care of the problem in Emacs where a buffer can have its name 
 changed, but will write itself under it's regular filename. Not used anywhere?"
   (interactive)
   (let (this-buffer)
