@@ -77,9 +77,7 @@ As of yet, only -2, -1, and 0 actually are implemented."
 			(skip-chars-forward " /t")
 			(word-at-point)
 			)))
-	   (t (error "ado-grab-something: argument must be nil, 0, -1, or -2"))
-		)
-	  )))
+	   (t (error "ado-grab-something: argument must be nil, 0, -1, or -2"))))))
 
 (defun ado-command-to-clip (&optional use-dofile whole-buffer keep-whitespace)
   "Prepare a region or command to send to Stata.
@@ -102,8 +100,7 @@ by \\[ado-string-trim]."
 		  (string-to-fix
 		   (if whole-buffer
 			   (ado-grab-something -2)
-			 (ado-grab-something -1)))
-		  )
+			 (ado-grab-something -1))))
 	  (unless keep-whitespace
 		(setq string-to-fix (ado-string-trim string-to-fix)))
 	  (unless (> (length string-to-fix) 0)
@@ -114,14 +111,12 @@ by \\[ado-string-trim]."
 		  (progn
 			(setq string-to-fix (ado-strip-comments string-to-fix))
 			(if (ado-delimit-is-semi-p)
-				(setq string-to-fix (ado-convert-semicolons string-to-fix)))
-			)
+				(setq string-to-fix (ado-convert-semicolons string-to-fix))))
 		(if (ado-delimit-is-semi-p)
 			(setq string-to-fix (concat "#delimit ;
 " string-to-fix)))
 		) ;; testing for command
-	  (funcall interprogram-cut-function string-to-fix)
-	))
+	  (funcall interprogram-cut-function string-to-fix)))
 
 (defun ado-other-to-clip (&optional where prefix suffix)
   "For putting things like 'search' and 'help' onto the clipboard.
@@ -134,8 +129,7 @@ the *Messages* buffer when the command runs."
 	(if suffix (setq suffix (concat " " suffix)))
 	(message "%s" (concat prefix (ado-grab-something where) suffix))
 	(funcall interprogram-cut-function
-			 (concat prefix (ado-grab-something where) suffix))
-	))
+			 (concat prefix (ado-grab-something where) suffix))))
 
 (defun ado-help-at-point-to-clip ()
   "Puts -help <word-at-point>- on the clipboard/pasteboard.
@@ -176,7 +170,7 @@ These cannot be modularized, because of ordering problems"
 	   ((or (string= matchString "//") (string= matchString " //") (string= matchString "	//"))
 		(if (setq pareThru (string-match "
 " string-to-fix))
-			  (setq string-to-fix (substring string-to-fix pareThru))
+			(setq string-to-fix (substring string-to-fix pareThru))
 		  (setq string-to-fix "")))
 	   (t
 		(setq nesting 1)
@@ -191,16 +185,13 @@ These cannot be modularized, because of ordering problems"
 		))  ;; end of cond function
 	  )  ;; end of while searching loop
 	(setq returnString (concat returnString string-to-fix))
-	returnString
-	))
+	returnString))
 
 (defun ado-convert-semicolons (string-to-fix)
   "Fixes semicolons in STRING-TO-FIX.
 Converts semicolons to newlines, and combines lines without semicolons."
   (replace-regexp-in-string ";" "\n"
-		(mapconcat 'identity (split-string string-to-fix "\n") " "))
-  )
-  					   
+		(mapconcat 'identity (split-string string-to-fix "\n") " ")))
 
 (defun ado-one-eol (string-to-fix)
   "Ensures STRING-TO-FIX ends in an eol.
@@ -210,8 +201,7 @@ If it does not, one is appended. The gets returned. Nothing too complicated."
 	(setq string-to-fix (concat string-to-fix "
 ")))
 ;  (message (concat "ado-one-eol wants to return ->" string-to-fix "<-"))
-  string-to-fix
-  )
+  string-to-fix)
 
 (provide 'ado-clip)
 
