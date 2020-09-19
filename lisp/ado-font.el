@@ -52,6 +52,9 @@
 ;;  site     -- bold and italic
 ;;  builtin  -- regular
 
+;; this goes against using -face at the end of the face names because it is
+;;  made to copy things like cc-mode and its definitions
+
 (defface ado-builtin-harmful-face
   '((t :inherit font-lock-keyword-face))
   "Ado mode face used to highlight builtin commands which change
