@@ -34,13 +34,13 @@
 ;;; Code:
 
 ;;; required files
-(require 'font-lock)
-(require 'ado-cus)
-(require 'ado-font)
-(require 'ado-clip)
-(require 'ado-to-stata)
-(require 'ado-font-lock) ;; all the font-lock definitions
-(require 'ado-stata-info) ;; gathering info from Stata
+(require 'font-lock)				    ; for syntax highlighting
+(require 'ado-cus)						; customization defs
+(require 'ado-font)						; fontface defs
+(require 'ado-clip)						; clipboard population
+(require 'ado-to-stata)					; passing to Stata
+(require 'ado-font-lock)				; font-lock definitions, all kazillion
+(require 'ado-stata-info)				; gathering info from Stata 
 
 ;;; putting in the proper extensions for using the ado-mode
 (if (assoc "\\.ado$" auto-mode-alist) nil
