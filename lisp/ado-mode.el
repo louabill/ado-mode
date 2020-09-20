@@ -1,4 +1,4 @@
-;;; ado-mode.el --- major mode for editing Stata-related files
+;;; ado-mode.el --- major mode for editing Stata-related files-*- lexical-binding: t; -*-
 
 ;; Copyright (C) 1996-2020 Bill Rising
 
@@ -852,7 +852,7 @@ Bound to \\[ado-new-testado]"
   (interactive)
   (ado-new-generic "program" "do" stayput name purpose))
   
-(defun ado-insert-new-program (&optional name purpose)
+(defun ado-insert-new-program (&optional name)
   "Insert a subprogram at the bottom of the current buffer.
 
 Used interactively, you'll get asked for the name of the program.
@@ -1004,7 +1004,7 @@ It returns a value instead of setting a variable."
 Just an interface to \\[ado-find-extension]."
   (interactive)
 	(message "%s" (concat "I think the extension is " (ado-find-extension))))
-(defun ado-find-extension (&optional message)
+(defun ado-find-extension ()
   "Choose the file extension based on the file contents.
  
 Since Stata has started getting more complicated, will fall back to 
@@ -1014,7 +1014,7 @@ extension. Not as reliable as it should be.
 To test this, try \\[ado-show-extension]."
   ;; try to find the name, trust the buffer if lost, but issue warning if
   ;; lost or a contradiction
-  (let (first-program first-mata sez-file sez-contents)
+  (let (sez-file sez-contents)
 	(setq sez-file
 		  (if (and buffer-file-name (file-name-extension buffer-file-name))
 			  (downcase (file-name-extension buffer-file-name))
@@ -1117,7 +1117,7 @@ The command works differently depending on the type of file:
 the ado-extension has been set properly. Throws an error if the name cannot be
 determined. This was split from \\[ado-make-file-name] because of big changes
 to help files in Stata 12 (and the initial buggy fix)."
-  (let (name-start name-end full-name) ; titlepos syntaxpos (name-start nil))
+  (let (full-name) ; titlepos syntaxpos (name-start nil))
 	(save-excursion
 	  (goto-char (point-min))
 	  (cond 
@@ -1326,9 +1326,7 @@ Many of the parameters can be customized using '\\[customize-group] ado'."
 			depth
 			beg
 			shift-amt
-			endmark
-			(pos (- (point-max) (point)))
-			(watch-for-semi (ado-delimit-is-semi-p)))
+			(pos (- (point-max) (point))))
 		(beginning-of-line)
 		(setq beg (point))
 		(cond ((and ado-delimit-indent-flag (looking-at "[ \t]*#d\\(e\\|el\\|eli\\|elim\\|elimi\\|elimit\\)?"))	;#delimits belong at delimit indent
@@ -1754,20 +1752,6 @@ Bound to \\[ado-new-cscript]."
 	(generate-new-buffer-name (concat name ".do"))))
   (insert "cscript \"" desc "\" adofile " name)
   (ado-mode))
-
-;;; Some utilities which should really be in a separate file (but which
-;;;  would then cause extra installation instructions).
-(defun ado-reset-value (value prompt &optional flag)
-  "Generic interface function for resetting thw value of a variable."
-  (let (new-value value)
-    (setq new-value (read-from-minibuffer (format (concat "Change " prompt " from %d to ") value)))
-    (if (null new-value)
-		value
-      (if (= (setq new-value (string-to-number new-value )) value)
-			 (progn 
-			   (message "%s" (concat prompt " left unchanged."))
-			   value)
-		new-value))))
 
 (defun ado-insert-with-lfd (sometext)
   "Insert and indent SOMETEXT."

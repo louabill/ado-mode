@@ -1,4 +1,4 @@
-;;; ado-font-lock.el --- all the endless font locking
+;;; ado-font-lock.el --- all the endless font locking-*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2003--2020 Bill Rising
 

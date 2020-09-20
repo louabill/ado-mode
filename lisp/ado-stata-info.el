@@ -1,4 +1,4 @@
-;;; ado-stata-info --- For passing code to a running Stata from emacs
+;;; ado-stata-info --- For passing code to a running Stata from emacs-*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2003--2020 Bill Rising
 
@@ -212,9 +212,7 @@ so it can be `concat'ted directly with a file name."
   (interactive)
   (unless ado-stata-home
 	(error "You need to set ado-stata-home to open files on the adopath"))
-  (let ((stataDir (file-name-as-directory ado-stata-home))
-		(currentDir (file-name-as-directory (expand-file-name ".")))
-		theFile tmpDir tmpLog)
+  (let (theFile)
 	(unless (file-name-extension filename)
 	  (setq filename (concat filename ".ado")))
 	; (delete-file tmpLog) ;; left hanging around for checking

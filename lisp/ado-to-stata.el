@@ -1,4 +1,4 @@
-;;; ado-to-stata.el --- Passing code to a running Stata from emacs
+;;; ado-to-stata.el --- Passing code to a running Stata from emacs-*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2003--2020 Bill Rising
 
@@ -57,12 +57,12 @@
   (ado-command-to-clip "include" whole-buffer)
   (ado-send-clip-to-stata "include" ado-comeback-flag))
 
-(defun ado-send-clip-to-stata (&optional dothis comeback tmpfile)
+(defun ado-send-clip-to-stata (&optional dothis comeback)
   "Sends the clipboard to Stata to be evaluated. This command 
 is meant to be called by one of the wrappers determining 
 the behavior of the flags...
 
-There are three optional arguments:
+There are two optional arguments:
   dothis: \"command\" for using the commmand window
           \"menu\"   for using a menu item
           \"dofile\" for using a tmp do-file
@@ -71,6 +71,8 @@ There are three optional arguments:
 
   comeback: if nil, stay in Stata after submitting command; t to come
             back to emacs.
+
+  A third optional argument may appear in the future:
 
   tmpfile: name of the tmpfile to use if running via temporary do-file
            (not used, just reserved for future use)
