@@ -35,6 +35,9 @@
 
 ;;; Code:
 
+(require 'ado-cus)
+(require 'ado-mode)
+
 ;;; these regexps will still be fooled by line continuations
 ;;;   or colons in the middle of a line of text
 (defconst ado-capture-noisily-regexp

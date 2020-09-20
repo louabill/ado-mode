@@ -30,6 +30,8 @@
 ;;   In MS Windows, this is done via the autoit executable send2stata.exe 
 ;;   In *nix, via the send2ztata bash script
 
+(require 'ado-cus)
+
 (defun ado-send-command-to-stata (&optional whole-buffer)
   (interactive)
   (ado-command-to-clip ado-submit-default whole-buffer)

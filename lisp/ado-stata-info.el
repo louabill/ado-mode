@@ -30,6 +30,8 @@
 
 ;;; things for jumping to other commands, help files and the like
 
+(require 'ado-cus)
+
 (defun ado-ask-filename ()
   (interactive)
   (read-from-minibuffer "What file? "))

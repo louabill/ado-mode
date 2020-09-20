@@ -1,11 +1,11 @@
-;;; ado-mode.el --- ado mode, and its idiosyncratic commands.
+;;; ado-mode.el --- major mode for editing Stata-related files
 
-;; Copyright (C) 1996,..., 2020 Bill Rising
+;; Copyright (C) 1996-2020 Bill Rising
 
 ;; Author: Bill Rising <brising@alum.mit.edu>
-;; Version: 1.15.1.5
-;; Keywords: languages, tools
-;; Homepage: https://github.com/louabill/ado-mode
+;; Version: 1.16.1.2
+;; Keywords: languages, tools, Stata
+;; URL: https://github.com/louabill/ado-mode
 ;;
 ;; This file is not part of GNU Emacs.
 
@@ -24,8 +24,9 @@
 
 ;;; Commentary:
 
-;; This package provides the ado mode for smart highlighting and editing of
-;; Stata code as well as sending code to Stata or opening help
+;; This package provides the ado-mode for smart highlighting and editing of
+;; Stata, Mata, and SMCL code as well as the ability to send code to Stata and
+;; open Stata help files easily.
 
 ;;; Change Log:
 
@@ -35,6 +36,10 @@
 
 ;;; required files
 (require 'font-lock)				    ; for syntax highlighting
+(require 'imenu)						; for jumping to subcommands
+;;(require 'paragraphs)					; to shut up elint, but paragraphs.el
+                                        ;  does not (provide 'paragraphs)?!
+(require 'newcomment)				    ; to shut up elint
 (require 'ado-cus)						; customization defs
 (require 'ado-font)						; fontface defs
 (require 'ado-clip)						; clipboard population
@@ -375,8 +380,8 @@
   "Ado-mode is a major mode for editing files associated with the Stata statistical package.
 
 It can be used to edit ado, do, mata, sthlp, hlp, dlg, and smcl files while
-indenting blocks of code properly, highlighting command names, (most) keywords, some
-more complicated command structures, strings, Stata macro names and the like.
+indenting blocks of code properly, highlighting command names, (most) keywords, 
+more-complicated command structures, strings, Stata macro names and the like.
 
 Ado-mode comes with a menu (the Ado-mode menu) which shows most all of the
 variables which are worth changing locally in a buffer. Global customization
@@ -385,53 +390,44 @@ routines. More suggestions can be found at
 http://louabill.org/Stata/ado-mode_install.html
 
 Here is a short list of the common commands which come with the mode:
-Things for dealing with files:
-- \\[ado-new-ado] will make a new buffer ready for a new ado file.
-- \\[ado-new-do] will make a buffer ready for a well-logged do file.
-- \\[ado-new-help] will start a new help file, ready for editing.
-- ado-mode can interact directly with Stata  for now) 
+Most helpful things
+- `ado-new-ado' makes a new buffer ready for a new ado file.
+- `ado-new-do' makes a buffer ready for a well-logged do file.
+- `ado-new-help' starts a new help file, ready for editing.
+- `ado-new-mata' starts a new mata file.
+- `ado-new-label' will make a new label file useful for storing commonly
+    used value labels.
+- `ado-mode' can interact directly with Stata: 
     \\[ado-send-command-to-stata] will send the current selection 
-    to Stata for evaluation. If nothing is selected, the command containing
-    the insertion bar will be sent.
-- saving a buffer will save the current buffer and give it a good
-    timestamp (if the ado-update-timestamp-flag is true, which it is
-    by default). Ensures that the file name matches the name of the
-    command (ado program) or class being defined.
-    
+      to Stata for evaluation. If nothing is selected, the command containing
+      the insertion bar will be sent.
+    \\[ado-help-command] gets Stata help on the current command---even if you
+      are in the middle of a long command.
+    \\[ado-help-at-point] gets Stata help for the word at point.
 
-Things for changing style:
-Most of these would be most easily done using Emacs' ability to customize
-its enviroment using \\[customize-group ado-mode]. Other little things
- are
-- \\[ado-tab-width-change] will change the `tab-width' for the current buffer.
-- \\[ado-toggle-flag] which asks for the name of a flag to toggle. Even
-    easier: use the Options... submenu of the Ado-mode menu..
-Fixing up indentation
-- \\[ado-indent-buffer] will re-indent the whole buffer.
+Saving a buffer will save the current buffer and give it a good
+  timestamp (if the `ado-update-timestamp-flag' is true, which it is
+  by default). It will also do its best to ensures that the file name 
+  matches the name of the command (ado program) or class being defined.
+    
+Fixing up indentation:
+- `ado-indent-buffer' will re-indent the whole buffer.
+
 Things for special Stata manipulations
 - \\[ado-beginning-of-command] will move the point back to the beginning
     of the current command. If in the whitespace between two commands, it will
     move to the start of the next command.
 - \\[ado-split-line] will split a long line in two using either the /* */ or ///
-    style comments, depending on the value of ado-use-modern-split-flag (which
+    style comments, depending on the value of `ado-use-modern-split-flag' (which
     defaults to on, implying the use of ///).
 - \\[ado-foreach-loop] will insert a foreach loop, asking in the minibuffer
     for the particulars.
 - \\[ado-forvalues-loop] will insert a forvalues loop, asking in the minibuffer for the particulars.
-- \\[ado-insert-new-program] puts a new subprogram at the bottom of the current
+- `ado-insert-new-program' puts a new subprogram at the bottom of the current
     buffer for use within the current ado file.
 - \\[ado-macify-selection-or-word] will turn the current selection or the word containing the point into a local macro.
 - \\[ado-strmacify-selection-or-word] will turn the current selection or the word containing the point into a local macro enclosed in full string qualification.
 - \\[ado-stringify-selection] will enclose the current selection with full string qualification.
-
-Here an esoteric command which I've not yet documented well.
-- \\[ado-new-label] will make a new label file useful for storing commonly
-    used value labels.
-
-Here are commands for sending code to Stata.
-- \\[ado-send-command-to-stata] sends region or current command
-- \\[ado-help-command] sends 'help current-command'
-- \\[ado-help-at-point] sends 'help word-at-point'
 
 Most all of the commands are accessible from the ado-mode menu.
 
@@ -446,7 +442,11 @@ file:
 	      auto-mode-alist
 	      ))
 
-This will make ado-mode load when you open an ado or do file."
+This will make ado-mode load when you open an ado or do file.
+
+Finally, here is the complete keymap for ado-mode:
+
+\\{ado-mode-map}"
 ;; standard variables for any mode
   (interactive)
   (kill-all-local-variables)
@@ -509,13 +509,12 @@ This will make ado-mode load when you open an ado or do file."
   ;; delete auto-save-file when file is saved for real
   (make-local-variable 'delete-auto-save-files)
   (setq delete-auto-save-files t)
-  ;; !! just added
   (make-local-variable 'before-save-hook)
   (add-hook 'before-save-hook ado-before-save-file-hook)
   (use-local-map ado-mode-map)
   (setq mode-name "Ado")
   (setq major-mode 'ado-mode)
-  ;; make sure function ends with lf
+  ;; make sure files end with lf because of Stata's parser
   (make-local-variable 'require-final-newline)
   (setq require-final-newline t)
   (make-local-variable 'font-lock-defaults)
