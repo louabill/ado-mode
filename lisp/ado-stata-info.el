@@ -1,4 +1,4 @@
-;;; ado-stata-info --- For passing code to a running Stata from emacs-*- lexical-binding: t; -*-
+;;; ado-stata-info --- For passing code to a running Stata from emacs -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2003--2020 Bill Rising
 

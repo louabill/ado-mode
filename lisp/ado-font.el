@@ -1,4 +1,4 @@
-;;; ado-font.el --- simple definition of font faces-*- lexical-binding: t; -*-
+;;; ado-font.el --- simple definition of font faces -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2003--2020 Bill Rising
 

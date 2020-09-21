@@ -1,4 +1,4 @@
-;;; ado-cus.el --- customization for all things ado-mode-*- lexical-binding: t; -*-
+;;; ado-cus.el --- customization for all things ado-mode -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2003--2020 Bill Rising
 

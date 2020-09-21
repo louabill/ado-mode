@@ -3,7 +3,7 @@
 
 Emacs is getting more user-friendly all the time (especially [Aquamacs Emacs](http://aquamacs.org) on the Mac), but it still has some unixy ways of doing things which allow great freedom at the price of obscure installation instructions.
 
-1. Be sure you have a pretty recent version of Emacs. Versions 25, 24 and 23 work fine.
+1. Be sure you have a pretty recent version of Emacs. Versions 25 and 24 are OK.
 
 2. Grab the distro from this github site.
 

@@ -1,4 +1,4 @@
-;;; ado-mode.el --- major mode for editing Stata-related files-*- lexical-binding: t; -*-
+;;; ado-mode.el --- major mode for editing Stata-related files -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 1996-2020 Bill Rising
 
