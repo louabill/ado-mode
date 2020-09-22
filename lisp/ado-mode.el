@@ -4,7 +4,7 @@
 
 ;; Author: Bill Rising <brising@alum.mit.edu>
 ;; Version: 1.16.1.2
-;; Keywords: languages, tools, Stata
+;; Keywords: Stata, Mata, ado
 ;; URL: https://github.com/louabill/ado-mode
 ;;
 ;; This file is not part of GNU Emacs.
