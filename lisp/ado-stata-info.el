@@ -32,6 +32,7 @@
 
 (require 'ado-cus)
 (require 'ado-cons)
+(require 'ado-clip)
 
 (defun ado-ask-filename ()
   (interactive)

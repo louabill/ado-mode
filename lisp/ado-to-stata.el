@@ -32,6 +32,7 @@
 
 (require 'ado-cus)
 (require 'ado-cons)
+(require 'ado-clip)
 
 (defun ado-send-command-to-stata (&optional whole-buffer)
   (interactive)
