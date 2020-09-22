@@ -31,6 +31,7 @@
 ;;   In *nix, via the send2ztata bash script
 
 (require 'ado-cus)
+(require 'ado-cons)
 
 (defun ado-send-command-to-stata (&optional whole-buffer)
   (interactive)

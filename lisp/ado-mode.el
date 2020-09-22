@@ -41,11 +41,12 @@
                                         ;  does not (provide 'paragraphs)?!
 (require 'newcomment)				    ; to shut up elint
 (require 'ado-cus)						; customization defs
-(require 'ado-font)						; fontface defs
-(require 'ado-clip)						; clipboard population
-(require 'ado-to-stata)					; passing to Stata
-(require 'ado-font-lock)				; font-lock definitions, all kazillion
-(require 'ado-stata-info)				; gathering info from Stata 
+(require 'ado-cons)                     ; constant defs for commands
+;(require 'ado-font)						; fontface defs
+;(require 'ado-clip)						; clipboard population
+;(require 'ado-to-stata)					; passing to Stata
+;(require 'ado-font-lock)				; font-lock definitions, all kazillion
+;(require 'ado-stata-info)				; gathering info from Stata 
 
 ;;; putting in the proper extensions for using the ado-mode
 (if (assoc "\\.ado$" auto-mode-alist) nil

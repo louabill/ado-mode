@@ -31,6 +31,7 @@
 
 ;; it appears that some distros don't load thingatpt automatically
 (require 'thingatpt)
+(require 'ado-mode)
 
 (defun ado-grab-something (&optional what-code)
   "If a region is selected, return the region.

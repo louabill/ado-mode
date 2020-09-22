@@ -31,6 +31,7 @@
 ;;; things for jumping to other commands, help files and the like
 
 (require 'ado-cus)
+(require 'ado-cons)
 
 (defun ado-ask-filename ()
   (interactive)

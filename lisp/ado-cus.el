@@ -3,7 +3,6 @@
 ;; Copyright (C) 2003--2020 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
-;; Keywords: languages, tools
 ;; Homepage: https://github.com/louabill/ado-mode
 
 ;; This file is not part of GNU Emacs.
