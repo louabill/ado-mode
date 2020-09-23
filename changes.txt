@@ -1,6 +1,10 @@
 Version History:
 ---------------
 
+1.16.1.2
+
+* No feature changes (I hope). Just trying to make Melpa-ready.
+
 1.16.1.1
 
 * Fixed bug where sending code to Stata via a do-file (or include file) on
