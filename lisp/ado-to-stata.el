@@ -33,6 +33,7 @@
 (require 'ado-cus)
 (require 'ado-cons)
 (require 'ado-clip)
+(require 'cl-lib)
 
 (defun ado-send-command-to-stata (&optional whole-buffer)
   (interactive)
@@ -88,7 +89,7 @@ send2stata.scpt is stored. "
   (unless comeback (setq comeback ado-comeback-flag))
   (cond
    ((or (string= dothis "menu") (string= dothis "dofile") (string= dothis "command") (string= dothis "include"))
-	(case system-type 
+	(cl-case system-type 
 	 ((darwin)
 	  ;; the comeback for Mac OS X is handled via a shell command below
 	  (shell-command (concat "osascript '"
