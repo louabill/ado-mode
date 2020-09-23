@@ -527,10 +527,16 @@ Finally, here is the complete keymap for ado-mode:
   (make-local-variable 'ado-extension)
   (setq ado-extension (ado-find-extension))
   ;; setup directories which could be needed
+  ;;  Melpa insists that all .el files must be copied up one directory, which
+  ;;    messes with any decent file structure
   (unless ado-mode-home
 	(setq ado-mode-home
-		  (file-name-as-directory (expand-file-name (concat (file-name-directory (locate-file "ado-mode.el" load-path)) "..")))))
-  (unless ado-site-template-dir
+		  (file-name-as-directory (expand-file-name (file-name-directory (locate-file "ado-mode.el" load-path))))))
+  (unless (file-exists-p (file-name-as-directory (concat ado-mode-home "scripts")))
+	(setq ado-mode-home
+		  (file-name-as-directory
+		   (expand-file-name (concat (file-name-as-directory ado-mode-home) "..")))))
+	(unless ado-site-template-dir
 	(setq ado-site-template-dir (file-name-as-directory (concat ado-mode-home "templates"))))
   (unless ado-script-dir 
 	(setq ado-script-dir (file-name-as-directory (concat ado-mode-home "scripts"))))
