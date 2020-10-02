@@ -3,7 +3,6 @@
 ;; Copyright (C) 2003--2020 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
-;; Keywords: languages, tools
 ;; Homepage: https://github.com/louabill/ado-mode
 
 ;; This file is not part of GNU Emacs.
@@ -81,7 +80,7 @@ There are two optional arguments:
 
 By default, you do not need to do any setup. If you play around
 with the scripts and want to call something other than what came with 
-ado-mode, set \\[ado-script-dir] to point to where your version of 
+ado-mode, set `ado-script-dir' to point to where your version of 
 send2stata.scpt is stored. "
   (interactive)
   (unless dothis (setq dothis ado-submit-default))
@@ -140,7 +139,7 @@ send2stata.scpt is stored. "
 
 (defun ado-send2stata-name (send2stata-name)
   "For finding the send2stata script/executable name. Needed because 
-if the \\[ado-script-dir] is set incorrectly, but is still a directory, 
+if the `ado-script-dir' is set incorrectly, but is still a directory, 
 Windows does not return an error when the executable cannot run.
 Returns the fully qualified file name or errors out if the file is not found."
   (let ((return-me (locate-file send2stata-name (list (ado-check-a-directory ado-script-dir)))))
