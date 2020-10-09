@@ -31,7 +31,8 @@ while getopts ":acd:f:h" opt; do
    case $opt in
 	  a ) send2all="send2all";;
 	  c ) comeback="comeback"
-		  echo "found comeback flag";;
+		  # echo "found comeback flag"
+		  ;;
 	  d ) dothis="$OPTARG";;
 	  f ) flavor="$OPTARG";;
       h ) Usage
@@ -39,7 +40,7 @@ while getopts ":acd:f:h" opt; do
       \? ) Usage
            exit 0;;
       * ) Usage 
-          exit 1;;
+          exit 55;;
    esac
 done
 
@@ -54,7 +55,7 @@ case $dothis in
 	  exit 666;;
 esac
 
-numstatas=$(pgrep -c stata)
+numstatas=$(pgrep -c xstata)
 if [ $numstatas -eq 0 ]; then
    echo "No Stata open!"
    exit 2
@@ -68,23 +69,27 @@ if [ $numstatas -ge 2 ]; then
 	exit 3
 fi
 
-## loop would assign here
+## only works for windowed versions of Stata
+allStatas=$(pgrep -l xstata | sed -E 's/[0-9]+ //')
+
+## loop would assign here; all
 theStata=$allStatas
 
-# get name of Emacs window
-#   comment out for command-line debugging
 winid=$(xdotool getactivewindow getwindowname)
+## echo "*** winid is: $winid ***"
 
+## commented out checking for windowed statas, as that is all that
+## the pgrep should find
 # Check to see if it is a windowed Stata or an old-school Stata
-if [ $(pstree $theStata | wc -l) -eq 1 ]; then
-	## cannot paste to old-school Stata because the window name
-	## is not distinctive without some hacks
-	echo "Cannot paste to non-GUI Stata's yet"
-	exit 4
-else
+# if [ $(grep $theStata | wc -l) -eq 1 ]; then
+# 	## cannot paste to old-school Stata because the window name
+# 	## is not distinctive without some hacks
+# 	echo "Cannot paste to non-GUI Stata's yet"
+# 	exit 4
+# else
    ## not finding consoles because there is no consistent name
-   xdotool search --name --onlyvisible "Stata(/SE|/MP)* 1[1-5]" windowactivate
-fi
+   xdotool search --name --onlyvisible "Stata(/SE|/MP)* 1[1-6]" windowactivate
+# fi							   
 
 ## make do-file if dothis is anything but command
 ## using case for easier future maintenance

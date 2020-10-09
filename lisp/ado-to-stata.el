@@ -142,7 +142,7 @@ send2stata.scpt is stored. "
 if the `ado-script-dir' is set incorrectly, but is still a directory, 
 Windows does not return an error when the executable cannot run.
 Returns the fully qualified file name or errors out if the file is not found."
-  (let ((return-me (locate-file send2stata-name (list (ado-check-a-directory ado-script-dir)))))
+  (let ((return-me (locate-file send2stata-name (list (ado-check-a-directory 'ado-script-dir)))))
 	(if return-me
 		return-me
 	  (error "%s" (concat "Could not find " send2stata-name ". Did you change ado-script-dir by hand? If you did, try changing its default value back to nil."))
@@ -152,7 +152,7 @@ Returns the fully qualified file name or errors out if the file is not found."
   "First checks to see if the directory contained in a-dir-name is non-nil, 
 then checks if the contents is a real existing directory. Returns the
 proper directory name if correct, otherwise throws an error."
-  (let ((a-dir (eval a-dir-name)))
+  (let ((a-dir (eval a-dir-name t)))
 	(if a-dir
 		(progn
 		 (setq a-dir (file-name-as-directory a-dir))
