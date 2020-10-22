@@ -3,7 +3,7 @@
 
 Emacs is getting more user-friendly all the time (especially [Aquamacs Emacs](http://aquamacs.org) on the Mac), but it still has some unixy ways of doing things which allow great freedom at the price of obscure installation instructions.
 
-1. Be sure you have a pretty recent version of Emacs. Versions 25 and 24 are OK.
+1. Be sure you have a pretty recent version of Emacs. Versions 27 down to 24.3 are OK.
 
 2. Grab the distro from this github site.
 
@@ -24,8 +24,14 @@ Emacs is getting more user-friendly all the time (especially [Aquamacs Emacs](ht
 7. If you would rather work with customization files directly, there are two files in the `setup_aids` folder called `site_scrap.el` and `personal_scrap.el`. It might be worth peeking at these so that you can see what is set.
     * `site_scrap.el` contains the code needed for `ado-mode` to run, but nothing for individual usage.
     * `personal_scrap.el` contains a very few of the variables you might want to set&mdash;you will still want to work inside the built-in customizations.
+
+### Additional Software
+To send code to Stata, you might need to install some extra software:
+    * If you are using a Mac, this will work out of the box.
+    * If you are using MS Windows, you'll need to install of [AutoIt](https://www.autoitscript.com/site/autoit/downloads/).
+    * If you are using Unix, you will need to get `xsel` and `xdotool`. In Debian/Ubuntu, this can be done via `sudo apt-get install xsel xdotool`. Other *nixes will be similar.
 	     
-### Changing appearance
+## Changing appearance
 	
 You will likely want to change the default colors for the font highlighting. Here is a screenshot of the highlighting I use, and which I find quite readable:
 	<div style="text-align: center;"><img src="docs4github/ado_highlighting.png" width="880" height="646" alt="highlighing example"></div>
@@ -45,10 +51,8 @@ To see what colors are available in Emacs, try `M-x list-colors-display`.
 	
 Note that specifiying the font is system specific. I use the `apple-dejavu sans mono` font, because I like it. Others like other fonts. You should set the font from within emacs by using `M-x customize`, and then clicking the `Faces`, `Basic Faces`, and then click the `show` button next to **Default** face. This will avoid all the platform specific methods for referring to fonts.
 
-### Troubleshooting
+## Troubleshooting
 	
-If you run into trouble, because you keep getting `Symbol's function definition is void: line-number-at-pos` errors, put the following into your `.emacs` file: `(require 'ado-hacks)`. This should cause the proper function get loaded without having it interfere with future updates. (This problem seems to happen for emacs 21.something and earlier, which aren't really supported anyways.)	
-
 If you have any trouble with the installation instructions, [drop me a line](&#109;&#97;&#105;&#108;&#116;&#111;:&#98;&#114;&#105;&#115;&#105;&#110;&#103;&#64;&#109;&#97;&#99;&#46;&#99;&#111;&#109;) so that I can fix them.
 
 If you would like keep up with updates, subscribe to [http://twitter.com/statuses/user_timeline/106578815.rss](http://twitter.com/statuses/user_timeline/106578815.rss), which is the @adomode Twitter account. This seems like an easy way to have a very-low-traffic RSS feed without any maintenance.

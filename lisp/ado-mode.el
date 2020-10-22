@@ -46,7 +46,12 @@
 (require 'ado-clip)						; clipboard population
 (require 'ado-to-stata)					; passing to Stata
 (require 'ado-font-lock)				; font-lock definitions, all kazillion
-(require 'ado-stata-info)				; gathering info from Stata 
+(require 'ado-stata-info)				; gathering info from Stata
+;;; Non-Emacs software also needed for sending code to Stata:
+;;; Mac: nothing needed
+;;; Win: AutoIt from https://www.autoitscript.com/site/autoit/downloads/
+;;; *nix: xsel and xdotool, so for Ubuntu:
+;;;   sudo apt-get install xsel xdotool
 
 ;;; putting in the proper extensions for using the ado-mode
 (if (assoc "\\.ado$" auto-mode-alist) nil

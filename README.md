@@ -2,7 +2,7 @@
 
 The `ado-mode` is a major [editing] mode for Emacs which allows truly good editing of Stata, namely `do`, `ado`, `sthlp`, `smcl`, and `mata` files. Here is a [screenshot](docs4github/ado_highlighting.png) to see what the highlighting does. The mode also handles indentation, date stamps, and includes templates for writing help files, project do-files and the like.
 
-Emacs versions down to 24.1 are supported.
+Emacs versions down to 24.3 are supported.
 
 Here is the [change log](changes.md) which says what is new.
 
@@ -10,8 +10,8 @@ The current version is **1.16.1.2**, which is made for Stata 16.1. It works just
 
 Here are the things which make life easier when using the `ado-mode`. Features include
 
-* Sending code directly from Emacs to Stata for evaluation. 
-
+* Sending code directly from Emacs to Stata for evaluation. (See below)
+  
 * Opening any file on the default ado-path, even automagically opening the ado-file for the current command.
 
 * Opening Stata help files (in Stata, of course) from Emacs. 
@@ -36,7 +36,14 @@ Here are the things which make life easier when using the `ado-mode`. Features i
 
 Installation is not as simple as it could be, so there (will be) installation instructions on the wiki. For now, the [installation instructions](http://louabill.org/Stata/ado-mode_install.html) are back on the old webpage.)
 
-One day I will get this Melpa-compliant. One day.
+## External Tools Needed for MS Windows and *nix:
+
+* To send code to Stata from Emacs:
+  * If you are using a Mac, this will work out of the box.
+  * If you are using MS Windows, you'll need to install of [AutoIt](https://www.autoitscript.com/site/autoit/downloads/).
+  * If you are using Unix, you will need to get `xsel` and `xdotool`. In Debian/Ubuntu, this can be done via `sudo apt-get install xsel xdotool`. Other *nixes will be similar.
+
+One day I will get this Melpa-compliant. One day soon, I hope.
 
 **Please** let me know if there are any troubles with the installations, since there are little quirks with cross-platform Emacs stuff.
 
