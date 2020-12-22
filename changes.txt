@@ -1,6 +1,25 @@
 Version History:
 ---------------
 
+1.16.1.3
+
+* MELPA requested that the syntax tester files not be included in the
+  official package, so I split them into another package. If you really want
+  the syntax testers, you can find them !! here. 
+
+* Fixed highlighting problems with local macro names caused by sloppy code
+  for allowing emojis in 1.16.1.1.
+
+* Made \ an escape character, again, so that it is possible to escape
+  double-quotes. It had been made a regular character long ago for a
+  now-forgotten reason.
+
+* Added ado-clean-buffer for turning lines with just whitespace into empty
+  lines.
+
+* Changed indenting routing to be able to use extra indentation for
+  continuations inside of functions (specifically for extended -cond()-s.
+
 1.16.1.2
 
 * No feature changes (I hope). Just trying to make Melpa-ready.
