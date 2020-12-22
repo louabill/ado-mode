@@ -1,4 +1,4 @@
-*! version 1.15.0.1 August 22, 2020 @ 14:16:17
+*! version 1.15.0.1 December 18, 2020 @ 09:59:34
 *! doesn't do anything; made for syntax testing
 *! also used as a base to generate keywords for auto-completion
 program def syntax_tester, eclass
@@ -20,11 +20,13 @@ program def syntax_tester, eclass
    end
    pro dir
    program dir
-   
-   * a starting line comment
+
+
+* a starting line comment
    14 * foobar // a non-comment
 
-// last subversion within a main version is always bad
+
+   // last subversion within a main version is always bad
 version 1.0
 version 2            
 version 2.0
@@ -88,7 +90,7 @@ version 16.2 // bad
 version 17   // bad
 version 20   // bad for awhile
 version 44   // bad for multiple generations
-   
+
    /* this program does nothing - it merely has some things for testing syntax coloring */
    /* working with the syntax table */
    local  // incomplete (overridden as mata keyword)
@@ -97,7 +99,7 @@ version 44   // bad for multiple generations
 
    /* stuff from incremental updates which need to be moved when new manuals come out */
    include
-   
+
    /* commands in the order of the manuals (for checking for obsolete commands... */
    /* some arbitrary usages */
    _b[foobar]
@@ -150,7 +152,7 @@ version 44   // bad for multiple generations
    cii mean
    cii prop
    cii variances
-   
+
    clog         // abbrev obsolete in Stata 16 
    clogi        // abbrev obsolete in Stata 16
    clogit
@@ -212,7 +214,7 @@ version 44   // bad for multiple generations
    correlat
    correlate
    pwcorr
-   
+
    cpoisson              // new in Stata 14 
    cumul
    cusum
@@ -250,7 +252,7 @@ version 44   // bad for multiple generations
 
    dydx
    integ
-   
+
    eivreg
 
    // epitab commands
@@ -290,7 +292,7 @@ version 44   // bad for multiple generations
    estat summar
    estat summarize
    estat vce
-   
+
    // estimates from omnibus estimates entry
    estimates `foo'
    est save
@@ -348,7 +350,7 @@ version 44   // bad for multiple generations
 
    exlogistic
    expoisson
-   
+
    fracpoly // obsolete in Stata 13
    fracgen  // obsolete in Stata 13
    fp
@@ -363,7 +365,7 @@ version 44   // bad for multiple generations
    fracreg prob
    fracreg probit
    // end fracreg
-   
+
    frontier
    fvrevar
 
@@ -375,7 +377,7 @@ version 44   // bad for multiple generations
    fvset report
    fvset cl // bad
    fvset repo // bad
-   
+
    gllamm  // will only highlight if it is installed
    glm
 
@@ -386,7 +388,7 @@ version 44   // bad for multiple generations
 
    gmm
    grmeanby
-   
+
    hausman
    heckman
    heckoprobit
@@ -411,7 +413,7 @@ version 44   // bad for multiple generations
    hsearch // obsolete in Stata 12
 
    icc
-   
+
    intreg
 
    ivpoisson // incomplete
@@ -429,7 +431,7 @@ version 44   // bad for multiple generations
    kap
    kapwgt
    kappa
-   
+
    kdensity
    ksmirnov
    kwallis
@@ -437,7 +439,7 @@ version 44   // bad for multiple generations
    ladder
    gladder
    qladder
-   
+
    set l
    set level
 
@@ -469,14 +471,14 @@ version 44   // bad for multiple generations
    cmdlog on
    // undocumented
    cmdlog query
-   
+
    set logtype t
    set logtype text
    set logtype s
    set logtype smcl
    set li
    set linesize
-   
+
    logistic
 
    logi    // abbrev obsolete in Stata 16
@@ -509,7 +511,7 @@ version 44   // bad for multiple generations
    mfp logit
    mfp clogit
    mfp clogit() // absurd but should unhighlight clogit()
-   
+
    // mfx is obsolete as of Stata 11
    // start obsolete block
    mfx
@@ -570,16 +572,16 @@ version 44   // bad for multiple generations
    ml ml
    ml mlout
    // end obsolete block
-   * etc
+* etc
    // these are 
    mleval
    mlsum
    mlvecsum
    mlmatsum
    mlmatbysum  // has been since at least Stata 9
-   
+
    mlexp
-   
+
    mlog    // abbrev obsolete in Stata 16 
    mlogi   // abbrev obsolete in Stata 16
    mlogit
@@ -645,7 +647,7 @@ version 44   // bad for multiple generations
    nlinit  // obsolete in Stata 9
 
    nlcom
-   
+
    nlsur
 
    npregress kernel      // new in Stata 15
@@ -689,7 +691,7 @@ version 44   // bad for multiple generations
    postest  // new in Stata 14; strange to have in a do-file
    predict
    predictnl
-   
+
    prob    // abbrev obsolete in Stata 16 
    probi   // abbrev obsolete in Stata 16 
    probit
@@ -704,7 +706,7 @@ version 44   // bad for multiple generations
    // pw commands
    pwcompare
    pwmean
-   
+
    /* qc commands */
    cchart
    pchart
@@ -733,7 +735,7 @@ version 44   // bad for multiple generations
    query efficiency
    quer net
    que network
-   
+
    query up
    query update
    qu trace
@@ -749,7 +751,7 @@ version 44   // bad for multiple generations
 
    ranksum
    median
-   
+
    ratio
 
    reg3
@@ -791,17 +793,17 @@ version 44   // bad for multiple generations
    rocregplot
 
    roctab
-   
+
    rologit  // obsolete in Stata 16 
 
    rreg
 
    runtest
-   
+
    sampsi // obsolete in Stata 13 
-   
+
    scobit
-   
+
    sdtest
    sdtesti
    robvar
@@ -811,9 +813,9 @@ version 44   // bad for multiple generations
    set searchdefault net
    set searchdefault all
    set searchdefault foo // bad
-   
+
    findit // obsolete in Stata 13 
-   
+
    serrbar
    /* set commands */
    set a
@@ -824,11 +826,11 @@ version 44   // bad for multiple generations
    set cformat // added in Stata 11.1
    set charset mac     // obsolete in Stata 14
    set charset latin1  // // obsolete in Stata 14
-   
+
    set checksum // incomplete
    set checksum on
    set checksum off
-   
+
    set clevel // new in Stata 14
 
    set coeftabresults // incomplete
@@ -914,7 +916,7 @@ version 44   // bad for multiple generations
    set floatresults // incomplete
    set floatresults on
    set floatresults off
-   
+
    set floatwindows on
    set floatwindows off
 
@@ -924,7 +926,7 @@ version 44   // bad for multiple generations
    set fvbase
    set fvbase on
    set fvbase off
-   
+
    set fvlabel // incomplete
    set fvlabel on
    set fvlabel off
@@ -933,7 +935,7 @@ version 44   // bad for multiple generations
    set fvtrack term
    set fvtrack factor
    set fvtrack foobar // bad
-   
+
    set fvwrap
 
    set fvwrapon // incomplete
@@ -1033,7 +1035,7 @@ version 44   // bad for multiple generations
    // end obsolete block
 
    set min_memory
-   
+
    set more  // incomplete 
    set mo on
    set more off
@@ -1169,7 +1171,7 @@ version 44   // bad for multiple generations
    set timeout1
    set timeout2
 
-   set trace // incomplete 
+set trace // incomplete 
 set tr on
 set trace off
 
@@ -1219,7 +1221,7 @@ set trace off
    set varkeyboard // incomplete 
    set varkeyboard on
    set varkeyboard off
-   
+
    set varlabelpos // obsolete at some point
    set varwin float // obsolete in Stata 11, it seems
    set varwindow nofloat // obsolete in Stata 11, I guess
@@ -1338,7 +1340,7 @@ set trace off
    sretu         // incomplete 
    sret li
    sret list
-   
+
    suest 
 
    su
@@ -1353,7 +1355,7 @@ set trace off
    sunflower
 
    sureg
-   
+
    swilk
    sfrancia
 
@@ -1410,7 +1412,7 @@ set trace off
    transmap def
    transmap define
    transmap `foo'     // bad? good?
-   
+
    treatreg // obsolete in Stata 13
 
    truncreg
@@ -1434,7 +1436,7 @@ set trace off
    set update_interval
    set update_prompt off
    set update_prompt on
-   
+
    view
    view file
    view browse
@@ -1454,7 +1456,7 @@ set trace off
    view update_d
 
    vwls
-   
+
    which
 
    xi
@@ -1512,7 +1514,7 @@ set trace off
    fracpred
    rocplot
    rocregplot
-   
+
    // estat (from [R])
    // (some) obsolete versions included for testing
    // best way to check is look in the index
@@ -1581,13 +1583,13 @@ set trace off
    /* bayes prefix, introduced in Stata 15 */
    /* no good mechanism for prefix commands....*/
    bayes: regress
-   
+
    /* from Bayes manual [BAYES]; all initially introduced in Stata 14 */
    bayesmh
 
    // Bayesian postestimation not separated out here, because all commands
    //   have their own documentation
-   
+
    bayesgraph
    bayesgraph matrix
    /* no special highlighting yet */
@@ -1607,7 +1609,7 @@ set trace off
 
    bayesstats ppvalues   // new in Stata 16 
    bayesstats ppval
-   
+
    bayesstats summ
    bayesstats summary
    bayesstats sum _all // bad (sum too short)
@@ -1669,7 +1671,7 @@ set trace off
    appen
    append
    append using
-   
+
    as
    ass
    asse
@@ -1687,7 +1689,7 @@ set trace off
    bcal describe
    bcal load
    bcal create
-   
+
    by
    bys
    byso
@@ -1696,11 +1698,11 @@ set trace off
 
    cd
    pwd
-   
+
    cf
-   
+
    changeeol
-   
+
    checksum
    se checksum on
    set checksum off
@@ -1717,11 +1719,11 @@ set trace off
    clear * // bad but works; cannot fix easily, because of special meaning of * in regexps
 
    clonevar
-   
+
    codebook
 
    collapse
-   
+
    compare
 
    compress
@@ -1799,7 +1801,7 @@ set trace off
    dyngen {  // new in Stata 16
       update   // syntax conflict with -update- as a plain old command. yay.
       }
-   
+
 
    ed
    edi
@@ -1811,10 +1813,10 @@ set trace off
    brows
    browse
    /* endless egen & options */
-   
+
    egen
    egen = any() // really was renamed in Stata 9 to anyvalue()
-                //  highlights because of mata any() function
+   //  highlights because of mata any() function
    egen breeble = anycount()  // bad, but want to highlight egen
    egen = anymatch()
    egen = anyvalue()
@@ -1888,7 +1890,7 @@ set trace off
 
    erase
    rm
-   
+
    expand
 
    expandcl
@@ -1976,7 +1978,7 @@ set trace off
    set type foo // bad
 
    gsort
-   
+
    hexdump
 
    /* icd9 commands */
@@ -2074,9 +2076,9 @@ set trace off
    export sasxport8
 
    import spss  // new in Stata 16 
-   
+
    impute  // obsolete in Stata 11
-   
+
    inf using
    infile
 
@@ -2143,7 +2145,7 @@ set trace off
    flist
 
    lookfor
-   
+
    memory
    set mem 5b // obsolete in Stata 12
    q mem  // still works but stopped being documented at Stata 16 or earlier
@@ -2165,7 +2167,7 @@ set trace off
    merge 1:1 _n
 
    mkdir
-   
+
    mvencode
    mvdecode
 
@@ -2208,14 +2210,14 @@ set trace off
    set odbcmgr iodbc
    set odbcmgr unixodbc
    /* end odbc */
-   
+
    order
    // begin obsolete block from -move-, Stata 11
    mov
    move
    aorder
    // end obsolete block
-   
+
    ou
    out
    outf
@@ -2229,7 +2231,7 @@ set trace off
    outshee
    outsheet
    // end obsolete block
-   
+
    pctile
    xtile
    _pctile
@@ -2248,7 +2250,7 @@ set trace off
    renam
    rename
    renpfix  // obsolete in Stata 12
-   
+
    reshape long
    reshape wide
    reshape error
@@ -2296,7 +2298,7 @@ set trace off
    splitsample  // new in Stata 16
 
    stack
-   
+
    statsby
 
    sysuse auto // bad for command, ok for highlighting
@@ -2381,7 +2383,7 @@ set trace off
    xmlsav
    xmlsave
    xmluse
-   
+
    xpose
 
    zipfile
@@ -2400,7 +2402,7 @@ set trace off
    irf
 
    dsgenl
-   
+
    /* end [DSGE] DSGE manual (that was quick) */
 
    /* begin [ERM] extended regression models */
@@ -2414,7 +2416,7 @@ set trace off
 
    eregress
    xteregress
-   
+
    estat teffects
 
    /* end [ERM] extended regression models */
@@ -2447,7 +2449,7 @@ set trace off
    fmm 3: truncreg
    // pointmass always highlights though it makes sense only for fmm:
    fmm: pointmass
-                     
+
 
    // postestimation
 
@@ -2655,22 +2657,22 @@ set trace off
 
    /* random number functions */
    uniform() // obsolete in Stata 10 
-	runiform()
+   runiform()
    runiformint() // new in Stata 14
    rbeta()
-	rbinomial()
+   rbinomial()
    rcauchy() // new in Stata 15
-	rchi2()
+   rchi2()
    rexponential() // new in Stata 14 
-	rgamma()
-	rhypergeometric()
+   rgamma()
+   rhypergeometric()
    rigaussian()  // new in Stata 14.2
    rlaplace() // new in Stata 15 
    rlogistic()   // new in Stata 14 
-	rnbinomial()
-	rnormal()
-	rpoisson()
-	rt()
+   rnbinomial()
+   rnormal()
+   rpoisson()
+   rt()
    rweibull()    // new in Stata 14
    rweibullph()  // new in Stata 14
 
@@ -2687,7 +2689,7 @@ set trace off
    invibeta()
    nibeta()
    invnibeta()
-   
+
    Binomial() /* finally changed to binomialtail in Stata 10 */
    // binomial
    binomialp()
@@ -2717,7 +2719,7 @@ set trace off
    invnchi2()
    invnchi2tail()
    npnchi2()
-   
+
    // dunnet's multiple range
    dunnettprob()
    invdunnettprob()
@@ -2803,7 +2805,7 @@ set trace off
    binorm() // obsolete in Stata 10 
    binormal()
    lnmvnormalden()
-   
+
    // Poisson
    poissonp()
    poisson()
@@ -3156,16 +3158,16 @@ set trace off
 
    graph twoway area y
    twoway area
-   
+
    twoway bar
    gr twoway bar
    graph twoway bar y
-   
+
    tw con
    two connected
    gr two con
    gr two connected
-   
+
    two contour  // new in Stata 12 
    twoway contour  // new in Stata 12 
    gr two contour  // new in Stata 12
@@ -3303,7 +3305,7 @@ set trace off
    irt grm
 
    irt nrm
-   
+
    irt pcm
    irt gpcm
 
@@ -3317,7 +3319,7 @@ set trace off
    estat rep
    estat repo
    estat report
-   
+
    irtgraph // incomplete
 
    irtgraph icc
@@ -3381,7 +3383,7 @@ set trace off
    xpopoisson
 
    xporegress
-   
+
    /* end [LASSO] manual */
 
    /* [M] Mata Manual */
@@ -3500,7 +3502,7 @@ version /* used elsewhere */
 
    /* from [M-3 Intro] "commands for controlling mata" */
    lmbuild 
-      
+
    mata:
       this is mata code
    end
@@ -3916,7 +3918,7 @@ version /* used elsewhere */
    log1p()   // new in Stata 16
    ln1m()    // new in Stata 16
    log1m()   // new in Stata 16
-   
+
 
    factorial()
    lnfactorial() /* already regular function */
@@ -4922,7 +4924,7 @@ version /* used elsewhere */
    st_framecopy()
    _st_framecopy()
    st_frameexists()
-   
+
    st_global()
    st_global_hcat() // new in Stata 15
 
@@ -5297,7 +5299,7 @@ version /* used elsewhere */
    meqrpoisson   // obsolete in Stata 16 
 
    mestreg // new in Stata 14
-   
+
    metobit // new in Stata 15 
 
    stcurve
@@ -6178,7 +6180,7 @@ version /* used elsewhere */
    /* putdocx settings, new partway into Stata 16 */
    c(docx_hardbreak)
    c(docx_paramode)
-   
+
    /* python */
    // new in Stata 16
    c(python_exec)
@@ -6227,7 +6229,7 @@ version /* used elsewhere */
    _datasig
    _datasignature
 
-   #delimit  // should be incomplete; but doesn't show....
+#delimit  // should be incomplete; but doesn't show....
 #d cr
 #delimit ;
 
@@ -6263,9 +6265,12 @@ version /* used elsewhere */
    if this==that {;
       summarize
         another continuation;
-      }; 
+      };
+   * without the semicolon, this would be continued (see next line) ;
+   * with or without semicolon Stata treats line-after-double-slash as continuation (bug) ;
+   * thus cond() get indented correctly for Stata but incorrectly for logic ;
    summ;       des; tabulate bleen; // impossible-to-fix non-highlighting
-
+     cond();
    if this | that {;
       regress should indent;
       }; 
@@ -6387,27 +6392,30 @@ version /* used elsewhere */
       }
    foreach var of varlist thevars {
       }
+   foreach var of varlist *wildcard {
+      }
    foreach makeme of new newvarlist {
       }
    foreach makeme of newlist newvarlist {
+      }
+   foreach var of newvarlist *nogood { // should fail
       }
    foreach number of num somenumlist {
       }
    foreach number of numlist somenumlist {
       }
-   ** this should work, but does not because of starting *
-   **   including varlists is pretty difficult
    foreach var of varlist *date {
       }
+** should work, but has a range
    foreach var of varlist a-b {
       }
-   ** should not work, because emojis cannot start variable names
+** should not work, because emojis cannot start variable names
    foreach var of varlist 😀 {
       }
-   ** should not work, because variable names cannot start with a number
+** should not work, because variable names cannot start with a number
    foreach var of varlist 4rrw {
       }
-   * should work, but regexp classes don't have one for non-symbol unicode
+* should work, love them emojis!
    foreach var of varlist happy😀 {
       }
 
@@ -6471,11 +6479,16 @@ version /* used elsewhere */
    gl fooie
    global fooie
    global `l`fooie''
+   global 😀🕷🐞⚾  // should fail, because first char of global must be alphanumeric
    display $fooie
    display $`bleen' // skip the highlight? 
    lo hmm // should fail, because minabbrev is loc
    loc ``ooie''
    local fooie
+   local 草荔葔
+   local 😀🕷🐞⚾  // for local macros, first symbol can be an emoji
+   local _😀🕷🐞⚾ // OK
+   local r😀🕷🐞⚾334😀🕷🐞⚾ // OK
    tempvar 
    tempvar ding
    tempvar tmp1 foo4
@@ -6787,7 +6800,7 @@ pause "fuggy"
    python
       this is python code
    end
-   
+
    python:
       this is python code
    end
@@ -6803,7 +6816,7 @@ pause "fuggy"
    python sea
    python search
    python which
-   
+
    qui regress
    quietly {
       n describe
@@ -7244,7 +7257,7 @@ pause "fuggy"
    in
    using
    options
-   */
+*/
 
    /* back to things I can handle */
    sysdir
@@ -7460,7 +7473,7 @@ versio 23: howdy // should show as blace for a few years
    ciwidth onevar
    ciwidth onevariance
 
-   
+
    /* end of Stata 15 additions */   
    /* end of the [PSS] manual */
 
@@ -7524,7 +7537,7 @@ versio 23: howdy // should show as blace for a few years
    <<dd_skip_end>>
 
    dyndoc
-   
+
    dyntext
 
    html2docx
@@ -7573,7 +7586,7 @@ versio 23: howdy // should show as blace for a few years
    putpdf paragraph
    putpdf text (...)
    putpdf image
-   
+
    putpdf table
    putpdf append // should fail; not legal
 
@@ -7741,7 +7754,7 @@ versio 23: howdy // should show as blace for a few years
    stphplot
    stcoxkm
    estat phtest
-   
+
    /* stcox postestimation */
    estat con
    estat concor
@@ -7815,7 +7828,7 @@ versio 23: howdy // should show as blace for a few years
 
    /* from the [SVY] survey data manual */
    /* difficult to order, because of the manual */
-   
+
    /* not using the intro for ordering */
    /* estat commands as listed under -estat- */
    estat svyset
@@ -7927,23 +7940,23 @@ versio 23: howdy // should show as blace for a few years
    // Finite mixture models new in Stata 15
    svy: fmm: betareg 
    svy: fmm: cloglog
-	svy: fmm: glm
-	svy: fmm: intreg
-	svy: fmm: ivregress
-	svy: fmm: logit
-	svy: fmm: mlogit
-	svy: fmm: nbreg
-	svy: fmm: ologit
-	svy: fmm: oprobit
-	svy: fmm: pointmass
-	svy: fmm: poisson
-	svy: fmm: probit
-	svy: fmm: regress
-	svy: fmm: streg
-	svy: fmm: tobit
-	svy: fmm: tpoisson
-	svy: fmm: truncreg
-	svy: fmm: // sadly incomplete
+   svy: fmm: glm
+   svy: fmm: intreg
+   svy: fmm: ivregress
+   svy: fmm: logit
+   svy: fmm: mlogit
+   svy: fmm: nbreg
+   svy: fmm: ologit
+   svy: fmm: oprobit
+   svy: fmm: pointmass
+   svy: fmm: poisson
+   svy: fmm: probit
+   svy: fmm: regress
+   svy: fmm: streg
+   svy: fmm: tobit
+   svy: fmm: tpoisson
+   svy: fmm: truncreg
+   svy: fmm: // sadly incomplete
 
 
    /* irt new in Stata 14 */
@@ -7971,15 +7984,15 @@ versio 23: howdy // should show as blace for a few years
    svy jack: // incomplete
    svy       // incomplete
    svy bootstrap: // incomplete
-   
+
 
    svy: tab
    svy: tabul
    svy: tabulate
-   
+
    svydes  // abbreviation undocumented in Stata 16
    svydescribe
-   
+
    svymarkout
    svyset
 
@@ -8026,7 +8039,7 @@ versio 23: howdy // should show as blace for a few years
    arch
 
    arfima
-   
+
    estat acplot
    irf // incomplete 
    psdensity
@@ -8306,7 +8319,7 @@ versio 23: howdy // should show as blace for a few years
    vecnorm
    vecrank
    vecstable
-   
+
    wntestb
 
    wntestq
@@ -8368,7 +8381,7 @@ versio 23: howdy // should show as blace for a few years
    xthaus // obsolete in Stata 9
 
    xtheckman   // new in Stata 16
-   
+
    xthtaylor
 
    xtintreg
@@ -8511,7 +8524,7 @@ versio 23: howdy // should show as blace for a few years
    this has stuff // this is a comment
 * this is a comment, just one that is not recognized
    this should be rarer ///
-     * heirmj (but it falsely highlights as a comment)
+* heirmj (but it falsely highlights as a comment)
 
    /* macro highlighting problem */
 
@@ -8529,7 +8542,7 @@ versio 23: howdy // should show as blace for a few years
 
    /* this is a multiliner
    which keeps going
-   */
+*/
 
 *## graph export foo.wmv
 
@@ -8630,7 +8643,7 @@ versio 23: howdy // should show as blace for a few years
      which lasts
      and lasts
 */
-  which continues */ 1 + /*
+     which continues */ 1 + /*
 */ 14 /* on And on */ /2 ///
      + 5 /*
 */ +1 // ending in another comment
@@ -8683,8 +8696,8 @@ versio 23: howdy // should show as blace for a few years
       display "foo is `foo'" // silly display with end comment
       twoway bleen ///
         `foo', legend( /// comment (within continuation) with parens
-        order(1 "confusing") ///
-        ) // hmm
+           order(1 "confusing") ///
+           ) // hmm
       {
          display "bleen"
          display "something for testign blocks"
@@ -8695,7 +8708,7 @@ versio 23: howdy // should show as blace for a few years
    {
       foreach oops of local mistake {
          (here ///
-           is something in parens) ///
+              is something in parens) ///
            which continues
          (here are mismatched braces]
          display "Oh no, no closing brace"
@@ -8707,7 +8720,7 @@ versio 23: howdy // should show as blace for a few years
    slog(this is bad) // should fail
 
    // for testing commands needing a subcommand
-#delimit
+   #delimit
 
    display "{hline}"
 
@@ -8735,14 +8748,35 @@ versio 23: howdy // should show as blace for a few years
 
    local ∑∑∑ "should work"
    local 8∑∑ "should also work"
-   global 8fjel "does not work"
+   global 8fjel "should not work"
    global w∑∑ "should work"
    matrix ∑∑∑ = should not work
    matrix e∑∑ = should work
-
+   // being more careful because Stata allows symbols in variable names
+   `foo"bar'  // should fail plus a " to keep Emacs from highlighting everything 
+   `foo-bar' // dang-why is this a string
+   `foo_bar'
+   `😀🕷🐞⚾'
+   `9草荔葔'
+   `_😀🕷🐞⚾'
+   `[]'
+   `_-%'
+   `≅'  // ≅ is a unicode mathematical symbol, but this is a legal Stata name
+   `_≅' 
+   `_foo'
+   `foo%bar'
+   ``foobar'bar' // not sure what this should be?!
+   `foo(bar')
+   `2'
+   `23gg'
+   `23😀🕷🐞⚾'
+   `9323∑∑∑' // should work, but Stata is sloppy with what it takes
+   `boo%ha'
+   `boo_ha'
 
    The command smcl2do is user-written, so it will not highlight if you do not have
    it installed, but is will highlight otherwise (no easy way to fix efficiently)
+   smcl2do
    // end ignore block
 
    // Buggy behavior with nested smcl 
@@ -8752,6 +8786,17 @@ versio 23: howdy // should show as blace for a few years
    // messy; 
    {synopt:{opt min:abbrev}}
 
+   // a continuation of a cond()
+   cond(a, b, ///
+        cond(c, d, ///
+           cond(e, f)))
+
+
+   // problem with compound quotes and local macros
+   `"this that and the other"' // ok
+   `"this that and `the'"' other  // oops (maybe fixed?)
+   `"`this' that and the `the'other"' // good
+   `"`this' that and the `the' other"' // ok
 
    // rejoin these lines to test sloooooowness from many regexps on one line
    {sf:hi}{sf:hi}{sf:hi}{sf:hi}{sf:hi}{sf:hi}{sf:hi}

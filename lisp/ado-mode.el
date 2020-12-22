@@ -3,7 +3,7 @@
 ;; Copyright (C) 1996-2020 Bill Rising
 
 ;; Author: Bill Rising <brising@alum.mit.edu>
-;; Version: 1.16.1.2
+;; Version: 1.16.1.3
 ;; Keywords: Stata, Mata, ado
 ;; URL: https://github.com/louabill/ado-mode
 ;;
@@ -96,11 +96,11 @@
 
 (unless ado-mode-syntax-table
   (setq ado-mode-syntax-table (make-syntax-table))
-  (modify-syntax-entry ?\\ "." ado-mode-syntax-table) ;nullify escape meaning
+;!!  (modify-syntax-entry ?\\ "." ado-mode-syntax-table) ;nullify escape meaning
+  (modify-syntax-entry ?\\ "\\" ado-mode-syntax-table) ;nullify escape meaning
   (modify-syntax-entry ?\$ "." ado-mode-syntax-table)
-;; commented out, because ' can be used too many places, now.
-;  (modify-syntax-entry ?` "(\'" ado-mode-syntax-table)
-;  (modify-syntax-entry ?\' ")`" ado-mode-syntax-table)
+  (modify-syntax-entry ?` "." ado-mode-syntax-table)
+  (modify-syntax-entry ?\' "." ado-mode-syntax-table)
 ;  (modify-syntax-entry ?/ ". 124b" ado-mode-syntax-table)
   (modify-syntax-entry ?/ ". 14" ado-mode-syntax-table)
   (modify-syntax-entry ?* ". 23n" ado-mode-syntax-table)
@@ -1278,13 +1278,13 @@ An interactive interface to `ado-find-depth'"
 (defun ado-find-depth ()
   "Find the nesting depth of a command. 
 Used for determining how far a command must be indented."
-  (let (depth start ppsexp in-continuation (oddend (ado-line-starts-with-end-comment)))
+  (let (depth ppsexp in-continuation (oddend (ado-line-starts-with-end-comment)))
     (save-excursion
-      ;; look for line starting with a comment
+      ;; going back to start of command in case of being in a comment
 	  (setq in-continuation (ado-beginning-of-command))
-	  (setq ppsexp (parse-partial-sexp 1 (point)))
-	  (setq depth (car ppsexp))
-      (setq start (point))
+	  ;; !! (setq ppsexp (parse-partial-sexp 1 (point)))
+	  ;; !! (setq depth (car ppsexp))
+	  (setq depth 0)
       ;; oddities which might need unindenting
       (when (or oddend
 				(and (not ado-close-under-line-flag) (looking-at "}"))
@@ -1296,12 +1296,14 @@ Used for determining how far a command must be indented."
       ;; words which start blocks
 	  ;; need to be careful, because of program dir, drop, and list
       (setq depth (+ depth (how-many "^[ \t]*\\(input[ \t]+\\|\\(p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)\\([ \t]+d\\(ef\\|efi\\|efin\\|efine\\)\\)?\\)[ \t]+\\|\\(mat\\(a\\|a:\\)\\|\\(pytho\\(n\\|n:\\)\\)\\)[ \t]*$\\)" 1 (point))))
-	  (setq depth (- depth (how-many "^[ \t]*p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+\\(d\\(i\\|ir\\)[ \t]*$\\|\\(\\(l\\|li\\|lis\\|list\\|drop\\)[ \t]+\\)[a-zA-Z_]+\\)" 1 (point))))
-      ;; words which end blocks
-      (setq ppsexp (parse-partial-sexp start (point)))
-      (if (numberp (nth 4 ppsexp))
-		  (list (+ depth (nth 4 ppsexp)) in-continuation)
-		(list depth in-continuation)))))
+      ;; words which end blocks need to be deducted
+	  ;;  plus overcounted 'program's 
+	  (setq depth (- depth (how-many "^[ \t]*p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+\\(d\\(i\\|ir\\)[ \t]*$\\|\\(\\(l\\|li\\|lis\\|list\\|drop\\)[ \t]+\\)[a-zA-Z_]+\\)" 1 (point)))))
+	;; back at original point
+	(save-excursion
+	  (beginning-of-line)
+	  (setq ppsexp (parse-partial-sexp 1 (point)))
+	  (list (+ depth (car ppsexp)) in-continuation))))
 
 (defun ado-indent-region (&optional start end)
   "Indent region correctly."
@@ -1313,10 +1315,11 @@ Used for determining how far a command must be indented."
 	  (setq end (max (point) (mark))))
     (save-excursion
       (goto-char start)
-      ;; Advance to first nonblank line.
       (beginning-of-line)
       (setq endmark (copy-marker end))
-      (while (and (bolp) (not (eobp)) (< (point) endmark))
+;;    (while (and (bolp) (not (eobp)) (< (point) endmark))
+	  (while (< (point) endmark)
+		;; doesn't clean up garbage whitespace lines (for speed in large buffers) 
 		(skip-chars-forward " \t\n")
 		(ado-indent-line)
 		(forward-line 1)))))
@@ -1325,13 +1328,16 @@ Used for determining how far a command must be indented."
   "Indent entire buffer."
   
   (interactive)
+  ;; (message (concat "ado-indent-buffer started: " (current-time-string)))
   (save-excursion
-    (ado-indent-region (point-min) (point-max))))
+    (ado-indent-region (point-min) (point-max)))
+  ;; (message (concat "ado-indent-buffer ended: " (current-time-string)))
+  )
 
 (defun ado-indent-line ()
   "A smart indenter for ado files. 
 Many of the parameters can be customized using '\\[customize-group] ado'."
- 
+
   (interactive)
   (if ado-smart-indent-flag
       (let (indent
@@ -1341,7 +1347,7 @@ Many of the parameters can be customized using '\\[customize-group] ado'."
 			(pos (- (point-max) (point))))
 		(beginning-of-line)
 		(setq beg (point))
-		(cond ((and ado-delimit-indent-flag (looking-at "[ \t]*#d\\(e\\|el\\|eli\\|elim\\|elimi\\|elimit\\)?"))	;#delimits belong at delimit indent
+		(cond ((and ado-delimit-indent-flag (looking-at "[ \t]*#d\\(e\\|el\\|eli\\|elim\\|elimi\\|elimit\\)?[ \t]+\\(;|cr\\)?"))	;#delimits belong at delimit indent; only if complete
 			   (setq indent ado-delimit-indent-column))
 			  ((and ado-comment-indent-flag
 					(or (looking-at "^\\*") (looking-at "^*")))
@@ -1366,6 +1372,24 @@ Many of the parameters can be customized using '\\[customize-group] ado'."
 		  (if (> (- (point-max) pos) (point))
 			  (goto-char (- (point-max) pos))))
 		shift-amt)))
+
+(defun ado-clean-buffer ()
+  "Turn all whitespace-only lines into empty lines. Keeps blank lines."
+  (interactive)
+  ;; (message (concat "Started ado-clean-buffer: " (current-time-string)))
+  (save-excursion
+	(let (endmark)
+	  (goto-char (point-min))
+	  ;; Advance to first nonblank line.
+	  (beginning-of-line)
+	  (setq endmark (copy-marker (point-max)))
+	;;    (while (and (bolp) (not (eobp)) (< (point) endmark))
+	  (while (< (point) endmark)
+	  (if (looking-at "^[ \t]*$")
+		  (delete-region (point) (line-end-position)))
+	  (forward-line 1))))
+  (message (concat "Ended ado-clean-buffer: " (current-time-string))))
+
 
 (defun ado-delimit-is-semi-p ()
   "Return t if semicolons delimit commands, otherwise returns nil."
@@ -1695,8 +1719,8 @@ Bound to \\[ado-new-help]"
 				(if ado-signature-prompt-flag
 					(set-ado-signature-file)))
 			(insert-file-contents ado-signature-file)
-		  ;; no signature file
-		  (if (not ado-claim-name)
+		  ;; no signature file (complicated because of past defaults)
+		  (if (or (not ado-claim-name) (string= ado-claim-name "")
 			  (setq ado-claim-name
 					(read-from-minibuffer "Whose name(s) should be used as authors? " user-full-name)))
 		  (insert ado-claim-name)))

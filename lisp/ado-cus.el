@@ -202,7 +202,7 @@ and hence have no .signature file.
 If nil, the user will be prompted when writing the first help file.
 If the user wants to be left alone, set ado-no-signature to non-nil.
 Should be set in each user's .emacs file."
-  :type '(file :must-match t)
+  :type '(choice (const nil) (file :must-match t))
   :group 'ado-help-info)
 
 (defcustom ado-signature-prompt-flag t
@@ -220,7 +220,7 @@ for the whole rest of the world). Defaults to on."
   :type 'boolean
   :group 'ado-help-info)
 
-(defcustom ado-claim-name nil
+(defcustom ado-claim-name ""
   "Name used in the top of old-style (Stata 6 and earlier) help files.
 May be reset using \\[set-ado-claim-name].
 If nil, it will be set when the first help file is written."

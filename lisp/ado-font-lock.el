@@ -5304,7 +5304,7 @@
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face)
 	 '(3 ado-subcommand-face t))
 
-	;; foreach ... of
+	;; foreach ... of, all but varlist
 	(list
 	 (concat
 	  ado-start-cmd-regexp
@@ -5321,10 +5321,32 @@
 		   "loc" "loca" "local"
 		   "new" "newl" "newli" "newlis" "newlist"
 		   "num" "numl" "numli" "numlis" "numlist"
-		   "var" "varl" "varli" "varlis" "varlist"
 		   ) 'words))
 	  "[ \t]+"
 	  ado-stata-name-bound-regexp
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
+	 '(5 ado-variable-name-face))
+
+	;; foreach ... of
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(foreach\\)\\>"
+	  "[ \t]+"
+	  ado-stata-local-name-bound-regexp
+	  "[ \t]+"
+	  "\\<\\(of\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "var" "varl" "varli" "varlis" "varlist"
+		   ) 'words))
+	  "[ \t]+\\("
+	  ado-stata-varlist-start-regexp
+	  "\\)"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t)
