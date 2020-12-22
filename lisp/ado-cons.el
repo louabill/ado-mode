@@ -96,21 +96,29 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 (defconst ado-end-cmd-regexp "\\([ \t]+\\|,\\|;\\|:\\|$\\)"
   "End-of-command regexp to keep things like -regress(- from highlighting.")
 
-(defconst ado-stata-name-regexp "[[:alpha:]_][[:alnum:][:graph:]_]*"
+(defconst ado-stata-name-wipe-bad-chars "[^[:space:][:cntrl:][-^`!-/:-@{-~]"
+  "A attempt to pare out non-allowable characters in Stata names. Not easy")
+
+(defconst ado-stata-name-regexp
+  (concat "[[:alpha:]_]" ado-stata-name-wipe-bad-chars "*")
   "Regexp for uniform highlighting of Stata names, so that future changes will be easier.")
 
 (defconst ado-stata-name-bound-regexp
   (concat "\\(" ado-stata-name-regexp "\\)")
   "Same as \\[ado-stata-name-regexp] but bound within \\( and \\) for highlighting.")
 
-(defconst ado-stata-varlist-start-regexp "[[:alpha:]_*][[:alnum:][:graph:]_]*"
+(defconst ado-stata-varlist-start-regexp
+  (concat "[[:alpha:]_*]" ado-stata-name-wipe-bad-chars "*")
   "Regexp for uniform highlighting of starts of varlists, so that future changes will be easier.")
 
 (defconst ado-stata-name-varlist-start-regexp
   (concat "\\(" ado-stata-varlist-start-regexp "\\)")
   "Same as \\[ado-stata-varlist-start-regexp] but bound within \\( and \\) for highlighting.")
 
-(defconst ado-stata-local-name-regexp "[[:alnum:]_`][[:alnum:][:graph:]_`]*"
+;; (defconst ado-stata-local-name-regexp "[[:alnum:]_`][[:alnum:][:graph:]_`]*"
+;; (defconst ado-stata-local-name-regexp "[[:alnum:]_`][^[:space:][:cntrl:][:punct:]]*"
+(defconst ado-stata-local-name-regexp
+  (concat "\\(?:`\\|" ado-stata-name-wipe-bad-chars "\\)" ado-stata-name-wipe-bad-chars "*")
   "Regexp for highlighting local macros.")
   
 (defconst ado-stata-local-name-bound-regexp
