@@ -80,10 +80,10 @@
 				auto-mode-alist
 			   )))
 
-(defvar ado-font-lock-keywords nil)
+;; This variable is defined in ado-font-lock.el
+;; (defvar ado-font-lock-keywords nil)
 (defvar ado-font-lock-syntactic-keywords nil)
 (defvar ado-extension nil)
-(defvar ado-added-names nil)
 
 ;; abbrev table
 (defvar ado-mode-abbrev-table nil
@@ -1720,7 +1720,7 @@ Bound to \\[ado-new-help]"
 					(set-ado-signature-file)))
 			(insert-file-contents ado-signature-file)
 		  ;; no signature file (complicated because of past defaults)
-		  (if (or (not ado-claim-name) (string= ado-claim-name "")
+		  (if (or (not ado-claim-name) (string= ado-claim-name ""))
 			  (setq ado-claim-name
 					(read-from-minibuffer "Whose name(s) should be used as authors? " user-full-name)))
 		  (insert ado-claim-name)))

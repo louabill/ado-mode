@@ -47,8 +47,7 @@ If WHAT-CODE is
 As of yet, only -2, -1, and 0 actually are implemented."
   (interactive)
   (let ((mark-even-if-inactive nil)
-		(select-enable-clipboard t)
-		)
+		(select-enable-clipboard t))
 	(if (and mark-active t
 			 (not (= (region-beginning) (region-end))))
 		(buffer-substring-no-properties (region-beginning) (region-end))
@@ -77,8 +76,7 @@ As of yet, only -2, -1, and 0 actually are implemented."
 			(ado-beginning-of-command)
 			(while (search-forward-regexp ".*:" end-here t))
 			(skip-chars-forward " /t")
-			(word-at-point)
-			)))
+			(word-at-point))))
 	   (t (error "`ado-grab-something': argument must be nil, 0, -1, or -2"))))))
 
 (defun ado-command-to-clip (&optional use-dofile whole-buffer keep-whitespace)
@@ -118,8 +116,7 @@ The whitespace trimming is done by `ado-string-trim'."
 				(setq string-to-fix (ado-convert-semicolons string-to-fix))))
 		(if (ado-delimit-is-semi-p)
 			(setq string-to-fix (concat "#delimit ;
-" string-to-fix)))
-		) ;; testing for command
+" string-to-fix)))) ;; end testing for command
 	  (funcall interprogram-cut-function string-to-fix)))
 
 (defun ado-other-to-clip (&optional where prefix suffix)

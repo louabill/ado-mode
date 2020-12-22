@@ -31,6 +31,8 @@
 ;;   in ado-mode, nothing more, nothing less
 ;; Other functions have been added to allow users to include their
 ;;   own commands in the font locking
+;; Warning: there are many many close-parens on their own lines because
+;;   this speeds up updating immensely
 
 
 ;;; Code:
@@ -38,7 +40,9 @@
 (require 'ado-cus)
 (require 'ado-cons)
 (require 'ado-stata-info)
-;(require 'ado-mode)
+;;(require 'ado-mode)
+(defvar ado-font-lock-keywords nil)
+(defvar ado-added-names nil)
 
 (defun ado-set-font-lock-keywords ()
   "Function for defining highlighting in ‘ado-mode’."
@@ -517,7 +521,9 @@
 		 (regexp-opt
 		  '(
 			"<<dd_di" "<<dd_dis" "<<dd_disp" "<<dd_displ" "<<dd_displa" "<<dd_display"
-			"<<dd_doc" "<<dd_docx" "<<dd_docx_" "<<dd_docx_d" "<<dd_docx_di" "<<dd_docx_dis" "<<dd_docx_disp" "<<dd_docx_displ" "<<dd_docx_displa" "<<dd_docx_display" 
+			"<<dd_doc" "<<dd_docx" "<<dd_docx_" "<<dd_docx_d" "<<dd_docx_di"
+			"<<dd_docx_dis" "<<dd_docx_disp" "<<dd_docx_displ" "<<dd_docx_displa"
+			"<<dd_docx_display" 
 			) t))
 	   "[ \t]*:.*?"
 	   "\\(>>\\)" )
@@ -8574,8 +8580,10 @@
 			"fmtid_set_shrink_to_fit"
 			"fmtid_set_text_indent" "fmtid_set_text_rotate" "fmtid_set_text_wrap" "fmtid_set_top_border"
 			"fmtid_set_vertical_align"
-			"fontid_set_font" "fontid_set_font_bold" "fontid_set_font_italic" "fontid_set_font_script" "fontid_set_font_strikeout" "fontid_set_font_underline"
-			"get_cell_type" "get_colletter" "get_colnum" "get_last_error" "get_last_error_message" "get_number" "get_sheets" "get_string"
+			"fontid_set_font" "fontid_set_font_bold" "fontid_set_font_italic"
+			"fontid_set_font_script" "fontid_set_font_strikeout" "fontid_set_font_underline"
+			"get_cell_type" "get_colletter" "get_colnum" "get_last_error"
+			"get_last_error_message" "get_number" "get_sheets" "get_string"
 			"init"
 			"load_book"
 			"put_formula" "put_number" "put_picture" "put_string"

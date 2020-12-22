@@ -141,15 +141,16 @@ cabin with the creaking screen door."
   :group 'ado-path)
 
 (defcustom ado-confirm-overwrite-flag t
-  "Non-nil turns on confirmation when when overwriting an already-existing file.
-Defaults to on, as this conforms with user interface guidelines."
+  "Non-nil means confirmation is required when when overwriting an already-existing file.
+When nil, overwrites happily and dangerously.
+Defaults to on, to conform with standard user interface guidelines."
   :type 'boolean
   :group 'ado-files
   :group 'ado-essentials)
 
 (defcustom ado-site-template-dir nil
   "The directory where templates are stored.
-If left unset, it will point to the templates which come with ‘ado-mode’.
+When nil, uses the templates which came with ‘ado-mode’.
 Unless you are customizing templates for individual use, this is the best setting."
   :type '(choice (const nil) directory)
   :group 'ado-files
@@ -157,8 +158,8 @@ Unless you are customizing templates for individual use, this is the best settin
 
 (defcustom ado-script-dir nil
   "A directory for holding scripts and executables useful for ‘ado-mode’.
-If left unset, it will point to the scripts directory which comes with
-‘ado-mode’. Unless you plan on moving those scripts, leave unset."
+When nil, uses the script directory which came with ‘ado-mode’
+Unless you plan on moving those scripts, leave as nil."
   :type '(choice (const nil) directory)
   :group 'ado-files
   :group 'ado-essentials)
@@ -170,6 +171,7 @@ Available for customization just to be dangerious, as it should be left alone."
   :group 'ado-files
   :group 'ado-essentials)
 
+;; commented out until better-considered
 ;(defcustom ado-local-label-dir nil
 ;  "A directory of useful value labels for a particular user."
 ;  :type 'directory
@@ -182,13 +184,15 @@ Available for customization just to be dangerious, as it should be left alone."
 ;  :group 'ado-files)
 
 (defcustom ado-label-dir nil
-  "A directory of useful value labels for a particular user."
+  "A directory of useful value labels for a particular user.
+Change to non-nil once you have a place for your label do-files."
   :type '(choice (const nil) directory)
   :group 'ado-files)
 
 (defcustom ado-open-read-only-flag t
-  "Non-nil means files opened from the adopath open as read-only.
-This defaults to t, to be safe, especially for official Stata commands.
+  "Non-nil means files from the adopath get opened as read-only.
+When nil, opens files from the adopath as editable.
+Defaults to t, to be safe, especially for official Stata commands.
 Change to nil to live dangerously."
   :type 'boolean
   :group 'ado-files)
@@ -196,34 +200,32 @@ Change to nil to live dangerously."
 ;; a couple of variables needed for help files.
 (defcustom ado-signature-file nil
   "Signature file to use for help files.
-This ought to be set to your .signature file, but Stata once used the . symbol
-in a special fashion...and many folks don't use unix
-and hence have no .signature file.
-If nil, the user will be prompted when writing the first help file.
-If the user wants to be left alone, set ado-no-signature to non-nil.
+When nil, the user will be prompted when writing the first help file.
+When non-nil, points to a file containing the signature footer for help files.
 Should be set in each user's .emacs file."
   :type '(choice (const nil) (file :must-match t))
   :group 'ado-help-info)
 
 (defcustom ado-signature-prompt-flag t
-  "Non-nil prompts the user for a signature at the bottom of the help files.
-If nil, the user will never be asked, and just the user's
-name will be appended to help files. Defaults to on."
+  "Controls whether the user gets asked for a signature at the bottom of help
+files.
+When nil, only the user's name will be appended to help files.
+When non-nil, prompts the user for a signature at the bottom of the help files.
+Defaults to t."
   :type 'boolean
   :group 'ado-help-info)
 
 (defcustom ado-help-author-flag t
-  "Non-nil includes the author section help files.
-If set to nil there will be no authorship (useful for official
-Stata help), otherwise an Author section will be included (useful
-for the whole rest of the world). Defaults to on."
+  "Non-nil means help files get an author section.
+When nil, help files have no authorship (useful for official Stata help files).
+Defaults to on."
   :type 'boolean
   :group 'ado-help-info)
 
 (defcustom ado-claim-name ""
   "Name used in the top of old-style (Stata 6 and earlier) help files.
 May be reset using \\[set-ado-claim-name].
-If nil, it will be set when the first help file is written."
+When nil, it will be set when the first help file is written."
   :type 'string
   :group 'ado-help-info)
 
@@ -239,59 +241,62 @@ May be changed using ‘ado-toggle-help-extension’."
 ;;  all these are made buffer-local ...
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defcustom ado-smart-indent-flag t
-  "Non-nil turns on smart indenting.
-May be turned off for those who like.
+  "Non-nil means smart indenting gets used to compute the indentation level of each line.
+When nil, indentation must be done manually.
 Default value is on."
   :type 'boolean
   :group 'ado-style)
 
 (defcustom ado-return-also-indents-flag t
-  "Non-nil makes return (enter) act like newline-and-indent.
-Defaults to on, because this is of great utility.
-May be turned off conform with emacs' creators desire to
-use \\C-j for this action."
+  "Non-nil means, return (enter) behaves like newline-and-indent.
+When nil, use ‘TAB’ to indent lines manually.
+Defaults to on."
   :type 'boolean
   :group 'ado-style)
 
 (defcustom ado-do-indent-flag t
-  "Non-nil turns on indenting in do-files.
-If off, there is no indentation of do files at all.
+  "Non-nil means do-files get indented automatically.
+When nil, do-files require manual indenting.
 Defaults to on."
   :type 'boolean
   :group 'ado-style)
 
 (defcustom ado-use-modern-split-flag t
-  "Non-nil uses the /// method for splitting lines.
-Set to nil to use the old-school /* */ method.
+  "Non-nil means /// continuation comments are used for splitting lines.
+When nil, the old-school /* */ method gets used.
 Defaults to on."
   :type 'boolean
   :group 'ado-style)
 
 (defcustom ado-close-under-line-flag t
-  "Non-nil indents closing braces at the level being closed.
-Set to nil to have close braces line up over the following line's
-indentation level.
+  "Non-nil means close braces are indented at the level being closed.
+When nil, close braces are indented at the level of the line containing the
+open brace.
 Defaults to being on, even though that is not the in-house Stata style."
   :type 'boolean
   :group 'ado-style)
 
 (defcustom ado-auto-newline-flag nil
-  "Non-nil forces an automatic new line after special characters.
-While the auto newline can be really neat, it can also be a royal pain,
-depending on how often braces are inserted mistakenly.
+  "Non-nil means a new line is inserted automatically after special characters.
+(Mostly: open and close braces.)
+When nil, nothing special happens.
+Can be really neat, it can also be a royal pain, depending on how often braces 
+get inserted mistakenly.
 Defaults to off."
   :type 'boolean
   :group 'ado-style)
 
 (defcustom ado-closing-brace-alone-flag nil
-  "Non-nil forces closing braces to be alone on a line when entered.
-Defaults to off.
-Can be nice, can be annoying."
+  "Non-nil means closing braces are alone on a line when entered.
+When nil, nothing special happens.
+Defaults to off."
   :type 'boolean
   :group 'ado-style)
 
 (defcustom ado-fontify-new-flag t
-  "Non-nil turns on syntax highlighting (aka fontifying) of new files.
+  "Non-nil means new files have syntax highlighting (fontification) turned on.
+When nil, fontification must be done by hand.
+Defaults to on.
 Cannot really see any purpose for this to turned off."
   :type 'boolean
   :group 'ado-style)
@@ -325,17 +330,15 @@ Defaults to 40."
 
 (defcustom ado-line-up-continuations nil
   "Controls whether \\[ado-split-line] respects the variable `ado-continuation-column'.
-If t, the `ado-continuation-column' gets used.
-If nil, splitting a line simply splits the line.
+When nil, splitting a line simply splits the line.
+When non-nil, the `ado-continuation-column' gets used.
 Defaults to off."
   :type 'boolean
   :group 'ado-style)
 
 (defcustom ado-debugging-indent-flag t
-  "Set to non-nil to have special indentation for debugging commands.
-If off, then debugging commands (such as pause or set trace) are
-indented like any others. Otherwise, this forces the them to be indented
-at ado-debugging-indent-column.
+  "Non-nil means debugging commands get indented at `ado-debugging-indent-column'.
+When nil, debugging commands are indented like all other commands.
 Defaults to on."
   :type 'boolean
   :group 'ado-style)
@@ -348,8 +351,8 @@ Defaults to 0."
   :group 'ado-style)
 
 (defcustom ado-delimit-indent-flag t
-  "Non-nil uses special indentation for #delimit commands.
-If off, then #delimit commands are indented like any others.
+  "When non-nil, #delimit commands are indented to the value of `ado-delimit-column'.
+When nil, #delimit gets indented like all other commands.
 Defaults to on."
   :type 'boolean
   :group 'ado-style)
@@ -362,25 +365,27 @@ Defaults to 0."
   :group 'ado-style)
 
 (defcustom ado-comment-indent-flag t
-  "Non-nil makes line-starting comments use `ado-comment-indent-column'.
-If off, then initial comments are indented like any other commands."
+  "Non-nil means line-starting comments use `ado-comment-indent-column'.
+When nil, nothing special happens.
+Defaults to on."
   :type 'boolean
   :group 'ado-style)
 
 (defcustom ado-comment-indent-column 0
-  "Sets the amount by which initial comments are indented.
+  "Sets the amount by which line-starting comments are indented.
 Defaults to 0."
   :type 'integer
   :group 'ado-style)
 
 (defcustom ado-update-timestamp-flag t
-  "Non-nil automatically updates time stamps when files get saved.
-Set to nil to turn off automatic timestamp updating."
+  "Non-nil means the timestamp at the top of a file gets updated on save.
+When nil, the timestamp must be updated manually.
+Defaults to t."
   :type 'boolean
   :group 'ado-style)
 
 (defcustom ado-date-format "%B %-e, %Y @ %H:%M:%S"
-  "Sets the format used when putting a timestamp on a file when saving.
+  "Controls the date format used when autoupdating timestamps.
 Defaults to %B %-e, %Y @ %H:%M:%S, to match versions of
 ‘ado-mode’ before 0.92.0. See \\[describe-function] `format-time-string'
 for help on setting."
@@ -388,14 +393,16 @@ for help on setting."
   :group 'ado-style)
 
 (defcustom ado-lowercase-date-flag nil
-  "Non-nil forces timestamps to be all lowercase.
-Defaults to off."
+  "Non-nil means all months and days in autoupdated timestamps are lowercase.
+When nil, uppercase months and days are allowed.
+Defaults to nil.
+The StataCorp style is to turn this on."
   :type 'boolean
   :group 'ado-style)
 
 (defcustom ado-initials-flag nil
-  "Non-nil inserts your initials to any time stamps.
-\(The initials are set in `ado-initials'.)
+  "Non-nil means your initials get put after the timestamp when autoupdating timestamps.
+When nil, no initials get added.
 Defaults to off."
   :type 'boolean
   :group 'ado-style)
@@ -429,8 +436,9 @@ does not seem to be much of a loss."
   :group 'ado-stata-interaction)
 
 (defcustom ado-comeback-flag nil
-  "Non-nil brings control to Emacs after sending a command to Stata.
-Useful when Emacs' and Stata's windows do not overlap."
+"Non-nil means control returns to Emacs after sending a command.
+When nil, Stata is the active application after sending a command.
+Defaults to nil."
   :type 'boolean
   :group 'ado-stata-interaction)
 
@@ -447,15 +455,16 @@ Defaults to the the typical install location for Stata 15."
   :group 'ado-stata-interaction)
 
 (defcustom ado-version-command ""
-  "The version command you would like at the top of your do-, ado-, mata- and class-files.
-If left unset, it will try to find your version the first time it is needed.
-Must start with version to be useful."
+  "The default version of Stata you want at the top of your Stata-related files.
+If unset (left as \"\"), it will try to find your version the first time it is 
+needed.
+The version command gets put at the top of all do-, ado-, mata- and class-files."
   :type 'string
   :group 'ado-stata-interaction)
 
 (defcustom ado-temp-dofile ""
-  "Set to the name of the do-file you would like to run when sending code to Stata via a do-file.
-If left unset, it will default to feedStata.do"
+  "Set to the name of the do-file run when sending code to Stata via a do-file.
+Defaults to feedStata.do when unset."
   :type 'string
   :group 'ado-stata-interaction)
 
@@ -484,7 +493,8 @@ should only change it temporarily."
   :group 'ado-stata-interaction)
 
 (defcustom ado-strict-match-flag nil
-  "Non-nil forces strict matching when sending code to Stata.
+  "Control whether you want strict matching for sending code to multiple Statas.
+Wheh nil, strict matching is off.
 Set to t if you would like code only sent to Stata(s) which
 match all 3 of ado-stata-instance, ado-stata-version, and
 ado-stata-flavor. By default this is set to nil, so that if there
@@ -494,7 +504,8 @@ are immaterial."
   :group 'ado-stata-interaction)
 
 (defcustom ado-send-to-all-flag nil
-  "Non-nil allows very loose matching when sending code to Stata.
+  "Control whether you can use loose matching when sending code to multiple Statas.
+When nil, send to all Statas.
 Set to t if you would like code sent to all running
 Statas whenever you send code to run. If set to nil, ado-mode
 will try to match your criteria (instance, version, and flavor)
@@ -504,12 +515,11 @@ unique. If there are multiple best matches, you will get an error."
   :group 'ado-stata-interaction)
 
 (defcustom ado-before-save-file-hook 'ado-before-save-file
-  "Set to the file hook you would like to use before saving files.
+  "The file hook function you would like to use before saving files.
 Defaults to \\[ado-before-save-file], which behaves like the
 now-deprecated \\[ado-save-program]. The utility of this hook is
 to allow OS-standard save shortcuts to work properly."
-  :type 'hook
-  )
+  :type 'hook)
 
 (provide 'ado-cus)
 
