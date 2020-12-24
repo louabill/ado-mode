@@ -29,48 +29,64 @@
 ;;   In MS Windows, this is done via the autoit executable send2stata.exe 
 ;;   In *nix, via the send2ztata bash script
 
+;;; Code:
+
 (require 'ado-cus)
 (require 'ado-cons)
 (require 'ado-clip)
 
 (defun ado-send-command-to-stata (&optional whole-buffer)
+  "Send current command to Stata.
+If optional argument WHOLE-BUFFER is non-nil, send the whole buffer.
+
+This uses the default method for sending code."
   (interactive)
   (ado-command-to-clip ado-submit-default whole-buffer)
   (ado-send-clip-to-stata ado-submit-default ado-comeback-flag))
 
 (defun ado-send-command-to-command (&optional whole-buffer)
+  "Send current command to Stata via the Command window.
+If optional argument WHOLE-BUFFER is non-nil, send the whole buffer."
   (interactive)
   (ado-command-to-clip "command" whole-buffer)
   (ado-send-clip-to-stata "command" ado-comeback-flag))
 
 (defun ado-send-command-to-menu (&optional whole-buffer)
+  "Send current command to Stata via a menu item.
+If optional argument WHOLE-BUFFER is non-nil, send the whole buffer."
   (interactive)
   (ado-command-to-clip "menu" whole-buffer)
   (ado-send-clip-to-stata "menu" ado-comeback-flag))
 
 (defun ado-send-command-to-dofile (&optional whole-buffer)
+  "Send current command to Stata via a do-file.
+If optional argument WHOLE-BUFFER is non-nil, send the whole buffer."
   (interactive)
   (ado-command-to-clip "dofile" whole-buffer)
   (ado-send-clip-to-stata "dofile" ado-comeback-flag))
 
 (defun ado-send-command-to-include (&optional whole-buffer)
+  "Send current command to Stata via an include file.
+If optional argument WHOLE-BUFFER is non-nil, send the whole buffer.
+
+Using an include file helps with local macros."
   (interactive)
   (ado-command-to-clip "include" whole-buffer)
   (ado-send-clip-to-stata "include" ado-comeback-flag))
 
 (defun ado-send-clip-to-stata (&optional dothis comeback)
-  "Sends the clipboard to Stata to be evaluated. This command 
+  "Send the clipboard to Stata to be evaluated. This command 
 is meant to be called by one of the wrappers determining 
 the behavior of the flags...
 
 There are two optional arguments:
-  dothis: \"command\" for using the commmand window
+  DOTHIS: \"command\" for using the commmand window
           \"menu\"   for using a menu item
           \"dofile\" for using a tmp do-file
           \"include\" for using a tmp do-file as an include
                           (allowing current local macros to work)
 
-  comeback: if nil, stay in Stata after submitting command; t to come
+  COMEBACK: if nil, stay in Stata after submitting command; t to come
             back to emacs.
 
   A third optional argument may appear in the future:
@@ -138,9 +154,10 @@ send2stata.scpt is stored. "
 	(message "selection sent to Stata"))))
 
 (defun ado-send2stata-name (send2stata-name)
-  "For finding the send2stata script/executable name. Needed because 
-if the `ado-script-dir' is set incorrectly, but is still a directory, 
-Windows does not return an error when the executable cannot run.
+  "Find the send2stata script/executable name as given by SEND2STATA-NAME. 
+
+Needed because if the `ado-script-dir' is set incorrectly, but is still a 
+directory, Windows does not return an error when the executable cannot run.
 Returns the fully qualified file name or errors out if the file is not found."
   (let ((return-me (locate-file send2stata-name (list (ado-check-a-directory 'ado-script-dir)))))
 	(if return-me
@@ -149,7 +166,9 @@ Returns the fully qualified file name or errors out if the file is not found."
 	  )))
 
 (defun ado-check-a-directory (a-dir-name)
-  "First checks to see if the directory contained in a-dir-name is non-nil, 
+  "Validate the directory A-DIR-NAME.
+
+First looks to see if the directory contained in A-DIR-NAME is non-nil, 
 then checks if the contents is a real existing directory. Returns the
 proper directory name if correct, otherwise throws an error."
   (let ((a-dir (eval a-dir-name t)))
@@ -167,8 +186,8 @@ proper directory name if correct, otherwise throws an error."
 ;; of the region should be used.
 
 (defun ado-stata-help (&optional at-point)
-  "Tries to ask Stata help for the command in the current line, or if 
-the optional at-point argument is non-nil, at point."
+  "Open Stata help for the command at the current line.
+If the optional argument AT-POINT is non-nil, open help for the command at point."
   (interactive)
   (if at-point
 	  (ado-help-at-point-to-clip)
@@ -176,18 +195,21 @@ the optional at-point argument is non-nil, at point."
   (ado-send-clip-to-stata ado-submit-default))
 
 (defun ado-help-at-point ()
+  "Open Stata help for the command at point."
   (interactive)
   (ado-stata-help t))
 
 (defun ado-help-command ()
+  "Open Stataq help for the command at the current line."  
   (interactive)
   (ado-stata-help))
 
 (defun ado-send-buffer-to-stata (&optional as-default)
-  "By default, sends entire buffer to Stata in the way that the 
+  "Send buffer to Stata using a do-file.
+By default, sends entire buffer to Stata in the way that the 
 do-file editor does: If the file has been saved, send a 
-'do whatever' command to the command window, otherwise send a 'do temp file'.
-If as-default is t, just send everything via the default method."
+'do whatever' command to the command window, otherwise send via 'do tmpfile'.
+If AS-DEFAULT is t, just send everything via the default method."
   (interactive)
   (let (dowhat)
 	(if as-default
@@ -204,11 +226,12 @@ If as-default is t, just send everything via the default method."
 	  (ado-send-command-to-stata t))))
 
 (defun ado-input-to-stata ()
-  "Sends a command from the input line!! to Stata. Has the unfortunate side-
-effect of placing the command on the clipboard, at least for now."
+  "Send a command from the minibuffer to Stata.
+Has the unfortunate side-effect of placing the command on the clipboard."
   (interactive)
   (let ((select-enable-clipboard t))
 	(funcall interprogram-cut-function (read-from-minibuffer "Command to run? "))
 	(ado-send-clip-to-stata ado-submit-default ado-comeback-flag)))
 
 (provide 'ado-to-stata)
+;;; ado-to-stata ends here

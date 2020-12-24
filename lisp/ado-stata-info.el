@@ -35,22 +35,29 @@
 (require 'ado-clip)
 
 (defun ado-ask-filename ()
+  "Utility for user input of a filename without any checks."
   (interactive)
   (read-from-minibuffer "What file? "))
 
 (defun ado-open-command ()
+  "Open the ado-file for the current command."
   (interactive)
-  (ado-open-file-on-adopath (ado-grab-something 0))
-  )
+  (ado-open-file-on-adopath (ado-grab-something 0)))
 
 (defun ado-open-any-file ()
+  "Open the ado-file for a user-submitted command name."
   (interactive)
   (ado-open-file-on-adopath (ado-ask-filename)))
 
 (defun ado-reset-adopath ()
-  "(Re)sets the variables `ado-personal-dir', `ado-plus-dir', `ado-site-dir',
-and `ado-oldplace-dir' to their values you would have when starting a Stata
-session, i.e. how they would be set when you begin using Stata."
+  "(Re)set the ado-path related variables.
+This resets `ado-personal-dir', `ado-plus-dir', `ado-site-dir',
+and `ado-oldplace-dir' to the values they would have when starting your Stata
+session, i.e. how they would be set when you begin using Stata.
+
+The emphasis is 'you' because the information is gotten by running a few Stata
+sessions in the background and reading the results of the 'sysdir' macros. 
+Hence, any information in your global profile.do will be used."
   (interactive)
   (ado-reset-personal-dir)
   (ado-reset-plus-dir)
@@ -58,30 +65,31 @@ session, i.e. how they would be set when you begin using Stata."
   (ado-reset-oldplace-dir))
 
 (defun ado-reset-personal-dir ()
-  "Resets the variable `ado-personal-dir' to the initial value of PERSONAL
+  "Reset the variable `ado-personal-dir' to the initial value of PERSONAL
 from a new Stata sesson."
   (interactive)
   (set-variable 'ado-personal-dir (ado-get-filename-from-stata "display" "c(sysdir_personal)")))
 
 (defun ado-reset-plus-dir ()
-  "Resets the variable `ado-plus-dir' to the initial value of PLUS
+  "Reset the variable `ado-plus-dir' to the initial value of PLUS
 from a new Stata sesson."
   (interactive)
   (set-variable 'ado-plus-dir (ado-get-filename-from-stata "display" "c(sysdir_plus)")))
 
 (defun ado-reset-site-dir ()
-  "Resets the variable `ado-site-dir' to the initial value of SITE
+  "Reset the variable `ado-site-dir' to the initial value of SITE
 from a new Stata sesson."
   (interactive)
   (set-variable 'ado-site-dir (ado-get-filename-from-stata "display" "c(sysdir_site)")))
 
 (defun ado-reset-oldplace-dir ()
-  "Resets the variable `ado-oldplace-dir' to the initial value of OLDPLACE
+  "Reset the variable `ado-oldplace-dir' to the initial value of OLDPLACE
 from a new Stata sesson."
   (interactive)
   (set-variable 'ado-oldplace-dir (ado-get-filename-from-stata "display" "c(sysdir_oldplace)")))
 
 (defun ado-find-stata (&optional lookhere)
+  "Locate where Stata was installed, if possible. Otherwise ask for help."
   (interactive)
   (unless lookhere
 	(if ado-stata-home
@@ -97,8 +105,7 @@ from a new Stata sesson."
 			 ((file-directory-p (concat stataDir "Stata.app")) "Stata")
 			 ((file-directory-p (concat stataDir "StataSE.app")) "StataSE")
 			 ((file-directory-p (concat stataDir "StataMP.app")) "StataMP")
-			 (t (error (concat "Could not find any Stata in " lookhere))))
-			)
+			 (t (error (concat "Could not find any Stata in " lookhere)))))
 	  ;; because lots of irritating single parens bother me
 	  (concat 
 	   (file-name-as-directory
@@ -128,28 +135,30 @@ from a new Stata sesson."
 ;; not a great idea to use this for the version because the point of
 ;;   ado-mode is to highlight for a particular version...
 (defun ado-get-stata-version ()
+  "Return the current version of Stata."
   (interactive)
   (let (theVersion)
-;	(condition-case nil
 	  (setq theVersion (ado-get-one-result "version"))
-;	(error nil)
-;	)
 	(if theVersion
 		theVersion
 	  "version !!??")))
 
 (defun ado-reset-version-command ()
+  "Set the variable `ado-version-command' to the current version of Stata."
   (set-variable 'ado-version-command (ado-get-stata-version)))
 
 (defun ado-show-stata ()
+  "Show where ado-mode thinks Stata is installed."
   (interactive)
   (message "%s" (concat "Found: " (ado-find-stata))))
 
 (defun ado-show-tmp-dir ()
+  "Show where Stata's tmpdir is located."
   (interactive)
   (message "%s" (concat "Found: " (ado-system-tmp-dir))))
 
 (defun ado-show-stata-version ()
+  "Show the version of Stata."
   (interactive)
   (message "%s" (concat "Found: " (ado-get-stata-version))))
 
@@ -166,10 +175,14 @@ so it can be `concat'ted directly with a file name."
 	  (file-name-as-directory (getenv "TEMP")))
 	 ((string= system-type "gnu/linux")
 	  (file-name-as-directory "/tmp"))
-	 (t (error "System temp dir not found, somehow")))
-	)
+	 (t (error "System temp dir not found, somehow"))))
 
 (defun ado-get-one-result (theCommand &optional theArgs)
+  "Get the result of THECOMMAND fed to Stata.
+The optional THEARGS argument allows tinkering with Stata's batch-mode
+command-line options.
+
+Needed for getting bits of information about Stata from Stata."
   ;; doesn't work if the result is wrapped; should fix
   (interactive)
   (let ((tmpBuffer " *stata log*")
@@ -179,8 +192,7 @@ so it can be `concat'ted directly with a file name."
 	  (shell-command 
 	   (concat "cd " (ado-system-tmp-dir) " ; " 
 			   (ado-find-stata) " -q -b -e '" theCommand "'"
-			   (if theArgs (concat " '" theArgs "'"))
-	   )))
+			   (if theArgs (concat " '" theArgs "'")))))
 	 ((string= system-type "windows-nt")
 	  (shell-command 
 	   (concat "cd " (ado-system-tmp-dir) " & \"" 
@@ -203,6 +215,7 @@ so it can be `concat'ted directly with a file name."
 	theResult))
 
 (defun ado-get-filename-from-stata (theCommand theArgs)
+  "Get the filename for THECOMMAND using command-line options THEARGS."
   (interactive)
   ;; need to get rid of nasty \'s from windows paths
   (let ((theFile (ado-get-one-result theCommand theArgs)))
@@ -211,13 +224,13 @@ so it can be `concat'ted directly with a file name."
 	theFile))
 
 (defun ado-open-file-on-adopath (filename)
+  "Open a file on Stata's adopath"
   (interactive)
   (unless ado-stata-home
 	(error "You need to set ado-stata-home to open files on the adopath"))
   (let (theFile)
 	(unless (file-name-extension filename)
 	  (setq filename (concat filename ".ado")))
-	; (delete-file tmpLog) ;; left hanging around for checking
 	(setq theFile (ado-get-filename-from-stata "findfile" filename))
 	(unless theFile
 	  (error (concat "File " filename " not found on adopath")))
@@ -225,6 +238,15 @@ so it can be `concat'ted directly with a file name."
 		(find-file-read-only theFile)
 	  (find-file theFile))))
 
-(provide 'ado-stata-info)
+(defun ado-strip-after-newline (string-to-fix)
+  "Take a string and return everything before a newline. 
+Utility command.
+STRiNG-TO-FIX is, well, the string to be fixed."
+  (interactive)
+  (if (string-match "\n.*" string-to-fix) 
+	  (replace-match "" nil nil string-to-fix)
+	string-to-fix))
 
-;; ado-stata-info.el ends here
+
+(provide 'ado-stata-info)
+;;; ado-stata-info.el ends here
