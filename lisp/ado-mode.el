@@ -82,8 +82,8 @@
 
 (unless ado-mode-syntax-table
   (setq ado-mode-syntax-table (make-syntax-table))
-;!!  (modify-syntax-entry ?\\ "." ado-mode-syntax-table) ;nullify escape meaning
-  (modify-syntax-entry ?\\ "\\" ado-mode-syntax-table) ;nullify escape meaning
+; (modify-syntax-entry ?\\ "." ado-mode-syntax-table) ;nullify escape meaning
+  (modify-syntax-entry ?\\ "\\" ado-mode-syntax-table)
   (modify-syntax-entry ?\$ "." ado-mode-syntax-table)
   (modify-syntax-entry ?` "." ado-mode-syntax-table)
   (modify-syntax-entry ?\' "." ado-mode-syntax-table)
@@ -110,258 +110,287 @@
   )
 
 ;;; keymap definitions
-(defvar ado-mode-map (make-sparse-keymap)
-  "Keymap for Ado mode." )
-(define-key ado-mode-map "\t"       'ado-indent-line)
-(define-key ado-mode-map [(meta return)] 'ado-send-command-to-stata)
-(define-key ado-mode-map [(meta control return)] 'ado-send-buffer-to-stata)
-(define-key ado-mode-map [(meta shift return)] 'ado-split-line)
-(define-key ado-mode-map "\C-c\C-a"   'ado-mode)
-(define-key ado-mode-map "\C-c\C-b"   'ado-grab-block)
-(define-key ado-mode-map "\C-c\M-b"   'ado-send-block-to-stata)
-(define-key ado-mode-map "\C-c\C-d"   'ado-new-help)
-(define-key ado-mode-map "\C-c\C-e"   'ado-foreach-loop)
-(define-key ado-mode-map "\C-c\C-f"   'ado-open-any-file)
-(define-key ado-mode-map "\C-c\M-f"   'ado-open-command)
-(define-key ado-mode-map "\C-c\C-h"   'ado-help-at-point)
-(define-key ado-mode-map "\C-c\M-h"   'ado-help-command)
-(define-key ado-mode-map "\C-c\C-i"   'ado-insert-new-program)
-(define-key ado-mode-map "\C-c\C-j"   'ado-strmacify-selection-or-word)
-(define-key ado-mode-map "\C-c\C-l"   'ado-new-label)
-(define-key ado-mode-map "\C-c\C-m"   'ado-macify-selection-or-word)
-(define-key ado-mode-map "\C-c\C-n"   'ado-new-program)
-(define-key ado-mode-map "\C-c\C-o"   'ado-open-any-file)
-(define-key ado-mode-map "\C-c\M-o"   'ado-open-command)
-(define-key ado-mode-map "\C-c\C-s"   'ado-stringify-selection)
-(define-key ado-mode-map "\C-c\C-t"   'ado-input-to-stata)
-(define-key ado-mode-map "\C-c\C-v"   'ado-forvalues-loop)
-(define-key ado-mode-map "\M-a"       'ado-beginning-of-command)
-(define-key ado-mode-map "\M-e"       'ado-end-of-command)
-;;(define-key ado-mode-map "\C-c;"    'comment-region)
-;;(define-key ado-mode-map "\C-c:"    'uncomment-region)
-;; finally not needed anymore!
-;;(define-key ado-mode-map "\C-x\C-s"   'ado-save-program)
-(define-key ado-mode-map "{"          'ado-electric-brace)
-(define-key ado-mode-map "}"          'ado-electric-closing-brace)
-(define-key ado-mode-map ";"          'ado-electric-semi)
+;;;   put in `let' on advice from MELPA
+(defvar ado-mode-map
+  (let ((kmap (make-sparse-keymap)))
+	(define-key kmap "\t"       'ado-indent-line)
+	(define-key kmap [(meta return)] 'ado-send-command-to-stata)
+	(define-key kmap [(meta control return)] 'ado-send-buffer-to-stata)
+	(define-key kmap [(meta shift return)] 'ado-split-line)
+	(define-key kmap "\C-c\C-a"   'ado-mode)
+	(define-key kmap "\C-c\C-b"   'ado-grab-block)
+	(define-key kmap "\C-c\M-b"   'ado-send-block-to-stata)
+	(define-key kmap "\C-c\C-d"   'ado-new-help)
+	(define-key kmap "\C-c\C-e"   'ado-foreach-loop)
+	(define-key kmap "\C-c\C-f"   'ado-open-any-file)
+	(define-key kmap "\C-c\M-f"   'ado-open-command)
+	(define-key kmap "\C-c\C-h"   'ado-help-at-point)
+	(define-key kmap "\C-c\M-h"   'ado-help-command)
+	(define-key kmap "\C-c\C-i"   'ado-insert-new-program)
+	(define-key kmap "\C-c\C-j"   'ado-strmacify-selection-or-word)
+	(define-key kmap "\C-c\C-l"   'ado-new-label)
+	(define-key kmap "\C-c\C-m"   'ado-macify-selection-or-word)
+	(define-key kmap "\C-c\C-n"   'ado-new-program)
+	(define-key kmap "\C-c\C-o"   'ado-open-any-file)
+	(define-key kmap "\C-c\M-o"   'ado-open-command)
+	(define-key kmap "\C-c\C-s"   'ado-stringify-selection)
+	(define-key kmap "\C-c\C-t"   'ado-input-to-stata)
+	(define-key kmap "\C-c\C-v"   'ado-forvalues-loop)
+	(define-key kmap "\M-a"       'ado-beginning-of-command)
+	(define-key kmap "\M-e"       'ado-end-of-command)
+	;;(define-key kmap "\C-c;"    'comment-region)
+	;;(define-key kmap "\C-c:"    'uncomment-region)
+	;; finally not needed anymore!
+	;;(define-key kmap "\C-x\C-s"   'ado-save-program)
+	(define-key kmap "{"          'ado-electric-brace)
+	(define-key kmap "}"          'ado-electric-closing-brace)
+	(define-key kmap ";"          'ado-electric-semi)
 
 ;;; menu bar definitions
-(define-key ado-mode-map [menu-bar] (make-sparse-keymap))
-(define-key ado-mode-map [menu-bar ado]
-  (cons "Ado-mode" (make-sparse-keymap "Ado-mode")))
-(define-key ado-mode-map [menu-bar ado options]
-  (cons "Options" (make-sparse-keymap "options")))
-(define-key ado-mode-map [menu-bar ado l4]
-  '(menu-item "--single-line"))
-(define-key ado-mode-map [menu-bar ado ado-open-command]
-  '("Open command" . ado-open-command))
-(define-key ado-mode-map [menu-bar ado ado-open-any-file]
-  '("Open Stata file" . ado-open-any-file))
-(define-key ado-mode-map [menu-bar ado ado-help-command]
-  '("Help for command" . ado-help-command))
-(define-key ado-mode-map [menu-bar ado ado-help-at-point]
-  '("Help at point" . ado-help-at-point))
-(define-key ado-mode-map [menu-bar ado l3]
-  '(menu-item "--single-line"))
-(define-key ado-mode-map [menu-bar ado indent-buffer]
-  '("Indent Region" . ado-indent-region))
-(define-key ado-mode-map [menu-bar ado indent-buffer]
-  '("Indent Buffer" . ado-indent-buffer))
-(define-key ado-mode-map [menu-bar ado new]
-  (cons "New program" (make-sparse-keymap "new")))
-(define-key ado-mode-map [menu-bar ado l2]
-  '(menu-item "--single-line"))
-;;(define-key ado-mode-map [menu-bar ado uncomment-region]
-;;  '("Uncomment Region" . uncomment-region))
-;;(define-key ado-mode-map [menu-bar ado comment-region]
-;;  '("Comment Out Region" . comment-region))
-(define-key ado-mode-map [menu-bar ado ado-forvalues-loop]
-  '("Forvalues loop" . ado-forvalues-loop))
-(define-key ado-mode-map [menu-bar ado ado-foreach-loop]
-  '("Foreach loop" . ado-foreach-loop))
-(define-key ado-mode-map [menu-bar ado l1]
-  '(menu-item "--single-line"))
-
+	(define-key kmap [menu-bar] (make-sparse-keymap))
+	(define-key kmap [menu-bar ado]
+	  (cons "Ado-mode" (make-sparse-keymap "Ado-mode")))
+	(define-key kmap [menu-bar ado options]
+	  (cons "Options" (make-sparse-keymap "options")))
+	(define-key kmap [menu-bar ado l4]
+	  '(menu-item "--single-line"))
+	(define-key kmap [menu-bar ado ado-open-command]
+	  '("Open command" . ado-open-command))
+	(define-key kmap [menu-bar ado ado-open-any-file]
+	  '("Open Stata file" . ado-open-any-file))
+	(define-key kmap [menu-bar ado ado-help-command]
+	  '("Help for command" . ado-help-command))
+	(define-key kmap [menu-bar ado ado-help-at-point]
+	  '("Help at point" . ado-help-at-point))
+	(define-key kmap [menu-bar ado l3]
+	  '(menu-item "--single-line"))
+	(define-key kmap [menu-bar ado indent-buffer]
+	  '("Indent Region" . ado-indent-region))
+	(define-key kmap [menu-bar ado indent-buffer]
+	  '("Indent Buffer" . ado-indent-buffer))
+	(define-key kmap [menu-bar ado new]
+	  (cons "New program" (make-sparse-keymap "new")))
+	(define-key kmap [menu-bar ado l2]
+	  '(menu-item "--single-line"))
+	;;(define-key kmap [menu-bar ado uncomment-region]
+	;;  '("Uncomment Region" . uncomment-region))
+	;;(define-key kmap [menu-bar ado comment-region]
+	;;  '("Comment Out Region" . comment-region))
+	(define-key kmap [menu-bar ado ado-forvalues-loop]
+	  '("Forvalues loop" . ado-forvalues-loop))
+	(define-key kmap [menu-bar ado ado-foreach-loop]
+	  '("Foreach loop" . ado-foreach-loop))
+	(define-key kmap [menu-bar ado l1]
+	  '(menu-item "--single-line"))
+	
 ;; place for customizations
-(define-key ado-mode-map [menu-bar ado strmacify-word]
-  '("Stringify and Macify Word or Selection" . ado-strmacify-selection-or-word))
-(define-key ado-mode-map [menu-bar ado stringify-selection]
-  '("Stringify Selection" . ado-stringify-selection))
-(define-key ado-mode-map [menu-bar ado macify-word]
-  '("Macify Word or Selection" . ado-macify-selection-or-word))
-(define-key ado-mode-map [menu-bar ado l0]
-  '(menu-item "--single-line"))
-(define-key ado-mode-map [menu-bar ado ado-end-of-command]
-  '("Go to end of command" . ado-end-of-command))
-(define-key ado-mode-map [menu-bar ado ado-beginning-of-command]
-  '("Go to beginning of command" . ado-beginning-of-command))
-(define-key ado-mode-map [menu-bar ado l_1]
-  '(menu-item "--single-line"))
-(define-key ado-mode-map [menu-bar files save-buffer]
-  '("Save buffer" . ado-save-program))
-(define-key ado-mode-map [menu-bar ado save-program]
-  '("Save buffer" . ado-save-program))
-
-
+	(define-key kmap [menu-bar ado strmacify-word]
+	  '("Stringify and Macify Word or Selection" . ado-strmacify-selection-or-word))
+	(define-key kmap [menu-bar ado stringify-selection]
+	  '("Stringify Selection" . ado-stringify-selection))
+	(define-key kmap [menu-bar ado macify-word]
+	  '("Macify Word or Selection" . ado-macify-selection-or-word))
+	(define-key kmap [menu-bar ado l0]
+	  '(menu-item "--single-line"))
+	(define-key kmap [menu-bar ado ado-end-of-command]
+	  '("Go to end of command" . ado-end-of-command))
+	(define-key kmap [menu-bar ado ado-beginning-of-command]
+	  '("Go to beginning of command" . ado-beginning-of-command))
+	(define-key kmap [menu-bar ado l_1]
+	  '(menu-item "--single-line"))
+	(define-key kmap [menu-bar files save-buffer]
+	  '("Save buffer" . ado-save-program))
+	(define-key kmap [menu-bar ado save-program]
+	  '("Save buffer" . ado-save-program))
 
 ;; submenu New
-(define-key ado-mode-map [menu-bar ado new ado-new-label]
-  '("Label file" . ado-new-label))
-(define-key ado-mode-map [menu-bar ado new ado-new-do]
-  '("Do-file" . ado-new-do))
-(define-key ado-mode-map [menu-bar ado new ado-new-help]
-  '("Help file" . ado-new-help))
-(define-key ado-mode-map [menu-bar ado new ado-new-cscript]
-  '("Cert script" . ado-new-cscript))
-(define-key ado-mode-map [menu-bar ado new ado-new-testado]
-  '("New do-file for program testing" . ado-new-testado))
-(define-key ado-mode-map [menu-bar ado new ado-insert-new-program]
-  '("Insert new subprogram" . ado-insert-new-program))
-(define-key ado-mode-map [menu-bar ado new ado-new-program]
-  '("Generic new program" . ado-new-program))
-
-;; submenu Options
+	(define-key kmap [menu-bar ado new ado-new-label]
+	  '("Label file" . ado-new-label))
+	(define-key kmap [menu-bar ado new ado-new-do]
+	  '("Do-file" . ado-new-do))
+	(define-key kmap [menu-bar ado new ado-new-help]
+	  '("Help file" . ado-new-help))
+	(define-key kmap [menu-bar ado new ado-new-cscript]
+	  '("Cert script" . ado-new-cscript))
+	(define-key kmap [menu-bar ado new ado-new-testado]
+	  '("New do-file for program testing" . ado-new-testado))
+	(define-key kmap [menu-bar ado new ado-insert-new-program]
+	  '("Insert new subprogram" . ado-insert-new-program))
+	(define-key kmap [menu-bar ado new ado-new-program]
+	  '("Generic new program" . ado-new-program))
+	
+	;; submenu Options
 ;;; this submenu follows
-(define-key ado-mode-map [menu-bar ado options ado-stata-interaction-menu]
-  (cons "Ado-Stata Interaction" (make-sparse-keymap "ado-data-interaction-menu")))
+	(define-key kmap [menu-bar ado options ado-stata-interaction-menu]
+	  (cons "Ado-Stata Interaction" (make-sparse-keymap "ado-data-interaction-menu")))
 
-(define-key ado-mode-map [menu-bar ado options special-indentation]
-  (cons "Special Indentation" (make-sparse-keymap "special-indentation")))
+	(define-key kmap [menu-bar ado options special-indentation]
+	  (cons "Special Indentation" (make-sparse-keymap "special-indentation")))
 
-(define-key ado-mode-map [menu-bar ado options ado-help-author-toggle]
-  '(menu-item "Include Author section in help files"
-			  (lambda () (interactive) (ado-toggle-flag 'ado-help-author-flag))
-			  :button (:toggle . ado-help-author-flag)))
+	(define-key kmap [menu-bar ado options ado-help-author-toggle]
+	  '(menu-item "Include Author section in help files"
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-help-author-flag))
+				  :button (:toggle . ado-help-author-flag)))
 
-(define-key ado-mode-map [menu-bar ado options ado-comeback-toggle]
-  '(menu-item "Return to Emacs after submission"
-			  (lambda () (interactive) (ado-toggle-flag 'ado-comeback-flag))
-			  :button (:toggle . ado-comeback-flag)))
+	(define-key kmap [menu-bar ado options ado-comeback-toggle]
+	  '(menu-item "Return to Emacs after submission"
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-comeback-flag))
+				  :button (:toggle . ado-comeback-flag)))
 
-(define-key ado-mode-map [menu-bar ado options ado-open-read-only-toggle]
-  '(menu-item "Open files from adopath in read-only mode"
-			  (lambda () (interactive) (ado-toggle-flag 'ado-open-read-only-flag))
-			  :button (:toggle . ado-open-read-only-flag)))
+	(define-key kmap [menu-bar ado options ado-open-read-only-toggle]
+	  '(menu-item "Open files from adopath in read-only mode"
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-open-read-only-flag))
+				  :button (:toggle . ado-open-read-only-flag)))
+	
+	(define-key kmap [menu-bar ado options ado-confirm-overwrite-toggle]
+	  '(menu-item "Confirm File Overwrite"
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-confirm-overwrite-flag))
+				  :button (:toggle . ado-confirm-overwrite-flag)))
 
-(define-key ado-mode-map [menu-bar ado options ado-confirm-overwrite-toggle]
-  '(menu-item "Confirm File Overwrite"
-	      (lambda () (interactive) (ado-toggle-flag 'ado-confirm-overwrite-flag))
-	      :button (:toggle . ado-confirm-overwrite-flag)))
+	(define-key kmap [menu-bar ado options ado-comment-column-change]
+	  '(menu-item "Set Comment Column..." 
+				  (lambda ()
+					(interactive) (ado-change-number 'ado-comment-column 'ask))))
 
-(define-key ado-mode-map [menu-bar ado options ado-comment-column-change]
-  '(menu-item "Set Comment Column..." 
-	      (lambda () (interactive) (ado-change-number 'ado-comment-column 'ask))))
+	(define-key kmap [menu-bar ado options ado-continued-statement-indent-spaces-change]
+	  '(menu-item "Set Continuation Indentation..."
+				  ado-continued-statement-indent-spaces-change))
 
-(define-key ado-mode-map [menu-bar ado options ado-continued-statement-indent-spaces-change]
-  '(menu-item "Set Continuation Indentation..." ado-continued-statement-indent-spaces-change))
+	(define-key kmap [menu-bar ado options ado-tab-width-change]
+	  '(menu-item "Set Tab Width..." ado-tab-width-change))
 
-(define-key ado-mode-map [menu-bar ado options ado-tab-width-change]
-  '(menu-item "Set Tab Width..." ado-tab-width-change))
+	(define-key kmap [menu-bar ado options ado-update-timestamp-toggle]
+	  '(menu-item "Update Timestamps on Save" 
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-update-timestamp-flag))
+				  :button (:toggle . ado-update-timestamp-flag)))
 
-(define-key ado-mode-map [menu-bar ado options ado-update-timestamp-toggle]
-  '(menu-item "Update Timestamps on Save" 
-	      (lambda () (interactive) (ado-toggle-flag 'ado-update-timestamp-flag))
-	      :button (:toggle . ado-update-timestamp-flag)))
+	(define-key kmap [menu-bar ado options ado-fontify-new-toggle]
+	  '(menu-item "Fontify New Ado Files" 
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-fontify-new-flag))
+				  :button (:toggle . ado-fontify-new-flag)))
 
-(define-key ado-mode-map [menu-bar ado options ado-fontify-new-toggle]
-  '(menu-item "Fontify New Ado Files" 
-	      (lambda () (interactive) (ado-toggle-flag 'ado-fontify-new-flag))
-	      :button (:toggle . ado-fontify-new-flag)))
+	(define-key kmap [menu-bar ado options ado-auto-newline-toggle]
+	  '(menu-item "Automatic New Line" 
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-auto-newline-flag))
+				  :button (:toggle . ado-auto-newline-flag)))
 
-(define-key ado-mode-map [menu-bar ado options ado-auto-newline-toggle]
-  '(menu-item "Automatic New Line" 
-	      (lambda () (interactive) (ado-toggle-flag 'ado-auto-newline-flag))
-	      :button (:toggle . ado-auto-newline-flag)))
+	(define-key kmap [menu-bar ado options ado-closing-brace-alone-toggle]
+	  '(menu-item "Closing Brace Alone" 
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-closing-brace-alone-flag))
+				  :button (:toggle . ado-closing-brace-alone-flag)))
 
-(define-key ado-mode-map [menu-bar ado options ado-closing-brace-alone-toggle]
-  '(menu-item "Closing Brace Alone" 
-	      (lambda () (interactive) (ado-toggle-flag 'ado-closing-brace-alone-flag))
-	      :button (:toggle . ado-closing-brace-alone-flag)))
+	(define-key kmap [menu-bar ado options ado-close-under-line-toggle]
+	  '(menu-item "Close Under Line"
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-close-under-line-flag))
+				  :button (:toggle . ado-close-under-line-flag)))
 
-(define-key ado-mode-map [menu-bar ado options ado-close-under-line-toggle]
-  '(menu-item "Close Under Line"
-	      (lambda () (interactive) (ado-toggle-flag 'ado-close-under-line-flag))
-	      :button (:toggle . ado-close-under-line-flag)))
+	(define-key kmap [menu-bar ado options ado-use-modern-split-toggle]
+	  '(menu-item "Use Modern Line-split"
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-use-modern-split-flag))
+				  :button (:toggle . ado-use-modern-split-flag)))
 
-(define-key ado-mode-map [menu-bar ado options ado-use-modern-split-toggle]
-  '(menu-item "Use Modern Line-split"
-	      (lambda () (interactive) (ado-toggle-flag 'ado-use-modern-split-flag))
-	      :button (:toggle . ado-use-modern-split-flag)))
-
-(define-key ado-mode-map [menu-bar ado options ado-do-indent-toggle]
-  '(menu-item "Indent Do Files"
-	      (lambda () (interactive) (ado-toggle-flag 'ado-do-indent-flag))
-	      :button (:toggle . ado-do-indent-flag)))
+	(define-key kmap [menu-bar ado options ado-do-indent-toggle]
+	  '(menu-item "Indent Do Files"
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-do-indent-flag))
+				  :button (:toggle . ado-do-indent-flag)))
 
 ;; needs its own toggling function, because keymaps must be changed.
-(define-key ado-mode-map [menu-bar ado options ado-return-also-indents-toggle]
-  '(menu-item "Return also Indents" ado-return-toggle
-	      :button (:toggle . ado-return-also-indents-flag)))
+	(define-key kmap [menu-bar ado options ado-return-also-indents-toggle]
+	  '(menu-item "Return also Indents" ado-return-toggle
+				  :button (:toggle . ado-return-also-indents-flag)))
 
-(define-key ado-mode-map [menu-bar ado options ado-smart-indent-toggle]
-  '(menu-item "Smart Indent"
-	      (lambda () (interactive) (ado-toggle-flag 'ado-smart-indent-flag))
-	      :button (:toggle . ado-smart-indent-flag)))
-
-;(define-key ado-mode-map [menu-bar ado options div1]
-;  '(menu-item "--shadow-etched-in"))
-;(define-key ado-mode-map [menu-bar ado options title]
-;  '(menu-item "Check or Uncheck"))
-;  '("Toggle smart indent" . ado-smart-indent-toggle))
+	(define-key kmap [menu-bar ado options ado-smart-indent-toggle]
+	  '(menu-item "Smart Indent"
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-smart-indent-flag))
+				  :button (:toggle . ado-smart-indent-flag)))
 
 ;; subsubmenu Options/Special Indent
-(define-key ado-mode-map [menu-bar ado options special-indentation ado-change-comment-indent]
-  '(menu-item "Change comment indent column..." 
-	      (lambda () (interactive) (ado-change-number 'ado-comment-indent-column 'ask))
-	      :enable ado-delimit-indent-flag))
+	(define-key kmap [menu-bar ado options special-indentation ado-change-comment-indent]
+	  '(menu-item "Change comment indent column..." 
+				  (lambda ()
+					(interactive) (ado-change-number 'ado-comment-indent-column 'ask))
+				  :enable ado-delimit-indent-flag))
 
-(define-key ado-mode-map [menu-bar ado options special-indentation ado-comment-indent-flag-toggle]
-  '(menu-item "Comment column indentation" 
-	      (lambda () (interactive) (ado-toggle-flag 'ado-comment-indent-flag))
- 	      :button (:toggle . ado-comment-indent-flag)))
+	(define-key kmap [menu-bar ado options special-indentation ado-comment-indent-flag-toggle]
+	  '(menu-item "Comment column indentation" 
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-comment-indent-flag))
+				  :button (:toggle . ado-comment-indent-flag)))
 
-(define-key ado-mode-map [menu-bar ado options special-indentation ado-change-delimit-indent]
-  '(menu-item "Change #delimit column..." 
-	      (lambda () (interactive) (ado-change-number 'ado-delimit-indent-column 'ask))
-	      :enable ado-delimit-indent-flag))
+	(define-key kmap [menu-bar ado options special-indentation ado-change-delimit-indent]
+	  '(menu-item "Change #delimit column..." 
+				  (lambda ()
+					(interactive) (ado-change-number 'ado-delimit-indent-column 'ask))
+				  :enable ado-delimit-indent-flag))
 
-(define-key ado-mode-map [menu-bar ado options special-indentation ado-delimit-indent-flag-toggle]
-  '(menu-item "#delimit indented differently" 
-	      (lambda () (interactive) (ado-toggle-flag 'ado-delimit-indent-flag))
- 	      :button (:toggle . ado-delimit-indent-flag)))
+	(define-key kmap
+	  [menu-bar ado options special-indentation ado-delimit-indent-flag-toggle]
+	  '(menu-item "#delimit indented differently" 
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-delimit-indent-flag))
+				  :button (:toggle . ado-delimit-indent-flag)))
 
-(define-key ado-mode-map [menu-bar ado options special-indentation ado-change-debugging-indent]
-  '(menu-item "Change debugging column..." 
-	      (lambda () (interactive) (ado-change-number 'ado-debugging-indent-column 'ask))
-	      :enable ado-debugging-indent-flag))
+	(define-key kmap
+	  [menu-bar ado options special-indentation ado-change-debugging-indent]
+	  '(menu-item "Change debugging column..." 
+				  (lambda ()
+					(interactive) (ado-change-number 'ado-debugging-indent-column 'ask))
+				  :enable ado-debugging-indent-flag))
 
-(define-key ado-mode-map [menu-bar ado options special-indentation ado-debugging-indent-flag-toggle]
-  '(menu-item "debugging indented differently" 
-	      (lambda () (interactive) (ado-toggle-flag 'ado-debugging-indent-flag))
- 	      :button (:toggle . ado-debugging-indent-flag)))
+	(define-key kmap
+	  [menu-bar ado options special-indentation ado-debugging-indent-flag-toggle]
+	  '(menu-item "debugging indented differently" 
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-debugging-indent-flag))
+				  :button (:toggle . ado-debugging-indent-flag)))
 
 ;; subsubmenu Options/Special Indent
-(define-key ado-mode-map [menu-bar ado options ado-stata-interaction-menu ado-send-instance-set]
-  '(menu-item "Set Stata instance..."
-			  (lambda () (interactive) (ado-change-number 'ado-stata-instance 'ask))))
+	(define-key kmap
+	  [menu-bar ado options ado-stata-interaction-menu ado-send-instance-set]
+	  '(menu-item "Set Stata instance..."
+				  (lambda ()
+					(interactive) (ado-change-number 'ado-stata-instance 'ask))))
 
-(define-key ado-mode-map [menu-bar ado options ado-stata-interaction-menu ado-send-flavor-set]
-  '(menu-item "Set Stata flavor..."
-			  (lambda () (interactive) (setq ado-stata-flavor (read-from-minibuffer "Change ado-stata-version to (blank for any) ")))))
+	(define-key kmap [menu-bar ado options ado-stata-interaction-menu ado-send-flavor-set]
+	  '(menu-item "Set Stata flavor..."
+				  (lambda ()
+					(interactive)
+					(setq ado-stata-flavor
+						  (read-from-minibuffer "Change ado-stata-version to (blank for any) ")))))
 
-(define-key ado-mode-map [menu-bar ado options ado-stata-interaction-menu ado-send-version-set]
-  '(menu-item "Set Stata version..."
-			  (lambda () (interactive) (setq ado-stata-version (read-from-minibuffer "Change ado-stata-version to (blank for any) ")))))
+	(define-key kmap [menu-bar ado options ado-stata-interaction-menu ado-send-version-set]
+	  '(menu-item "Set Stata version..."
+				  (lambda ()
+					(interactive)
+					(setq ado-stata-version
+						  (read-from-minibuffer "Change ado-stata-version to (blank for any) ")))))
 
-(define-key ado-mode-map [menu-bar ado options ado-stata-interaction-menu ado-send-to-all-toggle]
-  '(menu-item "Send code to all matching Statas"
-			  (lambda () (interactive) (ado-toggle-flag 'ado-send-to-all-flag))
-			  :button (:toggle . ado-send-to-all-flag)))
+	(define-key kmap
+	  [menu-bar ado options ado-stata-interaction-menu ado-send-to-all-toggle]
+	  '(menu-item "Send code to all matching Statas"
+				  (lambda ()
+					(interactive) (ado-toggle-flag 'ado-send-to-all-flag))
+				  :button (:toggle . ado-send-to-all-flag)))
 
-(define-key ado-mode-map [menu-bar ado options ado-stata-interaction-menu ado-strict-match-toggle]
-  '(menu-item "Use strict matching for finding Stata instance"
-			  (lambda () (interactive) (ado-toggle-flag 'ado-strict-match-flag))
-			  :button (:toggle . ado-strict-match-flag)))
+	(define-key kmap
+	  [menu-bar ado options ado-stata-interaction-menu ado-strict-match-toggle]
+	  '(menu-item "Use strict matching for finding Stata instance"
+				  (lambda () (interactive) (ado-toggle-flag 'ado-strict-match-flag))
+				  :button (:toggle . ado-strict-match-flag)))
+	kmap)
+	"Keymap for `ado-mode'." )
 
 
 
@@ -377,7 +406,7 @@ Ado-mode comes with a menu (the Ado-mode menu) which shows most all of the
 variables which are worth changing locally in a buffer. Global customization
 can be done via '\\[customize-group] ado' using Emacs customization
 routines. More suggestions can be found at 
-http://louabill.org/Stata/ado-mode_install.html
+https://louabill.org/Stata/ado-mode_install.html
 
 Here is a short list of the common commands which come with the mode:
 Most helpful things
@@ -450,8 +479,6 @@ Finally, here is the complete keymap for ado-mode:
   ;; indentation and paragraph definitions
   (make-local-variable 'indent-line-function)
   (setq indent-line-function #'ado-indent-line)
-;  (make-local-variable 'indent-region-function)
-;  (setq indent-region-function 'ado-indent-function)
   (make-local-variable 'paragraph-start)
 ;; changed June 26, 2015 to same def as from c-mode
   (setq paragraph-start (concat "[ 	]*\\(//\\|///\\|\\**\\)[ 	]*$\\|^" page-delimiter))
@@ -510,7 +537,6 @@ Finally, here is the complete keymap for ado-mode:
   (ado-set-font-lock-keywords)
   (setq font-lock-defaults '(ado-font-lock-keywords))
   (make-local-variable 'font-lock-syntactic-keywords)
-  ; (ado-set-font-lock-syntactic-keywords)
   ;; make local copy of the extension, and try to guess the extension
   (make-local-variable 'ado-extension)
   (setq ado-extension (ado-find-extension))
@@ -542,7 +568,7 @@ Finally, here is the complete keymap for ado-mode:
   ;;    (ado-indent-buffer))
   (run-mode-hooks 'ado-mode-hook))
 
-; ado-set-return == t -> swap ret and C-j
+;;; ado-set-return == t -> swap ret and C-j
 (defun ado-set-return (state)
   "Sets the states of `C-m' and `C-j'.
 STATE nil: standard Emacs behavior where `C-j' is like `newline-and-indent'.
@@ -588,7 +614,7 @@ i")
 			  (message "%s" (concat "value of " (symbol-name variable) " left unchanged."))
 			  nil)
 		  (set variable (eval newvalue))
-		  (message (format (concat "value of " (symbol-name variable) " set to %d.") (eval variable)))
+		  (message (concat "value of " (symbol-name variable) " set to %d.") (eval variable))
 		  t))
     (set variable (eval newvalue))
     t ))
@@ -765,7 +791,7 @@ CUSBLP specifies a custom template file. When not specified, the template will
 	(if (file-exists-p fullname)
 		(setq keepbuf (y-or-n-p (concat "File " fullname " already exists! Overwrite?"))))
 	(if keepbuf
-		; need progn because of else way far down
+		;; need progn because of else way far down
 		(progn
 		  (if (string= ado-version-command "")
 			  (ado-reset-version-command))
@@ -1504,6 +1530,7 @@ This can be fooled by internal /* */-style commands extending across lines."
 				(search-backward "///" (point-at-bol) t))
 			(progn
 			  (end-of-line)
+			  ;; following used in case of narrowing
 			  (if (not (< (point) (point-max)))
 				  (error "No end of command - moved as far as possible")
 				(forward-char)
@@ -1932,7 +1959,7 @@ loop-inducing commands."
 	;; jump to start of loop if needed
 	(goto-char here)
 	(set-mark there)
-	(unless (not block)
+	(when block
 	  (if (looking-at "[[(]")
 		  (setq there (ado-balance-brace t))
 		(ado-beginning-of-command)
@@ -1949,15 +1976,6 @@ loop-inducing commands."
   (interactive)
   (ado-grab-block)
   (ado-send-command-to-stata))
-
-(defun ado-strip-after-newline (string-to-fix)
-  "Take a string and return everything before a newline. 
-Utility command.
-STRiNG-TO-FIX is, well, the string to be fixed."
-  (interactive)
-  (if (string-match "\n.*" string-to-fix) 
-	  (replace-match "" nil nil string-to-fix)
-	string-to-fix))
 
 (defun ado-skip-special-comments ()
   "Move forward over all *! comments and empty lines from the current line.
@@ -2004,6 +2022,7 @@ formatting details to match the internal StataCorp rules."
 
 ;; these trim functions come from Magnar Sveen via Xah Lee at
 ;; http://ergoemacs.org/emacs/modernization_elisp_lib_problem.html
+;; http is intentional
 (defun ado-string-trim-left (s)
   "Remove whitespace at the beginning of S."
   (if (string-match "\\`[ \t\n\r]+" s)
