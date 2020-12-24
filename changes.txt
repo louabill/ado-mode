@@ -5,8 +5,17 @@ Version History:
 
 * MELPA requested that the syntax tester files not be included in the
   official package, so I split them into another package. If you really want
-  the syntax testers, you can find them !! here. 
+  the syntax testers, you can find them !! here.
 
+* Changed names of three very old functions (the first ones I put into
+  ado-mode) and one relatively new function
+    electric-ado-closing-brace -> ado-electric-closing-brace
+    electric-ado-brace         -> ado-electric-brace
+	electric-ado-semi          -> ado-electric-semi
+	set-ado-signature-file     -> ado-set-ado-signature-file   
+  If you ever wrote any lisp code depending on these (I sure hope not!), then
+  you'll witness the first backward compatibility break for ado-mode.
+  
 * Fixed highlighting problems with local macro names caused by sloppy code
   for allowing emojis in 1.16.1.1.
 
@@ -19,6 +28,11 @@ Version History:
 
 * Changed indenting routing to be able to use extra indentation for
   continuations inside of functions (specifically for extended -cond()-s.
+
+* Many many coding changes requested by MELPA to make the code more modern.
+  None of these should affect features.
+
+* Many many changes to docstrings as requested by MELPA.
 
 1.16.1.2
 
