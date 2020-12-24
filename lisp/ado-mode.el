@@ -65,30 +65,6 @@
 	 (mapcar (lambda(item) (cons (concat "\\." item "\\'") 'ado-mode))
 			 ado-extensions))
   (add-to-list 'auto-mode-alist exten))
-;; (add-to-list auto-mode-alist '("\\.ado\\'" . ado-mode))
-	  
-
-;; 					  '("\\.lbl\\'" . ado-mode)
-;; 					  '("\\.do\\'"  . ado-mode)	;could be a problem
-;; 					  '("\\.hlp\\'" . ado-mode) ; will be a problem for those programming in MS WinWhatever
-;; 					  '("\\.ihlp\\'" . ado-mode)
-;; 					  '("\\.sthlp\\'" . ado-mode) ; Stata's fix for pernicious .hlp files blockage
-;; 					  '("\\.dlg\\'" . ado-mode)
-;; 					  '("\\.smcl\\'" . ado-mode)
-;; 					  '("\\.class\\'" . ado-mode)
-;; 					  '("\\.mata\\'" . ado-mode)
-;; 					  '("\\.ADO\\'" . ado-mode) ; for MS-DOG files
-;; 					  '("\\.LBL\\'" . ado-mode)
-;; 					  '("\\.DLG\\'" . ado-mode)
-;; 					  '("\\.DO\\'"  . ado-mode)
-;; 					  '("\\.HLP\\'" . ado-mode)
-;; 					  '("\\.IHLP\\'" . ado-mode)
-;; 					  '("\\.SMCL\\'" . ado-mode) 
-;; 					  '("\\.STHLP\\'" . ado-mode)
-;; 					  '("\\.CLASS\\'" . ado-mode)
-;; 					  '("\\.MATA\\'" . ado-mode)
-;; 					  )
-;; 				auto-mode-alist)))
 
 ;; This variable is defined in ado-font-lock.el
 ;; (defvar ado-font-lock-keywords nil)
