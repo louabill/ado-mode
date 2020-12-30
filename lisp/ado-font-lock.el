@@ -1,4 +1,4 @@
-;;; ado-font-lock.el --- all the endless font locking -*- lexical-binding: t; -*-
+;;; ado-font-lock.el --- all the endless font locking -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
 
 ;; Copyright (C) 2003--2020 Bill Rising
 
@@ -32,7 +32,7 @@
 ;; Other functions have been added to allow users to include their
 ;;   own commands in the font locking
 ;; Warning: there are many many close-parens on their own lines because
-;;   this speeds up updating immensely
+;;   this speeds up updating immensely (currently ~700 or so).
 
 
 ;;; Code:
@@ -250,7 +250,7 @@
 		   "ess"
 		   "gr" "gru" "grub" "grubi" "grubin"
 		   "ic"
-		   "ppval" "ppvalu" "ppvalue" "ppvalues" 
+		   "ppval" "ppvalu" "ppvalue" "ppvalues"
 		   "summ" "summa" "summar" "summary"
 		   ) 'words))
 	  ado-end-cmd-regexp )
@@ -329,8 +329,8 @@
 		(regexp-opt
 		 '(
 		   "onemean"
-		   "onevar" "onevari" "onevaria" "onevarian" "onevarianc" "onevariance" 
-		   "pairedm" "pairedme" "pairedmea" "pairedmean" "pairedmeans" 
+		   "onevar" "onevari" "onevaria" "onevarian" "onevarianc" "onevariance"
+		   "pairedm" "pairedme" "pairedmea" "pairedmean" "pairedmeans"
 		   "twomeans"
 		   ) 'words))
 	  ado-end-cmd-regexp )
@@ -454,14 +454,14 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '(
-		   "c" "ch" "cha" "char" 
+		   "c" "ch" "cha" "char"
 		   "e" "ec" "ecl" "ecla" "eclas" "eclass"
-		   "f" "fo" "for" "form" "forma" "format" 
-		   "m" "ma" "mat" "matr" "matri" "matrix" 
-		   "o" "ob" "obs" 
+		   "f" "fo" "for" "form" "forma" "format"
+		   "m" "ma" "mat" "matr" "matri" "matrix"
+		   "o" "ob" "obs"
 		   "r" "rc" "rcl" "rcla" "rclas" "rclass"
-		   "sca" "scal" "scala" "scalar" 
-		   "scl" "scla" "sclas" "sclass" 
+		   "sca" "scal" "scala" "scalar"
+		   "scl" "scla" "sclas" "sclass"
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -478,7 +478,7 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '(
-		   "comp" "compa" "compar" "compare" 
+		   "comp" "compa" "compar" "compare"
 		   "drop"
 		   "save"
 		   ) 'words))
@@ -523,7 +523,7 @@
 			"<<dd_di" "<<dd_dis" "<<dd_disp" "<<dd_displ" "<<dd_displa" "<<dd_display"
 			"<<dd_doc" "<<dd_docx" "<<dd_docx_" "<<dd_docx_d" "<<dd_docx_di"
 			"<<dd_docx_dis" "<<dd_docx_disp" "<<dd_docx_displ" "<<dd_docx_displa"
-			"<<dd_docx_display" 
+			"<<dd_docx_display"
 			) t))
 	   "[ \t]*:.*?"
 	   "\\(>>\\)" )
@@ -551,18 +551,18 @@
 			   "alt"
 			   "basepath"
 			   "eps"
-			   "gr" "gra" "grap" "graph" "graphn" "graphna" "graphnam" "graphname" 
-			   "h" "he" "hei" "heig" "heigh" "height" 
+			   "gr" "gra" "grap" "graph" "graphn" "graphna" "graphnam" "graphname"
+			   "h" "he" "hei" "heig" "heigh" "height"
 			   "html"
 			   "markd" "markdo" "markdow" "markdown"
-			   "nourl" "nourle" "nourlen" "nourlenc" "nourlenco" "nourlencod" "nourlencode" 
+			   "nourl" "nourle" "nourlen" "nourlenc" "nourlenco" "nourlencod" "nourlencode"
 			   "path" "patho" "pathon" "pathonl" "pathonly"
 			   "pdf" "png" "ps"
-			   "rel" "rela" "relat" "relati" "relativ" "relative" 
+			   "rel" "rela" "relat" "relati" "relativ" "relative"
 			   "rep" "repl" "repla" "replac" "replace"
-			   "sav" "savi" "savin" "saving" 
+			   "sav" "savi" "savin" "saving"
 			   "svg"
-			   "w" "wi" "wid" "widt" "width" 
+			   "w" "wi" "wid" "widt" "width"
 			   ) 'words))
 		  "+[ \t]*"
 		  "\\(>>\\)"  ;; not sure why this is needed, but it is
@@ -641,7 +641,7 @@
 	  "[ \t]*:[ \t]*.*"
 	  "\\(>>\\)"
 	  )
-	 '(1 ado-builtin-harmless-face t) 
+	 '(1 ado-builtin-harmless-face t)
 	 )
 	
 ;	(list "<<dd_graph.*\\(>>\\)[ \t]*$" '(1 ado-builtin-harmless-face t))
@@ -691,7 +691,7 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '(
-		   "init" "initi" "initia" "initial" "initiali" "initializ" "initialize" 
+		   "init" "initi" "initia" "initial" "initiali" "initializ" "initialize"
 		   "query"
 		   ) 'words))
 	  ado-end-cmd-regexp )
@@ -946,7 +946,7 @@
 		   "lineg" "linega" "linegap"
 		   "lines" "linesi" "linesiz" "linesize"
 		   "locale_functions" "locale_ui"
-		   "maxdb" "maxiter" "max_memory" "max_preservemem" "maxvar" "min_memory" 
+		   "maxdb" "maxiter" "max_memory" "max_preservemem" "maxvar" "min_memory"
 		   "niceness" "notifyuser"
 		   "ob" "obs"
 		   "pa" "pag" "page" "pages" "pagesi" "pagesiz" "pagesize"
@@ -2159,7 +2159,7 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '(
-		   "d" "de" "des" "desc" "descr" "descri" "describ" "describe" 
+		   "d" "de" "des" "desc" "descr" "descri" "describ" "describe"
 		   "dir"
 		   ) 'words))
 	  ado-end-cmd-regexp )
@@ -2845,7 +2845,7 @@
 		 '(
 		   "ac" "acc" "accu" "accum"
 		   "cole" "coleq"
-		   "coljoin" "coljoinb" "coljoinby" "coljoinbyn" "coljoinbyna" "coljoinbynam" "coljoinbyname" 
+		   "coljoin" "coljoinb" "coljoinby" "coljoinbyn" "coljoinbyna" "coljoinbynam" "coljoinbyname"
 		   "coln" "colna" "colnam" "cloname" "colnames"
 		   "def" "defi" "defin" "define"
 		   "dis" "diss" "dissi" "dissim" "dissimi" "dissimil" "dissimila" "dissimilar"
@@ -2854,7 +2854,7 @@
 		   "in" "inp" "inpu" "input"
 		   "opaccum"
 		   "rowe" "roweq"
-		   "rowjoin" "rowjoinb" "rowjoinby" "rowjoinbyn" "rowjoinbyna" "rowjoinbynam" "rowjoinbyname" 
+		   "rowjoin" "rowjoinb" "rowjoinby" "rowjoinbyn" "rowjoinbyna" "rowjoinbynam" "rowjoinbyname"
 		   "rown" "rowna" "rownam" "rowname" "rownames"
 		   "veca" "vecac" "vecacc" "vecaccu" "vecaccum"
 		   ) 'words))
@@ -3200,7 +3200,7 @@
 		 '(
 		   "color"
 		   "line" "linep" "linepa" "linepal" "linepale" "linepalet" "linepalett" "linepalette"
-		   "smcl" "smcls" "smclsy" "smclsym" "smclsymb" "smclsymbo" "smclsymbol" "smclsymbolp" "smclsymbolpa" "smclsymbolpal" "smclsymbolpale" "smclsymbolpalet" "smclsymbolpalett" "smclsymbolpalette" 
+		   "smcl" "smcls" "smclsy" "smclsym" "smclsymb" "smclsymbo" "smclsymbol" "smclsymbolp" "smclsymbolpa" "smclsymbolpal" "smclsymbolpale" "smclsymbolpalet" "smclsymbolpalett" "smclsymbolpalette"
 		   "symbol" "symbolp" "symbolpa" "symbolpal" "symbolpale" "symbolpalet" "symbolpalett" "symbolpalette"
 		   ) 'words))
 	  ado-end-cmd-regexp )
@@ -4693,7 +4693,7 @@
 		   "cmclogit"
 		   "cmdlog" "cmdtool"
 		   "cmmixlogit" "cmmprobit" "cmrologit" "cmroprobit"
-		   "cmsample" "cmset" "cmsummarize" "cmtab" "cmxtmixlogit" 
+		   "cmsample" "cmset" "cmsummarize" "cmtab" "cmxtmixlogit"
 		   "cnsreg" "codebook" "coefpath" "compare"
 		   "cons" "const" "constr" "constra" "constrai" "constrain" "constraint"
 		   "continue"
@@ -4898,7 +4898,7 @@
 		   "varnorm" "varsoc" "varstable" "varwle"
 		   "vec" "veclmar" "vecnorm" "vecrank" "vecstable"
 		   "verinst"
-		   "vers" "versi" "versio" "version" 
+		   "vers" "versi" "versio" "version"
 		   "view" "viewsource" "vwls"
 		   "which" "who" "wntestb" "wntestq"
 		   "xchart" "xcorr"
@@ -4929,7 +4929,7 @@
 	  "[ \t]*,?.*?:[ \t]*"
 	  (eval-when-compile
 		(regexp-opt
-		 '(		   
+		 '(
 		   "betareg" "biprobit"
 		   "churdle" "clogit" "cloglog"
 		   "cmmixlogit" "cmxtmixlogit"
@@ -5489,7 +5489,7 @@
 		   "so" "sor" "sort" "sortpreserve"
 		   "spbalance" "spcompress" "spgenerate"
 		   "split" "splitsample"
-		   "spset" "spshape2dta" 
+		   "spset" "spshape2dta"
 		   "ssave" "ssort" "stack" "statsby"
 		   "stbase" "stfill" "stgen" "stjoin" "stsplit" "sttocc" "sttoct"
 		   "suse" "svmat" "svymarkout" "sysuse"
@@ -6160,7 +6160,7 @@
 		   "dofb" "dofC" "dofc" "dofd" "dofh" "dofm" "dofq" "dofw" "dofy" "dow" "doy"
 		   "dunnettprob"
 		   "e" "el" "epsdouble" "epsfloat"
-		   "exp" "expm1" 
+		   "exp" "expm1"
 		   "exponential" "exponentialden" "exponentialtail"
 		   "F" "Fden" "Ftail"
 		   "fileexists" "fileread" "filereaderror" "filewrite"
@@ -6383,15 +6383,15 @@
 			"bias"
 			"clear"
 			"es" "esi" "esiz" "esize"
-			"funnel" "funnelp" "funnelpl" "funnelplo" "funnelplot" 
-			"labbe" "labbep" "labbepl" "labbeplo" "labbeplot" 
-			"forest" "forestp" "forestpl" "forestplo" "forestplot" 
+			"funnel" "funnelp" "funnelpl" "funnelplo" "funnelplot"
+			"labbe" "labbep" "labbepl" "labbeplo" "labbeplot"
+			"forest" "forestp" "forestpl" "forestplo" "forestplot"
 			"q" "qu" "que" "quer" "query"
-			"reg" "regr" "regre" "regres" "regress" 
+			"reg" "regr" "regre" "regres" "regress"
 			"set"
 			"sum" "summ" "summa" "summar" "summari" "summariz" "summarize"
-			"trim" "trimf" "trimfi" "trimfil" "trimfill" 
-			"up" "upd" "upda" "updat" "update" 
+			"trim" "trimf" "trimfi" "trimfil" "trimfill"
+			"up" "upd" "upda" "updat" "update"
 		 ) 'words))
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -7522,7 +7522,7 @@
 		   "getMaxOrMin"
 		   "getMaxiter"
 		   "getReltol"
-		   "getTechnique" "getTol" "getTrace"		   
+		   "getTechnique" "getTol" "getTrace"
 		   "integrate" "iterations"
 		   "key" "keys"
 		   "nextloc" "nextval" "notfound"
@@ -7539,7 +7539,7 @@
 		   "setMaxOrMin"
 		   "setMaxiter"
 		   "setReltol"
-		   "setTechnique" "setTol" "setTrace"		   
+		   "setTechnique" "setTol" "setTrace"
 		   "val" "value"
 		   ) 'words))
 	  "("
@@ -8856,7 +8856,7 @@
 		   "anova" "anti" "archlm" "aroots"
 		   "bgo" "bgod" "bgodf" "bgodfr" "bgodfre" "bgodfrey"
 		   "boot" "boots" "bootst" "bootstr" "bootstra" "bootstrap"
-		   "bubble" "bubblep" "bubblepl" "bubbleplo" "bubbleplot" 
+		   "bubble" "bubblep" "bubblepl" "bubbleplo" "bubbleplot"
 		   "canontest" "clas" "class" "classfunctions"
 		   "classi" "classif" "classifi" "classific"
 		   "classifica" "classificat" "classificati"
@@ -8886,7 +8886,7 @@
 		   "gin" "ginv" "ginva" "ginvar" "ginvari" "ginvaria" "ginvarian" "ginvariant"
 		   "gof" "gofplot"
 		   "gr" "grdistances"
-		   "grep" "grepo" "grepor" "greport" 
+		   "grep" "grepo" "grepor" "greport"
 		   "grmeans"
 		   "gro" "grou" "group"
 		   "grsummarize"
@@ -8970,7 +8970,7 @@
 			 "rep" "repl" "repla" "replay"
 			 "res" "rest" "resto" "restor" "restore"
 			 "save"
-			 "sel" "sele" "selec" "select" "selecte" "selected" 
+			 "sel" "sele" "selec" "select" "selecte" "selected"
 			 "stat" "stats"
 			 "sto" "stor" "store"
 			 "tab" "tabl" "table"
@@ -9352,12 +9352,12 @@
 		 '(
 		   "clear" "create"
 		   "drop"
-		   "lab" "labe" "label" 
+		   "lab" "labe" "label"
 		   "mod" "modi" "modif" "modify"
 		   "move"
 		   "rebuild"
 		   "set"
-		   "sub" "subs" "subst" "substi" "substit" "substitu" "substitut" "substitute" 
+		   "sub" "subs" "subst" "substi" "substit" "substitu" "substitut" "substitute"
 		   ) 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
@@ -9617,7 +9617,7 @@
 ;;; here are all the added commands for highlighting user-written commands
 
 (defun ado-add-plus ()
-  "Adds/updates highlighting for all ado files in `ado-plus-dir'.
+  "Add/update highlighting for all ado files in `ado-plus-dir'.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately. If `ado-plus-dir' is not set, it gets set using
@@ -9628,7 +9628,7 @@ the function `ado-reset-plus-dir'."
   (ado-modify-font-lock-keywords 'plus (directory-file-name ado-plus-dir) ''ado-plus-harmless-face))
 
 (defun ado-add-personal ()
-  "Adds/updates highlighting for all ado files in `ado-personal-dir'.
+  "Add/update highlighting for all ado files in `ado-personal-dir'.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately. If `ado-personal-dir' is not set, it gets set using
@@ -9639,7 +9639,7 @@ the function `ado-reset-personal-dir'."
   (ado-modify-font-lock-keywords 'personal (directory-file-name ado-personal-dir) ''ado-personal-harmless-face))
 
 (defun ado-add-oldplace ()
-  "Adds/updates highlighting for all ado files in `ado-oldplace-dir'.
+  "Add/update highlighting for all ado files in `ado-oldplace-dir'.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately. If `ado-oldplace-dir' is not set, it gets set using
@@ -9650,7 +9650,7 @@ the function `ado-reset-oldplace-dir'."
   (ado-modify-font-lock-keywords 'oldplace (directory-file-name ado-oldplace-dir) ''ado-oldplace-harmless-face))
 
 (defun ado-add-site ()
-  "Adds/updates highlighting for all ado files in `ado-site-dir'.
+  "Add/update highlighting for all ado files in `ado-site-dir'.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately. If `ado-site-dir' is not set, it gets set using
@@ -9661,7 +9661,7 @@ the function `ado-reset-site-dir'."
   (ado-modify-font-lock-keywords 'site (directory-file-name ado-site-dir) ''ado-site-harmless-face))
 
 (defun ado-remove-personal ()
-  "Removes highlighting for all ado files in `ado-personal-dir'.
+  "Remove highlighting for all ado files in `ado-personal-dir'.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately. If `ado-personal-dir' is not set, it gets set using
@@ -9670,7 +9670,7 @@ the function `ado-reset-personal-dir'."
   (ado-modify-font-lock-keywords 'personal (directory-file-name ado-personal-dir) ''ado-personal-harmless-face t))
 
 (defun ado-remove-plus ()
-  "Removes highlighting for all ado files in `ado-plus-dir'.
+  "Remove highlighting for all ado files in `ado-plus-dir'.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately."
@@ -9678,7 +9678,7 @@ updated appropriately."
   (ado-modify-font-lock-keywords 'plus (directory-file-name ado-plus-dir) ''ado-plus-harmless-face t))
 
 (defun ado-remove-oldplace ()
-  "Removes highlighting for all ado files in `ado-oldplace-dir'.
+  "Remove highlighting for all ado files in `ado-oldplace-dir'.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately."
@@ -9686,7 +9686,7 @@ updated appropriately."
   (ado-modify-font-lock-keywords 'oldplace (directory-file-name ado-oldplace-dir) ''ado-oldplace-harmless-face t))
 
 (defun ado-remove-site ()
-  "Removes highlighting for all ado files in `ado-site-dir'.
+  "Remove highlighting for all ado files in `ado-site-dir'.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately."
@@ -9694,7 +9694,7 @@ updated appropriately."
   (ado-modify-font-lock-keywords 'site (directory-file-name ado-site-dir) ''ado-site-harmless-face t))
 
 (defun ado-modify-font-lock-keywords (name dir face &optional remove subdir extension)
-  "Base function used to add or REMOVE keywords for font locking.
+  "Base function used to add or remove keywords for font locking.
 Gets called by functions adding keywords for all commands in
 a directory, as well as the commands defined in the split
 directories (a, b, c etc.) that Stata loves so well. This
@@ -9703,7 +9703,7 @@ directories, so unless you have some extra directories, you
 don't need this function.
 
 The arguments are
-  NAME:   the internal name ado-mode uses for tracking the changes
+  NAME:   the internal name `ado-mode' uses for tracking the changes
           this must be be a symbol
   DIR:    the directory to look in
   FACE:   the face to use (must be double ''ed)

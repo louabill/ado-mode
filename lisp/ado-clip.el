@@ -1,4 +1,4 @@
-;; ado-clip.el --- for clipboard (pasteboard) manipulation of ado-mode -*- lexical-binding: t; -*-
+;;; ado-clip.el --- for clipboard (pasteboard) manipulation of ado-mode -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
 ;;
 ;; Copyright (C) 2003--2020 Bill Rising
 

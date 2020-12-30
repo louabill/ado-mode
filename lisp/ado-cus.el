@@ -1,4 +1,4 @@
-;;; ado-cus.el --- customization for all things ado-mode -*- lexical-binding: t; -*-
+;;; ado-cus.el --- customization for all things ado-mode -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
 
 ;; Copyright (C) 2003--2020 Bill Rising
 
@@ -24,6 +24,8 @@
 
 ;;
 ;; This file contains all of the customizable things for ado
+;; Warning: there will be `checkdoc' failure for flags whose behavior is
+;;   complicated.
 
 ;;; Code:
 
@@ -141,7 +143,7 @@ cabin with the creaking screen door."
   :group 'ado-path)
 
 (defcustom ado-confirm-overwrite-flag t
-  "Non-nil means confirmation is required when when overwriting an already-existing file.
+  "Non-nil means confirmation is required to overwrite an already-existing file.
 When nil, overwrites happily and dangerously.
 Defaults to on, to conform with standard user interface guidelines."
   :type 'boolean
@@ -207,8 +209,7 @@ Should be set in each user's .emacs file."
   :group 'ado-help-info)
 
 (defcustom ado-signature-prompt-flag t
-  "Controls whether the user gets asked for a signature at the bottom of help
-files.
+  "Controls prompting of the user for a signature at the bottom of help files.
 When nil, only the user's name will be appended to help files.
 When non-nil, prompts the user for a signature at the bottom of the help files.
 Defaults to t."
@@ -241,15 +242,15 @@ May be changed using ‘ado-toggle-help-extension’."
 ;;  all these are made buffer-local ...
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defcustom ado-smart-indent-flag t
-  "Non-nil means smart indenting gets used to compute the indentation level of each line.
+  "Non-nil means smart indenting computes the indentation level of each line.
 When nil, indentation must be done manually.
 Default value is on."
   :type 'boolean
   :group 'ado-style)
 
 (defcustom ado-return-also-indents-flag t
-  "Non-nil means, return (enter) behaves like newline-and-indent.
-When nil, use ‘TAB’ to indent lines manually.
+  "Non-nil means `RET' behaves like `newline-and-indent'.
+When nil, lines must be indented manually using ‘TAB’.
 Defaults to on."
   :type 'boolean
   :group 'ado-style)
@@ -278,9 +279,9 @@ Defaults to being on, even though that is not the in-house Stata style."
 
 (defcustom ado-auto-newline-flag nil
   "Non-nil means a new line is inserted automatically after special characters.
-(Mostly: open and close braces.)
 When nil, nothing special happens.
-Can be really neat, it can also be a royal pain, depending on how often braces 
+This is mostly useful for open and close braces.
+Can be really neat, it can also be a royal pain, depending on how often braces
 get inserted mistakenly.
 Defaults to off."
   :type 'boolean
@@ -401,7 +402,7 @@ The StataCorp style is to turn this on."
   :group 'ado-style)
 
 (defcustom ado-initials-flag nil
-  "Non-nil means your initials get put after the timestamp when autoupdating timestamps.
+  "Non-nil means your initials are added after autoupdated timestamps.
 When nil, no initials get added.
 Defaults to off."
   :type 'boolean
@@ -456,7 +457,7 @@ Defaults to the the typical install location for Stata 15."
 
 (defcustom ado-version-command ""
   "The default version of Stata you want at the top of your Stata-related files.
-If unset (left as \"\"), it will try to find your version the first time it is 
+If unset (left as \"\"), it will try to find your version the first time it is
 needed.
 The version command gets put at the top of all do-, ado-, mata- and class-files."
   :type 'string
@@ -494,17 +495,16 @@ should only change it temporarily."
 
 (defcustom ado-strict-match-flag nil
   "Control whether you want strict matching for sending code to multiple Statas.
-Wheh nil, strict matching is off.
-Set to t if you would like code only sent to Stata(s) which
-match all 3 of ado-stata-instance, ado-stata-version, and
-ado-stata-flavor. By default this is set to nil, so that if there
-is one instance of Stata running, the values of the three filters
-are immaterial."
+When nil, strict matching is off.
+Set to t if you would like code only sent to Stata(s) which match all
+3 of `ado-stata-instance', `ado-stata-version', and `ado-stata-flavor'.
+By default this is set to nil, so that if there is one instance of Stata
+running, the values of the three filters are immaterial."
   :type 'boolean
   :group 'ado-stata-interaction)
 
 (defcustom ado-send-to-all-flag nil
-  "Control whether you can use loose matching when sending code to multiple Statas.
+  "Control loose matching is used when sending code to multiple Statas.
 When nil, send to all Statas.
 Set to t if you would like code sent to all running
 Statas whenever you send code to run. If set to nil, ado-mode

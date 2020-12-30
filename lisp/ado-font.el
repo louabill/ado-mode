@@ -1,4 +1,4 @@
-;;; ado-font.el --- simple definition of font faces -*- lexical-binding: t; -*-
+;;; ado-font.el --- simple definition of font faces -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
 
 ;; Copyright (C) 2003--2020 Bill Rising
 
@@ -87,15 +87,14 @@ This is the default font for OLDPLACE..."
 
 (defface ado-plus-harmful-face
   '((t :inherit ado-builtin-harmful-face :weight bold))
-  "Ado mode face used to highlight harmful commands in PLUS, i.e. 
-stuff downloaded off the net."
+  "Ado mode face used to highlight harmful commands in PLUS."
   :group 'ado-font-lock)
 
 (defvar ado-plus-harmful-face 'ado-plus-harmful-face)
 
 (defface ado-plus-harmless-face
   '((t :inherit ado-builtin-harmless-face :weight bold))
-  "Ado mode face used to highlight harmless commands in PLUS, i.e. 
+  "Ado mode face used to highlight harmless commands in PLUS, i.e.
 stuff downloaded off the net. This is the default look."
   :group 'ado-font-lock)
 
@@ -172,7 +171,7 @@ only on particular platforms"
 
 (defface ado-function-name-face
   '((t :inherit font-lock-function-name-face))
-  "Ado mode face used to highlight functions in ado programs and 
+  "Ado mode face used to highlight functions in ado programs and
 iactions in dialogs"
   :group 'ado-font-lock)
 
@@ -199,7 +198,7 @@ and iactions which work as subcommands for dialogs."
   "Ado mode face used to highlight obsolete commands."
   :group 'ado-font-lock)
 
-(defvar ado-obsolete-face 'ado-obsolete-face) 
+(defvar ado-obsolete-face 'ado-obsolete-face)
 
 (defface ado-mata-keyword-face
   '((t :inherit font-lock-preprocessor-face))

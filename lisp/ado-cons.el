@@ -1,4 +1,6 @@
-;; Copyright (C) 2020 Bill Rising -*- lexical-binding: t; -*-
+;;; ado-cons.el --- Setting constants for `ado-mode' -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
+
+;; Copyright (C) 2020 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
 ;; Homepage: https://github.com/louabill/ado-mode
@@ -26,8 +28,13 @@
 ;;   used in multiple files.
 
 ;;; Code:
-;;; these regexps will still be fooled by line continuations
-;;;   or colons in the middle of a line of text
+;;
+;; Warning: there are many many close-parens on their own lines because
+;;   this speeds up updating immensely
+
+
+;; these regexps will still be fooled by line continuations
+;;   or colons in the middle of a line of text
 (defconst ado-capture-noisily-regexp
   (concat
    (eval-when-compile
@@ -63,8 +70,9 @@
    "\\)"
    "\\(?:[ \t]*:\\)?\\)?"
    )
-  "Miserable regexp for those commands which can be put in front of any other command without any colon.
-Defined so that other command starters can include these more easily. What a pita.")
+  "Regexp for commands which can precede another command without any colon.
+
+Needed so that other command starters can include these more easily. What a pita.")
 
 (defconst ado-start-cmd-regexp
   (concat
@@ -97,26 +105,23 @@ Meant for spurious-higlighting problems which have not been solved yet.")
   "End-of-command regexp to keep things like -regress(- from highlighting.")
 
 (defconst ado-stata-name-wipe-bad-chars "[^[:space:][:cntrl:][-^`!-/:-@{-~]"
-  "A attempt to pare out non-allowable characters in Stata names. Not easy")
+  "A attempt to pare out non-allowable characters in Stata names.")
 
 (defconst ado-stata-name-regexp
   (concat "[[:alpha:]_]" ado-stata-name-wipe-bad-chars "*")
-  "Regexp for uniform highlighting of Stata names, so that future changes
-will be easier.")
+  "Regexp for uniform highlighting of Stata names.")
 
 (defconst ado-stata-name-bound-regexp
   (concat "\\(" ado-stata-name-regexp "\\)")
-  "Same as \\[ado-stata-name-regexp] but bound within \\( and \\) for 
-highlighting.")
+  "Same as `ado-stata-name-regexp' bound within \\( and \\) for highlighting.")
 
 (defconst ado-stata-varlist-start-regexp
   (concat "[[:alpha:]_*]" ado-stata-name-wipe-bad-chars "*")
-  "Regexp for uniform highlighting of starts of varlists, so that future 
-changes will be easier.")
+  "Regexp for uniform highlighting of starts of varlists.")
 
 (defconst ado-stata-name-varlist-start-regexp
   (concat "\\(" ado-stata-varlist-start-regexp "\\)")
-  "Same as \\[ado-stata-varlist-start-regexp] but bound within \\( and \\) 
+  "Same as \\[ado-stata-varlist-start-regexp] but bound within \\( and \\)
 for highlighting.")
 
 ;; (defconst ado-stata-local-name-regexp "[[:alnum:]_`][[:alnum:][:graph:]_`]*"

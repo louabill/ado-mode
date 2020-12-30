@@ -1,10 +1,11 @@
-;;; ado-mode.el --- major mode for editing Stata-related files -*- lexical-binding: t; -*-
+;;; ado-mode.el --- Major mode for editing Stata-related files -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 1996-2020 Bill Rising
 
 ;; Author: Bill Rising <brising@alum.mit.edu>
 ;; Version: 1.16.1.3
-;; Keywords: Stata, Mata, ado
+;; Keywords: tools,languages,files,convenience,Stata, Mata, ado
+;; Package-requires: ((emacs "24.1"))
 ;; URL: https://github.com/louabill/ado-mode
 ;;
 ;; This file is not part of GNU Emacs.
@@ -124,8 +125,8 @@
 	(define-key kmap "\C-c\C-e"   'ado-foreach-loop)
 	(define-key kmap "\C-c\C-f"   'ado-open-any-file)
 	(define-key kmap "\C-c\M-f"   'ado-open-command)
-	(define-key kmap "\C-c\C-h"   'ado-help-at-point)
-	(define-key kmap "\C-c\M-h"   'ado-help-command)
+	(define-key kmap "\C-c\C-k"   'ado-help-at-point)
+	(define-key kmap "\C-c\M-k"   'ado-help-command)
 	(define-key kmap "\C-c\C-i"   'ado-insert-new-program)
 	(define-key kmap "\C-c\C-j"   'ado-strmacify-selection-or-word)
 	(define-key kmap "\C-c\C-l"   'ado-new-label)
@@ -396,7 +397,7 @@
 
 ;; initial mode defintion function
 (defun ado-mode ()
-  "Ado-mode is a major mode for editing files associated with the Stata statistical package.
+  "Major mode for editing files associated with the Stata statistical package.
 
 It can be used to edit ado, do, mata, sthlp, hlp, dlg, and smcl files while
 indenting blocks of code properly, highlighting command names, (most) keywords, 
@@ -448,10 +449,10 @@ Things for special Stata manipulations
 - \\[ado-strmacify-selection-or-word] will turn the current selection or the word containing the point into a local macro enclosed in full string qualification.
 - \\[ado-stringify-selection] will enclose the current selection with full string qualification.
 
-Most all of the commands are accessible from the ado-mode menu.
+Most all of the commands are accessible from the Ado-mode menu.
 
 If you also use ESS (Emacs Speaks Statistics), but you would rather
-use this ado-mode to code Stata, include the following in your .emacs
+use this `ado-mode' to code Stata, include the following in your .emacs
 file:
 
  (setq auto-mode-alist 
@@ -570,7 +571,7 @@ Finally, here is the complete keymap for ado-mode:
 
 ;;; ado-set-return == t -> swap ret and C-j
 (defun ado-set-return (state)
-  "Sets the states of `C-m' and `C-j'.
+  "Set the bindings of `C-m' and `C-j'.
 STATE nil: standard Emacs behavior where `C-j' is like `newline-and-indent'.
 STATE t: better behavior to have `C-m' like `newline-and-indent'."
   (if state
@@ -583,7 +584,7 @@ STATE t: better behavior to have `C-m' like `newline-and-indent'."
 ;;;; all the style-toggles for local resets rather than global
 
 (defun ado-return-toggle ()
-  "Toggle the state of the return key (\\C-m)."
+  "Toggle the state of the `RET' key."
   (interactive)
   (setq ado-return-also-indents-flag (not ado-return-also-indents-flag))
   (ado-set-return ado-return-also-indents-flag))
@@ -620,9 +621,9 @@ i")
     t ))
 
 (defun ado-tab-width-change (&optional new-tab-width)
-  "Change the `tab-width' for the current buffer, and then optionally re-indents the file.
-NEW-TAB-WIDTH is an optional argument; when left nil, the user gets prompted for a
-new value."
+  "Change `tab-width' for the current buffer, optionally re-indent.
+NEW-TAB-WIDTH is an optional argument; when left nil, the user gets prompted
+for a new value."
   (interactive)
   (when (ado-change-number 'tab-width new-tab-width)
     (when (y-or-n-p "Reindent buffer now? ")
@@ -630,7 +631,7 @@ new value."
 	  (ado-indent-buffer))))
 
 (defun ado-continued-statement-indent-spaces-change (&optional spaces)
-  "Change the `tab-width' for the current buffer, and then optionally re-indent the file.
+  "Change the number of spaces for continued commands, and optionally re-indent.
 SPACES, when non-nil, indents using spaces instead of tab characters."
   (interactive)
   (when (ado-change-number 'ado-continued-statement-indent-spaces spaces)
@@ -667,7 +668,7 @@ Stolen from `c-mode' indention."
 					comment-column)))))))	; except leave at least one spaces.
 
 (defun ado-continuation-indent ()
-  "Indents continuation characters to a the \\[ado-continuation-column]. 
+  "Indent continuation characters to `comment-column'. 
 If there is no continuation on the current line, inserts the proper
 continuation characters."
   (interactive)
@@ -706,7 +707,8 @@ continuation characters."
 
 (defun ado-foreach-loop (&optional macname listtype)
   "Insert a foreach loop, after asking for the type of loop to insert.
-The optional first argument MACNAME is the name for the local macro to hold tokens.
+The optional first argument MACNAME is the name for the local macro 
+  to hold tokens.
 The optional second argument LISTTYPE is thethe type of list to be parsed.
 When either is unspecified, the user gets prompted for values."
   (interactive)
@@ -725,7 +727,9 @@ When either is unspecified, the user gets prompted for values."
   (backward-char 2))
 
 (defun ado-forvalues-loop (&optional macname range)
-  "Insert a forvalues loop, after asking for the range to insert."
+  "Insert a forvalues loop, after asking for the range to insert.
+The optional first argument MACNAME holds the local macro name.
+The optional second argument RANGE holds the Stata start/stop-style range."
   (interactive)
   (unless macname
 	(setq macname (read-from-minibuffer "What local macro should hold the tokens? ")))
@@ -876,8 +880,7 @@ Bound to \\[ado-new-ado]"
 (defalias 'ado-new-ado 'ado-new-program)
 
 (defun ado-new-testado (&optional stayput name purpose)
-  "Make a new ado file either in the current or `new' directory, together with
-a do-file for testing.
+  "Make a new ado file together with a do-file for testing.
 The optional arguments STAYPUT, NAME, and PURPOSE get fed to \\[ado-new-generic].
 
 Used interactively, you'll get asked for the name of the file and its purpose,
@@ -947,8 +950,7 @@ Written as a utility, but currently not used anywhere in `ado-mode'"
 (defalias 'ado-save-program #'save-buffer
   "`ado-save-program' is obsolete as a special function.
 Use the proper combination of a before-save-hook and
-\\[save-buffer] to save things nicely."
-)
+\\[save-buffer] to save things nicely.")
 
 (defun ado-before-save-file ()
   "The default `before-save-hook' for `ado-mode'. 
@@ -1119,7 +1121,7 @@ The command works differently depending on the type of file:
 
   all other Stata-related files: These do not need anything within the
     file to match the file name in order to run properly. So... if the
-    file starts with *! in the first line, ado-mode will check
+    file starts with *! in the first line, `ado-mode' will check
     lines starting with *!'s at the top of the program for something
     approaching a filename with the proper extension. If it is found,
     it will be used as the file name."
@@ -1149,9 +1151,9 @@ The command works differently depending on the type of file:
   "Figure out the name of a help file from its contents.
   
 Creates a file name from the contents of a help file, assuming that
-the ado-extension has been set properly. Throws an error if the name cannot be
-determined. This was split from \\[ado-make-file-name] because of big changes
-to help files in Stata 12 (and the initial buggy fix)."
+the `ado-extension' has been set properly. Throws an error if the name cannot 
+be determined. This was split from \\[ado-make-file-name] because of big 
+changes to help files in Stata 12 (and the initial buggy fix)."
   (interactive)
   (let (full-name) ; titlepos syntaxpos (name-start nil))
 	(save-excursion
@@ -1230,7 +1232,7 @@ the program name is missing."
 	    (buffer-substring-no-properties name-start name-end)))))
 
 (defun ado-show-local-name ()
-  "Show the value that would be returned by `ado-find-local-name'"
+  "Show the value that would be returned by `ado-find-local-name'."
   (interactive)
   (message "%s" (concat "The local program is " (ado-find-local-name))))
 
@@ -1278,7 +1280,7 @@ Needed for old-school contintuation comments."
 quite frankly, a dumb name. Left as an alias for backward compatibility.")
 
 (defun ado-start-of-nested-comment (&optional top from-level)
-  "Move to start of nested comment, if necessary
+  "Move to start of nested comment, if necessary.
 
 If inside a nested comment, move to its start. Otherwise, stay put.
 
@@ -1298,7 +1300,7 @@ of the calling command."
 		  (if (search-backward "*/" (point-at-bol) t)
 			  (ado-start-of-nested-comment top))))))
 
-(defun ado-show-depth () "Shows the depth of the command (for indenting).
+(defun ado-show-depth () "Show the depth of the command (for indenting).
 
 An interactive interface to `ado-find-depth'"
   
@@ -1410,7 +1412,7 @@ Many of the parameters can be customized using '\\[customize-group] ado'."
 		shift-amt)))
 
 (defun ado-clean-buffer ()
-  "Turn all whitespace-only lines into empty lines. Keeps blank lines."
+  "Turn all whitespace-only lines into empty lines while keeping blank lines."
   (interactive)
   ;; (message (concat "Started ado-clean-buffer: " (current-time-string)))
   (save-excursion
@@ -1428,7 +1430,7 @@ Many of the parameters can be customized using '\\[customize-group] ado'."
 
 
 (defun ado-delimit-is-semi-p ()
-  "Return t if semicolons delimit commands, otherwise returns nil."
+  "Return t if semicolons delimit commands, otherwise return nil."
   
   (save-excursion
     ;; if #delimit command is on same line, the delimiter is always cr
@@ -1505,8 +1507,7 @@ Returns t if inside of a continued function, nil otherwise."
 			(forward-char 1)))))
 	  ;;    (skip-chars-forward " \t\n")
     (skip-chars-forward skip-chars)
-    in-continuation
-    ))
+    in-continuation))
 
 (defun ado-end-of-command ()
   "Move to the start of the command containg the insertion point is sitting. 
@@ -1564,9 +1565,9 @@ working on regions."
 ;; stolen from c-mode, and changed slightly, since Stata does not use
 ;; braces on separate lines @@
 (defun ado-electric-closing-brace (arg)
-  "Insert closing character, possibly on new line, and correct line's
-indentation.
-ARG is the character being inserted."
+  "Insert closing character and correct line's indentation.
+ARG is the character being inserted.
+Character could be inserted on new line."
   (interactive "P")
   (if (and (not arg)
 		   (eolp)
@@ -1602,7 +1603,7 @@ ARG is the character being inserted."
       (self-insert-command (prefix-numeric-value arg)))))
 
 (defun ado-newline ()
-  "Justify current line before doing a `newline-and-indent'"
+  "Justify current line before doing a `newline-and-indent'."
   (interactive)
   (save-excursion
     (beginning-of-line)
@@ -1665,8 +1666,8 @@ Useful on non-US keyboards, where backticks can be painful to insert."
 	  (if popmark (pop-mark)))))
 
 (defun ado-strmacify-selection-or-word ()
+  "Put current selection inside `' and then add compound double quotes."
   (interactive)
-"Put current selection inside `' and then add compound double quotes."
   (ado-macify-selection-or-word t))
 
 (defun ado-stringify-selection ()
@@ -1681,13 +1682,13 @@ If nothing is selected, inserts a pair of compound double quotes."
 	(insert "`\"\"'")
 	(forward-char -2)))
 
-(defun ado-electric-semi (arg)
+(defun ado-electric-semi (repeat)
   "Put in extra newline if the semi-colon is the end-of-line delimiter.
-!! fix name of argument."
+REPEAT gives the number of newlines to insert."
   (interactive "P")
   (if (ado-delimit-is-semi-p)
-      (ado-electric-brace arg)
-    (self-insert-command (prefix-numeric-value arg))))
+      (ado-electric-brace repeat)
+    (self-insert-command (prefix-numeric-value repeat))))
 
 
 ;;; 1. need some way to highlight ^[ /t]*- lines with one background?
@@ -1726,7 +1727,8 @@ If nothing is selected, inserts a pair of compound double quotes."
 Used interactively, you'll get asked for the name of the file and its purpose,
 and where the file should be saved.
 
-You can change the default mata-file by altering !!
+Used programatically, the optional NAME option can be used for the name of the
+help file.
 
 To get the full benefit of a signature, you need a variable which contains the
 name of the signature file or a .signature file.
