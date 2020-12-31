@@ -844,12 +844,12 @@ Bound to \\[ado-new-do]."
 
 (defun ado-new-mata (&optional stayput name purpose)
   "Make a new mata file either in the current or `new' directory.
-The optional arguments STAYPUT, NAME, and PURPOSE get fed to \\[ado-new-generic].
+The optional arguments STAYPUT, NAME, and PURPOSE get fed to `ado-new-generic'.
 
 Used interactively, you'll get asked for the name of the file and its purpose,
 and where the file should be saved.
 
-You can change the default mata-file by altering !!
+You can change the default mata-file by altering the mata.blp file.
 
 Bound to \\[ado-new-mata]"
   (interactive)

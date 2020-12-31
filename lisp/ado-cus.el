@@ -26,6 +26,8 @@
 ;; This file contains all of the customizable things for ado
 ;; Warning: there will be `checkdoc' failure for flags whose behavior is
 ;;   complicated.
+;; Warning: there will be `checkdoc' failure for the term do-file, which
+;;   is not a lisp symbol name, but is a common Stata term.
 
 ;;; Code:
 

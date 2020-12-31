@@ -35,7 +35,8 @@
 (require 'ado-clip)
 
 (defun ado-ask-filename ()
-  "Utility for user input of a filename without any checks."
+  "Utility for user input of a filename.
+No checking for existence is done."
   (interactive)
   (read-from-minibuffer "What file? "))
 
@@ -56,7 +57,7 @@ and `ado-oldplace-dir' to the values they would have when starting your Stata
 session, i.e. how they would be set when you begin using Stata.
 
 The emphasis is 'you' because the information is gotten by running a few Stata
-sessions in the background and reading the results of the 'sysdir' macros. 
+sessions in the background and reading the results of the 'sysdir' macros.
 Hence, any information in your global profile.do will be used."
   (interactive)
   (ado-reset-personal-dir)
@@ -65,31 +66,33 @@ Hence, any information in your global profile.do will be used."
   (ado-reset-oldplace-dir))
 
 (defun ado-reset-personal-dir ()
-  "Reset the variable `ado-personal-dir' to the initial value of PERSONAL
-from a new Stata sesson."
+  "Reset the variable `ado-personal-dir' to the starting value of PERSONAL.
+The starting value is the value when Stata gets started."
   (interactive)
   (set-variable 'ado-personal-dir (ado-get-filename-from-stata "display" "c(sysdir_personal)")))
 
 (defun ado-reset-plus-dir ()
-  "Reset the variable `ado-plus-dir' to the initial value of PLUS
-from a new Stata sesson."
+  "Reset the variable `ado-plus-dir' to the starting value of PLUS.
+The starting value is the value when Stata gets started."
   (interactive)
   (set-variable 'ado-plus-dir (ado-get-filename-from-stata "display" "c(sysdir_plus)")))
 
 (defun ado-reset-site-dir ()
-  "Reset the variable `ado-site-dir' to the initial value of SITE
-from a new Stata sesson."
+  "Reset the variable `ado-site-dir' to the starting value of SITE.
+The starting value is the value when Stata gets started."
   (interactive)
   (set-variable 'ado-site-dir (ado-get-filename-from-stata "display" "c(sysdir_site)")))
 
 (defun ado-reset-oldplace-dir ()
-  "Reset the variable `ado-oldplace-dir' to the initial value of OLDPLACE
-from a new Stata sesson."
+  "Reset the variable `ado-oldplace-dir' to the starting value of OLDPLACE.
+The starting value is the value when Stata gets started."
   (interactive)
   (set-variable 'ado-oldplace-dir (ado-get-filename-from-stata "display" "c(sysdir_oldplace)")))
 
 (defun ado-find-stata (&optional lookhere)
-  "Locate where Stata was installed, if possible. Otherwise ask for help."
+  "Locate where Stata was installed, if possible. Otherwise ask for help.
+Optional LOOKHERE argument allows specifying a non-standard place to look."
+  
   (interactive)
   (unless lookhere
 	(if ado-stata-home
@@ -98,7 +101,7 @@ from a new Stata sesson."
   (let ((stataDir (file-name-as-directory lookhere))
 		theStata)
 	;; (message (concat "ado-find-stata found a home: " lookhere))
-	(cond 
+	(cond
 	 ((string= system-type "darwin")
 	  (setq theStata
 			(cond
@@ -107,13 +110,13 @@ from a new Stata sesson."
 			 ((file-directory-p (concat stataDir "StataMP.app")) "StataMP")
 			 (t (error (concat "Could not find any Stata in " lookhere)))))
 	  ;; because lots of irritating single parens bother me
-	  (concat 
+	  (concat
 	   (file-name-as-directory
-		(concat 
+		(concat
 		 (file-name-as-directory
-		  (concat 
-		   (file-name-as-directory 
-			(concat stataDir theStata ".app")) 
+		  (concat
+		   (file-name-as-directory
+			(concat stataDir theStata ".app"))
 		   "Contents"))
 		 "MacOS"))
 	   theStata))
@@ -148,7 +151,7 @@ from a new Stata sesson."
   (set-variable 'ado-version-command (ado-get-stata-version)))
 
 (defun ado-show-stata ()
-  "Show where ado-mode thinks Stata is installed."
+  "Show where `ado-mode' thinks Stata is installed."
   (interactive)
   (message "%s" (concat "Found: " (ado-find-stata))))
 
@@ -163,13 +166,13 @@ from a new Stata sesson."
   (message "%s" (concat "Found: " (ado-get-stata-version))))
 
 (defun ado-system-tmp-dir ()
-  "Returns the temporary directory used by the OS for the user.
+  "Return the temporary directory used by the OS for the user.
 This is returned as a true directory name using `file-name-as-directory'
 so it can be `concat'ted directly with a file name."
   (interactive)
-	(cond 
+	(cond
 	 ((string= system-type "darwin")
-	  (ado-strip-after-newline 
+	  (ado-strip-after-newline
 	   (file-name-as-directory (shell-command-to-string "getconf DARWIN_USER_TEMP_DIR"))))
 	 ((string= system-type "windows-nt")
 	  (file-name-as-directory (getenv "TEMP")))
@@ -187,20 +190,20 @@ Needed for getting bits of information about Stata from Stata."
   (interactive)
   (let ((tmpBuffer " *stata log*")
 		theResult tmpLog)
-	(cond 
+	(cond
 	 ((string= system-type "darwin")
-	  (shell-command 
-	   (concat "cd " (ado-system-tmp-dir) " ; " 
+	  (shell-command
+	   (concat "cd " (ado-system-tmp-dir) " ; "
 			   (ado-find-stata) " -q -b -e '" theCommand "'"
 			   (if theArgs (concat " '" theArgs "'")))))
 	 ((string= system-type "windows-nt")
-	  (shell-command 
-	   (concat "cd " (ado-system-tmp-dir) " & \"" 
+	  (shell-command
+	   (concat "cd " (ado-system-tmp-dir) " & \""
 			   (ado-find-stata) "\" /q /e  " theCommand
 			   (if theArgs (concat " \"" theArgs "\"")))))
 	 ((string= system-type "gnu/linux")
-	  (shell-command 
-	   (concat "cd " (ado-system-tmp-dir) " ; " 
+	  (shell-command
+	   (concat "cd " (ado-system-tmp-dir) " ; "
 			   (ado-find-stata) " -q -e '" theCommand "'"
 			   (if theArgs (concat " '" theArgs "'")))))
 	 (t (error (concat "Nothing for " system-type " yet"))))
@@ -224,7 +227,8 @@ Needed for getting bits of information about Stata from Stata."
 	theFile))
 
 (defun ado-open-file-on-adopath (filename)
-  "Open a file on Stata's adopath"
+  "Open a file on Stata's adopath.
+The optional FILENAME argument allows specifying a file name."
   (interactive)
   (unless ado-stata-home
 	(error "You need to set ado-stata-home to open files on the adopath"))
@@ -239,11 +243,10 @@ Needed for getting bits of information about Stata from Stata."
 	  (find-file theFile))))
 
 (defun ado-strip-after-newline (string-to-fix)
-  "Take a string and return everything before a newline. 
-Utility command.
-STRiNG-TO-FIX is, well, the string to be fixed."
+  "Take a string and return everything before a newline.
+STRING-TO-FIX is, well, the string to be fixed."
   (interactive)
-  (if (string-match "\n.*" string-to-fix) 
+  (if (string-match "\n.*" string-to-fix)
 	  (replace-match "" nil nil string-to-fix)
 	string-to-fix))
 

@@ -1,4 +1,4 @@
-;;; ado-to-stata.el --- Passing code to a running Stata from emacs -*- lexical-binding: t; -*-
+;;; ado-to-stata.el --- Passing code to a running Stata from emacs -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
 ;;
 ;; Copyright (C) 2003--2020 Bill Rising
 
@@ -22,11 +22,11 @@
 
 ;;; Commentary:
 
-;; A collection of functions for interacting with Stata 
+;; A collection of functions for interacting with Stata
 ;; This works in macOS and MS Windows for sure. It could be spotty in
 ;;   some *nixes, because of their window managers.
 ;;   In macOS, this is done via the applescript send2stata.scpt
-;;   In MS Windows, this is done via the autoit executable send2stata.exe 
+;;   In MS Windows, this is done via the autoit executable send2stata.exe
 ;;   In *nix, via the send2ztata bash script
 
 ;;; Code:
@@ -75,8 +75,8 @@ Using an include file helps with local macros."
   (ado-send-clip-to-stata "include" ado-comeback-flag))
 
 (defun ado-send-clip-to-stata (&optional dothis comeback)
-  "Send the clipboard to Stata to be evaluated. This command 
-is meant to be called by one of the wrappers determining 
+  "Send the clipboard to Stata to be evaluated.
+This command  is meant to be called by one of the wrappers determining
 the behavior of the flags...
 
 There are two optional arguments:
@@ -95,18 +95,18 @@ There are two optional arguments:
            (not used, just reserved for future use)
 
 By default, you do not need to do any setup. If you play around
-with the scripts and want to call something other than what came with 
-ado-mode, set `ado-script-dir' to point to where your version of 
-send2stata.scpt is stored. "
+with the scripts and want to call something other than what came with
+ado-mode, set `ado-script-dir' to point to where your version of
+send2stata.scpt is stored."
   (interactive)
   (unless dothis (setq dothis ado-submit-default))
   (unless comeback (setq comeback ado-comeback-flag))
   (cond
    ((or (string= dothis "menu") (string= dothis "dofile") (string= dothis "command") (string= dothis "include"))
-	(cond ((string= system-type "darwin") 
+	(cond ((string= system-type "darwin")
 	  ;; the comeback for Mac OS X is handled via a shell command below
 		   (shell-command (concat "osascript '"
-								 (ado-send2stata-name "send2stata.scpt") 
+								 (ado-send2stata-name "send2stata.scpt")
 								 "' \"" dothis "\"")))
 		  ((string= system-type "windows-nt")
 		   ;; autoit can send to non-active windows, so comeback is handled there
@@ -114,10 +114,10 @@ send2stata.scpt is stored. "
 		   (if comeback (setq comeback "t"))
 		   ;;  working via the menu does NOT work with comeback, yet
 		   (if (and comeback (string= dothis "menu"))
-			   (error "cannot comeback to Stata after using a menu in MS Windows"))
+			   (error "Cannot comeback to Stata after using a menu in MS Windows"))
 		   ;; changing to shell-command breaks autoit
-		   (call-process-shell-command 
-			(concat 
+		   (call-process-shell-command
+			(concat
 			 "\""
 			 (ado-send2stata-name "send2stata.exe")
 			 "\" \"" dothis "\" \"" comeback "\""
@@ -139,8 +139,8 @@ send2stata.scpt is stored. "
 						   " -d " dothis
 						   " &"
 						   )))
-		  (t 
-		   (message "%s" (concat "working via " dothis "s not supported yet in " 
+		  (t
+		   (message "%s" (concat "working via " dothis "s not supported yet in "
 								 (symbol-name system-type)
 								 (if (string= dothis "command")
 									 ", but the command is on the clipboard and you can paste it in the command window by hand"))))))
@@ -154,21 +154,20 @@ send2stata.scpt is stored. "
 	(message "selection sent to Stata"))))
 
 (defun ado-send2stata-name (send2stata-name)
-  "Find the send2stata script/executable name as given by SEND2STATA-NAME. 
+  "Find the send2stata script/executable name as given by SEND2STATA-NAME.
 
-Needed because if the `ado-script-dir' is set incorrectly, but is still a 
+Needed because if the `ado-script-dir' is set incorrectly, but is still a
 directory, Windows does not return an error when the executable cannot run.
 Returns the fully qualified file name or errors out if the file is not found."
   (let ((return-me (locate-file send2stata-name (list (ado-check-a-directory 'ado-script-dir)))))
 	(if return-me
 		return-me
-	  (error "%s" (concat "Could not find " send2stata-name ". Did you change ado-script-dir by hand? If you did, try changing its default value back to nil."))
-	  )))
+	  (error "%s" (concat "Could not find " send2stata-name ". Did you change ado-script-dir by hand? If you did, try changing its default value back to nil.")))))
 
 (defun ado-check-a-directory (a-dir-name)
   "Validate the directory A-DIR-NAME.
 
-First looks to see if the directory contained in A-DIR-NAME is non-nil, 
+First looks to see if the directory contained in A-DIR-NAME is non-nil,
 then checks if the contents is a real existing directory. Returns the
 proper directory name if correct, otherwise throws an error."
   (let ((a-dir (eval a-dir-name t)))
@@ -200,14 +199,14 @@ If the optional argument AT-POINT is non-nil, open help for the command at point
   (ado-stata-help t))
 
 (defun ado-help-command ()
-  "Open Stataq help for the command at the current line."  
+  "Open Stataq help for the command at the current line."
   (interactive)
   (ado-stata-help))
 
 (defun ado-send-buffer-to-stata (&optional as-default)
   "Send buffer to Stata using a do-file.
-By default, sends entire buffer to Stata in the way that the 
-do-file editor does: If the file has been saved, send a 
+By default, sends entire buffer to Stata in the way that the
+do-file editor does: If the file has been saved, send a
 'do whatever' command to the command window, otherwise send via 'do tmpfile'.
 If AS-DEFAULT is t, just send everything via the default method."
   (interactive)
