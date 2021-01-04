@@ -3,19 +3,8 @@ Version History:
 
 1.16.1.3
 
-* MELPA requested that the syntax tester files not be included in the
-  official package, so I split them into another package. If you really want
-  the syntax testers, you can find them !! here.
+Feature changes
 
-* Changed names of three very old functions (the first ones I put into
-  ado-mode) and one relatively new function
-    electric-ado-closing-brace -> ado-electric-closing-brace
-    electric-ado-brace         -> ado-electric-brace
-	electric-ado-semi          -> ado-electric-semi
-	set-ado-signature-file     -> ado-set-ado-signature-file   
-  If you ever wrote any lisp code depending on these (I sure hope not!), then
-  you'll witness the first backward compatibility break for ado-mode.
-  
 * Fixed highlighting problems with local macro names caused by sloppy code
   for allowing emojis in 1.16.1.1.
 
@@ -26,13 +15,62 @@ Version History:
 * Added ado-clean-buffer for turning lines with just whitespace into empty
   lines.
 
-* Changed indenting routing to be able to use extra indentation for
-  continuations inside of functions (specifically for extended -cond()-s.
+* Changed indenting to use extra indentation for continuations inside of
+  functions (specifically for extended -cond()-s.
+
+Backward compatibility changes(!)
+
+* Changed default keybindings, because some violated rules found in the
+  Key Binding Conventions in the Emacs Lisp manual
+    ado-help-at-point now defaults to C-c C-k
+	 ado-help-command now defaults to C-c M-k
+  The only reasons for k is that is not yet taken and it kinda looks like an h.
+  
+* Changed names of three very old functions (the first ones I put into
+  ado-mode) and one relatively new function
+    electric-ado-closing-brace -> ado-electric-closing-brace
+    electric-ado-brace         -> ado-electric-brace
+	electric-ado-semi          -> ado-electric-semi
+	set-ado-signature-file     -> ado-set-ado-signature-file   
+  If you ever wrote any lisp code depending on these (I sure hope not!), then
+  you'll witness the first backward compatibility break for ado-mode.
+
+MELPA-requested changes
+  
+* MELPA requested that the syntax tester files not be included in the
+  official package, so I moved them into another package. If you really want
+  the syntax testers, you can find them here:
+  https://github.com/louabill/ado-mode-syntax-checkers
 
 * Many many coding changes requested by MELPA to make the code more modern.
   None of these should affect features.
 
 * Many many changes to docstrings as requested by MELPA.
+
+Git-repo notes
+
+* I put the .elc files into .gitignore, and then removed them from the list
+  of tracked files. (Repos really shouldn't have easily-reproduced files in
+  them, as it bloats the history.) The .elc files were originally included so
+  that people could unzip a file and have ado-mode work quickly without the
+  added instruction to byte-compile the lisp directory. MELPA byte-compiles
+  files when doing installations, so the .elc files have become redundant.
+  NOTE: if you pulled from this repo in the past, from now on, you'll need to
+  byte-compile the lisp directory after pulling:
+    M-x d <path_to_ado-mode>
+	 M-x byte-recompile-directory
+  will do the trick.
+
+* About moving the syntax checkers: I did this in the most primitive way
+  possible, to help with backwards compatibility: I made a new repo, moved
+  the files in the syntax_testers there, and then deleted the syntax_testers
+  directory from this repo. I did _not_ go back and alter the git commits.
+  The syntax testers were there on purpose, not by mistake, but when using a
+  package manager like MELPA, they are out of place. If you want to try your
+  hand at changing ado-mode, you'll want the syntax testers, because they'll
+  give you feedback about constructions that may or may not highlight
+  properly. Stata is not a regular/rational language, so highlighting will
+  always have some problems. 
 
 1.16.1.2
 
