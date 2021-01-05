@@ -1531,8 +1531,8 @@ This can be fooled by internal /* */-style commands extending across lines."
 				(search-backward "///" (point-at-bol) t))
 			(progn
 			  (end-of-line)
-			  ;; following used in case of narrowing
-			  (if (not (< (point) (point-max)))
+			  ;; will error out if narrowed after continuation
+			  (if (eobp)
 				  (error "No end of command - moved as far as possible")
 				(forward-char)
 				(ado-end-of-command)))
@@ -1997,9 +1997,9 @@ from the current line until they run out. Used to find the beginning of
 programs, even those defined in a funky way."
   (interactive)
   (goto-char (point-at-bol))
-  (while (and (< (point) (point-max))
-	(goto-char (point-at-bol))
-	(re-search-forward "^[ \t]*\\([*]\\|$\\|vers\\|versi\\|version\\|\\(ca\\(p\\|pt\\|ptu\\|ptur\\|pture\\)[ \t]+p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+drop\\)\\)" (point-at-eol) t))
+  (while (and (not (eobp))
+			  (goto-char (point-at-bol))
+			  (re-search-forward "^[ \t]*\\([*]\\|$\\|vers\\|versi\\|version\\|\\(ca\\(p\\|pt\\|ptu\\|ptur\\|pture\\)[ \t]+p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+drop\\)\\)" (point-at-eol) t))
 	(forward-line)))
 
 (defun ado-set-window-width (n)

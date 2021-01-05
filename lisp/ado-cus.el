@@ -27,7 +27,7 @@
 ;; Warning: there will be `checkdoc' failure for flags whose behavior is
 ;;   complicated.
 ;; Warning: there will be `checkdoc' failure for the term do-file, which
-;;   is not a lisp symbol name, but is a common Stata term.
+;;   is not a Lisp symbol name, but is a common Stata term.
 
 ;;; Code:
 
@@ -340,22 +340,26 @@ Defaults to off."
   :group 'ado-style)
 
 (defcustom ado-debugging-indent-flag t
-  "Non-nil means debugging commands get indented at `ado-debugging-indent-column'.
+  "Flag for whether debugging commands have a special indent column.
 When nil, debugging commands are indented like all other commands.
+When non-nil debugging commands get indented at 
+`ado-debugging-indent-column'.
 Defaults to on."
   :type 'boolean
   :group 'ado-style)
 
 (defcustom ado-debugging-indent-column 0
-  "Sets indentatino column for debugging commands.
+  "Sets indentation column for debugging commands.
 If `ado-debugging-indent-flag' is on, this column gets used.
 Defaults to 0."
   :type 'integer
   :group 'ado-style)
 
 (defcustom ado-delimit-indent-flag t
-  "When non-nil, #delimit commands are indented to the value of `ado-delimit-column'.
+  "Flag for whether delimit commands have a special indent column.
 When nil, #delimit gets indented like all other commands.
+When non-nil, #delimit commands are indented to the value of 
+`ado-delimit-column'.
 Defaults to on."
   :type 'boolean
   :group 'ado-style)
