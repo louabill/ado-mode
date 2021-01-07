@@ -226,6 +226,29 @@ Needed for getting bits of information about Stata from Stata."
 		(replace-regexp-in-string "\\\\" "/" theFile))
 	theFile))
 
+;; for finding lists of directories where Stata has files
+(defun ado-find-ado-dirs (dir &optional subdir)
+  "Find directories where Stata stores files.
+DIR is the directory to look in.
+The optional second argument SUBDIR gives the subdirectories to look in. 
+Allowable values are
+   all - look in the directory and all single-letter-or-digit subdirectories
+   sub - look just in the single-letter-or-digit subdirectories
+  self - look just in the given directory
+The strange single-letter-or-digit subdirectories come from Stata storing 
+both its own and downloaded files in such directories. A remnant of old file 
+systems with 255-file limits."
+  
+  (interactive)
+  (unless subdir
+	(setq subdir "all"))
+  (append 
+   (if (or (string= subdir "all") (string= subdir "self"))
+	   (list dir))
+   (if (or (string= subdir "all") (string= subdir "sub"))
+	   (directory-files dir t "^[a-z_0-9]$"))
+   nil)) 
+
 (defun ado-open-file-on-adopath (filename)
   "Open a file on Stata's adopath.
 The optional FILENAME argument allows specifying a file name."
