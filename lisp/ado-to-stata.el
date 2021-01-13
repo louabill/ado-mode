@@ -126,8 +126,7 @@ send2stata.scpt is stored."
 			 " \"" ado-stata-version "\""
 			 " \"" ado-stata-flavor "\""
 			 " \"" (if ado-send-to-all-flag "t" "") "\""
-			 " \"" (if ado-strict-match-flag "t" "") "\""
-			 )
+			 " \"" (if ado-strict-match-flag "t" "") "\"")
 			nil 0))
 		  ((string= system-type "gnu/linux")
 		   (shell-command (concat
@@ -137,8 +136,7 @@ send2stata.scpt is stored."
 						   (if ado-comeback-flag
 							   " -c ")
 						   " -d " dothis
-						   " &"
-						   )))
+						   " &" )))
 		  (t
 		   (message "%s" (concat "working via " dothis "s not supported yet in "
 								 (symbol-name system-type)

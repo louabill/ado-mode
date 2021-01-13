@@ -39,16 +39,11 @@
   (concat
    (eval-when-compile
 	 (regexp-opt
-	  '(
-	  "cap" "capt" "captu" "captur" "capture"
-	  )))
+	  '("cap" "capt" "captu" "captur" "capture")))
    "[ /t]+"
    (eval-when-compile
 	 (regexp-opt
-	  '(
-		"n" "no" "noi" "nois" "noisi" "noisil" "noisily"
-		)))
-   )
+	  '("n" "no" "noi" "nois" "noisi" "noisil" "noisily"))))
   "The regexp for testing for a -capture noisily- prefix. Ugh.")
 
 
@@ -63,13 +58,11 @@
 		"mata"
 		"n" "no" "noi" "nois" "noisi" "noisil" "noisily"
 		"python"
-		"qui" "quie" "quiet" "quietl" "quietly"
-		)))
+		"qui" "quie" "quiet" "quietl" "quietly")))
    "\\|"
    ado-capture-noisily-regexp
    "\\)"
-   "\\(?:[ \t]*:\\)?\\)?"
-   )
+   "\\(?:[ \t]*:\\)?\\)?")
   "Regexp for commands which can precede another command without any colon.
 
 Needed so that other command starters can include these more easily. What a pita.")
@@ -79,8 +72,7 @@ Needed so that other command starters can include these more easily. What a pita
    "^\\(?:\\(?:.*:\\)*"
    "\\|"
    ado-prefix-any-regexp
-   "\\)[ \t]*"
-   )
+   "\\)[ \t]*")
   "Start-of-command regexp to try to keep mid-line commands from highlighting.
 Meant for typical commands which could allow a prefix command." )
 
@@ -88,8 +80,7 @@ Meant for typical commands which could allow a prefix command." )
   (concat
    "^"
    ado-prefix-any-regexp
-   "[ \t]*"
-   )
+   "[ \t]*")
   "Start-of-command regexp for commands which do _not_ allow a prefix command." )
  
 (defconst ado-start-cmd-must-start-line-regexp "^[ \t]*"

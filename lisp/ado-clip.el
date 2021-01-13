@@ -32,7 +32,11 @@
 ;; it appears that some distros don't load thingatpt automatically
 (require 'thingatpt)
 (require 'ado-cons)
-;(require 'ado-mode)
+
+(declare-function ado-beginning-of-command "ado-mode.el")
+(declare-function ado-end-of-command "ado-mode.el")
+(declare-function ado-string-trim "ado-mode.el")
+(declare-function ado-delimit-is-semi-p "ado-mode.el")
 
 (defun ado-grab-something (&optional what-code)
   "If a region is selected, return the region.
@@ -185,10 +189,8 @@ The types of comments cannot be modularized, because of ordering problems."
 		  (if (string= (match-string 0 string-to-fix) "*/")
 			  (setq nesting (1- nesting))
 			(setq nesting (1+ nesting)))
-		  (setq string-to-fix (substring string-to-fix (+ 2 pareThru)))
-		  ) ;; end of nesting while loop
-		))  ;; end of cond function
-	  )  ;; end of while searching loop
+		  ;; ugh too many stacked parens
+		  (setq string-to-fix (substring string-to-fix (+ 2 pareThru)))))))
 	(setq returnString (concat returnString string-to-fix))
 	returnString))
 
