@@ -1,6 +1,12 @@
 Version History:
 ---------------
 
+1.16.1.4
+
+No feature changes. Just taking care of programming conventions for MELPA.
+
+Needed to bump the number for versioning on MELPA.
+
 1.16.1.3
 
 Feature changes
