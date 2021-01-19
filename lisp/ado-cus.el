@@ -342,7 +342,7 @@ Defaults to off."
 (defcustom ado-debugging-indent-flag t
   "Flag for whether debugging commands have a special indent column.
 When nil, debugging commands are indented like all other commands.
-When non-nil debugging commands get indented at 
+When non-nil debugging commands get indented at
 `ado-debugging-indent-column'.
 Defaults to on."
   :type 'boolean
@@ -358,7 +358,7 @@ Defaults to 0."
 (defcustom ado-delimit-indent-flag t
   "Flag for whether delimit commands have a special indent column.
 When nil, #delimit gets indented like all other commands.
-When non-nil, #delimit commands are indented to the value of 
+When non-nil, #delimit commands are indented to the value of
 `ado-delimit-column'.
 Defaults to on."
   :type 'boolean
