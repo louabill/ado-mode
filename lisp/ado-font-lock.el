@@ -9043,21 +9043,21 @@ which has an internal name of bar.
 	(error (concat "directory " dir " does not exist")))
 
   ;; now check to see if -name- exists
-  (let (newList (oldList (assoc name ado-added-names)))
-	(if oldList
+  (let (new-list (old-list (assoc name ado-added-names)))
+	(if old-list
 		(progn
-		  (font-lock-remove-keywords 'ado-mode (cdr oldList))
+		  (font-lock-remove-keywords 'ado-mode (cdr old-list))
 		  (setq ado-added-names (assq-delete-all name ado-added-names))))
 	(unless remove
-	  (setq newList `((,(concat ado-start-cmd-regexp (regexp-opt
+	  (setq new-list `((,(concat ado-start-cmd-regexp (regexp-opt
 				  (mapcar (function (lambda (name) (substring-no-properties name nil -4)))
 						  (apply 'append
 								 (mapcar (function (lambda (dirname) (directory-files dirname nil ".*[.]ado$")))
 										 (ado-find-ado-dirs dir subdir))))
 				  'words)
 								ado-end-cmd-regexp) 1 ,face)))
-	  (font-lock-add-keywords 'ado-mode newList)
-	  (setq ado-added-names (append ado-added-names `(,(cons name newList)))))))
+	  (font-lock-add-keywords 'ado-mode new-list)
+	  (setq ado-added-names (append ado-added-names `(,(cons name new-list)))))))
 
 
 (provide 'ado-font-lock)
