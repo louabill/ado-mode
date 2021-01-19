@@ -602,8 +602,7 @@ STATE t: better behavior to have `C-m' like `newline-and-indent'."
 Does not work if fed an expression.
 VARIABLE is for the variable name.
 NEWVALUE is for the newvalue."
-  (interactive "vWhat variable would you like to change? 
-i")
+  (interactive "vWhat variable would you like to change? \ni")
   (if (or (null newvalue)
 		  (eq newvalue 'ask))
       (progn 
