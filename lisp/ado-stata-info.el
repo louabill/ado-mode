@@ -98,16 +98,16 @@ Optional LOOKHERE argument allows specifying a non-standard place to look."
 	(if ado-stata-home
 		(setq lookhere ado-stata-home)
 	  (error "You need to set ado-stata-home to open files on the adopath")))
-  (let ((stataDir (file-name-as-directory lookhere))
-		theStata)
+  (let ((stata-dir (file-name-as-directory lookhere))
+		stata-flavor)
 	;; (message (concat "ado-find-stata found a home: " lookhere))
 	(cond
 	 ((string= system-type "darwin")
-	  (setq theStata
+	  (setq stata-flavor
 			(cond
-			 ((file-directory-p (concat stataDir "Stata.app")) "Stata")
-			 ((file-directory-p (concat stataDir "StataSE.app")) "StataSE")
-			 ((file-directory-p (concat stataDir "StataMP.app")) "StataMP")
+			 ((file-directory-p (concat stata-dir "Stata.app")) "Stata")
+			 ((file-directory-p (concat stata-dir "StataSE.app")) "StataSE")
+			 ((file-directory-p (concat stata-dir "StataMP.app")) "StataMP")
 			 (t (error (concat "Could not find any Stata in " lookhere)))))
 	  ;; because lots of irritating single parens bother me
 	  (concat
@@ -116,21 +116,21 @@ Optional LOOKHERE argument allows specifying a non-standard place to look."
 		 (file-name-as-directory
 		  (concat
 		   (file-name-as-directory
-			(concat stataDir theStata ".app"))
+			(concat stata-dir stata-flavor ".app"))
 		   "Contents"))
 		 "MacOS"))
-	   theStata))
+	   stata-flavor))
 	 ((string= system-type "windows-nt")
 	  (cond
-	   ((file-exists-p (concat stataDir "Stata-64.exe")) (concat stataDir "Stata-64.exe"))
-	   ((file-exists-p (concat stataDir "StataSE-64.exe")) (concat stataDir "StataSE-64.exe"))
-	   ((file-exists-p (concat stataDir "StataMP-64.exe")) (concat stataDir "StataMP-64.exe"))
+	   ((file-exists-p (concat stata-dir "Stata-64.exe")) (concat stata-dir "Stata-64.exe"))
+	   ((file-exists-p (concat stata-dir "StataSE-64.exe")) (concat stata-dir "StataSE-64.exe"))
+	   ((file-exists-p (concat stata-dir "StataMP-64.exe")) (concat stata-dir "StataMP-64.exe"))
 	   (t (error (concat "Could not find any Stata in " lookhere)))))
 	 ((string= system-type "gnu/linux")
 	  (cond
-	   ((file-exists-p (concat stataDir "stata")) (concat stataDir "stata"))
-	   ((file-exists-p (concat stataDir "stata-se")) (concat stataDir "stata-se"))
-	   ((file-exists-p (concat stataDir "stata-mp")) (concat stataDir "stata-mp"))
+	   ((file-exists-p (concat stata-dir "stata")) (concat stata-dir "stata"))
+	   ((file-exists-p (concat stata-dir "stata-se")) (concat stata-dir "stata-se"))
+	   ((file-exists-p (concat stata-dir "stata-mp")) (concat stata-dir "stata-mp"))
 	   (t (error (concat "Could not find Console Stata (needed for background tasks) in " lookhere)))))
 	 (t (error (concat "Nothing for " system-type " yet"))))))
 
@@ -140,10 +140,10 @@ Optional LOOKHERE argument allows specifying a non-standard place to look."
 (defun ado-get-stata-version ()
   "Return the current version of Stata."
   (interactive)
-  (let (theVersion)
-	  (setq theVersion (ado-get-one-result "version"))
-	(if theVersion
-		theVersion
+  (let (the-version)
+	  (setq the-version (ado-get-one-result "version"))
+	(if the-version
+		the-version
 	  "version !!??")))
 
 (defun ado-reset-version-command ()
@@ -180,7 +180,7 @@ so it can be `concat'ted directly with a file name."
 	  (file-name-as-directory "/tmp"))
 	 (t (error "System temp dir not found, somehow"))))
 
-(defun ado-get-one-result (theCommand &optional theArgs)
+(defun ado-get-one-result (stata-command &optional stata-command-args)
   "Get the result of THECOMMAND fed to Stata.
 The optional THEARGS argument allows tinkering with Stata's batch-mode
 command-line options.
@@ -188,49 +188,49 @@ command-line options.
 Needed for getting bits of information about Stata from Stata."
   ;; doesn't work if the result is wrapped; should fix
   (interactive)
-  (let ((tmpBuffer " *stata log*")
-		theResult tmpLog)
+  (let ((tmp-log-buffer " *stata log*")
+		stata-result stata-log)
 	(cond
 	 ((string= system-type "darwin")
 	  (shell-command
-	   (concat "cd " (ado-system-tmp-dir) " ; "
-			   (ado-find-stata) " -q -b -e '" theCommand "'"
-			   (if theArgs (concat " '" theArgs "'")))))
+	   (concat "cd " (shell-quote-argument (ado-system-tmp-dir)) " ; "
+			   (shell-quote-argument (ado-find-stata)) " -q -b -e '" stata-command "'"
+			   (if stata-command-args (concat " '" stata-command-args "'")))))
 	 ((string= system-type "windows-nt")
 	  (shell-command
-	   (concat "cd " (ado-system-tmp-dir) " & \""
-			   (ado-find-stata) "\" /q /e  " theCommand
-			   (if theArgs (concat " \"" theArgs "\"")))))
+	   (concat "cd " (shell-quote-argument (ado-system-tmp-dir)) " & \""
+			   (shell-quote-argument (ado-find-stata)) "\" /q /e  " stata-command
+			   (if stata-command-args (concat " \"" stata-command-args "\"")))))
 	 ((string= system-type "gnu/linux")
 	  (shell-command
-	   (concat "cd " (ado-system-tmp-dir) " ; "
-			   (ado-find-stata) " -q -e '" theCommand "'"
-			   (if theArgs (concat " '" theArgs "'")))))
+	   (concat "cd " (shell-quote-argument (ado-system-tmp-dir)) " ; "
+			   (shell-quote-argument (ado-find-stata)) " -q -e '" stata-command "'"
+			   (if stata-command-args (concat " '" stata-command-args "'")))))
 	 (t (error (concat "Nothing for " system-type " yet"))))
-	(setq tmpLog (concat (ado-system-tmp-dir) "stata.log"))
+	(setq stata-log (concat (ado-system-tmp-dir) "stata.log"))
 	;; visit tmp directory and manipulate the log
-	(with-current-buffer (get-buffer-create tmpBuffer)
-	  (insert-file-contents tmpLog nil nil nil t)
+	(with-current-buffer (get-buffer-create tmp-log-buffer)
+	  (insert-file-contents stata-log nil nil nil t)
 	  (goto-char (point-max))
 	  (forward-line -1)
 	  (unless (search-forward "r(" (point-at-eol) t)
-		  (setq theResult (ado-strip-after-newline (thing-at-point 'line)))))
-	theResult))
+		  (setq stata-result (ado-strip-after-newline (thing-at-point 'line)))))
+	stata-result))
 
-(defun ado-get-filename-from-stata (theCommand theArgs)
+(defun ado-get-filename-from-stata (stata-command stata-command-args)
   "Get the filename for THECOMMAND using command-line options THEARGS."
   (interactive)
   ;; need to get rid of nasty \'s from windows paths
-  (let ((theFile (ado-get-one-result theCommand theArgs)))
+  (let ((the-file-name (ado-get-one-result stata-command stata-command-args)))
 	(if (string= system-type "windows-nt")
-		(replace-regexp-in-string "\\\\" "/" theFile))
-	theFile))
+		(replace-regexp-in-string "\\\\" "/" the-file-name))
+	the-file-name))
 
 ;; for finding lists of directories where Stata has files
 (defun ado-find-ado-dirs (dir &optional subdir)
   "Find directories where Stata stores files.
 DIR is the directory to look in.
-The optional second argument SUBDIR gives the subdirectories to look in. 
+The optional second argument SUBDIR gives the subdirectories to look in.
 Allowable values are
    all - look in the directory and all single-letter-or-digit subdirectories
    sub - look just in the single-letter-or-digit subdirectories
@@ -255,15 +255,15 @@ The optional FILENAME argument allows specifying a file name."
   (interactive)
   (unless ado-stata-home
 	(error "You need to set ado-stata-home to open files on the adopath"))
-  (let (theFile)
+  (let (the-file-name)
 	(unless (file-name-extension filename)
 	  (setq filename (concat filename ".ado")))
-	(setq theFile (ado-get-filename-from-stata "findfile" filename))
-	(unless theFile
+	(setq the-file-name (ado-get-filename-from-stata "findfile" filename))
+	(unless the-file-name
 	  (error (concat "File " filename " not found on adopath")))
 	(if ado-open-read-only-flag
-		(find-file-read-only theFile)
-	  (find-file theFile))))
+		(find-file-read-only the-file-name)
+	  (find-file the-file-name))))
 
 (defun ado-strip-after-newline (string-to-fix)
   "Take a string and return everything before a newline.
