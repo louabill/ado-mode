@@ -156,43 +156,50 @@ is put on the clipboard/pasteboard."
   "Strip out all comments from STRING-TO-FIX line by line.
 The types of comments cannot be modularized, because of ordering problems."
   (let ((nesting 0)
-		(returnString "")
-		pareThru
-		matchString)
+		(string-to-return "")
+		pare-thru
+		string-that-matched)
 	;; because the command window doesn't like tabs, turn sequences of spaces and tabs into single spaces
 	(setq string-to-fix (replace-regexp-in-string "[ 	]+" " " string-to-fix))
 	;; adding the space in case // are the last chars on a line
-	(while (setq pareThru (string-match "\\(^///\\|\\( \\|	\\)///\\|^//\\|\\( \\|	\\)//\\|/[*]\\|[*]/\\)" string-to-fix))
-	  (setq matchString (match-string 1 string-to-fix))
-	  (if (string= "*/" matchString)
+	(while (setq pare-thru (string-match "\\(^///\\|\\( \\|	\\)///\\|^//\\|\\( \\|	\\)//\\|/[*]\\|[*]/\\)" string-to-fix))
+	  (setq string-that-matched (match-string 1 string-to-fix))
+	  (if (string= "*/" string-that-matched)
 		  (error "Too many */ in a /* */-style comment"))
 	  ;; found something to investigate
 	  ;; put upto match onto the return string
-	  (setq returnString (concat returnString (substring string-to-fix 0 pareThru)))
-	  (setq string-to-fix (substring string-to-fix (+ pareThru (length matchString))))
+	  (setq string-to-return
+			(concat string-to-return (substring string-to-fix 0 pare-thru)))
+	  (setq string-to-fix
+			(substring string-to-fix (+ pare-thru (length string-that-matched))))
 	  (cond
-	   ((or (string= matchString "///") (string= matchString " ///") (string= matchString "	///"))
-		(if (setq pareThru (string-match "
+	   ((or (string= string-that-matched "///")
+			(string= string-that-matched " ///")
+			(string= string-that-matched "	///"))
+		(if (setq pare-thru (string-match "
 " string-to-fix))
-			(setq string-to-fix (substring string-to-fix (1+ pareThru)))
+			(setq string-to-fix (substring string-to-fix (1+ pare-thru)))
 		  (error "Found /// with no continuation")))
-	   ((or (string= matchString "//") (string= matchString " //") (string= matchString "	//"))
-		(if (setq pareThru (string-match "
+	   ((or (string= string-that-matched "//")
+			(string= string-that-matched " //")
+			(string= string-that-matched "	//"))
+		(if (setq pare-thru (string-match "
 " string-to-fix))
-			(setq string-to-fix (substring string-to-fix pareThru))
+			(setq string-to-fix (substring string-to-fix pare-thru))
 		  (setq string-to-fix "")))
 	   (t
 		(setq nesting 1)
 		(while (> nesting 0)
-		  (if (not (setq pareThru (string-match "\\(/[*]\\|[*]/\\)" string-to-fix)))
+		  (if (not (setq pare-thru
+						 (string-match "\\(/[*]\\|[*]/\\)" string-to-fix)))
 			  (error "Too many /* in a /* */-style comment"))
 		  (if (string= (match-string 0 string-to-fix) "*/")
 			  (setq nesting (1- nesting))
 			(setq nesting (1+ nesting)))
 		  ;; ugh too many stacked parens
-		  (setq string-to-fix (substring string-to-fix (+ 2 pareThru)))))))
-	(setq returnString (concat returnString string-to-fix))
-	returnString))
+		  (setq string-to-fix (substring string-to-fix (+ 2 pare-thru)))))))
+	(setq string-to-return (concat string-to-return string-to-fix))
+	string-to-return))
 
 (defun ado-convert-semicolons (string-to-fix)
   "Fixes semicolons in STRING-TO-FIX.
