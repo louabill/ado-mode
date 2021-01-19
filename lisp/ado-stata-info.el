@@ -181,9 +181,8 @@ so it can be `concat'ted directly with a file name."
 	 (t (error "System temp dir not found, somehow"))))
 
 (defun ado-get-one-result (stata-command &optional stata-command-args)
-  "Get the result of THECOMMAND fed to Stata.
-The optional THEARGS argument allows tinkering with Stata's batch-mode
-command-line options.
+  "Get the result of STATA-COMMAND fed to Stata.
+The optional STATA-COMMAND-ARGS allows feeding an argument to the command.
 
 Needed for getting bits of information about Stata from Stata."
   ;; doesn't work if the result is wrapped; should fix
@@ -194,12 +193,14 @@ Needed for getting bits of information about Stata from Stata."
 	 ((string= system-type "darwin")
 	  (shell-command
 	   (concat "cd " (shell-quote-argument (ado-system-tmp-dir)) " ; "
-			   (shell-quote-argument (ado-find-stata)) " -q -b -e '" stata-command "'"
+			   (shell-quote-argument (ado-find-stata))
+			   " -q -b -e '" stata-command "'"
 			   (if stata-command-args (concat " '" stata-command-args "'")))))
 	 ((string= system-type "windows-nt")
 	  (shell-command
 	   (concat "cd " (shell-quote-argument (ado-system-tmp-dir)) " & \""
-			   (shell-quote-argument (ado-find-stata)) "\" /q /e  " stata-command
+			   (shell-quote-argument (ado-find-stata))
+			   "\" /q /e  " stata-command
 			   (if stata-command-args (concat " \"" stata-command-args "\"")))))
 	 ((string= system-type "gnu/linux")
 	  (shell-command
@@ -218,7 +219,12 @@ Needed for getting bits of information about Stata from Stata."
 	stata-result))
 
 (defun ado-get-filename-from-stata (stata-command stata-command-args)
-  "Get the filename for THECOMMAND using command-line options THEARGS."
+  "Get the filename for STATA-COMMAND.
+Optional argument STATA-COMMAND-ARGS for passing additional arguments to the
+Stata command.
+
+Really kind of a dumb design, because the arguments could well just be
+part of the command."
   (interactive)
   ;; need to get rid of nasty \'s from windows paths
   (let ((the-file-name (ado-get-one-result stata-command stata-command-args)))
@@ -235,19 +241,19 @@ Allowable values are
    all - look in the directory and all single-letter-or-digit subdirectories
    sub - look just in the single-letter-or-digit subdirectories
   self - look just in the given directory
-The strange single-letter-or-digit subdirectories come from Stata storing 
-both its own and downloaded files in such directories. A remnant of old file 
+The strange single-letter-or-digit subdirectories come from Stata storing
+both its own and downloaded files in such directories. A remnant of old file
 systems with 255-file limits."
   
   (interactive)
   (unless subdir
 	(setq subdir "all"))
-  (append 
+  (append
    (if (or (string= subdir "all") (string= subdir "self"))
 	   (list dir))
    (if (or (string= subdir "all") (string= subdir "sub"))
 	   (directory-files dir t "^[a-z_0-9]$"))
-   nil)) 
+   nil))
 
 (defun ado-open-file-on-adopath (filename)
   "Open a file on Stata's adopath.
