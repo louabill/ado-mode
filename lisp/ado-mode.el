@@ -253,7 +253,7 @@
 				  :button (:toggle . ado-confirm-overwrite-flag)))
 
 	(define-key kmap [menu-bar ado options ado-comment-column-change]
-	  '(menu-item "Set Comment Column..." 
+	  '(menu-item "Set Comment Column..."
 				  (lambda ()
 					(interactive) (ado-change-number 'ado-comment-column 'ask))))
 
@@ -265,25 +265,25 @@
 	  '(menu-item "Set Tab Width..." ado-tab-width-change))
 
 	(define-key kmap [menu-bar ado options ado-update-timestamp-toggle]
-	  '(menu-item "Update Timestamps on Save" 
+	  '(menu-item "Update Timestamps on Save"
 				  (lambda ()
 					(interactive) (ado-toggle-flag 'ado-update-timestamp-flag))
 				  :button (:toggle . ado-update-timestamp-flag)))
 
 	(define-key kmap [menu-bar ado options ado-fontify-new-toggle]
-	  '(menu-item "Fontify New Ado Files" 
+	  '(menu-item "Fontify New Ado Files"
 				  (lambda ()
 					(interactive) (ado-toggle-flag 'ado-fontify-new-flag))
 				  :button (:toggle . ado-fontify-new-flag)))
 
 	(define-key kmap [menu-bar ado options ado-auto-newline-toggle]
-	  '(menu-item "Automatic New Line" 
+	  '(menu-item "Automatic New Line"
 				  (lambda ()
 					(interactive) (ado-toggle-flag 'ado-auto-newline-flag))
 				  :button (:toggle . ado-auto-newline-flag)))
 
 	(define-key kmap [menu-bar ado options ado-closing-brace-alone-toggle]
-	  '(menu-item "Closing Brace Alone" 
+	  '(menu-item "Closing Brace Alone"
 				  (lambda ()
 					(interactive) (ado-toggle-flag 'ado-closing-brace-alone-flag))
 				  :button (:toggle . ado-closing-brace-alone-flag)))
@@ -319,40 +319,40 @@
 
 ;; subsubmenu Options/Special Indent
 	(define-key kmap [menu-bar ado options special-indentation ado-change-comment-indent]
-	  '(menu-item "Change comment indent column..." 
+	  '(menu-item "Change comment indent column..."
 				  (lambda ()
 					(interactive) (ado-change-number 'ado-comment-indent-column 'ask))
 				  :enable ado-delimit-indent-flag))
 
 	(define-key kmap [menu-bar ado options special-indentation ado-comment-indent-flag-toggle]
-	  '(menu-item "Comment column indentation" 
+	  '(menu-item "Comment column indentation"
 				  (lambda ()
 					(interactive) (ado-toggle-flag 'ado-comment-indent-flag))
 				  :button (:toggle . ado-comment-indent-flag)))
 
 	(define-key kmap [menu-bar ado options special-indentation ado-change-delimit-indent]
-	  '(menu-item "Change #delimit column..." 
+	  '(menu-item "Change #delimit column..."
 				  (lambda ()
 					(interactive) (ado-change-number 'ado-delimit-indent-column 'ask))
 				  :enable ado-delimit-indent-flag))
 
 	(define-key kmap
 	  [menu-bar ado options special-indentation ado-delimit-indent-flag-toggle]
-	  '(menu-item "#delimit indented differently" 
+	  '(menu-item "#delimit indented differently"
 				  (lambda ()
 					(interactive) (ado-toggle-flag 'ado-delimit-indent-flag))
 				  :button (:toggle . ado-delimit-indent-flag)))
 
 	(define-key kmap
 	  [menu-bar ado options special-indentation ado-change-debugging-indent]
-	  '(menu-item "Change debugging column..." 
+	  '(menu-item "Change debugging column..."
 				  (lambda ()
 					(interactive) (ado-change-number 'ado-debugging-indent-column 'ask))
 				  :enable ado-debugging-indent-flag))
 
 	(define-key kmap
 	  [menu-bar ado options special-indentation ado-debugging-indent-flag-toggle]
-	  '(menu-item "debugging indented differently" 
+	  '(menu-item "debugging indented differently"
 				  (lambda ()
 					(interactive) (ado-toggle-flag 'ado-debugging-indent-flag))
 				  :button (:toggle . ado-debugging-indent-flag)))
@@ -400,13 +400,13 @@
   "Major mode for editing files associated with the Stata statistical package.
 
 It can be used to edit ado, do, mata, sthlp, hlp, dlg, and smcl files while
-indenting blocks of code properly, highlighting command names, (most) keywords, 
+indenting blocks of code properly, highlighting command names, (most) keywords,
 more-complicated command structures, strings, Stata macro names and the like.
 
 Ado-mode comes with a menu (the Ado-mode menu) which shows most all of the
 variables which are worth changing locally in a buffer. Global customization
 can be done via '\\[customize-group] ado' using Emacs customization
-routines. More suggestions can be found at 
+routines. More suggestions can be found at
 https://louabill.org/Stata/ado-mode_install.html
 
 Here is a short list of the common commands which come with the mode:
@@ -417,8 +417,8 @@ Most helpful things
 - `ado-new-mata' starts a new mata file.
 - `ado-new-label' will make a new label file useful for storing commonly
     used value labels.
-- `ado-mode' can interact directly with Stata: 
-    \\[ado-send-command-to-stata] will send the current selection 
+- `ado-mode' can interact directly with Stata:
+    \\[ado-send-command-to-stata] will send the current selection
       to Stata for evaluation. If nothing is selected, the command containing
       the insertion bar will be sent.
     \\[ado-help-command] gets Stata help on the current command---even if you
@@ -427,7 +427,7 @@ Most helpful things
 
 Saving a buffer will save the current buffer and give it a good
   timestamp (if the `ado-update-timestamp-flag' is true, which it is
-  by default). It will also do its best to ensures that the file name 
+  by default). It will also do its best to ensures that the file name
   matches the name of the command (ado program) or class being defined.
     
 Fixing up indentation:
@@ -455,7 +455,7 @@ If you also use ESS (Emacs Speaks Statistics), but you would rather
 use this `ado-mode' to code Stata, include the following in your .emacs
 file:
 
- (setq auto-mode-alist 
+ (setq auto-mode-alist
       (append (list '(\"\\\\.ado\\\\'\" . ado-mode)
 		    '(\"\\\\.do\\\\'\"  . ado-mode)
 		    )
@@ -522,7 +522,7 @@ Finally, here is the complete keymap for ado-mode:
   (make-local-variable 'ado-submit-default)
   (make-local-variable 'ado-stata-instance)
   (make-local-variable 'ado-stata-flavor)
-  (make-local-variable 'ado-stata-version)  
+  (make-local-variable 'ado-stata-version)
   ;; delete auto-save-file when file is saved for real
   (make-local-variable 'delete-auto-save-files)
   (setq delete-auto-save-files t)
@@ -553,10 +553,10 @@ Finally, here is the complete keymap for ado-mode:
 		   (expand-file-name (concat (file-name-as-directory ado-mode-home) "..")))))
 	(unless ado-site-template-dir
 	(setq ado-site-template-dir (file-name-as-directory (concat ado-mode-home "templates"))))
-  (unless ado-script-dir 
+  (unless ado-script-dir
 	(setq ado-script-dir (file-name-as-directory (concat ado-mode-home "scripts"))))
   (if ado-smart-indent-flag
-      (if (or 
+      (if (or
 			  (string= ado-extension "hlp")
 			  (string= ado-extension "sthlp")
 			  (string= ado-extension "dlg")
@@ -576,9 +576,9 @@ STATE nil: standard Emacs behavior where `C-j' is like `newline-and-indent'.
 STATE t: better behavior to have `C-m' like `newline-and-indent'."
   (if state
       (progn
-		(define-key ado-mode-map "\C-m" 'ado-newline) 
+		(define-key ado-mode-map "\C-m" 'ado-newline)
 		(define-key ado-mode-map "\C-j" 'newline))
-    (define-key ado-mode-map "\C-j" 'ado-newline) 
+    (define-key ado-mode-map "\C-j" 'ado-newline)
     (define-key ado-mode-map "\C-m" 'newline)))
 
 ;;;; all the style-toggles for local resets rather than global
@@ -598,14 +598,14 @@ STATE t: better behavior to have `C-m' like `newline-and-indent'."
 ;; a function which makes all the prompts and messages look the same.
 ;; returns nil if nothing changed, or t if there is a change
 (defun ado-change-number (variable newvalue)
-  "Interface for changing options which have numerical values somewhat nicely. 
+  "Interface for changing options which have numerical values somewhat nicely.
 Does not work if fed an expression.
 VARIABLE is for the variable name.
 NEWVALUE is for the newvalue."
   (interactive "vWhat variable would you like to change? \ni")
   (if (or (null newvalue)
 		  (eq newvalue 'ask))
-      (progn 
+      (progn
 		(setq newvalue (read-from-minibuffer (concat "Change " (symbol-name variable) " to ")  (number-to-string (eval variable) )))
 		(if (or
 			 (string= newvalue "")
@@ -667,7 +667,7 @@ Stolen from `c-mode' indention."
 					comment-column)))))))	; except leave at least one spaces.
 
 (defun ado-continuation-indent ()
-  "Indent continuation characters to `comment-column'. 
+  "Indent continuation characters to `comment-column'.
 If there is no continuation on the current line, inserts the proper
 continuation characters."
   (interactive)
@@ -706,7 +706,7 @@ continuation characters."
 
 (defun ado-foreach-loop (&optional macname listtype)
   "Insert a foreach loop, after asking for the type of loop to insert.
-The optional first argument MACNAME is the name for the local macro 
+The optional first argument MACNAME is the name for the local macro
   to hold tokens.
 The optional second argument LISTTYPE is thethe type of list to be parsed.
 When either is unspecified, the user gets prompted for values."
@@ -738,14 +738,14 @@ The optional second argument RANGE holds the Stata start/stop-style range."
   (insert (concat "forvalues " macname " = " range ))
   (ado-insert-with-lfd " {")
   (ado-indent-line)
-  (save-excursion 
+  (save-excursion
 	(newline-and-indent)
 	(insert "}")))
 
 (defun ado-new-generic (type exten &optional stayput name purpose cusblp)
   "Generic file-creator for easing creation of specific files.
 
-This makes creating new ado, class, do, mata and other files simpler by 
+This makes creating new ado, class, do, mata and other files simpler by
 having a standard programminginterface.
 
 TYPE specifies the type of file. Current choices are
@@ -754,14 +754,14 @@ TYPE specifies the type of file. Current choices are
   ado     - for ado-files
   class   - for ado (non-mata) class files
   hlp     - for deprecated help files (deprecated in Stata 7)
-EXTEN specifies the file extension. 
+EXTEN specifies the file extension.
 
 STAYPUT, when non-nil means to save the file in the current directory.
-NAME specifies the name of the file, excluding the extension. 
-PURPOSE specifies the purpose of the file, which will be put in a *! comment 
+NAME specifies the name of the file, excluding the extension.
+PURPOSE specifies the purpose of the file, which will be put in a *! comment
   at the top of the file.
-CUSBLP specifies a custom template file. When not specified, the template will 
-  come from the templates which come with `ado-mode' and will be chosen 
+CUSBLP specifies a custom template file. When not specified, the template will
+  come from the templates which come with `ado-mode' and will be chosen
   based on the TYPE and/or EXTEN."
   (let (fullname buffullname (keepbuf t) (searchstr "startHere"))
 	(unless name
@@ -828,13 +828,13 @@ CUSBLP specifies a custom template file. When not specified, the template will
 	  (kill-buffer buffullname))))
 
 (defun ado-new-do (&optional stayput name purpose)
-  "Make a new do-file in the current directory. 
+  "Make a new do-file in the current directory.
 The optional arguments STAYPUT, NAME, and PURPOSE get fed to \\[ado-new-generic].
 
-When used interactively, you'll get asked for the name of the file 
+When used interactively, you'll get asked for the name of the file
   and its purpose.
 
-The default do-file is made to keep its own named log so that it can be 
+The default do-file is made to keep its own named log so that it can be
 called by other do-files with log-files.
 
 Bound to \\[ado-new-do]."
@@ -885,10 +885,10 @@ The optional arguments STAYPUT, NAME, and PURPOSE get fed to \\[ado-new-generic]
 Used interactively, you'll get asked for the name of the file and its purpose,
 and where the file should be saved.
 
-By default, `ado-new-testado' creates a do-file which  -includes- an ado-file 
+By default, `ado-new-testado' creates a do-file which  -includes- an ado-file
 by the same name for easier debugging.
 
-Bound to \\[ado-new-testado]" 
+Bound to \\[ado-new-testado]"
   (interactive)
   (ado-new-generic "program" "do" stayput name purpose))
   
@@ -912,7 +912,7 @@ Bound to \\[ado-insert-new-program]"
 
 (defun ado-new-label (&optional name)
   "Make a new label-definition file either in the current or `lbl' directory.
-The optional NAME argument gives the name of the file, without extension. 
+The optional NAME argument gives the name of the file, without extension.
 
 Used interactively, you'll get asked for the name of the label,
 and where the file should be saved.
@@ -952,7 +952,7 @@ Use the proper combination of a before-save-hook and
 \\[save-buffer] to save things nicely.")
 
 (defun ado-before-save-file ()
-  "The default `before-save-hook' for `ado-mode'. 
+  "The default `before-save-hook' for `ado-mode'.
 
 This updates the timestamp using
 \\[ado-update-timestamp] (if the ado-update-timestamp flag is set), then
@@ -990,9 +990,9 @@ files, or a version x.y.z <date> in other files."
   (save-excursion
     (goto-char (point-min))
     (cond
-	 ((or (string= ado-extension "ado") 
-		  (string= ado-extension "class") 
-		  (string= ado-extension "do")) 
+	 ((or (string= ado-extension "ado")
+		  (string= ado-extension "class")
+		  (string= ado-extension "do"))
 	  (when (re-search-forward "^[*]![ \t]+version[ \t]+[0-9\.]*[ \t]*" (point-max) t)
 		(delete-region (point) (point-at-eol))
 		(insert (ado-nice-current-date))))
@@ -1016,7 +1016,7 @@ files, or a version x.y.z <date> in other files."
 		  (insert (ado-nice-current-date))
 		  (insert "}{...}")))
 	   (t nil)))
-	 (t 
+	 (t
 	  ;;; not in ado or help file
 	  (when (re-search-forward "^\\([*]!\\)*[ \t]+[Vv][Ee][Rr][Ss][Ii][Oo][Nn][ \t]+[0-9\.]*[ \t]*" (point-max) t)
 		(delete-region (point) (point-at-eol))
@@ -1030,7 +1030,7 @@ files, or a version x.y.z <date> in other files."
 (defun ado-set-ado-extension ()
   "`ado-set-ado' is obsolete, but left for backward compatitbility.
 
-Use \\[ado-find-extension] instead. 
+Use \\[ado-find-extension] instead.
 It returns a value instead of setting a variable."
   (interactive)
   (setq ado-extension (ado-find-extension)))
@@ -1044,8 +1044,8 @@ Just an interface to \\[ado-find-extension]."
 (defun ado-find-extension ()
   "Choose the file extension based on the file contents.
  
-Since Stata has started getting more complicated, will fall back to 
-the current file extension if confused. Returns its best guess at the 
+Since Stata has started getting more complicated, will fall back to
+the current file extension if confused. Returns its best guess at the
 extension. Not as reliable as it should be.
 
 To test this, try \\[ado-show-extension]."
@@ -1095,7 +1095,7 @@ Just an interface to `ado-make-ado-name'."
   (message "%s" (ado-make-ado-name)))
 
 (defun ado-make-ado-name ()
-  "Create a file name from the contents of the file. 
+  "Create a file name from the contents of the file.
 
 Assumes that `ado-extension' has been set properly by \\[ado-find-extension].
 Returns nil if the name of the file cannot be determined from the file contents.
@@ -1132,7 +1132,7 @@ The command works differently depending on the type of file:
 			  (string= ado-extension "sthlp"))
 		  (ado-make-help-name) ;; split out b/c of Stata 12
 		(setq name-start
-			  (cond ((string= ado-extension "class") 
+			  (cond ((string= ado-extension "class")
 					 (re-search-forward "^class[ \t]+" nil t))
 					((string= ado-extension "ado")
 					 (re-search-forward "^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+\\(de\\(f\\|fi\\|fin\\|fine\\)[ \t]+\\)?" nil t))
@@ -1150,14 +1150,14 @@ The command works differently depending on the type of file:
   "Figure out the name of a help file from its contents.
   
 Creates a file name from the contents of a help file, assuming that
-the `ado-extension' has been set properly. Throws an error if the name cannot 
-be determined. This was split from \\[ado-make-file-name] because of big 
+the `ado-extension' has been set properly. Throws an error if the name cannot
+be determined. This was split from \\[ado-make-file-name] because of big
 changes to help files in Stata 12 (and the initial buggy fix)."
   (interactive)
   (let (full-name) ; titlepos syntaxpos (name-start nil))
 	(save-excursion
 	  (goto-char (point-min))
-	  (cond 
+	  (cond
 	   ((search-forward-regexp "{mansection[ \t]+.*?[ \t]+\\([^ :	]*\\).*}" nil t)
 		(setq full-name (mapconcat #'identity (split-string (match-string-no-properties 1 nil)) "_")))
 	   ((search-forward-regexp "{manlink[ \t]+.*?[ \t]+\\(.*?\\)[ \t]*}" nil t)
@@ -1182,7 +1182,7 @@ Stata versions 11 and 12."
   (let ((debug-on-error t)) ; titlepos syntaxpos (name-start nil))
 	(save-excursion
 	  (goto-char (point-min))
-	  (cond 
+	  (cond
 	   ((search-forward-regexp "{manlink[ \t]+.*?[ \t]+" nil t)
 		(point)) ;; have name-start set properly already from official Stata help
 	   ((re-search-forward "{\\(bf\\|cmd\\|hi\\):[ \t]+" nil t)
@@ -1205,7 +1205,7 @@ This location changed drastically between Stata versions 11 and 12."
 	  (when titlepos
 		;; search as far as "Title" to find {...:help !!!} for <= Stata 12 help
 		(goto-char (point-min))
-		(setq name-start 
+		(setq name-start
 			  (re-search-forward "{\\(bf\\|cmd\\|hi\\):help[ \t]+" titlepos t))
 		(unless name-start
 		  ;; have stata 12-style help
@@ -1225,7 +1225,7 @@ the program name is missing."
     (save-excursion
       (when (re-search-backward "^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+" 0 t) ;goes to most recent definition
 	    (setq name-start
-			  (re-search-forward 
+			  (re-search-forward
 			   "^pr\\(o\\|\\og\\|\\ogr\\|\\ogra\\|\\ogram\\)[ \t]+\\(de\\(f\\|fi\\|fin\\|fine\\)[ \t]+\\)*" nil t)
 			  name-end (re-search-forward "[a-zA-Z_]+[a-zA-Z0-9_]*\\b"))
 	    (buffer-substring-no-properties name-start name-end)))))
@@ -1247,7 +1247,7 @@ Can also be called from within another program for inserting and indenting."
 (defun ado-insert-boilerplate (file-name &optional raw full-path)
   "Generic command for inserting the boilerplate (template) file FILE-NAME.
 
-The optional second argument RAW inserts the raw template without 
+The optional second argument RAW inserts the raw template without
   any substitutions.
 The optional FULL-PATH argument specifies that FILE-NAME contains the full path
   for the file."
@@ -1283,7 +1283,7 @@ quite frankly, a dumb name. Left as an alias for backward compatibility.")
 
 If inside a nested comment, move to its start. Otherwise, stay put.
 
-If non-nil, the optional first argument TOP says to move to the top (outermost) 
+If non-nil, the optional first argument TOP says to move to the top (outermost)
   level of nesting. If TOP is nil, this moves outside the current (possibly)
 nested comment. The optional second-argument FROM-LEVEL is the nesting level
 of the calling command."
@@ -1324,7 +1324,7 @@ An interactive interface to `ado-find-depth'"
       ;; oddities which might need unindenting
       (when (or oddend
 				(and (not ado-close-under-line-flag) (looking-at "}"))
-				(looking-at "ver\\(s\\|si\\|sio\\|sion\\)"))	  
+				(looking-at "ver\\(s\\|si\\|sio\\|sion\\)"))
 		(setq depth (1- depth)))
 	  (end-of-line)
 	  (setq depth (- depth (how-many "^[ \t]*\\(end$\\|end[ \t]+\\)" 1 (point))))
@@ -1333,7 +1333,7 @@ An interactive interface to `ado-find-depth'"
 	  ;; need to be careful, because of program dir, drop, and list
       (setq depth (+ depth (how-many "^[ \t]*\\(input[ \t]+\\|\\(p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)\\([ \t]+d\\(ef\\|efi\\|efin\\|efine\\)\\)?\\)[ \t]+\\|\\(mat\\(a\\|a:\\)\\|\\(pytho\\(n\\|n:\\)\\)\\)[ \t]*$\\)" 1 (point))))
       ;; words which end blocks need to be deducted
-	  ;;  plus overcounted 'program's 
+	  ;;  plus overcounted 'program's
 	  (setq depth (- depth (how-many "^[ \t]*p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+\\(d\\(i\\|ir\\)[ \t]*$\\|\\(\\(l\\|li\\|lis\\|list\\|drop\\)[ \t]+\\)[a-zA-Z_]+\\)" 1 (point)))))
 	;; back at original point
 	(save-excursion
@@ -1343,7 +1343,7 @@ An interactive interface to `ado-find-depth'"
 
 (defun ado-indent-region (&optional start end)
   "Indent region.
-Optional arguments START and END bound the region. If only START is specified, 
+Optional arguments START and END bound the region. If only START is specified,
 then the region from START to point gets indented."
 
   (interactive)
@@ -1357,7 +1357,7 @@ then the region from START to point gets indented."
       (setq endmark (copy-marker end))
 ;;    (while (and (bolp) (not (eobp)) (< (point) endmark))
 	  (while (< (point) endmark)
-		;; doesn't clean up garbage whitespace lines (for speed in large buffers) 
+		;; doesn't clean up garbage whitespace lines (for speed in large buffers)
 		(skip-chars-forward " \t\n")
 		(ado-indent-line)
 		(forward-line 1)))))
@@ -1373,7 +1373,7 @@ then the region from START to point gets indented."
   )
 
 (defun ado-indent-line ()
-  "A smart indenter for ado files. 
+  "A smart indenter for ado files.
 Many of the parameters can be customized using '\\[customize-group] ado'."
 
   (interactive)
@@ -1391,7 +1391,7 @@ Many of the parameters can be customized using '\\[customize-group] ado'."
 					(or (looking-at "^\\*") (looking-at "^*")))
 			   (setq indent ado-comment-indent-column))
 			  ((and ado-debugging-indent-flag
-					(or (looking-at "^[ \t]*pause")	
+					(or (looking-at "^[ \t]*pause")
 						(looking-at "^[ \t]*set t\\(r\\|ra\\|rac\\|race\\)[ \t]+")))
 			   (setq indent ado-debugging-indent-column)) ; debugging at proper column (usually 0)
 			  (t (setq indent (* tab-width (car (setq depth (ado-find-depth)))))   ; regular indentation
@@ -1436,7 +1436,7 @@ Many of the parameters can be customized using '\\[customize-group] ado'."
     (let ((line-start (point-at-bol)))
       (if (re-search-backward "#[ \t]*d\\(e\\|el\\|eli\\|elim\\elimi\\elimit\\)" 1 t)
 		  (let ((ppsexp (parse-partial-sexp 1 (point))))
-			(if (or 
+			(if (or
 				 (nth 3 ppsexp)		; inside a string
 				 (nth 4 ppsexp)		; inside a non-nestable comment
 				 (nth 7 ppsexp))		; inside a type-b comment
@@ -1457,10 +1457,10 @@ Many of the parameters can be customized using '\\[customize-group] ado'."
 			 "The delimiter is cr")))
 
 (defun ado-beginning-of-command ()
-  "Move to the start of the command containg the insertion point is sitting. 
+  "Move to the start of the command containg the insertion point is sitting.
 
 This will jump back to the start of a command if the insertion point is within
-the command, and jump forward to the start of a command if the delimiter is in 
+the command, and jump forward to the start of a command if the delimiter is in
 whitespace preceding a command.
 
 When the delimiter is cr, blank lines count as empty commands, so the
@@ -1509,14 +1509,14 @@ Returns t if inside of a continued function, nil otherwise."
     in-continuation))
 
 (defun ado-end-of-command ()
-  "Move to the start of the command containg the insertion point is sitting. 
+  "Move to the start of the command containg the insertion point is sitting.
 
 This can be fooled by internal /* */-style commands extending across lines."
   (interactive)
   (let (ppsexp)
     (if (ado-delimit-is-semi-p)
 		(if (not (search-forward ";" nil t))
-			(error "No end of command") 
+			(error "No end of command")
 		  (setq ppsexp (parse-partial-sexp 1 (point)))
 		  (if (or (nth 4 ppsexp) (nth 3 ppsexp) (nth 7 ppsexp))
 			  (ado-end-of-command)
@@ -1540,10 +1540,10 @@ This can be fooled by internal /* */-style commands extending across lines."
 			(backward-char 2)
 			(skip-syntax-backward "-")))))))
 
-(defun ado-copy-command (&optional asString)
+(defun ado-copy-command (&optional to-kill-ring-flag)
   "Copy the command containing the insertion point to the clipboard.
-Optional first argunment ASSTRING is nil, the command is copied to the 
-kill ring, otherwise it is copied to the clipboard.
+If optional first argument `TO-KILL-RING-FLAG` is nil, the command
+is copied to the  kill ring, otherwise it is copied to the clipboard.
 
 May be called interactively, but meant for using within functions
 working on regions."
@@ -1557,12 +1557,12 @@ working on regions."
 		   (ado-end-of-command)
 		   (point)))
 		 (select-enable-clipboard t))
-	(if asString
+	(if to-kill-ring-flag
 		(buffer-substring-no-properties start-here end-here)
 	  (kill-ring-save start-here end-here))))
 
 ;; stolen from c-mode, and changed slightly, since Stata does not use
-;; braces on separate lines @@
+;; braces on separate lines
 (defun ado-electric-closing-brace (arg)
   "Insert closing character and correct line's indentation.
 ARG is the character being inserted.
@@ -1610,7 +1610,7 @@ ARG is the character being inserted."
   (newline-and-indent))
 
 (defun ado-split-line ()
-  "Split line at point, putting in the proper continuation characters. 
+  "Split line at point, putting in the proper continuation characters.
 
 What gets inserted depends on the value of `ado-use-modern-split-flag'"
   (interactive)
@@ -1637,7 +1637,7 @@ If optional argument STRINGIFY is non-nil, put compound double quotes around `'.
 
 If point is not in a word and there is no selection insert `'.
 
-The point is put after the macro. 
+The point is put after the macro.
 
 Useful on non-US keyboards, where backticks can be painful to insert."
 
@@ -1656,10 +1656,10 @@ Useful on non-US keyboards, where backticks can be painful to insert."
 		  (insert "`'")
 		  (forward-char -1))
 	  (save-excursion
-		(goto-char (region-beginning)) 
+		(goto-char (region-beginning))
 		(if stringify (insert "`\""))
 		(insert "`"))
-	  (goto-char (region-end)) 
+	  (goto-char (region-end))
 	  (insert "'")
 	  (if stringify (insert "\"'"))
 	  (if popmark (pop-mark)))))
@@ -1670,12 +1670,12 @@ Useful on non-US keyboards, where backticks can be painful to insert."
   (ado-macify-selection-or-word t))
 
 (defun ado-stringify-selection ()
-  "Put compound double quotes around the selection. 
+  "Put compound double quotes around the selection.
 
 If nothing is selected, inserts a pair of compound double quotes."
   (interactive)
   (if (and transient-mark-mode mark-active)
-	  (progn 
+	  (progn
 		(save-excursion (goto-char (region-beginning)) (insert "`\""))
 		(goto-char (region-end)) (insert "\"'"))
 	(insert "`\"\"'")
@@ -1711,7 +1711,7 @@ REPEAT gives the number of newlines to insert."
   (interactive)
   (setq ado-signature-file
 		(read-file-name "Set ado signature file to: "
-						(file-name-directory 
+						(file-name-directory
 						 (expand-file-name
 						  (if (not ado-signature-file)
 							  (if (file-exists-p "~/.ado-signature")
@@ -1746,14 +1746,14 @@ Bound to \\[ado-new-help]"
   (while (search-forward "XXX" nil t)
 	(replace-match name t))
   (goto-char (point-min))
-  (search-forward "version #.#.# ") 
+  (search-forward "version #.#.# ")
   (delete-region (point) (point-at-eol))
   (insert (ado-nice-current-date))
   (insert "}{...}")
   ;; new logic for authorship:
   ;;   check prompt flag, if turned off, do NOT use ANY signature
   ;;   if flag on, but there is no file, use user name only
-  (search-forward "{title:Author}") 
+  (search-forward "{title:Author}")
   (if ado-help-author-flag
 	  (progn
 		(search-forward "{pstd}")
@@ -1812,12 +1812,12 @@ The optional argument OPTION-NAME is, well duh, the option name."
 
 (defun ado-new-cscript (&optional desc name)
   "Start a new certification script.
-The optional first argument DESC is for the description of the certification 
+The optional first argument DESC is for the description of the certification
   script.
 The optional secon argument NAME is for the name of the script.
 
 Used interactively, you'll get asked for the name of the commands to be checked
-as well as an optional descriptions. 
+as well as an optional descriptions.
 
 Unlike the other functions which create new Stata files, this just opens a
 buffer and puts in the proper header for a cert script. No file gets saved.
@@ -1842,10 +1842,10 @@ Bound to \\[ado-new-cscript]."
   (newline-and-indent))
 
 (defun ado-nice-current-date ()
-  "Return the current date and time as specified `ado-date-format'. 
+  "Return the current date and time as specified `ado-date-format'.
 
 See `format-time-string' for help on setting your favorite date format."
-  (concat 
+  (concat
    (if ado-lowercase-date-flag
        (downcase (format-time-string ado-date-format))
      (format-time-string ado-date-format))
@@ -1859,44 +1859,44 @@ Wee \\[ado-nice-current-date] for details"
   (insert (ado-nice-current-date)))
 
 (defun ado-set-imenu-items ()
-  "Function for setting imenu items. 
+  "Function for setting imenu items.
 
 Not really that worthwhile for Stata because there are typically not that
 many program defines in an ado file. Still."
   (interactive)
   (setq imenu-case-fold-search nil)
   (setq imenu-generic-expression
-		(list 
+		(list
 		 (list nil "^\\s-*pr\\(o\\|og\\|ogr\\|ogra\\|ogram\\)\\(\\s-+\\(de\\|def\\|defi\\|defin\\|define\\)?\\)\\s-+\\([a-zA-Z_][a-zA-Z_0-9]*\\)" 4))))
 
 ;; for finding lists of directories where Stata has files
 (defun ado-find-ado-dirs (dir &optional subdir)
   "Find directories where Stata stores files.
 DIR is the directory to look in.
-The optional second argument SUBDIR gives the subdirectories to look in. 
+The optional second argument SUBDIR gives the subdirectories to look in.
 Allowable values are
    all - look in the directory and all single-letter-or-digit subdirectories
    sub - look just in the single-letter-or-digit subdirectories
   self - look just in the given directory
-The strange single-letter-or-digit subdirectories come from Stata storing 
-both its own and downloaded files in such directories. A remnant of old file 
+The strange single-letter-or-digit subdirectories come from Stata storing
+both its own and downloaded files in such directories. A remnant of old file
 systems with 255-file limits."
   
   (interactive)
   (unless subdir
 	(setq subdir "all"))
-  (append 
+  (append
    (if (or (string= subdir "all") (string= subdir "self"))
 	   (list dir))
    (if (or (string= subdir "all") (string= subdir "sub"))
 	   (directory-files dir t "^[a-z_0-9]$"))
-   nil)) 
+   nil))
 
 (defun ado-next-error (&optional goback)
-  "Look for next error in a log file (smcl or txt). 
+  "Look for next error in a log file (smcl or txt).
 
 If the optional argument GOBACK is non-nil, looks backwards (see also
-\\[ado-prev-error]). 
+\\[ado-prev-error]).
 
 If looking through a file where tracing is on, goes back to the line which caused the error."
   (interactive)
@@ -1931,7 +1931,7 @@ If looking through a file where tracing is on, goes back to the line which cause
 (defun ado-prev-error ()
   "Look for previous error in a log file (smcl or txt).
 
-See `ado-next-error' for more details." 
+See `ado-next-error' for more details."
 
   (interactive)
   (ado-next-error t))
@@ -1942,7 +1942,7 @@ See `ado-next-error' for more details."
 
 By default, braces are any of {[()]}.
  
-If BLOCK is non-nil, balance only {} in a smart way, being sure to include 
+If BLOCK is non-nil, balance only {} in a smart way, being sure to include
 loop-inducing commands."
   (interactive)
   (let (here there (ppsexp (parse-partial-sexp 1 (point))))
@@ -1991,8 +1991,8 @@ Used to find the beginning of programs."
 (defun ado-skip-header-lines ()
   "Move forward over all header lines.
 
-Skips * and *! comments, empty lines, and capture program drop lines 
-from the current line until they run out. Used to find the beginning of 
+Skips * and *! comments, empty lines, and capture program drop lines
+from the current line until they run out. Used to find the beginning of
 programs, even those defined in a funky way."
   (interactive)
   (goto-char (point-at-bol))
