@@ -188,45 +188,30 @@ Needed for getting bits of information about Stata from Stata."
   ;; doesn't work if the result is wrapped; should fix
   (interactive)
   (let ((tmp-log-buffer " *stata log*")
-		stata-result stata-log)
+		stata-result
+		stata-log
+		stata-flags
+		os-cmd-sep)
+	;; gather os-specific flags and command dividers
 	(cond
 	 ((string= system-type "darwin")
-	  ;; (shell-command
-	  ;;  (concat "cd " (shell-quote-argument (ado-system-tmp-dir)) " ; "
-	  ;; 		   (shell-quote-argument (ado-find-stata))
-	  ;; 		   " -q -b -e '" stata-command "'"
-	  ;; 		   (if stata-command-args (concat " '" stata-command-args "'")))))
-	  (shell-command
-		(concat "cd " (shell-quote-argument (ado-system-tmp-dir)) " ; "
-				(shell-quote-argument (ado-find-stata))
-				" -q -b -e "
-				(shell-quote-argument stata-command)
-				(if stata-command-args
-					(concat " " (shell-quote-argument stata-command-args ))))))
-	 ;; ((string= system-type "windows-nt")
-	 ;;  (shell-command
-	 ;;   (concat "cd " (shell-quote-argument (ado-system-tmp-dir)) " & "
-	 ;; 		   (shell-quote-argument (ado-find-stata))
-	 ;; 		   " /q /e  " stata-command
-	 ;; 		   (if stata-command-args (concat " \"" stata-command-args "\"")))))
+	  (setq stata-flags "-q -b -e")
+	  (setq os-cmd-sep ";"))
 	 ((string= system-type "windows-nt")
-	  (shell-command
-		(concat "cd " (shell-quote-argument (ado-system-tmp-dir)) " & "
-				(shell-quote-argument (ado-find-stata))
-				" /q /e "
-				(shell-quote-argument stata-command)
-				(if stata-command-args
-					(concat " " (shell-quote-argument stata-command-args ))))))
+	  (setq stata-flags "/q /e")
+	  (setq os-cmd-sep "&"))
 	 ((string= system-type "gnu/linux")
-	  (shell-command
-	   (concat "cd "
-			   (shell-quote-argument (ado-system-tmp-dir)) " ; "
-			   (shell-quote-argument (ado-find-stata))
-			   " -q -e "
-			   (shell-quote-argument stata-command)
-			   (if stata-command-args
-				   (concat " " (shell-quote-argument stata-command-args ))))))
+	  (setq stata-flags "-q -e")
+	  (setq os-cmd-sep ";"))
 	 (t (error (concat "Nothing for " system-type " yet"))))
+	(shell-command
+	 (concat "cd " (shell-quote-argument (ado-system-tmp-dir))
+			 " " os-cmd-sep " "
+			 (shell-quote-argument (ado-find-stata))
+			 " " stata-flags " "
+			 (shell-quote-argument stata-command)
+			 (if stata-command-args
+				 (concat " " (shell-quote-argument stata-command-args )))))
 	
 	(setq stata-log (concat (ado-system-tmp-dir) "stata.log"))
 	;; visit tmp directory and manipulate the log
