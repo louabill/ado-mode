@@ -451,13 +451,15 @@ Defaults to nil."
 
 (defcustom ado-stata-home
   (cond ((string= system-type "darwin") "/Applications/Stata/")
-		((string= system-type "windows-nt") "C:/Program Files (x86)/Stata15/")
+		((string= system-type "windows-nt") "C:/Program Files/Stata16/")
 		(t "/usr/local/stata"))
   "Set to the location of your Stata executable(s).
 Needed if you want Emacs to launch a particular version of Stata
 for setting your adopath or if you always launch Stata before sending
 code from Emacs.
-Defaults to the the typical install location for Stata 15."
+Defaults to the the typical install location for Stata 16.
+If you are a different version of Stata under MS Windows, you will need to 
+customize this setting. Mac and Unix should be universal."
   :type '(choice (const nil) directory)
   :group 'ado-stata-interaction)
 
