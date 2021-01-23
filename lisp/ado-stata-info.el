@@ -196,11 +196,13 @@ Needed for getting bits of information about Stata from Stata."
 	  ;; 		   (shell-quote-argument (ado-find-stata))
 	  ;; 		   " -q -b -e '" stata-command "'"
 	  ;; 		   (if stata-command-args (concat " '" stata-command-args "'")))))
-	  (shell-quote-argument
-	   (concat "cd " (ado-system-tmp-dir) " ; "
-			   (ado-find-stata)
-			   " -q -b -e '" stata-command
-			   (if stata-command-args (concat " " stata-command-args )))))
+	  (shell-command
+		(concat "cd " (shell-quote-argument (ado-system-tmp-dir)) " ; "
+				(shell-quote-argument (ado-find-stata))
+				" -q -b -e "
+				(shell-quote-argument stata-command)
+				(if stata-command-args
+					(concat " " (shell-quote-argument stata-command-args ))))))
 	 ;; ((string= system-type "windows-nt")
 	 ;;  (shell-command
 	 ;;   (concat "cd " (shell-quote-argument (ado-system-tmp-dir)) " & "
@@ -208,18 +210,24 @@ Needed for getting bits of information about Stata from Stata."
 	 ;; 		   " /q /e  " stata-command
 	 ;; 		   (if stata-command-args (concat " \"" stata-command-args "\"")))))
 	 ((string= system-type "windows-nt")
-	  (shell-quote-argument
-	   (concat "cd " (ado-system-tmp-dir) " & "
-			   (ado-find-stata)
-			   " /q /e " stata-command
-			   (if stata-command-args (concat " " stata-command-args )))))
+	  (shell-command
+		(concat "cd " (shell-quote-argument (ado-system-tmp-dir)) " & "
+				(shell-quote-argument (ado-find-stata))
+				" /q /e "
+				(shell-quote-argument stata-command)
+				(if stata-command-args
+					(concat " " (shell-quote-argument stata-command-args ))))))
 	 ((string= system-type "gnu/linux")
-	  (shell-quote-argument
-	   (concat "cd " (ado-system-tmp-dir) " ; "
-			   (ado-find-stata)
-			   " -q -e '" stata-command "'"
-			   (if stata-command-args (concat " " stata-command-args )))))
+	  (shell-command
+	   (concat "cd "
+			   (shell-quote-argument (ado-system-tmp-dir)) " ; "
+			   (shell-quote-argument (ado-find-stata))
+			   " -q -e "
+			   (shell-quote-argument stata-command)
+			   (if stata-command-args
+				   (concat " " (shell-quote-argument stata-command-args ))))))
 	 (t (error (concat "Nothing for " system-type " yet"))))
+	
 	(setq stata-log (concat (ado-system-tmp-dir) "stata.log"))
 	;; visit tmp directory and manipulate the log
 	(with-current-buffer (get-buffer-create tmp-log-buffer)
