@@ -105,9 +105,14 @@ send2stata.scpt is stored."
    ((or (string= dothis "menu") (string= dothis "dofile") (string= dothis "command") (string= dothis "include"))
 	(cond ((string= system-type "darwin")
 	  ;; the comeback for Mac OS X is handled via a shell command below
-		   (shell-command (concat "osascript '"
-								 (ado-send2stata-name "send2stata.scpt")
-								 "' \"" dothis "\"")))
+		   ;; (shell-command (concat "osascript '"
+		   ;; 						 (ado-send2stata-name "send2stata.scpt")
+		   ;; 						 "' \"" dothis "\"")))
+		   (shell-command
+		   	 (concat "osascript "
+		   			 (shell-quote-argument (ado-send2stata-name "send2stata.scpt"))
+		   			 " "
+		   			 (shell-quote-argument dothis))))
 		  ((string= system-type "windows-nt")
 		   ;; autoit can send to non-active windows, so comeback is handled there
 		   ;; need to be sure that comeback is a string for concatenation
@@ -116,33 +121,55 @@ send2stata.scpt is stored."
 		   (if (and comeback (string= dothis "menu"))
 			   (error "Cannot comeback to Stata after using a menu in MS Windows"))
 		   ;; changing to shell-command breaks autoit
-		   (call-process-shell-command
+		   ;; (call-process-shell-command
+		   ;; 	(concat
+		   ;; 	 "\""
+		   ;; 	 (ado-send2stata-name "send2stata.exe")
+		   ;; 	 "\" \"" dothis "\" \"" comeback "\""
+		   ;; 	 " \"" ado-temp-dofile "\""
+		   ;; 	 " \"" (unless (= 0 ado-stata-instance) (number-to-string ado-stata-instance)) "\""
+		   ;; 	 " \"" ado-stata-version "\""
+		   ;; 	 " \"" ado-stata-flavor "\""
+		   ;; 	 " \"" (if ado-send-to-all-flag "t" "") "\""
+		   ;; 	 " \"" (if ado-strict-match-flag "t" "") "\"")
+		   ;; 	nil 0))
+		   (shell-command
 			(concat
-			 "\""
-			 (ado-send2stata-name "send2stata.exe")
-			 "\" \"" dothis "\" \"" comeback "\""
-			 " \"" ado-temp-dofile "\""
-			 " \"" (unless (= 0 ado-stata-instance) (number-to-string ado-stata-instance)) "\""
-			 " \"" ado-stata-version "\""
-			 " \"" ado-stata-flavor "\""
-			 " \"" (if ado-send-to-all-flag "t" "") "\""
-			 " \"" (if ado-strict-match-flag "t" "") "\"")
-			nil 0))
+			 (shell-quote-argument
+			  (concat (ado-send2stata-name) "send2stata.exe"))
+			 " "
+			 (shell-quote-argument dothis)
+			 " "
+			 (shell-quote-argument comeback)
+			 " "
+			 (shell-quote-argument ado-temp-dofile)
+			 " "
+			 (shell-quote-argument
+			  (unless (= 0 ado-stata-instance)
+				(number-to-string ado-stata-instance)))
+			 " "
+			 (shell-quote-argument ado-stata-version)
+			 " "
+			 (shell-quote-argument ado-stata-flavor)
+			 " "
+			 (shell-quote-argument
+			  (if ado-send-to-all-flag
+				  "t" "")))))
 		  ((string= system-type "gnu/linux")
-		   (shell-command (concat
-						   "\""
-						   (ado-send2stata-name "send2ztata.sh")
-						   "\""
-						   (if ado-comeback-flag
-							   " -c ")
-						   " -d " dothis
-						   " &" )))
+		   (shell-command
+			(concat
+			 (shell-quote-argument
+			  (concat (ado-send2stata-name "send2ztata.sh")))
+			 (if ado-comeback-flag
+				 " -c ")
+			 " -d "
+			 (shell-quote-argument dothis) " &" )))
 		  (t
 		   (message "%s" (concat "working via " dothis "s not supported yet in "
 								 (symbol-name system-type)
 								 (if (string= dothis "command")
 									 ", but the command is on the clipboard and you can paste it in the command window by hand"))))))
-	(t (error "Bad value for 'do-this' in ado-send-region-to-stata")))
+   (t (error "Bad value for 'do-this' in ado-send-region-to-stata")))
    ;; comeback cannot be done in applescript very well
   (cond
    ((string= system-type "darwin")
