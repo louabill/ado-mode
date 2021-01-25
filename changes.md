@@ -1,5 +1,12 @@
 # Version History
 
+## 1.16.1.5
+
+Again, no feature changes. Did make changes for submitting code to Stata
+which should not affect behavior.
+
+Bumped version number for MELPA versioning and testing.
+
 ## 1.16.1.4
 
 No feature changes. Just taking care of programming conventions for MELPA.

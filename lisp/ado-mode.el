@@ -3,7 +3,7 @@
 ;; Copyright (C) 1996-2020 Bill Rising
 
 ;; Author: Bill Rising <brising@alum.mit.edu>
-;; Version: 1.16.1.4
+;; Version: 1.16.1.5
 ;; Keywords: tools,languages,files,convenience,Stata, Mata, ado
 ;; Package-requires: ((emacs "24.1"))
 ;; URL: https://github.com/louabill/ado-mode

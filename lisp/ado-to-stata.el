@@ -153,8 +153,7 @@ send2stata.scpt is stored."
 			 (shell-quote-argument ado-stata-flavor)
 			 " "
 			 (shell-quote-argument
-			  (if ado-send-to-all-flag
-				  "t" "")))))
+			  (if ado-send-to-all-flag "t" "")))))
 		  ((string= system-type "gnu/linux")
 		   (shell-command
 			(concat
