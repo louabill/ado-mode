@@ -120,7 +120,7 @@ send2stata.scpt is stored."
 		   ;;  working via the menu does NOT work with comeback, yet
 		   (if (and comeback (string= dothis "menu"))
 			   (error "Cannot comeback to Stata after using a menu in MS Windows"))
-		   ;; changing to shell-command breaks autoit
+		   ;; **changing to shell-command breaks autoit**
 		   ;; (call-process-shell-command
 		   ;; 	(concat
 		   ;; 	 "\""
@@ -132,20 +132,22 @@ send2stata.scpt is stored."
 		   ;; 	 " \"" ado-stata-flavor "\""
 		   ;; 	 " \"" (if ado-send-to-all-flag "t" "") "\""
 		   ;; 	 " \"" (if ado-strict-match-flag "t" "") "\"")
-		   ;; 	nil 0))
-		   (shell-command
+		   ;; 	nil 0)
+		   (call-process-shell-command
 			(concat
 			 (shell-quote-argument
 			  (ado-send2stata-name "send2stata.exe"))
 			 " "
 			 (shell-quote-argument dothis)
 			 " "
-			 (shell-quote-argument comeback)
+			 (shell-quote-argument  ; errors on nil ?!
+			  (if comeback comeback ""))
 			 " "
 			 (shell-quote-argument ado-temp-dofile)
 			 " "
 			 (shell-quote-argument
-			  (unless (= 0 ado-stata-instance)
+			  (if (= 0 ado-stata-instance)
+				  ""
 				(number-to-string ado-stata-instance)))
 			 " "
 			 (shell-quote-argument ado-stata-version)
@@ -153,7 +155,11 @@ send2stata.scpt is stored."
 			 (shell-quote-argument ado-stata-flavor)
 			 " "
 			 (shell-quote-argument
-			  (if ado-send-to-all-flag "t" "")))))
+			  (if ado-send-to-all-flag "t" ""))
+			 " "
+			 (shell-quote-argument (if ado-strict-match-flag "t" "")))
+			 nil 0)
+			 )
 		  ((string= system-type "gnu/linux")
 		   (shell-command
 			(concat
