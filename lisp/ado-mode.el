@@ -1949,10 +1949,10 @@ loop-inducing commands."
 	  ;; if no block, these error out
 	  (condition-case nil
 		  (setq here (scan-lists (point) -1 1))
-		(error (error "Beginning brace not found")))
+		(error "Beginning brace not found"))
 	  (condition-case nil
 		  (setq there (scan-lists (point) 1 1))
-		(error (error "Ending brace not found"))))
+		(error "Ending brace not found")))
 	;; jump to start of loop if needed
 	(goto-char here)
 	(set-mark there)

@@ -81,7 +81,7 @@ As of yet, only -2, -1, and 0 actually are implemented."
 			(while (search-forward-regexp ".*:" end-here t))
 			(skip-chars-forward " /t")
 			(word-at-point))))
-	   (t (error "`ado-grab-something': argument must be nil, 0, -1, or -2"))))))
+	   (t (error "%s" "`ado-grab-something': argument must be nil, 0, -1, or -2"))))))
 
 (defun ado-command-to-clip (&optional use-dofile whole-buffer keep-whitespace)
   "Prepare a region or command to send to Stata.
@@ -111,8 +111,8 @@ The whitespace trimming is done by `ado-string-trim'."
 		(setq string-to-fix (ado-string-trim string-to-fix)))
 	  (unless (> (length string-to-fix) 0)
 		(if whole-buffer
-			(error "Buffer is empty")
-		  (error "No command found")))
+			(error "%s" "Buffer is empty")
+		  (error "%s" "No command found")))
 	  (if (string= use-dofile "command")
 		  (progn
 			(setq string-to-fix (ado-strip-comments string-to-fix))
@@ -165,7 +165,7 @@ The types of comments cannot be modularized, because of ordering problems."
 	(while (setq pare-thru (string-match "\\(^///\\|\\( \\|	\\)///\\|^//\\|\\( \\|	\\)//\\|/[*]\\|[*]/\\)" string-to-fix))
 	  (setq string-that-matched (match-string 1 string-to-fix))
 	  (if (string= "*/" string-that-matched)
-		  (error "Too many */ in a /* */-style comment"))
+		  (error "%s" "Too many */ in a /* */-style comment"))
 	  ;; found something to investigate
 	  ;; put upto match onto the return string
 	  (setq string-to-return
@@ -179,7 +179,7 @@ The types of comments cannot be modularized, because of ordering problems."
 		(if (setq pare-thru (string-match "
 " string-to-fix))
 			(setq string-to-fix (substring string-to-fix (1+ pare-thru)))
-		  (error "Found /// with no continuation")))
+		  (error "%s" "Found /// with no continuation")))
 	   ((or (string= string-that-matched "//")
 			(string= string-that-matched " //")
 			(string= string-that-matched "	//"))
@@ -192,7 +192,7 @@ The types of comments cannot be modularized, because of ordering problems."
 		(while (> nesting 0)
 		  (if (not (setq pare-thru
 						 (string-match "\\(/[*]\\|[*]/\\)" string-to-fix)))
-			  (error "Too many /* in a /* */-style comment"))
+			  (error "%s" "Too many /* in a /* */-style comment"))
 		  (if (string= (match-string 0 string-to-fix) "*/")
 			  (setq nesting (1- nesting))
 			(setq nesting (1+ nesting)))

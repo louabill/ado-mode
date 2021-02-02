@@ -9040,7 +9040,7 @@ which has an internal name of bar.
 	(setq subdir "all"))
   ;; first check if dir is a directory
   (unless (file-directory-p dir)
-	(error (concat "directory " dir " does not exist")))
+	(error "directory `%s' does not exist" dir))
 
   ;; now check to see if -name- exists
   (let (new-list (old-list (assoc name ado-added-names)))
