@@ -611,10 +611,10 @@ NEWVALUE is for the newvalue."
 			 (string= newvalue "")
 			 (= (setq newvalue (string-to-number newvalue)) (eval variable)))
 			(progn
-			  (message "%s" (concat "value of " (symbol-name variable) " left unchanged."))
+			  (message "value of %s left unchanged." (symbol-name variable))
 			  nil)
 		  (set variable (eval newvalue))
-		  (message (concat "value of " (symbol-name variable) " set to %d.") (eval variable))
+		  (message "value of %s set to %d." (symbol-name variable) (eval variable))
 		  t))
     (set variable (eval newvalue))
     t ))
@@ -1040,7 +1040,8 @@ It returns a value instead of setting a variable."
 
 Just an interface to \\[ado-find-extension]."
   (interactive)
-	(message "%s" (concat "I think the extension is " (ado-find-extension))))
+  (message "I think the extension is `%s'" (ado-find-extension)))
+
 (defun ado-find-extension ()
   "Choose the file extension based on the file contents.
  
@@ -1083,7 +1084,7 @@ To test this, try \\[ado-show-extension]."
 	(if sez-file
 		(progn
 		  (unless (string= sez-file sez-contents)
-			(message "%s" (concat "ado-mode thinks that the extension should be " sez-contents " even though the current extension is " sez-file "!")))
+			(message "ado-mode thinks that the extension should be `%s' even though the current extension is `%s'!" sez-contents sez-file))
 		  sez-file)
 	  sez-contents)))
 
