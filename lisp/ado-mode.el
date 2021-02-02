@@ -876,7 +876,7 @@ Bound to \\[ado-new-ado]"
   (interactive)
   (ado-new-generic "program" "ado" stayput name purpose))
 
-(defalias 'ado-new-ado 'ado-new-program)
+(defalias 'ado-new-ado #'ado-new-program)
 
 (defun ado-new-testado (&optional stayput name purpose)
   "Make a new ado file together with a do-file for testing.
@@ -1275,7 +1275,7 @@ Needed for old-school contintuation comments."
 		 (not (re-search-forward "[ /t]*$" (point-at-eol) t))
 		 (not (search-backward "/*" (point-at-bol) t)))))
 
-(defalias 'ado-out-of-nested-comment 'ado-start-of-nested-comment
+(defalias 'ado-out-of-nested-comment #'ado-start-of-nested-comment
   "Alias for `ado-start-of-nested-command'. Was the original name, but was,
 quite frankly, a dumb name. Left as an alias for backward compatibility.")
 
@@ -1953,7 +1953,7 @@ loop-inducing commands."
 	  (condition-case nil
 		  (setq there (scan-lists (point) 1 1))
 		(error "Ending brace not found")))
-	;; jump to start of loop if needed
+	;; Jump to start of loop if needed
 	(goto-char here)
 	(set-mark there)
 	(when block
