@@ -611,10 +611,10 @@ NEWVALUE is for the newvalue."
 			 (string= newvalue "")
 			 (= (setq newvalue (string-to-number newvalue)) (eval variable)))
 			(progn
-			  (message "value of %s left unchanged." (symbol-name variable))
+			  (message "Value of `%s' left unchanged." (symbol-name variable))
 			  nil)
 		  (set variable (eval newvalue))
-		  (message "value of %s set to %d." (symbol-name variable) (eval variable))
+		  (message "Value of `%s' set to %d." (symbol-name variable) (eval variable))
 		  t))
     (set variable (eval newvalue))
     t ))
@@ -1093,7 +1093,7 @@ To test this, try \\[ado-show-extension]."
 
 Just an interface to `ado-make-ado-name'."
   (interactive)
-  (message "%s" (ado-make-ado-name)))
+  (message "Suggested name: `%s'" (ado-make-ado-name)))
 
 (defun ado-make-ado-name ()
   "Create a file name from the contents of the file.
@@ -1234,7 +1234,7 @@ the program name is missing."
 (defun ado-show-local-name ()
   "Show the value that would be returned by `ado-find-local-name'."
   (interactive)
-  (message "%s" (concat "The local program is " (ado-find-local-name))))
+  (message "The local program is `%s'" (ado-find-local-name)))
 
 (defun ado-insert-file-and-indent (file)
   "Interactively insert (and properly indent) tbe file FILE.
@@ -1306,9 +1306,10 @@ An interactive interface to `ado-find-depth'"
   
   (interactive)
   (let ((depth (ado-find-depth)))
-    (message "%s"
-			 (concat "The depth was " (number-to-string (car depth))
-					 (if (nth 1 depth) " with continuation" " without continuation")))))
+    (message
+	 (concat "The depth is %d" 
+			 (if (nth 1 depth) " with continuation" " without continuation"))
+	 (car depth))))
 
 ;; changed left-indenting of 'version' to left-indent iff spelled out to
 ;;   avoid the indenting, use an abbreviation
@@ -1426,7 +1427,7 @@ Many of the parameters can be customized using '\\[customize-group] ado'."
 	  (if (looking-at "^[ \t]*$")
 		  (delete-region (point) (line-end-position)))
 	  (forward-line 1))))
-  (message (concat "Ended ado-clean-buffer: " (current-time-string))))
+  (message "Ended ado-clean-buffer: %s" (current-time-string)))
 
 
 (defun ado-delimit-is-semi-p ()
@@ -1452,10 +1453,8 @@ Many of the parameters can be customized using '\\[customize-group] ado'."
   "Show the value of the command delimiter at the insertion point."
   
   (interactive)
-  (message "%s"
-		   (if (ado-delimit-is-semi-p)
-			   "The delimiter is ;"
-			 "The delimiter is cr")))
+  (message "The delimiter is %s"
+		   (if (ado-delimit-is-semi-p) ";" "cr")))
 
 (defun ado-beginning-of-command ()
   "Move to the start of the command containg the insertion point is sitting.
@@ -1794,7 +1793,7 @@ namely those maintaining old ado-files."
   (if (string= ado-help-extension "sthlp")
 	  (setq ado-help-extension "hlp")
 	(setq ado-help-extension "sthlp"))
-  (message "%s" (concat "ado-help-extension is now " ado-help-extension)))
+  (message "ado-help-extension is now `%s'" ado-help-extension))
 
 ;;; useful insertions in smcl
 (defun ado-help-insert-option-in-body (&optional option-name)
@@ -1923,11 +1922,8 @@ If looking through a file where tracing is on, goes back to the line which cause
 						  (if (< traceoff whereto)
 							  (goto-char whereto))))
 				  (goto-char whereto))))
-	  (message "%s" (concat "no "
-					   (if goback
-						   "previous"
-						 "next")
-					   " error found")))))
+	  (message "No %s error found"
+			   (if goback "previous" "next")))))
 
 (defun ado-prev-error ()
   "Look for previous error in a log file (smcl or txt).
