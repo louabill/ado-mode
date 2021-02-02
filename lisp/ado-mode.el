@@ -1306,10 +1306,9 @@ An interactive interface to `ado-find-depth'"
   
   (interactive)
   (let ((depth (ado-find-depth)))
-    (message
-	 (concat "The depth is %d" 
-			 (if (nth 1 depth) " with continuation" " without continuation"))
-	 (car depth))))
+    (message "The depth is %d %s" 
+			 (car depth)
+			 (if (nth 1 depth) " with continuation" " without continuation"))))
 
 ;; changed left-indenting of 'version' to left-indent iff spelled out to
 ;;   avoid the indenting, use an abbreviation
@@ -1368,10 +1367,10 @@ then the region from START to point gets indented."
   "Indent entire buffer."
   
   (interactive)
-  ;; (message (concat "ado-indent-buffer started: " (current-time-string)))
+  ;; (message "ado-indent-buffer started: %s" (current-time-string))
   (save-excursion
     (ado-indent-region (point-min) (point-max)))
-  ;; (message (concat "ado-indent-buffer ended: " (current-time-string)))
+  ;; (message "ado-indent-buffer ended: %s" (current-time-string))
   )
 
 (defun ado-indent-line ()
@@ -1415,7 +1414,7 @@ Many of the parameters can be customized using '\\[customize-group] ado'."
 (defun ado-clean-buffer ()
   "Turn all whitespace-only lines into empty lines while keeping blank lines."
   (interactive)
-  ;; (message (concat "Started ado-clean-buffer: " (current-time-string)))
+  ;; (message "Started ado-clean-buffer: %s" (current-time-string))
   (save-excursion
 	(let (endmark)
 	  (goto-char (point-min))

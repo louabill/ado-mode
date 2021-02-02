@@ -164,12 +164,14 @@ send2stata.scpt is stored."
 			 " -d "
 			 (shell-quote-argument dothis) " &" )))
 		  (t
-		   (message "%s" (concat "working via " dothis "s not supported yet in "
-								 (symbol-name system-type)
-								 (if (string= dothis "command")
-									 ", but the command is on the clipboard and you can paste it in the command window by hand"))))))
-   (t (error "Bad value for 'do-this' in ado-send-region-to-stata")))
-   ;; comeback cannot be done in applescript very well
+		   (message "Working via %ss not supported yet in %s%s"
+					dothis
+					(symbol-name system-type)
+					(if (string= dothis "command")
+						", but the command is on the clipboard and you can paste it in the command window by hand"
+					  "")))))
+   (t (error "%s" "Bad value for `do-this' in ado-send-region-to-stata")))
+  ;; comeback cannot be done in applescript very well
   (cond
    ((string= system-type "darwin")
 	(if comeback
@@ -243,7 +245,7 @@ If AS-DEFAULT is t, just send everything via the default method."
 			(ado-send-command-to-dofile t)
 		  ;; bad behavior, because it overwrites the pasteboard
 		  (let ((select-enable-clipboard t))
-			;; (message (concat "Want to call ->" (concat "do " (buffer-file-name))))
+			;; (message "Want to call `do %s'" (buffer-file-name))
 			(funcall interprogram-cut-function (concat "do \"" (buffer-file-name) "\""))
 			(ado-send-clip-to-stata "command" ado-comeback-flag)))
 	  (ado-send-command-to-stata t))))

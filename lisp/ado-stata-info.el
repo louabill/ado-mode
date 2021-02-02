@@ -100,7 +100,7 @@ Optional LOOKHERE argument allows specifying a non-standard place to look."
 	  (error "You need to set ado-stata-home to open files on the adopath")))
   (let ((stata-dir (file-name-as-directory lookhere))
 		stata-flavor)
-	;; (message (concat "ado-find-stata found a home: " lookhere))
+	;; (message "ado-find-stata found a home: %s" lookhere)
 	(cond
 	 ((string= system-type "darwin")
 	  (setq stata-flavor
@@ -153,17 +153,17 @@ Optional LOOKHERE argument allows specifying a non-standard place to look."
 (defun ado-show-stata ()
   "Show where `ado-mode' thinks Stata is installed."
   (interactive)
-  (message "%s" (concat "Found: " (ado-find-stata))))
+  (message "Found Stata here: %s" (ado-find-stata)))
 
 (defun ado-show-tmp-dir ()
   "Show where Stata's tmpdir is located."
   (interactive)
-  (message "%s" (concat "Found: " (ado-system-tmp-dir))))
+  (message "Found tmpdir here: %s" (ado-system-tmp-dir)))
 
 (defun ado-show-stata-version ()
   "Show the version of Stata."
   (interactive)
-  (message "%s" (concat "Found: " (ado-get-stata-version))))
+  (message "Found Stata version: %s" (ado-get-stata-version)))
 
 (defun ado-system-tmp-dir ()
   "Return the temporary directory used by the OS for the user.
