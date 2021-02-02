@@ -136,7 +136,7 @@ send2stata.scpt is stored."
 		   (shell-command
 			(concat
 			 (shell-quote-argument
-			  (concat (ado-send2stata-name) "send2stata.exe"))
+			  (ado-send2stata-name "send2stata.exe"))
 			 " "
 			 (shell-quote-argument dothis)
 			 " "
@@ -158,7 +158,7 @@ send2stata.scpt is stored."
 		   (shell-command
 			(concat
 			 (shell-quote-argument
-			  (concat (ado-send2stata-name "send2ztata.sh")))
+			  (ado-send2stata-name "send2ztata.sh"))
 			 (if ado-comeback-flag
 				 " -c ")
 			 " -d "
