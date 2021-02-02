@@ -1,6 +1,11 @@
 Version History:
 ---------------
 
+1.16.1.6
+
+No feature changes. Fixes for MELPA and for a dumb bug introduced in the last
+batch of MELPA changes.
+
 1.16.1.5
 
 Again, no feature changes. Did make changes for submitting code to Stata
