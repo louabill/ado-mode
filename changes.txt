@@ -1,6 +1,11 @@
 Version History:
 ---------------
 
+1.16.1.7
+
+Added overlooked Stata/IC to script for sending to Stata in unix (thanks to
+Mark Clements)
+
 1.16.1.6
 
 No feature changes. Fixes for MELPA and for a dumb bug introduced in the last
