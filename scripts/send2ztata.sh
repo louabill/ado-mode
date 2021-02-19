@@ -88,7 +88,7 @@ winid=$(xdotool getactivewindow getwindowname)
 # 	exit 4
 # else
    ## not finding consoles because there is no consistent name
-   xdotool search --name --onlyvisible "Stata(/SE|/MP)* 1[1-6]" windowactivate
+   xdotool search --name --onlyvisible "Stata(/SE|/MP|/IC)* 1[1-6]" windowactivate
 # fi							   
 
 ## make do-file if dothis is anything but command
