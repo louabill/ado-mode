@@ -8923,6 +8923,8 @@
 	)))
 	
 ;;; here are all the added commands for highlighting user-written commands
+;;; Note that for sysdir named directories, there is no assumption that
+;;;   the directory
 
 (defun ado-add-plus ()
   "Add/update highlighting for all ado files in `ado-plus-dir'.
@@ -9001,14 +9003,11 @@ updated appropriately."
   (interactive)
   (ado-modify-font-lock-keywords 'site (directory-file-name ado-site-dir) ''ado-site-harmless-face t))
 
-(defun ado-modify-font-lock-keywords (name dir face &optional remove subdir extension)
-  "Base function used to add or remove keywords for font locking.
-Gets called by functions adding keywords for all commands in
-a directory, as well as the commands defined in the split
-directories (a, b, c etc.) that Stata loves so well. This
-function is called by wrappers to set up Stata's named
-directories, so unless you have some extra directories, you
-don't need this function.
+(defun ado-modify-font-lock-keywords (name dir face &optional remove subdir extension baddir)
+  "Old command for adding and removing keywords for font locking.
+Has been replaced by `ado-add-font-lock-keywords' and 
+`ado-remove-font-lock-keywords'. Still hanging around for backward
+compatability.
 
 The arguments are
   NAME:   the internal name `ado-mode' uses for tracking the changes
@@ -9021,44 +9020,133 @@ The arguments are
             sub:  look in the subdirectories only
             all:  look in dir and subdirectories
   EXTENSION: defaults to 'ado' (there is no real reason for anything else yet)
-
+  BADDIR: what to do if the DIR does not exist (defaults to nil)
+            nil: do absolutely nothing
+            warn: issue a warning only
+            error: error out completely
+          There are three levels to this for programmers; most people will
+          want to automatically add the sysdirs, and they don't have to exist.
+          Some might want to add their own directories and would like to be
+          notified (for debugging) or error out (for strict enforcemement)
+          if the directories do not exist.
+                 
 Here is an example which adds and then removes the directory foo,
 which has an internal name of bar.
 
   ;; adding the ado-files
-  (ado-modify-font-lock-keywords 'bar /Users/jsmith/foo
+  (ado-modify-font-lock-keywords 'bar \"/Users/jsmith/foo\"
      ''ado-mode-personal-harmless-face)
   ;; updating the highlighting uses the same command
-  (ado-modify-font-lock-keywords 'bar /Users/jsmith/foo
+  (ado-modify-font-lock-keywords 'bar \"/Users/jsmith/foo\"
      ''ado-mode-personal-harmless-face)
   ;; removing the highlighting
   (ado-modify-font-lock-keywords 'bar /Users/jsmith/foo
      ''ado-mode-personal-harmless-face t)"
+  (if remove
+	  (ado-remove-font-lock-keywords name)
+	(ado-add-font-lock-keywords name dir face baddir subdir extension)
+  ))
+
+(defun ado-remove-font-lock-keywords (name)
+  "Remove keywords related to NAME for font locking.
+NAME is a quoted name for the list of keywords.
+To remove the keywords associated with, say, the PLUS directory, you could
+use
+  (ado-remove-font-lock-keywords ('plus))"
+  ;; check to see if -name- exists
+  (let ((old-list (assq name ado-added-names)))
+	(when old-list
+	  (message "Attempting to remove keywords from %s..." name)
+	  (font-lock-remove-keywords 'ado-mode (cdr old-list))
+	  (setq ado-added-names (assq-delete-all name ado-added-names))
+	  (message "removed keywords from %s" name))))
+
+
+(defun ado-add-font-lock-keywords (name dir face &optional baddir subdir extension)
+  "Add keywords for font locking from file names in directories.
+To add the keywords associated with NAME, the existing keywords need to
+first be removed/deleted.
+
+Gets called by functions adding keywords for all commands based
+on ado-file names in a directory, as well as the commands defined 
+in the split directories (a, b, c etc.) that Stata loves so well.
+
+Called by wrappers to set up Stata's named directories, so unless 
+you have some extra non-sysdir directories, you won't need to use it.
+
+The arguments are
+  NAME:   the internal name `ado-mode' uses for tracking the changes
+          this must be be a symbol
+  DIR:    the directory to look in
+  FACE:   the face to use (must be double ''ed)
+  BADDIR: what to do if the DIR does not exist (defaults to nil)
+            nil: do absolutely nothing except remove keywords for NAME
+            warn: issue a warning only; always removes keywords for NAME
+            error: error out completely; does not remove keywords for NAME
+          There are three levels to this for programmers; most people will
+          want to automatically add the sysdirs, and they don't have to exist.
+          Some might want to add their own directories and would like to be
+          notified (for debugging) or error out (for strict enforcemement)
+          if the directories do not exist.
+  SUBDIR: subdirectory behavior (defaults to -all-)
+            self: just look in dir
+            sub:  look in the subdirectories only
+            all:  look in dir and subdirectories
+  EXTENSION: defaults to 'ado' (there is no real reason for anything else yet)
+                 
+Here is an example which adds the directory foo, which, for no good reason
+has an internal user-chosen name of bar.
+
+  ;; adding the ado-files
+  (ado-add-font-lock-keywords 'bar \"/Users/jsmith/foo\"
+     ''ado-mode-personal-harmless-face)
+  ;; updating the highlighting uses the same command
+  (ado-add-font-lock-keywords 'bar \"/Users/jsmith/foo\"
+     ''ado-mode-personal-harmless-face)
+  ;; after updating, you'll need to reload `ado-mode'."
+  (message "Attempting to add keywords to %s..." name)
   (unless extension
 	(setq extension "ado"))
   (unless subdir
 	(setq subdir "all"))
+  ;; first remove keywords --- need to do before checking for directory
+  ;;   as the removal has nothing to do with the directory existing
   ;; first check if dir is a directory
+  ;; huge if-block so that code gets skipped if BADDIR is not "error"
   (unless (file-directory-p dir)
-	(error "directory `%s' does not exist" dir))
-
-  ;; now check to see if -name- exists
-  (let (new-list (old-list (assoc name ado-added-names)))
-	(if old-list
-		(progn
-		  (font-lock-remove-keywords 'ado-mode (cdr old-list))
-		  (setq ado-added-names (assq-delete-all name ado-added-names))))
-	(unless remove
-	  (setq new-list `((,(concat ado-start-cmd-regexp (regexp-opt
-				  (mapcar (function (lambda (name) (substring-no-properties name nil -4)))
-						  (apply 'append
-								 (mapcar (function (lambda (dirname) (directory-files dirname nil ".*[.]ado$")))
-										 (ado-find-ado-dirs dir subdir))))
-				  'words)
-								ado-end-cmd-regexp) 1 ,face)))
+	  (let ((errmsg (format-message "Attempted to add directory `%s' for fontlocking, but it does not exist" dir)))
+		(if baddir
+			(if (string= baddir "error")
+				(error errmsg)
+			  (if (string= baddir "warn")
+				  (display-warning 'ado-mode errmsg)
+				;; following in case something other than error or warn was specified
+				(error "Bad `BADDIR' specified: %s" baddir))))))
+  (ado-remove-font-lock-keywords 'name)
+  (when (file-directory-p dir)
+	(let (new-list)
+	  (setq new-list
+			`((,(concat ado-start-cmd-regexp
+					  (regexp-opt
+					   (mapcar (function (lambda (name) (substring-no-properties name nil -4)))
+							   (apply 'append
+									  (mapcar (function (lambda (dirname) (directory-files dirname nil ".*[.]ado$")))
+											  (ado-find-ado-dirs dir subdir))))
+					   'words)
+					  ado-end-cmd-regexp) 1 ,face)))
 	  (font-lock-add-keywords 'ado-mode new-list)
-	  (setq ado-added-names (append ado-added-names `(,(cons name new-list)))))))
+	  (setq ado-added-names (append ado-added-names `(,(cons name new-list))))
+	  (message "added keywords for %s" name))))
 
+;; Idea from from https://stackoverflow.com/questions/1431843, but
+;; with a fix for the `font-lock-major-mode' variable name
+;; and the use of font-lock-flush because font-lock-fontify-buffer
+;; is meant for interactive use only.
+(defun ado-font-lock-refresh ()
+   "Refontify buffer with new font-lock definitions."
+  (interactive)
+  (setq font-lock-major-mode nil)
+  (font-lock-flush))
 
 (provide 'ado-font-lock)
 

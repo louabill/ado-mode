@@ -53,12 +53,11 @@ No checking for existence is done."
 (defun ado-reset-adopath ()
   "(Re)set the ado-path related variables.
 This resets `ado-personal-dir', `ado-plus-dir', `ado-site-dir',
-and `ado-oldplace-dir' to the values they would have when starting your Stata
-session, i.e. how they would be set when you begin using Stata.
+and `ado-oldplace-dir' to the values they would have if you started a 
+Stata session at the time `ado-reset-adopath' gets called.
 
-The emphasis is 'you' because the information is gotten by running a few Stata
-sessions in the background and reading the results of the 'sysdir' macros.
-Hence, any information in your global profile.do will be used."
+The directory information is gotten by running a few Stata
+sessions in the background and reading the results of the 'sysdir' macros."
   (interactive)
   (ado-reset-personal-dir)
   (ado-reset-plus-dir)
