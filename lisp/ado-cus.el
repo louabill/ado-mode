@@ -144,6 +144,12 @@ cabin with the creaking screen door."
   :type '(choice (const nil) directory)
   :group 'ado-path)
 
+(defcustom ado-add-sysdir-font-lock t
+  "Non-nil means that commands from the sysdir directories get fontified.
+By default this is set to t."
+  :type 'boolean
+  :group 'ado-essentials)
+
 (defcustom ado-confirm-overwrite-flag t
   "Non-nil means confirmation is required to overwrite an already-existing file.
 When nil, overwrites happily and dangerously.
