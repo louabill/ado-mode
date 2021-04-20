@@ -1,4 +1,6 @@
-;;; Mandatory additions --- you must add these to get things working properly 
+;;; Mandatory additions for them that download instead of using MELPA
+;;;   You must add these to get things working properly
+;;; MELPA handles this without any new additions
 ;; Tell emacs where the ado-mode is
 ;;   the example below is for my setup---you'll have your own path to 
 ;;   the ado-mode

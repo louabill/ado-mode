@@ -9100,7 +9100,7 @@ has an internal user-chosen name of bar.
   (ado-add-font-lock-keywords 'bar \"/Users/jsmith/foo\"
      ''ado-mode-personal-harmless-face)
   ;; after updating, you'll need to reload `ado-mode'."
-  (message "Attempting to add keywords to %s..." name)
+  ;; (message "Attempting to add keywords to %s..." name)
   (unless extension
 	(setq extension "ado"))
   (unless subdir

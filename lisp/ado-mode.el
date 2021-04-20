@@ -568,7 +568,7 @@ Finally, here is the complete keymap for ado-mode:
   ;; (if ado-smart-indent-flag
   ;;    (ado-indent-buffer))
   (when ado-add-sysdir-font-lock
-	(ado-add-sysdir))
+	(ado-add-sysdir-all))
   (run-mode-hooks 'ado-mode-hook))
 
 ;;; ado-set-return == t -> swap ret and C-j

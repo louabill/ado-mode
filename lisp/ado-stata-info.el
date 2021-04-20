@@ -59,34 +59,38 @@ Stata session at the time `ado-reset-adopath' gets called.
 The directory information is gotten by running a few Stata
 sessions in the background and reading the results of the 'sysdir' macros."
   (interactive)
-  (ado-reset-personal-dir)
-  (ado-reset-plus-dir)
-  (ado-reset-site-dir)
-  (ado-reset-oldplace-dir))
+  (ado-reset-sysdir "personal")
+  (ado-reset-sysdir "plus")
+  (ado-reset-sysdir "site")
+  (ado-reset-sysdir "oldplace"))
 
+(defun ado-reset-sysdir (sysdir)
+  (let ((vname (intern (concat "ado-" sysdir "-dir"))))
+	(set-variable vname (ado-get-filename-from-stata "display" (concat "c(sysdir_" sysdir ")")))))
+		
 (defun ado-reset-personal-dir ()
   "Reset the variable `ado-personal-dir' to the starting value of PERSONAL.
 The starting value is the value when Stata gets started."
   (interactive)
-  (set-variable 'ado-personal-dir (ado-get-filename-from-stata "display" "c(sysdir_personal)")))
+  (ado-reset-sysdir "personal"))
 
 (defun ado-reset-plus-dir ()
   "Reset the variable `ado-plus-dir' to the starting value of PLUS.
 The starting value is the value when Stata gets started."
   (interactive)
-  (set-variable 'ado-plus-dir (ado-get-filename-from-stata "display" "c(sysdir_plus)")))
+  (ado-reset-sysdir "plus"))
 
 (defun ado-reset-site-dir ()
   "Reset the variable `ado-site-dir' to the starting value of SITE.
 The starting value is the value when Stata gets started."
   (interactive)
-  (set-variable 'ado-site-dir (ado-get-filename-from-stata "display" "c(sysdir_site)")))
+  (ado-reset-sysdir "site"))
 
 (defun ado-reset-oldplace-dir ()
   "Reset the variable `ado-oldplace-dir' to the starting value of OLDPLACE.
 The starting value is the value when Stata gets started."
   (interactive)
-  (set-variable 'ado-oldplace-dir (ado-get-filename-from-stata "display" "c(sysdir_oldplace)")))
+  (ado-reset-sysdir "oldplace"))
 
 (defun ado-find-stata (&optional lookhere)
   "Locate where Stata was installed, if possible. Otherwise ask for help.

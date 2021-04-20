@@ -3,6 +3,11 @@ Version History:
 
 1.16.1.7
 
+Fixed up commands for adding and removing font-lock keywords from sysdirs.
+
+Added ado-font-lock-refresh to refresh font locking without having to reload
+ado-mode. Finally.
+
 Added overlooked Stata/IC to script for sending to Stata in unix (thanks to
 Mark Clements)
 
