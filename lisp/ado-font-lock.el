@@ -8927,7 +8927,7 @@
 ;;; naming structure in ado-mode
 
 (defun ado-add-sysdir-font-lock-keywords (sysdir &optional refresh-flag)
-  "Add font-lock keywords from a Stata-names sysdir
+  "Add font-lock keywords from a Stata-names sysdir.
 If the optional REFRESH-FLAG is true, also refresh the font-lock-keywords.
 If the keywords are not refreshed, it is up to the user to call
 `ado-font-lock-refresh'."
@@ -8941,6 +8941,28 @@ If the keywords are not refreshed, it is up to the user to call
 ;;; here are all the added functions for highlighting user-written commands
 ;;; Note that for sysdir named directories, there is no assumption that
 ;;;   the directory exists
+
+(defun ado-add-sysdir-all ()
+  "Add font lock keywords for all sysdir directories.
+Utility function to add and update all the sysdir directories
+at once."
+  (interactive)
+  (ado-add-site)
+  (ado-add-plus)
+  (ado-add-personal)
+  (ado-add-oldplace)
+  (ado-font-lock-refresh))
+
+(defun ado-remove-sysdir-all ()
+  "Remove font lock keywords for all sysdir directories.
+Utility function to add and update all the sysdir directories
+at once."
+  (interactive)
+  (ado-remove-site)
+  (ado-remove-plus)
+  (ado-remove-personal)
+  (ado-remove-oldplace)
+  (ado-font-lock-refresh))
 
 (defun ado-add-plus ()
   "Add/update highlighting for all ado files in `ado-plus-dir'.
@@ -9001,7 +9023,7 @@ This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately."
   (interactive)
-  (ado-modify-font-lock-keywords 'plus (directory-file-name ado-plus-dir) ''ado-plus-harmless-face t))
+  (ado-remove-font-lock-keywords 'plus))
 
 (defun ado-remove-oldplace ()
   "Remove highlighting for all ado files in `ado-oldplace-dir'.
@@ -9009,7 +9031,7 @@ This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately."
   (interactive)
-  (ado-modify-font-lock-keywords 'oldplace (directory-file-name ado-oldplace-dir) ''ado-oldplace-harmless-face t))
+  (ado-remove-font-lock-keywords 'oldplace))
 
 (defun ado-remove-site ()
   "Remove highlighting for all ado files in `ado-site-dir'.
@@ -9017,7 +9039,7 @@ This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately."
   (interactive)
-  (ado-modify-font-lock-keywords 'site (directory-file-name ado-site-dir) ''ado-site-harmless-face t))
+  (ado-remove-font-lock-keywords 'site))
 
 (defun ado-remove-font-lock-keywords (name)
   "Remove keywords related to NAME for font locking.
@@ -9111,7 +9133,7 @@ has an internal user-chosen name of bar.
 					  ado-end-cmd-regexp) 1 ,face)))
 	  (font-lock-add-keywords 'ado-mode new-list)
 	  (setq ado-added-names (append ado-added-names `(,(cons name new-list))))
-	  (message "added keywords for %s" name)
+	  ;; (message "added keywords for %s" name)
 	  (when refresh
 		(ado-font-lock-refresh)))))
 
