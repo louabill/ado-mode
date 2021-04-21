@@ -8926,31 +8926,36 @@
 ;;; function for system directories, as they have a consisitent
 ;;; naming structure in ado-mode
 
-(defun ado-add-sysdir-font-lock-keywords (sysdir &optional refresh-flag)
+(defun ado-add-sysdir-font-lock-keywords (sysdir &optional update refresh)
   "Add font-lock keywords from a Stata-names sysdir.
-If the optional REFRESH-FLAG is true, also refresh the font-lock-keywords.
+If optional UPDATE is true, drop the keywords if they already exist,
+otherwise do NOT add any keywords.
+If optional REFRESH is true, also refresh the keyword list in the buffer.
+UPDATE defaults to nil, because the keywords are typically added rather
+than updated.
 If the keywords are not refreshed, it is up to the user to call
 `ado-font-lock-refresh'."
   (let ((name (intern sysdir))
 		(dir (intern (concat "ado-" sysdir "-dir")))
 		(face (intern (concat "ado-" sysdir "-harmless-face")))
 		)
-	(ado-add-font-lock-keywords name (directory-file-name (eval dir)) face refresh-flag)
+	(ado-add-font-lock-keywords name (directory-file-name (eval dir)) face update refresh)
 	))
   
 ;;; here are all the added functions for highlighting user-written commands
 ;;; Note that for sysdir named directories, there is no assumption that
 ;;;   the directory exists
 
-(defun ado-add-sysdir-all ()
+(defun ado-add-sysdir-all (&optional update)
   "Add font lock keywords for all sysdir directories.
-Utility function to add and update all the sysdir directories
+If optional UPDATE is non-nil, drop all keywords and re-add them.
+Utility function to add keywords from all sysdir directories
 at once."
   (interactive)
-  (ado-add-site)
-  (ado-add-plus)
-  (ado-add-personal)
-  (ado-add-oldplace)
+  (ado-add-site update)
+  (ado-add-plus update)
+  (ado-add-personal update)
+  (ado-add-oldplace update)
   (ado-font-lock-refresh))
 
 (defun ado-remove-sysdir-all ()
@@ -8964,8 +8969,20 @@ at once."
   (ado-remove-oldplace)
   (ado-font-lock-refresh))
 
-(defun ado-add-plus ()
-  "Add/update highlighting for all ado files in `ado-plus-dir'.
+(defun ado-update-sysdir-all ()
+  "Update font lock keywords for all sysdir directories.
+Utility function to update keywords from all sysdir directories
+at once."
+  (interactive)
+  (ado-add-site t)
+  (ado-add-plus t)
+  (ado-add-personal t)
+  (ado-add-oldplace t)
+  (ado-font-lock-refresh))
+
+(defun ado-add-plus (&optional update)
+  "Add highlighting for all ado files in `ado-plus-dir'.
+If optional UPDATE is non-nil, update existing highlighting, if it exists.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately. If `ado-plus-dir' is not set, it gets set using
@@ -8973,10 +8990,11 @@ the function `ado-reset-plus-dir'."
   (interactive)
   (unless ado-plus-dir
 	(ado-reset-plus-dir))
-  (ado-add-sysdir-font-lock-keywords "plus"))
+  (ado-add-sysdir-font-lock-keywords "plus" update))
 
-(defun ado-add-personal ()
+(defun ado-add-personal (&optional update)
   "Add/update highlighting for all ado files in `ado-personal-dir'.
+If optional UPDATE is non-nil, update existing highlighting, if it exists.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately. If `ado-personal-dir' is not set, it gets set using
@@ -8984,10 +9002,11 @@ the function `ado-reset-personal-dir'."
   (interactive)
   (unless ado-personal-dir
 	(ado-reset-personal-dir))
-  (ado-add-sysdir-font-lock-keywords "personal")) 
+  (ado-add-sysdir-font-lock-keywords "personal" update)) 
 
-(defun ado-add-oldplace ()
+(defun ado-add-oldplace (&optional update)
   "Add/update highlighting for all ado files in `ado-oldplace-dir'.
+If optional UPDATE is non-nil, update existing highlighting, if it exists.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately. If `ado-oldplace-dir' is not set, it gets set using
@@ -8995,10 +9014,11 @@ the function `ado-reset-oldplace-dir'."
   (interactive)
   (unless ado-oldplace-dir
 	(ado-reset-oldplace-dir))
-  (ado-add-sysdir-font-lock-keywords "oldplace"))
+  (ado-add-sysdir-font-lock-keywords "oldplace" update))
 
-(defun ado-add-site ()
+(defun ado-add-site (&optional update)
   "Add/update highlighting for all ado files in `ado-site-dir'.
+If optional UPDATE is non-nil, update existing highlighting, if it exists.
 This includes the a, b, c, ... subdirectories. If ado-files have been
 added or removed since the last update the highlighting list will be
 updated appropriately. If `ado-site-dir' is not set, it gets set using
@@ -9006,7 +9026,7 @@ the function `ado-reset-site-dir'."
   (interactive)
   (unless ado-site-dir
 	(ado-reset-site-dir))
-  (ado-add-sysdir-font-lock-keywords "site"))
+  (ado-add-sysdir-font-lock-keywords "site" update))
 
 (defun ado-remove-personal ()
   "Remove highlighting for all ado files in `ado-personal-dir'.
@@ -9054,9 +9074,7 @@ use
 	  (font-lock-remove-keywords 'ado-mode (cdr old-list))
 	  (setq ado-added-names (assq-delete-all name ado-added-names)))))
 	  
-
-
-(defun ado-add-font-lock-keywords (name dir face &optional refresh baddir subdir extension)
+(defun ado-add-font-lock-keywords (name dir face &optional update refresh baddir subdir extension)
   "Add keywords for font locking from file names in directories.
 To add the keywords associated with NAME, the existing keywords need to
 first be removed/deleted.
@@ -9073,15 +9091,18 @@ The arguments are
           this must be be a symbol
   DIR:    the directory to look in
   FACE:   the face to use (must be double ''ed)
-  REFRESH:If true, refresh the keyword list for the buffer.
-          Refreshes not done by default.
+  UPDATE: if t, update the list if it exists. 
+          If nil, do absolutely nothing if the list already exists,
+          namely don't check existence of DIR, don't refresh buffer.
+  REFRESH:if true, refresh the keyword list for the buffer.
+          If nil, do not update the buffer.
   BADDIR: what to do if the DIR does not exist (defaults to nil)
             nil: do absolutely nothing except remove keywords for NAME
             warn: issue a warning only; always removes keywords for NAME
             error: error out completely; does not remove keywords for NAME
           There are three levels to this for programmers; most people will
           want to automatically add the sysdirs, and they don't have to exist.
-          Some might want to add their own directories and would like to be
+           Some might want to add their own directories and would like to be
           notified (for debugging) or error out (for strict enforcemement)
           if the directories do not exist.
   SUBDIR: subdirectory behavior (defaults to -all-)
@@ -9101,12 +9122,13 @@ has an internal user-chosen name of bar.
      ''ado-mode-personal-harmless-face)
   ;; after updating, you'll need to reload `ado-mode'."
   ;; (message "Attempting to add keywords to %s..." name)
-  (unless extension
-	(setq extension "ado"))
-  (unless subdir
-	(setq subdir "all"))
-  ;; first remove keywords --- need to do before checking for directory
-  ;;   as the removal has nothing to do with the directory existing
+  (unless (and (not update) (assq name ado-added-names))
+	(unless extension
+	  (setq extension "ado"))
+	(unless subdir
+	  (setq subdir "all"))
+	;; first remove keywords --- need to do before checking for directory
+	;;   as the removal has nothing to do with the directory existing
   ;; first check if dir is a directory
   ;; huge if-block so that code gets skipped if BADDIR is not "error"
   (unless (file-directory-p dir)
@@ -9118,7 +9140,7 @@ has an internal user-chosen name of bar.
 				  (display-warning 'ado-mode errmsg)
 				;; following in case something other than error or warn was specified
 				(error "Bad `BADDIR' specified: %s" baddir))))))
-  (ado-remove-font-lock-keywords 'name)
+  (ado-remove-font-lock-keywords name)
   (when (file-directory-p dir)
 	(let (new-list)
 	  (setq new-list
@@ -9135,7 +9157,7 @@ has an internal user-chosen name of bar.
 	  (setq ado-added-names (append ado-added-names `(,(cons name new-list))))
 	  ;; (message "added keywords for %s" name)
 	  (when refresh
-		(ado-font-lock-refresh)))))
+		(ado-font-lock-refresh))))))
 
 ;; Idea from from https://stackoverflow.com/questions/1431843, but
 ;; with a fix for the `font-lock-major-mode' variable name
@@ -9191,7 +9213,7 @@ which has an internal name of bar.
      ''ado-mode-personal-harmless-face t)"
   (if remove
 	  (ado-remove-font-lock-keywords name)
-	(ado-add-font-lock-keywords name dir face nil baddir subdir extension)
+	(ado-add-font-lock-keywords name dir face t nil baddir subdir extension)
   ))
 
 
