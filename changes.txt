@@ -3,13 +3,33 @@ Version History:
 
 1.16.1.7
 
-Fixed up commands for adding and removing font-lock keywords from sysdirs.
+Big Changes
 
-Added ado-font-lock-refresh to refresh font locking without having to reload
+There are many large changes to make installation easier.
+
+* Commands/ados from sysdirs (PERSONAL, PLUS, SITE, and OLDPLACE) now get
+  fontified automatically, so there is no longer a need to write your own
+  ado-mode-hook to do this. The ado-mode functions for adding and removing
+  font-lock keywords were overhauled to do this more efficiently.
+
+* Added ado-add-sysdir-font-lock flag for auto-loading commands from
+  sysdirs.This defaults to t, but if you do not want to fontify these
+  commands, you can set it to nil.
+
+* Made the so-called `new' directory default to PERSONAL. If you have it
+  customized already, nothing will change. New users no longer need to
+  specify it.
+
+* Reorganized the customization groupings, because of simplifying the
+  installation instructions.
+                        . 
+* Added ado-font-lock-refresh to refresh font locking without having to reload
 ado-mode. Finally.
 
-Added overlooked Stata/IC to script for sending to Stata in unix (thanks to
-Mark Clements)
+Other Feature Changes
+
+* Added overlooked Stata/IC to script for sending to Stata in unix (thanks to
+  Mark Clements)
 
 1.16.1.6
 

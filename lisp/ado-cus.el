@@ -144,18 +144,18 @@ cabin with the creaking screen door."
   :type '(choice (const nil) directory)
   :group 'ado-path)
 
-(defcustom ado-add-sysdir-font-lock t
-  "Non-nil means that commands from the sysdir directories get fontified.
-By default this is set to t."
-  :type 'boolean
-  :group 'ado-essentials)
-
 (defcustom ado-confirm-overwrite-flag t
   "Non-nil means confirmation is required to overwrite an already-existing file.
 When nil, overwrites happily and dangerously.
 Defaults to on, to conform with standard user interface guidelines."
   :type 'boolean
   :group 'ado-files
+  :group 'ado-essentials)
+
+(defcustom ado-add-sysdir-font-lock t
+  "Non-nil means that commands from the sysdir directories get fontified.
+By default this is set to t."
+  :type 'boolean
   :group 'ado-essentials)
 
 (defcustom ado-site-template-dir nil
@@ -176,7 +176,7 @@ Unless you plan on moving those scripts, leave as nil."
 
 (defcustom ado-mode-home nil
   "Location where the ‘ado-mode’ is installed.
-Available for customization just to be dangerious, as it should be left alone."
+Available for customization just to be dangerous, as it should be left alone."
   :type '(choice (const nil) directory)
   :group 'ado-files
   :group 'ado-essentials)
