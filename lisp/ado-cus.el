@@ -39,40 +39,46 @@
   :tag "Ado mode"
   :group 'local)
 
-(defgroup ado-essentials nil
-  "Settings to get ado-mode running properly."
-  :tag "Ado essentials"
-  :group 'ado)
+;; (defgroup ado-essentials nil
+;;   "Settings to get ado-mode running properly."
+;;   :tag "Ado essentials"
+;;   :group 'ado)
 
 (defgroup ado-files nil
-  "Information about file locations and behaviors."
-  :tag "Ado files"
+  "Information about file locations."
+  :tag "Ado file locations"
   :group 'ado)
 
 (defgroup ado-help-info nil
-  "Information for making good Stata documentation."
-  :tag "Ado help file info"
-  :group 'ado)
-
-(defgroup ado-path nil
-  "Locations of directories appearing in your ado-path.
-Set to add syntax highlighting for user-written commands."
-  :tag "adopath information"
+  "Information for simplifying your Stata help files."
+  :tag "Ado help-file info"
   :group 'ado)
 
 (defgroup ado-stata-interaction nil
   "How to work when passing information to Stata."
-  :tag "Ado-Stata interaction"
+  :tag "Stata interaction"
   :group 'ado)
 
-(defgroup ado-style nil
-  "Look and Style of ado-mode: indentation and such."
-  :tag "Ado style"
+(defgroup ado-amain nil
+  "Main set of customizations: Look, style, and behavior."
+  :tag "Ado main"
   :group 'ado)
 
 (defgroup ado-zmisc nil
   "Everything else, the dreaded miscellaneous category."
   :tag "Ado miscellaneous"
+  :group 'ado)
+
+(defgroup ado-zpath nil
+  "Locations of directories appearing in your ado-path.
+It is recommended that you leave these as nil, 
+so that ado-mode can set them according to what Stata 
+will see when launched.
+Setting them by hand will speed up the loading of 
+the first Stata-related file you open, but means
+you must change them by hand if you change your
+ado-path in Stata."
+  :tag "Ado-path info"
   :group 'ado)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -82,7 +88,7 @@ Set to add syntax highlighting for user-written commands."
   "Hook for Ado mode."
   :type '(hook)
   :options '(turn-on-auto-fill)
-  :group 'ado)
+  :group 'ado-amain)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ado directories
@@ -106,35 +112,33 @@ Set to add syntax highlighting for user-written commands."
 
 (defcustom ado-new-dir nil
   "The directory where new ado files are stored.
-You MUST set this to some location. This should hold ado files which could
-be of use in multiple projects, but which have not been properly
-debugged or documented yet. By default, this is unset, but is
-ought to be set to the PERSONAL directory used in Stata."
+If left unset, this gets automatically set the PERSONAL directory 
+used in Stata.
+If set by hand should be set to a directory in the Stata ado-path."
   :type '(choice (const nil) directory)
   :group 'ado-files
-  :group 'ado-path
-  :group 'ado-essentials)
+  :group 'ado-zpath)
 
 (defcustom ado-personal-dir nil
   "The directory which corresponds to PERSONAL.
 By default this is unset.
 Used for fontifying user-written commands."
   :type '(choice (const nil) directory)
-  :group 'ado-path)
+  :group 'ado-zpath)
 
 (defcustom ado-plus-dir nil
   "The directory which corresponds to PLUS.
 By default this is unset.
 Used for fontifying installed commands."
   :type '(choice (const nil) directory)
-  :group 'ado-path)
+  :group 'ado-zpath)
 
 (defcustom ado-site-dir nil
   "The directory which corresponds to SITE.
 By default this is unset.
 Used for fontifying installed site-wide additional commands."
   :type '(choice (const nil) directory)
-  :group 'ado-path)
+  :group 'ado-zpath)
 
 (defcustom ado-oldplace-dir nil
   "The directory which corresponds to OLDPLACE.
@@ -142,44 +146,42 @@ By default this is unset.
 Used for fontifying additional commands in the dark and mysterious
 cabin with the creaking screen door."
   :type '(choice (const nil) directory)
-  :group 'ado-path)
+  :group 'ado-zpath)
 
 (defcustom ado-confirm-overwrite-flag t
-  "Non-nil means confirmation is required to overwrite an already-existing file.
+  "Non-nil means you must confirm overwriting an already-existing file.
 When nil, overwrites happily and dangerously.
 Defaults to on, to conform with standard user interface guidelines."
   :type 'boolean
-  :group 'ado-files
-  :group 'ado-essentials)
+  :group 'ado-amain)
 
 (defcustom ado-add-sysdir-font-lock t
   "Non-nil means that commands from the sysdir directories get fontified.
 By default this is set to t."
   :type 'boolean
-  :group 'ado-essentials)
+  :group 'ado-fonts)
 
 (defcustom ado-site-template-dir nil
   "The directory where templates are stored.
 When nil, uses the templates which came with ‘ado-mode’.
 Unless you are customizing templates for individual use, this is the best setting."
   :type '(choice (const nil) directory)
-  :group 'ado-files
-  :group 'ado-essentials)
+  :group 'ado-files)
 
 (defcustom ado-script-dir nil
   "A directory for holding scripts and executables useful for ‘ado-mode’.
 When nil, uses the script directory which came with ‘ado-mode’
 Unless you plan on moving those scripts, leave as nil."
   :type '(choice (const nil) directory)
-  :group 'ado-files
-  :group 'ado-essentials)
+  :group 'ado-files)
 
 (defcustom ado-mode-home nil
   "Location where the ‘ado-mode’ is installed.
+Should be named `ado-mode-dir' to match all other directory variables, but
+has been left to fester with its old name for backward compatibility. 
 Available for customization just to be dangerous, as it should be left alone."
   :type '(choice (const nil) directory)
-  :group 'ado-files
-  :group 'ado-essentials)
+  :group 'ado-files)
 
 ;; commented out until better-considered
 ;(defcustom ado-local-label-dir nil
@@ -205,7 +207,7 @@ When nil, opens files from the adopath as editable.
 Defaults to t, to be safe, especially for official Stata commands.
 Change to nil to live dangerously."
   :type 'boolean
-  :group 'ado-files)
+  :group 'ado-amain)
 
 ;; a couple of variables needed for help files.
 (defcustom ado-signature-file nil
@@ -254,28 +256,28 @@ May be changed using ‘ado-toggle-help-extension’."
 When nil, indentation must be done manually.
 Default value is on."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-return-also-indents-flag t
   "Non-nil means `RET' behaves like `newline-and-indent'.
 When nil, lines must be indented manually using ‘TAB’.
 Defaults to on."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-do-indent-flag t
   "Non-nil means do-files get indented automatically.
 When nil, do-files require manual indenting.
 Defaults to on."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-use-modern-split-flag t
   "Non-nil means /// continuation comments are used for splitting lines.
 When nil, the old-school /* */ method gets used.
 Defaults to on."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-close-under-line-flag t
   "Non-nil means close braces are indented at the level being closed.
@@ -283,7 +285,7 @@ When nil, close braces are indented at the level of the line containing the
 open brace.
 Defaults to being on, even though that is not the in-house Stata style."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-auto-newline-flag nil
   "Non-nil means a new line is inserted automatically after special characters.
@@ -293,29 +295,31 @@ Can be really neat, it can also be a royal pain, depending on how often braces
 get inserted mistakenly.
 Defaults to off."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-closing-brace-alone-flag nil
   "Non-nil means closing braces are alone on a line when entered.
 When nil, nothing special happens.
 Defaults to off."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-fontify-new-flag t
-  "Non-nil means new files have syntax highlighting (fontification) turned on.
+  "Non-nil means brand new files have syntax highlighting turned on.
 When nil, fontification must be done by hand.
 Defaults to on.
+Is a relic of the days when computers were very slow so fontification
+was a big time hit.
 Cannot really see any purpose for this to turned off."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-tab-width 3
   "Sets the size of tabs when opening or creating ado files.
 Defaults to 3.
 To change ‘tab-width’ in an individual buffer, use \\[ado-change-tab-width]."
   :type 'integer
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-continued-statement-indent-spaces 2
   "Extra indentation for continued lines.
@@ -323,27 +327,27 @@ Needed when when \"#delimit ;\"
 has been used or a \\\ or \* comment has been used to split lines.
 Defaults to 2."
   :type 'integer
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-comment-column 40
   "Sets the column at which comments within commands begin.
 Defaults to 40."
   :type 'integer
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-continuation-column 40
   "Sets the column at which continuations within commands begin.
 Defaults to 40."
   :type 'integer
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-line-up-continuations nil
-  "Controls whether \\[ado-split-line] respects the variable `ado-continuation-column'.
+  "Controls whether `ado-split-line' uses the `ado-continuation-column'.
 When nil, splitting a line simply splits the line.
 When non-nil, the `ado-continuation-column' gets used.
 Defaults to off."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-debugging-indent-flag t
   "Flag for whether debugging commands have a special indent column.
@@ -352,14 +356,14 @@ When non-nil debugging commands get indented at
 `ado-debugging-indent-column'.
 Defaults to on."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-debugging-indent-column 0
   "Sets indentation column for debugging commands.
 If `ado-debugging-indent-flag' is on, this column gets used.
 Defaults to 0."
   :type 'integer
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-delimit-indent-flag t
   "Flag for whether delimit commands have a special indent column.
@@ -368,34 +372,34 @@ When non-nil, #delimit commands are indented to the value of
 `ado-delimit-column'.
 Defaults to on."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-delimit-indent-column 0
   "Sets the amount by which #delimit commands are indented.
 If `ado-delimit-indent-flag' is on, #delimit commands appear at this column.
 Defaults to 0."
   :type 'integer
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-comment-indent-flag t
   "Non-nil means line-starting comments use `ado-comment-indent-column'.
 When nil, nothing special happens.
 Defaults to on."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-comment-indent-column 0
   "Sets the amount by which line-starting comments are indented.
 Defaults to 0."
   :type 'integer
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-update-timestamp-flag t
   "Non-nil means the timestamp at the top of a file gets updated on save.
 When nil, the timestamp must be updated manually.
 Defaults to t."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-date-format "%B %-e, %Y @ %H:%M:%S"
   "Controls the date format used when autoupdating timestamps.
@@ -403,28 +407,29 @@ Defaults to %B %-e, %Y @ %H:%M:%S, to match versions of
 ‘ado-mode’ before 0.92.0. See \\[describe-function] `format-time-string'
 for help on setting."
   :type 'string
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-lowercase-date-flag nil
-  "Non-nil means all months and days in autoupdated timestamps are lowercase.
+  "Non-nil means autoupdated timestamps are all lowercase.
 When nil, uppercase months and days are allowed.
 Defaults to nil.
 The StataCorp style is to turn this on."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 (defcustom ado-initials-flag nil
   "Non-nil means your initials are added after autoupdated timestamps.
 When nil, no initials get added.
+Useful in group environments with no version (aka revision) control.
 Defaults to off."
   :type 'boolean
-  :group 'ado-style)
+  :group 'ado-amain)
 
 ;; could be misplaced...
 (defcustom ado-initials nil
-  "Set this to your initials if you intend on turning the `ado-initials-flag' on."
+  "Set to your initials if you will ever turn the `ado-initials-flag' on."
   :type 'string
-  :group 'ado-style)
+  :group 'ado-amain)
 
 ;; Ado-Stata interactions (such as flavors and locations of Statas)
 (defcustom ado-submit-default "command"

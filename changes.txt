@@ -3,6 +3,10 @@ Version History:
 
 1.16.1.7
 
+Whoops! This got finished just as Stata released Stata 17. The update for
+including/deprecating commands in Stata 17 will co		 me out a little down the
+road.
+
 Big Changes
 
 There are many large changes to make installation easier.
@@ -21,7 +25,7 @@ There are many large changes to make installation easier.
   specify it.
 
 * Reorganized the customization groupings, because of simplifying the
-  installation instructions.
+  installation instructions. The most-needed settings are now under ado-main.
                         . 
 * Added ado-font-lock-refresh to refresh font locking without having to reload
 ado-mode. Finally.

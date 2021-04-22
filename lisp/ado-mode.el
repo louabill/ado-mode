@@ -547,6 +547,9 @@ Finally, here is the complete keymap for ado-mode:
   (unless ado-mode-home
 	(setq ado-mode-home
 		  (file-name-as-directory (expand-file-name (file-name-directory (locate-file "ado-mode.el" load-path))))))
+  ;; test to see if scripts is in ado-mode-home
+  ;;   it will be if from MELPA, will not be if from github
+  ;;   if scripts is not in ado-mode-home, then ado-mode-home needs to be fixed
   (unless (file-exists-p (file-name-as-directory (concat ado-mode-home "scripts")))
 	(setq ado-mode-home
 		  (file-name-as-directory
@@ -555,6 +558,11 @@ Finally, here is the complete keymap for ado-mode:
 	(setq ado-site-template-dir (file-name-as-directory (concat ado-mode-home "templates"))))
   (unless ado-script-dir
 	(setq ado-script-dir (file-name-as-directory (concat ado-mode-home "scripts"))))
+  (unless ado-new-dir
+	(unless ado-personal-dir
+	  (ado-reset-personal-dir))
+	(setq ado-new-dir ado-personal-dir))
+  
   (if ado-smart-indent-flag
       (if (or
 			  (string= ado-extension "hlp")
@@ -564,9 +572,6 @@ Finally, here is the complete keymap for ado-mode:
 			 (setq ado-smart-indent-flag nil)
 		  (if (string= ado-extension "do")
 				(setq ado-smart-indent-flag ado-do-indent-flag))))
-  ;; not a good idea --- since it is a bit heavy handed for custom indentations
-  ;; (if ado-smart-indent-flag
-  ;;    (ado-indent-buffer))
   (when ado-add-sysdir-font-lock
 	(ado-add-sysdir-all))
   (run-mode-hooks 'ado-mode-hook))
