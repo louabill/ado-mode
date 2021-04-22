@@ -5,16 +5,6 @@
 ;;   ado-path
 ;; If you add these hooks, simply reloading ado-mode will update 
 ;;  the highlighting for any changes (additions/subtractions)!
-(add-hook 'ado-mode
-		  (function (lambda ()
-					  (ado-add-personal)
-					  (ado-add-plus)
-					  (ado-add-site)
-					  (ado-add-oldplace)
-					  ;; for adding an arbitrary folder
-					  (ado-modify-font-lock-keywords 'some-arbitrary-name "/Whatever/your/path/might/be" 'whatever-your-face-may-be)
-					  )
-					))
 ;
 ;; All of the following should really be set via M-x customize-group ado RET
 ;;  but is here for you old-timers.
@@ -40,7 +30,7 @@
 
 ;; A holder for your initials (or a short version of your name) if you want
 ;; your initials or name to show up when you save files
-(setq ado-initials "abc")
+(setq ado-initials "ynh")
 
 
 
