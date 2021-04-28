@@ -115,7 +115,7 @@
 		(regexp-opt
 		 '("vers" "versi" "versio" "version")
 		 'words))
-	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[0123456]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[0123456]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\|:\\)")
+	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[01234567]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[0123456]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\|:\\)")
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; pause on/off
 	(list
@@ -213,8 +213,7 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("matrix"
-		   "name")
+		 '("matrix")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -237,6 +236,50 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+	;; highlighting bayestats ? _all, when allowed
+	(list
+	 (concat
+	  (eval-when-compile
+		(regexp-opt
+		 '("bayesstats")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("ess"
+		   "gr" "gru" "grub" "grubi" "grubin"
+		   "summ" "summa" "summar" "summary")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("_all")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
+	;; odd _log* options for bayesstats
+	(list
+	 (concat
+	  (eval-when-compile
+		(regexp-opt
+		 '("bayesstats")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("summ" "summa" "summar" "summary")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("_loglikelihood" "_logposterior")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
 	(list
 	 (concat
 	  (eval-when-compile
@@ -251,6 +294,8 @@
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	
 
 	;; churdle commands
 	(list
@@ -379,14 +424,17 @@
 		   "boost"
 		   "flexmark"
 		   "hamcrest"
-		   "icd10"
+		   "h2o"
+		   "icd10" "icd-10"
 		   "icu"
-		   "jsoup"
+		   "jaxb" "jgoodies common" "jgoodies forms" "json" "jsoup"
 		   "lapack"
 		   "libharu"
 		   "libpng"
 		   "mersennetwister"
-		   "miglayout"
+		   "mig layout" "miglayout"
+		   "parsington"
+		   "readstat"
 		   "scintilla" "slf4j"
 		   "ttf2pt1"
 		   "zlib")
@@ -879,6 +927,7 @@
 		   "se" "see" "seed"
 		   "segmentsize"
 		   "sformat"
+		   "sortrngstate"
 		   "timeout1"
 		   "timeout2"
 		   "traced" "tracede" "tracedep" "tracedept" "tracedepth"
@@ -914,6 +963,7 @@
 		   "httpproxy"
 		   "httpproxya" "httpproxyau" "httpproxyaut" "httpproxyauth"
 		   "include_bitmap" "iterlog"
+		   "lapack_mkl" "lapack_mkl_cnr"
 		   "locksplit" "locksplitt" "locksplitte" "locksplitter" "locksplitters"
 		   "logt" "logty" "logtyp" "logtype"
 		   "lstretch"
@@ -929,6 +979,7 @@
 		   "searchdefault"
 		   "showbaselevels" "showemptycells" "showomitted"
 		   "smoothf" "smoothfo" "smoothfon" "smoothfont" "smoothfonts"
+		   "sortmethod"
 		   "tr" "tra" "trac" "trace"
 		   "tracee" "traceex" "traceexp" "traceexpa" "traceexpan" "traceexpand"
 		   "tracei" "tracein" "traceind" "traceinde" "traceinden" "traceindent"
@@ -961,6 +1012,8 @@
 	  "\\|"
 	  "\\(?:fvtrack[ \t]+\\(?:term\\|factor\\)\\)"
 	  "\\|"
+	  "\\(?:lapack_mkl_cnr[ \t]+\\(?:auto\\|compatible\\|default\\|off\\)\\)"
+	  "\\|"
 	  "\\(?:log\\(?:t\\|ty\\|typ\\|type\\)[ \t]+\\(?:t\\|te\\|tex\\|text\\|s\\|sm\\|smc\\|smcl\\)\\)"
 	  "\\|"
 	  "\\(?:maxbezierpath[ \t]+[1-9][0-9]*\\)"
@@ -974,6 +1027,8 @@
 	  "\\(?:search\\(?:d\\|de\\|def\\|defa\\|defau\\|defaul\\|default\\)[ \t]+\\(?:all\\|local\\|net\\)\\)"
 	  "\\|"
 	  "\\(?:showbaselevels[ \t]+\\(?:o\\(?:ff\\|n\\)\\|all\\)\\)"
+	  "\\|"
+	  "\\(?:sortmethod[ \t]+\\(?:default\\|\\(?:f\\|q\\)sort\\)\\)"
 	  "\\|"
 	  "\\(?:t\\(?:y\\|yp\\|ype\\)[ \t]+\\(?:double\\|float\\)\\)"
 	  "\\)\\>" ado-end-cmd-regexp )
@@ -1003,6 +1058,7 @@
 		   "httpproxy"
 		   "httpproxya" "httpproxyau" "httpproxyaut" "httpproxyauth"
 		   "include_bitmap" "iterlog"
+		   "lapack_mkl"
 		   "locksplit" "locksplitt" "locksplitte" "locksplitter" "locksplitters"
 		   "lstretch"
 		   "matastrict"
@@ -2977,19 +3033,38 @@
 		   "graph" "graphi" "graphic" "graphics"
 		   "inter" "interf" "interfa" "interfac" "interface"
 		   "java"
+		   "lapack"
 		   "mata"
 		   "mem" "memo" "memor" "memory"
 		   "net" "netw" "netwo" "networ" "network"
 		   "out" "outp" "outpu" "output"
 		   "oth" "othe" "other"
 		   "putdocx" "python"
-		   "random"
+		   "rng"
+		   "sort"
 		   "trace"
 		   "unicode"
 		   "up" "upd" "upda" "updat" "update")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+    
+	;; obsolete query/set_defaults commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '("q" "qu" "que" "quer" "query"
+		   "set_defaults")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("random")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
     
 	;; the reshape commands
 	(list
@@ -4295,7 +4370,7 @@
 		   "_datasig" "_datasign" "_datasigna" "_datasignat" "_datasignatu" "_datasignatur" "_datasignature"
 		   "_rmcoll" "_rmdcoll" "_robust"
 		   "about" "ac" "acprplot"
-		   "ado" "adopath" "adoupdate" "alpha" "ameans"
+		   "ado" "adopath" "alpha" "ameans"
 		   "an" "ano" "anov" "anova"
 		   "arch" "areg" "arfima" "args" "arima"
 		   "as" "ass" "asse" "asser" "assert"
@@ -4535,8 +4610,9 @@
 		   "xtgee" "xtgls" "xtheckman" "xthtaylor" "xtintreg" "xtivreg"
 		   "xtline" "xtlogit"
 		   "xtnbreg" "xtologit" "xtoprobit" "xtpcse" "xtpoisson" "xtprobit"
-		   "xtrc" "xtreg" "xtregar" "xtset" "xtstreg" "xtsum" "xttab" "xttest0" "xttobit" "xttrans"
-		   "zinb" "zioprobit" "zip" "ztest" "ztesti")
+		   "xtrc" "xtreg" "xtregar" "xtset" "xtstreg" "xtsum"
+		   "xttab" "xttest0" "xttobit" "xttrans"
+		   "zinb" "ziologit" "zioprobit" "zip" "ztest" "ztesti")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
@@ -5096,6 +5172,7 @@
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face))
+
 	;; clear commmands
 	(list
 	 (concat
@@ -5105,6 +5182,7 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '("ado" "all"
+		   "collect"
 		   "frames"
 		   "mata" "matrix"
 		   "programs"
@@ -5275,7 +5353,7 @@
 	 '(1 ado-builtin-harmless-face t) '(2 ado-variable-name-face t)
 	 '(3 ado-subcommand-face t))
 
-		;; single word extended macro names
+	;; single word extended macro names
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -5880,7 +5958,7 @@
 	   "(")
 	  '(1 ado-function-name-face t))
 
-	  ;; egen 'function' options -- obsolete
+	;; egen 'function' options -- obsolete
 	(list
 	  (concat
 	   ado-start-cmd-regexp
@@ -5896,6 +5974,29 @@
 	   'words))
 	   "(")
 	  '(1 ado-obsolete-face t))
+
+	;; jdbc commands
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(jdbc\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("add"
+			"conn" "conne" "connec" "connect" 
+			"des" "desc" "descr" "descri" "describ" "describe"
+			"exec"
+			"insert"
+			"list" "load"
+			"remove"
+			"show"
+			"showd" "showdb" "showdbs" 
+			"showt" "showta" "showtab" "showtabl" "showtable" "showtables" )
+		  'words))
+	   ado-end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	
 
 	;; the -meta- commands
 	(list
@@ -5945,7 +6046,7 @@
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	  ;; mi harmful commands
+	;; mi harmful commands
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -5964,7 +6065,7 @@
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
-	  ;; mi convert commands
+	;; mi convert commands
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -5983,7 +6084,7 @@
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
 
-	  ;; mi export commands
+	;; mi export commands
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -5999,7 +6100,8 @@
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
-	  ;; mi import commands
+
+	;; mi import commands
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -6017,7 +6119,8 @@
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
-	  ;; mi impute commands
+
+	;; mi impute commands
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -6046,7 +6149,8 @@
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
 	  '(3 ado-subcommand-face t))
-	  ;; mi merge commands
+
+	;; mi merge commands
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
