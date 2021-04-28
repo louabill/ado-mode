@@ -5746,7 +5746,7 @@
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
-	;; stata functions i.e. things which require () after them
+	;; functions i.e. things which require () after them
 	;; obsolete functions are after this list
 	(list
 	 (concat
@@ -5754,21 +5754,26 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '("_byn1"  "_byn2" "_caller" "_frval"
-		   "abbrev" "abs" "acos" "asin" "atan" "atan2" "atanh" "autocode"
+		   "abbrev" "abs" "acos" "age" "age_frac"
+		   "asin" "atan" "atan2" "atanh" "autocode"
 		   "betaden" "binomial" "binomialp" "binomialtail"
-		   "binormal" "bofd" "byteorder"
-		   "Cdhms" "Chms" "Clock" "Cmdyhms" "Cofc" "Cofd"
+		   "binormal" "birthday" "bofd" "byteorder"
+		   "Cdhms" "Chms"
+		   "Clock" "Clockdiff" "Clockdiff_frac" "Clockpart"
+		   "Cmdyhms" "Cofc" "Cofd"
 		   "c" "cauchy" "cauchyden" "cauchytail"
 		   "ceil" "char" "chi2" "chi2tail" "chi2den"
 		   "cholesky" "chop" "cofC" "cofd"
-		   "clip" "cloglog" "clock"
+		   "clip" "cloglog"
+		   "clock" "clockdiff" "clockdiff_frac" "clockpart"
 		   "coleqnumb"
 		   "collatorlocale" "collatorversion"
 		   "colnumb" "colnfreeparms"
 		   "colsof"
 		   "comb"
 		   "cond" "corr" "cos"
-		   "daily" "date" "day"
+		   "daily" "date" "datediff" "datediff_frac" "datepart"
+		   "day" "daysinmonth"
 		   "det"
 		   "dgammapda" "dgammapdada" "dgammapdadx" "dgammapdx" "dgammapdxdx"
 		   "dhms"
@@ -5780,6 +5785,7 @@
 		   "exponential" "exponentialden" "exponentialtail"
 		   "F" "Fden" "Ftail"
 		   "fileexists" "fileread" "filereaderror" "filewrite"
+		   "firstdayofmonth"
 		   "float" "floor" "fmtwidth" "frval"
 		   "gammaden" "gammap" "gammaptail" "get"
 		   "hadamard" "halfyear" "halfyearly" "has_eprop" "hh" "hhC" "hofd" "hms" "hours" "hypergeometric" "hypergeometricp"
@@ -5804,9 +5810,11 @@
 		   "invpoisson" "invpoissontail"
 		   "invsym"  "invt" "invttail" "invtukeyprob"
 		   "invweibull" "invweibullph" "invweibullphtail" "invweibulltail"
-		   "irecode" "issymetric"
+		   "irecode"
+		   "isleapsecond" "isleapyear"
+		   "issymetric"
 		   "J"
-		   "laplace" "laplaceden" "laplacetail"
+		   "laplace" "laplaceden" "laplacetail" "lastdayofmonth"
 		   "ln" "ln1m" "ln1p" "lncauchyden" "lnfactorial" "lngamma"
 		   "lnigammaden" "lnigaussianden" "lniwishartden" "lnlaplaceden"
 		   "lnmvnormalden" "lnwishartden"
@@ -5823,13 +5831,15 @@
 		   "nbetaden"
 		   "nbinomial" "nbinomialp" "nbinomialtail"
 		   "nchi2" "nchi2den" "nchi2tail"
-		   "normal" "normalden"
+		   "nextbirthday" "nextleapyear"
+		   "normal" "normalden" "now"
 		   "nibeta"
 		   "npnF" "npnchi2" "npnt"
 		   "nt" "ntden" "nttail"
 		   "nullmat"
 		   "poisson" "poissonp" "poissontail"
 		   "plural"
+		   "previousbirthday" "previousleapyear"
 		   "qofd" "quarter" "quarterly"
 		   "r" "rbeta" "rbinomial" "rcauchy" "rchi2" "real" "recode"
 		   "regexm" "regexr" "regexs"
@@ -5850,7 +5860,7 @@
 		   "t"
 		   "tC"
 		   "tan" "tanh" "tc" "td" "tden" "th" "tin" "tm"
-		   "tobytes"
+		   "tobytes" "today"
 		   "tq" "trace" "trigamma" "trunc" "ttail" "tukeyprob" "tw" "twithin"
 		   "uchar" "udstrlen" "uisdigit" "uisletter"
 		   "ustrcompare" "ustrcompareex"
@@ -5892,6 +5902,7 @@
 			"d"
 			"fprob"
 			"group"
+			"h"
 			"index"
 			"invchi" "invfprob" "invnchi" "invnorm"
 			"itrim"
@@ -5905,6 +5916,7 @@
 			"syminv"
 			"tprob" "trim"
 			"uniform" "uniform0"
+			"w"
 			"y")
 		  'words))
 	   "(")
