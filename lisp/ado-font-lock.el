@@ -1342,7 +1342,7 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-    ;; the teffects
+    ;; teffects
 	(list
 	 (concat
 	  ado-start-cmd-regexp
@@ -1354,12 +1354,24 @@
 		   "ipw"
 		   "ipwra"
 		   "nnmatch"
-		   "overlap"
 		   "psmatch"
 		   "ra")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+    ;; obsolete teffects
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\(\\<teffects\\>\\)"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("overlap")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
 
 	;; the timer command
 	(list
@@ -4576,7 +4588,7 @@
 		   "tabi"
 		   "table" "tabodds" "tabstat"
 		   "tabu" "tabul" "tabula" "tabulat" "tabulate"
-		   "te" "tes" "test"
+		   "te" "teoverlap" "tes" "test"
 		   "testnl" "testparm" "tetrachoric"
 		   "threshold"
 		   "tnbreg"
