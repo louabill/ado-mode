@@ -2367,7 +2367,7 @@
 		   "contour" "contourline"
 		   "dot" "dropline"
 		   "fpfit" "fpfitci" "function"
-		   "hist" "histogram"
+		   "hist" "histo" "histog" "histogr" "histogra" "histogram" 
 		   "kdensity"
 		   "line"
 		   "lfit" "lfitci"
