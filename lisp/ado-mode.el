@@ -1338,11 +1338,13 @@ An interactive interface to `ado-find-depth'"
 	  (setq depth (- depth (how-many "^[ \t]*\\(end$\\|end[ \t]+\\)" 1 (point))))
 	  (beginning-of-line)
       ;; words which start blocks
+	  ;; none of these are nestable; perhaps there should be a flag?
 	  ;; need to be careful, because of program dir, drop, and list
-      (setq depth (+ depth (how-many "^[ \t]*\\(input[ \t]+\\|\\(p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)\\([ \t]+d\\(ef\\|efi\\|efin\\|efine\\)\\)?\\)[ \t]+\\|\\(mat\\(a\\|a:\\)\\|\\(pytho\\(n\\|n:\\)\\)\\)[ \t]*$\\)" 1 (point))))
-      ;; words which end blocks need to be deducted
+      (setq depth (+ depth (how-many "^[ \t]*\\(input\\|\\(p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)\\([ \t]+d\\(ef\\|efi\\|efin\\|efine\\)\\)?\\)\\)[ \t]+" 1 (point))))
+	  (setq depth (+ depth (how-many "^[ \t]*\\(mata\\|python\\):?\\([ \t]+$\\|[ \t]+//\\( \\|$\\)\\|$\\)" 1 (point))))
+	;; words which end blocks need to be deducted
 	  ;;  plus overcounted 'program's
-	  (setq depth (- depth (how-many "^[ \t]*p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+\\(d\\(i\\|ir\\)[ \t]*$\\|\\(\\(l\\|li\\|lis\\|list\\|drop\\)[ \t]+\\)[a-zA-Z_]+\\)" 1 (point)))))
+	  (setq depth (- depth (how-many "^[ \t]*p\\(r\\|ro\\|rog\\|rogr\\|rogra\\|rogram\\)[ \t]+\\(d\\(i\\|ir\\)\\|\\(\\(l\\|li\\|lis\\|list\\)\\|drop\\)\\)\\([ \t]+\\|$\\)" 1 (point)))))
 	;; back at original point
 	(save-excursion
 	  (beginning-of-line)
