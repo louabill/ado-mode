@@ -7653,7 +7653,10 @@
 	   (eval-when-compile
 		 "\\b"
 		 (regexp-opt
-		  '("_chdir" "_cholesky" "_cholinv" "_cholsolve" "_collate" "_conj" "_corr"
+		  '("_chdir" "_cholesky"
+			"_cholinv" "_cholinvlapacke" 
+			"_cholsolve" "cholsolvelapacke"
+			"_collate" "_conj" "_corr"
 		  "_deriv" "_deriv_result_Hessian" "_deriv_result_Jacobian" "_deriv_result_gradient" "_deriv_result_scores" "_deriv_result_values" "_diag"
 		  "_editmissing" "_edittoint" "_edittointtol" "_edittozero" "_edittozerotol" "_editvalue"
 		  "_eigensystem" "_eigenvalues"
@@ -7766,7 +7769,9 @@
 		  "ascii" "asinh" "assert" "asserteq" "atanh"
 		  "blockdiag" "breakkey" "breakkeyreset"
 		  "bufbfmtisnum" "bufbfmtlen" "bufbyteorder" "bufget" "bufio" "bufmissingvalue" "bufput"
-		  "callersversion" "cat" "chdir" "cholsolve" "cholinv"
+		  "callersversion" "cat" "chdir"
+		  "cholinv" "cholinvlapacke"
+		  "cholsolve" "cholsolvelapacke"
 		  "classname"
 		  "colmax" "colmaxabs" "colmin" "colminmax" "colmissing" "colnonmissing" "cols" "colscalefactors" "colshape" "colsum"
 		  "conj" "convolve" "correlation" "cosh" "crexternal" "cross" "crossdev" "cvpermute" "cvpermutesetup"
