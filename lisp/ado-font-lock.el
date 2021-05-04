@@ -7088,6 +7088,7 @@
 		   "getLimits"
 		   "getMaxOrMin"
 		   "getMaxiter"
+		   "getNarguments"
 		   "getReltol"
 		   "getTechnique" "getTol" "getTrace"
 		   "integrate" "iterations"
@@ -7670,7 +7671,8 @@
 		  "_halton" "_hessenbergd" "_hqrd" "_hqrdp" "_hqrdp_la"
 		  "_invfft" "_invsym"
 		  "_jumble"
-		  "_lefteigensystem" "_lowertriangle" "_lud" "_lud_la" "_luinv" "_luinv_la" "_lusolve" "_lusolve_la"
+		  "_lefteigensystem" "_lowertriangle"
+		  "_lud" "_lud_la" "_luinv" "_luinv_la" "_luinv_lapacke" "_lusolve" "_lusolve_la"
 		  "_makesymmetric" "_matexpsym" "_matlogsym" "_matpowersym" "_mkdir"
 		  "_moptimize" "_moptimize_evaluate"
 		  "_negate"
@@ -7678,7 +7680,9 @@
 		  "_perhapsequilc" "_perhapsequilr" "_perhapsequilrc" "_pinv"
 		  "_qrinv" "_qrsolve" "_quadrunningsum"
 		  "_rmdir" "_runningsum"
-		  "_schurd" "_solvelower" "_solvenl_solve" "_solveupper" "_sort"
+		  "_schurd"
+		  "_solvelower" "_solvelowerlapacke" "_solvenl_solve" "_solveupper" "_solveupperlapacke"
+		  "_sort"
 		  "_st_addobs" "_st_addvar"
 		  "_st_data"
 		  "_st_framecopy" "_st_framecreate" "_st_framecurrent" "_st_framedrop" "_st_framerename"
@@ -7739,7 +7743,7 @@
 		  'words)))
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t))
 
-	;; mata functions wihtout _
+	;; mata functions without _
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -7757,7 +7761,7 @@
 		  "LA_ZGGBAK" "LA_ZGGBAL" "LA_ZGGHRD"
 		  "LA_ZHGEQZ" "LA_ZHSEIN" "LA_ZHSEQR"
 		  "LA_ZTGSEN" "LA_ZTGEVC" "LA_ZTREVC" "LA_ZTRSEN" "LA_ZUNGHR"
-		  "Lmatrix"
+		  "LinearProgram" "Lmatrix"
 		  "PdfDocument" "PdfParagraph" "PdfTable" "PdfText"
 		  "Quadrature"
 		  "Re" "Toeplitz" "Vandermonde"
@@ -7849,7 +7853,7 @@
 		  "nameexternal" "nonmissing" "norm"
 		  "optimize" "optimize_evaluate" "optimize_init" "optimize_query"
 		  "order" "orgtype"
-		  "panelsetup" "panelstats" "panelsubmatrix" "panelsubview"
+		  "panelsetup" "panelstats" "panelsubmatrix" "panelsubview" "panelsum"
 		  "pathasciisuffix" "pathbasename" "pathgetparent" "pathisabs" "pathisurl"
 		  "pathjoin" "pathlist" "pathresolve" "pathrmsuffix" "pathsearchlist"
 		  "pathsplit" "pathstatasuffix" "pathsubsysdir" "pathsuffix"
@@ -7865,9 +7869,9 @@
 		  "schurd" "select" "selectindex"
 		  "setbreakintr" "setmore" "setmoreonexit" "sinh" "sizeof" "smallestdouble"
 		  "solve_tol"
-		  "solvelower"
+		  "solvelower" "solvelowerlapacke"
 		  "solvenl_dump" "solvenl_init" "solvenl_solve"
-		  "solveupper"
+		  "solveupper" "solveupperlapacke"
 		  "sort" "spline3" "spline3eval" "sprintf"
 		  "st_select" "stata" "statasetversion" "stataversion"
 		  "stritrim"
@@ -8118,7 +8122,7 @@
 			"setFirstIndent" "setFont" "setFontSize"
 			"setHAlignment"
 			"setIndentation"
-			"setLeftIndent" "setLineSpace"
+			"setLandscape" "setLeftIndent" "setLineSpace"
 			"setMargins"
 			"setPageSize"
 			"setRightIndent" "setRowSplit"
