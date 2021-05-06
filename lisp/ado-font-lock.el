@@ -533,7 +533,7 @@
 
 	;; dyndoc tags
 	;; <<dd_version>> (sloppy for now, because it can only be 1)
-	(list "^[ \t]*\\(<<dd_version\\)[ \t]*:[ \t]*\\(1\\|2\\)[ \t]*\\(>>\\)"
+	(list "^[ \t]*\\(<<dd_ve\\(r\\|rs\\|rsi\\|rsio\\|rsion\\)\\)[ \t]*:[ \t]*\\(1\\|2\\)[ \t]*\\(>>\\)"
 		  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face) '(3 ado-builtin-harmless-face))
 	  
 
@@ -556,7 +556,8 @@
 	(list
 	  "[ \t]*\\(<<\\(?:/\\)?dd_rem\\(?:o\\(?:v\\(?:e\\)?\\)?\\)?\\(?:[ \t]*\\)>>\\)"
 	  '(1 ado-builtin-harmless-face t))
-	
+
+	;; <<dd_* :>>, i.e. things which have a colon
 	(list
 	 (concat
 	  "[ \t]*"
@@ -565,7 +566,8 @@
 		  '("<<dd_di" "<<dd_dis" "<<dd_disp" "<<dd_displ" "<<dd_displa" "<<dd_display"
 			"<<dd_doc" "<<dd_docx" "<<dd_docx_" "<<dd_docx_d" "<<dd_docx_di"
 			"<<dd_docx_dis" "<<dd_docx_disp" "<<dd_docx_displ" "<<dd_docx_displa"
-			"<<dd_docx_display")
+			"<<dd_docx_display"
+			"<<dd_if")
 		  t))
 	   "[ \t]*:.*?"
 	   "\\(>>\\)" )
@@ -610,7 +612,8 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '("<<dd_do"
-		   "<<dd_end"
+		   "<<dd_else"
+		   "<<dd_end" "<<dd_endif"
 		   "<<dd_ign" "<<dd_igno" "<<dd_ignor" "<<dd_ignore"
 		   "<<dd_skip_else"
 		   "<<dd_skip_end")
@@ -838,6 +841,7 @@
 		(regexp-opt
 		 '("begin"
 		   "clear"
+		   "collect"
 		   "describe"
 		   "image"
 		   "pagebreak"
