@@ -90,7 +90,7 @@ winid=$(xdotool getactivewindow getwindowname)
 ## not finding consoles because there is no consistent name
 ## ok, finally gave up and changed regexp to match Stata 10-29, so this
 ##  should work until 2045
-   xdotool search --name --onlyvisible "Stata(/SE|/MP|/IC)* [12][0-9]" windowactivate
+   xdotool search --name --onlyvisible "Stata(/SE|/MP|/IC/BE)* [12][0-9]" windowactivate
 # fi							   
 
 ## make do-file if dothis is anything but command
