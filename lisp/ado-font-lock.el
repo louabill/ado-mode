@@ -144,12 +144,22 @@
 
 	(list
 	 (concat
+	  ado-start-cmd-must-start-line-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '("#d" "#de" "#del" "#deli" "#delim" "#delimi" "#delimit")
+		 t)))
+	 '(1 ado-needs-subcommand-face))
+
+	(list
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
 	  (eval-when-compile
 		(regexp-opt
 		 '("#d" "#de" "#del" "#deli" "#delim" "#delimi" "#delimit")
 		 t))
 	  "[ \t]+\\(cr\\|;\\)[ \t]*$")
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	;; harmless prefix commands
 	(list
@@ -7179,11 +7189,13 @@
 		  "cformat"
 		  "changed" "charlen" "checksum"
 		  "clevel" "cmdlen"
-		  "coeftabresults" "console" "copycolor"
+		  "coeftabresults"
+		  "collect_double" "collect_label" "collect_style" "collect_warn"
+		  "console" "copycolor"
 		  "current_time" "current_date"
 		  "dirsep"
 		  "docx_hardbreak" "docx_paramode" "dots" "dp" "dyndoc_version"
-		  "emptycells" "eolchar" "epsdouble" "epsfloat" "eqlen"
+		  "edition"  "edition_real" "emptycells" "eolchar" "epsdouble" "epsfloat" "eqlen"
 		  "filedate" "filename" "flavor" "frame" "fredkey"
 		  "fvbase" "fvlabel" "fvtrack" "fvwrap" "fvwrapon"
 		  "graphics"
@@ -7192,6 +7204,7 @@
 		  "iterlog"
 		  "k"
 		  "java_heapmax" "java_home"
+		  "lapack_mkl" "lapack_mkl_cnr"
 		  "level" "linegap" "linesize"
 		  "locale_functions" "locale_icudflt" "locale_ui"
 		  "logtype" "lstretch"
@@ -7199,6 +7212,7 @@
 		  "matacache" "matafavor" "matalibs" "matalnum" "matamofirst" "mataoptimize" "matastrict"
 		  "max_N_theory"
 		  "max_cmdlen"
+		  "max_graphsize"
 		  "max_it_cvars" "max_it_fvars"
 		  "max_k_theory"
 		  "max_macrolen" "max_matdim" "max_memory"
@@ -7208,6 +7222,7 @@
 		  "maxdb" "maxdouble" "maxfloat" "maxint" "maxiter"
 		  "maxlong" "maxstrvarlen" "maxstrlvarlen" "maxvar" "maxvlabellen"
 		  "memory"
+		  "min_graphsize"
 		  "min_memory"
 		  "minbyte" "mindouble" "minfloat" "minint" "minlong"
 		  "mode" "more"
@@ -7221,11 +7236,14 @@
 		  "rng" "rng_current" "rngseed_mt64s" "rngstate" "rngstream"
 		  "scheme" "scrollbufsize" "searchdefault" "segmentsize" "sformat"
 		  "showbaselevels" "showemptycells" "showomitted"
-		  "smallestdouble" "stata_version"
+		  "smallestdouble"
+		  "sort_current" "sortmethod" "sortrngstate"
+		  "stata_version"
 		  "sysdir_base" "sysdir_oldplace" "sysdir_personal" "sysdir_plus" "sysdir_site" "sysdir_stata"
 		  "sysdir_updates"
-		  "timeout1" "timeout2" "tmpdir"
-		  "trace" "tracedepth" "traceexpand" "tracehilite" "traceindent" "tracenumber" "tracesep" "type"
+		  "table_style" "timeout1" "timeout2" "tmpdir"
+		  "trace" "tracedepth" "traceexpand" "tracehilite" "traceindent" "tracenumber" "tracesep"
+		  "type"
 		  "username" "userversion"
 		  "varabbrev" "version"
 		  "width")
@@ -7305,7 +7323,7 @@
        '("VERSION")
 	   'words))
 	   "[ \t]+"
-	  "\\(\\(?:\\(?:[89]\\|1[0123456]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[89]\\|1[0123456]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\)")
+	  "\\(\\(?:\\(?:[89]\\|1[01234567]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[89]\\|1[0123456]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\)")
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	  ;; general builtins for dialogs
 	  ;; here - the harmless faces define static text
@@ -7407,6 +7425,15 @@
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+	(list
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
+	   "\\<\\(call\\)\\>"
+	   "[ \t]+"
+	   "\\([.]\\)"
+	   ado-end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
 	;; annoying -stata- command
 	(list
 	 (concat
@@ -7441,6 +7468,45 @@
 		  'words))
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t) '(3 ado-subcommand-face t))
+
+	;; annoying -clear- dialog command
+	(list
+	 (concat
+	  ado-start-cmd-must-start-line-regexp
+	   "\\<\\(clear\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("cmdstring" "curstring" "optstring")
+		  'words))
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
+	;; dialog/child-dialog methods
+	(list
+	 (concat
+	  ado-start-cmd-null-regexp
+	   "\\>"
+	   "\\([.]\\)"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("OKAction"
+			"add" "append"
+			"callthru" "create"
+			"decrement" "divide"
+			"expandNumlist"
+			"increment"
+			"multiply"
+			"setExitAction" "setExitString" "setSubmitAction"
+			"setfalse" "setstring" "settitle" "settrue" "setvalue"
+			"storeClsArraySize" "storeClsArrayToQuotedStr"
+			"storeClsObjectExists"
+			"storeDialogClassName"
+			"subtract"
+			"tokenize" "tokenizeOnChars" "tokenizeOnStr"
+			)
+		  'words)))
+	  '(1 ado-function-name-face) '(2 ado-function-name-face t))
 
 	;; stata dialog functions i.e. things which require () after them
 	(list
@@ -8970,13 +9036,13 @@
 	;; !! did not split by whether they should or should not have a prefix. ugh.
 	;; exceptions, because they allow 0 args (partial list)
 	;;;; estimates, fp
+	;;;; #delimit taken care of separately
 	(list
 	 (concat
 	  ado-start-cmd-regexp
 	   (eval-when-compile
 		 (regexp-opt
-       '("#d" "#de" "#del" "#deli" "#delim" "#delimi" "#delimit"
-		 "_est" "_esti" "_estim" "_estima" "_estimat" "_estimate" "_estimates"
+		  '("_est" "_esti" "_estim" "_estima" "_estimat" "_estimate" "_estimates"
 		 "_return"
 		 "ado"
 		 "bcal"
