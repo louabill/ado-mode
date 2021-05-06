@@ -325,6 +325,27 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
+		 '("note" "notes")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("drop")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '("cluster")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
 		 '("dend" "dendr" "dendro" "dendrog" "dendrogr" "dendrogra" "dendrogram"
 		   "dir"
 		   "k" "km" "kme" "kmea" "kmean" "kmeans"
