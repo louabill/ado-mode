@@ -4611,7 +4611,8 @@
 		   "stcrr" "stcrre" "stcrreg"
 		   "stcurv" "stcurve" "stdescribe"
 		   "stem" "stepwise"
-		   "stereg" "stintreg" "stir" "stmc" "stmh" "stphplot" "stptime"
+		   "stereg" "stintcox" "stintcoxnp" "stintphplot" "stintreg" "stir"
+		   "stmc" "stmh" "stphplot" "stptime"
 		   "strate" "streg" "streset"
 		   "sts" "stse" "stset" "stsum" "stvary" "stweib"
 		   "su" "suest" "sum" "summ" "summa" "summar" "summari" "summariz" "summarize"
@@ -5995,7 +5996,7 @@
 	   "(")
 	  '(1  ado-subcommand-face t))
 
-	  ;; egen 'function' options
+	  ;; egen functions
 	(list
 	 (concat
 	  ado-start-cmd-regexp
@@ -6018,7 +6019,7 @@
 	   "(")
 	  '(1 ado-function-name-face t))
 
-	;; egen 'function' options -- obsolete
+	;; egen functions -- obsolete
 	(list
 	  (concat
 	   ado-start-cmd-regexp
@@ -7024,7 +7025,27 @@
        '("Global" "Local" "Super")
 	   'words))
 	   "\\(?:[.]" ado-stata-name-regexp "\\)+")
-	  '(1 ado-function-name-face) '(2 ado-function-name-face t))
+	 '(1 ado-function-name-face) '(2 ado-function-name-face t))
+
+	;; stgen functions
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	   "stgen[ \t]+.*=[ \t]*"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("always" "avgage"
+			"count" "count0"
+			"ever"
+			"gaplen"
+			"hasgap"
+			"max" "maxage" "min" "minage"
+			"never" "nfailures" "ngaps"
+			"when" "when0")
+	   'words))
+	   "(")
+	  '(1 ado-function-name-face t))
+
 
 ;;; builtin class functions and modifiers
 	(list
