@@ -6000,39 +6000,6 @@
 
 	;; beginning special commands (mostly alphabetical)
 	;; all the -collect- commands (Stata 17)
-
-	;; all the incomplete -collect- commands
-	;; two-word commands needing  subcommand
-	(list
-	 (concat
-	  ado-start-cmd-regexp
-	  "\\<\\(collect\\)\\>"
-	  "[ \t]+"
-	  (eval-when-compile
-		(regexp-opt
-		 '("label" "style")
-		 'words))
-	  ado-end-cmd-regexp )
-	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
-
-	;; -collect style- needing subcommand
-	(list
-	 (concat
-	  ado-start-cmd-regexp
-	  "\\<\\(collect\\)\\>"
-	  "[ \t]+"
-	  "\\<\\(style\\)\\>"
-	  "[ \t]+"
-	  (eval-when-compile
-		(regexp-opt
-		 '("row"
-		   "showbase" "showempty" "showomit"
-		   )
-		 'words))
-	  ado-end-cmd-regexp )
-	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
-	 '(3 ado-needs-subcommand-face))
-
 	;; all harmless, at least for now
 	(list
 	 (concat
@@ -6041,8 +6008,7 @@
 	   "[ \t]+"
 	   (eval-when-compile
 		 (regexp-opt
-		  '(":"
-			"clear" "combine" "copy" "create"
+		  '("clear" "combine" "copy" "create"
 			"dims" "dir" "drop"
 			"export"
 			"get" "get:"
@@ -6055,7 +6021,16 @@
 			)
 	   'words))
 	   ado-end-cmd-regexp )
-	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	;; collect with a colon, all by itself
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	   "\\<\\(collect\\)\\>"
+	   "[ \t]*:"
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face))
+	
 	;; -collect label- commands
 	(list
 	 (concat
@@ -6162,6 +6137,40 @@
 	   ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+	
+	;; all the incomplete -collect- commands
+	;; two-word commands needing  subcommand
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(collect\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("label" "style")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
+	;; -collect style- needing subcommand
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(collect\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(style\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("row"
+		   "showbase" "showempty" "showomit"
+		   )
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	 '(3 ado-needs-subcommand-face))
+
+
 
 	  ;; egen functions
 	(list
