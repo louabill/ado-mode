@@ -5998,6 +5998,171 @@
 	   "(")
 	  '(1  ado-subcommand-face t))
 
+	;; beginning special commands (mostly alphabetical)
+	;; all the -collect- commands (Stata 17)
+
+	;; all the incomplete -collect- commands
+	;; two-word commands needing  subcommand
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(collect\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("label" "style")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
+	;; -collect style- needing subcommand
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(collect\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(style\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("row"
+		   "showbase" "showempty" "showomit"
+		   )
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
+	 '(3 ado-needs-subcommand-face))
+
+	;; all harmless, at least for now
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	   "\\<\\(collect\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '(":"
+			"clear" "combine" "copy" "create"
+			"dims" "dir" "drop"
+			"export"
+			"get" "get:"
+			"keep"
+			"layout" "levels" "levelso" "levelsof"
+			"preview"
+			"recode" "remap" "rename"
+			"save" "set" "stars"
+			"use"
+			)
+	   'words))
+	   ado-end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	;; -collect label- commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	   "\\<\\(collect\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(label\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("dim" "drop"
+			"levels" "list"
+			"save"
+			"use"
+			)
+	   'words))
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
+	;; -collect style- single subcommand commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	   "\\<\\(collect\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(style\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("_cons"
+			"autolevels"
+			"cell" "clear" "column"
+			"header" "html"
+			"putdocx" "putpdf"
+			"save"
+			"table"
+			"use"
+			)
+	   'words))
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
+	;; -collect style row- commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	   "\\<\\(collect\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(style\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(row\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("split" "stack"
+			)
+	   'words))
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+
+	;; -collect style showbase- commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	   "\\<\\(collect\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(style\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(showbase\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("all"
+			"factor"
+			"off"
+			)
+	   'words))
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+
+	;; -collect style showomit | empty- on off commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	   "\\<\\(collect\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(style\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("showempty" "showomit"
+			)
+	   'words))
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("off" "on"
+			)
+	   'words))
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+
 	  ;; egen functions
 	(list
 	 (concat
@@ -9080,6 +9245,7 @@
 		 "ci" "cii" "ciwidth"
 		 "classutil"
 		 "cluster" "clustermat"
+		 "collect"
 		 "cmdlog"
 		 "conf" "confi" "confir" "confirm"
 		 "cons" "const" "constr" "constra" "constrai" "constrain" "constraint"
