@@ -940,6 +940,7 @@
 		(regexp-opt
 		 '("a" "ad" "ado" "ados" "adosi" "adosiz" "adosize"
 		   "cformat" "clevel"
+		   "collect_label" "collect_style"
 		   "fredkey"
 		   "fvbase" "fvwrap"
 		   "haverdir"
@@ -963,6 +964,7 @@
 		   "segmentsize"
 		   "sformat"
 		   "sortrngstate"
+		   "table_style"
 		   "timeout1"
 		   "timeout2"
 		   "traced" "tracede" "tracedep" "tracedept" "tracedepth"
@@ -985,7 +987,9 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '("autotabgraphs"
-		   "checksum" "coeftabresults" "copycolor"
+		   "checksum" "coeftabresults"
+		   "collect_double" "collect_warn"
+		   "copycolor"
 		   "dockable"
 		   "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
 		   "docx_hardbreak" "docx_paramode"
@@ -1041,6 +1045,8 @@
 	  "\\<\\("
 	  "\\(?:conren\\(?:[ \t]+\\(?:clear\\|sf\\|bf\\|it\\|res\\|resu\\|resul\\|result\\|reset\\|txt\\|text\\|inp\\|inpu\\|input\\|err\\|erro\\|error\\|li\\|lin\\|link\\|hi\\|hil\\|hili\\|hilit\\|hilite\\|ulof\\|uloff\\|ulon\\)\\)?\\)"
 	  "\\|"
+	  "\\(?:collect_\\(?:label\\|style\\)[ \t]+default\\)"
+	  "\\|"
 	  "\\(?:copycolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)\\)"
 	  "\\|"
 	  "\\(?:dp[ \t]+\\(?:com\\|comm\\|comma\\|per\\|peri\\|perio\\|period\\)\\)"
@@ -1065,6 +1071,8 @@
 	  "\\|"
 	  "\\(?:sortmethod[ \t]+\\(?:default\\|\\(?:f\\|q\\)sort\\)\\)"
 	  "\\|"
+	  "\\(?:table_style[ \t]+table\\)"
+	  "\\|"
 	  "\\(?:t\\(?:y\\|yp\\|ype\\)[ \t]+\\(?:double\\|float\\)\\)"
 	  "\\)\\>" ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
@@ -1083,6 +1091,7 @@
 		(regexp-opt
 		 '("autotabgraphs"
 		   "checksum" "coeftabresults"
+		   "collect_double" "collect_warn"
 		   "dockable"
 		   "dockingg" "dockinggu" "dockinggui" "dockingguid" "dockingguide" "dockingguides"
 		   "docx_hardbreak" "docx_paramode"
