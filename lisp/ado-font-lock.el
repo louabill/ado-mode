@@ -4479,7 +4479,7 @@
 		   "db"
 		   "de" "des" "desc" "descr" "descri" "describ" "describe"
 		   "dfactor" "dfbeta" "dfgls" "dfuller"
-		   "di" "diflogistic" "difmh" "dir"
+		   "di" "didregress" "diflogistic" "difmh" "dir"
 		   "dis" "discrim" "disp" "disp_res" "disp_s"
 		   "displ" "displa" "display"
 		   "do"
@@ -4634,7 +4634,7 @@
 		   "tabi"
 		   "table" "tabodds" "tabstat"
 		   "tabu" "tabul" "tabula" "tabulat" "tabulate"
-		   "te" "teoverlap" "tes" "test"
+		   "te" "telasso" "teoverlap" "tes" "test"
 		   "testnl" "testparm" "tetrachoric"
 		   "threshold"
 		   "tnbreg"
@@ -8641,7 +8641,7 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 	 
-	;; the estat commands
+	;; the -estat- commands
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -8682,7 +8682,7 @@
 		   "ggof"
 		   "gin" "ginv" "ginva" "ginvar" "ginvari" "ginvaria" "ginvarian" "ginvariant"
 		   "gof" "gofplot"
-		   "gr" "grdistances"
+		   "gr" "granger" "grdistances"
 		   "grep" "grepo" "grepor" "greport"
 		   "grmeans"
 		   "gro" "grou" "group"
@@ -8703,7 +8703,7 @@
 		   "nproc"
 		   "over" "overi" "overid"
 		   "ovt" "ovte" "ovtes" "ovtest"
-		   "pairwise" "period" "phtest" "policy" "predict" "profiles"
+		   "pairwise" "period" "phtest" "policy" "predict" "profiles" "ptrends"
 		   "quantiles"
 		   "recov" "recova" "recovar" "recovari" "recovaria" "recovarian" "recovarianc" "recovariance"
 		   "rep" "repo" "repor" "report"
@@ -8721,7 +8721,7 @@
 		   "szr" "szro" "szroe" "szroet" "szroete" "szroeter"
 		   "table"
 		   "tef" "teff" "teffe" "teffec" "teffect" "teffects"
-		   "transition"
+		   "transition" "trendplots"
 		   "vce" "vif"
 		   "wcor" "wcorr" "wcorre" "wcorrel" "wcorrela" "wcorrelat" "wcorrelati" "wcorrelatio" "wcorrelation")
 		 'words))
