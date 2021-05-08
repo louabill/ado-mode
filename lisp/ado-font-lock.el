@@ -4700,6 +4700,7 @@
 		   "scobit" "sem" "slogit" "stcox" "stintreg" "streg"
 		   "tab" "tabu" "tabul" "tabula" "tabulat" "tabulate"
 		   "tnbreg" "tobit" "total" "tpoisson" "truncreg"
+		   "xtmlogit"
 		   "zinb" "zioprobit" "zip")
 		 'words))
 	  ado-end-cmd-regexp )
@@ -4773,6 +4774,7 @@
 		   "scobit" "sem" "slogit" "stcox" "stintreg" "streg"
 		   "tab" "tabu" "tabul" "tabula" "tabulat" "tabulate"
 		   "tnbreg" "tobit" "total" "tpoisson" "truncreg"
+		   "xtmlogit"
 		   "zinb" "zioprobit" "zip")
 		 'words))
 	  ado-end-cmd-regexp )
