@@ -1,5 +1,55 @@
 # Version History
 
+## 1.17.0.0
+
+### Big Changes
+
+* Updated for Stata 17 with the usual adding and deprecating Stata commands.
+
+* There are also many large changes to make installation easier.
+
+	* Commands/ados from sysdirs (`PERSONAL`, `PLUS`, `SITE`, and `OLDPLACE`) now get
+  fontified automatically, so there is no longer a need to write your own
+  `ado-mode-hook` to do this. The `ado-mode` functions for adding and removing
+  font-lock keywords were overhauled to do this more efficiently.
+
+	* Added `ado-add-sysdir-font-lock` flag for auto-loading commands from
+  sysdirs.This defaults to `t`, but if you do not want to fontify these
+  commands, you can set it to `nil`.
+
+	* Made the so-called `new` directory default to `PERSONAL`. If you have it
+  customized already, nothing will change. New users no longer need to
+  specify it.
+
+* Reorganized the customization groupings, because of simplifying the
+  installation instructions. The most-needed settings are now under `ado-main`
+                        . 
+* Added `ado-font-lock-refresh` to refresh font locking without having to reload
+`ado-mode`. Finally.
+
+### Other Feature Changes
+
+* Added overlooked Stata/IC to script for sending to Stata in unix (thanks to
+  Mark Clements)
+
+* Added Stata/BE to keep up with Stata renaming Stata/IC to Stata/BE. For
+  them that like Stata history: Stata/IC was once the fancy-pants version of
+  Stata (as 'Intercooled' is a kind of turbocharger).
+
+### Bug Fixes (not inclusive)
+
+* Fixed the bug which would error out when trying to grab a block when
+  outside of a block. 
+
+### Note
+
+* This is the last update which will include the *.elc files in the zipped
+  package. This is being done because it is really a bad practice to include
+  them in a repository, as they can be generated from the contents of the
+  repo. If you use MELPA, Emacs will create the *.elc files when you grab the
+  package. If you are installing by hand, you'll have to do the compilations
+  on your own. 
+
 ## 1.16.1.6
 
 No feature changes. Fixes for MELPA and for a dumb bug introduced in the last

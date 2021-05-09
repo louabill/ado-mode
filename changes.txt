@@ -1,13 +1,11 @@
 Version History:
 ---------------
 
-1.16.1.7
-
-Whoops! This got finished just as Stata released Stata 17. The update for
-including/deprecating commands in Stata 17 will co		 me out a little down the
-road.
+1.17.0.0
 
 Big Changes
+
+* Updated for Stata 17 with the usual adding and deprecating Stata commands.
 
 There are many large changes to make installation easier.
 
@@ -34,6 +32,25 @@ Other Feature Changes
 
 * Added overlooked Stata/IC to script for sending to Stata in unix (thanks to
   Mark Clements)
+
+* Added Stata/BE to keep up with Stata renaming Stata/IC to Stata/BE. For
+  them that like Stata history: Stata/IC was once the fancy-pants version of
+  Stata (as 'Intercooled' is a kind of turbocharger).
+
+Bug Fixes (not inclusive)
+
+* Fixed the bug which would error out when trying to grab a block when
+  outside of a block.
+
+Note
+
+* This is the last update which will include the *.elc files in the zipped
+  package. This is being done because it is really a bad practice to include
+  them in a repository, as they can be generated from the contents of the
+  repo. If you use MELPA, Emacs will create the *.elc files when you grab the
+  package. If you are installing by hand, you'll have to do the compilations
+  on your own. 
+
 
 1.16.1.6
 
