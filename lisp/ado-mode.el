@@ -1945,10 +1945,17 @@ See `ado-next-error' for more details."
 (defun ado-balance-brace (&optional block)
   "Select contents inside balanced braces but outside strings or comments.
 
-By default, braces are any of {[()]}.
+By default, braces are any of {[()]}. 
+
+If BLOCK is non-nil, include enclosing loop-inducing commands 
+(like -foreach-). If there are no curly braces to match, behave
+as though BLOCK were nil.
+
+Note: this uses the sloppy matching which comes with Emacs, 
+so things like (] match. This is not good, but it
+has the (minor) advantage of allowing the syntax tables to define what
+a brace should be."
  
-If BLOCK is non-nil, balance only {} in a smart way, being sure to include
-loop-inducing commands."
   (interactive)
   (let (here there (ppsexp (parse-partial-sexp 1 (point))))
 	(save-excursion
@@ -1956,21 +1963,30 @@ loop-inducing commands."
 	  (if (or (nth 3 ppsexp) (nth 4 ppsexp))
 		  (goto-char (nth 8 ppsexp)))
 	  ;; if no block, these error out
-	  (condition-case nil
-		  (setq here (scan-lists (point) -1 1))
-		(error "Beginning brace not found"))
-	  (condition-case nil
-		  (setq there (scan-lists (point) 1 1))
-		(error "Ending brace not found")))
-	;; Jump to start of loop if needed
-	(goto-char here)
-	(set-mark there)
-	(when block
-	  (if (looking-at "[[(]")
-		  (setq there (ado-balance-brace t))
-		(ado-beginning-of-command)
-		(unless (looking-at "[\t ]*\\(\\(for\\(each\\|\\(v\\|va\\|val\\|valu\\|value\\|values\\)\\)\\)\\|while\\)[\t ]+")
-		  (goto-char here))))))
+	  (setq here
+			(condition-case nil
+				(scan-lists (point) -1 1)
+			  (error)))
+	  (setq there
+			(condition-case nil
+				(scan-lists (point) 1 1)
+			  (error))))
+	(if (or (not here) (not there))
+		(if (not here)
+			(if (not there)
+				(message "Not inside braces")
+			  (message "No starting brace found"))
+		  (message "No ending brace found"))
+	  ;; Jump to start of loop if needed
+	  (goto-char here)
+	  (set-mark there)
+	  (when block
+		(if (looking-at "[[(]")
+			(setq there (ado-balance-brace t))
+		  (ado-beginning-of-command)
+		  (unless (looking-at "[\t ]*\\(\\(for\\(each\\|\\(v\\|va\\|val\\|valu\\|value\\|values\\)\\)\\)\\|while\\)[\t ]+")
+			(goto-char here))))
+	  )))
 
 (defun ado-grab-block ()
   "Select a code block in a smart fashion, knowing about ifs and loops."
