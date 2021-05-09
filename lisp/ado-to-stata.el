@@ -158,8 +158,7 @@ send2stata.scpt is stored."
 			  (if ado-send-to-all-flag "t" ""))
 			 " "
 			 (shell-quote-argument (if ado-strict-match-flag "t" "")))
-			 nil 0)
-			 )
+			 nil 0))
 		  ((string= system-type "gnu/linux")
 		   (shell-command
 			(concat

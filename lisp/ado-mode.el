@@ -5,7 +5,7 @@
 ;; Author: Bill Rising <brising@alum.mit.edu>
 ;; Version: 1.16.1.6
 ;; Keywords: tools,languages,files,convenience,Stata, Mata, ado
-;; Package-requires: ((emacs "24.1"))
+;; Package-requires: ((emacs "25.1"))
 ;; URL: https://github.com/louabill/ado-mode
 ;;
 ;; This file is not part of GNU Emacs.
@@ -1313,7 +1313,7 @@ An interactive interface to `ado-find-depth'"
   
   (interactive)
   (let ((depth (ado-find-depth)))
-    (message "The depth is %d %s" 
+    (message "The depth is %d %s"
 			 (car depth)
 			 (if (nth 1 depth) " with continuation" " without continuation"))))
 
@@ -1945,13 +1945,13 @@ See `ado-next-error' for more details."
 (defun ado-balance-brace (&optional block)
   "Select contents inside balanced braces but outside strings or comments.
 
-By default, braces are any of {[()]}. 
+By default, braces are any of {[()]}.
 
-If BLOCK is non-nil, include enclosing loop-inducing commands 
-(like -foreach-). If there are no curly braces to match, behave
+If BLOCK is non-nil, include enclosing loop-inducing commands
+such as -foreach-. If there are no curly braces to match, behave
 as though BLOCK were nil.
 
-Note: this uses the sloppy matching which comes with Emacs, 
+Note: this uses the sloppy matching which comes with Emacs,
 so things like (] match. This is not good, but it
 has the (minor) advantage of allowing the syntax tables to define what
 a brace should be."
@@ -1985,8 +1985,7 @@ a brace should be."
 			(setq there (ado-balance-brace t))
 		  (ado-beginning-of-command)
 		  (unless (looking-at "[\t ]*\\(\\(for\\(each\\|\\(v\\|va\\|val\\|valu\\|value\\|values\\)\\)\\)\\|while\\)[\t ]+")
-			(goto-char here))))
-	  )))
+			(goto-char here)))))))
 
 (defun ado-grab-block ()
   "Select a code block in a smart fashion, knowing about ifs and loops."

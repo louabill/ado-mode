@@ -2411,7 +2411,7 @@
 		   "contour" "contourline"
 		   "dot" "dropline"
 		   "fpfit" "fpfitci" "function"
-		   "hist" "histo" "histog" "histogr" "histogra" "histogram" 
+		   "hist" "histo" "histog" "histogr" "histogra" "histogram"
 		   "kdensity"
 		   "line"
 		   "lfit" "lfitci"
@@ -2694,7 +2694,7 @@
 	  "[ \t]+"
 	  "\\<\\(drop\\)\\>"
 	  "[ \t]+"
-	  "\\(\\(?:" ado-stata-name-regexp "[ \t]*\\)+\\)" 
+	  "\\(\\(?:" ado-stata-name-regexp "[ \t]*\\)+\\)"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t) '(3 ado-matrix-name-face))
 
@@ -6064,8 +6064,7 @@
 			"preview"
 			"recode" "remap" "rename"
 			"save" "set" "stars"
-			"use"
-			)
+			"use")
 	   'words))
 	   ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -6091,8 +6090,7 @@
 		  '("dim" "drop"
 			"levels" "list"
 			"save"
-			"use"
-			)
+			"use")
 	   'words))
 	   ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
@@ -6115,8 +6113,7 @@
 			"putdocx" "putpdf"
 			"save"
 			"table"
-			"use"
-			)
+			"use")
 	   'words))
 	   ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
@@ -6134,8 +6131,7 @@
 	   "[ \t]+"
 	   (eval-when-compile
 		 (regexp-opt
-		  '("split" "stack"
-			)
+		  '("split" "stack")
 	   'words))
 	   ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
@@ -6155,8 +6151,7 @@
 		 (regexp-opt
 		  '("all"
 			"factor"
-			"off"
-			)
+			"off")
 	   'words))
 	   ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
@@ -6172,14 +6167,12 @@
 	   "[ \t]+"
 	   (eval-when-compile
 		 (regexp-opt
-		  '("showempty" "showomit"
-			)
+		  '("showempty" "showomit")
 	   'words))
 	   "[ \t]+"
 	   (eval-when-compile
 		 (regexp-opt
-		  '("off" "on"
-			)
+		  '("off" "on")
 	   'words))
 	   ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
@@ -6210,8 +6203,7 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '("row"
-		   "showbase" "showempty" "showomit"
-		   )
+		   "showbase" "showempty" "showomit")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face)
@@ -6268,14 +6260,14 @@
 	   (eval-when-compile
 		 (regexp-opt
 		  '("add"
-			"conn" "conne" "connec" "connect" 
+			"conn" "conne" "connec" "connect"
 			"des" "desc" "descr" "descri" "describ" "describe"
 			"exec"
 			"insert"
 			"list" "load"
 			"remove"
 			"show"
-			"showd" "showdb" "showdbs" 
+			"showd" "showdb" "showdbs"
 			"showt" "showta" "showtab" "showtabl" "showtable" "showtables" )
 		  'words))
 	   ado-end-cmd-regexp )
@@ -6294,7 +6286,7 @@
 			"clear"
 			"es" "esi" "esiz" "esize"
 			"funnel" "funnelp" "funnelpl" "funnelplo" "funnelplot"
-			"galbr" "galbra" "galbrai" "galbrait" "galbraith" "galbraithp" "galbraithpl" "galbraithplo" "galbraithplot" 
+			"galbr" "galbra" "galbrai" "galbrait" "galbraith" "galbraithp" "galbraithpl" "galbraithplo" "galbraithplot"
 			"labbe" "labbep" "labbepl" "labbeplo" "labbeplot"
 			"forest" "forestp" "forestpl" "forestplo" "forestplot"
 			"mvreg" "mvregr" "mvregre" "mvregres" "mvregress"
@@ -7766,8 +7758,7 @@
 			"storeClsObjectExists"
 			"storeDialogClassName"
 			"subtract"
-			"tokenize" "tokenizeOnChars" "tokenizeOnStr"
-			)
+			"tokenize" "tokenizeOnChars" "tokenizeOnStr")
 		  'words)))
 	  '(1 ado-function-name-face) '(2 ado-function-name-face t))
 
@@ -8007,7 +7998,7 @@
 		 "\\b"
 		 (regexp-opt
 		  '("_chdir" "_cholesky"
-			"_cholinv" "_cholinvlapacke" 
+			"_cholinv" "_cholinvlapacke"
 			"_cholsolve" "cholsolvelapacke"
 			"_collate" "_conj" "_corr"
 		  "_deriv" "_deriv_result_Hessian" "_deriv_result_Jacobian" "_deriv_result_gradient" "_deriv_result_scores" "_deriv_result_values" "_diag"
@@ -8740,7 +8731,7 @@
 		   "grmeans"
 		   "gro" "grou" "group"
 		   "grsummarize"
-		   "het" "hete" "heter" "hetero" "heterog" "heteroge" "heterogen" "heterogene" "heterogenei" "heterogeneit" "heterogeneity" 
+		   "het" "hete" "heter" "hetero" "heterog" "heteroge" "heterogen" "heterogene" "heterogenei" "heterogeneit" "heterogeneity"
 		   "hett" "hette" "hettes" "hettest"
 		   "ic" "icc"
 		   "impact"
@@ -9419,7 +9410,7 @@
 ;;; naming structure in ado-mode
 
 (defun ado-add-sysdir-font-lock-keywords (sysdir &optional update refresh)
-  "Add font-lock keywords from a Stata-names sysdir.
+  "Add font-lock keywords from a Stata-named SYSDIR.
 If optional UPDATE is true, drop the keywords if they already exist,
 otherwise do NOT add any keywords.
 If optional REFRESH is true, also refresh the keyword list in the buffer.
@@ -9429,10 +9420,8 @@ If the keywords are not refreshed, it is up to the user to call
 `ado-font-lock-refresh'."
   (let ((name (intern sysdir))
 		(dir (intern (concat "ado-" sysdir "-dir")))
-		(face (intern (concat "ado-" sysdir "-harmless-face")))
-		)
-	(ado-add-font-lock-keywords name (directory-file-name (eval dir)) face update refresh)
-	))
+		(face (intern (concat "ado-" sysdir "-harmless-face"))))
+	(ado-add-font-lock-keywords name (directory-file-name (eval dir)) face update refresh)))
   
 ;;; here are all the added functions for highlighting user-written commands
 ;;; Note that for sysdir named directories, there is no assumption that
@@ -9494,7 +9483,7 @@ the function `ado-reset-personal-dir'."
   (interactive)
   (unless ado-personal-dir
 	(ado-reset-personal-dir))
-  (ado-add-sysdir-font-lock-keywords "personal" update)) 
+  (ado-add-sysdir-font-lock-keywords "personal" update))
 
 (defun ado-add-oldplace (&optional update)
   "Add/update highlighting for all ado files in `ado-oldplace-dir'.
@@ -9572,10 +9561,10 @@ To add the keywords associated with NAME, the existing keywords need to
 first be removed/deleted.
 
 Gets called by functions adding keywords for all commands based
-on ado-file names in a directory, as well as the commands defined 
+on ado-file names in a directory, as well as the commands defined
 in the split directories (a, b, c etc.) that Stata loves so well.
 
-Called by wrappers to set up Stata's named directories, so unless 
+Called by wrappers to set up Stata's named directories, so unless
 you have some extra non-sysdir directories, you won't need to use it.
 
 The arguments are
@@ -9583,7 +9572,7 @@ The arguments are
           this must be be a symbol
   DIR:    the directory to look in
   FACE:   the face to use (must be double ''ed)
-  UPDATE: if t, update the list if it exists. 
+  UPDATE: if t, update the list if it exists.
           If nil, do absolutely nothing if the list already exists,
           namely don't check existence of DIR, don't refresh buffer.
   REFRESH:if true, refresh the keyword list for the buffer.
@@ -9665,7 +9654,7 @@ has an internal user-chosen name of bar.
 ;; no guarantee it'll keep working forever
 (defun ado-modify-font-lock-keywords (name dir face &optional remove subdir extension baddir)
   "Old command for adding and removing keywords for font locking.
-Has been replaced by `ado-add-font-lock-keywords' and 
+Has been replaced by `ado-add-font-lock-keywords' and
 `ado-remove-font-lock-keywords'. Still hanging around for backward
 compatability.
 `ado-add-font-lock-keywords' has more capabilities.
@@ -9705,8 +9694,7 @@ which has an internal name of bar.
      ''ado-mode-personal-harmless-face t)"
   (if remove
 	  (ado-remove-font-lock-keywords name)
-	(ado-add-font-lock-keywords name dir face t nil baddir subdir extension)
-  ))
+	(ado-add-font-lock-keywords name dir face t nil baddir subdir extension)))
 
 
 
