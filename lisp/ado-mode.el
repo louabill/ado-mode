@@ -1,6 +1,6 @@
 ;;; ado-mode.el --- Major mode for editing Stata-related files -*- lexical-binding: t; -*-
 
-;; Copyright (C) 1996-2020 Bill Rising
+;; Copyright (C) 1996-2021 Bill Rising
 
 ;; Author: Bill Rising <brising@alum.mit.edu>
 ;; Version: 1.16.1.6

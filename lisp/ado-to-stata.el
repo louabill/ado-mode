@@ -1,6 +1,6 @@
 ;;; ado-to-stata.el --- Passing code to a running Stata from emacs -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
 ;;
-;; Copyright (C) 2003--2020 Bill Rising
+;; Copyright (C) 2003--2021 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
 ;; Homepage: https://github.com/louabill/ado-mode
