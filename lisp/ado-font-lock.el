@@ -2608,7 +2608,7 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	;; some of the matrix commands
+	;; some of the -matrix- commands
 	;; with no matrix arguments - harmless
 	;; with one following argument but no subcommand
 	(list
@@ -2694,7 +2694,7 @@
 	  "[ \t]+"
 	  "\\<\\(drop\\)\\>"
 	  "[ \t]+"
-	  "\\(\\(?:" ado-stata-name-regexp "[ \t]*\\)+\\)"
+	  "\\(\\(?:" ado-stata-name-regexp "[ \t]*\\)+\\)" 
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t) '(3 ado-matrix-name-face))
 
@@ -6656,26 +6656,26 @@
 	   "[ \t]*"
 	   (eval-when-compile
 		 (regexp-opt
-       '("asis"
-		  "bf" "break"
-		  "cmd" "com"
-		  "depvar" "depvars" "depvarlist" "dtype"
-		  "err" "error"
-		  "hi" "hilite" "hline"
-		  "ifin" "inp" "indepvars" "input" "it"
-		  "newvar"
-		  "p" "p_end" "p2colreset" "p2line"
-		  "phang" "phang2" "phang3" "pin" "pin2" "pin3" "pmore" "pmore2" "pmore3" "psee" "pstd"
-		  "res" "reset" "result"
-		  "s6hlp"
-		  "sf" "smcl" "synopthdr" "synoptline" "synoptset"
-		  "tab" "text" "txt"
-		  "var" "varlist" "varname" "vars"
-		  "weight")
-	   'words))
+		  '("asis"
+			"bf" "break"
+			"cmd" "com"
+			"depvar" "depvars" "depvarlist" "dtype"
+			"err" "error"
+			"hi" "hilite" "hline"
+			"ifin" "inp" "indepvars" "input" "it"
+			"newvar"
+			"p" "p_end" "p2colreset" "p2line"
+			"phang" "phang2" "phang3" "pin" "pin2" "pin3" "pmore" "pmore2" "pmore3" "psee" "pstd"
+			"res" "reset" "result"
+			"s6hlp"
+			"sf" "smcl" "synopthdr" "synoptline" "synoptset"
+			"tab" "text" "txt"
+			"var" "varlist" "varname" "vars"
+			"weight")
+		  'words))
 	   "[ \t]*?"
 	   "\\(}\\)")
-	  '(1 ado-constant-face t) '(2 ado-builtin-harmless-face t) '(3 ado-constant-face t))
+	 '(1 ado-constant-face t) '(2 ado-builtin-harmless-face t) '(3 ado-constant-face t))
 	;; Syntax 1 with funny chars (need to build regexp by hand)
 	(list
 	 (concat
@@ -6717,7 +6717,8 @@
 	   "\\(}+\\)")
 	  '(1 ado-constant-face t) '(2 ado-builtin-harmless-face t)
 	  '(3 ado-constant-face t) '(4 ado-subcommand-face t) '(5 ado-constant-face t))
-	  ;; making smcl comments look like comments
+
+	;; making smcl comments look like comments
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -6731,7 +6732,7 @@
 	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
 	  '(3 ado-constant-face) '(4 ado-comment-face t) '(5 ado-constant-face))
 
-	  ;; Syntax 2plus for cmdab
+	;; Syntax 2plus for cmdab
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -6872,7 +6873,7 @@
 	  '(3 ado-subcommand-face t) '(4 ado-constant-face)
 	  '(5 ado-subcommand-face t) '(6 ado-constant-face))
 	   
-	  ;; Syntax 3 comments
+	;; Syntax 3 comments
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -6886,7 +6887,7 @@
 	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
 	  '(3 ado-comment-face t) '(4 ado-comment-face t)
 	  '(5 ado-constant-face))
-	  ;; Syntax 3 with a single text args --- allow simple macros, too
+	;; Syntax 3 with a single text args --- allow simple macros, too
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -6902,7 +6903,7 @@
 	   "\\(}\\)")
 	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
 	  '(3 ado-subcommand-face t) '(4 ado-constant-face))
-	  ;; Syntax 3 with single numerical args --- allow simple macros, too
+	;; Syntax 3 with single numerical args --- allow simple macros, too
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -6918,7 +6919,7 @@
 	   "\\(}\\)")
 	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
 	  '(3 ado-subcommand-face t) '(4 ado-constant-face))
-	  ;; Syntax 3 with a single numerical arg and a choice (nice syntax)
+	;; Syntax 3 with a single numerical arg and a choice (nice syntax)
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -6956,7 +6957,7 @@
 	   "\\(}\\)")
 	  '(1 ado-constant-face) '(2 ado-builtin-harmless-face t)
 	  '(3 ado-subcommand-face t) '(4 ado-constant-face))
-	  ;; Syntax 3 with exactly 2 numerical arguments.
+	;; Syntax 3 with exactly 2 numerical arguments.
 	;; Why doesn't SMCL come close to having a clean syntax?
 	(list
 	 (concat
@@ -7119,8 +7120,6 @@
 	  '(3 ado-subcommand-face) '(4 ado-subcommand-face)
 	  '(5 ado-constant-face))
 	   
-
-
 	  ;; Syntax 4 exceptions
 	(list
 	 (concat
@@ -7201,6 +7200,7 @@
 	  "\\(}\\)")
 	 '(1 ado-constant-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-subcommand-face) '(4 ado-constant-face))
+
 	;; special chars which have wordlike names
 	(list
 	 (concat
@@ -7237,8 +7237,23 @@
 	  "\\(}\\)")
 	 '(1 ado-constant-face) '(2 ado-builtin-harmless-face)
 	 '(3 ado-subcommand-face) '(4 ado-constant-face))
-	  ;; class stuff
-;;; builtin prefix operators
+	;; obsolete smcl
+		(list
+	 (concat
+	  ado-start-cmd-null-regexp
+	  "\\({\\)"
+	  "[ \t]*"
+	  (eval-when-compile
+		(regexp-opt
+		 '("news")
+		  'words))
+	   ".*?"
+	   "\\(}\\)")
+	 '(1 ado-constant-face t) '(2 ado-obsolete-face t) '(3 ado-constant-face t))
+
+	
+	;; class stuff
+	;; builtin prefix operators
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
