@@ -525,7 +525,7 @@
 		(regexp-opt
 		 '("comp" "compa" "compar" "compare"
 		   "drop"
-		   "save")
+		   "sav" "save")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -3768,11 +3768,11 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	;; the fcast commands which leave data alone
+	;; the -fcast- and -bayesfcast- commands which leave data alone
 	(list
 	 (concat
 	  ado-start-cmd-regexp
-	  "\\<\\(fcast\\)\\>"
+	  "\\<\\(\\(?:bayes\\)?fcast\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
@@ -3780,11 +3780,11 @@
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-	;; fcast commands which alter data
+	;; -fcast- and -bayesfcast- commands which alter data
 	(list
 	 (concat
 	  ado-start-cmd-regexp
-	  "\\<\\(fcast\\)\\>"
+	  "\\<\\(\\(?:bayes\\)?fcast\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
@@ -3809,10 +3809,11 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-obsolete-face) '(2 ado-obsolete-face))
 
+	;; -irf- and -bayesirf- harmless commands in common
 	(list
 	 (concat
 	  ado-start-cmd-regexp
-	  "\\<\\(irf\\)\\>"
+	  "\\<\\(\\(?:bayes\\)?irf\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
@@ -3826,11 +3827,25 @@
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-	;; irf partial commands
+	;; -irf- subcommands not in -bayesirf-
 	(list
 	 (concat
 	  ado-start-cmd-regexp
 	  "\\<\\(irf\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("d" "de" "des" "desc" "descr" "descri" "describ" "describe"
+		   "di" "dir")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; -irf- and -bayesirf- partial commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(\\(?:bayes\\)?irf\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
@@ -3839,11 +3854,12 @@
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face t) '(2 ado-needs-subcommand-face t))
-	;; irf graph/table and their subcommands
+
+	;; shared -irf- and -bayesirf- graph/table and their subcommands
 	(list
 	 (concat
 	  ado-start-cmd-regexp
-	  "\\<\\(irf\\)\\>"
+	  "\\<\\(\\(?:bayes\\)?irf\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
@@ -3857,17 +3873,37 @@
 		   "dm"
 		   "fevd"
 		   "irf"
-		   "oirf"
-		   "sfevd" "sirf")
+		   "oirf")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t))
-	;; the irf commands which alter data
+
+	;; -irf- graph and table commands which are not in -bayesirf-
 	(list
 	 (concat
 	  ado-start-cmd-regexp
 	  "\\<\\(irf\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("g" "gr" "gra" "grap" "graph"
+		   "t" "ta" "tab" "tabl" "table")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("sfevd" "sirf")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
+	;; the -irf- and -bayesirf- commands which alter data
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(\\(?:bayes\\)?irf\\)\\>"
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
@@ -3879,6 +3915,7 @@
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
 	;; the irf commands which are obsolete
 	(list
 	 (concat
@@ -4433,7 +4470,7 @@
 		   "assertnested"
 		   "avplot" "avplots"
 		   "bayes"
-		   "bayesmh" "bayesgraph"
+		   "bayesmh" "bayesgraph" "bayesvarstable"
 		   "be" "bee" "beep"
 		   "betareg"
 		   "bicplot" "binreg" "biprobit" "biplot" "bitest" "bitesti"
@@ -4662,11 +4699,12 @@
 		   "xsh" "xshe" "xshel" "xshell"
 		   "xtabond" "xtcloglog"
 		   "xtdes" "xtdesc" "xtdescr" "xtdescri" "xtdescrib" "xtdescribe"
-		   "xtdpd" "xtdpdsys"
+		   "xtdidregress" "xtdpd" "xtdpdsys"
 		   "xteregress" "xteintreg" "xteoprobit" "xteprobit"
 		   "xtfrontier"
 		   "xtgee" "xtgls" "xtheckman" "xthtaylor" "xtintreg" "xtivreg"
 		   "xtline" "xtlogit"
+		   "xtmlogit"
 		   "xtnbreg" "xtologit" "xtoprobit" "xtpcse" "xtpoisson" "xtprobit"
 		   "xtrc" "xtreg" "xtregar" "xtset" "xtstreg" "xtsum"
 		   "xttab" "xttest0" "xttobit" "xttrans"
