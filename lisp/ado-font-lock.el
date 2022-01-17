@@ -7464,7 +7464,7 @@
 		  "locale_functions" "locale_icudflt" "locale_ui"
 		  "logtype" "lstretch"
 		  "machine_type" "macrolen"
-		  "matacache" "matafavor" "matalibs" "matalnum" "matamofirst" "mataoptimize" "matastrict"
+		  "matacache" "matafavor" "matalibs" "matalnum" "matamofirst" "mataoptimize" "matasolvetol" "matastrict"
 		  "max_N_theory"
 		  "max_cmdlen"
 		  "max_graphsize"
@@ -7912,7 +7912,7 @@
 	   "[ \t]+"
 	   (eval-when-compile
 		 (regexp-opt
-		  '("matacache" "matalibs")
+		  '("matacache" "matalibs" "matasolvetol")
 		  'words))
 	   ado-end-cmd-regexp )
 	  '(1 ado-mata-keyword-face t) '(2 ado-mata-keyword-face t)
