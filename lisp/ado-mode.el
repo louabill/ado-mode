@@ -487,9 +487,9 @@ Finally, here is the complete keymap for ado-mode:
   (setq paragraph-separate paragraph-start)
   ;; comment definitions
   (make-local-variable 'comment-start)
-  (setq comment-start "/* ")
+  (setq comment-start ado-comment-start)
   (make-local-variable 'comment-end)
-  (setq comment-end " */")
+  (setq comment-end ado-comment-end)
   (make-local-variable 'comment-column)
   (setq comment-column ado-comment-column)
   (make-local-variable 'comment-start-skip)
@@ -702,8 +702,7 @@ continuation characters."
 	  (insert cont-string)
 	  (forward-char (- cont-length)))
 	(indent-to-column (max (1+ (current-column)) comment-column))
-	(forward-char cont-length)))
-	 
+	(forward-char cont-length)))	 
 
 ;; useful things which are better than keyboard macros
 (defun ado-parse-loop ()
