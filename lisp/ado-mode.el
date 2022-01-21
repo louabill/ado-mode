@@ -1534,8 +1534,10 @@ This can be fooled by internal /* */-style commands extending across lines."
 			(backward-char 2)
 			(skip-syntax-backward "-"))
 		;; look for continuation
-		(if (or (search-forward "///" (point-at-eol) t)
-				(search-backward "///" (point-at-bol) t))
+		(beginning-of-line)
+		(if (re-search-forward "\\s-///+.*$" (point-at-eol) t)
+;;		(if (or (search-forward "///" (point-at-eol) t)
+;;				(search-backward "///" (point-at-bol) t))
 			(progn
 			  (end-of-line)
 			  ;; will error out if narrowed after continuation
@@ -1543,7 +1545,7 @@ This can be fooled by internal /* */-style commands extending across lines."
 				  (error "No end of command - moved as far as possible")
 				(forward-char)
 				(ado-end-of-command)))
-		  (if (not (search-forward "//" (point-at-eol) t))
+		  (if (not (re-search-forward "\\s-//" (point-at-eol) t))
 			  (end-of-line)
 			(backward-char 2)
 			(skip-syntax-backward "-")))))))
