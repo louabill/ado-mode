@@ -388,6 +388,22 @@ Defaults to on."
   :type 'boolean
   :group 'ado-amain)
 
+(defcustom ado-comment-start "//"
+  "Sets beginning of comments.
+Defaults to //.
+Change to /* is you like the old C-style comments."
+  :type 'string
+  :group 'ado-amain
+  )
+
+(defcustom ado-comment-end ""
+  "Sets end of comments.
+Defaults to the empty string.
+Change to */ is you like the old C-style comments."
+  :type 'string
+  :group 'ado-amain
+  )
+
 (defcustom ado-comment-indent-column 0
   "Sets the amount by which line-starting comments are indented.
 Defaults to 0."
