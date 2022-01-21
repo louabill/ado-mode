@@ -1465,7 +1465,7 @@ Many of the parameters can be customized using '\\[customize-group] ado'."
 		   (if (ado-delimit-is-semi-p) ";" "cr")))
 
 (defun ado-beginning-of-command ()
-  "Move to the start of the command containg the insertion point is sitting.
+  "Move to the start of the command containing the insertion point is sitting.
 
 This will jump back to the start of a command if the insertion point is within
 the command, and jump forward to the start of a command if the delimiter is in
@@ -1517,7 +1517,7 @@ Returns t if inside of a continued function, nil otherwise."
     in-continuation))
 
 (defun ado-end-of-command ()
-  "Move to the start of the command containg the insertion point is sitting.
+  "Move to the end of the command containingg the insertion point is sitting.
 
 This can be fooled by internal /* */-style commands extending across lines."
   (interactive)
