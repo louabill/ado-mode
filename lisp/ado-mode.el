@@ -871,7 +871,7 @@ Bound to \\[ado-new-class]"
   (interactive)
   (ado-new-generic "class" "class" stayput name purpose))
 
-(defun ado-new-program (&optional stayput name purpose)
+(defun ado-new-ado (&optional stayput name purpose)
   "Make a new ado-file either in the current or `new' directory.
 The optional arguments STAYPUT, NAME, and PURPOSE get fed to \\[ado-new-generic].
 
@@ -882,7 +882,7 @@ Bound to \\[ado-new-ado]"
   (interactive)
   (ado-new-generic "program" "ado" stayput name purpose))
 
-(defalias 'ado-new-ado #'ado-new-program)
+(defalias 'ado-new-program #'ado-new-ado)
 
 (defun ado-new-testado (&optional stayput name purpose)
   "Make a new ado file together with a do-file for testing.
