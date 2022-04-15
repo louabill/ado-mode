@@ -6,7 +6,7 @@ Emacs versions down to 24.3 are supported.
 
 Here is the [change log](changes.md) which says what is new.
 
-The current version is **1.16.1.6**, which is made for Stata 16.1. It works just fine with earlier versions of Stata, but it will highlight commands as though you were using Stata 16.1.
+The current version is **1.17.0.1**, which is made for Stata 17. It works just fine with earlier versions of Stata, but it will highlight commands as though you were using Stata 17.
 
 Here are the things which make life easier when using the `ado-mode`. Features include
 
@@ -34,7 +34,9 @@ Here are the things which make life easier when using the `ado-mode`. Features i
   * Parentheses, braces and double-quotes are balanced.
   * Auto-completion can be enabled via `M-x auto-complete-mode` or `M-x company-mode`, among other minor modes. Both highlight common words and words already used in the buffer being edited. `auto-complete-mode` comes with Emacs while `company-mode` can be downloaded from Melpa via `M-x list-packages`. 
 
-Installation is not as simple as it could be, so there (will be) installation instructions on the wiki. For now, the [installation instructions](http://louabill.org/Stata/ado-mode_install.html) are back on the old webpage.)
+`ado-mode` can be downloaded via Melpa. I think. It's been accepted as a Melpa project, but the whole Melpa autoupdate thing throws me for a loop. So...
+
+Manual installation is also possible, but takes more work. Take a look at the `INSTALL.md` file.
 
 ## External Tools Needed for MS Windows and *nix:
 
@@ -42,8 +44,6 @@ Installation is not as simple as it could be, so there (will be) installation in
   * If you are using a Mac, this will work out of the box.
   * If you are using MS Windows, you'll need to install of [AutoIt](https://www.autoitscript.com/site/autoit/downloads/).
   * If you are using Unix, you will need to get `xsel` and `xdotool`. In Debian/Ubuntu, this can be done via `sudo apt-get install xsel xdotool`. Other *nixes will be similar.
-
-One day I will get this Melpa-compliant. One day soon, I hope.
 
 **Please** let me know if there are any troubles with the installations, since there are little quirks with cross-platform Emacs stuff.
 
