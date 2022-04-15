@@ -6077,6 +6077,23 @@
 	   ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face))
 	
+	;; -collect composite- subcommand commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	   "\\<\\(collect\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(composite\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("define"
+			"drop")
+	   'words))
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
 	;; -collect label- commands
 	(list
 	 (concat
@@ -6187,7 +6204,7 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("label" "style")
+		 '("composite" "label" "style")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))

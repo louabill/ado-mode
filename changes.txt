@@ -1,5 +1,24 @@
 Version History:
 ---------------
+1.17.0.1
+
+* Added -collect composite- commands from 06apr2022 update.
+
+* Fixed bug where sending command to Stata while within the slashes in a
+continuation comment would send the wrong command 
+(by fixing ado-end-of-command).
+
+* Updated the applescript to do a better job notifying the user when macOS 
+permissions need changing.
+
+* Changed the default comment from /* */ to //. Makes for much nicer
+behavior of M-;. Also added ado-comment-start and ado-comment-end,
+so you can change these back to /* and */ if you like the old behavior better.
+
+* Reversed roles of ado-new-ado and ado-new-program. In the past, the 
+former was an alias to the latter. Now it is the other way around. Merely
+a pedantic change.
+
 
 1.17.0.0
 
