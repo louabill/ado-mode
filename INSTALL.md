@@ -27,7 +27,7 @@ This is enough to get the package recognized and syntax highlighting to work. Fo
 
 1. Grab the distro from this github site. This will give you a folder called `ado-mode` **or**
 
-2. Grab the highest-numbered/latest release from the [releases](https://https://github.com/louabill/ado-mode/releases) page here. Then unzip the file and rename it to `ado-mode`.
+2. Grab the highest-numbered/latest release from the [releases](https://github.com/louabill/ado-mode/releases) page here. Then unzip the file and rename it to `ado-mode`.
   
 3. Decide where you should put the `ado-mode` folder.
 	1. Some versions of emacs have a place dedicated for user-installed packages&mdash;if your Emacs has it, you can find it with `C-h v user-emacs-directory`. \
