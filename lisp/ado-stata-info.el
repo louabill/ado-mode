@@ -112,6 +112,7 @@ Optional LOOKHERE argument allows specifying a non-standard place to look."
 			 ((file-directory-p (concat stata-dir "Stata.app")) "Stata")
 			 ((file-directory-p (concat stata-dir "StataSE.app")) "StataSE")
 			 ((file-directory-p (concat stata-dir "StataMP.app")) "StataMP")
+			 ((file-directory-p (concat stata-dir "StataBE.app")) "StataBE")
 			 (t (error (concat "Could not find any Stata in " lookhere)))))
 	  ;; because lots of irritating single parens bother me
 	  (concat
@@ -129,12 +130,14 @@ Optional LOOKHERE argument allows specifying a non-standard place to look."
 	   ((file-exists-p (concat stata-dir "Stata-64.exe")) (concat stata-dir "Stata-64.exe"))
 	   ((file-exists-p (concat stata-dir "StataSE-64.exe")) (concat stata-dir "StataSE-64.exe"))
 	   ((file-exists-p (concat stata-dir "StataMP-64.exe")) (concat stata-dir "StataMP-64.exe"))
+	   ((file-exists-p (concat stata-dir "StataBE-64.exe")) (concat stata-dir "StataBE-64.exe"))
 	   (t (error (concat "Could not find any Stata in " lookhere)))))
 	 ((string= system-type "gnu/linux")
 	  (cond
 	   ((file-exists-p (concat stata-dir "stata")) (concat stata-dir "stata"))
 	   ((file-exists-p (concat stata-dir "stata-se")) (concat stata-dir "stata-se"))
 	   ((file-exists-p (concat stata-dir "stata-mp")) (concat stata-dir "stata-mp"))
+	   ((file-exists-p (concat stata-dir "stata-be")) (concat stata-dir "stata-be"))
 	   (t (error (concat "Could not find Console Stata (needed for background tasks) in " lookhere)))))
 	 (t (error (concat "Nothing for " system-type " yet"))))))
 
