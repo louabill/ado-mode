@@ -1,5 +1,12 @@
 # Version History
 
+## 1.17.0.2
+
+* Added `set logmsg` from 04oct2022 update.
+
+* Added StataBE. Eek, this is late. Anyways, thanks to Marc Klemp for
+pointing out this glaring omission.
+
 ## 1.17.0.1
 
 * Added `collect composite` commands from 06apr2022 update.
