@@ -95,7 +95,7 @@ Meant for spurious-higlighting problems which have not been solved yet.")
 (defconst ado-end-cmd-regexp "\\([ \t]+\\|,\\|;\\|:\\|$\\)"
   "End-of-command regexp to keep things like -regress(- from highlighting.")
 
-(defconst ado-stata-name-wipe-bad-chars "[^[:space:][:cntrl:][-^`!-/:-@{-~]"
+(defconst ado-stata-name-wipe-bad-chars "[^[:space:][:cntrl:][-^`!-/:-@{-~*]"
   "A attempt to pare out non-allowable characters in Stata names.")
 
 (defconst ado-stata-name-regexp
