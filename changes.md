@@ -1,5 +1,15 @@
 # Version History
 
+## 1.18.0.0
+
+### Big Changes
+
+* placeholder
+
+### Other Changes
+
+* Bettered -foreach- highlighting of varlists. Not perfect, but better.
+
 ## 1.17.0.2
 
 * Added `set logmsg` from 04oct2022 update.
