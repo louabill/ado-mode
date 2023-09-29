@@ -5124,7 +5124,10 @@
 		 '("var" "varl" "varli" "varlis" "varlist")
 		 'words))
 	  "[ \t]+\\("
-	  ado-stata-varlist-start-regexp
+	  ado-stata-varname-regexp
+	  "\\( *-? *"
+	  ado-stata-varname-regexp
+	  "\\)*"
 	  "\\)"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-variable-name-face t)
