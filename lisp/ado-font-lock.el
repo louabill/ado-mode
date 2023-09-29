@@ -4558,7 +4558,7 @@
 		   "icc" "include" "ins" "insp" "inspe" "inspec" "inspect" "intreg"
 		   "iqreg" "ir" "iri"
 		   "isid" "istdize"
-		   "ivprobit" "ivregress" "ivtobit"
+		   "ivfprobit" "ivprobit" "ivregress" "ivtobit"
 		   "jackknife" "javacall"
 		   "kap" "kappa" "kapwgt" "kdensity" "ksm" "ksmirnov" "ktau"
 		   "kwallis")
@@ -9025,6 +9025,20 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
+	;; the ivqregress commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(ivqregress\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("iqr"
+		   "smooth")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
+
 	;; lassoselect commands
 	(list
 	 (concat
@@ -9387,7 +9401,7 @@
 		 "graph"
 		 "icd10" "icd10cm" "icd10pcs" "icd9" "icd9p"
 		 "import"
-		 "irf" "irt" "irtgraph" "ivpoisson"
+		 "irf" "irt" "irtgraph" "ivpoisson" "ivqregress"
 		 "java"
 		 "la" "lab" "labe" "label"
 		 "lassoselect"
