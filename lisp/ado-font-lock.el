@@ -1,6 +1,6 @@
 ;;; ado-font-lock.el --- all the endless font locking -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
 
-;; Copyright (C) 2003--2022 Bill Rising
+;; Copyright (C) 2003--2023 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
 ;; Keywords: languages, tools
@@ -106,7 +106,7 @@
 
 	;; it appears Stata accepts any version number
 	;; this just allows major[.0/max for particular version]
-	;; only 0's: 1, 4, 5, 7, (so far)
+	;; only 0's: 1, 4, 5, 7, 8 (so far)
     ;; .1's: 2, 3, 6, 10, 12, 13, 15, 16
 	;; .2's: 8, 9, 11, 14
 	(list
@@ -115,7 +115,7 @@
 		(regexp-opt
 		 '("vers" "versi" "versio" "version")
 		 'words))
-	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[01234567]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[0123456]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\|:\\)")
+	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[012345678]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[0123456]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\|:\\)")
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; pause on/off
 	(list
@@ -456,7 +456,7 @@
 		   "flexmark"
 		   "hamcrest"
 		   "h2o"
-		   "icd10" "icd-10"
+		   "icd-10"
 		   "icu"
 		   "jaxb" "jgoodies common" "jgoodies forms" "json" "jsoup"
 		   "lapack"
@@ -4516,7 +4516,7 @@
 		   "dataex"
 		   "datasig" "datasign" "datasigna" "datasignat" "datasignatu" "datasignatur" "datasignature"
 		   "db"
-		   "de" "des" "desc" "descr" "descri" "describ" "describe"
+		   "de" "demandsys" "des" "desc" "descr" "descri" "describ" "describe"
 		   "dfactor" "dfbeta" "dfgls" "dfuller"
 		   "di" "didregress" "diflogistic" "difmh" "dir"
 		   "dis" "discrim" "disp" "disp_res" "disp_s"
@@ -4525,6 +4525,7 @@
 		   "doed" "doedi" "doedit"
 		   "dotplot"
 		   "ds" "dsge" "dsgenl" "dslogit" "dspoisson" "dsregress" "dstdize"
+		   "dtable"
 		   "dyndoc" "dyntext"
 		   "eintreg" "eivreg"
 		   "elasticnet"
@@ -4533,7 +4534,7 @@
 		   "eregress"
 		   "esizei"
 		   "est" "esti" "estim" "estima" "estimat" "estimate" "estimates"
-		   "eteffects" "etpoisson" "etregress"
+		   "etable" "eteffects" "etpoisson" "etregress"
 		   "exlogistic" "expoisson"
 		   "fac" "fact" "facto" "factor" "factormat"
 		   "findfile" "fit"
@@ -8658,7 +8659,42 @@
 		   "ztnb" "ztb")
 		 'words))
 	   ado-end-cmd-regexp )
-	  '(1 ado-obsolete-face))
+	 '(1 ado-obsolete-face))
+
+	;; obsolete copyright commands (dumb)
+		(list
+	 (concat
+	  (eval-when-compile
+		ado-start-cmd-regexp
+		(regexp-opt
+		 '("copyright")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("apache" "autolink"
+		   "boost"
+		   "flexmark"
+		   "hamcrest"
+		   "h2o"
+		   "icd10"
+		   "icd-10"
+		   "icu"
+		   "jaxb" "jgoodies common" "jgoodies forms" "json" "jsoup"
+		   "lapack"
+		   "libharu"
+		   "libpng"
+		   "mersennetwister"
+		   "mig layout" "miglayout"
+		   "parsington"
+		   "readstat"
+		   "scintilla" "slf4j"
+		   "ttf2pt1"
+		   "zlib")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
+
 
 	  ;; the datasignature commands
 	(list
