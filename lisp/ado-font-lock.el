@@ -2594,6 +2594,22 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+	;; makespline commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(makespline\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("bspline"
+		   "linear"
+		   "piecewise"
+		   "rcs")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
 	;; misstable commands
 	(list
 	 (concat
@@ -2866,7 +2882,6 @@
 		   "init"
 		   "max" "maxi" "maxim" "maximi" "maximiz" "maximize"
 		   "me" "met" "meth" "metho" "method"
-		   "mod" "mode" "model"
 		   "p" "pl" "plo" "plot"
 		   "q" "qu" "que" "quer" "query"
 		   "rep" "repo" "repor" "report"
@@ -2883,10 +2898,47 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("trace")
+		 '("mod" "mode" "model"
+		   "trace")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face t))
+
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(ml\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("mod" "mode" "model")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "d0"
+		   "d1" "d1debug"
+		   "d2" "d2debug"
+		   "derivativeform"
+		   "derivativeform0"
+		   "derivativeform1" "derivativeform1debug"
+		   "derivativeform2" "derivativeform2debug"
+		   "generalform0"
+		   "gf0"
+		   "linearform"
+		   "linearform0"
+		   "linearform1" "linearform1debug"
+		   "linearform2" "linearform2debug"
+		   "lf"
+		   "lf0"
+		   "lf1" "lf1debug"
+		   "lf2" "lf2debug"
+		   )
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
 
 	(list
 	 (concat
@@ -5238,7 +5290,7 @@
 		   "makecns"
 		   "mark" "markin" "markout" "mat"
 		   "matr" "matri" "matrix"
-		   "mkdir" "mkmat" "mkspline"
+		   "mkdir" "mkmat"
 		   "mleval" "mlmatbysum" "mlmatsum" "mlsum" "mlvecsum"
 		   "modify"
 		   "mvdecode" "mvencode"
@@ -8637,6 +8689,7 @@
 		   "lo" "loo" "look" "looku" "lookup"
 		   "meqrlogit" "meqrpoisson"
 		   "mfx"
+		   "mkspline"
 		   "mov" "move"
 		   "news" "nlinit"
 		   "ovtest"
@@ -9407,7 +9460,7 @@
 		 "lassoselect"
 		 "local"
 		 "log"
-		 "marksample"
+		 "makespline" "marksample"
 		 "mat" "matcproc" "matname" "mat_put_rr" "matr" "matri" "matrix"
 		 "mer" "merg" "merge"
 		 "meta"

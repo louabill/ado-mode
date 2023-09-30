@@ -10,6 +10,8 @@ Other Changes
 
 * Bettered -foreach- highlighting of varlists. Not perfect, but better.
 
+* Fixed -ml model- to highlight methods properly
+
  1.17.0.2
 
 * Added -set logmsg- from 04oct2022 update.
