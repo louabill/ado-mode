@@ -4614,7 +4614,8 @@
 		   "frontier" "fsl" "fvexpand"
 		   "gladder" "gllamm" "glm" "glmpred"
 		   "gmm" "gnbreg"
-		   "gphdot" "gphpen" "gr7" "graph7" "grmap" "grmeanby" "gsem"
+		   "gphdot" "gphpen" "gr7" "graph7" "grmap" "grmeanby"
+		   "gsbounds" "gsdesign" "gsem"
 		   "h"
 		   "hadimvo" "hausman"
 		   "heckman" "heckoprobit" "heckpoisson" "heckprob" "heckprobit"
@@ -4765,7 +4766,9 @@
 		   "verinst"
 		   "vers" "versi" "versio" "version"
 		   "view" "viewsource" "vwls"
-		   "which" "who" "wntestb" "wntestq"
+		   "which" "who"
+		   "wildboot" "wildboots" "wildbootst" "wildbootstr" "wildbootstra" "wildbootstrap" 
+		   "wntestb" "wntestq"
 		   "xchart" "xcorr"
 		   "xpoivregress" "xpologit" "xpopoisson" "xporegress"
 		   "xsh" "xshe" "xshel" "xshell"
@@ -5244,6 +5247,28 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t) '(4 ado-variable-name-face t))
+
+	;; gsdesign commands
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '("gsdesign")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '(
+		   "log" "logr" "logra" "logran" "logrank" 
+		   "onemean"
+		   "oneprop" "onepropo" "onepropor" "oneproport" "oneproporti" "oneproportio" "oneproportion" 
+		   "twomeans"
+		   "twoprop" "twopropo" "twopropor" "twoproport" "twoproporti" "twoproportio" "twoproportion" "twoproportions" 
+		   )
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
 	;; labels no longer experimental
 	(list
