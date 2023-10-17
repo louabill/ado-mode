@@ -258,6 +258,7 @@
 		(regexp-opt
 		 '("ess"
 		   "gr" "gru" "grub" "grubi" "grubin"
+		   "ic"
 		   "summ" "summa" "summar" "summary")
 		 'words))
 	  "[ \t]+"
@@ -305,7 +306,64 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	
+	;; bmagraph commands
+	(list
+	 (concat
+	  (eval-when-compile
+		(regexp-opt
+		 '("bmagraph")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("coefdens" "coefdensi" "coefdensit" "coefdensity"
+		   "msize"
+		   "pmp"
+		   "varmap")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; bmagraph commands with _all
+	(list
+	 (concat
+	  (eval-when-compile
+		(regexp-opt
+		 '("bmagraph")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("coefdens" "coefdensi" "coefdensit" "coefdensity")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("_all")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
+	;; bmastats commands
+	(list
+	 (concat
+	  (eval-when-compile
+		(regexp-opt
+		 '("bmastats")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("joint" "jointn" "jointne" "jointnes" "jointness"
+		   "lpm"
+		   "mod" "mode" "model" "models"
+		   "msize"
+		   "pip")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
 
 	;; churdle commands
 	(list
@@ -4544,6 +4602,7 @@
 		   "be" "bee" "beep"
 		   "betareg"
 		   "bicplot" "binreg" "biprobit" "biplot" "bitest" "bitesti"
+		   "bmacoefsample" "bmaregress"
 		   "bootstrap" "boxcox" "br" "break" "brier"
 		   "bro" "brow" "brows" "browse"
 		   "brr" "bsqreg" "bstat"
@@ -5295,7 +5354,7 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
-	;; all Stata data-altering stuff
+	;; all Stata data-altering stuff aka harmful commands
 	(list
 	 (concat
 	  ado-start-cmd-regexp
@@ -5304,7 +5363,9 @@
 		 '("_pctile" "_predict"
 		   "ap" "app" "appe" "appen" "append"
 		   "bayespredict" "bayesreps"
-		   "bcskew0" "bs" "bsample" "bstrap"
+		   "bcskew0"
+		   "bmapredict"
+		   "bs" "bsample" "bstrap"
 		   "cd" "clear" "clonevar" "collapse" "compress"
 		   "contract" "corr2data" "cross" "cttost"
 		   "dec" "deco" "decod" "decode" "destring"
@@ -9468,6 +9529,7 @@
 		 "ado"
 		 "bcal"
 		 "bayesstats" "bayestest"
+		 "bmagraph" "bmastats"
 		 "call"
 		 "char"
 		 "churdle"

@@ -12,6 +12,8 @@ Other Changes
 
 * Fixed -ml model- to highlight methods properly
 
+* Fixed othe minor highlighting failures
+
  1.17.0.2
 
 * Added -set logmsg- from 04oct2022 update.
