@@ -761,6 +761,26 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+	;; (xt)hdidregress commands
+
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '("hdidregress" "xthdidregress")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("aipw"
+		   "ipw"
+		   "ra"
+		   "twfe")
+		 'words))
+	  ado-end-cmd-regexp)
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))	 
+
 	;; java commands
 	(list
 	 (concat
@@ -9556,6 +9576,7 @@
 		 "gettoken"
 		 "global"
 		 "graph"
+		 "hdidregress"
 		 "icd10" "icd10cm" "icd10pcs" "icd9" "icd9p"
 		 "import"
 		 "irf" "irt" "irtgraph" "ivpoisson" "ivqregress"
@@ -9604,7 +9625,7 @@
 		 "unab" "unicode"
 		 "view" "vl"
 		 "win" "wind" "windo" "window"
-		 "xtcointtest" "xtunitroot")
+		 "xtcointtest" "xthdidregress" "xtunitroot")
 	   'words))
 	   ado-end-cmd-regexp)
 	  '(1 ado-needs-subcommand-face))
