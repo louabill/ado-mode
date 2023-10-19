@@ -761,8 +761,21 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	;; (xt)hdidregress commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\(\\<fralias\\>\\)"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("add"
+		   "describe")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	
 
+	;; (xt)hdidregress commands
 	(list
 	 (concat
 	  ado-start-cmd-regexp
@@ -2141,10 +2154,13 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '("change" "create"
+		   "describe"
 		   "dir"
 		   "post"
 		   "pwf"
-		   "rename")
+		   "rename"
+		   "save"
+		   "use")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -5399,6 +5415,7 @@
 		   "form" "forma" "format"
 		   "fracpred"
 		   "frget"
+		   "frunalias"
 		   "fvrevar"
 		   "g" "ge" "gen" "gene" "gener" "genera" "generat" "generate"
 		   "getmata" "gsort"
@@ -9571,7 +9588,7 @@
 		 "fore" "forec" "foreca" "forecas" "forecast"
 		 "foreach"
 		 "forv" "forva" "forval" "forvalu" "forvalue" "forvalues"
-		 "fracreg" "frlink"
+		 "fracreg" "fralias" "frlink"
 		 "fvset" "fvunab"
 		 "gettoken"
 		 "global"
