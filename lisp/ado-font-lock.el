@@ -3286,6 +3286,18 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-obsolete-face t))
     
+	;; incomplete reshape
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(reshape\\)\\>"
+	  "[ \t]+"
+	  "\\<\\\(favor\\)\\>"
+	  "[ /t]+"
+	  ado-end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face t))
+
+
 	;; the reshape commands
 	(list
 	 (concat
@@ -3316,38 +3328,21 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	;; the snapshot commands
 	(list
 	 (concat
 	  ado-start-cmd-regexp
-	  "\\<\\(snapshot\\)\\>"
+	  "\\<\\(reshape\\)\\>"
 	  "[ \t]+"
-	  "\\<\\(restore\\)\\>"
-	  ado-end-cmd-regexp )
-	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
-
-	(list
-	 (concat
-	  ado-start-cmd-regexp
-	  "\\<\\(snapshot\\)\\>"
-	  "[ \t]+"
+	  "\\<\\\(favor\\)\\>"
+	  "[ /t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("erase"
-		   "label" "list"
-		   "save")
+		 '("memory"
+		   "speed")
 		 'words))
 	  ado-end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-	;; one lonely sysuse subcommand
-	(list
-	 (concat
-	  ado-start-cmd-regexp
-	  "\\<\\(sysuse\\)\\>"
-	  "[ \t]+"
-	  "\\<\\(dir\\)\\>"
-	  ado-end-cmd-regexp )
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
 
 	;; the _return commands (not the return commands)
 	(list
@@ -3407,6 +3402,7 @@
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
 	;; sreturn
 	(list
 	 (concat
@@ -3483,6 +3479,39 @@
 		 '("dir"
 		   "su" "sum" "summ" "summa" "summar" "summari" "summariz" "summarize")
 		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; the snapshot commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(snapshot\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(restore\\)\\>"
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(snapshot\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("erase"
+		   "label" "list"
+		   "save")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	;; one lonely sysuse subcommand
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(sysuse\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(dir\\)\\>"
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
