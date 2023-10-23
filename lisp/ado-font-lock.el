@@ -168,7 +168,6 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '("bayes"
-		   "bayesmh" "bayesgraph"
 		   "fmm")
 		 'words))
 	  ado-end-cmd-regexp )
@@ -223,7 +222,13 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("matrix")
+		 '("ac"
+		   "cusum"
+		   "diagnostics"
+		   "histogram"
+		   "kdensity"
+		   "trace"
+		   "matrix")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -4663,7 +4668,7 @@
 		   "assertnested"
 		   "avplot" "avplots"
 		   "bayes"
-		   "bayesmh" "bayesgraph" "bayesvarstable"
+		   "bayesmh" "bayesvarstable"
 		   "be" "bee" "beep"
 		   "betareg"
 		   "bicplot" "binreg" "biprobit" "biplot" "bitest" "bitesti"
@@ -8980,8 +8985,10 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("abond" "acplot" "alt" "alte" "alter" "altern" "alterna" "alternat" "alternati" "alternativ" "alternative" "alternatives"
-		   "anova" "anti" "archlm" "aroots"
+		 '("abond" "acplot" "aggregation"
+		   "alt" "alte" "alter" "altern" "alterna" "alternat" "alternati" "alternativ" "alternative" "alternatives"
+		   "anova" "anti" "archlm" "aroots" "atetplot"
+		   "bdecomp"
 		   "bgo" "bgod" "bgodf" "bgodfr" "bgodfre" "bgodfrey"
 		   "boot" "boots" "bootst" "bootstr" "bootstra" "bootstrap"
 		   "bubble" "bubblep" "bubblepl" "bubbleplo" "bubbleplot"
@@ -8990,7 +8997,7 @@
 		   "classifica" "classificat" "classificati"
 		   "classificatio" "classification"
 		   "classtable"
-		   "common" "compare"
+		   "coefplot" "common" "compare"
 		   "con" "conc" "conco" "concor" "concord" "concorda" "concordan" "concordanc" "concordance"
 		   "config" "coordinates"
 		   "cor" "corr" "corre" "correl" "correla" "correlat" "correlati" "correlatio" "correlation"
@@ -9000,7 +9007,7 @@
 		   "df" "distances"
 		   "dur" "duration" "durb" "durbi" "durbin" "durbina" "durbinal" "durbinalt"
 		   "dwa" "dwat" "dwats" "dwatso" "dwatson"
-		   "eff" "effe" "effec" "effect" "effects"
+		   "eff" "effe" "effec" "effect" "effects" "effectsplot"
 		   "eform"
 		   "endog" "endoge" "endogen" "endogeno" "endogenou" "endogenous"
 		   "eqg" "eqgo" "eqgof"
@@ -9013,7 +9020,7 @@
 		   "ggof"
 		   "gin" "ginv" "ginva" "ginvar" "ginvari" "ginvaria" "ginvarian" "ginvariant"
 		   "gof" "gofplot"
-		   "gr" "granger" "grdistances"
+		   "gr" "granger" "grangerplot" "grdistances"
 		   "grep" "grepo" "grepor" "greport"
 		   "grmeans"
 		   "gro" "grou" "group"
@@ -9054,6 +9061,7 @@
 		   "tef" "teff" "teffe" "teffec" "teffect" "teffects"
 		   "transition" "trendplots"
 		   "vce" "vif"
+		   "waldplot"
 		   "wcor" "wcorr" "wcorre" "wcorrel" "wcorrela" "wcorrelat" "wcorrelati" "wcorrelatio" "wcorrelation")
 		 'words))
 	   ado-end-cmd-regexp )
@@ -9601,7 +9609,7 @@
 		 "_return"
 		 "ado"
 		 "bcal"
-		 "bayesstats" "bayestest"
+		 "bayesgraph" "bayesstats" "bayestest"
 		 "bmagraph" "bmastats"
 		 "call"
 		 "char"

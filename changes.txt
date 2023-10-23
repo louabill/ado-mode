@@ -12,6 +12,8 @@ Other Changes
 
 * Fixed -ml model- to highlight methods properly
 
+* Fixed embarrassingly old -bayesgraph- highlighting errors
+
 * Fixed othe minor highlighting failures
 
  1.17.0.2
