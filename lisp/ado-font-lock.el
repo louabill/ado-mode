@@ -1037,7 +1037,7 @@
 		 '("a" "ad" "ado" "ados" "adosi" "adosiz" "adosize"
 		   "cformat" "clevel"
 		   "collect_label" "collect_style"
-		   "dtascomplevel"
+		   "docx_maxtable" "dtascomplevel"
 		   "etable_style"
 		   "fredkey"
 		   "fvbase" "fvwrap"
@@ -1054,6 +1054,7 @@
 		   "niceness" "notifyuser"
 		   "ob" "obs"
 		   "pa" "pag" "page" "pages" "pagesi" "pagesiz" "pagesize"
+		   "pdf_maxtable"
 		   "pformat"
 		   "processors" "python_exec" "python_userpath"
 		   "reventr" "reventri" "reventrie" "reventries"
@@ -7626,7 +7627,7 @@
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-;; Methods from AssociativeArray, LinearProgram, and Quadrature
+;; Methods from AssociativeArray, LinearProgram, Quadrature, QuadratureVec
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -7644,6 +7645,7 @@
 		   "getAbstol" "getArgument"
 		   "getBounds"
 		   "getCoefficients"
+		   "getDimension"
 		   "getEquality" "getEvaluator"
 		   "getInequality"
 		   "getLimits"
@@ -8299,7 +8301,7 @@
 		  "_schurd"
 		  "_solvelower" "_solvelowerlapacke" "_solvenl_solve" "_solveupper" "_solveupperlapacke"
 		  "_sort"
-		  "_st_addobs" "_st_addvar"
+		  "_st_addalias" "_st_addobs" "_st_addvar"
 		  "_st_data"
 		  "_st_framecopy" "_st_framecreate" "_st_framecurrent" "_st_framedrop" "_st_framerename"
 		  "_st_macroexpand"
@@ -8329,7 +8331,7 @@
 			"new" "new_table"
 			"paragraph_add_text" "paragraph_new" "paragraph_new_styledtext"
 			"query" "query_table"
-			"save"
+			"save" "set_span"
 			"table_add_cell" "table_add_row" "table_del_cell" "table_del_row"
 			"table_mod_cell" "table_mod_cell_image" "table_mod_cell_table"
 			"table_query_row"
@@ -8379,7 +8381,7 @@
 		  "LA_ZTGSEN" "LA_ZTGEVC" "LA_ZTREVC" "LA_ZTRSEN" "LA_ZUNGHR"
 		  "LinearProgram" "Lmatrix"
 		  "PdfDocument" "PdfParagraph" "PdfTable" "PdfText"
-		  "Quadrature"
+		  "Quadrature" "QuadratureVec"
 		  "Re" "Toeplitz" "Vandermonde"
 		  "acosh" "adosubdir" "all" "allof" "any" "anyof"
 		  "arg" "args"
@@ -8387,6 +8389,7 @@
 		  "asarray_first" "asarray_key" "asarray_keys" "asarray_next"
 		  "asarray_notfound" "asarray_remove"
 		  "ascii" "asinh" "assert" "asserteq" "atanh"
+		  "base64decode" "base64decodefile" "base64encode" "base64encodefile"
 		  "blockdiag" "breakkey" "breakkeyreset"
 		  "bufbfmtisnum" "bufbfmtlen" "bufbyteorder" "bufget" "bufio" "bufmissingvalue" "bufput"
 		  "callersversion" "cat" "chdir"
@@ -8456,7 +8459,8 @@
 	  ado-start-cmd-null-regexp
 	  (eval-when-compile
 		(regexp-opt
-		 '("lefteigensystem" "lefteigensystemselectf" "lefteigensystemselecti" "lefteigensystemselectr"
+		 '("ldl"
+		   "lefteigensystem" "lefteigensystemselectf" "lefteigensystemselecti" "lefteigensystemselectr"
 		   "leftgeigensystem" "leftgeigensystemelectf" "leftgeigensystemelecti" "leftgeigensystemelectr"
 		   "length"
 		  "liststruct" "lnnormal" "lnnormalden" "lowertriangle" "lud" "luinv" "lusolve"
@@ -8616,14 +8620,15 @@
 	   "\\<\\(st_\\)"
 	   (eval-when-compile
 		 (regexp-opt
-		  '("addobs" "addvar"
+		  '("addalias" "addobs" "addvar"
+			"aliasframe" "aliaslinkname" "aliasvarname"
 		  "data" "dir" "dropobsif" "dropobsin" "dropvar"
 		  "eclear"
 		  "framecopy" "framecreate" "framecurrent"
 		  "framedir" "framedrop" "framedropabc"
 		  "frameexists" "framerename" "framereset"
 		  "global" "global_hcat"
-		  "isfmt" "islmname" "isname" "isnumfmt" "isnumvar" "isstrfmt" "isstrvar"
+		  "isalias" "isfmt" "islmname" "isname" "isnumfmt" "isnumvar" "isstrfmt" "isstrvar"
 		  "keepobsif" "keepobsin" "keepvar"
 		  "local"
 		  "macroexpand" "matrix" "matrix_hcat" "matrixcolstripe" "matrixrowstripe"
@@ -8693,15 +8698,16 @@
 		 (regexp-opt
 		  '("addColumn" "addImage" "addLineBreak" "addNewPage" "addParagraph"
 			"addRow" "addString" "addTable" "addText"
-			"add_fmtid" "add_fmtid_set_fontid" "add_fontid" "add_sheet"
+			"add_fmtid" "add_fontid" "add_sheet"
 			"clearContent" "clear_book" "clear_sheet" "close" "close_book" "create_book"
-			"delete_sheet" "delete_sheet_merge"
 			"delColumn" "delRow"
+			"delete_horizontal_page_break" "delete_merge" "delete_named_range"
+			"delete_sheet" "delete_sheet_merge" "delete_vertical_page_break"
 			"fillData" "fillMataMatrix" "fillStataMatrix"
 			"fmtid_set_border" "fmtid_set_bottom_border"
 			"fmtid_set_column_width"
 			"fmtid_set_diagonal_border"
-			"fmtid_set_fill_pattern" "fmtid_set_format_hidden" "fmtid_set_format_lock"
+			"fmtid_set_fill_pattern" "fmtid_set_fontid" "fmtid_set_format_hidden" "fmtid_set_format_lock"
 			"fmtid_set_horizontal_align"
 			"fmtid_set_left_border"
 			"fmtid_set_number_format"
@@ -8714,8 +8720,10 @@
 			"get_cell_type" "get_colletter" "get_colnum" "get_last_error"
 			"get_last_error_message" "get_number" "get_sheets" "get_string"
 			"init"
+			"insert_horizontal_page_break" "insert_vertical_page_break"
 			"load_book"
-			"put_formula" "put_number" "put_picture" "put_string"
+			"move_sheet"
+			"put_formula" "put_link" "put_number" "put_picture" "put_string"
 			"query"
 			"save"
 			"setBgColor" "setBorderColor" "setBorderWidth" "setBottomSpacing"
@@ -8748,24 +8756,24 @@
 			"setVAlignment"
 			"setWidthPercent"
 			"set_border" "set_bottom_border"
-			"set_column_width"
+			"set_column_fmtid" "set_column_width"
 			"set_diagonal_border"
 			"set_error_mode"
-			"set_fill_pattern" "set_fmtid" "set_font" "set_font_bold" "set_font_italic" "set_font_script" "set_font_strikeout" "set_font_underline" "set_format_hidden" "set_format_lock"
+			"set_fill_pattern" "set_fmtid" "set_font" "set_font_bold" "set_font_italic" "set_font_script" "set_font_strikeout" "set_font_underline" "set_footer" "set_format_hidden" "set_format_lock"
+			"set_header" 
 			"set_keep_cell_format"
 			"set_left_border"
 			"set_horizontal_align"
-			"set_missing" "set_mode"
-			"set_number_format"
+			"set_merge" "set_missing" "set_mode"
+			"set_named_range" "set_number_format"
 			"set_right_border" "set_row_height"
-			"set_sheet" "set_sheet_gridlines" "set_sheet_merge" "set_shrink_to_fit"
+			"set_sheet" "set_sheet_gridlines" "set_sheet_merge" "set_shrink_to_fit" "set_split"
 			"set_text_indent" "set_text_rotate" "set_text_wrap"
 			"set_top_border"
 			"set_vertical_align")
 		  t ))
 	   "(")
 	 '(1 ado-constant-face t) '(2 ado-mata-function-name-face t))
-
 
 	  ;; obsolete mata functions
 	  ;; was listed as obsolete, for some reason; ok in Stata 13 "_conj"
@@ -8785,14 +8793,16 @@
 	   "(")
 	  '(1 ado-obsolete-face))
 	  
-	  ;; obsolete mata class functions
+	;; obsolete mata class functions
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
 	   "[.]"
 	   (eval-when-compile
 		 (regexp-opt
-		  '("setCellBorderWidths" "setCellBottomBorderWidth" "setCellBottomMargin"
+		  '("delete_sheet_merge"
+			"set_sheet_merge"
+			"setCellBorderWidths" "setCellBottomBorderWidth" "setCellBottomMargin"
 			"setCellLeftBorderWidth" "setCellLeftMargin"
 			"setCellMargins"
 			"setCellRightBorderWidth" "setCellRightMargin"
