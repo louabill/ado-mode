@@ -6563,6 +6563,8 @@
 			"galbr" "galbra" "galbrai" "galbrait" "galbraith" "galbraithp" "galbraithpl" "galbraithplo" "galbraithplot"
 			"labbe" "labbep" "labbepl" "labbeplo" "labbeplot"
 			"forest" "forestp" "forestpl" "forestplo" "forestplot"
+			"mereg" "meregr" "meregre" "meregres" "meregress"
+			"multi" "multil" "multile" "multilev" "multileve" "multilevel"
 			"mvreg" "mvregr" "mvregre" "mvregres" "mvregress"
 			"q" "qu" "que" "quer" "query"
 			"reg" "regr" "regre" "regres" "regress"
