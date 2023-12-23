@@ -4446,7 +4446,8 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("command" "doeditor" "graph" "help" "history" "results" "review" "variables" "viewer")
+		 '("browser" "command" "doeditor" "editor" "graph"
+		   "help" "history" "results" "review" "variables" "viewer")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-builtin-harmless-face)
@@ -5658,7 +5659,7 @@
 
 	;;
 	;; an attempt to include the extended macro names
-	;; single word extended macro names
+	;; single word extended macro names (macro functions)
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -5673,6 +5674,9 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '("adosubdir"
+		   "aliasf" "aliasfr" "aliasfra" "aliasfram" "aliasframe"
+		   "aliasl" "aliasli" "aliaslin" "aliaslink" "aliaslinkn" "aliaslinkna" "aliaslinknam" "aliaslinkname"
+		   "aliasv" "aliasva" "aliasvar" "aliasvarn" "aliasvarna" "aliasvarnam" "aliasvarname" 
 		   "char" "cole" "coleq" "coleqnumb"
 		   "colf" "colfu" "colful" "colfull" "colfulln" "colfullna" "colfullnam" "colfullname" "colfullnames"
 		   "colnfreeparms" "collfnames"
@@ -5683,6 +5687,7 @@
 		   "di" "dir" "dis" "disp" "displ" "displa" "display"
 		   "env" "envi" "envir" "enviro" "environ" "environm" "environme" "environmen" "environment"
 		   "f" "fo" "for" "form" "forma" "format"
+		   "isalias"
 		   "lab" "labe" "label"
 		   "list"
 		   "permname" "piece" "properties" "pwd"
@@ -5767,7 +5772,7 @@
 	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
 
 	;; things with parens in them (sheesh)
-	;; not included above, incase someone uses a font which
+	;; not included above, in case someone uses a font which
 	;;   has a background color
 	(list
 	 (concat
@@ -5906,6 +5911,7 @@
 		 '("clean"
 		   "dups"
 		   "retok" "retoke" "retoken" "retokeni" "retokeniz" "retokenize"
+		   "rsort"
 		   "sizeof"
 		   "sort"
 		   "uniq")
@@ -7726,15 +7732,17 @@
 		  "console" "copycolor"
 		  "current_time" "current_date"
 		  "dirsep"
-		  "docx_hardbreak" "docx_paramode" "dots" "dp" "dyndoc_version"
+		  "docx_hardbreak" "docx_maxtable" "docx_paramode"
+		  "dots" "dp" "dtable_style" "dtascomplevel" "dyndoc_version"
 		  "edition"  "edition_real" "emptycells" "eolchar" "epsdouble" "epsfloat" "eqlen"
-		  "filedate" "filename" "flavor" "frame" "fredkey"
+		  "etable_style"
+		  "filedate" "filename" "frame" "fredkey"
 		  "fvbase" "fvlabel" "fvtrack" "fvwrap" "fvwrapon"
 		  "graphics"
 		  "haverdir" "hostname"
 		  "httpproxy" "httpproxyauth" "httpproxyhost" "httpproxyport" "httpproxypw" "httpproxyuser"
 		  "iterlog"
-		  "k"
+		  "k" "kmp_blocktime"
 		  "java_heapmax" "java_home"
 		  "lapack_mkl" "lapack_mkl_cnr"
 		  "level" "linegap" "linesize"
@@ -7760,11 +7768,11 @@
 		  "mode" "more"
 		  "namelenbyte" "namelenchar"
 		  "niceness" "noisily"
-		  "odbcdriver" "odbcmgr" "os" "osdtl"
-		  "pagesize" "pformat" "pi" "printcolor"
+		  "obs_t" "odbcdriver" "odbcmgr" "os" "osdtl"
+		  "pagesize" "pdf_maxtable" "pformat" "pi" "printcolor"
 		  "processors" "processors_lic" "processors_mach" "processors_max" "pwd"
 		  "python_exec" "python_userpath"
-		  "rc" "reventries" "rmsg" "rmsg_time"
+		  "rc" "reshape_favor" "reventries" "rmsg" "rmsg_time"
 		  "rng" "rng_current" "rngseed_mt64s" "rngstate" "rngstream"
 		  "scheme" "scrollbufsize" "searchdefault" "segmentsize" "sformat"
 		  "showbaselevels" "showemptycells" "showomitted"
@@ -7805,6 +7813,7 @@
 			"pinnable"
 			"revkeyboard"
 			"smoothfonts"
+			"taskbargroups"
 			"update_interval" "update_prompt" "update_query"
 			"varkeyboard")
 		  'words))
@@ -7823,7 +7832,7 @@
 		 '("charset"
 		   "dockingguides"
 		   "eolchar"
-		   "floatresults" "floatwindows"
+		   "flavor" "floatresults" "floatwindows"
 		   "icmap"
 		   "macgphengine" "matsize"
 		   "max_N_current" "max_k_current" "max_matsize" "max_width_current" "min_matsize"
@@ -9649,7 +9658,7 @@
 	   (eval-when-compile
 		 (regexp-opt
 		  '("_est" "_esti" "_estim" "_estima" "_estimat" "_estimate" "_estimates"
-		 "_return"
+		 "_ret" "_retu" "_retur" "_return"
 		 "ado"
 		 "bcal"
 		 "bayesgraph" "bayesstats" "bayestest"
