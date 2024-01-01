@@ -9358,7 +9358,7 @@
 		(regexp-opt
 		 '("clear"
 		   "describe"
-		   "save" "set")
+		   "save" "set" "sheetset")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
