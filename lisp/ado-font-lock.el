@@ -797,7 +797,7 @@
 		   "twfe")
 		 'words))
 	  ado-end-cmd-regexp)
-	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))	 
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; java commands
 	(list
@@ -4917,7 +4917,7 @@
 		   "vers" "versi" "versio" "version"
 		   "view" "viewsource" "vwls"
 		   "which" "who"
-		   "wildboot" "wildboots" "wildbootst" "wildbootstr" "wildbootstra" "wildbootstrap" 
+		   "wildboot" "wildboots" "wildbootst" "wildbootstr" "wildbootstra" "wildbootstrap"
 		   "wntestb" "wntestq"
 		   "xchart" "xcorr"
 		   "xpoivregress" "xpologit" "xpopoisson" "xporegress"
@@ -5410,11 +5410,11 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '(
-		   "log" "logr" "logra" "logran" "logrank" 
+		   "log" "logr" "logra" "logran" "logrank"
 		   "onemean"
-		   "oneprop" "onepropo" "onepropor" "oneproport" "oneproporti" "oneproportio" "oneproportion" 
+		   "oneprop" "onepropo" "onepropor" "oneproport" "oneproporti" "oneproportio" "oneproportion"
 		   "twomeans"
-		   "twoprop" "twopropo" "twopropor" "twoproport" "twoproporti" "twoproportio" "twoproportion" "twoproportions" 
+		   "twoprop" "twopropo" "twopropor" "twoproport" "twoproporti" "twoproportio" "twoproportion" "twoproportions"
 		   )
 		 'words))
 	  ado-end-cmd-regexp )
@@ -5678,7 +5678,7 @@
 		 '("adosubdir"
 		   "aliasf" "aliasfr" "aliasfra" "aliasfram" "aliasframe"
 		   "aliasl" "aliasli" "aliaslin" "aliaslink" "aliaslinkn" "aliaslinkna" "aliaslinknam" "aliaslinkname"
-		   "aliasv" "aliasva" "aliasvar" "aliasvarn" "aliasvarna" "aliasvarnam" "aliasvarname" 
+		   "aliasv" "aliasva" "aliasvar" "aliasvarn" "aliasvarna" "aliasvarnam" "aliasvarname"
 		   "char" "cole" "coleq" "coleqnumb"
 		   "colf" "colfu" "colful" "colfull" "colfulln" "colfullna" "colfullnam" "colfullname" "colfullnames"
 		   "colnfreeparms" "collfnames"
@@ -8798,7 +8798,7 @@
 			"set_diagonal_border"
 			"set_error_mode"
 			"set_fill_pattern" "set_fmtid" "set_font" "set_font_bold" "set_font_italic" "set_font_script" "set_font_strikeout" "set_font_underline" "set_footer" "set_format_hidden" "set_format_lock"
-			"set_header" 
+			"set_header"
 			"set_keep_cell_format"
 			"set_left_border"
 			"set_horizontal_align"
@@ -9067,13 +9067,13 @@
 		   "compare"
 		   "con" "conc" "conco" "concor" "concord" "concorda" "concordan" "concordanc" "concordance"
 		   "config"
-		   "co" "coo" "coor" "coord" "coordi" "coordin" "coordina" "coordinat" "coordinate" "coordinates" 
+		   "co" "coo" "coor" "coord" "coordi" "coordin" "coordina" "coordinat" "coordinate" "coordinates"
 		   "cor" "corr" "corre" "correl" "correla" "correlat" "correlati" "correlatio" "correlation"
 		   "correlations"
 		   "cov" "cova" "covar" "covari" "covaria" "covarian" "covarianc" "covariance"
 		   "cv"
 		   "df"
-		   "di" "dis" "dist" "dista" "distan" "distanc" "distance" "distances" 
+		   "di" "dis" "dist" "dista" "distan" "distanc" "distance" "distances"
 		   "dur" "duration" "durb" "durbi" "durbin" "durbina" "durbinal" "durbinalt"
 		   "dwa" "dwat" "dwats" "dwatso" "dwatson"
 		   "eff" "effe" "effec" "effect" "effects" "effectsplot"
@@ -9106,7 +9106,7 @@
 		   "lceff" "lceffe" "lceffec" "lceffect" "lceffects"
 		   "lcgof" "lcmean" "lcprob"
 		   "li" "lis" "list"
-		   "lo" "loa" "load" "loadi" "loadin" "loading" "loadings" 
+		   "lo" "loa" "load" "loadi" "loadin" "loading" "loadings"
 		   "manova"
 		   "mi" "min" "mind" "mindi" "mindic" "mindice" "mindices"
 		   "moran"
@@ -9116,7 +9116,7 @@
 		   "ovt" "ovte" "ovtes" "ovtest"
 		   "pair" "pairw" "pairwi" "pairwis" "pairwise"
 		   "period" "phtest" "policy" "predict"
-		   "pr" "pro" "prof" "profi" "profil" "profile" "profiles" 
+		   "pr" "pro" "prof" "profi" "profil" "profile" "profiles"
 		   "ptrends"
 		   "qua" "quan" "quant" "quanti" "quantil" "quantile" "quantiles"
 		   "recov" "recova" "recovar" "recovari" "recovaria" "recovarian" "recovarianc" "recovariance"
