@@ -4,11 +4,17 @@
 
 ### Big Changes
 
-* placeholder
+* Added lots of new commands from Stata 18 (finally)
 
 ### Other Changes
 
 * Bettered -foreach- highlighting of varlists. Not perfect, but better.
+
+* Fixed -ml model- to highlight methods properly
+
+* Fixed embarrassingly old -bayesgraph- highlighting errors
+
+* Fixed othe minor highlighting failures
 
 ## 1.17.0.2
 
