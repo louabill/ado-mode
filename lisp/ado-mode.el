@@ -1,9 +1,9 @@
 ;;; ado-mode.el --- Major mode for editing Stata-related files -*- lexical-binding: t; -*-
 
-;; Copyright (C) 1996-2022 Bill Rising
+;; Copyright (C) 1996-2024 Bill Rising
 
 ;; Author: Bill Rising <brising@alum.mit.edu>
-;; Version: 1.17.0.2
+;; Version: 1.18.0.0
 ;; Keywords: tools,languages,files,convenience,Stata, Mata, ado
 ;; Package-requires: ((emacs "25.1"))
 ;; URL: https://github.com/louabill/ado-mode

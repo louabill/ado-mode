@@ -1,6 +1,6 @@
 ;;; ado-font.el --- simple definition of font faces -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
 
-;; Copyright (C) 2003--2022 Bill Rising
+;; Copyright (C) 2003--2024 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
 ;; Keywords: languages, tools
