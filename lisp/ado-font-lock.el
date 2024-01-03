@@ -1,6 +1,6 @@
 ;;; ado-font-lock.el --- all the endless font locking -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
 
-;; Copyright (C) 2003--2023 Bill Rising
+;; Copyright (C) 2003--2024 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
 ;; Keywords: languages, tools
@@ -4684,7 +4684,7 @@
 		   "about" "ac" "acprplot"
 		   "ado" "adopath" "alpha" "ameans"
 		   "an" "ano" "anov" "anova"
-		   "arch" "areg" "arfima" "args" "arima"
+		   "arch" "areg" "arfima" "arfimasoc" "args" "arima" "arimasoc"
 		   "as" "ass" "asse" "asser" "assert"
 		   "assertnested"
 		   "avplot" "avplots"
@@ -4798,8 +4798,8 @@
 		   "lincom" "linktest"
 		   "lis" "list"
 		   "loadingplot" "log"
-		   "logi" "logistic" "logit"
-		   "loneway" "lookfor" "lowess" "lpredict" "lpoly" "lrecomp"
+		   "logi" "logistic" "logit" "loneway" "lookfor" "lowess"
+		   "lpirf" "lpredict" "lpoly" "lrecomp"
 		   "lroc" "lrtest" "ls" "lsens" "ltable" "lv" "lvr2plot"
 		   "man" "mano" "manov" "manova" "manovatest"
 		   "margins" "marginsplot" "markdown" "matlist"
@@ -9268,8 +9268,7 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("ad" "adj" "adju" "adjus" "adjust"
-		   "co" "coe" "coef" "coefv" "coefve" "coefvec" "coefvect" "coefvecto" "coefvector"
+		 '("co" "coe" "coef" "coefv" "coefve" "coefvec" "coefvect" "coefvecto" "coefvector"
 		   "d" "de" "des" "desc" "descr" "descri" "describ" "describe"
 		   "est" "esti" "estim" "estima" "estimat" "estimate" "estimates"
 		   "ex" "exo" "exog" "exoge" "exogen" "exogeno" "exogenou" "exogenous"
@@ -9291,7 +9290,8 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("clear"
+		 '("ad" "adj" "adju" "adjus" "adjust"
+		   "clear"
 		   "cr" "cre" "crea" "creat" "create"
 		   "dr" "dro" "drop"
 		   "fore" "forec" "foreca" "forecas" "forecast")
