@@ -1037,7 +1037,7 @@
 		 '("a" "ad" "ado" "ados" "adosi" "adosiz" "adosize"
 		   "cformat" "clevel"
 		   "collect_label" "collect_style"
-		   "docx_maxtable" "dtascomplevel"
+		   "docx_maxtable" "dtable_style" "dtascomplevel"
 		   "etable_style"
 		   "fredkey"
 		   "fvbase" "fvwrap"
@@ -1156,6 +1156,8 @@
 	  "\\(?:copycolor[ \t]+\\(?:auto\\|autom\\|automa\\|automat\\|automati\\|automatic\\|asis\\|gs[123]\\)\\)"
 	  "\\|"
 	  "\\(?:dp[ \t]+\\(?:com\\|comm\\|comma\\|per\\|peri\\|perio\\|period\\)\\)"
+	  "\\|"
+	  "\\(?:dtable_style[ \t]+\\(?:dtable\\)\\)"
 	  "\\|"
 	  "\\(?:etable_style[ \t]+\\(?:etable\\)\\)"
 	  "\\|"
@@ -6318,7 +6320,8 @@
 	   "[ \t]+"
 	   (eval-when-compile
 		 (regexp-opt
-		  '("clear" "combine" "copy" "create"
+		  '("addtags"
+			"clear" "combine" "copy" "create"
 			"dims" "dir" "drop"
 			"export"
 			"get" "get:"
@@ -6327,6 +6330,7 @@
 			"preview"
 			"recode" "remap" "rename"
 			"save" "set" "stars"
+			"title"
 			"use")
 	   'words))
 	   ado-end-cmd-regexp )
@@ -6376,6 +6380,28 @@
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t))
 
+		;; -collect query- subcommand commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	   "\\<\\(collect\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(query\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("autolevels"
+			"column"
+			"header" "html"
+			"putdocx" "putpdf"
+			"row"
+			"table" "tex"
+			)
+	   'words))
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
 	;; -collect style- single subcommand commands
 	(list
 	 (concat
@@ -6390,9 +6416,10 @@
 			"autolevels"
 			"cell" "clear" "column"
 			"header" "html"
+			"notes"
 			"putdocx" "putpdf"
 			"save"
-			"table"
+			"table" "tex" "title"
 			"use")
 	   'words))
 	   ado-end-cmd-regexp )
@@ -6467,7 +6494,7 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("composite" "label" "style")
+		 '("composite" "label" "query" "style")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
