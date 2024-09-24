@@ -109,13 +109,14 @@
 	;; only 0's: 1, 4, 5, 7, 8 (so far)
     ;; .1's: 2, 3, 6, 10, 12, 13, 15, 16
 	;; .2's: 8, 9, 11, 14
+	;; .5's: 18
 	(list
 	 (concat
 	  (eval-when-compile
 		(regexp-opt
 		 '("vers" "versi" "versio" "version")
 		 'words))
-	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[012345678]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[0123456]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\)\\($\\|[ \t]+\\|:\\)")
+	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[012345678]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[0123456]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\|\\(?:18[.]5\\)\\)\\($\\|[ \t]+\\|:\\)")
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; pause on/off
 	(list
@@ -2091,6 +2092,7 @@
 		   "delim" "delimi" "delimit" "delimite" "delimited"
 		   "fred"
 		   "hav" "have" "haver"
+		   "haverdirect"
 		   "sas" "sasxport5" "sasxport8"
 		   "spss")
 		 'words))
@@ -4933,6 +4935,7 @@
 		   "xtnbreg" "xtologit" "xtoprobit" "xtpcse" "xtpoisson" "xtprobit"
 		   "xtrc" "xtreg" "xtregar" "xtset" "xtstreg" "xtsum"
 		   "xttab" "xttest0" "xttobit" "xttrans"
+		   "xtvar"
 		   "zinb" "ziologit" "zioprobit" "zip" "ztest" "ztesti")
 		 'words))
 	  ado-end-cmd-regexp )
@@ -6557,6 +6560,20 @@
 	   'words))
 	   "(")
 	  '(1 ado-obsolete-face t))
+
+	;; ivsvar commands
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(ivsvar\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("gmm"
+			"mdist")
+		  'words))
+	   ado-end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; jdbc commands
 	(list
@@ -8443,9 +8460,11 @@
 		  "deriv_init_bounds"
 		  "deriv_init_evaluator" "deriv_init_evaluatortype"
 		  "deriv_init_h"
+		  "deriv_init_min"
 		  "deriv_init_narguments"
 		  "deriv_init_params"
 		  "deriv_init_scale" "deriv_init_search"
+		  "deriv_init_usemin"
 		  "deriv_init_verbose"
 		  "deriv_init_weights"
 		  "deriv_query"
@@ -8552,7 +8571,7 @@
 	 '(1 ado-mata-function-name-face t))
 
 
-	  ;; the moptimize_init functions
+	;; the moptimize_init functions
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -8562,7 +8581,7 @@
 		  '("by"
 			 "cluster" "constraints"
 			 "conv_ignorenrtol" "conv_maxiter" "conv_nrtol" "conv_ptol" "conv_vtol" "conv_warning"
-			 "depvar"
+			 "depvar" "deriv_min" "deriv_usemin"
 			 "eq_coefs" "eq_colnames" "eq_cons" "eq_exposure"
 			 "eq_freeparm" "eq_indepvars" "eq_n" "eq_name" "eq_offset"
 			 "evaluations" "evaluator" "evaluatortype"
@@ -8624,6 +8643,7 @@
 		 '("argument"
 		   "conv_iterchng" "conv_nearzero" "conv_maxiter"
 		   "damping"
+		   "deriv_min" "deriv_usemin"
 		   "evaluator"
 		   "iter_dot" "iter_dot_indent" "iter_log"
 		   "narguments" "numeq"
@@ -8682,7 +8702,7 @@
 	   "(")
 	 '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
 	
-	  ;; mata optimize_init functions
+	;; mata optimize_init functions
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -8692,6 +8712,7 @@
 		  '("argument"
 			"cluster" "colstripe" "constraints"
 			"conv_maxiter" "conv_nrtol" "conv_ptol" "conv_vtol" "conv_warning"
+			"deriv_min" "deriv_usemin"
 			"evaluations" "evaluator" "evaluatortype"
 			"ingnorenrtol" "iterid"
 			"narguments" "negH" "nmsimplexdeltas"
@@ -9110,6 +9131,7 @@
 		   "manova"
 		   "mi" "min" "mind" "mindi" "mindic" "mindice" "mindices"
 		   "moran"
+		   "mundlak"
 		   "mv" "mvr" "mvre" "mvreg"
 		   "nproc"
 		   "over" "overi" "overid"
@@ -9141,7 +9163,8 @@
 		   "transition" "trendplots"
 		   "vce" "vif"
 		   "waldplot"
-		   "wcor" "wcorr" "wcorre" "wcorrel" "wcorrela" "wcorrelat" "wcorrelati" "wcorrelatio" "wcorrelation")
+		   "wcor" "wcorr" "wcorre" "wcorrel" "wcorrela" "wcorrelat" "wcorrelati" "wcorrelatio" "wcorrelation"
+		   "weakrobust")
 		 'words))
 	   ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -9719,7 +9742,7 @@
 		 "hdidregress"
 		 "icd10" "icd10cm" "icd10pcs" "icd9" "icd9p"
 		 "import"
-		 "irf" "irt" "irtgraph" "ivpoisson" "ivqregress"
+		 "irf" "irt" "irtgraph" "ivpoisson" "ivqregress" "ivsvar"
 		 "java"
 		 "la" "lab" "labe" "label"
 		 "lassoselect"
