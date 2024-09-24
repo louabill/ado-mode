@@ -2,6 +2,7 @@
 
  AutoIt Version: 3.3.2.0
  Author:         Bill Rising
+ LastUpdate:     24sep2024
 
 Script Function: for taking clipboard content and sending it to Stata
 
