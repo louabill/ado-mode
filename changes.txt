@@ -1,5 +1,19 @@
 Version History:
 ---------------
+1.18.5.0
+
+* Fixed the autoit and send2ztata.sh scripts so that sending code
+to Stata from StataNow works in Windows and Unix (sorry for the
+long delay in the fix)
+
+* Added new commands and Mata functions which were introduced into
+Stata either via StataNow 18.5 or in updates to Stata 18
+
+* Got stuck with version number for ado-mode, since the versions
+had been based on Stata's version, but now there are two current
+versions ... so I picked the higher numbered version
+
+
 1.18.0.0
 
 Big Changes
