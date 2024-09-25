@@ -3070,8 +3070,7 @@
 		   "lf"
 		   "lf0"
 		   "lf1" "lf1debug"
-		   "lf2" "lf2debug"
-		   )
+		   "lf2" "lf2debug")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
@@ -5417,8 +5416,7 @@
 		   "onemean"
 		   "oneprop" "onepropo" "onepropor" "oneproport" "oneproporti" "oneproportio" "oneproportion"
 		   "twomeans"
-		   "twoprop" "twopropo" "twopropor" "twoproport" "twoproporti" "twoproportio" "twoproportion" "twoproportions"
-		   )
+		   "twoprop" "twopropo" "twopropor" "twoproport" "twoproporti" "twoproportio" "twoproportion" "twoproportions")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
@@ -6398,8 +6396,7 @@
 			"header" "html"
 			"putdocx" "putpdf"
 			"row"
-			"table" "tex"
-			)
+			"table" "tex")
 	   'words))
 	   ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
