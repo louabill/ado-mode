@@ -263,5 +263,13 @@ Has the unfortunate side-effect of placing the command on the clipboard."
 	(funcall interprogram-cut-function (read-from-minibuffer "Command to run? "))
 	(ado-send-clip-to-stata ado-submit-default ado-comeback-flag)))
 
+(defun ado-reset-tcc ()
+  "Use tccutil to reset Emacs'/Aquamacs' ability to send code, in 
+the hopes of having the next attempt bring up the needed system dialogs."
+  (interactive)
+  (if (boundp 'aquamacs-version)
+	  (shell-command "tccutil reset All org.gnu.Aquamacs")
+	(shell-command "tccutil reset All org.gnu.Emacs")))
+
 (provide 'ado-to-stata)
 ;;; ado-to-stata ends here
