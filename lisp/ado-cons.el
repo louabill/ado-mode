@@ -121,17 +121,20 @@ Meant for spurious-higlighting problems which have not been solved yet.")
   (concat "\\(" ado-stata-local-name-regexp "\\)")
   "Regexp for highlighting local macros, bound within \\( and \\).")
 
-(defconst ado-man-abbrevs '("BAYES"
+(defconst ado-man-abbrevs '("ADAPT"
+							"BAYES" "BMA"
+							"CAUSAL" "CM"
 							"D" "DSGE"
 							"ERM"
 							"FMM" "FN"
 							"G" "GSM" "GSU" "GSW"
 							"IG" "IRT"
-							"M" "ME" "MI" "MV"
+							"LASSO"
+							"M" "ME" "META" "MI" "MV"
 							"P" "PSS"
-							"R"
+							"R" "RPT"
 							"SEM" "SP" "ST" "SVY"
-							"TE" "TS"
+							"TABLES" "TS"
 							"U"
 							"XT")
   "List of manual abbreviations, Stata-style.")
