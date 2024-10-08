@@ -484,7 +484,7 @@ Defaults to nil."
 Needed if you want Emacs to launch a particular version of Stata
 for setting your adopath or if you always launch Stata before sending
 code from Emacs.
-Defaults to the the typical install location for Stata 16.
+Defaults to the the typical install location for Stata.
 If you are a different version of Stata under MS Windows, you will need to 
 customize this setting. Mac and Unix should be universal."
   :type '(choice (const nil) directory)
