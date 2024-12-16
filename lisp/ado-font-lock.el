@@ -4690,7 +4690,7 @@
 		   "assertnested"
 		   "avplot" "avplots"
 		   "bayes"
-		   "bayesmh" "bayesvarstable"
+		   "bayesmh" "bayesselect" "bayesvarstable"
 		   "be" "bee" "beep"
 		   "betareg"
 		   "bicplot" "binreg" "biprobit" "biplot" "bitest" "bitesti"
@@ -4778,7 +4778,7 @@
 		   "icc" "include" "ins" "insp" "inspe" "inspec" "inspect" "intreg"
 		   "iqreg" "ir" "iri"
 		   "isid" "istdize"
-		   "ivfprobit" "ivprobit" "ivregress" "ivtobit"
+		   "ivfprobit" "ivlpirf" "ivprobit" "ivregress" "ivtobit"
 		   "jackknife" "javacall"
 		   "kap" "kappa" "kapwgt" "kdensity" "ksm" "ksmirnov" "ktau"
 		   "kwallis")

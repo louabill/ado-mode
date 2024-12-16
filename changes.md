@@ -1,5 +1,23 @@
 # Version History
 
+## 1.18.5.1
+
+* Tried to fix up the AppleScript for sending code from Emacs to Stata
+under macOS. The security permissions in macOS can sometimes get messed
+up if a new Emacs gets installed. Please file bug a bug report if you
+have problems. 
+
+* Added a command for cleaning up when sending code on the
+Mac cannot seem to work:
+    ado-reset-tcc
+This seems to work in Catalina and later, but not in Mojave.
+
+* Added commands added to 18.5 through 13nov2024
+
+* Added manual abbrevs forgotten for 2 versions
+
+* Other minor typo and spaced-out fixes
+
 ## 1.18.5.0
 
 * Fixed the autoit and send2ztata.sh scripts so that sending code
