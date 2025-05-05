@@ -1,6 +1,6 @@
 ;;; ado-font-lock.el --- all the endless font locking -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
 
-;; Copyright (C) 2003--2024 Bill Rising
+;; Copyright (C) 2003--2025 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
 ;; Keywords: languages, tools
@@ -109,14 +109,14 @@
 	;; only 0's: 1, 4, 5, 7, 8 (so far)
     ;; .1's: 2, 3, 6, 10, 12, 13, 15, 16
 	;; .2's: 8, 9, 11, 14
-	;; .5's: 18
+	;; .5's: 18, 19
 	(list
 	 (concat
 	  (eval-when-compile
 		(regexp-opt
 		 '("vers" "versi" "versio" "version")
 		 'words))
-	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[012345678]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[0123456]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\|\\(?:18[.]5\\)\\)\\($\\|[ \t]+\\|:\\)")
+	  "[ \t]+\\(\\(?:\\(?:[1-9]\\|1[0123456789]\\)\\(?:[.]0\\)?\\)\\|\\(?:\\(?:[23689]\\|1[0123456]\\)[.]1\\)\\|\\(?:[89]\\|1[14]\\)[.]2\\|\\(?:1[89][.]5\\)\\)\\($\\|[ \t]+\\|:\\)")
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	;; pause on/off
 	(list
@@ -168,7 +168,7 @@
 	  ado-start-cmd-regexp
 	  (eval-when-compile
 		(regexp-opt
-		 '("bayes"
+		 '("bayes" "bayesboot"
 		   "fmm")
 		 'words))
 	  ado-end-cmd-regexp )
@@ -4699,7 +4699,8 @@
 		   "bro" "brow" "brows" "browse"
 		   "brr" "bsqreg" "bstat"
 		   "ca" "cabiplot" "camat" "candisc" "canon" "caprojection" "cat"
-		   "cc" "cci" "cchart" "centile" "cf"
+		   "cc" "cci" "cchart" "centile"
+		   "cf" "cfprobit" "cfregress"
 		   "changeeol"
 		   "checkestimationsample" "checksum"
 		   "clog" "clogi" "clogit" "clogitp" "cloglog"
