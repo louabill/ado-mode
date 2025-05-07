@@ -393,7 +393,7 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '("joint" "jointn" "jointne" "jointnes" "jointness"
-		   "lpm"
+		   "lps"
 		   "mod" "mode" "model" "models"
 		   "msize"
 		   "pip")
@@ -401,6 +401,39 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+	;; cate commands
+	;; since -cate- recalls results do NOT put in incomplete commands
+	(list
+	 (concat
+	  (eval-when-compile
+		(regexp-opt
+		 '("cate")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("aipw"
+		   "po")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; categraph commands
+	(list
+	 (concat
+	  (eval-when-compile
+		(regexp-opt
+		 '("categraph")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("hist" "histo" "histog" "histogr" "histogra" "histogram" 
+		   "gatep" "gatepl" "gateplo" "gateplot"
+		   "iatep" "iatepl" "iateplo" "iateplot")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; churdle commands
 	(list
@@ -4743,7 +4776,7 @@
 		   "bootstrap" "boxcox" "br" "break" "brier"
 		   "bro" "brow" "brows" "browse"
 		   "brr" "bsqreg" "bstat"
-		   "ca" "cabiplot" "camat" "candisc" "canon" "caprojection" "cat"
+		   "ca" "cabiplot" "camat" "candisc" "canon" "caprojection" "cat" "cate"
 		   "cc" "cci" "cchart" "centile"
 		   "cf" "cfprobit" "cfregress"
 		   "changeeol"
@@ -4852,7 +4885,7 @@
 		   "margins" "marginsplot" "markdown" "matlist"
 		   "mca" "mcaplot" "mcaprojection" "mcc" "mcci"
 		   "mds" "mdsconfig" "mdslong" "mdsmat" "mdsshepard"
-		   "mean" "mecloglog" "median" "meglm" "meintreg" "memory"
+		   "mean" "mecloglog" "median" "mediate" "meglm" "meintreg" "memory"
 		   "melogit" "menbreg" "menl" "meologit" "meoprobit"
 		   "mepoisson" "meprobit" "mestreg" "metobit"
 		   "mfp" "mhodds"
@@ -9106,7 +9139,7 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 	 
-	;; the -estat- commands
+	;; the estat commands
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -9116,7 +9149,8 @@
 		(regexp-opt
 		 '("abond" "acplot" "aggregation"
 		   "alt" "alte" "alter" "altern" "alterna" "alternat" "alternati" "alternativ" "alternative" "alternatives"
-		   "anova" "anti" "archlm" "aroots" "atetplot"
+		   "anova" "anti" "archlm" "aroots" "ate"
+		   "atetp" "atetpl" "atetplo" "atetplot"
 		   "bdecomp"
 		   "bgo" "bgod" "bgodf" "bgodfr" "bgodfre" "bgodfrey"
 		   "boot" "boots" "bootst" "bootstr" "bootstra" "bootstrap"
@@ -9151,6 +9185,7 @@
 		   "facw" "facwe" "facwei" "facweig" "facweigh" "facweight" "facweights"
 		   "first" "firsts" "firstst" "firststa" "firststag" "firststage"
 		   "fra" "fram" "frame" "framew" "framewo" "framewor" "framework"
+		   "gatetest"
 		   "ggof"
 		   "gin" "ginv" "ginva" "ginvar" "ginvari" "ginvaria" "ginvarian" "ginvariant"
 		   "gof" "gofplot"
@@ -9180,8 +9215,9 @@
 		   "over" "overi" "overid"
 		   "ovt" "ovte" "ovtes" "ovtest"
 		   "pair" "pairw" "pairwi" "pairwis" "pairwise"
-		   "period" "phtest" "policy" "predict"
+		   "period" "phtest" "policy" "policyeval" "predict"
 		   "pr" "pro" "prof" "profi" "profil" "profile" "profiles"
+		   "proj" "proje" "projec" "project" "projecti" "projectio" "projection" 
 		   "ptrends"
 		   "qua" "quan" "quant" "quanti" "quantil" "quantile" "quantiles"
 		   "recov" "recova" "recovar" "recovari" "recovaria" "recovarian" "recovarianc" "recovariance"
@@ -9189,8 +9225,12 @@
 		   "res" "resi" "resid" "residu" "residua" "residual" "residuals"
 		   "rot" "rota" "rotat" "rotate" "rotatecompare"
 		   "sargan" "sbcusum" "sbknown" "sbsingle"
+		   "sci"
 		   "score" "scoret" "scorete" "scoretes" "scoretest" "scoretests"
-		   "sd" "se" "size" "smc"
+		   "sd"
+		   "se"
+		   "series"
+		   "size" "smc"
 		   "sta" "stab" "stabl" "stable"
 		   "std" "stdi" "stdiz" "stdize"
 		   "steady" "strata"
@@ -9757,6 +9797,7 @@
 		 "bayesgraph" "bayesstats" "bayestest"
 		 "bmagraph" "bmastats"
 		 "call"
+		 "categraph"
 		 "char"
 		 "churdle"
 		 "ci" "cii" "ciwidth"

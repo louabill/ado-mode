@@ -12,6 +12,8 @@ Smaller changes
 
 * Added missing abbreviations for -bayesgraph- graphs
 
+* Fixed non-existant -bmastats lpm-
+
 1.18.5.1
 
 * Tried to fix up the AppleScript for sending code from Emacs to Stata
