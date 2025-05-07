@@ -213,7 +213,8 @@
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 
-	;; various bayes commands
+	;; bayesgraph commands
+	;; should be smarter about optional _all argument for these
 	(list
 	 (concat
 	  (eval-when-compile
@@ -225,15 +226,44 @@
 		(regexp-opt
 		 '("ac"
 		   "cusum"
-		   "diagnostics"
-		   "histogram"
-		   "kdensity"
+		   "diag" "diagn" "diagno" "diagnos" "diagnost" "diagnosti"
+		   "diagnostic" "diagnostics" 
+		   "hist" "histo" "histog" "histogr" "histogra" "histogram" 
+		   "kdens" "kdensi" "kdensit" "kdensity" 
+		   "trace"
+		   "matrix")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("_all")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  (eval-when-compile
+		(regexp-opt
+		 '("bayesgraph")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("ac"
+		   "cusum"
+		   "diag" "diagn" "diagno" "diagnos" "diagnost" "diagnosti"
+		   "diagnostic" "diagnostics" 
+		   "hist" "histo" "histog" "histogr" "histogra" "histogram" 
+		   "kdens" "kdensi" "kdensit" "kdensity" 
 		   "trace"
 		   "matrix")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
-	
+
+	;; -bayesstats- commands
 	(list
 	 (concat
 	  (eval-when-compile
@@ -297,6 +327,7 @@
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
 	 '(3 ado-subcommand-face t))
 
+	;; bayestest commands
 	(list
 	 (concat
 	  (eval-when-compile

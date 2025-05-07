@@ -9,6 +9,9 @@ Big changes
 Smaller changes
 
 * Fixed the erroneous highlighting of longform -ml model- subcommands
+
+* Added missing abbreviations for -bayesgraph- graphs
+
 1.18.5.1
 
 * Tried to fix up the AppleScript for sending code from Emacs to Stata
