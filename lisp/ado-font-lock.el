@@ -1065,7 +1065,8 @@
 		   "segmentsize"
 		   "sformat"
 		   "sortrngstate"
-		   "table_style"
+		   "svy_tab_comps"
+		   "table_style" "tabulate_style"
 		   "timeout1"
 		   "timeout2"
 		   "traced" "tracede" "tracedep" "tracedept" "tracedepth"
@@ -1076,7 +1077,7 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	;; set incomplete commands; must come first for highlighting
+	;; incomplete set commands; must come first for highlighting
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -3057,10 +3058,9 @@
 		   "d0"
 		   "d1" "d1debug"
 		   "d2" "d2debug"
-		   "derivativeform"
-		   "derivativeform0"
-		   "derivativeform1" "derivativeform1debug"
-		   "derivativeform2" "derivativeform2debug"
+		   "derivative0"
+		   "derivative1" "derivative1debug"
+		   "derivative2" "derivative2debug"
 		   "generalform0"
 		   "gf0"
 		   "linearform"
@@ -3285,7 +3285,7 @@
 		   "net" "netw" "netwo" "networ" "network"
 		   "out" "outp" "outpu" "output"
 		   "oth" "othe" "other"
-		   "putdocx" "python"
+		   "putdocx" "putpdf" "python"
 		   "rng"
 		   "sort"
 		   "trace"
@@ -3446,6 +3446,20 @@
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; the rwgen commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(rwgen\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("bsample"
+		   "bayes")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
 	;; scc commands
 	(list
@@ -9766,6 +9780,7 @@
 		 "query"
 		 "reshape"
 		 "ret" "retu" "retur" "return"
+		 "rwgen"
 		 "se" "set"
 		 "set_defaults"
 		 "snapshot"

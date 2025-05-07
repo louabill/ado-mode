@@ -1,5 +1,14 @@
 Version History:
 ---------------
+1.19.5.0
+
+Big changes
+
+* All the Stata 19 additions
+
+Smaller changes
+
+* Fixed the erroneous highlighting of longform -ml model- subcommands
 1.18.5.1
 
 * Tried to fix up the AppleScript for sending code from Emacs to Stata
