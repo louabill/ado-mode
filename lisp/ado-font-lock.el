@@ -2120,7 +2120,8 @@
 		 '("exc" "exce" "excel"
 		   "dbase"
 		   "delim" "delimi" "delimit" "delimite" "delimited"
-		   "sasxport5" "sasxport8")
+		   "sasxport5" "sasxport8"
+		   "spss")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -2252,6 +2253,7 @@
 		(regexp-opt
 		 '("copy"
 		   "drop"
+		   "modify"
 		   "put"
 		   "reset")
 		 'words))
@@ -3609,6 +3611,24 @@
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\<\\(snapshot\\)\\>"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("erase"
+		   "list")
+		 'words))
+	  "[ \t]+"
+	  "\\<\\(_all\\)\\>"
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
+
 	;; one lonely sysuse subcommand
 	(list
 	 (concat
@@ -6282,7 +6302,7 @@
 		   "qofd" "quarter" "quarterly"
 		   "r" "rbeta" "rbinomial" "rcauchy" "rchi2" "real" "recode"
 		   "regexcapture" "regexcapturenamed"
-		   "regexm"
+		   "regexm" "regexmatch"
 		   "regexr"
 		   "regexreplace" "regexreplaceall"
 		   "regexs"
