@@ -4869,7 +4869,7 @@
 		   "gphdot" "gphpen" "gr7" "graph7" "grmap" "grmeanby"
 		   "gsbounds" "gsdesign" "gsem"
 		   "h"
-		   "h2omltree"
+		   "h2omlgof" "h2omlpostestframe" "h2omltree"
 		   "hadimvo" "hausman"
 		   "heckman" "heckoprobit" "heckpoisson" "heckprob" "heckprobit"
 		   "he" "hel" "help"
@@ -6660,7 +6660,86 @@
 	   "(")
 	  '(1 ado-obsolete-face t))
 
-	;; h2oml learning plot commands
+	;; h2o commands
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(h2o\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("connect"
+			"disconnect"
+			"init"
+			"query"
+			"shutdown")
+		  'words))
+	   ado-end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	
+	;; h2o credentials commands
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(h2o\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(credentials\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("clear"
+			"query")
+		  'words))
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
+	;; h2o set progress commands
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(h2o\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(set\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(progress\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("off"
+			"on")
+		  'words))
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t) '(4 ado-subcommand-face t))
+
+	;; h2o set timezone command
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(h2o\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(set\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(timezone\\)\\>"
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
+	;; h2o list timezones command (really not thought out at all)
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(h2o\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(list\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(timezones\\)\\>"
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
+	;; h2omlgraph commands
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -6675,7 +6754,115 @@
 			"varimp")
 		  'words))
 	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; h2oml commands
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(h2oml\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("gbbinclass" "gbmulticlass" "gbregress"
+			"rfbinclass" "rfmulticlass" "rfregress")
+		  'words))
+	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	
+	;; h2omlest commands (grrrrrrrr this syntax)
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(h2omlest\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("clear"
+			"dir" "drop"
+			"sto" "stor" "store")
+		  'words))
+	   ado-end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	
+	;; h2omlestat commands (grrrrrrrr this syntax)
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(h2omlestat\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("aucmulticlass"
+			"confmatrix"
+			"cvsummary"
+			"gridsummary"
+			"hitratio"
+			"metrics"
+			"threshmetric")
+		  'words))
+	   ado-end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	
+	;; h2omlestat explore id my effing word
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(h2omlestat\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(explore\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(id\\)\\>"
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t))
+
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(h2omlestat\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(explore\\)\\>"
+	   ado-end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+
+	;; h2omnlselect id command
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(h2omlselect\\)\\>"
+	   "[ \t]+"
+	   "\\<\\(id\\)\\>"
+	   ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+
+	;; OMG _h2oframe commands
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(_h2oframe\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("assign"
+			"baselevel"
+			"cbind" "change" "copy" "create"
+			"describe" "dir" "distinct" "drop"
+			"export"
+			"generate" "get"
+			"import"
+			"keep"
+			"levelsof" "list"
+			"put" "pwf"
+			"rbind" "recodelevel" "remove" "rename" "replace"
+			"scale" "sort" "split" "summarize"
+			"toenum" "tonumeric" "tostring"
+			"upload")
+		  'words))
+	   ado-end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
 	
 
 	;; ivsvar commands
@@ -9832,6 +10019,7 @@
 	   (eval-when-compile
 		 (regexp-opt
 		  '("_est" "_esti" "_estim" "_estima" "_estimat" "_estimate" "_estimates"
+			"_h2oframe"
 		 "_ret" "_retu" "_retur" "_return"
 		 "ado"
 		 "bcal"
@@ -9864,7 +10052,7 @@
 		 "gettoken"
 		 "global"
 		 "graph"
-		 "h2omlgraph"
+		 "h2o" "h2omlest" "h2omlestat" "h2omlgraph" "h2omlselect"
 		 "hdidregress"
 		 "icd10" "icd10cm" "icd10pcs" "icd9" "icd9p"
 		 "import"
