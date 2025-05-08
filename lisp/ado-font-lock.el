@@ -2600,6 +2600,7 @@
 		   "contour" "contourline"
 		   "dot" "dropline"
 		   "fpfit" "fpfitci" "function"
+		   "heatmap"
 		   "hist" "histo" "histog" "histogr" "histogra" "histogram"
 		   "kdensity"
 		   "line"
@@ -2611,6 +2612,7 @@
 		   "rarea" "rbar" "rcap" "rcapsym"
 		   "rcon" "rconn" "rconne" "rconnec" "rconnect" "rconnecte" "rconnected"
 		   "rl" "rli" "rlin" "rline"
+		   "rpcap" "rpspike"
 		   "rsc" "rsca" "rscat" "rscatt" "rscatte" "rscatter"
 		   "rspike"
 		   "sc" "sca" "scat" "scatt" "scatte" "scatter"
@@ -4867,6 +4869,7 @@
 		   "gphdot" "gphpen" "gr7" "graph7" "grmap" "grmeanby"
 		   "gsbounds" "gsdesign" "gsem"
 		   "h"
+		   "h2omltree"
 		   "hadimvo" "hausman"
 		   "heckman" "heckoprobit" "heckpoisson" "heckprob" "heckprobit"
 		   "he" "hel" "help"
@@ -6656,6 +6659,24 @@
 	   'words))
 	   "(")
 	  '(1 ado-obsolete-face t))
+
+	;; h2oml learning plot commands
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(h2omlgraph\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("ice"
+			"pdp" "prcurve"
+			"roc"
+			"scorehistory" "shapsummary" "shapvalues"
+			"varimp")
+		  'words))
+	   ado-end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	
 
 	;; ivsvar commands
 	(list
@@ -9843,6 +9864,7 @@
 		 "gettoken"
 		 "global"
 		 "graph"
+		 "h2omlgraph"
 		 "hdidregress"
 		 "icd10" "icd10cm" "icd10pcs" "icd9" "icd9p"
 		 "import"
