@@ -2777,7 +2777,9 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("cox")
+		 '("cox"
+		   "linear" "logit"
+		   "poisson" "probit")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face))

@@ -6,13 +6,13 @@ Big changes
 
 * All the Stata 19 additions
 
+* Included commands from https://www.stata.com/h2o/h2o19/ for H2O
+  integration, because the pdf docs seem to be missing a lot
+
 Smaller changes
 
-* Fixed the erroneous highlighting of longform -ml model- subcommands
-
-* Added missing abbreviations for -bayesgraph- graphs
-
-* Fixed non-existant -bmastats lpm-
+* Fixed some incorrect highlighting, mostly for Stata 18 subcommands
+  I missed
 
 1.18.5.1
 
