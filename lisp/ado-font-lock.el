@@ -8648,9 +8648,10 @@
 		  "_geigen_la" "_geigensystem_la" "_geigenselectf_la" "_geigenselecti_la" "_geigenselectr_la"
 		  "_gschurd" "_gschurdgroupby"
 		  "_halton" "_hessenbergd" "_hqrd" "_hqrdp" "_hqrdp_la"
-		  "_invfft" "_invsym"
+		  "_invfft" "invmat" "_invsym"
 		  "_jumble"
-		  "_lefteigensystem" "_lowertriangle"
+		  "_lefteigensystem" "_leastsquare_lapacke" "_lowertriangle"
+		  "_lsglm_lapacke" "_lse_lapacke" "_lsesolve" "_lsglmsolve" "_lssolve"
 		  "_lud" "_lud_la" "_luinv" "_luinv_la" "_luinv_lapacke" "_lusolve" "_lusolve_la"
 		  "_makesymmetric" "_matexpsym" "_matlogsym" "_matpowersym" "_mkdir"
 		  "_moptimize" "_moptimize_evaluate"
@@ -8660,7 +8661,9 @@
 		  "_qrinv" "_qrsolve" "_quadrunningsum"
 		  "_rmdir" "_runningsum"
 		  "_schurd"
-		  "_solvelower" "_solvelowerlapacke" "_solvenl_solve" "_solveupper" "_solveupperlapacke"
+		  "_solvelower" "_solvelowerlapacke"
+		  "_solvemat"
+		  "_solvenl_solve" "_solveupper" "_solveupperlapacke"
 		  "_sort"
 		  "_st_addalias" "_st_addobs" "_st_addvar"
 		  "_st_data"
@@ -8676,7 +8679,6 @@
 	   "(")
 	 '(1 ado-mata-function-name-face t))
 
-	;; _ functions... perhaps the _ should be split off?
 	;; docx mata functions
 	(list
 	 (concat
@@ -8770,6 +8772,7 @@
 		  "deriv_init_narguments"
 		  "deriv_init_params"
 		  "deriv_init_scale" "deriv_init_search"
+		  "deriv_init_tablesize" "deriv_init_technique"
 		  "deriv_init_usemin"
 		  "deriv_init_verbose"
 		  "deriv_init_weights"
@@ -8826,7 +8829,8 @@
 		   "lefteigensystem" "lefteigensystemselectf" "lefteigensystemselecti" "lefteigensystemselectr"
 		   "leftgeigensystem" "leftgeigensystemelectf" "leftgeigensystemelecti" "leftgeigensystemelectr"
 		   "length"
-		  "liststruct" "lnnormal" "lnnormalden" "lowertriangle" "lud" "luinv" "lusolve"
+		   "liststruct" "lnnormal" "lnnormalden" "lowertriangle" "lud" "luinv" "lusolve"
+		   "lsesolve" "lsglmsolve" "lssolve"
 		  "makesymmetric" "matexpsym" "matlogsym" "matpowersym" "maxindex"
 		  "mean" "meanvariance" "minindex" "minmax" "missingof" "mkdir"
 		  "moptimize" "moptimize_ado_cleanup" "moptimize_evaluate" "moptimize_init" "moptimize_query"
@@ -8986,7 +8990,7 @@
 		 (regexp-opt
 		  '("addalias" "addobs" "addvar"
 			"aliasframe" "aliaslinkname" "aliasvarname"
-		  "data" "dir" "dropobsif" "dropobsin" "dropvar"
+		  "data" "datalabel" "dir" "dropobsif" "dropobsin" "dropvar"
 		  "eclear"
 		  "framecopy" "framecreate" "framecurrent"
 		  "framedir" "framedrop" "framedropabc"
@@ -9003,7 +9007,7 @@
 		  "updata"
 		  "varformat" "varindex" "varlabel" "varname" "varrename" "vartype" "varvaluelabel"
 		  "view" "viewobs" "viewvars"
-		  "vldrop" "vlexists" "vlload" "vlmap" "vlmodify" "vlsearch")
+		  "vldir" "vldrop" "vlexists" "vlload" "vlmap" "vlmodify" "vlsearch")
 		  t ))
 	   "(")
 	 '(1 ado-mata-function-name-face t) '(2 ado-mata-function-name-face t))
