@@ -770,17 +770,11 @@
 		(regexp-opt
 		 '("<<dd_inc" "<<dd_incl" "<<dd_inclu" "<<dd_includ" "<<dd_include"
 		   "<<dd_skip_if")
-		 'words ))
-	  "[ \t]*:[ \t*]"
+		 t ))
+	  "[ \t]*:[ \t]*.*?"
 	  "\\(>>\\)")
 	 '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face t))
 	  
-
-	;; <<dd_include>> must have a colon and must start a line. fug.
-	(list
-	  "^[ \t]*\\(<<dd_\\(?:include\\|skip_if\\)\\)[ \t]*:.*?\\(>>\\)"
-	  '(1 ado-builtin-harmless-face t) '(2 ado-builtin-harmless-face))
-
 
 	;; this is for highlighting the >> at the end of <<dd_xx:>>
 	;; constructs which could have multiple arguments
@@ -964,7 +958,9 @@
 		(regexp-opt
 		 '("cmh" "cox"
 		   "exp" "expo" "expon" "expone" "exponen" "exponent" "exponenti" "exponentia" "exponential"
-		   "log" "logr" "logra" "logran" "logrank"
+		   "log"
+		   "logistic"
+		   "logr" "logra" "logran" "logrank"
 		   "mcc"
 		   "onecorr" "onecorre" "onecorrel" "onecorrela" "onecorrelat" "onecorrelati" "onecorrelatio" "onecorrelation"
 		   "onemean"
@@ -1114,7 +1110,7 @@
 		   "li" "lin" "line"
 		   "lineg" "linega" "linegap"
 		   "lines" "linesi" "linesiz" "linesize"
-		   "locale_functions" "locale_ui"
+		   "locale_functions"
 		   "maxdb" "maxiter" "max_memory" "max_preservemem" "maxvar" "min_memory"
 		   "niceness" "notifyuser"
 		   "ob" "obs"
@@ -1396,6 +1392,50 @@
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
+
+	;; set locale_ui, with the localizations for dialog boxes
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '("se" "set")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("locale_ui")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("default"
+		   "en" "es"
+		   "fr"
+		   "ja"
+		   "ko"
+		   "sv"
+		   "zh_CN")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t) '(3 ado-subcommand-face))
+
+	;; incomplete set locale_ui
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	  (eval-when-compile
+		(regexp-opt
+		 '("se" "set")
+		 'words))
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("locale_ui")
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-needs-subcommand-face) '(2 ado-needs-subcommand-face))
+	
 
 	;; set output command, with its odd subsubcommands
 	(list
@@ -1843,7 +1883,7 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("byte" "double" "float" "int" "long"
+		 '("alias" "byte" "double" "float" "int" "long"
 		   "numeric"
 		   "str" "stri" "strin" "string")
 		 'words))
@@ -5728,7 +5768,7 @@
 	  "[ \t]+"
 	  "\\<\\(drop\\)\\>"
 	  "[ \t]+"
-	  ado-stata-local-name-bound-regexp)
+	  ado-stata-name-bound-regexp)
 	 '(1 ado-builtin-harmful-face t) '(2 ado-subcommand-face t)
 	 '(3 ado-variable-name-face t))
 
@@ -7964,7 +8004,7 @@
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
-	   "\\<\\(classutil\\)\\>"
+	   "\\<\\(classutil\\|cutil\\)\\>"
 	   "[ \t]+"
 	   "\\<\\(drop\\)\\>"
 	   ado-end-cmd-regexp )
@@ -7973,7 +8013,7 @@
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
-	   "\\<\\(classutil\\)\\>"
+	   "\\<\\(classutil\\|cutil\\)\\>"
 	   "[ \t]+"
 	   (eval-when-compile
 		 (regexp-opt
@@ -8083,6 +8123,7 @@
 		  "current_time" "current_date"
 		  "dirsep"
 		  "docx_hardbreak" "docx_maxtable" "docx_paramode"
+		  "doeditbackup"
 		  "dots" "dp" "dtable_style" "dtascomplevel" "dyndoc_version"
 		  "edition"  "edition_real" "emptycells" "eolchar" "epsdouble" "epsfloat" "eqlen"
 		  "etable_style"
@@ -8094,7 +8135,7 @@
 		  "iterlog"
 		  "k" "kmp_blocktime"
 		  "java_heapmax" "java_home"
-		  "lapack_mkl" "lapack_mkl_cnr"
+		  "lapack_mkl" "lapack_mkl_cnr" "lapack_openblas"
 		  "level" "linegap" "linesize"
 		  "locale_functions" "locale_icudflt" "locale_ui"
 		  "logmsg" "logtype" "lstretch"
@@ -8129,9 +8170,11 @@
 		  "smallestdouble"
 		  "sort_current" "sortmethod" "sortrngstate"
 		  "stata_version"
+		  "svy_tab_comps"
 		  "sysdir_base" "sysdir_oldplace" "sysdir_personal" "sysdir_plus" "sysdir_site" "sysdir_stata"
 		  "sysdir_updates"
-		  "table_style" "timeout1" "timeout2" "tmpdir"
+		  "table_style" "tabulate_comps" "tabulate_style"
+		  "timeout1" "timeout2" "tmpdir"
 		  "trace" "tracedepth" "traceexpand" "tracehilite" "traceindent" "tracenumber" "tracesep"
 		  "type"
 		  "username" "userversion"
@@ -10047,6 +10090,7 @@
 		 "cons" "const" "constr" "constra" "constrai" "constrain" "constraint"
 		 "creturn"
 		 "cscript_log"
+		 "cutil"
 		 "discrim"
 		 "duplicates"
 		 "eret" "eretu" "eretur" "ereturn"
