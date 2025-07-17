@@ -4260,7 +4260,7 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("sfevd" "sirf")
+		 '("csirf" "sfevd" "sirf")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t)
