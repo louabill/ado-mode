@@ -9778,7 +9778,6 @@
 
 
 	;; the ssd commands from SEM
-	;; the estat commands
 	;; am NOT including incomplete ssd set commands for now (because of optional number)
 	(list
 	 (concat
@@ -9799,6 +9798,28 @@
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; the -ssd set- commands from SEM
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	  "\\<\\(ssd\\)\\>"
+	  "[ \t]+"
+	  "\\<\\(set\\)\\>"
+	  "[ \t]+"
+	  "\\(?:\\([[:digit:]]+\\)[ \t]+\\)?"
+	  (eval-when-compile
+		(regexp-opt
+		 '("cor" "corr" "corre" "correl" "correla" "correlat" "correlati" "correlatio" "correlation" "correlations" 
+		   "cov" "cova" "covar" "covari" "covaria" "covarian" "covarianc" "covariance" "covariances" 
+		   "mean" "means"
+		   "obs" "obse" "obser" "observ" "observa" "observat" "observati" "observatio" "observation" "observations"
+		   "sd"
+		   "var" "vari" "varia" "varian" "varianc" "variance" "variances")
+		 'words))
+	  ado-end-cmd-regexp)
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
+	 '(3 ado-subcommand-face t t) '(4 ado-subcommand-face t))
 
 	;; unicode commands, harmless
 	(list
