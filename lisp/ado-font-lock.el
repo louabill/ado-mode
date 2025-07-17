@@ -1126,7 +1126,7 @@
 		   "sformat"
 		   "sortrngstate"
 		   "svy_tab_comps"
-		   "table_style" "tabulate_style"
+		   "table_style" "tabulate_comps" "tabulate_style"
 		   "timeout1"
 		   "timeout2"
 		   "traced" "tracede" "tracedep" "tracedept" "tracedepth"
@@ -1247,7 +1247,13 @@
 	  "\\|"
 	  "\\(?:sortmethod[ \t]+\\(?:default\\|\\(?:f\\|q\\)sort\\)\\)"
 	  "\\|"
+	  "\\(?:svy_tab_comps[ \t]+tabulate_composites\\)"
+	  "\\|"
 	  "\\(?:table_style[ \t]+table\\)"
+	  "\\|"
+	  "\\(?:tabulate_comps[ \t]+tabulate_composites\\)"
+	  "\\|"
+	  "\\(?:tabulate_style[ \t]+tabulate\\)"
 	  "\\|"
 	  "\\(?:t\\(?:y\\|yp\\|ype\\)[ \t]+\\(?:double\\|float\\)\\)"
 	  "\\)\\>" ado-end-cmd-regexp )
@@ -6472,11 +6478,12 @@
 			"get" "get:"
 			"keep"
 			"layout" "levels" "levelso" "levelsof"
+			"notes"
 			"preview"
 			"recode" "remap" "rename"
 			"save" "set" "stars"
 			"title"
-			"use")
+			"unget" "use")
 	   'words))
 	   ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
@@ -6535,12 +6542,16 @@
 	   "[ \t]+"
 	   (eval-when-compile
 		 (regexp-opt
-		  '("autolevels"
-			"column"
+		  '("_cons"
+			"autolevels"
+			"cell" "column" "composite"
 			"header" "html"
+			"layout"
+			"notes"
 			"putdocx" "putpdf"
 			"row"
-			"table" "tex")
+			"showbase" "showempty" "showomit" "stars"
+			"table" "tex" "title")
 	   'words))
 	   ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t)
