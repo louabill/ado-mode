@@ -5026,7 +5026,7 @@
 		   "stcurv" "stcurve" "stdescribe"
 		   "stem" "stepwise"
 		   "stereg" "stintcox" "stintcoxnp" "stintphplot" "stintreg" "stir"
-		   "stmc" "stmh" "stphplot" "stptime"
+		   "stmc" "stmgintcox" "stmh" "stphplot" "stptime"
 		   "strate" "streg" "streset"
 		   "sts" "stse" "stset" "stsum" "stvary" "stweib"
 		   "su" "suest" "sum" "summ" "summa" "summar" "summari" "summariz" "summarize"
