@@ -14,6 +14,9 @@ Smaller changes
 * Fixed some incorrect highlighting, mostly for Stata 18 subcommands
   I missed
 
+* Updated docs to reflect that ado-mode has required Emacs 25.1 (something
+  true since May 9, 2021)
+
 1.18.5.1
 
 * Tried to fix up the AppleScript for sending code from Emacs to Stata

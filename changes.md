@@ -1,5 +1,22 @@
 # Version History
 
+## 1.19.5.0
+
+### Big changes
+
+* All the Stata 19 additions
+
+* Included commands from <https://www.stata.com/h2o/h2o19/> for H2O
+  integration, because the pdf docs seem to be missing a lot
+
+### Smaller changes
+
+* Fixed some incorrect highlighting, mostly for Stata 18 subcommands
+  I missed
+  
+* Updated docs to reflect that ado-mode has required Emacs 25.1 (something
+  true since May 9, 2021)
+
 ## 1.18.5.1
 
 * Tried to fix up the AppleScript for sending code from Emacs to Stata
@@ -197,7 +214,7 @@ Git-repo notes
   files when doing installations, so the .elc files have become redundant.
   NOTE: if you pulled from this repo in the past, from now on, you'll need to
   byte-compile the lisp directory after pulling:
-    M-x d <path_to_ado-mode>
+    M-x d \<path_to_ado-mode\>
 	 M-x byte-recompile-directory
   will do the trick.
 
@@ -577,7 +594,7 @@ Git-repo notes
   incremental work inside larger do-files. Thanks, David, for a Very
   Good Idea.
 
-* Stopped adding an extra <eol> when working via the do-file editor or
+* Stopped adding an extra \<eol\> when working via the do-file editor or
   includes, because this should be handled by the script passing the
   clipboard to Stata.
 
