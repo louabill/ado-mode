@@ -1,6 +1,6 @@
 ;;; ado-cus.el --- customization for all things ado-mode -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
 
-;; Copyright (C) 2003--2024 Bill Rising
+;; Copyright (C) 2003--2025 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
 ;; Homepage: https://github.com/louabill/ado-mode
@@ -478,7 +478,7 @@ Defaults to nil."
 
 (defcustom ado-stata-home
   (cond ((string= system-type "darwin") "/Applications/Stata/")
-		((string= system-type "windows-nt") "C:/Program Files/Stata16/")
+		((string= system-type "windows-nt") "C:/Program Files/Stata19/")
 		(t "/usr/local/stata"))
   "Set to the location of your Stata executable(s).
 Needed if you want Emacs to launch a particular version of Stata
@@ -486,7 +486,8 @@ for setting your adopath or if you always launch Stata before sending
 code from Emacs.
 Defaults to the the typical install location for Stata.
 If you are a different version of Stata under MS Windows, you will need to 
-customize this setting. Mac and Unix should be universal."
+customize this setting. Mac and Unix should be universal, though StataNow
+might be installed in statanow or StataNow."
   :type '(choice (const nil) directory)
   :group 'ado-stata-interaction)
 

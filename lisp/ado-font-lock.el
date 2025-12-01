@@ -2205,6 +2205,7 @@
 		   "fred"
 		   "hav" "have" "haver"
 		   "haverdirect"
+		   "parquet"
 		   "sas" "sasxport5" "sasxport8"
 		   "spss")
 		 'words))
@@ -2263,7 +2264,7 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
 
-	;; the frames and cwf-like commands
+	;; frame commands and cwf-like commands
 	;; first the ones which just move around without changing anything (harmless)
 	(list
 	 (concat
@@ -2300,7 +2301,7 @@
 		 '("copy"
 		   "drop"
 		   "modify"
-		   "put"
+		   "put" "putlabel"
 		   "reset")
 		 'words))
 	  ado-end-cmd-regexp )
@@ -4944,6 +4945,7 @@
 		 '("l"
 		   "labelbook" "ladder"
 		   "lasso" "lassocoef" "lassogof" "lassoinfo" "lassoknots"
+		   "lateoverlap"
 		   "levelsof"
 		   "li" "line"
 		   "lincom" "linktest"
@@ -5571,7 +5573,7 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face t) '(2 ado-subcommand-face t))
 
-	;; labels no longer experimental
+	;; label command
 	(list
 	 (concat
 	  ado-start-cmd-no-prefix-regexp
@@ -5589,6 +5591,7 @@
 		   "drop"
 		   "lang" "langu" "langua" "languag" "language"
 		   "l" "li" "lis" "list"
+		   "rename"
 		   "save"
 		   "val" "valu" "value" "values"
 		   "var" "vari" "varia" "variab" "variabl" "variable")
@@ -5623,7 +5626,8 @@
 		   "frget"
 		   "frunalias"
 		   "fvrevar"
-		   "g" "ge" "gen" "gene" "gener" "genera" "generat" "generate"
+		   "g" "ge" "gen" "gencohort"
+		   "gene" "gener" "genera" "generat" "generate"
 		   "getmata" "gsort"
 		   "inf" "infi" "infile" "infix"
 		   "inp" "inpu" "input"
@@ -6573,8 +6577,8 @@
 			"header" "html"
 			"notes"
 			"putdocx" "putpdf"
-			"save"
-			"table" "tex" "title"
+			"save" "smcl"
+			"table" "tex" "title" "txt"
 			"use")
 	   'words))
 	   ado-end-cmd-regexp )
@@ -6673,7 +6677,7 @@
 
 
 
-	  ;; egen functions
+	;; egen functions
 	(list
 	 (concat
 	  ado-start-cmd-regexp
@@ -6801,8 +6805,8 @@
 	   (eval-when-compile
 		 (regexp-opt
 		  '("ice"
-			"pdp" "prcurve"
-			"roc"
+			"permimp" "pdp" "prcurve"
+			"roc" "rvfplot" "rvpplot"
 			"scorehistory" "shapsummary" "shapvalues"
 			"varimp")
 		  'words))
@@ -6916,7 +6920,6 @@
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
-	
 
 	;; ivsvar commands
 	(list
@@ -6954,6 +6957,35 @@
 	   ado-end-cmd-regexp )
 	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 	
+	;; latebalance commands
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(latebalance\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("density"
+			"overid"
+			"summarize" )
+		  'words))
+	   ado-end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; lateffects (curious spelling as it should be lateeffects) commands
+	(list
+	 (concat
+	  ado-start-cmd-no-prefix-regexp
+	   "\\<\\(lateffects\\)\\>"
+	   "[ \t]+"
+	   (eval-when-compile
+		 (regexp-opt
+		  '("balancing"
+			"ipwra"
+			"kappa" )
+		  'words))
+	   ado-end-cmd-regexp )
+	  '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
 	;; the -meta- commands
 	(list
@@ -8874,6 +8906,7 @@
 	   'words))
 	   "(")
 	 '(1 ado-mata-function-name-face t))
+	
 	(list
 	 (concat
 	  ado-start-cmd-null-regexp
@@ -8905,7 +8938,7 @@
 		  "qrd" "qrdp" "qrinv" "qrsolve"
 		  "quadcorrelation" "quadcross" "quadcrossdev" "quadrant" "quadcolsum"
 		  "quadmeanvariance" "quadrowsum" "quadrunningsum" "quadsum" "quadvariance"
-		  "querybreakintr"
+		  "quantile" "querybreakintr"
 		  "rank" "rdiscrete" "revorder" "rowmaxabs" "rowmin" "rowminmax" "rownonmissing" "rows" "rowshape" "rowsum" "rseed" "runningsum"
 		  "schurd" "select" "selectindex"
 		  "setbreakintr" "setmore" "setmoreonexit" "sinh" "sizeof" "smallestdouble"
@@ -8951,6 +8984,7 @@
 			 "evaluations" "evaluator" "evaluatortype"
 			 "gnweightmatrix"
 			 "iterid"
+			 "k_autoCns"
 			 "ndepvars" "negH" "nmsimplexdeltas" "nuserinfo"
 			 "search" "search_bounds" "search_random" "search_repeat" "search_rescale"
 			 "singularHmethod" "svy"
@@ -9453,7 +9487,7 @@
 		   "classtable"
 		   "coefplot"
 		   "com" "comm" "commo" "common"
-		   "compare"
+		   "compare" "compliers"
 		   "con" "conc" "conco" "concor" "concord" "concorda" "concordan" "concordanc" "concordance"
 		   "config"
 		   "co" "coo" "coor" "coord" "coordi" "coordin" "coordina" "coordinat" "coordinate" "coordinates"
@@ -10145,6 +10179,7 @@
 		 "java"
 		 "la" "lab" "labe" "label"
 		 "lassoselect"
+		 "latebalance" "lateffects"
 		 "local"
 		 "log"
 		 "makespline" "marksample"

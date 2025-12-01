@@ -1,6 +1,6 @@
 ;;; ado-stata-info --- For passing code to a running Stata from emacs -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
 
-;; Copyright (C) 2003--2024 Bill Rising
+;; Copyright (C) 2003--2025 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
 ;; Keywords: languages, tools
