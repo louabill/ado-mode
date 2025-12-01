@@ -81,4 +81,4 @@ Please use the **Issues** tab on this site to report problems or feature request
 
 If you have any trouble with the installation instructions, [drop me a line](&#109;&#97;&#105;&#108;&#116;&#111;:&#98;&#114;&#105;&#115;&#105;&#110;&#103;&#64;&#109;&#97;&#99;&#46;&#99;&#111;&#109;) so that I can fix them.
 
-If you would like keep up with updates, subscribe to [http://twitter.com/statuses/user_timeline/106578815.rss](http://twitter.com/statuses/user_timeline/106578815.rss), which is the @adomode Twitter account. This seems like an easy way to have a very-low-traffic RSS feed without any maintenance. You can also watch this repo, but then you'll get more email then you might want.
+If you would like keep up with updates, follow [https://bsky.app/profile/adomode.bsky.social](https://bsky.app/profile/adomode.bsky.social). It will be low-traffic, as the only posts are for updates to `ado-mode`.
