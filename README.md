@@ -6,7 +6,7 @@ Emacs versions down to 25.1 are supported.
 
 Here is the [change log](changes.md) which says what is new.
 
-The current version is **1.19.5.0**, which is made for Stata 19.5 (aka StataNow). It works just fine with earlier versions of Stata, but it will highlight commands as though you were using Stata 19.5.
+The current version is **1.19.5.1**, which is made for Stata 19.5 (aka StataNow). It works just fine with earlier versions of Stata, but it will highlight commands as though you were using Stata 19.5.
 
 Here are the things which make life easier when using the `ado-mode`. Features include
 
@@ -47,4 +47,4 @@ Manual installation is also possible, but takes more work. Take a look at the `I
 
 **Please** let me know if there are any troubles with the installations, since there are little quirks with cross-platform Emacs stuff.
 
-`ado-mode` is on the disaster now know as X: @ado-mode. The real reason for this is to have an easy RSS feed for finding out about updates: [https://twitter.com/adomode](https://twitter.com/adomode)
+`ado-mode` now gets announced on BlueSky: [https://bsky.app/profile/adomode.bsky.social](https://bsky.app/profile/adomode.bsky.social) so that there is an easy RSS feed for finding out about updates. `ado-mode` was on the disaster now called X, but that account will sit idle as long as X is run by a megalomaniac on ketamine.

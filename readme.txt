@@ -2,7 +2,7 @@ Ado-mode for emacs v. 24.3 and higher
 -----------------------------------
 
 This is the readme file for the ado-mode major mode made for editing Stata
-files nicely within emacs. It is designed for Stata 16.1, though it is
+files nicely within emacs. It is designed for Stata 19.5, though it is
 useful for any version of Stata. It works fine in emacs version 25. It
 should work in earlier versions, but this has not been tested well.
 
