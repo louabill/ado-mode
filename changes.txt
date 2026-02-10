@@ -1,9 +1,15 @@
 Version History:
 ---------------
+1.19.5.2
+
+* Including the new commands in the 28jan2026 StataNow 19.5 update
+
+* Updated all the copyrights to 2026 (silly)
+
 1.19.5.1
 
 * Including the new commands in StataNow 19.5 since its original release.
-These were in the 21may2025, 13aug 2025, and 12nov2025 updates
+These were in the 21may2025, 13aug2025, and 12nov2025 updates
 
 1.19.5.0
 

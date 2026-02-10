@@ -1,6 +1,6 @@
 ;;; ado-cons.el --- Setting constants for `ado-mode' -*- lexical-binding: t; package-lint-main-file: "ado-mode.el"; -*-
 
-;; Copyright (C) 2020-2025 Bill Rising
+;; Copyright (C) 2020-2026 Bill Rising
 
 ;; Author:   Bill Rising <brising@alum.mit.edu>
 ;; Homepage: https://github.com/louabill/ado-mode
