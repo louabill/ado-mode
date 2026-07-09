@@ -1,5 +1,11 @@
 # Version History
 
+## 1.19.5.3
+
+* Included the new financial commands in the 03jun2026 StataNow update
+
+* Included other command updates
+
 ## 1.19.5.2
 
 * Including the new commands in the 28jan2026 StataNow 19.5 update

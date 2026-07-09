@@ -44,7 +44,9 @@ emacs 22.0.50.1.
 Disclaimers:
 -----------
 
-You can use this to write ado, do, help, dialog, and mata files for versions of Stata earlier than version 15.1, but it will highlight as though the files were for Stata version 15.1.
+You can use this to write ado, do, help, dialog, and mata files for any
+version of Stata, but it will highlight as though the files were for the
+most-recent version.
 
 I would seriously doubt that the ado-mode works with xemacs.
 

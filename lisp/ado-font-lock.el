@@ -811,6 +811,40 @@
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
 
+	;; finportfolio commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\(\\<finportfolio\\>\\)"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("eq" "equ" "equa" "equal"
+		   "fix" "fixe" "fixed"
+		   "maxsh" "maxsha" "maxshar" "maxsharp" "maxsharpe"
+		   "minvar" "minvari" "minvaria" "minvarian" "minvarianc" "minvariance" 
+		   )
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+
+	;; finregress commands
+	(list
+	 (concat
+	  ado-start-cmd-regexp
+	  "\\(\\<finregress\\>\\)"
+	  "[ \t]+"
+	  (eval-when-compile
+		(regexp-opt
+		 '("capm"
+		   "fnb"
+		   )
+		 'words))
+	  ado-end-cmd-regexp )
+	 '(1 ado-builtin-harmless-face) '(2 ado-subcommand-face t))
+	
+	
+
 	;; fracreg commands
 	(list
 	 (concat
@@ -1752,7 +1786,6 @@
 	  (eval-when-compile
 		(regexp-opt
 		 '("c" "ch" "che" "chec" "check"
-		   "create"
 		   "d" "de" "des" "desc" "descr" "descri" "describ" "describe"
 		   "dir")
 		 'words))
@@ -1769,7 +1802,9 @@
 	  "[ \t]+"
 	  (eval-when-compile
 		(regexp-opt
-		 '("load")
+		 '("create"
+		   "load"
+		   "webcopy")
 		 'words))
 	  ado-end-cmd-regexp )
 	 '(1 ado-builtin-harmful-face) '(2 ado-subcommand-face t))
@@ -4906,7 +4941,7 @@
 		   "etable" "eteffects" "etpoisson" "etregress"
 		   "exlogistic" "expoisson"
 		   "fac" "fact" "facto" "factor" "factormat"
-		   "findfile" "fit"
+		   "findfile" "finsummarize" "finvalrisk" "fit"
 		   "fl" "fli" "flis" "flist"
 		   "for" "fp" "fpredict"
 		   "fracplot"
@@ -5623,6 +5658,7 @@
 		   "expand" "expandcl"
 		   "filef" "filefi" "filefil" "filefilt" "filefilte" "filefilter"
 		   "fillin"
+		   "finreturns"
 		   "form" "forma" "format"
 		   "fracpred"
 		   "frget"
@@ -5650,6 +5686,7 @@
 		   "order" "orthog" "orthpoly"
 		   "ou" "out" "outf" "outfi" "outfil" "outfile"
 		   "pctile"
+		   "pdf2txt"
 		   "pkcollapse" "pkshape"
 		   "post" "postclose" "postfile"
 		   "predict" "predictnl" "preserve" "putmata"
@@ -9543,6 +9580,7 @@
 		   "grm" "grme" "grmea" "grmean" "grmeans"
 		   "gro" "grou" "group"
 		   "grs" "grsu" "grsum" "grsumm" "grsumma" "grsummar" "grsummari" "grsummariz" "grsummarize"
+		   "grstest"
 		   "het" "hete" "heter" "hetero" "heterog" "heteroge" "heterogen" "heterogene" "heterogenei" "heterogeneit" "heterogeneity"
 		   "hett" "hette" "hettes" "hettest"
 		   "ic" "icc"
@@ -10187,7 +10225,7 @@
 		 "eret" "eretu" "eretur" "ereturn"
 		 "esize" "estat"
 		 "export"
-		 "fcast" "file"
+		 "fcast" "file" "finportfolio" "finregress"
 		 "fore" "forec" "foreca" "forecas" "forecast"
 		 "foreach"
 		 "forv" "forva" "forval" "forvalu" "forvalue" "forvalues"
