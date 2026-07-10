@@ -101,7 +101,7 @@ Optional LOOKHERE argument allows specifying a non-standard place to look."
   (unless lookhere
 	(if ado-stata-home
 		(setq lookhere ado-stata-home)
-	  (error "You need to set ado-stata-home to open files on the adopath")))
+	  (error "You need to set `ado-stata-home' to open files on the adopath")))
   (let ((stata-dir (file-name-as-directory lookhere))
 		stata-flavor)
 	;; (message "ado-find-stata found a home: %s" lookhere)

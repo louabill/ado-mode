@@ -6,6 +6,10 @@
 
 * Included other command updates
 
+* Changed the default value of `ado-stata-home` so that
+those using StataNow shouldn't have to change it by hand.
+
+
 ## 1.19.5.2
 
 * Including the new commands in the 28jan2026 StataNow 19.5 update
