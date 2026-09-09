@@ -72,7 +72,7 @@
 (defgroup ado-zpath nil
   "Locations of directories appearing in your ado-path.
 It is recommended that you leave these as nil, 
-so that ado-mode can set them according to what Stata 
+so that `ado-mode' can set them according to what Stata 
 will see when launched.
 Setting them by hand will speed up the loading of 
 the first Stata-related file you open, but means
@@ -169,7 +169,7 @@ Unless you are customizing templates for individual use, this is the best settin
   :group 'ado-files)
 
 (defcustom ado-script-dir nil
-  "A directory for holding scripts and executables useful for ‘ado-mode’.
+  "A directory for holding scripts and executables useful for `ado-mode’.
 When nil, uses the script directory which came with ‘ado-mode’
 Unless you plan on moving those scripts, leave as nil."
   :type '(choice (const nil) directory)
@@ -420,7 +420,7 @@ Defaults to t."
 (defcustom ado-date-format "%B %-e, %Y @ %H:%M:%S"
   "Controls the date format used when autoupdating timestamps.
 Defaults to %B %-e, %Y @ %H:%M:%S, to match versions of
-‘ado-mode’ before 0.92.0. See \\[describe-function] `format-time-string'
+`ado-mode' before 0.92.0. See \\[describe-function] `format-time-string'
 for help on setting."
   :type 'string
   :group 'ado-amain)
@@ -492,8 +492,7 @@ Defaults to nil."
 Needed if you want Emacs to launch a particular version of Stata
 for setting your adopath or if you always launch Stata before sending
 code from Emacs.
-Defaults to the the typical install location for Stata, which
-is fixed for Unix and macOS.
+Defaults to the the typical install location for Stata.
 If you are using MS Windows, you will need to customize this setting if you
 are using something other than Stata19 or StataNow19."
   :type '(choice (const nil) directory)
@@ -514,7 +513,7 @@ Defaults to feedStata.do when unset."
   :group 'ado-stata-interaction)
 
 (defcustom ado-stata-instance 0
-  "Set to the instance of Stata you would like ‘ado-mode’ to send its code to.
+  "Set to the instance of Stata you would like `ado-mode' to send its code to.
 This can and should be left as a zero unless
 you have special reason to choose an instance...and then you
 should only change it temporarily."
@@ -522,7 +521,7 @@ should only change it temporarily."
   :group 'ado-stata-interaction)
 
 (defcustom ado-stata-version ""
-  "Set to the version of Stata you would like ‘ado-mode’ to send its code to.
+  "Set to the version of Stata you would like `ado-mode' to send its code to.
 This can and should be left as a blank unless
 you have special reason to choose a version...and then you
 should only change it temporarily."
@@ -530,7 +529,7 @@ should only change it temporarily."
   :group 'ado-stata-interaction)
 
 (defcustom ado-stata-flavor ""
-  "Set to a flavor of Stata you would like ‘ado-mode’ to send its code to.
+  "Set to a flavor of Stata you would like `ado-mode' to send its code to.
 This can and should be left as a blank unless
 you have special reason to choose a flavor...and then you
 should only change it temporarily."
@@ -551,7 +550,7 @@ running, the values of the three filters are immaterial."
   "Control loose matching is used when sending code to multiple Statas.
 When nil, send to all Statas.
 Set to t if you would like code sent to all running
-Statas whenever you send code to run. If set to nil, ado-mode
+Statas whenever you send code to run. If set to nil, `ado-mode'
 will try to match your criteria (instance, version, and flavor)
 as best possible, and send the code to the best match, if it is
 unique. If there are multiple best matches, you will get an error."
