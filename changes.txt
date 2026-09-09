@@ -2,13 +2,24 @@ Version History:
 ---------------
 1.19.5.3
 
-* Included the new financial commands in the 03jun2026 StataNow
-  update
+* No more erroring out if ado-mode cannot find a Stata executable.
+  This allows using ado-mode on a Stataless machine (a user request).
+  There are still warnings every time a command tries to do something
+  where a copy of Stata is needed, just in case ado-stata-home needs
+  to be reset. Please pipe up if you get any unexpected behavior.
 
-* Included other command updates
+* Added the new command -xtswitcdid- from the 29jul2026 StataNow update
+
+* Added the new financial commands in the 03jun2026 StataNow
+  update
 
 * Changed the default value of ado-stata-home so that
 those using StataNow shouldn't have to change it by hand.
+
+* Added a bunch of missed -estat- subcommands for newer causal commands
+  (Yay! The -estat- subcommands now all appear in the index!)
+
+* Added other minor command updates
 
 1.19.5.2
 
