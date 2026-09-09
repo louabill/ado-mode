@@ -119,7 +119,7 @@ send2stata.scpt is stored."
 		   (if comeback (setq comeback "t"))
 		   ;;  working via the menu does NOT work with comeback, yet
 		   (if (and comeback (string= dothis "menu"))
-			   (error "Cannot comeback to Stata after using a menu in MS Windows"))
+			   (user-error "Cannot comeback to Stata after using a menu in MS Windows"))
 		   ;; **changing to shell-command breaks autoit**
 		   ;; (call-process-shell-command
 		   ;; 	(concat
