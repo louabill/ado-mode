@@ -558,11 +558,6 @@ Finally, here is the complete keymap for ado-mode:
 	(setq ado-site-template-dir (file-name-as-directory (concat ado-mode-home "templates"))))
   (unless ado-script-dir
 	(setq ado-script-dir (file-name-as-directory (concat ado-mode-home "scripts"))))
-  (unless ado-new-dir
-	(unless ado-personal-dir
-	  (ado-reset-personal-dir))
-	(setq ado-new-dir ado-personal-dir))
-  
   (if ado-smart-indent-flag
       (if (or
 			  (string= ado-extension "hlp")
@@ -571,9 +566,15 @@ Finally, here is the complete keymap for ado-mode:
 			  (string= ado-extension "idlg"))
 			 (setq ado-smart-indent-flag nil)
 		  (if (string= ado-extension "do")
-				(setq ado-smart-indent-flag ado-do-indent-flag))))
-  (when ado-add-sysdir-font-lock
-	(ado-add-sysdir-all))
+			  (setq ado-smart-indent-flag ado-do-indent-flag))))
+    ;; for initializations needing Stata in `ado-stata-home`
+  (when (ado-find-stata)
+	(unless ado-new-dir
+	  (unless ado-personal-dir
+		(ado-reset-personal-dir))
+	  (setq ado-new-dir ado-personal-dir))
+	  (when ado-add-sysdir-font-lock
+	(ado-add-sysdir-all)))
   (run-mode-hooks 'ado-mode-hook))
 
 ;;; ado-set-return == t -> swap ret and C-j
@@ -708,7 +709,7 @@ continuation characters."
 (defun ado-parse-loop ()
   "Out-of-date helper function. Use \\[ado-foreach-loop] instead."
   (interactive)
-  (error "This is out of date! Use a foreach loop (\\[ado-foreach-loop]), instead"))
+  (user-error "This is out of date! Use a foreach loop (\\[ado-foreach-loop]), instead"))
 
 (defun ado-foreach-loop (&optional macname listtype)
   "Insert a foreach loop, after asking for the type of loop to insert.
@@ -982,7 +983,7 @@ in sthlp (or hlp) files."
 		  (if (and ado-confirm-overwrite-flag
 				   (file-exists-p (buffer-file-name)))
 			  (unless (y-or-n-p (concat "Overwrite file " filename "? "))
-				(error "Canceled")))))))
+				(user-error "Canceled")))))))
   
 (defun ado-update-timestamp ()
   "Update the timestamp for the file, which is useful when saving.
