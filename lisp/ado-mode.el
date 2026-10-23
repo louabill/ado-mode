@@ -5,7 +5,7 @@
 ;; Author: Bill Rising <brising@alum.mit.edu>
 ;; Version: 1.19.5.2
 ;; Keywords: tools,languages,files,convenience,Stata, Mata, ado
-;; Package-requires: ((emacs "25.1"))
+;; Package-Requires: ((emacs "25.1"))
 ;; URL: https://github.com/louabill/ado-mode
 ;;
 ;; This file is not part of GNU Emacs.
@@ -49,7 +49,7 @@
 (require 'ado-font-lock)				; font-lock definitions, all kazillion
 (require 'ado-stata-info)				; gathering info from Stata
 ;;; Non-Emacs software also needed for sending code to Stata:
-;;; Mac: nothing needed
+;;; Mac: nothing needed aside from included applescript
 ;;; Win: AutoIt from https://www.autoitscript.com/site/autoit/downloads/
 ;;; *nix: xsel and xdotool, so for Ubuntu:
 ;;;   sudo apt-get install xsel xdotool
@@ -395,7 +395,7 @@
 
 
 
-;; initial mode defintion function
+;; initial mode definition function
 (defun ado-mode ()
   "Major mode for editing files associated with the Stata statistical package.
 
@@ -544,6 +544,7 @@ Finally, here is the complete keymap for ado-mode:
   ;; setup directories which could be needed
   ;;  Melpa insists that all .el files must be copied up one directory, which
   ;;    messes with any decent file structure
+  (message "%s" "About to hit ado-home-mode test")
   (unless ado-mode-home
 	(setq ado-mode-home
 		  (file-name-as-directory (expand-file-name (file-name-directory (locate-file "ado-mode.el" load-path))))))
@@ -567,15 +568,18 @@ Finally, here is the complete keymap for ado-mode:
 			 (setq ado-smart-indent-flag nil)
 		  (if (string= ado-extension "do")
 			  (setq ado-smart-indent-flag ado-do-indent-flag))))
-    ;; for initializations needing Stata in `ado-stata-home`
+  ;; for initializations needing Stata in `ado-stata-home`
+  (message "%s" "Grrrrr. about to look for Stata")
   (when (ado-find-stata)
 	(unless ado-new-dir
 	  (unless ado-personal-dir
 		(ado-reset-personal-dir))
 	  (setq ado-new-dir ado-personal-dir))
-	  (when ado-add-sysdir-font-lock
-	(ado-add-sysdir-all)))
+	(when ado-add-sysdir-font-lock
+	  (ado-add-sysdir-all)))
+  (message "%s" "Yay, done with the headache.")
   (run-mode-hooks 'ado-mode-hook))
+
 
 ;;; ado-set-return == t -> swap ret and C-j
 (defun ado-set-return (state)
